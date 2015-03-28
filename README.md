@@ -3,7 +3,7 @@
 ## General Information
 [How to set up the project](https://docs.google.com/document/d/1lm5sAUXTaW8OsEoEyh5zRrHNppZ_Nt9Q3MoOetVUHX4/edit#)
 
-[Coding Guidelines (WIP)](https://docs.google.com/document/d/1Uq0q-1mx6Jem4T3ONGZq_TDjv7sJYY9ikGji7h8QoXA/edit#heading=h.g20qjubz2j9g)
+[Coding Guidelines (WIP)](https://docs.google.com/document/d/1MdR_s4noBkViBPNaPP-k7w35AWLiUiYMLr6B2iBJhSs/edit#heading=h.uv4bdgdnpk03)
 
 Always type in **meaningful and precise descriptions** when making a new **commit**!
 

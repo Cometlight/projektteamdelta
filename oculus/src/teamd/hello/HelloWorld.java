@@ -22,6 +22,12 @@ public class HelloWorld {
 		java8.add("is working ");
 		java8.add(":D");
 		java8.forEach(System.out::print);
+		
+		System.out.println("Der Wiener war hier.");
+		
+		System.out.println("Commit Nummero 2 Hehehehe");
+		
+		System.out.println("Das Plugin funktioniert gut, ist genehmigt :D");
 	}
 
 }

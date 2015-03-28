@@ -28,6 +28,8 @@ public class HelloWorld {
 		System.out.println("Commit Nummero 2 Hehehehe");
 		
 		System.out.println("Das Plugin funktioniert gut, ist genehmigt :D");
+		
+		//TODO Write Java 8 Tests
 	}
 
 }

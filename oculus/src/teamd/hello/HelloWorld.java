@@ -22,6 +22,8 @@ public class HelloWorld {
 		java8.add("is working ");
 		java8.add(":D");
 		java8.forEach(System.out::print);
+		
+		System.out.println("Der Wiener war hier.");
 	}
 
 }

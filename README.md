@@ -3,6 +3,8 @@
 ## General Information
 [How to set up the project](https://docs.google.com/document/d/1lm5sAUXTaW8OsEoEyh5zRrHNppZ_Nt9Q3MoOetVUHX4/edit#)
 
+[Database SQL Scripts](https://github.com/DaGrisa/oculus-db)
+
 [Coding Guidelines (WIP)](https://docs.google.com/document/d/1MdR_s4noBkViBPNaPP-k7w35AWLiUiYMLr6B2iBJhSs/edit#heading=h.uv4bdgdnpk03)
 
 Always type in **meaningful and precise descriptions** when making a new **commit**!

@@ -26,6 +26,8 @@ public class HelloWorld {
 		System.out.println("Der Wiener war hier.");
 		
 		System.out.println("Commit Nummero 2 Hehehehe");
+		
+		System.out.println("Das Plugin funktioniert gut, ist genehmigt :D");
 	}
 
 }

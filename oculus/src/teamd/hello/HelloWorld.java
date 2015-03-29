@@ -30,6 +30,7 @@ public class HelloWorld {
 		System.out.println("Das Plugin funktioniert gut, ist genehmigt :D");
 		
 		//TODO Write Java 8 Tests
+		// Really?
 	}
 
 }

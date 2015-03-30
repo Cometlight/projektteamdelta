@@ -29,6 +29,8 @@ public class HelloWorld {
 		
 		System.out.println("Das Plugin funktioniert gut, ist genehmigt :D");
 		
+		System.out.println("Caros TEST");
+		
 		//TODO Write Java 8 Tests
 		// Really?
 	}

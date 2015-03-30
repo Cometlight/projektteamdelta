@@ -30,7 +30,7 @@ public class HelloWorld {
 		System.out.println("Das Plugin funktioniert gut, ist genehmigt :D");
 		
 		System.out.println("Caros TEST");
-		System.out.println("Florin auch!");
+		System.out.println("Florin auch! Yeah!");
 		System.out.println("Hi there");
 		
 		//TODO Write Java 8 Tests

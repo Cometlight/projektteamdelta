@@ -33,6 +33,9 @@ public class HelloWorld {
 		System.out.println("Florin auch! Glaub schon.");
 		System.out.println("Hi there, du Opfer");
 		
+		
+		System.out.println("Ein nächtlicher Push hält dich in Schuss!");
+		
 		//TODO Write Java 8 Tests
 		// Really?
 	}

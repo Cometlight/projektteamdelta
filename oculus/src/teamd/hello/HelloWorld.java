@@ -31,6 +31,8 @@ public class HelloWorld {
 		
 		System.out.println("Caros TEST");
 		
+		System.out.println("Hey");
+		
 		//TODO Write Java 8 Tests
 		// Really?
 	}

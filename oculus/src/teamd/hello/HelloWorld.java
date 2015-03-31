@@ -36,6 +36,8 @@ public class HelloWorld {
 		
 		System.out.println("Ein nächtlicher Push hält dich in Schuss!");
 		
+		System.out.println("Ein Push am Morgen vertreibt Kummer und Sorgen!");
+		
 		//TODO Write Java 8 Tests
 		// Really?
 	}

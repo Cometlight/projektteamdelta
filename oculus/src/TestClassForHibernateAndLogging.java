@@ -20,5 +20,7 @@ public class TestClassForHibernateAndLogging {
 			logger.error("Ohh!Failed!");
 		}
 		logger.trace("Exiting Log4j Example.");
+		
+		
 	}
 }

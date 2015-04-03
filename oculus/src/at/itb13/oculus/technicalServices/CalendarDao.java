@@ -1,4 +1,6 @@
 package at.itb13.oculus.technicalServices;
+// default package
+// Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
 
 import java.util.List;
 
@@ -13,11 +15,9 @@ import at.itb13.oculus.domain.Calendar;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * 
- * TODO: Insert description here.
- * 
- * @author Daniel Scheffknecht
- * @date 03.04.2015
+ * Home object for domain model class Calendar.
+ * @see .Calendar
+ * @author Hibernate Tools
  */
 public class CalendarDao {
 

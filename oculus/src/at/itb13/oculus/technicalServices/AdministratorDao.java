@@ -1,7 +1,4 @@
 package at.itb13.oculus.technicalServices;
-// default package
-// Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
-
 
 import java.util.List;
 
@@ -16,9 +13,11 @@ import at.itb13.oculus.domain.Administrator;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * Home object for domain model class Administrator.
- * @see .Administrator
- * @author Hibernate Tools
+ * 
+ * TODO: Insert description here.
+ * 
+ * @author Daniel Scheffknecht
+ * @date 03.04.2015
  */
 public class AdministratorDao {
 

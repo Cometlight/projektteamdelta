@@ -3,11 +3,14 @@ package at.itb13.oculus.technicalServices;
 // Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
 
 import java.util.List;
+
 import javax.naming.InitialContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
+
 import static org.hibernate.criterion.Example.create;
 
 /**
@@ -17,8 +20,8 @@ import static org.hibernate.criterion.Example.create;
  */
 public class DiagnosisDao {
 
-	private static final Log log = LogFactory.getLog(DiagnosisDao.class);
-
+	private static final Logger logger = LogManager.getLogger(DiagnosisDao.class.getName());
+	
 	private final SessionFactory sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {

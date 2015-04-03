@@ -4,8 +4,6 @@ package at.itb13.oculus.technicalServices;
 
 import java.util.List;
 import javax.naming.InitialContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 import static org.hibernate.criterion.Example.create;
@@ -17,8 +15,8 @@ import static org.hibernate.criterion.Example.create;
  */
 public class OrthoptistDao {
 
-	private static final Log log = LogFactory.getLog(OrthoptistDao.class);
-
+	private static final Logger logger = LogManager.getLogger(OrthoptistDao.class.getName());
+	
 	private final SessionFactory sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {

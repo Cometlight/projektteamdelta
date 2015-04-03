@@ -1,23 +1,28 @@
 package at.itb13.oculus.technicalServices;
-// default package
-// Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
 
 import java.util.List;
+
 import javax.naming.InitialContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import at.itb13.oculus.domain.Workdisability;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
+
 import static org.hibernate.criterion.Example.create;
 
 /**
- * Home object for domain model class Workdisability.
- * @see .Workdisability
- * @author Hibernate Tools
+ * 
+ * TODO: Insert description here.
+ * 
+ * @author Daniel Scheffknecht
+ * @date 03.04.2015
  */
 public class WorkdisabilityDao {
 
-	private static final Log log = LogFactory.getLog(WorkdisabilityDao.class);
+	private static final Logger log = LogManager.getLogger(WorkdisabilityDao.class.getName());
 
 	private final SessionFactory sessionFactory = getSessionFactory();
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">teamd</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/oculusdb</property>
+        <property name="hibernate.connection.username">admin</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.search.autoregister_listeners">false</property>
+        <property name="hibernate.validator.apply_to_ddl">false</property>
+        <mapping resource="Prescription.hbm.xml" />
+        <mapping resource="User.hbm.xml" />
+        <mapping resource="Examinationresult.hbm.xml" />
+        <mapping resource="Calendarevent.hbm.xml" />
+        <mapping resource="Workinghours.hbm.xml" />
+        <mapping resource="Orthoptist.hbm.xml" />
+        <mapping resource="Weekday.hbm.xml" />
+        <mapping resource="Administrator.hbm.xml" />
+        <mapping resource="Referralletter.hbm.xml" />
+        <mapping resource="Eventtype.hbm.xml" />
+        <mapping resource="Permission.hbm.xml" />
+        <mapping resource="Diagnosis.hbm.xml" />
+        <mapping resource="Queue.hbm.xml" />
+        <mapping resource="Receptionist.hbm.xml" />
+        <mapping resource="Calendar.hbm.xml" />
+        <mapping resource="Examinationprotocol.hbm.xml" />
+        <mapping resource="Patient.hbm.xml" />
+        <mapping resource="Userpermission.hbm.xml" />
+        <mapping resource="Visualaid.hbm.xml" />
+        <mapping resource="Usergroup.hbm.xml" />
+        <mapping resource="Doctor.hbm.xml" />
+        <mapping resource="Medicine.hbm.xml" />
+        <mapping resource="Workdisability.hbm.xml" />
+        <mapping resource="Insurancecarrier.hbm.xml" />
+        <mapping resource="Examinationprotocolservicecode.hbm.xml" />
+        <mapping resource="Servicecode.hbm.xml" />
+    </session-factory>
+</hibernate-configuration>

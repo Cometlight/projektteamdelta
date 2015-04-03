@@ -141,10 +141,10 @@
 							</a>
 						</td>
 						<td>
-							varchar(30)
+							varchar(255)
 						</td>
 						<td>
-							30
+							255
 						</td>
 						<td>
 							19
@@ -161,15 +161,40 @@
 					</tr>
 					<tr>
 						<td>
-							<a href="#column_detail_realName">
-								realName
+							<a href="#column_detail_title">
+								title
 							</a>
 						</td>
 						<td>
-							varchar(100)
+							varchar(30)
 						</td>
 						<td>
-							100
+							30
+						</td>
+						<td>
+							19
+						</td>
+						<td>
+							2
+						</td>
+						<td>
+							true
+						</td>
+						<td>
+							false
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="#column_detail_firstName">
+								firstName
+							</a>
+						</td>
+						<td>
+							varchar(50)
+						</td>
+						<td>
+							50
 						</td>
 						<td>
 							19
@@ -179,6 +204,56 @@
 						</td>
 						<td>
 							false
+						</td>
+						<td>
+							false
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="#column_detail_lastName">
+								lastName
+							</a>
+						</td>
+						<td>
+							varchar(50)
+						</td>
+						<td>
+							50
+						</td>
+						<td>
+							19
+						</td>
+						<td>
+							2
+						</td>
+						<td>
+							false
+						</td>
+						<td>
+							false
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="#column_detail_email">
+								email
+							</a>
+						</td>
+						<td>
+							varchar(255)
+						</td>
+						<td>
+							255
+						</td>
+						<td>
+							19
+						</td>
+						<td>
+							2
+						</td>
+						<td>
+							true
 						</td>
 						<td>
 							false
@@ -443,10 +518,10 @@
 				
 				<ul>
 					<li>
-						<strong>Type:</strong> varchar(30)
+						<strong>Type:</strong> varchar(255)
 					</li>
 					<li>
-						<strong>Length:</strong> 30
+						<strong>Length:</strong> 255
 					</li>
 					<li>
 						<strong>Precision:</strong> 19
@@ -467,14 +542,42 @@
 
 
 				<hr/>
-				<h3 id="column_detail_realName">realName</h3>
+				<h3 id="column_detail_title">title</h3>
 				
 				<ul>
 					<li>
-						<strong>Type:</strong> varchar(100)
+						<strong>Type:</strong> varchar(30)
 					</li>
 					<li>
-						<strong>Length:</strong> 100
+						<strong>Length:</strong> 30
+					</li>
+					<li>
+						<strong>Precision:</strong> 19
+					</li>
+					<li>
+						<strong>Scale:</strong> 2
+					</li>
+					<li>
+						<strong>Nullable:</strong> true
+					</li>
+					<li>
+						<strong>Unique:</strong> false
+					</li>
+					<li>
+						<strong>Comment:</strong> 
+					</li>
+				</ul>
+
+
+				<hr/>
+				<h3 id="column_detail_firstName">firstName</h3>
+				
+				<ul>
+					<li>
+						<strong>Type:</strong> varchar(50)
+					</li>
+					<li>
+						<strong>Length:</strong> 50
 					</li>
 					<li>
 						<strong>Precision:</strong> 19
@@ -484,6 +587,62 @@
 					</li>
 					<li>
 						<strong>Nullable:</strong> false
+					</li>
+					<li>
+						<strong>Unique:</strong> false
+					</li>
+					<li>
+						<strong>Comment:</strong> 
+					</li>
+				</ul>
+
+
+				<hr/>
+				<h3 id="column_detail_lastName">lastName</h3>
+				
+				<ul>
+					<li>
+						<strong>Type:</strong> varchar(50)
+					</li>
+					<li>
+						<strong>Length:</strong> 50
+					</li>
+					<li>
+						<strong>Precision:</strong> 19
+					</li>
+					<li>
+						<strong>Scale:</strong> 2
+					</li>
+					<li>
+						<strong>Nullable:</strong> false
+					</li>
+					<li>
+						<strong>Unique:</strong> false
+					</li>
+					<li>
+						<strong>Comment:</strong> 
+					</li>
+				</ul>
+
+
+				<hr/>
+				<h3 id="column_detail_email">email</h3>
+				
+				<ul>
+					<li>
+						<strong>Type:</strong> varchar(255)
+					</li>
+					<li>
+						<strong>Length:</strong> 255
+					</li>
+					<li>
+						<strong>Precision:</strong> 19
+					</li>
+					<li>
+						<strong>Scale:</strong> 2
+					</li>
+					<li>
+						<strong>Nullable:</strong> true
 					</li>
 					<li>
 						<strong>Unique:</strong> false

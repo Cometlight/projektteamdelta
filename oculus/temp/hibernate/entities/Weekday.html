@@ -25,11 +25,11 @@
 		<h4>
 				Default package
 		</h4>
-		<h2>Entity Medicine</h2>
+		<h2>Entity Weekday</h2>
 		
 		<ul class="EntityHierarchy">
 			<li>
-				.Medicine
+				.Weekday
 			</li>
 		</ul>
 
@@ -63,15 +63,15 @@
 				<tbody>
 						<tr>
 							<td>
-								<a href="#identifier_detail_medicineId">
-									medicineId
+								<a href="#identifier_detail_weekDayKey">
+									weekDayKey
 								</a>
 							</td>
 							<td>
 								Column
 							</td>
 							<td>
-								Integer
+								String
 							</td>
 							<td>
 									&nbsp;
@@ -110,56 +110,6 @@
 	
 						<tr>
 							<td rowspan="1">
-								<a href="#property_detail_diagnosis">
-									diagnosis
-								</a>
-							</td>
-	
-									<td>
-										<a href="#property_summary">
-											diagnosisId
-										</a>
-									</td>
-	
-							<td rowspan="1">
-								property (<a href="#property_summary">get</a> / <a href="#property_summary">set</a>)
-							</td>
-	
-							<td rowspan="1">
-									Diagnosis
-							</td>
-	
-							<td rowspan="1">
-									&nbsp;
-							</td>
-						</tr>
-						<tr>
-							<td rowspan="1">
-								<a href="#property_detail_dose">
-									dose
-								</a>
-							</td>
-	
-									<td>
-										<a href="#property_summary">
-											dose
-										</a>
-									</td>
-	
-							<td rowspan="1">
-								property (<a href="#property_summary">get</a> / <a href="#property_summary">set</a>)
-							</td>
-	
-							<td rowspan="1">
-									String
-							</td>
-	
-							<td rowspan="1">
-									&nbsp;
-							</td>
-						</tr>
-						<tr>
-							<td rowspan="1">
 								<a href="#property_detail_name">
 									name
 								</a>
@@ -185,8 +135,8 @@
 						</tr>
 						<tr>
 							<td >
-								<a href="#property_detail_prescriptions">
-									prescriptions
+								<a href="#property_detail_workinghourses">
+									workinghourses
 								</a>
 							</td>
 	
@@ -199,7 +149,7 @@
 							</td>
 	
 							<td >
-									Set&lt;Prescription&gt;
+									Set&lt;Workinghours&gt;
 							</td>
 	
 							<td >
@@ -214,19 +164,15 @@
 			<p id="identifier_detail" class="MainTableHeading">
 				Identifier Detail
 			</p>
-				<h3 id="identifier_detail_medicineId">medicineId</h3>
+				<h3 id="identifier_detail_weekDayKey">weekDayKey</h3>
 
 
 			<p id="property_detail" class="MainTableHeading">
 				Property Detail
 			</p>
-				<h3 id="property_detail_diagnosis">diagnosis</h3>
-				<hr/>
 				<h3 id="property_detail_name">name</h3>
 				<hr/>
-				<h3 id="property_detail_dose">dose</h3>
-				<hr/>
-				<h3 id="property_detail_prescriptions">prescriptions</h3>
+				<h3 id="property_detail_workinghourses">workinghourses</h3>
 				<hr/>
 
 	</body>

@@ -10,13 +10,14 @@ import org.hibernate.SessionFactory;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * Home object for domain model class Doctor.
- * @see .Doctor
+ * Home object for domain model class Insurancecarrier.
+ * @see .Insurancecarrier
  * @author Hibernate Tools
  */
-public class DoctorHome {
+public class InsurancecarrierHome {
 
-	private static final Log log = LogFactory.getLog(DoctorHome.class);
+	private static final Log log = LogFactory
+			.getLog(InsurancecarrierHome.class);
 
 	private final SessionFactory sessionFactory = getSessionFactory();
 
@@ -31,8 +32,8 @@ public class DoctorHome {
 		}
 	}
 
-	public void persist(Doctor transientInstance) {
-		log.debug("persisting Doctor instance");
+	public void persist(Insurancecarrier transientInstance) {
+		log.debug("persisting Insurancecarrier instance");
 		try {
 			sessionFactory.getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
@@ -42,8 +43,8 @@ public class DoctorHome {
 		}
 	}
 
-	public void attachDirty(Doctor instance) {
-		log.debug("attaching dirty Doctor instance");
+	public void attachDirty(Insurancecarrier instance) {
+		log.debug("attaching dirty Insurancecarrier instance");
 		try {
 			sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -53,8 +54,8 @@ public class DoctorHome {
 		}
 	}
 
-	public void attachClean(Doctor instance) {
-		log.debug("attaching clean Doctor instance");
+	public void attachClean(Insurancecarrier instance) {
+		log.debug("attaching clean Insurancecarrier instance");
 		try {
 			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
@@ -64,8 +65,8 @@ public class DoctorHome {
 		}
 	}
 
-	public void delete(Doctor persistentInstance) {
-		log.debug("deleting Doctor instance");
+	public void delete(Insurancecarrier persistentInstance) {
+		log.debug("deleting Insurancecarrier instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -75,11 +76,11 @@ public class DoctorHome {
 		}
 	}
 
-	public Doctor merge(Doctor detachedInstance) {
-		log.debug("merging Doctor instance");
+	public Insurancecarrier merge(Insurancecarrier detachedInstance) {
+		log.debug("merging Insurancecarrier instance");
 		try {
-			Doctor result = (Doctor) sessionFactory.getCurrentSession().merge(
-					detachedInstance);
+			Insurancecarrier result = (Insurancecarrier) sessionFactory
+					.getCurrentSession().merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -88,11 +89,11 @@ public class DoctorHome {
 		}
 	}
 
-	public Doctor findById(java.lang.Integer id) {
-		log.debug("getting Doctor instance with id: " + id);
+	public Insurancecarrier findById(java.lang.String id) {
+		log.debug("getting Insurancecarrier instance with id: " + id);
 		try {
-			Doctor instance = (Doctor) sessionFactory.getCurrentSession().get(
-					"Doctor", id);
+			Insurancecarrier instance = (Insurancecarrier) sessionFactory
+					.getCurrentSession().get("Insurancecarrier", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -105,11 +106,11 @@ public class DoctorHome {
 		}
 	}
 
-	public List<Doctor> findByExample(Doctor instance) {
-		log.debug("finding Doctor instance by example");
+	public List<Insurancecarrier> findByExample(Insurancecarrier instance) {
+		log.debug("finding Insurancecarrier instance by example");
 		try {
-			List<Doctor> results = (List<Doctor>) sessionFactory
-					.getCurrentSession().createCriteria("Doctor")
+			List<Insurancecarrier> results = (List<Insurancecarrier>) sessionFactory
+					.getCurrentSession().createCriteria("Insurancecarrier")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

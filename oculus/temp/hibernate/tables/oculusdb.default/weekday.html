@@ -23,7 +23,7 @@
 	</div>
 
 		<h4>Schema oculusdb.default</h4>
-		<h2>Table calendarworkinghours</h2>
+		<h2>Table weekday</h2>
 
 			<p></p>
 
@@ -61,15 +61,15 @@
 			<tbody>
 					<tr>
 						<td>
-							<a href="#column_detail_workingHoursId">
-								workingHoursId
+							<a href="#column_detail_weekDayKey">
+								weekDayKey
 							</a>
 						</td>
 						<td>
-							integer
+							varchar(3)
 						</td>
 						<td>
-							255
+							3
 						</td>
 						<td>
 							19
@@ -81,20 +81,20 @@
 							false
 						</td>
 						<td>
-							false
+							true
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<a href="#column_detail_calendarId">
-								calendarId
+							<a href="#column_detail_name">
+								name
 							</a>
 						</td>
 						<td>
-							N/D
+							varchar(10)
 						</td>
 						<td>
-							255
+							10
 						</td>
 						<td>
 							19
@@ -134,123 +134,29 @@
 								PRIMARY
 						</td>
 						<td>
-								<a href="#column_detail_workingHoursId">
-									workingHoursId
-								</a>
-								<a href="#column_detail_calendarId">
-									calendarId
+								<a href="#column_detail_weekDayKey">
+									weekDayKey
 								</a>
 						</td>
 					</tr>
 			</tbody>
 		</table>
 
-			<table id="foreign_keys">
-				<thead>
-					<tr>
-						<th class="MainTableHeading" colspan="3">
-							Foreign Keys
-						</th>
-					</tr>
-					<tr>
-						<th style="width: 33%">
-							Name
-						</th>
-						<th style="width: 33%">
-							Referenced Table
-						</th>
-						<th style="width: 33%">
-							Columns
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-						<tr>
-							<td>
-								calendarworkinghours_ibfk_2
-							</td>
-							<td>
-								<a href="calendar.html" target="generalFrame">
-									calendar
-								</a>
-							</td>
-							<td>
-									<a href="#column_detail_calendarId">
-										calendarId
-									</a>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								calendarworkinghours_ibfk_1
-							</td>
-							<td>
-								<a href="workinghours.html" target="generalFrame">
-									workinghours
-								</a>
-							</td>
-							<td>
-									<a href="#column_detail_workingHoursId">
-										workingHoursId
-									</a>
-							</td>
-						</tr>
-				</tbody>
-			</table>
 			
 		
-			<table id="indexes">
-				<thead>
-					<tr>
-						<th class="MainTableHeading" colspan="2">
-							Indexes
-						</th>
-					</tr>
-					<tr>
-						<th style="width: 50%">
-							Name
-						</th>
-						<th style="width: 50%">
-							Columns
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-						<tr>
-							<td>
-								calendarWorkingHours_i1
-							</td>
-							<td>
-									<a href="#column_detail_workingHoursId">
-										workingHoursId
-									</a>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								calendarWorkingHours_i2
-							</td>
-							<td>
-									<a href="#column_detail_calendarId">
-										calendarId
-									</a>
-							</td>
-						</tr>
-				</tbody>
-			</table>
 		
 			<p id="column_detail" class="MainTableHeading">
 				Column Detail
 			</p>
 				
-				<h3 id="column_detail_workingHoursId">workingHoursId</h3>
+				<h3 id="column_detail_weekDayKey">weekDayKey</h3>
 				
 				<ul>
 					<li>
-						<strong>Type:</strong> integer
+						<strong>Type:</strong> varchar(3)
 					</li>
 					<li>
-						<strong>Length:</strong> 255
+						<strong>Length:</strong> 3
 					</li>
 					<li>
 						<strong>Precision:</strong> 19
@@ -262,7 +168,7 @@
 						<strong>Nullable:</strong> false
 					</li>
 					<li>
-						<strong>Unique:</strong> false
+						<strong>Unique:</strong> true
 					</li>
 					<li>
 						<strong>Comment:</strong> 
@@ -271,14 +177,14 @@
 
 
 				<hr/>
-				<h3 id="column_detail_calendarId">calendarId</h3>
+				<h3 id="column_detail_name">name</h3>
 				
 				<ul>
 					<li>
-						<strong>Type:</strong> N/D
+						<strong>Type:</strong> varchar(10)
 					</li>
 					<li>
-						<strong>Length:</strong> 255
+						<strong>Length:</strong> 10
 					</li>
 					<li>
 						<strong>Precision:</strong> 19

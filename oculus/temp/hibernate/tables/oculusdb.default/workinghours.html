@@ -23,7 +23,7 @@
 	</div>
 
 		<h4>Schema oculusdb.default</h4>
-		<h2>Table examinationprotocolservicecode</h2>
+		<h2>Table workinghours</h2>
 
 			<p></p>
 
@@ -61,33 +61,8 @@
 			<tbody>
 					<tr>
 						<td>
-							<a href="#column_detail_examinationProtocolId">
-								examinationProtocolId
-							</a>
-						</td>
-						<td>
-							N/D
-						</td>
-						<td>
-							255
-						</td>
-						<td>
-							19
-						</td>
-						<td>
-							2
-						</td>
-						<td>
-							false
-						</td>
-						<td>
-							false
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<a href="#column_detail_serviceCodeId">
-								serviceCodeId
+							<a href="#column_detail_workingHoursId">
+								workingHoursId
 							</a>
 						</td>
 						<td>
@@ -106,20 +81,20 @@
 							false
 						</td>
 						<td>
-							false
+							true
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<a href="#column_detail_insuranceCarrierKey">
-								insuranceCarrierKey
+							<a href="#column_detail_weekDayKey">
+								weekDayKey
 							</a>
 						</td>
 						<td>
-							varchar(4)
+							N/D
 						</td>
 						<td>
-							4
+							3
 						</td>
 						<td>
 							19
@@ -129,6 +104,106 @@
 						</td>
 						<td>
 							false
+						</td>
+						<td>
+							false
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="#column_detail_morningFrom">
+								morningFrom
+							</a>
+						</td>
+						<td>
+							time
+						</td>
+						<td>
+							8
+						</td>
+						<td>
+							19
+						</td>
+						<td>
+							2
+						</td>
+						<td>
+							true
+						</td>
+						<td>
+							false
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="#column_detail_morningTo">
+								morningTo
+							</a>
+						</td>
+						<td>
+							time
+						</td>
+						<td>
+							8
+						</td>
+						<td>
+							19
+						</td>
+						<td>
+							2
+						</td>
+						<td>
+							true
+						</td>
+						<td>
+							false
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="#column_detail_afternoonFrom">
+								afternoonFrom
+							</a>
+						</td>
+						<td>
+							time
+						</td>
+						<td>
+							8
+						</td>
+						<td>
+							19
+						</td>
+						<td>
+							2
+						</td>
+						<td>
+							true
+						</td>
+						<td>
+							false
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="#column_detail_afternoonTo">
+								afternoonTo
+							</a>
+						</td>
+						<td>
+							time
+						</td>
+						<td>
+							8
+						</td>
+						<td>
+							19
+						</td>
+						<td>
+							2
+						</td>
+						<td>
+							true
 						</td>
 						<td>
 							false
@@ -159,14 +234,8 @@
 								PRIMARY
 						</td>
 						<td>
-								<a href="#column_detail_examinationProtocolId">
-									examinationProtocolId
-								</a>
-								<a href="#column_detail_serviceCodeId">
-									serviceCodeId
-								</a>
-								<a href="#column_detail_insuranceCarrierKey">
-									insuranceCarrierKey
+								<a href="#column_detail_workingHoursId">
+									workingHoursId
 								</a>
 						</td>
 					</tr>
@@ -195,97 +264,78 @@
 				<tbody>
 						<tr>
 							<td>
-								examinationprotocolservicecode_ibfk_1
+								workinghours_ibfk_1
 							</td>
 							<td>
-								<a href="examinationprotocol.html" target="generalFrame">
-									examinationprotocol
+								<a href="weekday.html" target="generalFrame">
+									weekday
 								</a>
 							</td>
 							<td>
-									<a href="#column_detail_examinationProtocolId">
-										examinationProtocolId
+									<a href="#column_detail_weekDayKey">
+										weekDayKey
 									</a>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								examinationprotocolservicecode_ibfk_3
+								FK_dbi6nrb9nynsuasoncinfhp1s
 							</td>
 							<td>
-								<a href="insurancecarrier.html" target="generalFrame">
-									insurancecarrier
+								<a href="weekday.html" target="generalFrame">
+									weekday
 								</a>
 							</td>
 							<td>
-									<a href="#column_detail_insuranceCarrierKey">
-										insuranceCarrierKey
-									</a>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								examinationprotocolservicecode_ibfk_2
-							</td>
-							<td>
-								<a href="servicecode.html" target="generalFrame">
-									servicecode
-								</a>
-							</td>
-							<td>
-									<a href="#column_detail_serviceCodeId">
-										serviceCodeId
-									</a>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								FK_ei9uybo7cmjuhmh572oq4nt5q
-							</td>
-							<td>
-								<a href="examinationprotocol.html" target="generalFrame">
-									examinationprotocol
-								</a>
-							</td>
-							<td>
-									<a href="#column_detail_examinationProtocolId">
-										examinationProtocolId
-									</a>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								FK_eovu42nr6ehwrtvjnicf5ha6m
-							</td>
-							<td>
-								<a href="insurancecarrier.html" target="generalFrame">
-									insurancecarrier
-								</a>
-							</td>
-							<td>
-									<a href="#column_detail_insuranceCarrierKey">
-										insuranceCarrierKey
-									</a>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								FK_7u722t200htxitjpqetwfljij
-							</td>
-							<td>
-								<a href="servicecode.html" target="generalFrame">
-									servicecode
-								</a>
-							</td>
-							<td>
-									<a href="#column_detail_serviceCodeId">
-										serviceCodeId
+									<a href="#column_detail_weekDayKey">
+										weekDayKey
 									</a>
 							</td>
 						</tr>
 				</tbody>
 			</table>
 			
+			<table id="unique_keys">
+				<thead>
+					<tr>
+						<th class="MainTableHeading" colspan="2">
+							Unique Keys
+						</th>
+					</tr>
+					<tr>
+						<th style="width: 50%">
+							Name
+						</th>
+						<th style="width: 50%">
+							Columns
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+						<tr>
+							<td>
+								weekDayKey
+							</td>
+							<td>
+									<a href="#column_detail_weekDayKey">
+										weekDayKey
+									</a>
+									<a href="#column_detail_morningFrom">
+										morningFrom
+									</a>
+									<a href="#column_detail_morningTo">
+										morningTo
+									</a>
+									<a href="#column_detail_afternoonFrom">
+										afternoonFrom
+									</a>
+									<a href="#column_detail_afternoonTo">
+										afternoonTo
+									</a>
+							</td>
+						</tr>
+				</tbody>
+			</table>
 		
 			<table id="indexes">
 				<thead>
@@ -306,31 +356,11 @@
 				<tbody>
 						<tr>
 							<td>
-								examinationProtocolServiceCode_i1
+								workingHours_i1
 							</td>
 							<td>
-									<a href="#column_detail_examinationProtocolId">
-										examinationProtocolId
-									</a>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								examinationProtocolServiceCode_i2
-							</td>
-							<td>
-									<a href="#column_detail_serviceCodeId">
-										serviceCodeId
-									</a>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								insuranceCarrierKey
-							</td>
-							<td>
-									<a href="#column_detail_insuranceCarrierKey">
-										insuranceCarrierKey
+									<a href="#column_detail_weekDayKey">
+										weekDayKey
 									</a>
 							</td>
 						</tr>
@@ -341,35 +371,7 @@
 				Column Detail
 			</p>
 				
-				<h3 id="column_detail_examinationProtocolId">examinationProtocolId</h3>
-				
-				<ul>
-					<li>
-						<strong>Type:</strong> N/D
-					</li>
-					<li>
-						<strong>Length:</strong> 255
-					</li>
-					<li>
-						<strong>Precision:</strong> 19
-					</li>
-					<li>
-						<strong>Scale:</strong> 2
-					</li>
-					<li>
-						<strong>Nullable:</strong> false
-					</li>
-					<li>
-						<strong>Unique:</strong> false
-					</li>
-					<li>
-						<strong>Comment:</strong> 
-					</li>
-				</ul>
-
-
-				<hr/>
-				<h3 id="column_detail_serviceCodeId">serviceCodeId</h3>
+				<h3 id="column_detail_workingHoursId">workingHoursId</h3>
 				
 				<ul>
 					<li>
@@ -388,7 +390,7 @@
 						<strong>Nullable:</strong> false
 					</li>
 					<li>
-						<strong>Unique:</strong> false
+						<strong>Unique:</strong> true
 					</li>
 					<li>
 						<strong>Comment:</strong> 
@@ -397,14 +399,14 @@
 
 
 				<hr/>
-				<h3 id="column_detail_insuranceCarrierKey">insuranceCarrierKey</h3>
+				<h3 id="column_detail_weekDayKey">weekDayKey</h3>
 				
 				<ul>
 					<li>
-						<strong>Type:</strong> varchar(4)
+						<strong>Type:</strong> N/D
 					</li>
 					<li>
-						<strong>Length:</strong> 4
+						<strong>Length:</strong> 3
 					</li>
 					<li>
 						<strong>Precision:</strong> 19
@@ -414,6 +416,118 @@
 					</li>
 					<li>
 						<strong>Nullable:</strong> false
+					</li>
+					<li>
+						<strong>Unique:</strong> false
+					</li>
+					<li>
+						<strong>Comment:</strong> 
+					</li>
+				</ul>
+
+
+				<hr/>
+				<h3 id="column_detail_morningFrom">morningFrom</h3>
+				
+				<ul>
+					<li>
+						<strong>Type:</strong> time
+					</li>
+					<li>
+						<strong>Length:</strong> 8
+					</li>
+					<li>
+						<strong>Precision:</strong> 19
+					</li>
+					<li>
+						<strong>Scale:</strong> 2
+					</li>
+					<li>
+						<strong>Nullable:</strong> true
+					</li>
+					<li>
+						<strong>Unique:</strong> false
+					</li>
+					<li>
+						<strong>Comment:</strong> 
+					</li>
+				</ul>
+
+
+				<hr/>
+				<h3 id="column_detail_morningTo">morningTo</h3>
+				
+				<ul>
+					<li>
+						<strong>Type:</strong> time
+					</li>
+					<li>
+						<strong>Length:</strong> 8
+					</li>
+					<li>
+						<strong>Precision:</strong> 19
+					</li>
+					<li>
+						<strong>Scale:</strong> 2
+					</li>
+					<li>
+						<strong>Nullable:</strong> true
+					</li>
+					<li>
+						<strong>Unique:</strong> false
+					</li>
+					<li>
+						<strong>Comment:</strong> 
+					</li>
+				</ul>
+
+
+				<hr/>
+				<h3 id="column_detail_afternoonFrom">afternoonFrom</h3>
+				
+				<ul>
+					<li>
+						<strong>Type:</strong> time
+					</li>
+					<li>
+						<strong>Length:</strong> 8
+					</li>
+					<li>
+						<strong>Precision:</strong> 19
+					</li>
+					<li>
+						<strong>Scale:</strong> 2
+					</li>
+					<li>
+						<strong>Nullable:</strong> true
+					</li>
+					<li>
+						<strong>Unique:</strong> false
+					</li>
+					<li>
+						<strong>Comment:</strong> 
+					</li>
+				</ul>
+
+
+				<hr/>
+				<h3 id="column_detail_afternoonTo">afternoonTo</h3>
+				
+				<ul>
+					<li>
+						<strong>Type:</strong> time
+					</li>
+					<li>
+						<strong>Length:</strong> 8
+					</li>
+					<li>
+						<strong>Precision:</strong> 19
+					</li>
+					<li>
+						<strong>Scale:</strong> 2
+					</li>
+					<li>
+						<strong>Nullable:</strong> true
 					</li>
 					<li>
 						<strong>Unique:</strong> false

@@ -25,11 +25,11 @@
 		<h4>
 				Default package
 		</h4>
-		<h2>Entity Prescriptionentry</h2>
+		<h2>Entity Workinghours</h2>
 		
 		<ul class="EntityHierarchy">
 			<li>
-				.Prescriptionentry
+				.Workinghours
 			</li>
 		</ul>
 
@@ -63,8 +63,8 @@
 				<tbody>
 						<tr>
 							<td>
-								<a href="#identifier_detail_prescriptionEntryId">
-									prescriptionEntryId
+								<a href="#identifier_detail_workingHoursId">
+									workingHoursId
 								</a>
 							</td>
 							<td>
@@ -110,14 +110,14 @@
 	
 						<tr>
 							<td rowspan="1">
-								<a href="#property_detail_medicine">
-									medicine
+								<a href="#property_detail_afternoonFrom">
+									afternoonFrom
 								</a>
 							</td>
 	
 									<td>
 										<a href="#property_summary">
-											medicineId
+											afternoonFrom
 										</a>
 									</td>
 	
@@ -126,7 +126,7 @@
 							</td>
 	
 							<td rowspan="1">
-									Medicine
+									Date
 							</td>
 	
 							<td rowspan="1">
@@ -135,14 +135,14 @@
 						</tr>
 						<tr>
 							<td rowspan="1">
-								<a href="#property_detail_prescription">
-									prescription
+								<a href="#property_detail_afternoonTo">
+									afternoonTo
 								</a>
 							</td>
 	
 									<td>
 										<a href="#property_summary">
-											prescriptionId
+											afternoonTo
 										</a>
 									</td>
 	
@@ -151,7 +151,105 @@
 							</td>
 	
 							<td rowspan="1">
-									Prescription
+									Date
+							</td>
+	
+							<td rowspan="1">
+									&nbsp;
+							</td>
+						</tr>
+						<tr>
+							<td >
+								<a href="#property_detail_calendars">
+									calendars
+								</a>
+							</td>
+	
+								<td>
+									&nbsp;
+								</td>
+	
+							<td >
+								property (<a href="#property_summary">get</a> / <a href="#property_summary">set</a>)
+							</td>
+	
+							<td >
+									Set&lt;Calendar&gt;
+							</td>
+	
+							<td >
+									&nbsp;
+							</td>
+						</tr>
+						<tr>
+							<td rowspan="1">
+								<a href="#property_detail_morningFrom">
+									morningFrom
+								</a>
+							</td>
+	
+									<td>
+										<a href="#property_summary">
+											morningFrom
+										</a>
+									</td>
+	
+							<td rowspan="1">
+								property (<a href="#property_summary">get</a> / <a href="#property_summary">set</a>)
+							</td>
+	
+							<td rowspan="1">
+									Date
+							</td>
+	
+							<td rowspan="1">
+									&nbsp;
+							</td>
+						</tr>
+						<tr>
+							<td rowspan="1">
+								<a href="#property_detail_morningTo">
+									morningTo
+								</a>
+							</td>
+	
+									<td>
+										<a href="#property_summary">
+											morningTo
+										</a>
+									</td>
+	
+							<td rowspan="1">
+								property (<a href="#property_summary">get</a> / <a href="#property_summary">set</a>)
+							</td>
+	
+							<td rowspan="1">
+									Date
+							</td>
+	
+							<td rowspan="1">
+									&nbsp;
+							</td>
+						</tr>
+						<tr>
+							<td rowspan="1">
+								<a href="#property_detail_weekday">
+									weekday
+								</a>
+							</td>
+	
+									<td>
+										<a href="#property_summary">
+											weekDayKey
+										</a>
+									</td>
+	
+							<td rowspan="1">
+								property (<a href="#property_summary">get</a> / <a href="#property_summary">set</a>)
+							</td>
+	
+							<td rowspan="1">
+									Weekday
 							</td>
 	
 							<td rowspan="1">
@@ -166,15 +264,23 @@
 			<p id="identifier_detail" class="MainTableHeading">
 				Identifier Detail
 			</p>
-				<h3 id="identifier_detail_prescriptionEntryId">prescriptionEntryId</h3>
+				<h3 id="identifier_detail_workingHoursId">workingHoursId</h3>
 
 
 			<p id="property_detail" class="MainTableHeading">
 				Property Detail
 			</p>
-				<h3 id="property_detail_medicine">medicine</h3>
+				<h3 id="property_detail_weekday">weekday</h3>
 				<hr/>
-				<h3 id="property_detail_prescription">prescription</h3>
+				<h3 id="property_detail_morningFrom">morningFrom</h3>
+				<hr/>
+				<h3 id="property_detail_morningTo">morningTo</h3>
+				<hr/>
+				<h3 id="property_detail_afternoonFrom">afternoonFrom</h3>
+				<hr/>
+				<h3 id="property_detail_afternoonTo">afternoonTo</h3>
+				<hr/>
+				<h3 id="property_detail_calendars">calendars</h3>
 				<hr/>
 
 	</body>

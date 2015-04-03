@@ -1,6 +1,4 @@
-// default package
-// Generated 03.04.2015 16:43:15 by Hibernate Tools 4.3.1
-
+package at.itb13.oculus.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

@@ -1,5 +1,4 @@
-package at.itb13.oculus.domain
-
+package at.itb13.oculus.domain;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;

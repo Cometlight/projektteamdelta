@@ -1,40 +1,29 @@
 // default package
-// Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
+// Generated 03.04.2015 16:43:15 by Hibernate Tools 4.3.1
 
-import java.util.List;
-import javax.naming.InitialContext;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.LockMode;
-import org.hibernate.SessionFactory;
-import static org.hibernate.criterion.Example.create;
 
 /**
  * Home object for domain model class User.
  * @see .User
  * @author Hibernate Tools
  */
+@Stateless
 public class UserHome {
 
 	private static final Log log = LogFactory.getLog(UserHome.class);
 
-	private final SessionFactory sessionFactory = getSessionFactory();
-
-	protected SessionFactory getSessionFactory() {
-		try {
-			return (SessionFactory) new InitialContext()
-					.lookup("SessionFactory");
-		} catch (Exception e) {
-			log.error("Could not locate SessionFactory in JNDI", e);
-			throw new IllegalStateException(
-					"Could not locate SessionFactory in JNDI");
-		}
-	}
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	public void persist(User transientInstance) {
 		log.debug("persisting User instance");
 		try {
-			sessionFactory.getCurrentSession().persist(transientInstance);
+			entityManager.persist(transientInstance);
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -42,35 +31,13 @@ public class UserHome {
 		}
 	}
 
-	public void attachDirty(User instance) {
-		log.debug("attaching dirty User instance");
+	public void remove(User persistentInstance) {
+		log.debug("removing User instance");
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
-			log.debug("attach successful");
+			entityManager.remove(persistentInstance);
+			log.debug("remove successful");
 		} catch (RuntimeException re) {
-			log.error("attach failed", re);
-			throw re;
-		}
-	}
-
-	public void attachClean(User instance) {
-		log.debug("attaching clean User instance");
-		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
-			log.debug("attach successful");
-		} catch (RuntimeException re) {
-			log.error("attach failed", re);
-			throw re;
-		}
-	}
-
-	public void delete(User persistentInstance) {
-		log.debug("deleting User instance");
-		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
-			log.debug("delete successful");
-		} catch (RuntimeException re) {
-			log.error("delete failed", re);
+			log.error("remove failed", re);
 			throw re;
 		}
 	}
@@ -78,8 +45,7 @@ public class UserHome {
 	public User merge(User detachedInstance) {
 		log.debug("merging User instance");
 		try {
-			User result = (User) sessionFactory.getCurrentSession().merge(
-					detachedInstance);
+			User result = entityManager.merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -88,34 +54,14 @@ public class UserHome {
 		}
 	}
 
-	public User findById(java.lang.Integer id) {
+	public User findById(Integer id) {
 		log.debug("getting User instance with id: " + id);
 		try {
-			User instance = (User) sessionFactory.getCurrentSession().get(
-					"User", id);
-			if (instance == null) {
-				log.debug("get successful, no instance found");
-			} else {
-				log.debug("get successful, instance found");
-			}
+			User instance = entityManager.find(User.class, id);
+			log.debug("get successful");
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
-			throw re;
-		}
-	}
-
-	public List<User> findByExample(User instance) {
-		log.debug("finding User instance by example");
-		try {
-			List<User> results = (List<User>) sessionFactory
-					.getCurrentSession().createCriteria("User")
-					.add(create(instance)).list();
-			log.debug("find by example successful, result size: "
-					+ results.size());
-			return results;
-		} catch (RuntimeException re) {
-			log.error("find by example failed", re);
 			throw re;
 		}
 	}

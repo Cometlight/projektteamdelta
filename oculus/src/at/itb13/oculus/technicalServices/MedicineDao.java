@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
+import at.itb13.oculus.domain.Medicine;
 import static org.hibernate.criterion.Example.create;
 
 /**
@@ -29,97 +30,97 @@ public class MedicineDao {
 			return (SessionFactory) new InitialContext()
 					.lookup("SessionFactory");
 		} catch (Exception e) {
-			log.error("Could not locate SessionFactory in JNDI", e);
+			logger.error("Could not locate SessionFactory in JNDI", e);
 			throw new IllegalStateException(
 					"Could not locate SessionFactory in JNDI");
 		}
 	}
 
 	public void persist(Medicine transientInstance) {
-		log.debug("persisting Medicine instance");
+		logger.debug("persisting Medicine instance");
 		try {
 			sessionFactory.getCurrentSession().persist(transientInstance);
-			log.debug("persist successful");
+			logger.debug("persist successful");
 		} catch (RuntimeException re) {
-			log.error("persist failed", re);
+			logger.error("persist failed", re);
 			throw re;
 		}
 	}
 
 	public void attachDirty(Medicine instance) {
-		log.debug("attaching dirty Medicine instance");
+		logger.debug("attaching dirty Medicine instance");
 		try {
 			sessionFactory.getCurrentSession().saveOrUpdate(instance);
-			log.debug("attach successful");
+			logger.debug("attach successful");
 		} catch (RuntimeException re) {
-			log.error("attach failed", re);
+			logger.error("attach failed", re);
 			throw re;
 		}
 	}
 
 	public void attachClean(Medicine instance) {
-		log.debug("attaching clean Medicine instance");
+		logger.debug("attaching clean Medicine instance");
 		try {
 			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
-			log.debug("attach successful");
+			logger.debug("attach successful");
 		} catch (RuntimeException re) {
-			log.error("attach failed", re);
+			logger.error("attach failed", re);
 			throw re;
 		}
 	}
 
 	public void delete(Medicine persistentInstance) {
-		log.debug("deleting Medicine instance");
+		logger.debug("deleting Medicine instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
-			log.debug("delete successful");
+			logger.debug("delete successful");
 		} catch (RuntimeException re) {
-			log.error("delete failed", re);
+			logger.error("delete failed", re);
 			throw re;
 		}
 	}
 
 	public Medicine merge(Medicine detachedInstance) {
-		log.debug("merging Medicine instance");
+		logger.debug("merging Medicine instance");
 		try {
 			Medicine result = (Medicine) sessionFactory.getCurrentSession()
 					.merge(detachedInstance);
-			log.debug("merge successful");
+			logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
-			log.error("merge failed", re);
+			logger.error("merge failed", re);
 			throw re;
 		}
 	}
 
 	public Medicine findById(java.lang.Integer id) {
-		log.debug("getting Medicine instance with id: " + id);
+		logger.debug("getting Medicine instance with id: " + id);
 		try {
 			Medicine instance = (Medicine) sessionFactory.getCurrentSession()
 					.get("Medicine", id);
 			if (instance == null) {
-				log.debug("get successful, no instance found");
+				logger.debug("get successful, no instance found");
 			} else {
-				log.debug("get successful, instance found");
+				logger.debug("get successful, instance found");
 			}
 			return instance;
 		} catch (RuntimeException re) {
-			log.error("get failed", re);
+			logger.error("get failed", re);
 			throw re;
 		}
 	}
 
 	public List<Medicine> findByExample(Medicine instance) {
-		log.debug("finding Medicine instance by example");
+		logger.debug("finding Medicine instance by example");
 		try {
 			List<Medicine> results = (List<Medicine>) sessionFactory
 					.getCurrentSession().createCriteria("Medicine")
 					.add(create(instance)).list();
-			log.debug("find by example successful, result size: "
+			logger.debug("find by example successful, result size: "
 					+ results.size());
 			return results;
 		} catch (RuntimeException re) {
-			log.error("find by example failed", re);
+			logger.error("find by example failed", re);
 			throw re;
 		}
 	}

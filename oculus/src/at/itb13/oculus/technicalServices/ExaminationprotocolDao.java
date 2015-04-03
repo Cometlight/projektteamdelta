@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
+import at.itb13.oculus.domain.Examinationprotocol;
 import static org.hibernate.criterion.Example.create;
 
 /**

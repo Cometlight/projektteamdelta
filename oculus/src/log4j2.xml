@@ -7,18 +7,11 @@
   </Appenders> 
   <Loggers> 
 <Root level="error">
-10
             <AppenderRef ref="Console" />
-11
         </Root>
-12
         <logger name="javabeat.net.util" level="TRACE" />
-13
         <Root level="ERROR">
-14
             <AppenderRef ref="CONSOLE"/>
-15
         </Root>
-
   </Loggers> 
 </Configuration>

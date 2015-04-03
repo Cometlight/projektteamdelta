@@ -1,10 +1,10 @@
 package at.itb13.oculus.technicalServices;
-// default package
-// Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
 
 import java.util.List;
 
 import javax.naming.InitialContext;
+
+import at.itb13.oculus.domain.Referralletter;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,9 +14,11 @@ import org.hibernate.SessionFactory;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * Home object for domain model class Referralletter.
- * @see .Referralletter
- * @author Hibernate Tools
+ * 
+ * TODO: Insert description here.
+ * 
+ * @author Daniel Scheffknecht
+ * @date 03.04.2015
  */
 public class ReferralletterDao {
 

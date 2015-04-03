@@ -1,17 +1,24 @@
 package at.itb13.oculus.technicalServices;
-// default package
-// Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
+
+import at.itb13.oculus.domain.Orthoptist;
 
 import java.util.List;
+
 import javax.naming.InitialContext;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
+
 import static org.hibernate.criterion.Example.create;
 
 /**
- * Home object for domain model class Orthoptist.
- * @see .Orthoptist
- * @author Hibernate Tools
+ * 
+ * TODO: Insert description here.
+ * 
+ * @author Daniel Scheffknecht
+ * @date 03.04.2015
  */
 public class OrthoptistDao {
 
@@ -24,97 +31,97 @@ public class OrthoptistDao {
 			return (SessionFactory) new InitialContext()
 					.lookup("SessionFactory");
 		} catch (Exception e) {
-			log.error("Could not locate SessionFactory in JNDI", e);
+			logger.error("Could not locate SessionFactory in JNDI", e);
 			throw new IllegalStateException(
 					"Could not locate SessionFactory in JNDI");
 		}
 	}
 
 	public void persist(Orthoptist transientInstance) {
-		log.debug("persisting Orthoptist instance");
+		logger.debug("persisting Orthoptist instance");
 		try {
 			sessionFactory.getCurrentSession().persist(transientInstance);
-			log.debug("persist successful");
+			logger.debug("persist successful");
 		} catch (RuntimeException re) {
-			log.error("persist failed", re);
+			logger.error("persist failed", re);
 			throw re;
 		}
 	}
 
 	public void attachDirty(Orthoptist instance) {
-		log.debug("attaching dirty Orthoptist instance");
+		logger.debug("attaching dirty Orthoptist instance");
 		try {
 			sessionFactory.getCurrentSession().saveOrUpdate(instance);
-			log.debug("attach successful");
+			logger.debug("attach successful");
 		} catch (RuntimeException re) {
-			log.error("attach failed", re);
+			logger.error("attach failed", re);
 			throw re;
 		}
 	}
 
 	public void attachClean(Orthoptist instance) {
-		log.debug("attaching clean Orthoptist instance");
+		logger.debug("attaching clean Orthoptist instance");
 		try {
 			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
-			log.debug("attach successful");
+			logger.debug("attach successful");
 		} catch (RuntimeException re) {
-			log.error("attach failed", re);
+			logger.error("attach failed", re);
 			throw re;
 		}
 	}
 
 	public void delete(Orthoptist persistentInstance) {
-		log.debug("deleting Orthoptist instance");
+		logger.debug("deleting Orthoptist instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
-			log.debug("delete successful");
+			logger.debug("delete successful");
 		} catch (RuntimeException re) {
-			log.error("delete failed", re);
+			logger.error("delete failed", re);
 			throw re;
 		}
 	}
 
 	public Orthoptist merge(Orthoptist detachedInstance) {
-		log.debug("merging Orthoptist instance");
+		logger.debug("merging Orthoptist instance");
 		try {
 			Orthoptist result = (Orthoptist) sessionFactory.getCurrentSession()
 					.merge(detachedInstance);
-			log.debug("merge successful");
+			logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
-			log.error("merge failed", re);
+			logger.error("merge failed", re);
 			throw re;
 		}
 	}
 
 	public Orthoptist findById(java.lang.Integer id) {
-		log.debug("getting Orthoptist instance with id: " + id);
+		logger.debug("getting Orthoptist instance with id: " + id);
 		try {
 			Orthoptist instance = (Orthoptist) sessionFactory
 					.getCurrentSession().get("Orthoptist", id);
 			if (instance == null) {
-				log.debug("get successful, no instance found");
+				logger.debug("get successful, no instance found");
 			} else {
-				log.debug("get successful, instance found");
+				logger.debug("get successful, instance found");
 			}
 			return instance;
 		} catch (RuntimeException re) {
-			log.error("get failed", re);
+			logger.error("get failed", re);
 			throw re;
 		}
 	}
 
 	public List<Orthoptist> findByExample(Orthoptist instance) {
-		log.debug("finding Orthoptist instance by example");
+		logger.debug("finding Orthoptist instance by example");
 		try {
 			List<Orthoptist> results = (List<Orthoptist>) sessionFactory
 					.getCurrentSession().createCriteria("Orthoptist")
 					.add(create(instance)).list();
-			log.debug("find by example successful, result size: "
+			logger.debug("find by example successful, result size: "
 					+ results.size());
 			return results;
 		} catch (RuntimeException re) {
-			log.error("find by example failed", re);
+			logger.error("find by example failed", re);
 			throw re;
 		}
 	}

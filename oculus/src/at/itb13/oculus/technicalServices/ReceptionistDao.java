@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.naming.InitialContext;
 
+import at.itb13.oculus.domain.Receptionist;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
@@ -14,9 +16,11 @@ import org.hibernate.SessionFactory;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * Home object for domain model class Receptionist.
- * @see .Receptionist
- * @author Hibernate Tools
+ * 
+ * TODO: Insert description here.
+ * 
+ * @author Daniel Scheffknecht
+ * @date 03.04.2015
  */
 public class ReceptionistDao {
 

@@ -18,56 +18,44 @@ import org.hibernate.cfg.Configuration;
 import at.itb13.oculus.domain.Eventtype;
 
 public class TestClassForHibernateAndLogging {
-
-	private static SessionFactory _sessionFactory = null;
-
-	static final Logger logger = LogManager
-			.getLogger(TestClassForHibernateAndLogging.class.getName());
-
+	
+	static final Logger logger = LogManager.getLogger(TestClassForHibernateAndLogging.class.getName());
+	
 	public static void main(String[] args) {
-		logger.trace("Entering Log4j Example.");
-		int x = 5;
-		if (x == 5) {
-			logger.error("Ohh!Failed!");
-		}
-
+		logger.trace("Starting testclass");
 		Session session = null;
 
 		try {
-			session = _sessionFactory.openSession();
+			
+			Configuration config = new Configuration();
+			config.configure("hibernate.cfg.xml");
+			StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+					.applySettings(config.getProperties()).build();
+			SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
+			
+			
+			session = sessionFactory.openSession();
 			session.beginTransaction();
 
-			// TODO ENTRY
-			
-			Eventtype event = new Eventtype();
-			event.setDescription("test");
-			event.setEstimatedTime(0);
-//			event.set(0);
-//			
-//			session.save();
+			Eventtype eventType = new Eventtype();
+			eventType.setCalendarevents(null);
+			eventType.setDescription("Test by Andrew");
+			eventType.setEstimatedTime(0);
+			eventType.setEventTypeId(1000);
+			eventType.setEventTypeName("eventtypename");
+
+			session.save(eventType);
 			session.getTransaction().commit();
 
 		} catch (HibernateException e) {
 			System.out.println(e.getMessage());
 			System.out.println("error");
+			 logger.error("Ohh!Failed!");
 		} finally {
 			if (session != null) {
 				session.close();
 			}
 		}
-
-		logger.trace("Exiting Log4j Example.");
-	}
-
-	public void init() {
-		initSessionFactory();
-	}
-
-	private void initSessionFactory() {
-		Configuration config = new Configuration();
-		config.configure("hibernate.cfg.xml");
-		StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-				.applySettings(config.getProperties()).build();
-		_sessionFactory = config.buildSessionFactory(serviceRegistry);
+		 logger.trace("Exiting Log4j Example.");
 	}
 }

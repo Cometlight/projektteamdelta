@@ -22,106 +22,106 @@ import static org.hibernate.criterion.Example.create;
  */
 public class VisualaidDao {
 
-	private static final Logger log = LogManager.getLogger(VisualaidDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(VisualaidDao.class.getName());
 
-	private final SessionFactory sessionFactory = getSessionFactory();
+	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
 		try {
 			return (SessionFactory) new InitialContext()
 					.lookup("SessionFactory");
 		} catch (Exception e) {
-			log.error("Could not locate SessionFactory in JNDI", e);
+			_logger.error("Could not locate SessionFactory in JNDI", e);
 			throw new IllegalStateException(
 					"Could not locate SessionFactory in JNDI");
 		}
 	}
 
 	public void persist(Visualaid transientInstance) {
-		log.debug("persisting Visualaid instance");
+		_logger.debug("persisting Visualaid instance");
 		try {
-			sessionFactory.getCurrentSession().persist(transientInstance);
-			log.debug("persist successful");
+			_sessionFactory.getCurrentSession().persist(transientInstance);
+			_logger.debug("persist successful");
 		} catch (RuntimeException re) {
-			log.error("persist failed", re);
+			_logger.error("persist failed", re);
 			throw re;
 		}
 	}
 
 	public void attachDirty(Visualaid instance) {
-		log.debug("attaching dirty Visualaid instance");
+		_logger.debug("attaching dirty Visualaid instance");
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
-			log.debug("attach successful");
+			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
+			_logger.debug("attach successful");
 		} catch (RuntimeException re) {
-			log.error("attach failed", re);
+			_logger.error("attach failed", re);
 			throw re;
 		}
 	}
 
 	public void attachClean(Visualaid instance) {
-		log.debug("attaching clean Visualaid instance");
+		_logger.debug("attaching clean Visualaid instance");
 		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
-			log.debug("attach successful");
+			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
+			_logger.debug("attach successful");
 		} catch (RuntimeException re) {
-			log.error("attach failed", re);
+			_logger.error("attach failed", re);
 			throw re;
 		}
 	}
 
 	public void delete(Visualaid persistentInstance) {
-		log.debug("deleting Visualaid instance");
+		_logger.debug("deleting Visualaid instance");
 		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
-			log.debug("delete successful");
+			_sessionFactory.getCurrentSession().delete(persistentInstance);
+			_logger.debug("delete successful");
 		} catch (RuntimeException re) {
-			log.error("delete failed", re);
+			_logger.error("delete failed", re);
 			throw re;
 		}
 	}
 
 	public Visualaid merge(Visualaid detachedInstance) {
-		log.debug("merging Visualaid instance");
+		_logger.debug("merging Visualaid instance");
 		try {
-			Visualaid result = (Visualaid) sessionFactory.getCurrentSession()
+			Visualaid result = (Visualaid) _sessionFactory.getCurrentSession()
 					.merge(detachedInstance);
-			log.debug("merge successful");
+			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
-			log.error("merge failed", re);
+			_logger.error("merge failed", re);
 			throw re;
 		}
 	}
 
 	public Visualaid findById(java.lang.Integer id) {
-		log.debug("getting Visualaid instance with id: " + id);
+		_logger.debug("getting Visualaid instance with id: " + id);
 		try {
-			Visualaid instance = (Visualaid) sessionFactory.getCurrentSession()
+			Visualaid instance = (Visualaid) _sessionFactory.getCurrentSession()
 					.get("Visualaid", id);
 			if (instance == null) {
-				log.debug("get successful, no instance found");
+				_logger.debug("get successful, no instance found");
 			} else {
-				log.debug("get successful, instance found");
+				_logger.debug("get successful, instance found");
 			}
 			return instance;
 		} catch (RuntimeException re) {
-			log.error("get failed", re);
+			_logger.error("get failed", re);
 			throw re;
 		}
 	}
 
 	public List<Visualaid> findByExample(Visualaid instance) {
-		log.debug("finding Visualaid instance by example");
+		_logger.debug("finding Visualaid instance by example");
 		try {
-			List<Visualaid> results = (List<Visualaid>) sessionFactory
+			List<Visualaid> results = (List<Visualaid>) _sessionFactory
 					.getCurrentSession().createCriteria("Visualaid")
 					.add(create(instance)).list();
-			log.debug("find by example successful, result size: "
+			_logger.debug("find by example successful, result size: "
 					+ results.size());
 			return results;
 		} catch (RuntimeException re) {
-			log.error("find by example failed", re);
+			_logger.error("find by example failed", re);
 			throw re;
 		}
 	}

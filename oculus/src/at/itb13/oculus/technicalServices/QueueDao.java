@@ -22,106 +22,106 @@ import static org.hibernate.criterion.Example.create;
  */
 public class QueueDao {
 
-	private static final Logger logger = LogManager.getLogger(QueueDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(QueueDao.class.getName());
 	
-	private final SessionFactory sessionFactory = getSessionFactory();
+	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
 		try {
 			return (SessionFactory) new InitialContext()
 					.lookup("SessionFactory");
 		} catch (Exception e) {
-			logger.error("Could not locate SessionFactory in JNDI", e);
+			_logger.error("Could not locate SessionFactory in JNDI", e);
 			throw new IllegalStateException(
 					"Could not locate SessionFactory in JNDI");
 		}
 	}
 
 	public void persist(Queue transientInstance) {
-		logger.debug("persisting Queue instance");
+		_logger.debug("persisting Queue instance");
 		try {
-			sessionFactory.getCurrentSession().persist(transientInstance);
-			logger.debug("persist successful");
+			_sessionFactory.getCurrentSession().persist(transientInstance);
+			_logger.debug("persist successful");
 		} catch (RuntimeException re) {
-			logger.error("persist failed", re);
+			_logger.error("persist failed", re);
 			throw re;
 		}
 	}
 
 	public void attachDirty(Queue instance) {
-		logger.debug("attaching dirty Queue instance");
+		_logger.debug("attaching dirty Queue instance");
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
-			logger.debug("attach successful");
+			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
+			_logger.debug("attach successful");
 		} catch (RuntimeException re) {
-			logger.error("attach failed", re);
+			_logger.error("attach failed", re);
 			throw re;
 		}
 	}
 
 	public void attachClean(Queue instance) {
-		logger.debug("attaching clean Queue instance");
+		_logger.debug("attaching clean Queue instance");
 		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
-			logger.debug("attach successful");
+			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
+			_logger.debug("attach successful");
 		} catch (RuntimeException re) {
-			logger.error("attach failed", re);
+			_logger.error("attach failed", re);
 			throw re;
 		}
 	}
 
 	public void delete(Queue persistentInstance) {
-		logger.debug("deleting Queue instance");
+		_logger.debug("deleting Queue instance");
 		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
-			logger.debug("delete successful");
+			_sessionFactory.getCurrentSession().delete(persistentInstance);
+			_logger.debug("delete successful");
 		} catch (RuntimeException re) {
-			logger.error("delete failed", re);
+			_logger.error("delete failed", re);
 			throw re;
 		}
 	}
 
 	public Queue merge(Queue detachedInstance) {
-		logger.debug("merging Queue instance");
+		_logger.debug("merging Queue instance");
 		try {
-			Queue result = (Queue) sessionFactory.getCurrentSession().merge(
+			Queue result = (Queue) _sessionFactory.getCurrentSession().merge(
 					detachedInstance);
-			logger.debug("merge successful");
+			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
-			logger.error("merge failed", re);
+			_logger.error("merge failed", re);
 			throw re;
 		}
 	}
 
 	public Queue findById(java.lang.Integer id) {
-		logger.debug("getting Queue instance with id: " + id);
+		_logger.debug("getting Queue instance with id: " + id);
 		try {
-			Queue instance = (Queue) sessionFactory.getCurrentSession().get(
+			Queue instance = (Queue) _sessionFactory.getCurrentSession().get(
 					"Queue", id);
 			if (instance == null) {
-				logger.debug("get successful, no instance found");
+				_logger.debug("get successful, no instance found");
 			} else {
-				logger.debug("get successful, instance found");
+				_logger.debug("get successful, instance found");
 			}
 			return instance;
 		} catch (RuntimeException re) {
-			logger.error("get failed", re);
+			_logger.error("get failed", re);
 			throw re;
 		}
 	}
 
 	public List<Queue> findByExample(Queue instance) {
-		logger.debug("finding Queue instance by example");
+		_logger.debug("finding Queue instance by example");
 		try {
-			List<Queue> results = (List<Queue>) sessionFactory
+			List<Queue> results = (List<Queue>) _sessionFactory
 					.getCurrentSession().createCriteria("Queue")
 					.add(create(instance)).list();
-			logger.debug("find by example successful, result size: "
+			_logger.debug("find by example successful, result size: "
 					+ results.size());
 			return results;
 		} catch (RuntimeException re) {
-			logger.error("find by example failed", re);
+			_logger.error("find by example failed", re);
 			throw re;
 		}
 	}

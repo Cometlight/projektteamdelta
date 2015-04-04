@@ -22,106 +22,106 @@ import static org.hibernate.criterion.Example.create;
  */
 public class UsergroupDao {
 
-	private static final Logger logger = LogManager.getLogger(UsergroupDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(UsergroupDao.class.getName());
 
-	private final SessionFactory sessionFactory = getSessionFactory();
+	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
 		try {
 			return (SessionFactory) new InitialContext()
 					.lookup("SessionFactory");
 		} catch (Exception e) {
-			logger.error("Could not locate SessionFactory in JNDI", e);
+			_logger.error("Could not locate SessionFactory in JNDI", e);
 			throw new IllegalStateException(
 					"Could not locate SessionFactory in JNDI");
 		}
 	}
 
 	public void persist(Usergroup transientInstance) {
-		logger.debug("persisting Usergroup instance");
+		_logger.debug("persisting Usergroup instance");
 		try {
-			sessionFactory.getCurrentSession().persist(transientInstance);
-			logger.debug("persist successful");
+			_sessionFactory.getCurrentSession().persist(transientInstance);
+			_logger.debug("persist successful");
 		} catch (RuntimeException re) {
-			logger.error("persist failed", re);
+			_logger.error("persist failed", re);
 			throw re;
 		}
 	}
 
 	public void attachDirty(Usergroup instance) {
-		logger.debug("attaching dirty Usergroup instance");
+		_logger.debug("attaching dirty Usergroup instance");
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
-			logger.debug("attach successful");
+			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
+			_logger.debug("attach successful");
 		} catch (RuntimeException re) {
-			logger.error("attach failed", re);
+			_logger.error("attach failed", re);
 			throw re;
 		}
 	}
 
 	public void attachClean(Usergroup instance) {
-		logger.debug("attaching clean Usergroup instance");
+		_logger.debug("attaching clean Usergroup instance");
 		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
-			logger.debug("attach successful");
+			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
+			_logger.debug("attach successful");
 		} catch (RuntimeException re) {
-			logger.error("attach failed", re);
+			_logger.error("attach failed", re);
 			throw re;
 		}
 	}
 
 	public void delete(Usergroup persistentInstance) {
-		logger.debug("deleting Usergroup instance");
+		_logger.debug("deleting Usergroup instance");
 		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
-			logger.debug("delete successful");
+			_sessionFactory.getCurrentSession().delete(persistentInstance);
+			_logger.debug("delete successful");
 		} catch (RuntimeException re) {
-			logger.error("delete failed", re);
+			_logger.error("delete failed", re);
 			throw re;
 		}
 	}
 
 	public Usergroup merge(Usergroup detachedInstance) {
-		logger.debug("merging Usergroup instance");
+		_logger.debug("merging Usergroup instance");
 		try {
-			Usergroup result = (Usergroup) sessionFactory.getCurrentSession()
+			Usergroup result = (Usergroup) _sessionFactory.getCurrentSession()
 					.merge(detachedInstance);
-			logger.debug("merge successful");
+			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
-			logger.error("merge failed", re);
+			_logger.error("merge failed", re);
 			throw re;
 		}
 	}
 
 	public Usergroup findById(java.lang.Integer id) {
-		logger.debug("getting Usergroup instance with id: " + id);
+		_logger.debug("getting Usergroup instance with id: " + id);
 		try {
-			Usergroup instance = (Usergroup) sessionFactory.getCurrentSession()
+			Usergroup instance = (Usergroup) _sessionFactory.getCurrentSession()
 					.get("Usergroup", id);
 			if (instance == null) {
-				logger.debug("get successful, no instance found");
+				_logger.debug("get successful, no instance found");
 			} else {
-				logger.debug("get successful, instance found");
+				_logger.debug("get successful, instance found");
 			}
 			return instance;
 		} catch (RuntimeException re) {
-			logger.error("get failed", re);
+			_logger.error("get failed", re);
 			throw re;
 		}
 	}
 
 	public List<Usergroup> findByExample(Usergroup instance) {
-		logger.debug("finding Usergroup instance by example");
+		_logger.debug("finding Usergroup instance by example");
 		try {
-			List<Usergroup> results = (List<Usergroup>) sessionFactory
+			List<Usergroup> results = (List<Usergroup>) _sessionFactory
 					.getCurrentSession().createCriteria("Usergroup")
 					.add(create(instance)).list();
-			logger.debug("find by example successful, result size: "
+			_logger.debug("find by example successful, result size: "
 					+ results.size());
 			return results;
 		} catch (RuntimeException re) {
-			logger.error("find by example failed", re);
+			_logger.error("find by example failed", re);
 			throw re;
 		}
 	}

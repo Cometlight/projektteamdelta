@@ -22,106 +22,106 @@ import static org.hibernate.criterion.Example.create;
  */
 public class ReferralletterDao {
 
-	private static final Logger logger = LogManager.getLogger(ReferralletterDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(ReferralletterDao.class.getName());
 	
-	private final SessionFactory sessionFactory = getSessionFactory();
+	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
 		try {
 			return (SessionFactory) new InitialContext()
 					.lookup("SessionFactory");
 		} catch (Exception e) {
-			logger.error("Could not locate SessionFactory in JNDI", e);
+			_logger.error("Could not locate SessionFactory in JNDI", e);
 			throw new IllegalStateException(
 					"Could not locate SessionFactory in JNDI");
 		}
 	}
 
 	public void persist(Referralletter transientInstance) {
-		logger.debug("persisting Referralletter instance");
+		_logger.debug("persisting Referralletter instance");
 		try {
-			sessionFactory.getCurrentSession().persist(transientInstance);
-			logger.debug("persist successful");
+			_sessionFactory.getCurrentSession().persist(transientInstance);
+			_logger.debug("persist successful");
 		} catch (RuntimeException re) {
-			logger.error("persist failed", re);
+			_logger.error("persist failed", re);
 			throw re;
 		}
 	}
 
 	public void attachDirty(Referralletter instance) {
-		logger.debug("attaching dirty Referralletter instance");
+		_logger.debug("attaching dirty Referralletter instance");
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
-			logger.debug("attach successful");
+			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
+			_logger.debug("attach successful");
 		} catch (RuntimeException re) {
-			logger.error("attach failed", re);
+			_logger.error("attach failed", re);
 			throw re;
 		}
 	}
 
 	public void attachClean(Referralletter instance) {
-		logger.debug("attaching clean Referralletter instance");
+		_logger.debug("attaching clean Referralletter instance");
 		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
-			logger.debug("attach successful");
+			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
+			_logger.debug("attach successful");
 		} catch (RuntimeException re) {
-			logger.error("attach failed", re);
+			_logger.error("attach failed", re);
 			throw re;
 		}
 	}
 
 	public void delete(Referralletter persistentInstance) {
-		logger.debug("deleting Referralletter instance");
+		_logger.debug("deleting Referralletter instance");
 		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
-			logger.debug("delete successful");
+			_sessionFactory.getCurrentSession().delete(persistentInstance);
+			_logger.debug("delete successful");
 		} catch (RuntimeException re) {
-			logger.error("delete failed", re);
+			_logger.error("delete failed", re);
 			throw re;
 		}
 	}
 
 	public Referralletter merge(Referralletter detachedInstance) {
-		logger.debug("merging Referralletter instance");
+		_logger.debug("merging Referralletter instance");
 		try {
-			Referralletter result = (Referralletter) sessionFactory
+			Referralletter result = (Referralletter) _sessionFactory
 					.getCurrentSession().merge(detachedInstance);
-			logger.debug("merge successful");
+			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
-			logger.error("merge failed", re);
+			_logger.error("merge failed", re);
 			throw re;
 		}
 	}
 
 	public Referralletter findById(java.lang.Integer id) {
-		logger.debug("getting Referralletter instance with id: " + id);
+		_logger.debug("getting Referralletter instance with id: " + id);
 		try {
-			Referralletter instance = (Referralletter) sessionFactory
+			Referralletter instance = (Referralletter) _sessionFactory
 					.getCurrentSession().get("Referralletter", id);
 			if (instance == null) {
-				logger.debug("get successful, no instance found");
+				_logger.debug("get successful, no instance found");
 			} else {
-				logger.debug("get successful, instance found");
+				_logger.debug("get successful, instance found");
 			}
 			return instance;
 		} catch (RuntimeException re) {
-			logger.error("get failed", re);
+			_logger.error("get failed", re);
 			throw re;
 		}
 	}
 
 	public List<Referralletter> findByExample(Referralletter instance) {
-		logger.debug("finding Referralletter instance by example");
+		_logger.debug("finding Referralletter instance by example");
 		try {
-			List<Referralletter> results = (List<Referralletter>) sessionFactory
+			List<Referralletter> results = (List<Referralletter>) _sessionFactory
 					.getCurrentSession().createCriteria("Referralletter")
 					.add(create(instance)).list();
-			logger.debug("find by example successful, result size: "
+			_logger.debug("find by example successful, result size: "
 					+ results.size());
 			return results;
 		} catch (RuntimeException re) {
-			logger.error("find by example failed", re);
+			_logger.error("find by example failed", re);
 			throw re;
 		}
 	}

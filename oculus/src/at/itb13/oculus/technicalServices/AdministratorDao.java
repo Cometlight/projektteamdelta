@@ -22,106 +22,105 @@ import static org.hibernate.criterion.Example.create;
  */
 public class AdministratorDao {
 
-	private static final Logger logger = LogManager.getLogger(AdministratorDao.class.getName());
-	
-	private final SessionFactory sessionFactory = getSessionFactory();
+	private static final Logger _logger = LogManager.getLogger(AdministratorDao.class.getName());
+	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
 		try {
 			return (SessionFactory) new InitialContext()
 					.lookup("SessionFactory");
 		} catch (Exception e) {
-			logger.error("Could not locate SessionFactory in JNDI", e);
+			_logger.error("Could not locate SessionFactory in JNDI", e);
 			throw new IllegalStateException(
 					"Could not locate SessionFactory in JNDI");
 		}
 	}
 
 	public void persist(Administrator transientInstance) {
-		logger.debug("persisting Administrator instance");
+		_logger.debug("persisting Administrator instance");
 		try {
-			sessionFactory.getCurrentSession().persist(transientInstance);
-			logger.debug("persist successful");
+			_sessionFactory.getCurrentSession().persist(transientInstance);
+			_logger.debug("persist successful");
 		} catch (RuntimeException re) {
-			logger.error("persist failed", re);
+			_logger.error("persist failed", re);
 			throw re;
 		}
 	}
 
 	public void attachDirty(Administrator instance) {
-		logger.debug("attaching dirty Administrator instance");
+		_logger.debug("attaching dirty Administrator instance");
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
-			logger.debug("attach successful");
+			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
+			_logger.debug("attach successful");
 		} catch (RuntimeException re) {
-			logger.error("attach failed", re);
+			_logger.error("attach failed", re);
 			throw re;
 		}
 	}
 
 	public void attachClean(Administrator instance) {
-		logger.debug("attaching clean Administrator instance");
+		_logger.debug("attaching clean Administrator instance");
 		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
-			logger.debug("attach successful");
+			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
+			_logger.debug("attach successful");
 		} catch (RuntimeException re) {
-			logger.error("attach failed", re);
+			_logger.error("attach failed", re);
 			throw re;
 		}
 	}
 
 	public void delete(Administrator persistentInstance) {
-		logger.debug("deleting Administrator instance");
+		_logger.debug("deleting Administrator instance");
 		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
-			logger.debug("delete successful");
+			_sessionFactory.getCurrentSession().delete(persistentInstance);
+			_logger.debug("delete successful");
 		} catch (RuntimeException re) {
-			logger.error("delete failed", re);
+			_logger.error("delete failed", re);
 			throw re;
 		}
 	}
 
 	public Administrator merge(Administrator detachedInstance) {
-		logger.debug("merging Administrator instance");
+		_logger.debug("merging Administrator instance");
 		try {
-			Administrator result = (Administrator) sessionFactory
+			Administrator result = (Administrator) _sessionFactory
 					.getCurrentSession().merge(detachedInstance);
-			logger.debug("merge successful");
+			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
-			logger.error("merge failed", re);
+			_logger.error("merge failed", re);
 			throw re;
 		}
 	}
 
 	public Administrator findById(java.lang.Integer id) {
-		logger.debug("getting Administrator instance with id: " + id);
+		_logger.debug("getting Administrator instance with id: " + id);
 		try {
-			Administrator instance = (Administrator) sessionFactory
+			Administrator instance = (Administrator) _sessionFactory
 					.getCurrentSession().get("Administrator", id);
 			if (instance == null) {
-				logger.debug("get successful, no instance found");
+				_logger.debug("get successful, no instance found");
 			} else {
-				logger.debug("get successful, instance found");
+				_logger.debug("get successful, instance found");
 			}
 			return instance;
 		} catch (RuntimeException re) {
-			logger.error("get failed", re);
+			_logger.error("get failed", re);
 			throw re;
 		}
 	}
 
 	public List<Administrator> findByExample(Administrator instance) {
-		logger.debug("finding Administrator instance by example");
+		_logger.debug("finding Administrator instance by example");
 		try {
-			List<Administrator> results = (List<Administrator>) sessionFactory
+			List<Administrator> results = (List<Administrator>) _sessionFactory
 					.getCurrentSession().createCriteria("Administrator")
 					.add(create(instance)).list();
-			logger.debug("find by example successful, result size: "
+			_logger.debug("find by example successful, result size: "
 					+ results.size());
 			return results;
 		} catch (RuntimeException re) {
-			logger.error("find by example failed", re);
+			_logger.error("find by example failed", re);
 			throw re;
 		}
 	}

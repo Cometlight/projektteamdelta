@@ -22,106 +22,106 @@ import static org.hibernate.criterion.Example.create;
  */
 public class WorkinghoursDao {
 
-	private static final Logger log = LogManager.getLogger(WorkinghoursDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(WorkinghoursDao.class.getName());
 
-	private final SessionFactory sessionFactory = getSessionFactory();
+	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
 		try {
 			return (SessionFactory) new InitialContext()
 					.lookup("SessionFactory");
 		} catch (Exception e) {
-			log.error("Could not locate SessionFactory in JNDI", e);
+			_logger.error("Could not locate SessionFactory in JNDI", e);
 			throw new IllegalStateException(
 					"Could not locate SessionFactory in JNDI");
 		}
 	}
 
 	public void persist(Workinghours transientInstance) {
-		log.debug("persisting Workinghours instance");
+		_logger.debug("persisting Workinghours instance");
 		try {
-			sessionFactory.getCurrentSession().persist(transientInstance);
-			log.debug("persist successful");
+			_sessionFactory.getCurrentSession().persist(transientInstance);
+			_logger.debug("persist successful");
 		} catch (RuntimeException re) {
-			log.error("persist failed", re);
+			_logger.error("persist failed", re);
 			throw re;
 		}
 	}
 
 	public void attachDirty(Workinghours instance) {
-		log.debug("attaching dirty Workinghours instance");
+		_logger.debug("attaching dirty Workinghours instance");
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
-			log.debug("attach successful");
+			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
+			_logger.debug("attach successful");
 		} catch (RuntimeException re) {
-			log.error("attach failed", re);
+			_logger.error("attach failed", re);
 			throw re;
 		}
 	}
 
 	public void attachClean(Workinghours instance) {
-		log.debug("attaching clean Workinghours instance");
+		_logger.debug("attaching clean Workinghours instance");
 		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
-			log.debug("attach successful");
+			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
+			_logger.debug("attach successful");
 		} catch (RuntimeException re) {
-			log.error("attach failed", re);
+			_logger.error("attach failed", re);
 			throw re;
 		}
 	}
 
 	public void delete(Workinghours persistentInstance) {
-		log.debug("deleting Workinghours instance");
+		_logger.debug("deleting Workinghours instance");
 		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
-			log.debug("delete successful");
+			_sessionFactory.getCurrentSession().delete(persistentInstance);
+			_logger.debug("delete successful");
 		} catch (RuntimeException re) {
-			log.error("delete failed", re);
+			_logger.error("delete failed", re);
 			throw re;
 		}
 	}
 
 	public Workinghours merge(Workinghours detachedInstance) {
-		log.debug("merging Workinghours instance");
+		_logger.debug("merging Workinghours instance");
 		try {
-			Workinghours result = (Workinghours) sessionFactory
+			Workinghours result = (Workinghours) _sessionFactory
 					.getCurrentSession().merge(detachedInstance);
-			log.debug("merge successful");
+			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
-			log.error("merge failed", re);
+			_logger.error("merge failed", re);
 			throw re;
 		}
 	}
 
 	public Workinghours findById(java.lang.Integer id) {
-		log.debug("getting Workinghours instance with id: " + id);
+		_logger.debug("getting Workinghours instance with id: " + id);
 		try {
-			Workinghours instance = (Workinghours) sessionFactory
+			Workinghours instance = (Workinghours) _sessionFactory
 					.getCurrentSession().get("Workinghours", id);
 			if (instance == null) {
-				log.debug("get successful, no instance found");
+				_logger.debug("get successful, no instance found");
 			} else {
-				log.debug("get successful, instance found");
+				_logger.debug("get successful, instance found");
 			}
 			return instance;
 		} catch (RuntimeException re) {
-			log.error("get failed", re);
+			_logger.error("get failed", re);
 			throw re;
 		}
 	}
 
 	public List<Workinghours> findByExample(Workinghours instance) {
-		log.debug("finding Workinghours instance by example");
+		_logger.debug("finding Workinghours instance by example");
 		try {
-			List<Workinghours> results = (List<Workinghours>) sessionFactory
+			List<Workinghours> results = (List<Workinghours>) _sessionFactory
 					.getCurrentSession().createCriteria("Workinghours")
 					.add(create(instance)).list();
-			log.debug("find by example successful, result size: "
+			_logger.debug("find by example successful, result size: "
 					+ results.size());
 			return results;
 		} catch (RuntimeException re) {
-			log.error("find by example failed", re);
+			_logger.error("find by example failed", re);
 			throw re;
 		}
 	}

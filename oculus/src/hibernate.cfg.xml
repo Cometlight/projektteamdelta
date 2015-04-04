@@ -2,16 +2,41 @@
 <!DOCTYPE hibernate-configuration PUBLIC
 "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
 <hibernate-configuration>
+
     <session-factory>
-        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+    
+    	<!-- Database connection settings -->
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property><!-- TODO: check -->
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.password">teamd</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/oculusdb</property>
         <property name="hibernate.connection.username">admin</property>
+        
+        <!-- JDBC connection pool -->
+        <!-- TODO -->
+       
+		<!-- SQL dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        
+        <!-- TODO: check if needed: (declare even default values)
+        	"Enable Hibernate's automatic session context management"
+        	"Disable the second-level cache"
+			"Drop and re-create the database schema on startup"
+			"Use lazy loading"        
+			"disable auto commit"	
+			"To enable the thread-bound strategy in your Hibernate configuration:
+				set hibernate.transaction.factory_class to org.hibernate.transaction.JDBCTransactionFactory
+				set hibernate.current_session_context_class to thread"
+			
+         -->
+        
+        <!--  -->
         <property name="hibernate.search.autoregister_listeners">false</property>
         <property name="hibernate.validator.apply_to_ddl">false</property>
+        
+        <!-- Mappings -->
         <mapping class="Prescription" />
         <mapping class="User" />
         <mapping class="Examinationresult" />

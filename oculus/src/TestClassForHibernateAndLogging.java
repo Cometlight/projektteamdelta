@@ -32,7 +32,7 @@ public class TestClassForHibernateAndLogging {
 			StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 					.applySettings(config.getProperties()).build();
 			SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
-			
+			// SessionFactory should be initialized only once at startup! -- Daniel
 			
 			session = sessionFactory.openSession();
 			session.beginTransaction();

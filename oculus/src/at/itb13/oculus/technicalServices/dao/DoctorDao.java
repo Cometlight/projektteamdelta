@@ -1,29 +1,27 @@
-package at.itb13.oculus.technicalServices;
+package at.itb13.oculus.technicalServices.dao;
+// default package
+// Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
 
 import java.util.List;
 
 import javax.naming.InitialContext;
-
-import at.itb13.oculus.domain.User;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
+import at.itb13.oculus.domain.Doctor;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * 
- * TODO: Insert description here.
- * 
- * @author Daniel Scheffknecht
- * @date 03.04.2015
+ * Home object for domain model class Doctor.
+ * @see .Doctor
+ * @author Hibernate Tools
  */
-public class UserDao {
+public class DoctorDao {
 
-	private static final Logger _logger = LogManager.getLogger(UserDao.class.getName());
-
+	private static final Logger _logger = LogManager.getLogger(DoctorDao.class.getName());
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
@@ -37,8 +35,8 @@ public class UserDao {
 		}
 	}
 
-	public void persist(User transientInstance) {
-		_logger.debug("persisting User instance");
+	public void persist(Doctor transientInstance) {
+		_logger.debug("persisting Doctor instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -48,8 +46,8 @@ public class UserDao {
 		}
 	}
 
-	public void attachDirty(User instance) {
-		_logger.debug("attaching dirty User instance");
+	public void attachDirty(Doctor instance) {
+		_logger.debug("attaching dirty Doctor instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -59,8 +57,8 @@ public class UserDao {
 		}
 	}
 
-	public void attachClean(User instance) {
-		_logger.debug("attaching clean User instance");
+	public void attachClean(Doctor instance) {
+		_logger.debug("attaching clean Doctor instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -70,8 +68,8 @@ public class UserDao {
 		}
 	}
 
-	public void delete(User persistentInstance) {
-		_logger.debug("deleting User instance");
+	public void delete(Doctor persistentInstance) {
+		_logger.debug("deleting Doctor instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -81,10 +79,10 @@ public class UserDao {
 		}
 	}
 
-	public User merge(User detachedInstance) {
-		_logger.debug("merging User instance");
+	public Doctor merge(Doctor detachedInstance) {
+		_logger.debug("merging Doctor instance");
 		try {
-			User result = (User) _sessionFactory.getCurrentSession().merge(
+			Doctor result = (Doctor) _sessionFactory.getCurrentSession().merge(
 					detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -94,11 +92,11 @@ public class UserDao {
 		}
 	}
 
-	public User findById(java.lang.Integer id) {
-		_logger.debug("getting User instance with id: " + id);
+	public Doctor findById(java.lang.Integer id) {
+		_logger.debug("getting Doctor instance with id: " + id);
 		try {
-			User instance = (User) _sessionFactory.getCurrentSession().get(
-					"User", id);
+			Doctor instance = (Doctor) _sessionFactory.getCurrentSession().get(
+					"Doctor", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -111,11 +109,11 @@ public class UserDao {
 		}
 	}
 
-	public List<User> findByExample(User instance) {
-		_logger.debug("finding User instance by example");
+	public List<Doctor> findByExample(Doctor instance) {
+		_logger.debug("finding Doctor instance by example");
 		try {
-			List<User> results = (List<User>) _sessionFactory
-					.getCurrentSession().createCriteria("User")
+			List<Doctor> results = (List<Doctor>) _sessionFactory
+					.getCurrentSession().createCriteria("Doctor")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

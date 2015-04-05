@@ -1,10 +1,10 @@
-package at.itb13.oculus.technicalServices;
+package at.itb13.oculus.technicalServices.dao;
 
 import java.util.List;
 
 import javax.naming.InitialContext;
 
-import at.itb13.oculus.domain.Workinghours;
+import at.itb13.oculus.domain.Servicecode;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,10 +20,10 @@ import static org.hibernate.criterion.Example.create;
  * @author Daniel Scheffknecht
  * @date 03.04.2015
  */
-public class WorkinghoursDao {
+public class ServicecodeDao {
 
-	private static final Logger _logger = LogManager.getLogger(WorkinghoursDao.class.getName());
-
+	private static final Logger _logger = LogManager.getLogger(ServicecodeDao.class.getName());
+	
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
@@ -37,8 +37,8 @@ public class WorkinghoursDao {
 		}
 	}
 
-	public void persist(Workinghours transientInstance) {
-		_logger.debug("persisting Workinghours instance");
+	public void persist(Servicecode transientInstance) {
+		_logger.debug("persisting Servicecode instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -48,8 +48,8 @@ public class WorkinghoursDao {
 		}
 	}
 
-	public void attachDirty(Workinghours instance) {
-		_logger.debug("attaching dirty Workinghours instance");
+	public void attachDirty(Servicecode instance) {
+		_logger.debug("attaching dirty Servicecode instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -59,8 +59,8 @@ public class WorkinghoursDao {
 		}
 	}
 
-	public void attachClean(Workinghours instance) {
-		_logger.debug("attaching clean Workinghours instance");
+	public void attachClean(Servicecode instance) {
+		_logger.debug("attaching clean Servicecode instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -70,8 +70,8 @@ public class WorkinghoursDao {
 		}
 	}
 
-	public void delete(Workinghours persistentInstance) {
-		_logger.debug("deleting Workinghours instance");
+	public void delete(Servicecode persistentInstance) {
+		_logger.debug("deleting Servicecode instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -81,10 +81,10 @@ public class WorkinghoursDao {
 		}
 	}
 
-	public Workinghours merge(Workinghours detachedInstance) {
-		_logger.debug("merging Workinghours instance");
+	public Servicecode merge(Servicecode detachedInstance) {
+		_logger.debug("merging Servicecode instance");
 		try {
-			Workinghours result = (Workinghours) _sessionFactory
+			Servicecode result = (Servicecode) _sessionFactory
 					.getCurrentSession().merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -94,11 +94,11 @@ public class WorkinghoursDao {
 		}
 	}
 
-	public Workinghours findById(java.lang.Integer id) {
-		_logger.debug("getting Workinghours instance with id: " + id);
+	public Servicecode findById(java.lang.Integer id) {
+		_logger.debug("getting Servicecode instance with id: " + id);
 		try {
-			Workinghours instance = (Workinghours) _sessionFactory
-					.getCurrentSession().get("Workinghours", id);
+			Servicecode instance = (Servicecode) _sessionFactory
+					.getCurrentSession().get("Servicecode", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -111,11 +111,11 @@ public class WorkinghoursDao {
 		}
 	}
 
-	public List<Workinghours> findByExample(Workinghours instance) {
-		_logger.debug("finding Workinghours instance by example");
+	public List<Servicecode> findByExample(Servicecode instance) {
+		_logger.debug("finding Servicecode instance by example");
 		try {
-			List<Workinghours> results = (List<Workinghours>) _sessionFactory
-					.getCurrentSession().createCriteria("Workinghours")
+			List<Servicecode> results = (List<Servicecode>) _sessionFactory
+					.getCurrentSession().createCriteria("Servicecode")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

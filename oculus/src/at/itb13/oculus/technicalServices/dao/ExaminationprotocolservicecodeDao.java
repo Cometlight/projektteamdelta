@@ -1,4 +1,4 @@
-package at.itb13.oculus.technicalServices;
+package at.itb13.oculus.technicalServices.dao;
 // default package
 // Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
 
@@ -11,17 +11,18 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
-import at.itb13.oculus.domain.Examinationprotocol;
+import at.itb13.oculus.domain.Examinationprotocolservicecode;
+import at.itb13.oculus.domain.ExaminationprotocolservicecodeId;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * Home object for domain model class Examinationprotocol.
- * @see .Examinationprotocol
+ * Home object for domain model class Examinationprotocolservicecode.
+ * @see .Examinationprotocolservicecode
  * @author Hibernate Tools
  */
-public class ExaminationprotocolDao {
+public class ExaminationprotocolservicecodeDao {
 
-	private static final Logger _logger = LogManager.getLogger(ExaminationprotocolDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(ExaminationprotocolservicecodeDao.class.getName());
 	
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
@@ -36,8 +37,8 @@ public class ExaminationprotocolDao {
 		}
 	}
 
-	public void persist(Examinationprotocol transientInstance) {
-		_logger.debug("persisting Examinationprotocol instance");
+	public void persist(Examinationprotocolservicecode transientInstance) {
+		_logger.debug("persisting Examinationprotocolservicecode instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -47,8 +48,8 @@ public class ExaminationprotocolDao {
 		}
 	}
 
-	public void attachDirty(Examinationprotocol instance) {
-		_logger.debug("attaching dirty Examinationprotocol instance");
+	public void attachDirty(Examinationprotocolservicecode instance) {
+		_logger.debug("attaching dirty Examinationprotocolservicecode instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -58,8 +59,8 @@ public class ExaminationprotocolDao {
 		}
 	}
 
-	public void attachClean(Examinationprotocol instance) {
-		_logger.debug("attaching clean Examinationprotocol instance");
+	public void attachClean(Examinationprotocolservicecode instance) {
+		_logger.debug("attaching clean Examinationprotocolservicecode instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -69,8 +70,8 @@ public class ExaminationprotocolDao {
 		}
 	}
 
-	public void delete(Examinationprotocol persistentInstance) {
-		_logger.debug("deleting Examinationprotocol instance");
+	public void delete(Examinationprotocolservicecode persistentInstance) {
+		_logger.debug("deleting Examinationprotocolservicecode instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -80,10 +81,11 @@ public class ExaminationprotocolDao {
 		}
 	}
 
-	public Examinationprotocol merge(Examinationprotocol detachedInstance) {
-		_logger.debug("merging Examinationprotocol instance");
+	public Examinationprotocolservicecode merge(
+			Examinationprotocolservicecode detachedInstance) {
+		_logger.debug("merging Examinationprotocolservicecode instance");
 		try {
-			Examinationprotocol result = (Examinationprotocol) _sessionFactory
+			Examinationprotocolservicecode result = (Examinationprotocolservicecode) _sessionFactory
 					.getCurrentSession().merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -93,11 +95,14 @@ public class ExaminationprotocolDao {
 		}
 	}
 
-	public Examinationprotocol findById(java.lang.Integer id) {
-		_logger.debug("getting Examinationprotocol instance with id: " + id);
+	public Examinationprotocolservicecode findById(
+			ExaminationprotocolservicecodeId id) {
+		_logger.debug("getting Examinationprotocolservicecode instance with id: "
+				+ id);
 		try {
-			Examinationprotocol instance = (Examinationprotocol) _sessionFactory
-					.getCurrentSession().get("Examinationprotocol", id);
+			Examinationprotocolservicecode instance = (Examinationprotocolservicecode) _sessionFactory
+					.getCurrentSession().get("Examinationprotocolservicecode",
+							id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -110,11 +115,13 @@ public class ExaminationprotocolDao {
 		}
 	}
 
-	public List<Examinationprotocol> findByExample(Examinationprotocol instance) {
-		_logger.debug("finding Examinationprotocol instance by example");
+	public List<Examinationprotocolservicecode> findByExample(
+			Examinationprotocolservicecode instance) {
+		_logger.debug("finding Examinationprotocolservicecode instance by example");
 		try {
-			List<Examinationprotocol> results = (List<Examinationprotocol>) _sessionFactory
-					.getCurrentSession().createCriteria("Examinationprotocol")
+			List<Examinationprotocolservicecode> results = (List<Examinationprotocolservicecode>) _sessionFactory
+					.getCurrentSession()
+					.createCriteria("Examinationprotocolservicecode")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

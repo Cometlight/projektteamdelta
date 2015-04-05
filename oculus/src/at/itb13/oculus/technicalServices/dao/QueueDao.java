@@ -1,27 +1,28 @@
-package at.itb13.oculus.technicalServices;
-// default package
-// Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
+package at.itb13.oculus.technicalServices.dao;
 
 import java.util.List;
 
 import javax.naming.InitialContext;
+
+import at.itb13.oculus.domain.Queue;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
-import at.itb13.oculus.domain.Calendarevent;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * Home object for domain model class Calendarevent.
- * @see .Calendarevent
- * @author Hibernate Tools
+ * 
+ * TODO: Insert description here.
+ * 
+ * @author Daniel Scheffknecht
+ * @date 03.04.2015
  */
-public class CalendareventDao {
+public class QueueDao {
 
-	private static final Logger _logger = LogManager.getLogger(CalendareventDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(QueueDao.class.getName());
 	
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
@@ -36,8 +37,8 @@ public class CalendareventDao {
 		}
 	}
 
-	public void persist(Calendarevent transientInstance) {
-		_logger.debug("persisting Calendarevent instance");
+	public void persist(Queue transientInstance) {
+		_logger.debug("persisting Queue instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -47,8 +48,8 @@ public class CalendareventDao {
 		}
 	}
 
-	public void attachDirty(Calendarevent instance) {
-		_logger.debug("attaching dirty Calendarevent instance");
+	public void attachDirty(Queue instance) {
+		_logger.debug("attaching dirty Queue instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -58,8 +59,8 @@ public class CalendareventDao {
 		}
 	}
 
-	public void attachClean(Calendarevent instance) {
-		_logger.debug("attaching clean Calendarevent instance");
+	public void attachClean(Queue instance) {
+		_logger.debug("attaching clean Queue instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -69,8 +70,8 @@ public class CalendareventDao {
 		}
 	}
 
-	public void delete(Calendarevent persistentInstance) {
-		_logger.debug("deleting Calendarevent instance");
+	public void delete(Queue persistentInstance) {
+		_logger.debug("deleting Queue instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -80,11 +81,11 @@ public class CalendareventDao {
 		}
 	}
 
-	public Calendarevent merge(Calendarevent detachedInstance) {
-		_logger.debug("merging Calendarevent instance");
+	public Queue merge(Queue detachedInstance) {
+		_logger.debug("merging Queue instance");
 		try {
-			Calendarevent result = (Calendarevent) _sessionFactory
-					.getCurrentSession().merge(detachedInstance);
+			Queue result = (Queue) _sessionFactory.getCurrentSession().merge(
+					detachedInstance);
 			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -93,11 +94,11 @@ public class CalendareventDao {
 		}
 	}
 
-	public Calendarevent findById(java.lang.Integer id) {
-		_logger.debug("getting Calendarevent instance with id: " + id);
+	public Queue findById(java.lang.Integer id) {
+		_logger.debug("getting Queue instance with id: " + id);
 		try {
-			Calendarevent instance = (Calendarevent) _sessionFactory
-					.getCurrentSession().get("Calendarevent", id);
+			Queue instance = (Queue) _sessionFactory.getCurrentSession().get(
+					"Queue", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -110,11 +111,11 @@ public class CalendareventDao {
 		}
 	}
 
-	public List<Calendarevent> findByExample(Calendarevent instance) {
-		_logger.debug("finding Calendarevent instance by example");
+	public List<Queue> findByExample(Queue instance) {
+		_logger.debug("finding Queue instance by example");
 		try {
-			List<Calendarevent> results = (List<Calendarevent>) _sessionFactory
-					.getCurrentSession().createCriteria("Calendarevent")
+			List<Queue> results = (List<Queue>) _sessionFactory
+					.getCurrentSession().createCriteria("Queue")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

@@ -1,28 +1,27 @@
-package at.itb13.oculus.technicalServices;
+package at.itb13.oculus.technicalServices.dao;
+// default package
+// Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
 
 import java.util.List;
 
 import javax.naming.InitialContext;
-
-import at.itb13.oculus.domain.Servicecode;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
+import at.itb13.oculus.domain.Diagnosis;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * 
- * TODO: Insert description here.
- * 
- * @author Daniel Scheffknecht
- * @date 03.04.2015
+ * Home object for domain model class Diagnosis.
+ * @see .Diagnosis
+ * @author Hibernate Tools
  */
-public class ServicecodeDao {
+public class DiagnosisDao {
 
-	private static final Logger _logger = LogManager.getLogger(ServicecodeDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(DiagnosisDao.class.getName());
 	
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
@@ -37,8 +36,8 @@ public class ServicecodeDao {
 		}
 	}
 
-	public void persist(Servicecode transientInstance) {
-		_logger.debug("persisting Servicecode instance");
+	public void persist(Diagnosis transientInstance) {
+		_logger.debug("persisting Diagnosis instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -48,8 +47,8 @@ public class ServicecodeDao {
 		}
 	}
 
-	public void attachDirty(Servicecode instance) {
-		_logger.debug("attaching dirty Servicecode instance");
+	public void attachDirty(Diagnosis instance) {
+		_logger.debug("attaching dirty Diagnosis instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -59,8 +58,8 @@ public class ServicecodeDao {
 		}
 	}
 
-	public void attachClean(Servicecode instance) {
-		_logger.debug("attaching clean Servicecode instance");
+	public void attachClean(Diagnosis instance) {
+		_logger.debug("attaching clean Diagnosis instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -70,8 +69,8 @@ public class ServicecodeDao {
 		}
 	}
 
-	public void delete(Servicecode persistentInstance) {
-		_logger.debug("deleting Servicecode instance");
+	public void delete(Diagnosis persistentInstance) {
+		_logger.debug("deleting Diagnosis instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -81,11 +80,11 @@ public class ServicecodeDao {
 		}
 	}
 
-	public Servicecode merge(Servicecode detachedInstance) {
-		_logger.debug("merging Servicecode instance");
+	public Diagnosis merge(Diagnosis detachedInstance) {
+		_logger.debug("merging Diagnosis instance");
 		try {
-			Servicecode result = (Servicecode) _sessionFactory
-					.getCurrentSession().merge(detachedInstance);
+			Diagnosis result = (Diagnosis) _sessionFactory.getCurrentSession()
+					.merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -94,11 +93,11 @@ public class ServicecodeDao {
 		}
 	}
 
-	public Servicecode findById(java.lang.Integer id) {
-		_logger.debug("getting Servicecode instance with id: " + id);
+	public Diagnosis findById(java.lang.Integer id) {
+		_logger.debug("getting Diagnosis instance with id: " + id);
 		try {
-			Servicecode instance = (Servicecode) _sessionFactory
-					.getCurrentSession().get("Servicecode", id);
+			Diagnosis instance = (Diagnosis) _sessionFactory.getCurrentSession()
+					.get("Diagnosis", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -111,11 +110,11 @@ public class ServicecodeDao {
 		}
 	}
 
-	public List<Servicecode> findByExample(Servicecode instance) {
-		_logger.debug("finding Servicecode instance by example");
+	public List<Diagnosis> findByExample(Diagnosis instance) {
+		_logger.debug("finding Diagnosis instance by example");
 		try {
-			List<Servicecode> results = (List<Servicecode>) _sessionFactory
-					.getCurrentSession().createCriteria("Servicecode")
+			List<Diagnosis> results = (List<Diagnosis>) _sessionFactory
+					.getCurrentSession().createCriteria("Diagnosis")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

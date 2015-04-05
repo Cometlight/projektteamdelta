@@ -1,29 +1,28 @@
-package at.itb13.oculus.technicalServices;
+package at.itb13.oculus.technicalServices.dao;
+// default package
+// Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
 
 import java.util.List;
 
 import javax.naming.InitialContext;
-
-import at.itb13.oculus.domain.Usergroup;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
+import at.itb13.oculus.domain.Examinationprotocol;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * 
- * TODO: Insert description here.
- * 
- * @author Daniel Scheffknecht
- * @date 03.04.2015
+ * Home object for domain model class Examinationprotocol.
+ * @see .Examinationprotocol
+ * @author Hibernate Tools
  */
-public class UsergroupDao {
+public class ExaminationprotocolDao {
 
-	private static final Logger _logger = LogManager.getLogger(UsergroupDao.class.getName());
-
+	private static final Logger _logger = LogManager.getLogger(ExaminationprotocolDao.class.getName());
+	
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
@@ -37,8 +36,8 @@ public class UsergroupDao {
 		}
 	}
 
-	public void persist(Usergroup transientInstance) {
-		_logger.debug("persisting Usergroup instance");
+	public void persist(Examinationprotocol transientInstance) {
+		_logger.debug("persisting Examinationprotocol instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -48,8 +47,8 @@ public class UsergroupDao {
 		}
 	}
 
-	public void attachDirty(Usergroup instance) {
-		_logger.debug("attaching dirty Usergroup instance");
+	public void attachDirty(Examinationprotocol instance) {
+		_logger.debug("attaching dirty Examinationprotocol instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -59,8 +58,8 @@ public class UsergroupDao {
 		}
 	}
 
-	public void attachClean(Usergroup instance) {
-		_logger.debug("attaching clean Usergroup instance");
+	public void attachClean(Examinationprotocol instance) {
+		_logger.debug("attaching clean Examinationprotocol instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -70,8 +69,8 @@ public class UsergroupDao {
 		}
 	}
 
-	public void delete(Usergroup persistentInstance) {
-		_logger.debug("deleting Usergroup instance");
+	public void delete(Examinationprotocol persistentInstance) {
+		_logger.debug("deleting Examinationprotocol instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -81,11 +80,11 @@ public class UsergroupDao {
 		}
 	}
 
-	public Usergroup merge(Usergroup detachedInstance) {
-		_logger.debug("merging Usergroup instance");
+	public Examinationprotocol merge(Examinationprotocol detachedInstance) {
+		_logger.debug("merging Examinationprotocol instance");
 		try {
-			Usergroup result = (Usergroup) _sessionFactory.getCurrentSession()
-					.merge(detachedInstance);
+			Examinationprotocol result = (Examinationprotocol) _sessionFactory
+					.getCurrentSession().merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -94,11 +93,11 @@ public class UsergroupDao {
 		}
 	}
 
-	public Usergroup findById(java.lang.Integer id) {
-		_logger.debug("getting Usergroup instance with id: " + id);
+	public Examinationprotocol findById(java.lang.Integer id) {
+		_logger.debug("getting Examinationprotocol instance with id: " + id);
 		try {
-			Usergroup instance = (Usergroup) _sessionFactory.getCurrentSession()
-					.get("Usergroup", id);
+			Examinationprotocol instance = (Examinationprotocol) _sessionFactory
+					.getCurrentSession().get("Examinationprotocol", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -111,11 +110,11 @@ public class UsergroupDao {
 		}
 	}
 
-	public List<Usergroup> findByExample(Usergroup instance) {
-		_logger.debug("finding Usergroup instance by example");
+	public List<Examinationprotocol> findByExample(Examinationprotocol instance) {
+		_logger.debug("finding Examinationprotocol instance by example");
 		try {
-			List<Usergroup> results = (List<Usergroup>) _sessionFactory
-					.getCurrentSession().createCriteria("Usergroup")
+			List<Examinationprotocol> results = (List<Examinationprotocol>) _sessionFactory
+					.getCurrentSession().createCriteria("Examinationprotocol")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

@@ -1,28 +1,28 @@
-package at.itb13.oculus.technicalServices;
-// default package
-// Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
+package at.itb13.oculus.technicalServices.dao;
 
 import java.util.List;
 
 import javax.naming.InitialContext;
+
+import at.itb13.oculus.domain.Usergroup;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
-import at.itb13.oculus.domain.Calendar;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * Home object for domain model class Calendar.
- * @see .Calendar
- * @author Hibernate Tools
+ * 
+ * TODO: Insert description here.
+ * 
+ * @author Daniel Scheffknecht
+ * @date 03.04.2015
  */
-public class CalendarDao {
+public class UsergroupDao {
 
-	
-	private static final Logger _logger = LogManager.getLogger(CalendarDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(UsergroupDao.class.getName());
 
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
@@ -37,8 +37,8 @@ public class CalendarDao {
 		}
 	}
 
-	public void persist(Calendar transientInstance) {
-		_logger.debug("persisting Calendar instance");
+	public void persist(Usergroup transientInstance) {
+		_logger.debug("persisting Usergroup instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -48,8 +48,8 @@ public class CalendarDao {
 		}
 	}
 
-	public void attachDirty(Calendar instance) {
-		_logger.debug("attaching dirty Calendar instance");
+	public void attachDirty(Usergroup instance) {
+		_logger.debug("attaching dirty Usergroup instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -59,8 +59,8 @@ public class CalendarDao {
 		}
 	}
 
-	public void attachClean(Calendar instance) {
-		_logger.debug("attaching clean Calendar instance");
+	public void attachClean(Usergroup instance) {
+		_logger.debug("attaching clean Usergroup instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -70,8 +70,8 @@ public class CalendarDao {
 		}
 	}
 
-	public void delete(Calendar persistentInstance) {
-		_logger.debug("deleting Calendar instance");
+	public void delete(Usergroup persistentInstance) {
+		_logger.debug("deleting Usergroup instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -81,10 +81,10 @@ public class CalendarDao {
 		}
 	}
 
-	public Calendar merge(Calendar detachedInstance) {
-		_logger.debug("merging Calendar instance");
+	public Usergroup merge(Usergroup detachedInstance) {
+		_logger.debug("merging Usergroup instance");
 		try {
-			Calendar result = (Calendar) _sessionFactory.getCurrentSession()
+			Usergroup result = (Usergroup) _sessionFactory.getCurrentSession()
 					.merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -94,11 +94,11 @@ public class CalendarDao {
 		}
 	}
 
-	public Calendar findById(java.lang.Integer id) {
-		_logger.debug("getting Calendar instance with id: " + id);
+	public Usergroup findById(java.lang.Integer id) {
+		_logger.debug("getting Usergroup instance with id: " + id);
 		try {
-			Calendar instance = (Calendar) _sessionFactory.getCurrentSession()
-					.get("Calendar", id);
+			Usergroup instance = (Usergroup) _sessionFactory.getCurrentSession()
+					.get("Usergroup", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -111,11 +111,11 @@ public class CalendarDao {
 		}
 	}
 
-	public List<Calendar> findByExample(Calendar instance) {
-		_logger.debug("finding Calendar instance by example");
+	public List<Usergroup> findByExample(Usergroup instance) {
+		_logger.debug("finding Usergroup instance by example");
 		try {
-			List<Calendar> results = (List<Calendar>) _sessionFactory
-					.getCurrentSession().createCriteria("Calendar")
+			List<Usergroup> results = (List<Usergroup>) _sessionFactory
+					.getCurrentSession().createCriteria("Usergroup")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

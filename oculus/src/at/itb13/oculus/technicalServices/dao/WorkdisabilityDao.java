@@ -1,10 +1,10 @@
-package at.itb13.oculus.technicalServices;
+package at.itb13.oculus.technicalServices.dao;
 
 import java.util.List;
 
 import javax.naming.InitialContext;
 
-import at.itb13.oculus.domain.Permission;
+import at.itb13.oculus.domain.Workdisability;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,9 +20,9 @@ import static org.hibernate.criterion.Example.create;
  * @author Daniel Scheffknecht
  * @date 03.04.2015
  */
-public class PermissionDao {
+public class WorkdisabilityDao {
 
-	private static final Logger _logger = LogManager.getLogger(PermissionDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(WorkdisabilityDao.class.getName());
 
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
@@ -37,8 +37,8 @@ public class PermissionDao {
 		}
 	}
 
-	public void persist(Permission transientInstance) {
-		_logger.debug("persisting Permission instance");
+	public void persist(Workdisability transientInstance) {
+		_logger.debug("persisting Workdisability instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -48,8 +48,8 @@ public class PermissionDao {
 		}
 	}
 
-	public void attachDirty(Permission instance) {
-		_logger.debug("attaching dirty Permission instance");
+	public void attachDirty(Workdisability instance) {
+		_logger.debug("attaching dirty Workdisability instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -59,8 +59,8 @@ public class PermissionDao {
 		}
 	}
 
-	public void attachClean(Permission instance) {
-		_logger.debug("attaching clean Permission instance");
+	public void attachClean(Workdisability instance) {
+		_logger.debug("attaching clean Workdisability instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -70,8 +70,8 @@ public class PermissionDao {
 		}
 	}
 
-	public void delete(Permission persistentInstance) {
-		_logger.debug("deleting Permission instance");
+	public void delete(Workdisability persistentInstance) {
+		_logger.debug("deleting Workdisability instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -81,11 +81,11 @@ public class PermissionDao {
 		}
 	}
 
-	public Permission merge(Permission detachedInstance) {
-		_logger.debug("merging Permission instance");
+	public Workdisability merge(Workdisability detachedInstance) {
+		_logger.debug("merging Workdisability instance");
 		try {
-			Permission result = (Permission) _sessionFactory.getCurrentSession()
-					.merge(detachedInstance);
+			Workdisability result = (Workdisability) _sessionFactory
+					.getCurrentSession().merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -94,11 +94,11 @@ public class PermissionDao {
 		}
 	}
 
-	public Permission findById(java.lang.Integer id) {
-		_logger.debug("getting Permission instance with id: " + id);
+	public Workdisability findById(java.lang.Integer id) {
+		_logger.debug("getting Workdisability instance with id: " + id);
 		try {
-			Permission instance = (Permission) _sessionFactory
-					.getCurrentSession().get("Permission", id);
+			Workdisability instance = (Workdisability) _sessionFactory
+					.getCurrentSession().get("Workdisability", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -111,11 +111,11 @@ public class PermissionDao {
 		}
 	}
 
-	public List<Permission> findByExample(Permission instance) {
-		_logger.debug("finding Permission instance by example");
+	public List<Workdisability> findByExample(Workdisability instance) {
+		_logger.debug("finding Workdisability instance by example");
 		try {
-			List<Permission> results = (List<Permission>) _sessionFactory
-					.getCurrentSession().createCriteria("Permission")
+			List<Workdisability> results = (List<Workdisability>) _sessionFactory
+					.getCurrentSession().createCriteria("Workdisability")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

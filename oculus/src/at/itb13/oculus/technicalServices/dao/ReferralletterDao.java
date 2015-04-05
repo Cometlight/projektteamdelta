@@ -1,10 +1,10 @@
-package at.itb13.oculus.technicalServices;
+package at.itb13.oculus.technicalServices.dao;
 
 import java.util.List;
 
 import javax.naming.InitialContext;
 
-import at.itb13.oculus.domain.Visualaid;
+import at.itb13.oculus.domain.Referralletter;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,10 +20,10 @@ import static org.hibernate.criterion.Example.create;
  * @author Daniel Scheffknecht
  * @date 03.04.2015
  */
-public class VisualaidDao {
+public class ReferralletterDao {
 
-	private static final Logger _logger = LogManager.getLogger(VisualaidDao.class.getName());
-
+	private static final Logger _logger = LogManager.getLogger(ReferralletterDao.class.getName());
+	
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
@@ -37,8 +37,8 @@ public class VisualaidDao {
 		}
 	}
 
-	public void persist(Visualaid transientInstance) {
-		_logger.debug("persisting Visualaid instance");
+	public void persist(Referralletter transientInstance) {
+		_logger.debug("persisting Referralletter instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -48,8 +48,8 @@ public class VisualaidDao {
 		}
 	}
 
-	public void attachDirty(Visualaid instance) {
-		_logger.debug("attaching dirty Visualaid instance");
+	public void attachDirty(Referralletter instance) {
+		_logger.debug("attaching dirty Referralletter instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -59,8 +59,8 @@ public class VisualaidDao {
 		}
 	}
 
-	public void attachClean(Visualaid instance) {
-		_logger.debug("attaching clean Visualaid instance");
+	public void attachClean(Referralletter instance) {
+		_logger.debug("attaching clean Referralletter instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -70,8 +70,8 @@ public class VisualaidDao {
 		}
 	}
 
-	public void delete(Visualaid persistentInstance) {
-		_logger.debug("deleting Visualaid instance");
+	public void delete(Referralletter persistentInstance) {
+		_logger.debug("deleting Referralletter instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -81,11 +81,11 @@ public class VisualaidDao {
 		}
 	}
 
-	public Visualaid merge(Visualaid detachedInstance) {
-		_logger.debug("merging Visualaid instance");
+	public Referralletter merge(Referralletter detachedInstance) {
+		_logger.debug("merging Referralletter instance");
 		try {
-			Visualaid result = (Visualaid) _sessionFactory.getCurrentSession()
-					.merge(detachedInstance);
+			Referralletter result = (Referralletter) _sessionFactory
+					.getCurrentSession().merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -94,11 +94,11 @@ public class VisualaidDao {
 		}
 	}
 
-	public Visualaid findById(java.lang.Integer id) {
-		_logger.debug("getting Visualaid instance with id: " + id);
+	public Referralletter findById(java.lang.Integer id) {
+		_logger.debug("getting Referralletter instance with id: " + id);
 		try {
-			Visualaid instance = (Visualaid) _sessionFactory.getCurrentSession()
-					.get("Visualaid", id);
+			Referralletter instance = (Referralletter) _sessionFactory
+					.getCurrentSession().get("Referralletter", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -111,11 +111,11 @@ public class VisualaidDao {
 		}
 	}
 
-	public List<Visualaid> findByExample(Visualaid instance) {
-		_logger.debug("finding Visualaid instance by example");
+	public List<Referralletter> findByExample(Referralletter instance) {
+		_logger.debug("finding Referralletter instance by example");
 		try {
-			List<Visualaid> results = (List<Visualaid>) _sessionFactory
-					.getCurrentSession().createCriteria("Visualaid")
+			List<Referralletter> results = (List<Referralletter>) _sessionFactory
+					.getCurrentSession().createCriteria("Referralletter")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

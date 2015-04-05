@@ -1,28 +1,27 @@
-package at.itb13.oculus.technicalServices;
+package at.itb13.oculus.technicalServices.dao;
+// default package
+// Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
 
 import java.util.List;
 
 import javax.naming.InitialContext;
-
-import at.itb13.oculus.domain.Queue;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
+import at.itb13.oculus.domain.Eventtype;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * 
- * TODO: Insert description here.
- * 
- * @author Daniel Scheffknecht
- * @date 03.04.2015
+ * Home object for domain model class Eventtype.
+ * @see .Eventtype
+ * @author Hibernate Tools
  */
-public class QueueDao {
+public class EventtypeDao {
 
-	private static final Logger _logger = LogManager.getLogger(QueueDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(EventtypeDao.class.getName());
 	
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
@@ -37,8 +36,8 @@ public class QueueDao {
 		}
 	}
 
-	public void persist(Queue transientInstance) {
-		_logger.debug("persisting Queue instance");
+	public void persist(Eventtype transientInstance) {
+		_logger.debug("persisting Eventtype instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -48,8 +47,8 @@ public class QueueDao {
 		}
 	}
 
-	public void attachDirty(Queue instance) {
-		_logger.debug("attaching dirty Queue instance");
+	public void attachDirty(Eventtype instance) {
+		_logger.debug("attaching dirty Eventtype instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -59,8 +58,8 @@ public class QueueDao {
 		}
 	}
 
-	public void attachClean(Queue instance) {
-		_logger.debug("attaching clean Queue instance");
+	public void attachClean(Eventtype instance) {
+		_logger.debug("attaching clean Eventtype instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -70,8 +69,8 @@ public class QueueDao {
 		}
 	}
 
-	public void delete(Queue persistentInstance) {
-		_logger.debug("deleting Queue instance");
+	public void delete(Eventtype persistentInstance) {
+		_logger.debug("deleting Eventtype instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -81,11 +80,11 @@ public class QueueDao {
 		}
 	}
 
-	public Queue merge(Queue detachedInstance) {
-		_logger.debug("merging Queue instance");
+	public Eventtype merge(Eventtype detachedInstance) {
+		_logger.debug("merging Eventtype instance");
 		try {
-			Queue result = (Queue) _sessionFactory.getCurrentSession().merge(
-					detachedInstance);
+			Eventtype result = (Eventtype) _sessionFactory.getCurrentSession()
+					.merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -94,11 +93,11 @@ public class QueueDao {
 		}
 	}
 
-	public Queue findById(java.lang.Integer id) {
-		_logger.debug("getting Queue instance with id: " + id);
+	public Eventtype findById(java.lang.Integer id) {
+		_logger.debug("getting Eventtype instance with id: " + id);
 		try {
-			Queue instance = (Queue) _sessionFactory.getCurrentSession().get(
-					"Queue", id);
+			Eventtype instance = (Eventtype) _sessionFactory.getCurrentSession()
+					.get("Eventtype", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -111,11 +110,11 @@ public class QueueDao {
 		}
 	}
 
-	public List<Queue> findByExample(Queue instance) {
-		_logger.debug("finding Queue instance by example");
+	public List<Eventtype> findByExample(Eventtype instance) {
+		_logger.debug("finding Eventtype instance by example");
 		try {
-			List<Queue> results = (List<Queue>) _sessionFactory
-					.getCurrentSession().createCriteria("Queue")
+			List<Eventtype> results = (List<Eventtype>) _sessionFactory
+					.getCurrentSession().createCriteria("Eventtype")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

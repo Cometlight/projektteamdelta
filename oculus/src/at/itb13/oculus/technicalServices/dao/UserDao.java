@@ -1,10 +1,10 @@
-package at.itb13.oculus.technicalServices;
+package at.itb13.oculus.technicalServices.dao;
 
 import java.util.List;
 
 import javax.naming.InitialContext;
 
-import at.itb13.oculus.domain.Prescription;
+import at.itb13.oculus.domain.User;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,10 +20,10 @@ import static org.hibernate.criterion.Example.create;
  * @author Daniel Scheffknecht
  * @date 03.04.2015
  */
-public class PrescriptionDao {
+public class UserDao {
 
-	private static final Logger _logger = LogManager.getLogger(PrescriptionDao.class.getName());
-	
+	private static final Logger _logger = LogManager.getLogger(UserDao.class.getName());
+
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
@@ -37,8 +37,8 @@ public class PrescriptionDao {
 		}
 	}
 
-	public void persist(Prescription transientInstance) {
-		_logger.debug("persisting Prescription instance");
+	public void persist(User transientInstance) {
+		_logger.debug("persisting User instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -48,8 +48,8 @@ public class PrescriptionDao {
 		}
 	}
 
-	public void attachDirty(Prescription instance) {
-		_logger.debug("attaching dirty Prescription instance");
+	public void attachDirty(User instance) {
+		_logger.debug("attaching dirty User instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -59,8 +59,8 @@ public class PrescriptionDao {
 		}
 	}
 
-	public void attachClean(Prescription instance) {
-		_logger.debug("attaching clean Prescription instance");
+	public void attachClean(User instance) {
+		_logger.debug("attaching clean User instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -70,8 +70,8 @@ public class PrescriptionDao {
 		}
 	}
 
-	public void delete(Prescription persistentInstance) {
-		_logger.debug("deleting Prescription instance");
+	public void delete(User persistentInstance) {
+		_logger.debug("deleting User instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -81,11 +81,11 @@ public class PrescriptionDao {
 		}
 	}
 
-	public Prescription merge(Prescription detachedInstance) {
-		_logger.debug("merging Prescription instance");
+	public User merge(User detachedInstance) {
+		_logger.debug("merging User instance");
 		try {
-			Prescription result = (Prescription) _sessionFactory
-					.getCurrentSession().merge(detachedInstance);
+			User result = (User) _sessionFactory.getCurrentSession().merge(
+					detachedInstance);
 			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -94,11 +94,11 @@ public class PrescriptionDao {
 		}
 	}
 
-	public Prescription findById(java.lang.Integer id) {
-		_logger.debug("getting Prescription instance with id: " + id);
+	public User findById(java.lang.Integer id) {
+		_logger.debug("getting User instance with id: " + id);
 		try {
-			Prescription instance = (Prescription) _sessionFactory
-					.getCurrentSession().get("Prescription", id);
+			User instance = (User) _sessionFactory.getCurrentSession().get(
+					"User", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -111,11 +111,11 @@ public class PrescriptionDao {
 		}
 	}
 
-	public List<Prescription> findByExample(Prescription instance) {
-		_logger.debug("finding Prescription instance by example");
+	public List<User> findByExample(User instance) {
+		_logger.debug("finding User instance by example");
 		try {
-			List<Prescription> results = (List<Prescription>) _sessionFactory
-					.getCurrentSession().createCriteria("Prescription")
+			List<User> results = (List<User>) _sessionFactory
+					.getCurrentSession().createCriteria("User")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

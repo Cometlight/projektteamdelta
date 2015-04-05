@@ -1,10 +1,10 @@
-package at.itb13.oculus.technicalServices;
+package at.itb13.oculus.technicalServices.dao;
 
 import java.util.List;
 
 import javax.naming.InitialContext;
 
-import at.itb13.oculus.domain.Workdisability;
+import at.itb13.oculus.domain.Workinghours;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,9 +20,9 @@ import static org.hibernate.criterion.Example.create;
  * @author Daniel Scheffknecht
  * @date 03.04.2015
  */
-public class WorkdisabilityDao {
+public class WorkinghoursDao {
 
-	private static final Logger _logger = LogManager.getLogger(WorkdisabilityDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(WorkinghoursDao.class.getName());
 
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
@@ -37,8 +37,8 @@ public class WorkdisabilityDao {
 		}
 	}
 
-	public void persist(Workdisability transientInstance) {
-		_logger.debug("persisting Workdisability instance");
+	public void persist(Workinghours transientInstance) {
+		_logger.debug("persisting Workinghours instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -48,8 +48,8 @@ public class WorkdisabilityDao {
 		}
 	}
 
-	public void attachDirty(Workdisability instance) {
-		_logger.debug("attaching dirty Workdisability instance");
+	public void attachDirty(Workinghours instance) {
+		_logger.debug("attaching dirty Workinghours instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -59,8 +59,8 @@ public class WorkdisabilityDao {
 		}
 	}
 
-	public void attachClean(Workdisability instance) {
-		_logger.debug("attaching clean Workdisability instance");
+	public void attachClean(Workinghours instance) {
+		_logger.debug("attaching clean Workinghours instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -70,8 +70,8 @@ public class WorkdisabilityDao {
 		}
 	}
 
-	public void delete(Workdisability persistentInstance) {
-		_logger.debug("deleting Workdisability instance");
+	public void delete(Workinghours persistentInstance) {
+		_logger.debug("deleting Workinghours instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -81,10 +81,10 @@ public class WorkdisabilityDao {
 		}
 	}
 
-	public Workdisability merge(Workdisability detachedInstance) {
-		_logger.debug("merging Workdisability instance");
+	public Workinghours merge(Workinghours detachedInstance) {
+		_logger.debug("merging Workinghours instance");
 		try {
-			Workdisability result = (Workdisability) _sessionFactory
+			Workinghours result = (Workinghours) _sessionFactory
 					.getCurrentSession().merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -94,11 +94,11 @@ public class WorkdisabilityDao {
 		}
 	}
 
-	public Workdisability findById(java.lang.Integer id) {
-		_logger.debug("getting Workdisability instance with id: " + id);
+	public Workinghours findById(java.lang.Integer id) {
+		_logger.debug("getting Workinghours instance with id: " + id);
 		try {
-			Workdisability instance = (Workdisability) _sessionFactory
-					.getCurrentSession().get("Workdisability", id);
+			Workinghours instance = (Workinghours) _sessionFactory
+					.getCurrentSession().get("Workinghours", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -111,11 +111,11 @@ public class WorkdisabilityDao {
 		}
 	}
 
-	public List<Workdisability> findByExample(Workdisability instance) {
-		_logger.debug("finding Workdisability instance by example");
+	public List<Workinghours> findByExample(Workinghours instance) {
+		_logger.debug("finding Workinghours instance by example");
 		try {
-			List<Workdisability> results = (List<Workdisability>) _sessionFactory
-					.getCurrentSession().createCriteria("Workdisability")
+			List<Workinghours> results = (List<Workinghours>) _sessionFactory
+					.getCurrentSession().createCriteria("Workinghours")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

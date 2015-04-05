@@ -1,28 +1,28 @@
-package at.itb13.oculus.technicalServices;
+package at.itb13.oculus.technicalServices.dao;
+// default package
+// Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
 
 import java.util.List;
 
 import javax.naming.InitialContext;
-
-import at.itb13.oculus.domain.Weekday;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
+import at.itb13.oculus.domain.Calendar;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * 
- * TODO: Insert description here.
- * 
- * @author Daniel Scheffknecht
- * @date 03.04.2015
+ * Home object for domain model class Calendar.
+ * @see .Calendar
+ * @author Hibernate Tools
  */
-public class WeekdayDao {
+public class CalendarDao {
 
-	private static final Logger _logger = LogManager.getLogger(WeekdayDao.class.getName());
+	
+	private static final Logger _logger = LogManager.getLogger(CalendarDao.class.getName());
 
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
@@ -37,8 +37,8 @@ public class WeekdayDao {
 		}
 	}
 
-	public void persist(Weekday transientInstance) {
-		_logger.debug("persisting Weekday instance");
+	public void persist(Calendar transientInstance) {
+		_logger.debug("persisting Calendar instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -48,8 +48,8 @@ public class WeekdayDao {
 		}
 	}
 
-	public void attachDirty(Weekday instance) {
-		_logger.debug("attaching dirty Weekday instance");
+	public void attachDirty(Calendar instance) {
+		_logger.debug("attaching dirty Calendar instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -59,8 +59,8 @@ public class WeekdayDao {
 		}
 	}
 
-	public void attachClean(Weekday instance) {
-		_logger.debug("attaching clean Weekday instance");
+	public void attachClean(Calendar instance) {
+		_logger.debug("attaching clean Calendar instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -70,8 +70,8 @@ public class WeekdayDao {
 		}
 	}
 
-	public void delete(Weekday persistentInstance) {
-		_logger.debug("deleting Weekday instance");
+	public void delete(Calendar persistentInstance) {
+		_logger.debug("deleting Calendar instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -81,10 +81,10 @@ public class WeekdayDao {
 		}
 	}
 
-	public Weekday merge(Weekday detachedInstance) {
-		_logger.debug("merging Weekday instance");
+	public Calendar merge(Calendar detachedInstance) {
+		_logger.debug("merging Calendar instance");
 		try {
-			Weekday result = (Weekday) _sessionFactory.getCurrentSession()
+			Calendar result = (Calendar) _sessionFactory.getCurrentSession()
 					.merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -94,11 +94,11 @@ public class WeekdayDao {
 		}
 	}
 
-	public Weekday findById(java.lang.String id) {
-		_logger.debug("getting Weekday instance with id: " + id);
+	public Calendar findById(java.lang.Integer id) {
+		_logger.debug("getting Calendar instance with id: " + id);
 		try {
-			Weekday instance = (Weekday) _sessionFactory.getCurrentSession()
-					.get("Weekday", id);
+			Calendar instance = (Calendar) _sessionFactory.getCurrentSession()
+					.get("Calendar", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -111,11 +111,11 @@ public class WeekdayDao {
 		}
 	}
 
-	public List<Weekday> findByExample(Weekday instance) {
-		_logger.debug("finding Weekday instance by example");
+	public List<Calendar> findByExample(Calendar instance) {
+		_logger.debug("finding Calendar instance by example");
 		try {
-			List<Weekday> results = (List<Weekday>) _sessionFactory
-					.getCurrentSession().createCriteria("Weekday")
+			List<Calendar> results = (List<Calendar>) _sessionFactory
+					.getCurrentSession().createCriteria("Calendar")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

@@ -1,10 +1,10 @@
-package at.itb13.oculus.technicalServices;
+package at.itb13.oculus.technicalServices.dao;
 
 import java.util.List;
 
 import javax.naming.InitialContext;
 
-import at.itb13.oculus.domain.Referralletter;
+import at.itb13.oculus.domain.Patient;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,9 +20,9 @@ import static org.hibernate.criterion.Example.create;
  * @author Daniel Scheffknecht
  * @date 03.04.2015
  */
-public class ReferralletterDao {
+public class PatientDao {
 
-	private static final Logger _logger = LogManager.getLogger(ReferralletterDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(PatientDao.class.getName());
 	
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
@@ -37,8 +37,8 @@ public class ReferralletterDao {
 		}
 	}
 
-	public void persist(Referralletter transientInstance) {
-		_logger.debug("persisting Referralletter instance");
+	public void persist(Patient transientInstance) {
+		_logger.debug("persisting Patient instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -48,8 +48,8 @@ public class ReferralletterDao {
 		}
 	}
 
-	public void attachDirty(Referralletter instance) {
-		_logger.debug("attaching dirty Referralletter instance");
+	public void attachDirty(Patient instance) {
+		_logger.debug("attaching dirty Patient instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -59,8 +59,8 @@ public class ReferralletterDao {
 		}
 	}
 
-	public void attachClean(Referralletter instance) {
-		_logger.debug("attaching clean Referralletter instance");
+	public void attachClean(Patient instance) {
+		_logger.debug("attaching clean Patient instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -70,8 +70,8 @@ public class ReferralletterDao {
 		}
 	}
 
-	public void delete(Referralletter persistentInstance) {
-		_logger.debug("deleting Referralletter instance");
+	public void delete(Patient persistentInstance) {
+		_logger.debug("deleting Patient instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -81,11 +81,11 @@ public class ReferralletterDao {
 		}
 	}
 
-	public Referralletter merge(Referralletter detachedInstance) {
-		_logger.debug("merging Referralletter instance");
+	public Patient merge(Patient detachedInstance) {
+		_logger.debug("merging Patient instance");
 		try {
-			Referralletter result = (Referralletter) _sessionFactory
-					.getCurrentSession().merge(detachedInstance);
+			Patient result = (Patient) _sessionFactory.getCurrentSession()
+					.merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -94,11 +94,11 @@ public class ReferralletterDao {
 		}
 	}
 
-	public Referralletter findById(java.lang.Integer id) {
-		_logger.debug("getting Referralletter instance with id: " + id);
+	public Patient findById(java.lang.Integer id) {
+		_logger.debug("getting Patient instance with id: " + id);
 		try {
-			Referralletter instance = (Referralletter) _sessionFactory
-					.getCurrentSession().get("Referralletter", id);
+			Patient instance = (Patient) _sessionFactory.getCurrentSession()
+					.get("Patient", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -111,11 +111,11 @@ public class ReferralletterDao {
 		}
 	}
 
-	public List<Referralletter> findByExample(Referralletter instance) {
-		_logger.debug("finding Referralletter instance by example");
+	public List<Patient> findByExample(Patient instance) {
+		_logger.debug("finding Patient instance by example");
 		try {
-			List<Referralletter> results = (List<Referralletter>) _sessionFactory
-					.getCurrentSession().createCriteria("Referralletter")
+			List<Patient> results = (List<Patient>) _sessionFactory
+					.getCurrentSession().createCriteria("Patient")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

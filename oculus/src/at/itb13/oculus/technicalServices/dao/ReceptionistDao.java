@@ -1,10 +1,12 @@
-package at.itb13.oculus.technicalServices;
+package at.itb13.oculus.technicalServices.dao;
+// default package
+// Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
 
 import java.util.List;
 
 import javax.naming.InitialContext;
 
-import at.itb13.oculus.domain.Patient;
+import at.itb13.oculus.domain.Receptionist;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,9 +22,9 @@ import static org.hibernate.criterion.Example.create;
  * @author Daniel Scheffknecht
  * @date 03.04.2015
  */
-public class PatientDao {
+public class ReceptionistDao {
 
-	private static final Logger _logger = LogManager.getLogger(PatientDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(ReceptionistDao.class.getName());
 	
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
@@ -37,8 +39,8 @@ public class PatientDao {
 		}
 	}
 
-	public void persist(Patient transientInstance) {
-		_logger.debug("persisting Patient instance");
+	public void persist(Receptionist transientInstance) {
+		_logger.debug("persisting Receptionist instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -48,8 +50,8 @@ public class PatientDao {
 		}
 	}
 
-	public void attachDirty(Patient instance) {
-		_logger.debug("attaching dirty Patient instance");
+	public void attachDirty(Receptionist instance) {
+		_logger.debug("attaching dirty Receptionist instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -59,8 +61,8 @@ public class PatientDao {
 		}
 	}
 
-	public void attachClean(Patient instance) {
-		_logger.debug("attaching clean Patient instance");
+	public void attachClean(Receptionist instance) {
+		_logger.debug("attaching clean Receptionist instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -70,8 +72,8 @@ public class PatientDao {
 		}
 	}
 
-	public void delete(Patient persistentInstance) {
-		_logger.debug("deleting Patient instance");
+	public void delete(Receptionist persistentInstance) {
+		_logger.debug("deleting Receptionist instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -81,11 +83,11 @@ public class PatientDao {
 		}
 	}
 
-	public Patient merge(Patient detachedInstance) {
-		_logger.debug("merging Patient instance");
+	public Receptionist merge(Receptionist detachedInstance) {
+		_logger.debug("merging Receptionist instance");
 		try {
-			Patient result = (Patient) _sessionFactory.getCurrentSession()
-					.merge(detachedInstance);
+			Receptionist result = (Receptionist) _sessionFactory
+					.getCurrentSession().merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -94,11 +96,11 @@ public class PatientDao {
 		}
 	}
 
-	public Patient findById(java.lang.Integer id) {
-		_logger.debug("getting Patient instance with id: " + id);
+	public Receptionist findById(java.lang.Integer id) {
+		_logger.debug("getting Receptionist instance with id: " + id);
 		try {
-			Patient instance = (Patient) _sessionFactory.getCurrentSession()
-					.get("Patient", id);
+			Receptionist instance = (Receptionist) _sessionFactory
+					.getCurrentSession().get("Receptionist", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -111,11 +113,11 @@ public class PatientDao {
 		}
 	}
 
-	public List<Patient> findByExample(Patient instance) {
-		_logger.debug("finding Patient instance by example");
+	public List<Receptionist> findByExample(Receptionist instance) {
+		_logger.debug("finding Receptionist instance by example");
 		try {
-			List<Patient> results = (List<Patient>) _sessionFactory
-					.getCurrentSession().createCriteria("Patient")
+			List<Receptionist> results = (List<Receptionist>) _sessionFactory
+					.getCurrentSession().createCriteria("Receptionist")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

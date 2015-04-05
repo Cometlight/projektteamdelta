@@ -1,28 +1,29 @@
-package at.itb13.oculus.technicalServices;
-// default package
-// Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
+package at.itb13.oculus.technicalServices.dao;
 
 import java.util.List;
 
 import javax.naming.InitialContext;
+
+import at.itb13.oculus.domain.Prescription;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
-import at.itb13.oculus.domain.Examinationresult;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * Home object for domain model class Examinationresult.
- * @see .Examinationresult
- * @author Hibernate Tools
+ * 
+ * TODO: Insert description here.
+ * 
+ * @author Daniel Scheffknecht
+ * @date 03.04.2015
  */
-public class ExaminationresultDao {
+public class PrescriptionDao {
 
-	private static final Logger _logger = LogManager.getLogger(ExaminationresultDao.class.getName());
-
+	private static final Logger _logger = LogManager.getLogger(PrescriptionDao.class.getName());
+	
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
@@ -36,8 +37,8 @@ public class ExaminationresultDao {
 		}
 	}
 
-	public void persist(Examinationresult transientInstance) {
-		_logger.debug("persisting Examinationresult instance");
+	public void persist(Prescription transientInstance) {
+		_logger.debug("persisting Prescription instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -47,8 +48,8 @@ public class ExaminationresultDao {
 		}
 	}
 
-	public void attachDirty(Examinationresult instance) {
-		_logger.debug("attaching dirty Examinationresult instance");
+	public void attachDirty(Prescription instance) {
+		_logger.debug("attaching dirty Prescription instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -58,8 +59,8 @@ public class ExaminationresultDao {
 		}
 	}
 
-	public void attachClean(Examinationresult instance) {
-		_logger.debug("attaching clean Examinationresult instance");
+	public void attachClean(Prescription instance) {
+		_logger.debug("attaching clean Prescription instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -69,8 +70,8 @@ public class ExaminationresultDao {
 		}
 	}
 
-	public void delete(Examinationresult persistentInstance) {
-		_logger.debug("deleting Examinationresult instance");
+	public void delete(Prescription persistentInstance) {
+		_logger.debug("deleting Prescription instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -80,10 +81,10 @@ public class ExaminationresultDao {
 		}
 	}
 
-	public Examinationresult merge(Examinationresult detachedInstance) {
-		_logger.debug("merging Examinationresult instance");
+	public Prescription merge(Prescription detachedInstance) {
+		_logger.debug("merging Prescription instance");
 		try {
-			Examinationresult result = (Examinationresult) _sessionFactory
+			Prescription result = (Prescription) _sessionFactory
 					.getCurrentSession().merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -93,11 +94,11 @@ public class ExaminationresultDao {
 		}
 	}
 
-	public Examinationresult findById(java.lang.Integer id) {
-		_logger.debug("getting Examinationresult instance with id: " + id);
+	public Prescription findById(java.lang.Integer id) {
+		_logger.debug("getting Prescription instance with id: " + id);
 		try {
-			Examinationresult instance = (Examinationresult) _sessionFactory
-					.getCurrentSession().get("Examinationresult", id);
+			Prescription instance = (Prescription) _sessionFactory
+					.getCurrentSession().get("Prescription", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -110,11 +111,11 @@ public class ExaminationresultDao {
 		}
 	}
 
-	public List<Examinationresult> findByExample(Examinationresult instance) {
-		_logger.debug("finding Examinationresult instance by example");
+	public List<Prescription> findByExample(Prescription instance) {
+		_logger.debug("finding Prescription instance by example");
 		try {
-			List<Examinationresult> results = (List<Examinationresult>) _sessionFactory
-					.getCurrentSession().createCriteria("Examinationresult")
+			List<Prescription> results = (List<Prescription>) _sessionFactory
+					.getCurrentSession().createCriteria("Prescription")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

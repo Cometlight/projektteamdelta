@@ -1,27 +1,29 @@
-package at.itb13.oculus.technicalServices;
-// default package
-// Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
+package at.itb13.oculus.technicalServices.dao;
 
 import java.util.List;
 
 import javax.naming.InitialContext;
+
+import at.itb13.oculus.domain.Weekday;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
-import at.itb13.oculus.domain.Doctor;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * Home object for domain model class Doctor.
- * @see .Doctor
- * @author Hibernate Tools
+ * 
+ * TODO: Insert description here.
+ * 
+ * @author Daniel Scheffknecht
+ * @date 03.04.2015
  */
-public class DoctorDao {
+public class WeekdayDao {
 
-	private static final Logger _logger = LogManager.getLogger(DoctorDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(WeekdayDao.class.getName());
+
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
@@ -35,8 +37,8 @@ public class DoctorDao {
 		}
 	}
 
-	public void persist(Doctor transientInstance) {
-		_logger.debug("persisting Doctor instance");
+	public void persist(Weekday transientInstance) {
+		_logger.debug("persisting Weekday instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -46,8 +48,8 @@ public class DoctorDao {
 		}
 	}
 
-	public void attachDirty(Doctor instance) {
-		_logger.debug("attaching dirty Doctor instance");
+	public void attachDirty(Weekday instance) {
+		_logger.debug("attaching dirty Weekday instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -57,8 +59,8 @@ public class DoctorDao {
 		}
 	}
 
-	public void attachClean(Doctor instance) {
-		_logger.debug("attaching clean Doctor instance");
+	public void attachClean(Weekday instance) {
+		_logger.debug("attaching clean Weekday instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -68,8 +70,8 @@ public class DoctorDao {
 		}
 	}
 
-	public void delete(Doctor persistentInstance) {
-		_logger.debug("deleting Doctor instance");
+	public void delete(Weekday persistentInstance) {
+		_logger.debug("deleting Weekday instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -79,11 +81,11 @@ public class DoctorDao {
 		}
 	}
 
-	public Doctor merge(Doctor detachedInstance) {
-		_logger.debug("merging Doctor instance");
+	public Weekday merge(Weekday detachedInstance) {
+		_logger.debug("merging Weekday instance");
 		try {
-			Doctor result = (Doctor) _sessionFactory.getCurrentSession().merge(
-					detachedInstance);
+			Weekday result = (Weekday) _sessionFactory.getCurrentSession()
+					.merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -92,11 +94,11 @@ public class DoctorDao {
 		}
 	}
 
-	public Doctor findById(java.lang.Integer id) {
-		_logger.debug("getting Doctor instance with id: " + id);
+	public Weekday findById(java.lang.String id) {
+		_logger.debug("getting Weekday instance with id: " + id);
 		try {
-			Doctor instance = (Doctor) _sessionFactory.getCurrentSession().get(
-					"Doctor", id);
+			Weekday instance = (Weekday) _sessionFactory.getCurrentSession()
+					.get("Weekday", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -109,11 +111,11 @@ public class DoctorDao {
 		}
 	}
 
-	public List<Doctor> findByExample(Doctor instance) {
-		_logger.debug("finding Doctor instance by example");
+	public List<Weekday> findByExample(Weekday instance) {
+		_logger.debug("finding Weekday instance by example");
 		try {
-			List<Doctor> results = (List<Doctor>) _sessionFactory
-					.getCurrentSession().createCriteria("Doctor")
+			List<Weekday> results = (List<Weekday>) _sessionFactory
+					.getCurrentSession().createCriteria("Weekday")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

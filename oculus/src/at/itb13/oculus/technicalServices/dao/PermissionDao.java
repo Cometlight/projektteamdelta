@@ -1,10 +1,10 @@
-package at.itb13.oculus.technicalServices;
-
-import at.itb13.oculus.domain.Orthoptist;
+package at.itb13.oculus.technicalServices.dao;
 
 import java.util.List;
 
 import javax.naming.InitialContext;
+
+import at.itb13.oculus.domain.Permission;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,10 +20,10 @@ import static org.hibernate.criterion.Example.create;
  * @author Daniel Scheffknecht
  * @date 03.04.2015
  */
-public class OrthoptistDao {
+public class PermissionDao {
 
-	private static final Logger _logger = LogManager.getLogger(OrthoptistDao.class.getName());
-	
+	private static final Logger _logger = LogManager.getLogger(PermissionDao.class.getName());
+
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
@@ -37,8 +37,8 @@ public class OrthoptistDao {
 		}
 	}
 
-	public void persist(Orthoptist transientInstance) {
-		_logger.debug("persisting Orthoptist instance");
+	public void persist(Permission transientInstance) {
+		_logger.debug("persisting Permission instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -48,8 +48,8 @@ public class OrthoptistDao {
 		}
 	}
 
-	public void attachDirty(Orthoptist instance) {
-		_logger.debug("attaching dirty Orthoptist instance");
+	public void attachDirty(Permission instance) {
+		_logger.debug("attaching dirty Permission instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -59,8 +59,8 @@ public class OrthoptistDao {
 		}
 	}
 
-	public void attachClean(Orthoptist instance) {
-		_logger.debug("attaching clean Orthoptist instance");
+	public void attachClean(Permission instance) {
+		_logger.debug("attaching clean Permission instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -70,8 +70,8 @@ public class OrthoptistDao {
 		}
 	}
 
-	public void delete(Orthoptist persistentInstance) {
-		_logger.debug("deleting Orthoptist instance");
+	public void delete(Permission persistentInstance) {
+		_logger.debug("deleting Permission instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -81,10 +81,10 @@ public class OrthoptistDao {
 		}
 	}
 
-	public Orthoptist merge(Orthoptist detachedInstance) {
-		_logger.debug("merging Orthoptist instance");
+	public Permission merge(Permission detachedInstance) {
+		_logger.debug("merging Permission instance");
 		try {
-			Orthoptist result = (Orthoptist) _sessionFactory.getCurrentSession()
+			Permission result = (Permission) _sessionFactory.getCurrentSession()
 					.merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -94,11 +94,11 @@ public class OrthoptistDao {
 		}
 	}
 
-	public Orthoptist findById(java.lang.Integer id) {
-		_logger.debug("getting Orthoptist instance with id: " + id);
+	public Permission findById(java.lang.Integer id) {
+		_logger.debug("getting Permission instance with id: " + id);
 		try {
-			Orthoptist instance = (Orthoptist) _sessionFactory
-					.getCurrentSession().get("Orthoptist", id);
+			Permission instance = (Permission) _sessionFactory
+					.getCurrentSession().get("Permission", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -111,11 +111,11 @@ public class OrthoptistDao {
 		}
 	}
 
-	public List<Orthoptist> findByExample(Orthoptist instance) {
-		_logger.debug("finding Orthoptist instance by example");
+	public List<Permission> findByExample(Permission instance) {
+		_logger.debug("finding Permission instance by example");
 		try {
-			List<Orthoptist> results = (List<Orthoptist>) _sessionFactory
-					.getCurrentSession().createCriteria("Orthoptist")
+			List<Permission> results = (List<Permission>) _sessionFactory
+					.getCurrentSession().createCriteria("Permission")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

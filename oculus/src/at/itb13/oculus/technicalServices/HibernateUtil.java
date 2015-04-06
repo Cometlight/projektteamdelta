@@ -24,12 +24,17 @@ public class HibernateUtil {
 			StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 					.applySettings(config.getProperties()).build();
 			_sessionFactory = config.buildSessionFactory(serviceRegistry);
+			_logger.info("_sessionFactory has been initialized.");
 		} catch (Throwable ex) {
-			_logger.error(ex);
+			_logger.fatal(ex);
 			throw new ExceptionInInitializerError(ex);
 		}
 	}
 	
+	/**
+	 * 
+	 * @return always returns the same SessionFactory (Singleton)
+	 */
 	public static SessionFactory getSessionFactory() {
 		return _sessionFactory;
 	}

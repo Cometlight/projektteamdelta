@@ -1,17 +1,13 @@
 package at.itb13.oculus.technicalServices.dao;
 
+import java.util.List;
 import java.util.Set;
 
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import at.itb13.oculus.domain.Calendarevent;
-import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Eventtype;
-import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.technicalServices.GenericDao;
-import at.itb13.oculus.technicalServices.HibernateUtil;
 
 /**
  * TODO: Insert description here.
@@ -26,29 +22,30 @@ public class EventtypeDao extends GenericDao<Eventtype> {
 	}
 	
 	public Set<Calendarevent> loadCalendarevents(Eventtype eventtype) {
-		Session session = null;
-		Transaction tx = null;
 		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			tx = session.beginTransaction();
-			
-			session.update(eventtype);	// TODO: Check if merge(), lock(), or sth. similar would be more appropriate for reattaching the object;
-			Hibernate.initialize(eventtype.getCalendarevents());
-			
-			tx.commit();
-			session.flush();	// TODO: Check if flush() is needed
-		} catch (Exception ex) {
-			if(tx != null) {
-				tx.rollback();
-			}
-			ex.printStackTrace();
-		} finally {
-			if(session != null) {
-				session.close();
-			}
+			loadCollection(eventtype, eventtype.getCalendarevents());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		return eventtype.getCalendarevents();
 	}
 	// TODO: Add logging
+	
+	public Eventtype findByName(String name) {
+		Eventtype ev = null;
+		
+		List<Eventtype> eventtypes = findByCriteria(Restrictions.like("eventTypeName", name));
+		
+		if(eventtypes.size() > 1) {
+			// TODO logging warning, shouldn't happen.
+		}
+
+		if(!eventtypes.isEmpty()) {
+			ev = eventtypes.get(0);
+		}
+		
+		return ev;
+	}
 }

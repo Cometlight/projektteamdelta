@@ -25,52 +25,22 @@ public class DoctorDao extends GenericDao<Doctor> {
 	}
 	
 	public Set<Patient> loadPatients(Doctor doctor) {
-		Session session = null;
-		Transaction tx = null;
 		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			tx = session.beginTransaction();
-			
-			session.update(doctor);	// TODO: Check if merge(), lock(), or sth. similar would be more appropriate for reattaching the object;
-			Hibernate.initialize(doctor.getPatients());
-			
-			tx.commit();
-			session.flush();	// TODO: Check if flus() is needed
-		} catch (Exception ex) {
-			if(tx != null) {
-				tx.rollback();
-			}
-			ex.printStackTrace();
-		} finally {
-			if(session != null) {
-				session.close();
-			}
+			loadCollection(doctor, doctor.getPatients());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		return doctor.getPatients();
 	}
-
+	
 	public Set<Diagnosis> loadDiagnoses(Doctor doctor) {
-		Session session = null;
-		Transaction tx = null;
 		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			tx = session.beginTransaction();
-			
-			session.update(doctor);	// TODO: Check if merge(), lock(), or sth. similar would be more appropriate for reattaching the object;
-			Hibernate.initialize(doctor.getDiagnosises());	// TODO: rename getDiagnosises to getDiagnoses ??
-			
-			tx.commit();
-			session.flush();	// TODO: Check if flush() is needed
-		} catch (Exception ex) {
-			if(tx != null) {
-				tx.rollback();
-			}
-			ex.printStackTrace();
-		} finally {
-			if(session != null) {
-				session.close();
-			}
+			loadCollection(doctor, doctor.getDiagnosises());// TODO: rename getDiagnosises to getDiagnoses ??
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		return doctor.getDiagnosises();

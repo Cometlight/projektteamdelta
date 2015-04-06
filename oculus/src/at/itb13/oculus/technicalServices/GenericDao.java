@@ -175,7 +175,7 @@ public abstract class GenericDao<T> {
 		}
 	}
 	
-	protected <U> void loadCollection(T entity, Collection collection) throws Exception {
+	protected void loadCollection(T entity, Collection<?> collection) throws Exception {
 		if(Hibernate.isInitialized(collection)) {
 			// TODO: Log info that already initialized. However, there is no need to throw an exception.
 		} else {

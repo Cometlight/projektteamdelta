@@ -1,5 +1,6 @@
 package at.itb13.oculus.technicalServices;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -174,7 +175,7 @@ public abstract class GenericDao<T> {
 		}
 	}
 	
-	protected <U> void loadCollection(T entity, Object collection) throws Exception {
+	protected <U> void loadCollection(T entity, Collection collection) throws Exception {
 		if(Hibernate.isInitialized(collection)) {
 			// TODO: Log info that already initialized. However, there is no need to throw an exception.
 		} else {

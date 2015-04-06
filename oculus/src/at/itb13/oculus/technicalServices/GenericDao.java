@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
@@ -169,6 +170,34 @@ public abstract class GenericDao<T> {
 		} finally {
 			if(session != null) {
 				session.close();
+			}
+		}
+	}
+	
+	protected <U> void loadCollection(T entity, Object collection) throws Exception {
+		if(Hibernate.isInitialized(collection)) {
+			// TODO: Log info that already initialized. However, there is no need to throw an exception.
+		} else {
+			Session session = null;
+			Transaction tx = null;
+			try {
+				session = HibernateUtil.getSessionFactory().openSession();
+				tx = session.beginTransaction();
+				
+				session.update(entity);	// TODO: Check if merge(), lock(), or sth. similar would be more appropriate for reattaching the object;
+				Hibernate.initialize(collection);
+				
+				tx.commit();
+				session.flush();	// TODO: Check if flush() is needed
+			} catch (Exception ex) {
+				if(tx != null) {
+					tx.rollback();
+				}
+				throw ex;
+			} finally {
+				if(session != null) {
+					session.close();
+				}
 			}
 		}
 	}

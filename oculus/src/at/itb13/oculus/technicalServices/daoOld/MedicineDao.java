@@ -1,30 +1,28 @@
-package at.itb13.oculus.technicalServices.dao;
+package at.itb13.oculus.technicalServices.daoOld;
+// default package
+// Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
 
 import java.util.List;
 
 import javax.naming.InitialContext;
-
-import at.itb13.oculus.domain.Userpermission;
-import at.itb13.oculus.domain.UserpermissionId;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
+import at.itb13.oculus.domain.Medicine;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * 
- * TODO: Insert description here.
- * 
- * @author Daniel Scheffknecht
- * @date 03.04.2015
+ * Home object for domain model class Medicine.
+ * @see .Medicine
+ * @author Hibernate Tools
  */
-public class UserpermissionDao {
+public class MedicineDao {
 
-	private static final Logger _logger = LogManager.getLogger(UserpermissionDao.class.getName());
-
+	private static final Logger _logger = LogManager.getLogger(MedicineDao.class.getName());
+	
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
@@ -38,8 +36,8 @@ public class UserpermissionDao {
 		}
 	}
 
-	public void persist(Userpermission transientInstance) {
-		_logger.debug("persisting Userpermission instance");
+	public void persist(Medicine transientInstance) {
+		_logger.debug("persisting Medicine instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -49,8 +47,8 @@ public class UserpermissionDao {
 		}
 	}
 
-	public void attachDirty(Userpermission instance) {
-		_logger.debug("attaching dirty Userpermission instance");
+	public void attachDirty(Medicine instance) {
+		_logger.debug("attaching dirty Medicine instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -60,8 +58,8 @@ public class UserpermissionDao {
 		}
 	}
 
-	public void attachClean(Userpermission instance) {
-		_logger.debug("attaching clean Userpermission instance");
+	public void attachClean(Medicine instance) {
+		_logger.debug("attaching clean Medicine instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -71,8 +69,8 @@ public class UserpermissionDao {
 		}
 	}
 
-	public void delete(Userpermission persistentInstance) {
-		_logger.debug("deleting Userpermission instance");
+	public void delete(Medicine persistentInstance) {
+		_logger.debug("deleting Medicine instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -82,11 +80,11 @@ public class UserpermissionDao {
 		}
 	}
 
-	public Userpermission merge(Userpermission detachedInstance) {
-		_logger.debug("merging Userpermission instance");
+	public Medicine merge(Medicine detachedInstance) {
+		_logger.debug("merging Medicine instance");
 		try {
-			Userpermission result = (Userpermission) _sessionFactory
-					.getCurrentSession().merge(detachedInstance);
+			Medicine result = (Medicine) _sessionFactory.getCurrentSession()
+					.merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -95,11 +93,11 @@ public class UserpermissionDao {
 		}
 	}
 
-	public Userpermission findById(UserpermissionId id) {
-		_logger.debug("getting Userpermission instance with id: " + id);
+	public Medicine findById(java.lang.Integer id) {
+		_logger.debug("getting Medicine instance with id: " + id);
 		try {
-			Userpermission instance = (Userpermission) _sessionFactory
-					.getCurrentSession().get("Userpermission", id);
+			Medicine instance = (Medicine) _sessionFactory.getCurrentSession()
+					.get("Medicine", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -112,11 +110,11 @@ public class UserpermissionDao {
 		}
 	}
 
-	public List<Userpermission> findByExample(Userpermission instance) {
-		_logger.debug("finding Userpermission instance by example");
+	public List<Medicine> findByExample(Medicine instance) {
+		_logger.debug("finding Medicine instance by example");
 		try {
-			List<Userpermission> results = (List<Userpermission>) _sessionFactory
-					.getCurrentSession().createCriteria("Userpermission")
+			List<Medicine> results = (List<Medicine>) _sessionFactory
+					.getCurrentSession().createCriteria("Medicine")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

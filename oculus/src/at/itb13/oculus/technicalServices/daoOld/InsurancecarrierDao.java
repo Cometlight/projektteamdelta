@@ -1,7 +1,6 @@
-package at.itb13.oculus.technicalServices.dao;
+package at.itb13.oculus.technicalServices.daoOld;
 // default package
 // Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
-
 
 import java.util.List;
 
@@ -12,17 +11,18 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
-import at.itb13.oculus.domain.Administrator;
+import at.itb13.oculus.domain.Insurancecarrier;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * Home object for domain model class Administrator.
- * @see .Administrator
+ * Home object for domain model class Insurancecarrier.
+ * @see .Insurancecarrier
  * @author Hibernate Tools
  */
-public class AdministratorDao {
+public class InsurancecarrierDao {
 
-	private static final Logger _logger = LogManager.getLogger(AdministratorDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(InsurancecarrierDao.class.getName());
+
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
@@ -36,8 +36,8 @@ public class AdministratorDao {
 		}
 	}
 
-	public void persist(Administrator transientInstance) {
-		_logger.debug("persisting Administrator instance");
+	public void persist(Insurancecarrier transientInstance) {
+		_logger.debug("persisting Insurancecarrier instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -47,8 +47,8 @@ public class AdministratorDao {
 		}
 	}
 
-	public void attachDirty(Administrator instance) {
-		_logger.debug("attaching dirty Administrator instance");
+	public void attachDirty(Insurancecarrier instance) {
+		_logger.debug("attaching dirty Insurancecarrier instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -58,8 +58,8 @@ public class AdministratorDao {
 		}
 	}
 
-	public void attachClean(Administrator instance) {
-		_logger.debug("attaching clean Administrator instance");
+	public void attachClean(Insurancecarrier instance) {
+		_logger.debug("attaching clean Insurancecarrier instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -69,8 +69,8 @@ public class AdministratorDao {
 		}
 	}
 
-	public void delete(Administrator persistentInstance) {
-		_logger.debug("deleting Administrator instance");
+	public void delete(Insurancecarrier persistentInstance) {
+		_logger.debug("deleting Insurancecarrier instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -80,10 +80,10 @@ public class AdministratorDao {
 		}
 	}
 
-	public Administrator merge(Administrator detachedInstance) {
-		_logger.debug("merging Administrator instance");
+	public Insurancecarrier merge(Insurancecarrier detachedInstance) {
+		_logger.debug("merging Insurancecarrier instance");
 		try {
-			Administrator result = (Administrator) _sessionFactory
+			Insurancecarrier result = (Insurancecarrier) _sessionFactory
 					.getCurrentSession().merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -93,11 +93,11 @@ public class AdministratorDao {
 		}
 	}
 
-	public Administrator findById(java.lang.Integer id) {
-		_logger.debug("getting Administrator instance with id: " + id);
+	public Insurancecarrier findById(java.lang.String id) {
+		_logger.debug("getting Insurancecarrier instance with id: " + id);
 		try {
-			Administrator instance = (Administrator) _sessionFactory
-					.getCurrentSession().get("Administrator", id);
+			Insurancecarrier instance = (Insurancecarrier) _sessionFactory
+					.getCurrentSession().get("Insurancecarrier", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -110,11 +110,11 @@ public class AdministratorDao {
 		}
 	}
 
-	public List<Administrator> findByExample(Administrator instance) {
-		_logger.debug("finding Administrator instance by example");
+	public List<Insurancecarrier> findByExample(Insurancecarrier instance) {
+		_logger.debug("finding Insurancecarrier instance by example");
 		try {
-			List<Administrator> results = (List<Administrator>) _sessionFactory
-					.getCurrentSession().createCriteria("Administrator")
+			List<Insurancecarrier> results = (List<Insurancecarrier>) _sessionFactory
+					.getCurrentSession().createCriteria("Insurancecarrier")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

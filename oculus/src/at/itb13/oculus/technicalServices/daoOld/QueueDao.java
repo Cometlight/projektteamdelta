@@ -1,10 +1,10 @@
-package at.itb13.oculus.technicalServices.dao;
+package at.itb13.oculus.technicalServices.daoOld;
 
 import java.util.List;
 
 import javax.naming.InitialContext;
 
-import at.itb13.oculus.domain.Visualaid;
+import at.itb13.oculus.domain.Queue;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,10 +20,10 @@ import static org.hibernate.criterion.Example.create;
  * @author Daniel Scheffknecht
  * @date 03.04.2015
  */
-public class VisualaidDao {
+public class QueueDao {
 
-	private static final Logger _logger = LogManager.getLogger(VisualaidDao.class.getName());
-
+	private static final Logger _logger = LogManager.getLogger(QueueDao.class.getName());
+	
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
@@ -37,8 +37,8 @@ public class VisualaidDao {
 		}
 	}
 
-	public void persist(Visualaid transientInstance) {
-		_logger.debug("persisting Visualaid instance");
+	public void persist(Queue transientInstance) {
+		_logger.debug("persisting Queue instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -48,8 +48,8 @@ public class VisualaidDao {
 		}
 	}
 
-	public void attachDirty(Visualaid instance) {
-		_logger.debug("attaching dirty Visualaid instance");
+	public void attachDirty(Queue instance) {
+		_logger.debug("attaching dirty Queue instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -59,8 +59,8 @@ public class VisualaidDao {
 		}
 	}
 
-	public void attachClean(Visualaid instance) {
-		_logger.debug("attaching clean Visualaid instance");
+	public void attachClean(Queue instance) {
+		_logger.debug("attaching clean Queue instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -70,8 +70,8 @@ public class VisualaidDao {
 		}
 	}
 
-	public void delete(Visualaid persistentInstance) {
-		_logger.debug("deleting Visualaid instance");
+	public void delete(Queue persistentInstance) {
+		_logger.debug("deleting Queue instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -81,11 +81,11 @@ public class VisualaidDao {
 		}
 	}
 
-	public Visualaid merge(Visualaid detachedInstance) {
-		_logger.debug("merging Visualaid instance");
+	public Queue merge(Queue detachedInstance) {
+		_logger.debug("merging Queue instance");
 		try {
-			Visualaid result = (Visualaid) _sessionFactory.getCurrentSession()
-					.merge(detachedInstance);
+			Queue result = (Queue) _sessionFactory.getCurrentSession().merge(
+					detachedInstance);
 			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -94,11 +94,11 @@ public class VisualaidDao {
 		}
 	}
 
-	public Visualaid findById(java.lang.Integer id) {
-		_logger.debug("getting Visualaid instance with id: " + id);
+	public Queue findById(java.lang.Integer id) {
+		_logger.debug("getting Queue instance with id: " + id);
 		try {
-			Visualaid instance = (Visualaid) _sessionFactory.getCurrentSession()
-					.get("Visualaid", id);
+			Queue instance = (Queue) _sessionFactory.getCurrentSession().get(
+					"Queue", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -111,11 +111,11 @@ public class VisualaidDao {
 		}
 	}
 
-	public List<Visualaid> findByExample(Visualaid instance) {
-		_logger.debug("finding Visualaid instance by example");
+	public List<Queue> findByExample(Queue instance) {
+		_logger.debug("finding Queue instance by example");
 		try {
-			List<Visualaid> results = (List<Visualaid>) _sessionFactory
-					.getCurrentSession().createCriteria("Visualaid")
+			List<Queue> results = (List<Queue>) _sessionFactory
+					.getCurrentSession().createCriteria("Queue")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

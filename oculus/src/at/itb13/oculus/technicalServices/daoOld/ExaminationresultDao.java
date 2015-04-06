@@ -1,4 +1,4 @@
-package at.itb13.oculus.technicalServices.dao;
+package at.itb13.oculus.technicalServices.daoOld;
 // default package
 // Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
 

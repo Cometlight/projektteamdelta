@@ -1,28 +1,29 @@
-package at.itb13.oculus.technicalServices.dao;
-// default package
-// Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
+package at.itb13.oculus.technicalServices.daoOld;
 
 import java.util.List;
 
 import javax.naming.InitialContext;
+
+import at.itb13.oculus.domain.Visualaid;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
-import at.itb13.oculus.domain.Examinationprotocol;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * Home object for domain model class Examinationprotocol.
- * @see .Examinationprotocol
- * @author Hibernate Tools
+ * 
+ * TODO: Insert description here.
+ * 
+ * @author Daniel Scheffknecht
+ * @date 03.04.2015
  */
-public class ExaminationprotocolDao {
+public class VisualaidDao {
 
-	private static final Logger _logger = LogManager.getLogger(ExaminationprotocolDao.class.getName());
-	
+	private static final Logger _logger = LogManager.getLogger(VisualaidDao.class.getName());
+
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
@@ -36,8 +37,8 @@ public class ExaminationprotocolDao {
 		}
 	}
 
-	public void persist(Examinationprotocol transientInstance) {
-		_logger.debug("persisting Examinationprotocol instance");
+	public void persist(Visualaid transientInstance) {
+		_logger.debug("persisting Visualaid instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -47,8 +48,8 @@ public class ExaminationprotocolDao {
 		}
 	}
 
-	public void attachDirty(Examinationprotocol instance) {
-		_logger.debug("attaching dirty Examinationprotocol instance");
+	public void attachDirty(Visualaid instance) {
+		_logger.debug("attaching dirty Visualaid instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -58,8 +59,8 @@ public class ExaminationprotocolDao {
 		}
 	}
 
-	public void attachClean(Examinationprotocol instance) {
-		_logger.debug("attaching clean Examinationprotocol instance");
+	public void attachClean(Visualaid instance) {
+		_logger.debug("attaching clean Visualaid instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -69,8 +70,8 @@ public class ExaminationprotocolDao {
 		}
 	}
 
-	public void delete(Examinationprotocol persistentInstance) {
-		_logger.debug("deleting Examinationprotocol instance");
+	public void delete(Visualaid persistentInstance) {
+		_logger.debug("deleting Visualaid instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -80,11 +81,11 @@ public class ExaminationprotocolDao {
 		}
 	}
 
-	public Examinationprotocol merge(Examinationprotocol detachedInstance) {
-		_logger.debug("merging Examinationprotocol instance");
+	public Visualaid merge(Visualaid detachedInstance) {
+		_logger.debug("merging Visualaid instance");
 		try {
-			Examinationprotocol result = (Examinationprotocol) _sessionFactory
-					.getCurrentSession().merge(detachedInstance);
+			Visualaid result = (Visualaid) _sessionFactory.getCurrentSession()
+					.merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -93,11 +94,11 @@ public class ExaminationprotocolDao {
 		}
 	}
 
-	public Examinationprotocol findById(java.lang.Integer id) {
-		_logger.debug("getting Examinationprotocol instance with id: " + id);
+	public Visualaid findById(java.lang.Integer id) {
+		_logger.debug("getting Visualaid instance with id: " + id);
 		try {
-			Examinationprotocol instance = (Examinationprotocol) _sessionFactory
-					.getCurrentSession().get("Examinationprotocol", id);
+			Visualaid instance = (Visualaid) _sessionFactory.getCurrentSession()
+					.get("Visualaid", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -110,11 +111,11 @@ public class ExaminationprotocolDao {
 		}
 	}
 
-	public List<Examinationprotocol> findByExample(Examinationprotocol instance) {
-		_logger.debug("finding Examinationprotocol instance by example");
+	public List<Visualaid> findByExample(Visualaid instance) {
+		_logger.debug("finding Visualaid instance by example");
 		try {
-			List<Examinationprotocol> results = (List<Examinationprotocol>) _sessionFactory
-					.getCurrentSession().createCriteria("Examinationprotocol")
+			List<Visualaid> results = (List<Visualaid>) _sessionFactory
+					.getCurrentSession().createCriteria("Visualaid")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

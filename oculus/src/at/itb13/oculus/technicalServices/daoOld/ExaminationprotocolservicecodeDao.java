@@ -1,6 +1,6 @@
-package at.itb13.oculus.technicalServices.dao;
-
-import at.itb13.oculus.domain.Orthoptist;
+package at.itb13.oculus.technicalServices.daoOld;
+// default package
+// Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
 
 import java.util.List;
 
@@ -11,18 +11,18 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
+import at.itb13.oculus.domain.Examinationprotocolservicecode;
+import at.itb13.oculus.domain.ExaminationprotocolservicecodeId;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * 
- * TODO: Insert description here.
- * 
- * @author Daniel Scheffknecht
- * @date 03.04.2015
+ * Home object for domain model class Examinationprotocolservicecode.
+ * @see .Examinationprotocolservicecode
+ * @author Hibernate Tools
  */
-public class OrthoptistDao {
+public class ExaminationprotocolservicecodeDao {
 
-	private static final Logger _logger = LogManager.getLogger(OrthoptistDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(ExaminationprotocolservicecodeDao.class.getName());
 	
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
@@ -37,8 +37,8 @@ public class OrthoptistDao {
 		}
 	}
 
-	public void persist(Orthoptist transientInstance) {
-		_logger.debug("persisting Orthoptist instance");
+	public void persist(Examinationprotocolservicecode transientInstance) {
+		_logger.debug("persisting Examinationprotocolservicecode instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -48,8 +48,8 @@ public class OrthoptistDao {
 		}
 	}
 
-	public void attachDirty(Orthoptist instance) {
-		_logger.debug("attaching dirty Orthoptist instance");
+	public void attachDirty(Examinationprotocolservicecode instance) {
+		_logger.debug("attaching dirty Examinationprotocolservicecode instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -59,8 +59,8 @@ public class OrthoptistDao {
 		}
 	}
 
-	public void attachClean(Orthoptist instance) {
-		_logger.debug("attaching clean Orthoptist instance");
+	public void attachClean(Examinationprotocolservicecode instance) {
+		_logger.debug("attaching clean Examinationprotocolservicecode instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -70,8 +70,8 @@ public class OrthoptistDao {
 		}
 	}
 
-	public void delete(Orthoptist persistentInstance) {
-		_logger.debug("deleting Orthoptist instance");
+	public void delete(Examinationprotocolservicecode persistentInstance) {
+		_logger.debug("deleting Examinationprotocolservicecode instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -81,11 +81,12 @@ public class OrthoptistDao {
 		}
 	}
 
-	public Orthoptist merge(Orthoptist detachedInstance) {
-		_logger.debug("merging Orthoptist instance");
+	public Examinationprotocolservicecode merge(
+			Examinationprotocolservicecode detachedInstance) {
+		_logger.debug("merging Examinationprotocolservicecode instance");
 		try {
-			Orthoptist result = (Orthoptist) _sessionFactory.getCurrentSession()
-					.merge(detachedInstance);
+			Examinationprotocolservicecode result = (Examinationprotocolservicecode) _sessionFactory
+					.getCurrentSession().merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -94,11 +95,14 @@ public class OrthoptistDao {
 		}
 	}
 
-	public Orthoptist findById(java.lang.Integer id) {
-		_logger.debug("getting Orthoptist instance with id: " + id);
+	public Examinationprotocolservicecode findById(
+			ExaminationprotocolservicecodeId id) {
+		_logger.debug("getting Examinationprotocolservicecode instance with id: "
+				+ id);
 		try {
-			Orthoptist instance = (Orthoptist) _sessionFactory
-					.getCurrentSession().get("Orthoptist", id);
+			Examinationprotocolservicecode instance = (Examinationprotocolservicecode) _sessionFactory
+					.getCurrentSession().get("Examinationprotocolservicecode",
+							id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -111,11 +115,13 @@ public class OrthoptistDao {
 		}
 	}
 
-	public List<Orthoptist> findByExample(Orthoptist instance) {
-		_logger.debug("finding Orthoptist instance by example");
+	public List<Examinationprotocolservicecode> findByExample(
+			Examinationprotocolservicecode instance) {
+		_logger.debug("finding Examinationprotocolservicecode instance by example");
 		try {
-			List<Orthoptist> results = (List<Orthoptist>) _sessionFactory
-					.getCurrentSession().createCriteria("Orthoptist")
+			List<Examinationprotocolservicecode> results = (List<Examinationprotocolservicecode>) _sessionFactory
+					.getCurrentSession()
+					.createCriteria("Examinationprotocolservicecode")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

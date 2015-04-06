@@ -1,10 +1,10 @@
-package at.itb13.oculus.technicalServices.dao;
+package at.itb13.oculus.technicalServices.daoOld;
 
 import java.util.List;
 
 import javax.naming.InitialContext;
 
-import at.itb13.oculus.domain.Queue;
+import at.itb13.oculus.domain.Weekday;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,10 +20,10 @@ import static org.hibernate.criterion.Example.create;
  * @author Daniel Scheffknecht
  * @date 03.04.2015
  */
-public class QueueDao {
+public class WeekdayDao {
 
-	private static final Logger _logger = LogManager.getLogger(QueueDao.class.getName());
-	
+	private static final Logger _logger = LogManager.getLogger(WeekdayDao.class.getName());
+
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
@@ -37,8 +37,8 @@ public class QueueDao {
 		}
 	}
 
-	public void persist(Queue transientInstance) {
-		_logger.debug("persisting Queue instance");
+	public void persist(Weekday transientInstance) {
+		_logger.debug("persisting Weekday instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -48,8 +48,8 @@ public class QueueDao {
 		}
 	}
 
-	public void attachDirty(Queue instance) {
-		_logger.debug("attaching dirty Queue instance");
+	public void attachDirty(Weekday instance) {
+		_logger.debug("attaching dirty Weekday instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -59,8 +59,8 @@ public class QueueDao {
 		}
 	}
 
-	public void attachClean(Queue instance) {
-		_logger.debug("attaching clean Queue instance");
+	public void attachClean(Weekday instance) {
+		_logger.debug("attaching clean Weekday instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -70,8 +70,8 @@ public class QueueDao {
 		}
 	}
 
-	public void delete(Queue persistentInstance) {
-		_logger.debug("deleting Queue instance");
+	public void delete(Weekday persistentInstance) {
+		_logger.debug("deleting Weekday instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -81,11 +81,11 @@ public class QueueDao {
 		}
 	}
 
-	public Queue merge(Queue detachedInstance) {
-		_logger.debug("merging Queue instance");
+	public Weekday merge(Weekday detachedInstance) {
+		_logger.debug("merging Weekday instance");
 		try {
-			Queue result = (Queue) _sessionFactory.getCurrentSession().merge(
-					detachedInstance);
+			Weekday result = (Weekday) _sessionFactory.getCurrentSession()
+					.merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -94,11 +94,11 @@ public class QueueDao {
 		}
 	}
 
-	public Queue findById(java.lang.Integer id) {
-		_logger.debug("getting Queue instance with id: " + id);
+	public Weekday findById(java.lang.String id) {
+		_logger.debug("getting Weekday instance with id: " + id);
 		try {
-			Queue instance = (Queue) _sessionFactory.getCurrentSession().get(
-					"Queue", id);
+			Weekday instance = (Weekday) _sessionFactory.getCurrentSession()
+					.get("Weekday", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -111,11 +111,11 @@ public class QueueDao {
 		}
 	}
 
-	public List<Queue> findByExample(Queue instance) {
-		_logger.debug("finding Queue instance by example");
+	public List<Weekday> findByExample(Weekday instance) {
+		_logger.debug("finding Weekday instance by example");
 		try {
-			List<Queue> results = (List<Queue>) _sessionFactory
-					.getCurrentSession().createCriteria("Queue")
+			List<Weekday> results = (List<Weekday>) _sessionFactory
+					.getCurrentSession().createCriteria("Weekday")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

@@ -1,10 +1,10 @@
-package at.itb13.oculus.technicalServices.dao;
+package at.itb13.oculus.technicalServices.daoOld;
 
 import java.util.List;
 
 import javax.naming.InitialContext;
 
-import at.itb13.oculus.domain.Usergroup;
+import at.itb13.oculus.domain.Workdisability;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,9 +20,9 @@ import static org.hibernate.criterion.Example.create;
  * @author Daniel Scheffknecht
  * @date 03.04.2015
  */
-public class UsergroupDao {
+public class WorkdisabilityDao {
 
-	private static final Logger _logger = LogManager.getLogger(UsergroupDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(WorkdisabilityDao.class.getName());
 
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
@@ -37,8 +37,8 @@ public class UsergroupDao {
 		}
 	}
 
-	public void persist(Usergroup transientInstance) {
-		_logger.debug("persisting Usergroup instance");
+	public void persist(Workdisability transientInstance) {
+		_logger.debug("persisting Workdisability instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -48,8 +48,8 @@ public class UsergroupDao {
 		}
 	}
 
-	public void attachDirty(Usergroup instance) {
-		_logger.debug("attaching dirty Usergroup instance");
+	public void attachDirty(Workdisability instance) {
+		_logger.debug("attaching dirty Workdisability instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -59,8 +59,8 @@ public class UsergroupDao {
 		}
 	}
 
-	public void attachClean(Usergroup instance) {
-		_logger.debug("attaching clean Usergroup instance");
+	public void attachClean(Workdisability instance) {
+		_logger.debug("attaching clean Workdisability instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -70,8 +70,8 @@ public class UsergroupDao {
 		}
 	}
 
-	public void delete(Usergroup persistentInstance) {
-		_logger.debug("deleting Usergroup instance");
+	public void delete(Workdisability persistentInstance) {
+		_logger.debug("deleting Workdisability instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -81,11 +81,11 @@ public class UsergroupDao {
 		}
 	}
 
-	public Usergroup merge(Usergroup detachedInstance) {
-		_logger.debug("merging Usergroup instance");
+	public Workdisability merge(Workdisability detachedInstance) {
+		_logger.debug("merging Workdisability instance");
 		try {
-			Usergroup result = (Usergroup) _sessionFactory.getCurrentSession()
-					.merge(detachedInstance);
+			Workdisability result = (Workdisability) _sessionFactory
+					.getCurrentSession().merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -94,11 +94,11 @@ public class UsergroupDao {
 		}
 	}
 
-	public Usergroup findById(java.lang.Integer id) {
-		_logger.debug("getting Usergroup instance with id: " + id);
+	public Workdisability findById(java.lang.Integer id) {
+		_logger.debug("getting Workdisability instance with id: " + id);
 		try {
-			Usergroup instance = (Usergroup) _sessionFactory.getCurrentSession()
-					.get("Usergroup", id);
+			Workdisability instance = (Workdisability) _sessionFactory
+					.getCurrentSession().get("Workdisability", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -111,11 +111,11 @@ public class UsergroupDao {
 		}
 	}
 
-	public List<Usergroup> findByExample(Usergroup instance) {
-		_logger.debug("finding Usergroup instance by example");
+	public List<Workdisability> findByExample(Workdisability instance) {
+		_logger.debug("finding Workdisability instance by example");
 		try {
-			List<Usergroup> results = (List<Usergroup>) _sessionFactory
-					.getCurrentSession().createCriteria("Usergroup")
+			List<Workdisability> results = (List<Workdisability>) _sessionFactory
+					.getCurrentSession().createCriteria("Workdisability")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

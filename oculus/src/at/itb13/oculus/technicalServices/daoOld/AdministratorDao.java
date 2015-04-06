@@ -1,29 +1,28 @@
-package at.itb13.oculus.technicalServices.dao;
+package at.itb13.oculus.technicalServices.daoOld;
+// default package
+// Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
+
 
 import java.util.List;
 
 import javax.naming.InitialContext;
-
-import at.itb13.oculus.domain.Servicecode;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
+import at.itb13.oculus.domain.Administrator;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * 
- * TODO: Insert description here.
- * 
- * @author Daniel Scheffknecht
- * @date 03.04.2015
+ * Home object for domain model class Administrator.
+ * @see .Administrator
+ * @author Hibernate Tools
  */
-public class ServicecodeDao {
+public class AdministratorDao {
 
-	private static final Logger _logger = LogManager.getLogger(ServicecodeDao.class.getName());
-	
+	private static final Logger _logger = LogManager.getLogger(AdministratorDao.class.getName());
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
@@ -37,8 +36,8 @@ public class ServicecodeDao {
 		}
 	}
 
-	public void persist(Servicecode transientInstance) {
-		_logger.debug("persisting Servicecode instance");
+	public void persist(Administrator transientInstance) {
+		_logger.debug("persisting Administrator instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -48,8 +47,8 @@ public class ServicecodeDao {
 		}
 	}
 
-	public void attachDirty(Servicecode instance) {
-		_logger.debug("attaching dirty Servicecode instance");
+	public void attachDirty(Administrator instance) {
+		_logger.debug("attaching dirty Administrator instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -59,8 +58,8 @@ public class ServicecodeDao {
 		}
 	}
 
-	public void attachClean(Servicecode instance) {
-		_logger.debug("attaching clean Servicecode instance");
+	public void attachClean(Administrator instance) {
+		_logger.debug("attaching clean Administrator instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -70,8 +69,8 @@ public class ServicecodeDao {
 		}
 	}
 
-	public void delete(Servicecode persistentInstance) {
-		_logger.debug("deleting Servicecode instance");
+	public void delete(Administrator persistentInstance) {
+		_logger.debug("deleting Administrator instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -81,10 +80,10 @@ public class ServicecodeDao {
 		}
 	}
 
-	public Servicecode merge(Servicecode detachedInstance) {
-		_logger.debug("merging Servicecode instance");
+	public Administrator merge(Administrator detachedInstance) {
+		_logger.debug("merging Administrator instance");
 		try {
-			Servicecode result = (Servicecode) _sessionFactory
+			Administrator result = (Administrator) _sessionFactory
 					.getCurrentSession().merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -94,11 +93,11 @@ public class ServicecodeDao {
 		}
 	}
 
-	public Servicecode findById(java.lang.Integer id) {
-		_logger.debug("getting Servicecode instance with id: " + id);
+	public Administrator findById(java.lang.Integer id) {
+		_logger.debug("getting Administrator instance with id: " + id);
 		try {
-			Servicecode instance = (Servicecode) _sessionFactory
-					.getCurrentSession().get("Servicecode", id);
+			Administrator instance = (Administrator) _sessionFactory
+					.getCurrentSession().get("Administrator", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -111,11 +110,11 @@ public class ServicecodeDao {
 		}
 	}
 
-	public List<Servicecode> findByExample(Servicecode instance) {
-		_logger.debug("finding Servicecode instance by example");
+	public List<Administrator> findByExample(Administrator instance) {
+		_logger.debug("finding Administrator instance by example");
 		try {
-			List<Servicecode> results = (List<Servicecode>) _sessionFactory
-					.getCurrentSession().createCriteria("Servicecode")
+			List<Administrator> results = (List<Administrator>) _sessionFactory
+					.getCurrentSession().createCriteria("Administrator")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

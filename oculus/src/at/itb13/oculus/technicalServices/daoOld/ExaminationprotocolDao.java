@@ -1,4 +1,4 @@
-package at.itb13.oculus.technicalServices.dao;
+package at.itb13.oculus.technicalServices.daoOld;
 // default package
 // Generated 03.04.2015 15:26:51 by Hibernate Tools 4.3.1
 
@@ -11,18 +11,18 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
-import at.itb13.oculus.domain.Insurancecarrier;
+import at.itb13.oculus.domain.Examinationprotocol;
 import static org.hibernate.criterion.Example.create;
 
 /**
- * Home object for domain model class Insurancecarrier.
- * @see .Insurancecarrier
+ * Home object for domain model class Examinationprotocol.
+ * @see .Examinationprotocol
  * @author Hibernate Tools
  */
-public class InsurancecarrierDao {
+public class ExaminationprotocolDao {
 
-	private static final Logger _logger = LogManager.getLogger(InsurancecarrierDao.class.getName());
-
+	private static final Logger _logger = LogManager.getLogger(ExaminationprotocolDao.class.getName());
+	
 	private final SessionFactory _sessionFactory = getSessionFactory();
 
 	protected SessionFactory getSessionFactory() {
@@ -36,8 +36,8 @@ public class InsurancecarrierDao {
 		}
 	}
 
-	public void persist(Insurancecarrier transientInstance) {
-		_logger.debug("persisting Insurancecarrier instance");
+	public void persist(Examinationprotocol transientInstance) {
+		_logger.debug("persisting Examinationprotocol instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
 			_logger.debug("persist successful");
@@ -47,8 +47,8 @@ public class InsurancecarrierDao {
 		}
 	}
 
-	public void attachDirty(Insurancecarrier instance) {
-		_logger.debug("attaching dirty Insurancecarrier instance");
+	public void attachDirty(Examinationprotocol instance) {
+		_logger.debug("attaching dirty Examinationprotocol instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			_logger.debug("attach successful");
@@ -58,8 +58,8 @@ public class InsurancecarrierDao {
 		}
 	}
 
-	public void attachClean(Insurancecarrier instance) {
-		_logger.debug("attaching clean Insurancecarrier instance");
+	public void attachClean(Examinationprotocol instance) {
+		_logger.debug("attaching clean Examinationprotocol instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			_logger.debug("attach successful");
@@ -69,8 +69,8 @@ public class InsurancecarrierDao {
 		}
 	}
 
-	public void delete(Insurancecarrier persistentInstance) {
-		_logger.debug("deleting Insurancecarrier instance");
+	public void delete(Examinationprotocol persistentInstance) {
+		_logger.debug("deleting Examinationprotocol instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
 			_logger.debug("delete successful");
@@ -80,10 +80,10 @@ public class InsurancecarrierDao {
 		}
 	}
 
-	public Insurancecarrier merge(Insurancecarrier detachedInstance) {
-		_logger.debug("merging Insurancecarrier instance");
+	public Examinationprotocol merge(Examinationprotocol detachedInstance) {
+		_logger.debug("merging Examinationprotocol instance");
 		try {
-			Insurancecarrier result = (Insurancecarrier) _sessionFactory
+			Examinationprotocol result = (Examinationprotocol) _sessionFactory
 					.getCurrentSession().merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -93,11 +93,11 @@ public class InsurancecarrierDao {
 		}
 	}
 
-	public Insurancecarrier findById(java.lang.String id) {
-		_logger.debug("getting Insurancecarrier instance with id: " + id);
+	public Examinationprotocol findById(java.lang.Integer id) {
+		_logger.debug("getting Examinationprotocol instance with id: " + id);
 		try {
-			Insurancecarrier instance = (Insurancecarrier) _sessionFactory
-					.getCurrentSession().get("Insurancecarrier", id);
+			Examinationprotocol instance = (Examinationprotocol) _sessionFactory
+					.getCurrentSession().get("Examinationprotocol", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
 			} else {
@@ -110,11 +110,11 @@ public class InsurancecarrierDao {
 		}
 	}
 
-	public List<Insurancecarrier> findByExample(Insurancecarrier instance) {
-		_logger.debug("finding Insurancecarrier instance by example");
+	public List<Examinationprotocol> findByExample(Examinationprotocol instance) {
+		_logger.debug("finding Examinationprotocol instance by example");
 		try {
-			List<Insurancecarrier> results = (List<Insurancecarrier>) _sessionFactory
-					.getCurrentSession().createCriteria("Insurancecarrier")
+			List<Examinationprotocol> results = (List<Examinationprotocol>) _sessionFactory
+					.getCurrentSession().createCriteria("Examinationprotocol")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "
 					+ results.size());

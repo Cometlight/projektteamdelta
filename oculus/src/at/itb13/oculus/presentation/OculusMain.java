@@ -1,11 +1,11 @@
-package at.itb13.oculus.application;
+package at.itb13.oculus.presentation;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.prefs.Preferences;
 
-import at.itb13.oculus.application.view.PatientController;
 import at.itb13.oculus.domain.PatientWithProperties;
+import at.itb13.oculus.presentation.view.PatientController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

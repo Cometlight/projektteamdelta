@@ -24,7 +24,7 @@ import org.hibernate.criterion.Criterion;
  */
 public abstract class GenericDao<T> {
 	
-	private static final Logger _logger = LogManager.getLogger(HibernateUtil.class.getName());
+	private static final Logger _logger = LogManager.getLogger(GenericDao.class.getName());
 	private Class<T> _domainClass;
 	
 	/**

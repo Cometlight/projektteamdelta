@@ -46,6 +46,28 @@ public class PatientDao extends GenericDao<Patient> {
 	}
 	
 	/**
+	 * Load the Patient with the specified socialInsuranceNr from the database.
+	 * 
+	 * @param socialInsuranceNr The socialInsuranceNr of the Patient that should be loaded from the database.
+	 * @return the desired Patient, or null, if no Patient with the supplied socialInsuranceNr was found.
+	 */
+	public Patient findBySocialInsuranceNr(String socialInsuranceNr) {
+		Patient patient = null;
+		
+		List<Patient>patients = findByCriteria(Restrictions.eq("socialInsuranceNr", socialInsuranceNr));
+		
+		if(patients.size() > 1) {
+			_logger.warn("More than 1 Patient with the socialInsuranceNr'" + socialInsuranceNr + "' has been found!");
+		}
+
+		if(!patients.isEmpty()) {
+			patient = patients.get(0);
+		}
+		
+		return patient;
+	}
+	
+	/**
 	 * Loads the collection from the database into the entity.
 	 * No changes are made to the database.
 	 * <p>

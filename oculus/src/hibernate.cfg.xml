@@ -37,31 +37,31 @@
         <property name="hibernate.validator.apply_to_ddl">false</property>
         
         <!-- Mappings -->
-        <mapping class="Prescription" />
-        <mapping class="User" />
-        <mapping class="Examinationresult" />
-        <mapping class="Calendarevent" />
-        <mapping class="Workinghours" />
-        <mapping class="Orthoptist" />
-        <mapping class="Weekday" />
-        <mapping class="Administrator" />
-        <mapping class="Referralletter" />
-        <mapping class="Eventtype" />
-        <mapping class="Permission" />
-        <mapping class="Diagnosis" />
-        <mapping class="Queue" />
-        <mapping class="Receptionist" />
-        <mapping class="Calendar" />
-        <mapping class="Examinationprotocol" />
-        <mapping class="Patient" />
-        <mapping class="Userpermission" />
-        <mapping class="Visualaid" />
-        <mapping class="Usergroup" />
-        <mapping class="Doctor" />
-        <mapping class="Medicine" />
-        <mapping class="Workdisability" />
-        <mapping class="Insurancecarrier" />
-        <mapping class="Examinationprotocolservicecode" />
-        <mapping class="Servicecode" />
+        <mapping class="at.itb13.oculus.domain.Prescription" />
+        <mapping class="at.itb13.oculus.domain.User" />
+        <mapping class="at.itb13.oculus.domain.Examinationresult" />
+        <mapping class="at.itb13.oculus.domain.Calendarevent" />
+        <mapping class="at.itb13.oculus.domain.Workinghours" />
+        <mapping class="at.itb13.oculus.domain.Orthoptist" />
+        <mapping class="at.itb13.oculus.domain.Weekday" />
+        <mapping class="at.itb13.oculus.domain.Administrator" />
+        <mapping class="at.itb13.oculus.domain.Referralletter" />
+        <mapping class="at.itb13.oculus.domain.Eventtype" />
+        <mapping class="at.itb13.oculus.domain.Permission" />
+        <mapping class="at.itb13.oculus.domain.Diagnosis" />
+        <mapping class="at.itb13.oculus.domain.Queue" />
+        <mapping class="at.itb13.oculus.domain.Receptionist" />
+        <mapping class="at.itb13.oculus.domain.Calendar" />
+        <mapping class="at.itb13.oculus.domain.Examinationprotocol" />
+        <mapping class="at.itb13.oculus.domain.Patient" />
+        <mapping class="at.itb13.oculus.domain.Userpermission" />
+        <mapping class="at.itb13.oculus.domain.Visualaid" />
+        <mapping class="at.itb13.oculus.domain.Usergroup" />
+        <mapping class="at.itb13.oculus.domain.Doctor" />
+        <mapping class="at.itb13.oculus.domain.Medicine" />
+        <mapping class="at.itb13.oculus.domain.Workdisability" />
+        <mapping class="at.itb13.oculus.domain.Insurancecarrier" />
+        <mapping class="at.itb13.oculus.domain.Examinationprotocolservicecode" />
+        <mapping class="at.itb13.oculus.domain.Servicecode" />
     </session-factory>
 </hibernate-configuration>

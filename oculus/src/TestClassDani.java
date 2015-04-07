@@ -1,7 +1,9 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.domain.Eventtype;
+import at.itb13.oculus.domain.Calendarevent;
+import at.itb13.oculus.domain.Patient;
+import at.itb13.oculus.technicalServices.dao.PatientDao;
 
 /**
  * TODO: Insert description here.
@@ -16,10 +18,18 @@ public class TestClassDani {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Eventtype eventtype = new Eventtype();
-		eventtype.setEventTypeName("Doomsday");
-		eventtype.setEstimatedTime(30);
-		eventtype.setDescription("Hi there! Here you could write down a useful description. Really!");
+		PatientDao patDao = new PatientDao();
+		Patient pat = patDao.findBySocialInsuranceNr("5678151082");	// should be Max Mustermann
+		System.out.println(pat.getFirstName() + " " + pat.getLastName() + " (" + pat.getSocialInsuranceNr() + ")");
+		
+		Calendarevent ev1 = patDao.loadCalendarevents(pat).iterator().next();
+		int numberOfCalEvents = pat.getCalendarevents().size();
+		
+		System.out.println(numberOfCalEvents + " calendarEvents associated with the patient");
+		System.out.print("First calendarEvent:\n\t");
+		System.out.println(ev1.getDescription());
+		
+		System.exit(0);
 	}
 
 }

@@ -26,6 +26,7 @@ import javax.persistence.TemporalType;
 import at.itb13.oculus.domain.Calendarevent;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Examinationprotocol;
+import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Prescription;
 import at.itb13.oculus.domain.Queue;
 import at.itb13.oculus.domain.Referralletter;
@@ -60,6 +61,25 @@ public class PatientWithProperties implements java.io.Serializable {
 	private Set<Examinationprotocol> examinationprotocols = new HashSet<Examinationprotocol>(0);
 
 	public PatientWithProperties() {
+	}
+	public PatientWithProperties(Patient patient){
+		patientId.set(patient.getPatientId());
+		doctor.set(patient.getDoctor());
+		socialInsuranceNr.set(patient.getSocialInsuranceNr());
+		firstName.set(patient.getFirstName());
+		lastName.set(patient.getLastName());
+		birthDay.set(patient.getBirthDay());
+		gender.set(patient.getGender());
+		street.set(patient.getStreet());
+		postalCode.set(getPostalCode());
+		city.set(patient.getCity());
+		countryIsoCode.set(patient.getCountryIsoCode());
+		phone.set(patient.getPhone());
+		email.set(patient.getEmail());
+		allergy.set(patient.getAllergy());
+		childhoodAilments.set(patient.getChildhoodAilments());
+		medicineIntolerance.set(patient.getMedicineIntolerance());
+		
 	}
 
 	public PatientWithProperties(String firstName, String lastName, String gender) {
@@ -98,9 +118,7 @@ public class PatientWithProperties implements java.io.Serializable {
 		this.examinationprotocols = examinationprotocols;
 	}
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "patientId", unique = true, nullable = false)
+
 	public Integer getPatientId() {
 		return this.patientId.get();
 	}
@@ -109,8 +127,6 @@ public class PatientWithProperties implements java.io.Serializable {
 		this.patientId.set(patientId);
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "doctorId")
 	public Doctor getDoctor() {
 		return this.doctor.get();
 	}
@@ -119,7 +135,7 @@ public class PatientWithProperties implements java.io.Serializable {
 		this.doctor.set(doctor);
 	}
 
-	@Column(name = "socialInsuranceNr", length = 10)
+	
 	public String getSocialInsuranceNr() {
 		return this.socialInsuranceNr.get();
 	}
@@ -132,7 +148,6 @@ public class PatientWithProperties implements java.io.Serializable {
 	        return socialInsuranceNr;
 	    }
 
-	@Column(name = "firstName", nullable = false, length = 30)
 	public String getFirstName() {
 		return this.firstName.get();
 	}
@@ -145,7 +160,7 @@ public class PatientWithProperties implements java.io.Serializable {
 	        return firstName;
 	    }
 
-	@Column(name = "lastName", nullable = false, length = 30)
+	
 	public String getLastName() {
 		return this.lastName.get();
 	}
@@ -157,8 +172,6 @@ public class PatientWithProperties implements java.io.Serializable {
 	        return lastName;
 	    }
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "birthDay", length = 10)
 	public Date getBirthDay() {
 		return this.birthDay.get();
 	}
@@ -171,7 +184,6 @@ public class PatientWithProperties implements java.io.Serializable {
 	        return birthDay;
 	    }
 
-	@Column(name = "gender", nullable = false, length = 2)
 	public String getGender() {
 		return this.gender.get();
 	}
@@ -183,7 +195,6 @@ public class PatientWithProperties implements java.io.Serializable {
 	        return gender;
 	    }
 
-	@Column(name = "street")
 	public String getStreet() {
 		return this.street.get();
 	}
@@ -195,7 +206,6 @@ public class PatientWithProperties implements java.io.Serializable {
 	        return street;
 	    }
 
-	@Column(name = "postalCode", length = 20)
 	public String getPostalCode() {
 		return this.postalCode.get();
 	}
@@ -204,7 +214,6 @@ public class PatientWithProperties implements java.io.Serializable {
 		this.postalCode.set(postalCode);
 	}
 
-	@Column(name = "city", length = 50)
 	public String getCity() {
 		return this.city.get();
 	}
@@ -213,7 +222,6 @@ public class PatientWithProperties implements java.io.Serializable {
 		this.city.set(city);
 	}
 
-	@Column(name = "countryIsoCode", length = 2)
 	public String getCountryIsoCode() {
 		return this.countryIsoCode.get();
 	}
@@ -222,7 +230,6 @@ public class PatientWithProperties implements java.io.Serializable {
 		this.countryIsoCode.set(countryIsoCode);
 	}
 
-	@Column(name = "phone", length = 50)
 	public String getPhone() {
 		return this.phone.get();
 	}
@@ -231,7 +238,6 @@ public class PatientWithProperties implements java.io.Serializable {
 		this.phone.set(phone);
 	}
 
-	@Column(name = "email")
 	public String getEmail() {
 		return this.email.get();
 	}
@@ -240,7 +246,6 @@ public class PatientWithProperties implements java.io.Serializable {
 		this.email.set(email);
 	}
 
-	@Column(name = "allergy", length = 65535)
 	public String getAllergy() {
 		return this.allergy.get();
 	}
@@ -249,7 +254,6 @@ public class PatientWithProperties implements java.io.Serializable {
 		this.allergy.set(allergy);
 	}
 
-	@Column(name = "childhoodAilments", length = 65535)
 	public String getChildhoodAilments() {
 		return this.childhoodAilments.get();
 	}
@@ -258,7 +262,6 @@ public class PatientWithProperties implements java.io.Serializable {
 		this.childhoodAilments.set(childhoodAilments);
 	}
 
-	@Column(name = "medicineIntolerance", length = 65535)
 	public String getMedicineIntolerance() {
 		return this.medicineIntolerance.get();
 	}
@@ -267,7 +270,6 @@ public class PatientWithProperties implements java.io.Serializable {
 		this.medicineIntolerance.set(medicineIntolerance);
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
 	public Set<Calendarevent> getCalendarevents() {
 		return this.calendarevents;
 	}
@@ -276,7 +278,6 @@ public class PatientWithProperties implements java.io.Serializable {
 		this.calendarevents = calendarevents;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
 	public Set<Prescription> getPrescriptions() {
 		return this.prescriptions;
 	}
@@ -285,7 +286,6 @@ public class PatientWithProperties implements java.io.Serializable {
 		this.prescriptions = prescriptions;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
 	public Set<Queue> getQueues() {
 		return this.queues;
 	}
@@ -294,7 +294,6 @@ public class PatientWithProperties implements java.io.Serializable {
 		this.queues = queues;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
 	public Set<Referralletter> getReferralletters() {
 		return this.referralletters;
 	}
@@ -303,7 +302,6 @@ public class PatientWithProperties implements java.io.Serializable {
 		this.referralletters = referralletters;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
 	public Set<Examinationprotocol> getExaminationprotocols() {
 		return this.examinationprotocols;
 	}

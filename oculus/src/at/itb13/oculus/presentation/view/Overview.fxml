@@ -86,7 +86,7 @@
                                  <items>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
-                                          <TableView fx:id="_patientTable" layoutX="14.0" layoutY="81.0" prefHeight="200.0" prefWidth="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                                          <TableView fx:id="_patientTable" layoutX="14.0" layoutY="127.0" prefHeight="542.0" prefWidth="264.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="127.0">
                                              <columns>
                                                 <TableColumn fx:id="_firstNameColumn" prefWidth="68.0" text="First Name" />
                                                 <TableColumn fx:id="_lastNameColumn" prefWidth="108.0" text="Last Name" />
@@ -96,9 +96,13 @@
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                              </columnResizePolicy>
                                           </TableView>
-                                          <Button layoutX="199.0" layoutY="14.0" mnemonicParsing="false" text="New" AnchorPane.rightAnchor="5.0" />
-                                          <TextField layoutX="14.0" layoutY="14.0" />
+                                          <Button layoutX="224.0" layoutY="14.0" mnemonicParsing="false" text="New" AnchorPane.rightAnchor="0.0" />
+                                          <TextField layoutX="14.0" layoutY="14.0" text="first name" />
                                           <Button layoutX="163.0" layoutY="14.0" mnemonicParsing="false" text="Search" />
+                                          <TextField layoutX="14.0" layoutY="48.0" text="last name" />
+                                          <TextField layoutX="14.0" layoutY="85.0" text="SSN" />
+                                          <Button layoutX="163.0" layoutY="48.0" mnemonicParsing="false" text="Search" />
+                                          <Button layoutX="163.0" layoutY="85.0" mnemonicParsing="false" text="Search" />
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

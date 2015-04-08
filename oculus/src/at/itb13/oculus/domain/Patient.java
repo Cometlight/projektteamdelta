@@ -39,7 +39,7 @@ public class Patient implements java.io.Serializable {
 	private String allergy;
 	private String childhoodAilments;
 	private String medicineIntolerance;
-	private Set<Calendarevent> calendarevents = new HashSet<Calendarevent>(0);
+	private Set<CalenderEvent> calendarevents = new HashSet<CalenderEvent>(0);
 	private Set<Prescription> prescriptions = new HashSet<Prescription>(0);
 	private Set<Queue> queues = new HashSet<Queue>(0);
 	private Set<Referralletter> referralletters = new HashSet<Referralletter>(0);
@@ -60,7 +60,7 @@ public class Patient implements java.io.Serializable {
 			String postalCode, String city, String countryIsoCode,
 			String phone, String email, String allergy,
 			String childhoodAilments, String medicineIntolerance,
-			Set<Calendarevent> calendarevents, Set<Prescription> prescriptions,
+			Set<CalenderEvent> calendarevents, Set<Prescription> prescriptions,
 			Set<Queue> queues, Set<Referralletter> referralletters,
 			Set<Examinationprotocol> examinationprotocols) {
 		this.doctor = doctor;
@@ -234,11 +234,11 @@ public class Patient implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
-	public Set<Calendarevent> getCalendarevents() {
+	public Set<CalenderEvent> getCalendarevents() {
 		return this.calendarevents;
 	}
 
-	public void setCalendarevents(Set<Calendarevent> calendarevents) {
+	public void setCalendarevents(Set<CalenderEvent> calendarevents) {
 		this.calendarevents = calendarevents;
 	}
 

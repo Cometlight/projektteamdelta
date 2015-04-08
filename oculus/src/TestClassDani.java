@@ -1,7 +1,7 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.domain.Calendarevent;
+import at.itb13.oculus.domain.CalenderEvent;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 
@@ -22,7 +22,7 @@ public class TestClassDani {
 		Patient pat = patDao.findBySocialInsuranceNr("5678151082");	// should be Max Mustermann
 		System.out.println(pat.getFirstName() + " " + pat.getLastName() + " (" + pat.getSocialInsuranceNr() + ")");
 		
-		Calendarevent ev1 = patDao.loadCalendarevents(pat).iterator().next();
+		CalenderEvent ev1 = patDao.loadCalendarevents(pat).iterator().next();
 		int numberOfCalEvents = pat.getCalendarevents().size();
 		
 		System.out.println(numberOfCalEvents + " calendarEvents associated with the patient");

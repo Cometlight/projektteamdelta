@@ -23,14 +23,14 @@ public class Calendar implements java.io.Serializable {
 	private String title;
 	private Set<Doctor> doctors = new HashSet<Doctor>(0);
 	private Set<Orthoptist> orthoptists = new HashSet<Orthoptist>(0);
-	private Set<Calendarevent> calendarevents = new HashSet<Calendarevent>(0);
+	private Set<CalenderEvent> calendarevents = new HashSet<CalenderEvent>(0);
 	private Set<Workinghours> workinghourses = new HashSet<Workinghours>(0);
 
 	public Calendar() {
 	}
 
 	public Calendar(String title, Set<Doctor> doctors,
-			Set<Orthoptist> orthoptists, Set<Calendarevent> calendarevents,
+			Set<Orthoptist> orthoptists, Set<CalenderEvent> calendarevents,
 			Set<Workinghours> workinghourses) {
 		this.title = title;
 		this.doctors = doctors;
@@ -78,11 +78,11 @@ public class Calendar implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "calendar")
-	public Set<Calendarevent> getCalendarevents() {
+	public Set<CalenderEvent> getCalendarevents() {
 		return this.calendarevents;
 	}
 
-	public void setCalendarevents(Set<Calendarevent> calendarevents) {
+	public void setCalendarevents(Set<CalenderEvent> calendarevents) {
 		this.calendarevents = calendarevents;
 	}
 

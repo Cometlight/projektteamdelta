@@ -23,7 +23,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import at.itb13.oculus.domain.Calendarevent;
+import at.itb13.oculus.domain.CalenderEvent;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Examinationprotocol;
 import at.itb13.oculus.domain.Patient;
@@ -54,7 +54,7 @@ public class PatientWithProperties implements java.io.Serializable {
 	private StringProperty allergy;
 	private StringProperty childhoodAilments;
 	private StringProperty medicineIntolerance;
-	private Set<Calendarevent> calendarevents = new HashSet<Calendarevent>(0);
+	private Set<CalenderEvent> calendarevents = new HashSet<CalenderEvent>(0);
 	private Set<Prescription> prescriptions = new HashSet<Prescription>(0);
 	private Set<Queue> queues = new HashSet<Queue>(0);
 	private Set<Referralletter> referralletters = new HashSet<Referralletter>(0);
@@ -93,7 +93,7 @@ public class PatientWithProperties implements java.io.Serializable {
 			String postalCode, String city, String countryIsoCode,
 			String phone, String email, String allergy,
 			String childhoodAilments, String medicineIntolerance,
-			Set<Calendarevent> calendarevents, Set<Prescription> prescriptions,
+			Set<CalenderEvent> calendarevents, Set<Prescription> prescriptions,
 			Set<Queue> queues, Set<Referralletter> referralletters,
 			Set<Examinationprotocol> examinationprotocols) {
 		this.doctor.set(doctor);
@@ -270,11 +270,11 @@ public class PatientWithProperties implements java.io.Serializable {
 		this.medicineIntolerance.set(medicineIntolerance);
 	}
 
-	public Set<Calendarevent> getCalendarevents() {
+	public Set<CalenderEvent> getCalendarevents() {
 		return this.calendarevents;
 	}
 
-	public void setCalendarevents(Set<Calendarevent> calendarevents) {
+	public void setCalendarevents(Set<CalenderEvent> calendarevents) {
 		this.calendarevents = calendarevents;
 	}
 

@@ -8,7 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
-import at.itb13.oculus.domain.Calendarevent;
+import at.itb13.oculus.domain.CalenderEvent;
 import at.itb13.oculus.domain.Eventtype;
 import at.itb13.oculus.technicalServices.GenericDao;
 
@@ -42,7 +42,7 @@ public class EventtypeDao extends GenericDao<Eventtype> {
 	 * @return The Calendarevents that have been loaded. Returns {@link java.util.Collections#emptySet()} in case of failure.
 	 * @see GenericDao#loadCollection(T entity, Collection<?> collection)
 	 */
-	public Set<Calendarevent> loadCalendarevents(Eventtype eventtype) {
+	public Set<CalenderEvent> loadCalendarevents(Eventtype eventtype) {
 		try {
 			loadCollection(eventtype, eventtype.getCalendarevents());
 		} catch (Exception e) {

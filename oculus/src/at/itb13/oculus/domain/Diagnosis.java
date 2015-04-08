@@ -24,9 +24,9 @@ public class Diagnosis implements java.io.Serializable {
 	private Doctor doctor;
 	private String title;
 	private String description;
-	private Set<Examinationprotocol> examinationprotocols = new HashSet<Examinationprotocol>(
+	private Set<ExaminationProtocol> examinationprotocols = new HashSet<ExaminationProtocol>(
 			0);
-	private Set<Visualaid> visualaids = new HashSet<Visualaid>(0);
+	private Set<VisualAid> visualaids = new HashSet<VisualAid>(0);
 	private Set<Workdisability> workdisabilities = new HashSet<Workdisability>(
 			0);
 	private Set<Medicine> medicines = new HashSet<Medicine>(0);
@@ -35,8 +35,8 @@ public class Diagnosis implements java.io.Serializable {
 	}
 
 	public Diagnosis(Doctor doctor, String title, String description,
-			Set<Examinationprotocol> examinationprotocols,
-			Set<Visualaid> visualaids, Set<Workdisability> workdisabilities,
+			Set<ExaminationProtocol> examinationprotocols,
+			Set<VisualAid> visualaids, Set<Workdisability> workdisabilities,
 			Set<Medicine> medicines) {
 		this.doctor = doctor;
 		this.title = title;
@@ -87,21 +87,21 @@ public class Diagnosis implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "diagnosis")
-	public Set<Examinationprotocol> getExaminationprotocols() {
+	public Set<ExaminationProtocol> getExaminationprotocols() {
 		return this.examinationprotocols;
 	}
 
 	public void setExaminationprotocols(
-			Set<Examinationprotocol> examinationprotocols) {
+			Set<ExaminationProtocol> examinationprotocols) {
 		this.examinationprotocols = examinationprotocols;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "diagnosis")
-	public Set<Visualaid> getVisualaids() {
+	public Set<VisualAid> getVisualaids() {
 		return this.visualaids;
 	}
 
-	public void setVisualaids(Set<Visualaid> visualaids) {
+	public void setVisualaids(Set<VisualAid> visualaids) {
 		this.visualaids = visualaids;
 	}
 

@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
-import at.itb13.oculus.domain.Insurancecarrier;
+import at.itb13.oculus.domain.InsuranceCarrier;
 import static org.hibernate.criterion.Example.create;
 
 /**
@@ -36,7 +36,7 @@ public class InsurancecarrierDao {
 		}
 	}
 
-	public void persist(Insurancecarrier transientInstance) {
+	public void persist(InsuranceCarrier transientInstance) {
 		_logger.debug("persisting Insurancecarrier instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
@@ -47,7 +47,7 @@ public class InsurancecarrierDao {
 		}
 	}
 
-	public void attachDirty(Insurancecarrier instance) {
+	public void attachDirty(InsuranceCarrier instance) {
 		_logger.debug("attaching dirty Insurancecarrier instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
@@ -58,7 +58,7 @@ public class InsurancecarrierDao {
 		}
 	}
 
-	public void attachClean(Insurancecarrier instance) {
+	public void attachClean(InsuranceCarrier instance) {
 		_logger.debug("attaching clean Insurancecarrier instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
@@ -69,7 +69,7 @@ public class InsurancecarrierDao {
 		}
 	}
 
-	public void delete(Insurancecarrier persistentInstance) {
+	public void delete(InsuranceCarrier persistentInstance) {
 		_logger.debug("deleting Insurancecarrier instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
@@ -80,10 +80,10 @@ public class InsurancecarrierDao {
 		}
 	}
 
-	public Insurancecarrier merge(Insurancecarrier detachedInstance) {
+	public InsuranceCarrier merge(InsuranceCarrier detachedInstance) {
 		_logger.debug("merging Insurancecarrier instance");
 		try {
-			Insurancecarrier result = (Insurancecarrier) _sessionFactory
+			InsuranceCarrier result = (InsuranceCarrier) _sessionFactory
 					.getCurrentSession().merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -93,10 +93,10 @@ public class InsurancecarrierDao {
 		}
 	}
 
-	public Insurancecarrier findById(java.lang.String id) {
+	public InsuranceCarrier findById(java.lang.String id) {
 		_logger.debug("getting Insurancecarrier instance with id: " + id);
 		try {
-			Insurancecarrier instance = (Insurancecarrier) _sessionFactory
+			InsuranceCarrier instance = (InsuranceCarrier) _sessionFactory
 					.getCurrentSession().get("Insurancecarrier", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
@@ -110,10 +110,10 @@ public class InsurancecarrierDao {
 		}
 	}
 
-	public List<Insurancecarrier> findByExample(Insurancecarrier instance) {
+	public List<InsuranceCarrier> findByExample(InsuranceCarrier instance) {
 		_logger.debug("finding Insurancecarrier instance by example");
 		try {
-			List<Insurancecarrier> results = (List<Insurancecarrier>) _sessionFactory
+			List<InsuranceCarrier> results = (List<InsuranceCarrier>) _sessionFactory
 					.getCurrentSession().createCriteria("Insurancecarrier")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "

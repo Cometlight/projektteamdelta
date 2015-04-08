@@ -11,8 +11,8 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
-import at.itb13.oculus.domain.Examinationprotocolservicecode;
-import at.itb13.oculus.domain.ExaminationprotocolservicecodeId;
+import at.itb13.oculus.domain.ExaminationProtocolServiceCode;
+import at.itb13.oculus.domain.ExaminationProtocolServiceCodeID;
 import static org.hibernate.criterion.Example.create;
 
 /**
@@ -37,7 +37,7 @@ public class ExaminationprotocolservicecodeDao {
 		}
 	}
 
-	public void persist(Examinationprotocolservicecode transientInstance) {
+	public void persist(ExaminationProtocolServiceCode transientInstance) {
 		_logger.debug("persisting Examinationprotocolservicecode instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
@@ -48,7 +48,7 @@ public class ExaminationprotocolservicecodeDao {
 		}
 	}
 
-	public void attachDirty(Examinationprotocolservicecode instance) {
+	public void attachDirty(ExaminationProtocolServiceCode instance) {
 		_logger.debug("attaching dirty Examinationprotocolservicecode instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
@@ -59,7 +59,7 @@ public class ExaminationprotocolservicecodeDao {
 		}
 	}
 
-	public void attachClean(Examinationprotocolservicecode instance) {
+	public void attachClean(ExaminationProtocolServiceCode instance) {
 		_logger.debug("attaching clean Examinationprotocolservicecode instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
@@ -70,7 +70,7 @@ public class ExaminationprotocolservicecodeDao {
 		}
 	}
 
-	public void delete(Examinationprotocolservicecode persistentInstance) {
+	public void delete(ExaminationProtocolServiceCode persistentInstance) {
 		_logger.debug("deleting Examinationprotocolservicecode instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
@@ -81,11 +81,11 @@ public class ExaminationprotocolservicecodeDao {
 		}
 	}
 
-	public Examinationprotocolservicecode merge(
-			Examinationprotocolservicecode detachedInstance) {
+	public ExaminationProtocolServiceCode merge(
+			ExaminationProtocolServiceCode detachedInstance) {
 		_logger.debug("merging Examinationprotocolservicecode instance");
 		try {
-			Examinationprotocolservicecode result = (Examinationprotocolservicecode) _sessionFactory
+			ExaminationProtocolServiceCode result = (ExaminationProtocolServiceCode) _sessionFactory
 					.getCurrentSession().merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -95,12 +95,12 @@ public class ExaminationprotocolservicecodeDao {
 		}
 	}
 
-	public Examinationprotocolservicecode findById(
-			ExaminationprotocolservicecodeId id) {
+	public ExaminationProtocolServiceCode findById(
+			ExaminationProtocolServiceCodeID id) {
 		_logger.debug("getting Examinationprotocolservicecode instance with id: "
 				+ id);
 		try {
-			Examinationprotocolservicecode instance = (Examinationprotocolservicecode) _sessionFactory
+			ExaminationProtocolServiceCode instance = (ExaminationProtocolServiceCode) _sessionFactory
 					.getCurrentSession().get("Examinationprotocolservicecode",
 							id);
 			if (instance == null) {
@@ -115,11 +115,11 @@ public class ExaminationprotocolservicecodeDao {
 		}
 	}
 
-	public List<Examinationprotocolservicecode> findByExample(
-			Examinationprotocolservicecode instance) {
+	public List<ExaminationProtocolServiceCode> findByExample(
+			ExaminationProtocolServiceCode instance) {
 		_logger.debug("finding Examinationprotocolservicecode instance by example");
 		try {
-			List<Examinationprotocolservicecode> results = (List<Examinationprotocolservicecode>) _sessionFactory
+			List<ExaminationProtocolServiceCode> results = (List<ExaminationProtocolServiceCode>) _sessionFactory
 					.getCurrentSession()
 					.createCriteria("Examinationprotocolservicecode")
 					.add(create(instance)).list();

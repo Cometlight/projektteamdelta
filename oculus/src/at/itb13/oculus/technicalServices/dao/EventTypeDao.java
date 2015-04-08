@@ -8,26 +8,26 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
-import at.itb13.oculus.domain.Calendarevent;
-import at.itb13.oculus.domain.Eventtype;
+import at.itb13.oculus.domain.CalenderEvent;
+import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.technicalServices.GenericDao;
 
 /**
- * This class is used to load and save {@link at.itb13.oculus.domain.Eventtype}s, 
+ * This class is used to load and save {@link at.itb13.oculus.domain.EventType}s, 
  * as well as load collections that have not been loaded from the database yet (in case of lazy loading).
  * 
  * @author Daniel Scheffknecht
  * @date 06.04.2015
  */
-public class EventtypeDao extends GenericDao<Eventtype> {
+public class EventTypeDao extends GenericDao<EventType> {
 	
-	private static final Logger _logger = LogManager.getLogger(EventtypeDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(EventTypeDao.class.getName());
 	
 	/**
 	 * @see GenericDao#GenericDao(Class);
 	 */
-	public EventtypeDao() {
-		super(Eventtype.class);
+	public EventTypeDao() {
+		super(EventType.class);
 	}
 	
 	/**
@@ -42,7 +42,7 @@ public class EventtypeDao extends GenericDao<Eventtype> {
 	 * @return The Calendarevents that have been loaded. Returns {@link java.util.Collections#emptySet()} in case of failure.
 	 * @see GenericDao#loadCollection(T entity, Collection<?> collection)
 	 */
-	public Set<Calendarevent> loadCalendarevents(Eventtype eventtype) {
+	public Set<CalenderEvent> loadCalendarevents(EventType eventtype) {
 		try {
 			loadCollection(eventtype, eventtype.getCalendarevents());
 		} catch (Exception e) {
@@ -59,10 +59,10 @@ public class EventtypeDao extends GenericDao<Eventtype> {
 	 * @param name The name of the Eventtype that should be loaded from the database.
 	 * @return the desired Eventtype, or null, if no Eventtype with the supplied name was found.
 	 */
-	public Eventtype findByName(String name) {
-		Eventtype ev = null;
+	public EventType findByName(String name) {
+		EventType ev = null;
 		
-		List<Eventtype> eventtypes = findByCriteria(Restrictions.eq("eventTypeName", name));
+		List<EventType> eventtypes = findByCriteria(Restrictions.eq("eventTypeName", name));
 		
 		if(eventtypes.size() > 1) {
 			_logger.warn("More than 1 Eventtype with the name'" + name + "' has been found!");

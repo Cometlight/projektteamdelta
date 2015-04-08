@@ -14,18 +14,18 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "userpermission", catalog = "oculusdb")
-public class Userpermission implements java.io.Serializable {
+public class UserPermission implements java.io.Serializable {
 
-	private UserpermissionId id;
+	private UserPermissionID id;
 	private Permission permission;
 	private User user;
-	private Usergroup usergroup;
+	private UserGroup usergroup;
 
-	public Userpermission() {
+	public UserPermission() {
 	}
 
-	public Userpermission(UserpermissionId id, Permission permission,
-			User user, Usergroup usergroup) {
+	public UserPermission(UserPermissionID id, Permission permission,
+			User user, UserGroup usergroup) {
 		this.id = id;
 		this.permission = permission;
 		this.user = user;
@@ -37,11 +37,11 @@ public class Userpermission implements java.io.Serializable {
 			@AttributeOverride(name = "permissionId", column = @Column(name = "permissionId", nullable = false)),
 			@AttributeOverride(name = "userId", column = @Column(name = "userId", nullable = false)),
 			@AttributeOverride(name = "userGroupId", column = @Column(name = "userGroupId", nullable = false)) })
-	public UserpermissionId getId() {
+	public UserPermissionID getId() {
 		return this.id;
 	}
 
-	public void setId(UserpermissionId id) {
+	public void setId(UserPermissionID id) {
 		this.id = id;
 	}
 
@@ -67,11 +67,11 @@ public class Userpermission implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userGroupId", nullable = false, insertable = false, updatable = false)
-	public Usergroup getUsergroup() {
+	public UserGroup getUsergroup() {
 		return this.usergroup;
 	}
 
-	public void setUsergroup(Usergroup usergroup) {
+	public void setUsergroup(UserGroup usergroup) {
 		this.usergroup = usergroup;
 	}
 

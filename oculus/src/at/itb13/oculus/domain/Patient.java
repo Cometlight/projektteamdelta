@@ -39,11 +39,11 @@ public class Patient implements java.io.Serializable {
 	private String allergy;
 	private String childhoodAilments;
 	private String medicineIntolerance;
-	private Set<Calendarevent> calendarevents = new HashSet<Calendarevent>(0);
+	private Set<CalenderEvent> calendarevents = new HashSet<CalenderEvent>(0);
 	private Set<Prescription> prescriptions = new HashSet<Prescription>(0);
 	private Set<Queue> queues = new HashSet<Queue>(0);
-	private Set<Referralletter> referralletters = new HashSet<Referralletter>(0);
-	private Set<Examinationprotocol> examinationprotocols = new HashSet<Examinationprotocol>(
+	private Set<ReferralLetter> referralletters = new HashSet<ReferralLetter>(0);
+	private Set<ExaminationProtocol> examinationprotocols = new HashSet<ExaminationProtocol>(
 			0);
 
 	public Patient() {
@@ -60,9 +60,9 @@ public class Patient implements java.io.Serializable {
 			String postalCode, String city, String countryIsoCode,
 			String phone, String email, String allergy,
 			String childhoodAilments, String medicineIntolerance,
-			Set<Calendarevent> calendarevents, Set<Prescription> prescriptions,
-			Set<Queue> queues, Set<Referralletter> referralletters,
-			Set<Examinationprotocol> examinationprotocols) {
+			Set<CalenderEvent> calendarevents, Set<Prescription> prescriptions,
+			Set<Queue> queues, Set<ReferralLetter> referralletters,
+			Set<ExaminationProtocol> examinationprotocols) {
 		this.doctor = doctor;
 		this.socialInsuranceNr = socialInsuranceNr;
 		this.firstName = firstName;
@@ -234,11 +234,11 @@ public class Patient implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
-	public Set<Calendarevent> getCalendarevents() {
+	public Set<CalenderEvent> getCalendarevents() {
 		return this.calendarevents;
 	}
 
-	public void setCalendarevents(Set<Calendarevent> calendarevents) {
+	public void setCalendarevents(Set<CalenderEvent> calendarevents) {
 		this.calendarevents = calendarevents;
 	}
 
@@ -261,21 +261,21 @@ public class Patient implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
-	public Set<Referralletter> getReferralletters() {
+	public Set<ReferralLetter> getReferralletters() {
 		return this.referralletters;
 	}
 
-	public void setReferralletters(Set<Referralletter> referralletters) {
+	public void setReferralletters(Set<ReferralLetter> referralletters) {
 		this.referralletters = referralletters;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
-	public Set<Examinationprotocol> getExaminationprotocols() {
+	public Set<ExaminationProtocol> getExaminationprotocols() {
 		return this.examinationprotocols;
 	}
 
 	public void setExaminationprotocols(
-			Set<Examinationprotocol> examinationprotocols) {
+			Set<ExaminationProtocol> examinationprotocols) {
 		this.examinationprotocols = examinationprotocols;
 	}
 

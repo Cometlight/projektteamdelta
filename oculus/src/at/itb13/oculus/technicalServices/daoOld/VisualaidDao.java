@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.naming.InitialContext;
 
-import at.itb13.oculus.domain.Visualaid;
+import at.itb13.oculus.domain.VisualAid;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,7 +37,7 @@ public class VisualaidDao {
 		}
 	}
 
-	public void persist(Visualaid transientInstance) {
+	public void persist(VisualAid transientInstance) {
 		_logger.debug("persisting Visualaid instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
@@ -48,7 +48,7 @@ public class VisualaidDao {
 		}
 	}
 
-	public void attachDirty(Visualaid instance) {
+	public void attachDirty(VisualAid instance) {
 		_logger.debug("attaching dirty Visualaid instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
@@ -59,7 +59,7 @@ public class VisualaidDao {
 		}
 	}
 
-	public void attachClean(Visualaid instance) {
+	public void attachClean(VisualAid instance) {
 		_logger.debug("attaching clean Visualaid instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
@@ -70,7 +70,7 @@ public class VisualaidDao {
 		}
 	}
 
-	public void delete(Visualaid persistentInstance) {
+	public void delete(VisualAid persistentInstance) {
 		_logger.debug("deleting Visualaid instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
@@ -81,10 +81,10 @@ public class VisualaidDao {
 		}
 	}
 
-	public Visualaid merge(Visualaid detachedInstance) {
+	public VisualAid merge(VisualAid detachedInstance) {
 		_logger.debug("merging Visualaid instance");
 		try {
-			Visualaid result = (Visualaid) _sessionFactory.getCurrentSession()
+			VisualAid result = (VisualAid) _sessionFactory.getCurrentSession()
 					.merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -94,10 +94,10 @@ public class VisualaidDao {
 		}
 	}
 
-	public Visualaid findById(java.lang.Integer id) {
+	public VisualAid findById(java.lang.Integer id) {
 		_logger.debug("getting Visualaid instance with id: " + id);
 		try {
-			Visualaid instance = (Visualaid) _sessionFactory.getCurrentSession()
+			VisualAid instance = (VisualAid) _sessionFactory.getCurrentSession()
 					.get("Visualaid", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
@@ -111,10 +111,10 @@ public class VisualaidDao {
 		}
 	}
 
-	public List<Visualaid> findByExample(Visualaid instance) {
+	public List<VisualAid> findByExample(VisualAid instance) {
 		_logger.debug("finding Visualaid instance by example");
 		try {
-			List<Visualaid> results = (List<Visualaid>) _sessionFactory
+			List<VisualAid> results = (List<VisualAid>) _sessionFactory
 					.getCurrentSession().createCriteria("Visualaid")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "

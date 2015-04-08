@@ -22,13 +22,13 @@ public class Permission implements java.io.Serializable {
 	private Integer permissionId;
 	private String permissionName;
 	private String description;
-	private Set<Userpermission> userpermissions = new HashSet<Userpermission>(0);
+	private Set<UserPermission> userpermissions = new HashSet<UserPermission>(0);
 
 	public Permission() {
 	}
 
 	public Permission(String permissionName, String description,
-			Set<Userpermission> userpermissions) {
+			Set<UserPermission> userpermissions) {
 		this.permissionName = permissionName;
 		this.description = description;
 		this.userpermissions = userpermissions;
@@ -64,11 +64,11 @@ public class Permission implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "permission")
-	public Set<Userpermission> getUserpermissions() {
+	public Set<UserPermission> getUserpermissions() {
 		return this.userpermissions;
 	}
 
-	public void setUserpermissions(Set<Userpermission> userpermissions) {
+	public void setUserpermissions(Set<UserPermission> userpermissions) {
 		this.userpermissions = userpermissions;
 	}
 

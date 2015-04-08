@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.naming.InitialContext;
 
-import at.itb13.oculus.domain.Referralletter;
+import at.itb13.oculus.domain.ReferralLetter;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,7 +37,7 @@ public class ReferralletterDao {
 		}
 	}
 
-	public void persist(Referralletter transientInstance) {
+	public void persist(ReferralLetter transientInstance) {
 		_logger.debug("persisting Referralletter instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
@@ -48,7 +48,7 @@ public class ReferralletterDao {
 		}
 	}
 
-	public void attachDirty(Referralletter instance) {
+	public void attachDirty(ReferralLetter instance) {
 		_logger.debug("attaching dirty Referralletter instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
@@ -59,7 +59,7 @@ public class ReferralletterDao {
 		}
 	}
 
-	public void attachClean(Referralletter instance) {
+	public void attachClean(ReferralLetter instance) {
 		_logger.debug("attaching clean Referralletter instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
@@ -70,7 +70,7 @@ public class ReferralletterDao {
 		}
 	}
 
-	public void delete(Referralletter persistentInstance) {
+	public void delete(ReferralLetter persistentInstance) {
 		_logger.debug("deleting Referralletter instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
@@ -81,10 +81,10 @@ public class ReferralletterDao {
 		}
 	}
 
-	public Referralletter merge(Referralletter detachedInstance) {
+	public ReferralLetter merge(ReferralLetter detachedInstance) {
 		_logger.debug("merging Referralletter instance");
 		try {
-			Referralletter result = (Referralletter) _sessionFactory
+			ReferralLetter result = (ReferralLetter) _sessionFactory
 					.getCurrentSession().merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -94,10 +94,10 @@ public class ReferralletterDao {
 		}
 	}
 
-	public Referralletter findById(java.lang.Integer id) {
+	public ReferralLetter findById(java.lang.Integer id) {
 		_logger.debug("getting Referralletter instance with id: " + id);
 		try {
-			Referralletter instance = (Referralletter) _sessionFactory
+			ReferralLetter instance = (ReferralLetter) _sessionFactory
 					.getCurrentSession().get("Referralletter", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
@@ -111,10 +111,10 @@ public class ReferralletterDao {
 		}
 	}
 
-	public List<Referralletter> findByExample(Referralletter instance) {
+	public List<ReferralLetter> findByExample(ReferralLetter instance) {
 		_logger.debug("finding Referralletter instance by example");
 		try {
-			List<Referralletter> results = (List<Referralletter>) _sessionFactory
+			List<ReferralLetter> results = (List<ReferralLetter>) _sessionFactory
 					.getCurrentSession().createCriteria("Referralletter")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "

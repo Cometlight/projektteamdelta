@@ -15,19 +15,19 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "examinationprotocolservicecode", catalog = "oculusdb")
-public class Examinationprotocolservicecode implements java.io.Serializable {
+public class ExaminationProtocolServiceCode implements java.io.Serializable {
 
-	private ExaminationprotocolservicecodeId id;
-	private Examinationprotocol examinationprotocol;
-	private Insurancecarrier insurancecarrier;
-	private Servicecode servicecode;
+	private ExaminationProtocolServiceCodeID id;
+	private ExaminationProtocol examinationprotocol;
+	private InsuranceCarrier insurancecarrier;
+	private ServiceCode servicecode;
 
-	public Examinationprotocolservicecode() {
+	public ExaminationProtocolServiceCode() {
 	}
 
-	public Examinationprotocolservicecode(ExaminationprotocolservicecodeId id,
-			Examinationprotocol examinationprotocol,
-			Insurancecarrier insurancecarrier, Servicecode servicecode) {
+	public ExaminationProtocolServiceCode(ExaminationProtocolServiceCodeID id,
+			ExaminationProtocol examinationprotocol,
+			InsuranceCarrier insurancecarrier, ServiceCode servicecode) {
 		this.id = id;
 		this.examinationprotocol = examinationprotocol;
 		this.insurancecarrier = insurancecarrier;
@@ -39,41 +39,41 @@ public class Examinationprotocolservicecode implements java.io.Serializable {
 			@AttributeOverride(name = "examinationProtocolId", column = @Column(name = "examinationProtocolId", nullable = false)),
 			@AttributeOverride(name = "serviceCodeId", column = @Column(name = "serviceCodeId", nullable = false)),
 			@AttributeOverride(name = "insuranceCarrierKey", column = @Column(name = "insuranceCarrierKey", nullable = false, length = 4)) })
-	public ExaminationprotocolservicecodeId getId() {
+	public ExaminationProtocolServiceCodeID getId() {
 		return this.id;
 	}
 
-	public void setId(ExaminationprotocolservicecodeId id) {
+	public void setId(ExaminationProtocolServiceCodeID id) {
 		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "examinationProtocolId", nullable = false, insertable = false, updatable = false)
-	public Examinationprotocol getExaminationprotocol() {
+	public ExaminationProtocol getExaminationprotocol() {
 		return this.examinationprotocol;
 	}
 
-	public void setExaminationprotocol(Examinationprotocol examinationprotocol) {
+	public void setExaminationprotocol(ExaminationProtocol examinationprotocol) {
 		this.examinationprotocol = examinationprotocol;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "insuranceCarrierKey", nullable = false, insertable = false, updatable = false)
-	public Insurancecarrier getInsurancecarrier() {
+	public InsuranceCarrier getInsurancecarrier() {
 		return this.insurancecarrier;
 	}
 
-	public void setInsurancecarrier(Insurancecarrier insurancecarrier) {
+	public void setInsurancecarrier(InsuranceCarrier insurancecarrier) {
 		this.insurancecarrier = insurancecarrier;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "serviceCodeId", nullable = false, insertable = false, updatable = false)
-	public Servicecode getServicecode() {
+	public ServiceCode getServicecode() {
 		return this.servicecode;
 	}
 
-	public void setServicecode(Servicecode servicecode) {
+	public void setServicecode(ServiceCode servicecode) {
 		this.servicecode = servicecode;
 	}
 

@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 public class User implements java.io.Serializable {
 
 	private Integer userId;
-	private Usergroup usergroup;
+	private UserGroup usergroup;
 	private String userName;
 	private String password;
 	private String title;
@@ -34,12 +34,12 @@ public class User implements java.io.Serializable {
 	private Date idleDate;
 	private Set<Doctor> doctors = new HashSet<Doctor>(0);
 	private Set<Orthoptist> orthoptists = new HashSet<Orthoptist>(0);
-	private Set<Userpermission> userpermissions = new HashSet<Userpermission>(0);
+	private Set<UserPermission> userpermissions = new HashSet<UserPermission>(0);
 	private Set<Administrator> administrators = new HashSet<Administrator>(0);
-	private Set<Examinationresult> examinationresults = new HashSet<Examinationresult>(
+	private Set<ExaminationResult> examinationresults = new HashSet<ExaminationResult>(
 			0);
 	private Set<Receptionist> receptionists = new HashSet<Receptionist>(0);
-	private Set<Examinationprotocol> examinationprotocols = new HashSet<Examinationprotocol>(
+	private Set<ExaminationProtocol> examinationprotocols = new HashSet<ExaminationProtocol>(
 			0);
 
 	public User() {
@@ -54,14 +54,14 @@ public class User implements java.io.Serializable {
 		this.createDate = createDate;
 	}
 
-	public User(Usergroup usergroup, String userName, String password,
+	public User(UserGroup usergroup, String userName, String password,
 			String title, String firstName, String lastName, String email,
 			Date createDate, Date idleDate, Set<Doctor> doctors,
-			Set<Orthoptist> orthoptists, Set<Userpermission> userpermissions,
+			Set<Orthoptist> orthoptists, Set<UserPermission> userpermissions,
 			Set<Administrator> administrators,
-			Set<Examinationresult> examinationresults,
+			Set<ExaminationResult> examinationresults,
 			Set<Receptionist> receptionists,
-			Set<Examinationprotocol> examinationprotocols) {
+			Set<ExaminationProtocol> examinationprotocols) {
 		this.usergroup = usergroup;
 		this.userName = userName;
 		this.password = password;
@@ -93,11 +93,11 @@ public class User implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userGroupId")
-	public Usergroup getUsergroup() {
+	public UserGroup getUsergroup() {
 		return this.usergroup;
 	}
 
-	public void setUsergroup(Usergroup usergroup) {
+	public void setUsergroup(UserGroup usergroup) {
 		this.usergroup = usergroup;
 	}
 
@@ -194,11 +194,11 @@ public class User implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	public Set<Userpermission> getUserpermissions() {
+	public Set<UserPermission> getUserpermissions() {
 		return this.userpermissions;
 	}
 
-	public void setUserpermissions(Set<Userpermission> userpermissions) {
+	public void setUserpermissions(Set<UserPermission> userpermissions) {
 		this.userpermissions = userpermissions;
 	}
 
@@ -212,11 +212,11 @@ public class User implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	public Set<Examinationresult> getExaminationresults() {
+	public Set<ExaminationResult> getExaminationresults() {
 		return this.examinationresults;
 	}
 
-	public void setExaminationresults(Set<Examinationresult> examinationresults) {
+	public void setExaminationresults(Set<ExaminationResult> examinationresults) {
 		this.examinationresults = examinationresults;
 	}
 
@@ -230,12 +230,12 @@ public class User implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	public Set<Examinationprotocol> getExaminationprotocols() {
+	public Set<ExaminationProtocol> getExaminationprotocols() {
 		return this.examinationprotocols;
 	}
 
 	public void setExaminationprotocols(
-			Set<Examinationprotocol> examinationprotocols) {
+			Set<ExaminationProtocol> examinationprotocols) {
 		this.examinationprotocols = examinationprotocols;
 	}
 

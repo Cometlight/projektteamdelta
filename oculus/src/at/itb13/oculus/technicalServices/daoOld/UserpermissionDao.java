@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.naming.InitialContext;
 
-import at.itb13.oculus.domain.Userpermission;
-import at.itb13.oculus.domain.UserpermissionId;
+import at.itb13.oculus.domain.UserPermission;
+import at.itb13.oculus.domain.UserPermissionID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,7 +38,7 @@ public class UserpermissionDao {
 		}
 	}
 
-	public void persist(Userpermission transientInstance) {
+	public void persist(UserPermission transientInstance) {
 		_logger.debug("persisting Userpermission instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
@@ -49,7 +49,7 @@ public class UserpermissionDao {
 		}
 	}
 
-	public void attachDirty(Userpermission instance) {
+	public void attachDirty(UserPermission instance) {
 		_logger.debug("attaching dirty Userpermission instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
@@ -60,7 +60,7 @@ public class UserpermissionDao {
 		}
 	}
 
-	public void attachClean(Userpermission instance) {
+	public void attachClean(UserPermission instance) {
 		_logger.debug("attaching clean Userpermission instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
@@ -71,7 +71,7 @@ public class UserpermissionDao {
 		}
 	}
 
-	public void delete(Userpermission persistentInstance) {
+	public void delete(UserPermission persistentInstance) {
 		_logger.debug("deleting Userpermission instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
@@ -82,10 +82,10 @@ public class UserpermissionDao {
 		}
 	}
 
-	public Userpermission merge(Userpermission detachedInstance) {
+	public UserPermission merge(UserPermission detachedInstance) {
 		_logger.debug("merging Userpermission instance");
 		try {
-			Userpermission result = (Userpermission) _sessionFactory
+			UserPermission result = (UserPermission) _sessionFactory
 					.getCurrentSession().merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -95,10 +95,10 @@ public class UserpermissionDao {
 		}
 	}
 
-	public Userpermission findById(UserpermissionId id) {
+	public UserPermission findById(UserPermissionID id) {
 		_logger.debug("getting Userpermission instance with id: " + id);
 		try {
-			Userpermission instance = (Userpermission) _sessionFactory
+			UserPermission instance = (UserPermission) _sessionFactory
 					.getCurrentSession().get("Userpermission", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
@@ -112,10 +112,10 @@ public class UserpermissionDao {
 		}
 	}
 
-	public List<Userpermission> findByExample(Userpermission instance) {
+	public List<UserPermission> findByExample(UserPermission instance) {
 		_logger.debug("finding Userpermission instance by example");
 		try {
-			List<Userpermission> results = (List<Userpermission>) _sessionFactory
+			List<UserPermission> results = (List<UserPermission>) _sessionFactory
 					.getCurrentSession().createCriteria("Userpermission")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "

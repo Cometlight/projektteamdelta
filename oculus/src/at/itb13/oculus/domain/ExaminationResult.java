@@ -18,20 +18,20 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "examinationresult", catalog = "oculusdb")
-public class Examinationresult implements java.io.Serializable {
+public class ExaminationResult implements java.io.Serializable {
 
 	private Integer examinationResultId;
-	private Examinationprotocol examinationprotocol;
+	private ExaminationProtocol examinationprotocol;
 	private User user;
 	private String result;
 	private Date createDate;
 	private String device;
 	private byte[] deviceData;
 
-	public Examinationresult() {
+	public ExaminationResult() {
 	}
 
-	public Examinationresult(Examinationprotocol examinationprotocol,
+	public ExaminationResult(ExaminationProtocol examinationprotocol,
 			User user, String result, Date createDate, String device,
 			byte[] deviceData) {
 		this.examinationprotocol = examinationprotocol;
@@ -55,11 +55,11 @@ public class Examinationresult implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "examinationProtocolId")
-	public Examinationprotocol getExaminationprotocol() {
+	public ExaminationProtocol getExaminationprotocol() {
 		return this.examinationprotocol;
 	}
 
-	public void setExaminationprotocol(Examinationprotocol examinationprotocol) {
+	public void setExaminationprotocol(ExaminationProtocol examinationprotocol) {
 		this.examinationprotocol = examinationprotocol;
 	}
 

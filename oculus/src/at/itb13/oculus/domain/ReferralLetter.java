@@ -14,23 +14,23 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "referralletter", catalog = "oculusdb")
-public class Referralletter implements java.io.Serializable {
+public class ReferralLetter implements java.io.Serializable {
 
 	private Integer referralLetterId;
-	private Examinationprotocol examinationprotocol;
+	private ExaminationProtocol examinationprotocol;
 	private Patient patient;
 	private String externalInstitute;
 	private String reason;
 
-	public Referralletter() {
+	public ReferralLetter() {
 	}
 
-	public Referralletter(String externalInstitute, String reason) {
+	public ReferralLetter(String externalInstitute, String reason) {
 		this.externalInstitute = externalInstitute;
 		this.reason = reason;
 	}
 
-	public Referralletter(Examinationprotocol examinationprotocol,
+	public ReferralLetter(ExaminationProtocol examinationprotocol,
 			Patient patient, String externalInstitute, String reason) {
 		this.examinationprotocol = examinationprotocol;
 		this.patient = patient;
@@ -51,11 +51,11 @@ public class Referralletter implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "examinationProtocolId")
-	public Examinationprotocol getExaminationprotocol() {
+	public ExaminationProtocol getExaminationprotocol() {
 		return this.examinationprotocol;
 	}
 
-	public void setExaminationprotocol(Examinationprotocol examinationprotocol) {
+	public void setExaminationprotocol(ExaminationProtocol examinationprotocol) {
 		this.examinationprotocol = examinationprotocol;
 	}
 

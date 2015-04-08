@@ -15,7 +15,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-import at.itb13.oculus.domain.Eventtype;
+import at.itb13.oculus.domain.EventType;
 
 public class TestClassForHibernateAndLogging {
 	
@@ -37,7 +37,7 @@ public class TestClassForHibernateAndLogging {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 
-			Eventtype eventType = new Eventtype();
+			EventType eventType = new EventType();
 			eventType.setCalendarevents(null);
 			eventType.setDescription("Test by Andrew");
 			eventType.setEstimatedTime(0);

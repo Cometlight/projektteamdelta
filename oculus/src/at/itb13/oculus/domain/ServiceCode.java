@@ -16,19 +16,19 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "servicecode", catalog = "oculusdb", uniqueConstraints = @UniqueConstraint(columnNames = "serviceCode"))
-public class Servicecode implements java.io.Serializable {
+public class ServiceCode implements java.io.Serializable {
 
 	private Integer serviceCodeId;
 	private String serviceCode;
 	private String description;
-	private Set<Examinationprotocolservicecode> examinationprotocolservicecodes = new HashSet<Examinationprotocolservicecode>(
+	private Set<ExaminationProtocolServiceCode> examinationprotocolservicecodes = new HashSet<ExaminationProtocolServiceCode>(
 			0);
 
-	public Servicecode() {
+	public ServiceCode() {
 	}
 
-	public Servicecode(String serviceCode, String description,
-			Set<Examinationprotocolservicecode> examinationprotocolservicecodes) {
+	public ServiceCode(String serviceCode, String description,
+			Set<ExaminationProtocolServiceCode> examinationprotocolservicecodes) {
 		this.serviceCode = serviceCode;
 		this.description = description;
 		this.examinationprotocolservicecodes = examinationprotocolservicecodes;
@@ -64,12 +64,12 @@ public class Servicecode implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "servicecode")
-	public Set<Examinationprotocolservicecode> getExaminationprotocolservicecodes() {
+	public Set<ExaminationProtocolServiceCode> getExaminationprotocolservicecodes() {
 		return this.examinationprotocolservicecodes;
 	}
 
 	public void setExaminationprotocolservicecodes(
-			Set<Examinationprotocolservicecode> examinationprotocolservicecodes) {
+			Set<ExaminationProtocolServiceCode> examinationprotocolservicecodes) {
 		this.examinationprotocolservicecodes = examinationprotocolservicecodes;
 	}
 

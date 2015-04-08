@@ -8,8 +8,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
-import at.itb13.oculus.domain.Calendarevent;
-import at.itb13.oculus.domain.Examinationprotocol;
+import at.itb13.oculus.domain.CalenderEvent;
+import at.itb13.oculus.domain.ExaminationProtocol;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.technicalServices.GenericDao;
 
@@ -79,7 +79,7 @@ public class PatientDao extends GenericDao<Patient> {
 	 * @return The Calendarevents that have been loaded. Returns {@link java.util.Collections#emptySet()} in case of failure.
 	 * @see GenericDao#loadCollection(T entity, Collection<?> collection)
 	 */
-	public Set<Calendarevent> loadCalendarevents(Patient patient) {
+	public Set<CalenderEvent> loadCalendarevents(Patient patient) {
 		try {
 			loadCollection(patient, patient.getCalendarevents());
 		} catch (Exception e) {
@@ -102,7 +102,7 @@ public class PatientDao extends GenericDao<Patient> {
 	 * @return The ExaminationProtocols that have been loaded. Returns {@link java.util.Collections#emptySet()} in case of failure.
 	 * @see GenericDao#loadCollection(T entity, Collection<?> collection)
 	 */
-	public Set<Examinationprotocol> loadExaminationProtocols(Patient patient) {	// TODO: Examinationprotocols vs ExaminationProtocols --> see Trello
+	public Set<ExaminationProtocol> loadExaminationProtocols(Patient patient) {	// TODO: Examinationprotocols vs ExaminationProtocols --> see Trello
 		try {
 			loadCollection(patient, patient.getExaminationprotocols());
 		} catch (Exception e) {

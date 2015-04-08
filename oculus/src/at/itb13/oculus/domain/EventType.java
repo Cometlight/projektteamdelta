@@ -17,23 +17,23 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "eventtype", catalog = "oculusdb", uniqueConstraints = @UniqueConstraint(columnNames = "eventTypeName"))
-public class Eventtype implements java.io.Serializable {
+public class EventType implements java.io.Serializable {
 
 	private Integer eventTypeId;
 	private String eventTypeName;
 	private Integer estimatedTime;
 	private String description;
-	private Set<Calendarevent> calendarevents = new HashSet<Calendarevent>(0);
+	private Set<CalenderEvent> calendarevents = new HashSet<CalenderEvent>(0);
 
-	public Eventtype() {
+	public EventType() {
 	}
 
-	public Eventtype(String eventTypeName) {
+	public EventType(String eventTypeName) {
 		this.eventTypeName = eventTypeName;
 	}
 
-	public Eventtype(String eventTypeName, Integer estimatedTime,
-			String description, Set<Calendarevent> calendarevents) {
+	public EventType(String eventTypeName, Integer estimatedTime,
+			String description, Set<CalenderEvent> calendarevents) {
 		this.eventTypeName = eventTypeName;
 		this.estimatedTime = estimatedTime;
 		this.description = description;
@@ -79,11 +79,11 @@ public class Eventtype implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "eventtype")
-	public Set<Calendarevent> getCalendarevents() {
+	public Set<CalenderEvent> getCalendarevents() {
 		return this.calendarevents;
 	}
 
-	public void setCalendarevents(Set<Calendarevent> calendarevents) {
+	public void setCalendarevents(Set<CalenderEvent> calendarevents) {
 		this.calendarevents = calendarevents;
 	}
 

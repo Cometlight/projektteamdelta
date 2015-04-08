@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.naming.InitialContext;
 
-import at.itb13.oculus.domain.Servicecode;
+import at.itb13.oculus.domain.ServiceCode;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,7 +37,7 @@ public class ServicecodeDao {
 		}
 	}
 
-	public void persist(Servicecode transientInstance) {
+	public void persist(ServiceCode transientInstance) {
 		_logger.debug("persisting Servicecode instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
@@ -48,7 +48,7 @@ public class ServicecodeDao {
 		}
 	}
 
-	public void attachDirty(Servicecode instance) {
+	public void attachDirty(ServiceCode instance) {
 		_logger.debug("attaching dirty Servicecode instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
@@ -59,7 +59,7 @@ public class ServicecodeDao {
 		}
 	}
 
-	public void attachClean(Servicecode instance) {
+	public void attachClean(ServiceCode instance) {
 		_logger.debug("attaching clean Servicecode instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
@@ -70,7 +70,7 @@ public class ServicecodeDao {
 		}
 	}
 
-	public void delete(Servicecode persistentInstance) {
+	public void delete(ServiceCode persistentInstance) {
 		_logger.debug("deleting Servicecode instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
@@ -81,10 +81,10 @@ public class ServicecodeDao {
 		}
 	}
 
-	public Servicecode merge(Servicecode detachedInstance) {
+	public ServiceCode merge(ServiceCode detachedInstance) {
 		_logger.debug("merging Servicecode instance");
 		try {
-			Servicecode result = (Servicecode) _sessionFactory
+			ServiceCode result = (ServiceCode) _sessionFactory
 					.getCurrentSession().merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -94,10 +94,10 @@ public class ServicecodeDao {
 		}
 	}
 
-	public Servicecode findById(java.lang.Integer id) {
+	public ServiceCode findById(java.lang.Integer id) {
 		_logger.debug("getting Servicecode instance with id: " + id);
 		try {
-			Servicecode instance = (Servicecode) _sessionFactory
+			ServiceCode instance = (ServiceCode) _sessionFactory
 					.getCurrentSession().get("Servicecode", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
@@ -111,10 +111,10 @@ public class ServicecodeDao {
 		}
 	}
 
-	public List<Servicecode> findByExample(Servicecode instance) {
+	public List<ServiceCode> findByExample(ServiceCode instance) {
 		_logger.debug("finding Servicecode instance by example");
 		try {
-			List<Servicecode> results = (List<Servicecode>) _sessionFactory
+			List<ServiceCode> results = (List<ServiceCode>) _sessionFactory
 					.getCurrentSession().createCriteria("Servicecode")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "

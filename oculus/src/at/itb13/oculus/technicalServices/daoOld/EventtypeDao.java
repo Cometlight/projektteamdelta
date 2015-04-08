@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
-import at.itb13.oculus.domain.Eventtype;
+import at.itb13.oculus.domain.EventType;
 import static org.hibernate.criterion.Example.create;
 
 /**
@@ -36,7 +36,7 @@ public class EventtypeDao {
 		}
 	}
 
-	public void persist(Eventtype transientInstance) {
+	public void persist(EventType transientInstance) {
 		_logger.debug("persisting Eventtype instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
@@ -47,7 +47,7 @@ public class EventtypeDao {
 		}
 	}
 
-	public void attachDirty(Eventtype instance) {
+	public void attachDirty(EventType instance) {
 		_logger.debug("attaching dirty Eventtype instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
@@ -58,7 +58,7 @@ public class EventtypeDao {
 		}
 	}
 
-	public void attachClean(Eventtype instance) {
+	public void attachClean(EventType instance) {
 		_logger.debug("attaching clean Eventtype instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
@@ -69,7 +69,7 @@ public class EventtypeDao {
 		}
 	}
 
-	public void delete(Eventtype persistentInstance) {
+	public void delete(EventType persistentInstance) {
 		_logger.debug("deleting Eventtype instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
@@ -80,10 +80,10 @@ public class EventtypeDao {
 		}
 	}
 
-	public Eventtype merge(Eventtype detachedInstance) {
+	public EventType merge(EventType detachedInstance) {
 		_logger.debug("merging Eventtype instance");
 		try {
-			Eventtype result = (Eventtype) _sessionFactory.getCurrentSession()
+			EventType result = (EventType) _sessionFactory.getCurrentSession()
 					.merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -93,10 +93,10 @@ public class EventtypeDao {
 		}
 	}
 
-	public Eventtype findById(java.lang.Integer id) {
+	public EventType findById(java.lang.Integer id) {
 		_logger.debug("getting Eventtype instance with id: " + id);
 		try {
-			Eventtype instance = (Eventtype) _sessionFactory.getCurrentSession()
+			EventType instance = (EventType) _sessionFactory.getCurrentSession()
 					.get("Eventtype", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
@@ -110,10 +110,10 @@ public class EventtypeDao {
 		}
 	}
 
-	public List<Eventtype> findByExample(Eventtype instance) {
+	public List<EventType> findByExample(EventType instance) {
 		_logger.debug("finding Eventtype instance by example");
 		try {
-			List<Eventtype> results = (List<Eventtype>) _sessionFactory
+			List<EventType> results = (List<EventType>) _sessionFactory
 					.getCurrentSession().createCriteria("Eventtype")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "

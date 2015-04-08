@@ -19,26 +19,24 @@ public class PatientSearch {
 	/**
 	 * Load the patient with the wanted name. It can search only the fistName, lastName or both.
 	 * 
-	 * @param firstName
-	 * @param lastName
-	 * @return List<Patient>
-	 * @throws InvalidInputException
+	 * @param firstName The patient's firstName.
+	 * @param lastName The patient's lastName.
+	 * @return List<Patient> The patient with the supplied name. Maybe null, if no patient has been found.
+	 * @throws InvalidInputException thrown if the provided name is not in an appropriate format.
 	 */
 	public List<Patient> searchPatientByName(String firstName, String lastName) throws InvalidInputException {
 		List<Patient> patients = null;
 		PatientDao patientDao = new PatientDao();
 		if(firstName != null && lastName != null){
 			patients = patientDao.findByFullName(firstName, lastName);
-			return patients;
 		}else if(firstName != null){
 			patients = patientDao.findByFirstName(firstName);
-			return patients;
 		}else if(lastName != null){
 			patients = patientDao.findByLastName(lastName);
-			return patients;
 		}else{
 			throw new InvalidInputException();
 		}
+		return patients;
 	}
 	
 	/**

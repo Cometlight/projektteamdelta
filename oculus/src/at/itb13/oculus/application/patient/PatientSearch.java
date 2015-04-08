@@ -2,7 +2,9 @@ package at.itb13.oculus.application.patient;
 
 import java.util.List;
 
+import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.Patient;
+import at.itb13.oculus.technicalServices.dao.PatientDao;
 
 /**
  * TODO: Insert description here.
@@ -12,9 +14,20 @@ import at.itb13.oculus.domain.Patient;
  */
 public class PatientSearch {
 	
-	public List<Patient> searchPatientByName(String firstName, String lastName) {
-		if(socialInsurancrNr != null){
-			searchPatientBy
+	public List<Patient> searchPatientByName(String firstName, String lastName) throws InvalidInputException {
+		List<Patient> patients = null;
+		PatientDao patientDao = new PatientDao();
+		if(firstName != null && lastName != null){
+			patients = patientDao.findByFullName(firstName, lastName);
+			return patients;
+		}else if(firstName != null){
+			//TODO
+			return patients;
+		}else if(lastName != null){
+			//TODO
+			return patients;
+		}else{
+			throw new InvalidInputException();
 		}
 	}
 	

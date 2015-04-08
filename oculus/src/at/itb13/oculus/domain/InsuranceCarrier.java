@@ -14,23 +14,23 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "insurancecarrier", catalog = "oculusdb")
-public class Insurancecarrier implements java.io.Serializable {
+public class InsuranceCarrier implements java.io.Serializable {
 
 	private String insuranceCarrierKey;
 	private String name;
-	private Set<Examinationprotocolservicecode> examinationprotocolservicecodes = new HashSet<Examinationprotocolservicecode>(
+	private Set<ExaminationProtocolServiceCode> examinationprotocolservicecodes = new HashSet<ExaminationProtocolServiceCode>(
 			0);
 
-	public Insurancecarrier() {
+	public InsuranceCarrier() {
 	}
 
-	public Insurancecarrier(String insuranceCarrierKey, String name) {
+	public InsuranceCarrier(String insuranceCarrierKey, String name) {
 		this.insuranceCarrierKey = insuranceCarrierKey;
 		this.name = name;
 	}
 
-	public Insurancecarrier(String insuranceCarrierKey, String name,
-			Set<Examinationprotocolservicecode> examinationprotocolservicecodes) {
+	public InsuranceCarrier(String insuranceCarrierKey, String name,
+			Set<ExaminationProtocolServiceCode> examinationprotocolservicecodes) {
 		this.insuranceCarrierKey = insuranceCarrierKey;
 		this.name = name;
 		this.examinationprotocolservicecodes = examinationprotocolservicecodes;
@@ -56,12 +56,12 @@ public class Insurancecarrier implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "insurancecarrier")
-	public Set<Examinationprotocolservicecode> getExaminationprotocolservicecodes() {
+	public Set<ExaminationProtocolServiceCode> getExaminationprotocolservicecodes() {
 		return this.examinationprotocolservicecodes;
 	}
 
 	public void setExaminationprotocolservicecodes(
-			Set<Examinationprotocolservicecode> examinationprotocolservicecodes) {
+			Set<ExaminationProtocolServiceCode> examinationprotocolservicecodes) {
 		this.examinationprotocolservicecodes = examinationprotocolservicecodes;
 	}
 

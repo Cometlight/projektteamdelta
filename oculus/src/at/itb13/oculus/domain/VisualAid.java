@@ -14,15 +14,15 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "visualaid", catalog = "oculusdb")
-public class Visualaid implements java.io.Serializable {
+public class VisualAid implements java.io.Serializable {
 
 	private Integer visualAidId;
 	private Diagnosis diagnosis;
 
-	public Visualaid() {
+	public VisualAid() {
 	}
 
-	public Visualaid(Diagnosis diagnosis) {
+	public VisualAid(Diagnosis diagnosis) {
 		this.diagnosis = diagnosis;
 	}
 

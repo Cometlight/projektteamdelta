@@ -16,23 +16,23 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "usergroup", catalog = "oculusdb", uniqueConstraints = @UniqueConstraint(columnNames = "userGroupName"))
-public class Usergroup implements java.io.Serializable {
+public class UserGroup implements java.io.Serializable {
 
 	private Integer userGroupId;
 	private String userGroupName;
 	private String description;
-	private Set<Userpermission> userpermissions = new HashSet<Userpermission>(0);
+	private Set<UserPermission> userpermissions = new HashSet<UserPermission>(0);
 	private Set<User> users = new HashSet<User>(0);
 
-	public Usergroup() {
+	public UserGroup() {
 	}
 
-	public Usergroup(String userGroupName) {
+	public UserGroup(String userGroupName) {
 		this.userGroupName = userGroupName;
 	}
 
-	public Usergroup(String userGroupName, String description,
-			Set<Userpermission> userpermissions, Set<User> users) {
+	public UserGroup(String userGroupName, String description,
+			Set<UserPermission> userpermissions, Set<User> users) {
 		this.userGroupName = userGroupName;
 		this.description = description;
 		this.userpermissions = userpermissions;
@@ -69,11 +69,11 @@ public class Usergroup implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usergroup")
-	public Set<Userpermission> getUserpermissions() {
+	public Set<UserPermission> getUserpermissions() {
 		return this.userpermissions;
 	}
 
-	public void setUserpermissions(Set<Userpermission> userpermissions) {
+	public void setUserpermissions(Set<UserPermission> userpermissions) {
 		this.userpermissions = userpermissions;
 	}
 

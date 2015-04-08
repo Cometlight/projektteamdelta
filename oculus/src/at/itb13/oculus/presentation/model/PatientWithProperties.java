@@ -25,11 +25,11 @@ import javax.persistence.TemporalType;
 
 import at.itb13.oculus.domain.CalenderEvent;
 import at.itb13.oculus.domain.Doctor;
-import at.itb13.oculus.domain.Examinationprotocol;
+import at.itb13.oculus.domain.ExaminationProtocol;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Prescription;
 import at.itb13.oculus.domain.Queue;
-import at.itb13.oculus.domain.Referralletter;
+import at.itb13.oculus.domain.ReferralLetter;
 
 /**
  * TODO: Is this class really a part of the domain layer? Or rather of the presentation layer? -- Daniel
@@ -57,8 +57,8 @@ public class PatientWithProperties implements java.io.Serializable {
 	private Set<CalenderEvent> calendarevents = new HashSet<CalenderEvent>(0);
 	private Set<Prescription> prescriptions = new HashSet<Prescription>(0);
 	private Set<Queue> queues = new HashSet<Queue>(0);
-	private Set<Referralletter> referralletters = new HashSet<Referralletter>(0);
-	private Set<Examinationprotocol> examinationprotocols = new HashSet<Examinationprotocol>(0);
+	private Set<ReferralLetter> referralletters = new HashSet<ReferralLetter>(0);
+	private Set<ExaminationProtocol> examinationprotocols = new HashSet<ExaminationProtocol>(0);
 
 	public PatientWithProperties() {
 	}
@@ -94,8 +94,8 @@ public class PatientWithProperties implements java.io.Serializable {
 			String phone, String email, String allergy,
 			String childhoodAilments, String medicineIntolerance,
 			Set<CalenderEvent> calendarevents, Set<Prescription> prescriptions,
-			Set<Queue> queues, Set<Referralletter> referralletters,
-			Set<Examinationprotocol> examinationprotocols) {
+			Set<Queue> queues, Set<ReferralLetter> referralletters,
+			Set<ExaminationProtocol> examinationprotocols) {
 		this.doctor.set(doctor);
 		this.socialInsuranceNr.set(socialInsuranceNr);
 		this.firstName.set(firstName);
@@ -294,20 +294,20 @@ public class PatientWithProperties implements java.io.Serializable {
 		this.queues = queues;
 	}
 
-	public Set<Referralletter> getReferralletters() {
+	public Set<ReferralLetter> getReferralletters() {
 		return this.referralletters;
 	}
 
-	public void setReferralletters(Set<Referralletter> referralletters) {
+	public void setReferralletters(Set<ReferralLetter> referralletters) {
 		this.referralletters = referralletters;
 	}
 
-	public Set<Examinationprotocol> getExaminationprotocols() {
+	public Set<ExaminationProtocol> getExaminationprotocols() {
 		return this.examinationprotocols;
 	}
 
 	public void setExaminationprotocols(
-			Set<Examinationprotocol> examinationprotocols) {
+			Set<ExaminationProtocol> examinationprotocols) {
 		this.examinationprotocols = examinationprotocols;
 	}
 

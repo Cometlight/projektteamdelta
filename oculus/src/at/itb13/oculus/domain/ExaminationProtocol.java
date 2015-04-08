@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "examinationprotocol", catalog = "oculusdb")
-public class Examinationprotocol implements java.io.Serializable {
+public class ExaminationProtocol implements java.io.Serializable {
 
 	private Integer examinationProtocolId;
 	private Diagnosis diagnosis;
@@ -30,25 +30,25 @@ public class Examinationprotocol implements java.io.Serializable {
 	private Date startProtocol;
 	private Date endProtocol;
 	private String description;
-	private Set<Examinationresult> examinationresults = new HashSet<Examinationresult>(
+	private Set<ExaminationResult> examinationresults = new HashSet<ExaminationResult>(
 			0);
-	private Set<Examinationprotocolservicecode> examinationprotocolservicecodes = new HashSet<Examinationprotocolservicecode>(
+	private Set<ExaminationProtocolServiceCode> examinationprotocolservicecodes = new HashSet<ExaminationProtocolServiceCode>(
 			0);
-	private Set<Referralletter> referralletters = new HashSet<Referralletter>(0);
+	private Set<ReferralLetter> referralletters = new HashSet<ReferralLetter>(0);
 
-	public Examinationprotocol() {
+	public ExaminationProtocol() {
 	}
 
-	public Examinationprotocol(
+	public ExaminationProtocol(
 			Diagnosis diagnosis,
 			Patient patient,
 			User user,
 			Date startProtocol,
 			Date endProtocol,
 			String description,
-			Set<Examinationresult> examinationresults,
-			Set<Examinationprotocolservicecode> examinationprotocolservicecodes,
-			Set<Referralletter> referralletters) {
+			Set<ExaminationResult> examinationresults,
+			Set<ExaminationProtocolServiceCode> examinationprotocolservicecodes,
+			Set<ReferralLetter> referralletters) {
 		this.diagnosis = diagnosis;
 		this.patient = patient;
 		this.user = user;
@@ -131,30 +131,30 @@ public class Examinationprotocol implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "examinationprotocol")
-	public Set<Examinationresult> getExaminationresults() {
+	public Set<ExaminationResult> getExaminationresults() {
 		return this.examinationresults;
 	}
 
-	public void setExaminationresults(Set<Examinationresult> examinationresults) {
+	public void setExaminationresults(Set<ExaminationResult> examinationresults) {
 		this.examinationresults = examinationresults;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "examinationprotocol")
-	public Set<Examinationprotocolservicecode> getExaminationprotocolservicecodes() {
+	public Set<ExaminationProtocolServiceCode> getExaminationprotocolservicecodes() {
 		return this.examinationprotocolservicecodes;
 	}
 
 	public void setExaminationprotocolservicecodes(
-			Set<Examinationprotocolservicecode> examinationprotocolservicecodes) {
+			Set<ExaminationProtocolServiceCode> examinationprotocolservicecodes) {
 		this.examinationprotocolservicecodes = examinationprotocolservicecodes;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "examinationprotocol")
-	public Set<Referralletter> getReferralletters() {
+	public Set<ReferralLetter> getReferralletters() {
 		return this.referralletters;
 	}
 
-	public void setReferralletters(Set<Referralletter> referralletters) {
+	public void setReferralletters(Set<ReferralLetter> referralletters) {
 		this.referralletters = referralletters;
 	}
 

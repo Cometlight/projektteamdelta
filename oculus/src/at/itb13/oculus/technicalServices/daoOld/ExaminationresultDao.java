@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
-import at.itb13.oculus.domain.Examinationresult;
+import at.itb13.oculus.domain.ExaminationResult;
 import static org.hibernate.criterion.Example.create;
 
 /**
@@ -36,7 +36,7 @@ public class ExaminationresultDao {
 		}
 	}
 
-	public void persist(Examinationresult transientInstance) {
+	public void persist(ExaminationResult transientInstance) {
 		_logger.debug("persisting Examinationresult instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
@@ -47,7 +47,7 @@ public class ExaminationresultDao {
 		}
 	}
 
-	public void attachDirty(Examinationresult instance) {
+	public void attachDirty(ExaminationResult instance) {
 		_logger.debug("attaching dirty Examinationresult instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
@@ -58,7 +58,7 @@ public class ExaminationresultDao {
 		}
 	}
 
-	public void attachClean(Examinationresult instance) {
+	public void attachClean(ExaminationResult instance) {
 		_logger.debug("attaching clean Examinationresult instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
@@ -69,7 +69,7 @@ public class ExaminationresultDao {
 		}
 	}
 
-	public void delete(Examinationresult persistentInstance) {
+	public void delete(ExaminationResult persistentInstance) {
 		_logger.debug("deleting Examinationresult instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
@@ -80,10 +80,10 @@ public class ExaminationresultDao {
 		}
 	}
 
-	public Examinationresult merge(Examinationresult detachedInstance) {
+	public ExaminationResult merge(ExaminationResult detachedInstance) {
 		_logger.debug("merging Examinationresult instance");
 		try {
-			Examinationresult result = (Examinationresult) _sessionFactory
+			ExaminationResult result = (ExaminationResult) _sessionFactory
 					.getCurrentSession().merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -93,10 +93,10 @@ public class ExaminationresultDao {
 		}
 	}
 
-	public Examinationresult findById(java.lang.Integer id) {
+	public ExaminationResult findById(java.lang.Integer id) {
 		_logger.debug("getting Examinationresult instance with id: " + id);
 		try {
-			Examinationresult instance = (Examinationresult) _sessionFactory
+			ExaminationResult instance = (ExaminationResult) _sessionFactory
 					.getCurrentSession().get("Examinationresult", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
@@ -110,10 +110,10 @@ public class ExaminationresultDao {
 		}
 	}
 
-	public List<Examinationresult> findByExample(Examinationresult instance) {
+	public List<ExaminationResult> findByExample(ExaminationResult instance) {
 		_logger.debug("finding Examinationresult instance by example");
 		try {
-			List<Examinationresult> results = (List<Examinationresult>) _sessionFactory
+			List<ExaminationResult> results = (List<ExaminationResult>) _sessionFactory
 					.getCurrentSession().createCriteria("Examinationresult")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "

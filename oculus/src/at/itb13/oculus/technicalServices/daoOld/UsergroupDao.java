@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.naming.InitialContext;
 
-import at.itb13.oculus.domain.Usergroup;
+import at.itb13.oculus.domain.UserGroup;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,7 +37,7 @@ public class UsergroupDao {
 		}
 	}
 
-	public void persist(Usergroup transientInstance) {
+	public void persist(UserGroup transientInstance) {
 		_logger.debug("persisting Usergroup instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
@@ -48,7 +48,7 @@ public class UsergroupDao {
 		}
 	}
 
-	public void attachDirty(Usergroup instance) {
+	public void attachDirty(UserGroup instance) {
 		_logger.debug("attaching dirty Usergroup instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
@@ -59,7 +59,7 @@ public class UsergroupDao {
 		}
 	}
 
-	public void attachClean(Usergroup instance) {
+	public void attachClean(UserGroup instance) {
 		_logger.debug("attaching clean Usergroup instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
@@ -70,7 +70,7 @@ public class UsergroupDao {
 		}
 	}
 
-	public void delete(Usergroup persistentInstance) {
+	public void delete(UserGroup persistentInstance) {
 		_logger.debug("deleting Usergroup instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
@@ -81,10 +81,10 @@ public class UsergroupDao {
 		}
 	}
 
-	public Usergroup merge(Usergroup detachedInstance) {
+	public UserGroup merge(UserGroup detachedInstance) {
 		_logger.debug("merging Usergroup instance");
 		try {
-			Usergroup result = (Usergroup) _sessionFactory.getCurrentSession()
+			UserGroup result = (UserGroup) _sessionFactory.getCurrentSession()
 					.merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -94,10 +94,10 @@ public class UsergroupDao {
 		}
 	}
 
-	public Usergroup findById(java.lang.Integer id) {
+	public UserGroup findById(java.lang.Integer id) {
 		_logger.debug("getting Usergroup instance with id: " + id);
 		try {
-			Usergroup instance = (Usergroup) _sessionFactory.getCurrentSession()
+			UserGroup instance = (UserGroup) _sessionFactory.getCurrentSession()
 					.get("Usergroup", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
@@ -111,10 +111,10 @@ public class UsergroupDao {
 		}
 	}
 
-	public List<Usergroup> findByExample(Usergroup instance) {
+	public List<UserGroup> findByExample(UserGroup instance) {
 		_logger.debug("finding Usergroup instance by example");
 		try {
-			List<Usergroup> results = (List<Usergroup>) _sessionFactory
+			List<UserGroup> results = (List<UserGroup>) _sessionFactory
 					.getCurrentSession().createCriteria("Usergroup")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "

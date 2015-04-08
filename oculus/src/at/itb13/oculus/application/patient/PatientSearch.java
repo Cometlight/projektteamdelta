@@ -42,18 +42,19 @@ public class PatientSearch {
 	}
 	
 	/**
-	 * TODO
+	 * Loads the patient with the provided social insurance number from the database.
 	 * 
-	 * @param socialInsuranceNr
-	 * @return
+	 * @param socialInsuranceNr The patient's social insurance number.
+	 * @return The patient with the supplied social insurance number. May be null, if no patient has been found.
+	 * @throws InvalidInputException thrown if the provided socialInsuranceNr is not in an appropriate format.
 	 */
-	public Patient searchPatientBySocialInsuranceNr(String socialInsuranceNr) {
+	public Patient searchPatientBySocialInsuranceNr(String socialInsuranceNr) throws InvalidInputException {
 		Patient patient = null;
 		if(isSocialInsuranceNrValid(socialInsuranceNr)) {
 			PatientDao patientDao = new PatientDao();
 			patient = patientDao.findBySocialInsuranceNr(socialInsuranceNr);
 		} else {
-			throw new IllegalArgumentException();
+			throw new InvalidInputException();
 		}
 		
 		return patient;
@@ -64,7 +65,7 @@ public class PatientSearch {
 	 * @param socialInsuranceNr
 	 * @return
 	 */
-	public boolean isSocialInsuranceNrValid(String socialInsuranceNr) {
+	private boolean isSocialInsuranceNrValid(String socialInsuranceNr) {
 		boolean isValid;
 		isValid = socialInsuranceNr != null && socialInsuranceNr.length() == SOCIAL_INSURANCE_NR_LENGTH;
 		// TODO: RegEx-Check, if valid?

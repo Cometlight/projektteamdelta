@@ -1,5 +1,7 @@
 package at.itb13.oculus.presentation.view;
 
+import at.itb13.oculus.application.exceptions.InvalidInputException;
+import at.itb13.oculus.application.patient.PatientSearch;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.presentation.OculusMain;
 import at.itb13.oculus.presentation.model.PatientWithProperties;
@@ -7,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 /**
  * TODO: Insert description here.
@@ -24,6 +27,9 @@ public class PatientController {
 	private TableColumn<PatientWithProperties, String> _lastNameColumn;	
 	@FXML
 	private TableColumn<PatientWithProperties, String> _SSNColumn;
+	
+	@FXML
+	private TextField _ssnTextField;
 	
 	@FXML
 	private Label _firstNameLabel;
@@ -55,6 +61,7 @@ public class PatientController {
 
 	        // Add observable list data to the table
 	        _patientTable.setItems(main.getPatientData());
+	        
 	    }
 	 @FXML
 	 private void initialize() {
@@ -98,4 +105,15 @@ public class PatientController {
 	            _birthdayLabel.setText("");
 	        }
 	    }
+	 @FXML
+	 private void searchByNumberControl(){
+		 PatientSearch p = new PatientSearch();
+		 try {			
+			PatientWithProperties pa = new PatientWithProperties(p.searchPatientBySocialInsuranceNr(_ssnTextField.getText()));
+			showPatientDetails(pa);
+		} catch (InvalidInputException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	 }
 }

@@ -99,9 +99,9 @@
                                           <Button layoutX="15.0" layoutY="84.0" mnemonicParsing="false" text="New Patient" AnchorPane.rightAnchor="168.0" />
                                           <TextField layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="67.0" text="first name" />
                                           <TextField layoutX="89.0" layoutY="14.0" prefHeight="25.0" prefWidth="67.0" text="last name" />
-                                          <TextField layoutX="15.0" layoutY="49.0" prefHeight="25.0" prefWidth="142.0" text="SSN" />
+                                          <TextField fx:id="_ssnTextField" layoutX="15.0" layoutY="49.0" prefHeight="25.0" prefWidth="142.0" text="SSN" />
                                           <Button layoutX="164.0" layoutY="14.0" mnemonicParsing="false" text="Search" />
-                                          <Button layoutX="164.0" layoutY="49.0" mnemonicParsing="false" text="Search" />
+                                          <Button layoutX="164.0" layoutY="49.0" mnemonicParsing="false" onAction="#searchByNumberControl" text="Search" />
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

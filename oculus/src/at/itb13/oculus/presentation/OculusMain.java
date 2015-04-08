@@ -23,6 +23,7 @@ public class OculusMain extends Application {
 	 private ObservableList<PatientWithProperties> _patientData = FXCollections.observableArrayList();
 
 	 public OculusMain(){
+		 
 		//_patientData.add(??);
 	 }
 	 

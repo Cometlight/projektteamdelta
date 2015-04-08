@@ -1,7 +1,7 @@
 package at.itb13.oculus.application.exceptions;
 
 /**
- * TODO: Insert description here.
+ * The input parameter is null or has another wrong value.
  *
  * @author Florin Metzler
  * @since 08.04.2015

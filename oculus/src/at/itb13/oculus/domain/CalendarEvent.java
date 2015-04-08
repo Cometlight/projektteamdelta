@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "calendarevent", catalog = "oculusdb")
-public class CalenderEvent implements java.io.Serializable {
+public class CalendarEvent implements java.io.Serializable {
 
 	private Integer calendarEventId;
 	private Calendar calendar;
@@ -30,10 +30,10 @@ public class CalenderEvent implements java.io.Serializable {
 	private String patientName;
 	private boolean isOpen;
 
-	public CalenderEvent() {
+	public CalendarEvent() {
 	}
 
-	public CalenderEvent(Calendar calendar, EventType eventtype,
+	public CalendarEvent(Calendar calendar, EventType eventtype,
 			Date eventStart, Date eventEnd, boolean isOpen) {
 		this.calendar = calendar;
 		this.eventtype = eventtype;
@@ -42,7 +42,7 @@ public class CalenderEvent implements java.io.Serializable {
 		this.isOpen = isOpen;
 	}
 
-	public CalenderEvent(Calendar calendar, EventType eventtype,
+	public CalendarEvent(Calendar calendar, EventType eventtype,
 			Patient patient, Date eventStart, Date eventEnd,
 			String description, String patientName, boolean isOpen) {
 		this.calendar = calendar;

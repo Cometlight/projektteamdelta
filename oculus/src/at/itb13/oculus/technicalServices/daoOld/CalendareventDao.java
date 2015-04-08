@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
-import at.itb13.oculus.domain.CalenderEvent;
+import at.itb13.oculus.domain.CalendarEvent;
 import static org.hibernate.criterion.Example.create;
 
 /**
@@ -36,7 +36,7 @@ public class CalendareventDao {
 		}
 	}
 
-	public void persist(CalenderEvent transientInstance) {
+	public void persist(CalendarEvent transientInstance) {
 		_logger.debug("persisting Calendarevent instance");
 		try {
 			_sessionFactory.getCurrentSession().persist(transientInstance);
@@ -47,7 +47,7 @@ public class CalendareventDao {
 		}
 	}
 
-	public void attachDirty(CalenderEvent instance) {
+	public void attachDirty(CalendarEvent instance) {
 		_logger.debug("attaching dirty Calendarevent instance");
 		try {
 			_sessionFactory.getCurrentSession().saveOrUpdate(instance);
@@ -58,7 +58,7 @@ public class CalendareventDao {
 		}
 	}
 
-	public void attachClean(CalenderEvent instance) {
+	public void attachClean(CalendarEvent instance) {
 		_logger.debug("attaching clean Calendarevent instance");
 		try {
 			_sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
@@ -69,7 +69,7 @@ public class CalendareventDao {
 		}
 	}
 
-	public void delete(CalenderEvent persistentInstance) {
+	public void delete(CalendarEvent persistentInstance) {
 		_logger.debug("deleting Calendarevent instance");
 		try {
 			_sessionFactory.getCurrentSession().delete(persistentInstance);
@@ -80,10 +80,10 @@ public class CalendareventDao {
 		}
 	}
 
-	public CalenderEvent merge(CalenderEvent detachedInstance) {
+	public CalendarEvent merge(CalendarEvent detachedInstance) {
 		_logger.debug("merging Calendarevent instance");
 		try {
-			CalenderEvent result = (CalenderEvent) _sessionFactory
+			CalendarEvent result = (CalendarEvent) _sessionFactory
 					.getCurrentSession().merge(detachedInstance);
 			_logger.debug("merge successful");
 			return result;
@@ -93,10 +93,10 @@ public class CalendareventDao {
 		}
 	}
 
-	public CalenderEvent findById(java.lang.Integer id) {
+	public CalendarEvent findById(java.lang.Integer id) {
 		_logger.debug("getting Calendarevent instance with id: " + id);
 		try {
-			CalenderEvent instance = (CalenderEvent) _sessionFactory
+			CalendarEvent instance = (CalendarEvent) _sessionFactory
 					.getCurrentSession().get("Calendarevent", id);
 			if (instance == null) {
 				_logger.debug("get successful, no instance found");
@@ -110,10 +110,10 @@ public class CalendareventDao {
 		}
 	}
 
-	public List<CalenderEvent> findByExample(CalenderEvent instance) {
+	public List<CalendarEvent> findByExample(CalendarEvent instance) {
 		_logger.debug("finding Calendarevent instance by example");
 		try {
-			List<CalenderEvent> results = (List<CalenderEvent>) _sessionFactory
+			List<CalendarEvent> results = (List<CalendarEvent>) _sessionFactory
 					.getCurrentSession().createCriteria("Calendarevent")
 					.add(create(instance)).list();
 			_logger.debug("find by example successful, result size: "

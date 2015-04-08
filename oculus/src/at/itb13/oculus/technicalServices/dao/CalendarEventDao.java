@@ -9,9 +9,9 @@ import at.itb13.oculus.technicalServices.GenericDao;
  * @author Daniel Scheffknecht
  * @date 06.04.2015
  */
-public class CalendareventDao extends GenericDao<CalenderEvent> {
+public class CalendarEventDao extends GenericDao<CalenderEvent> {
 	
-	public CalendareventDao() {
+	public CalendarEventDao() {
 		super(CalenderEvent.class);
 	}
 

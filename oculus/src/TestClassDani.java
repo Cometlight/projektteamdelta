@@ -19,7 +19,7 @@ public class TestClassDani {
 	 */
 	public static void main(String[] args) {
 		PatientDao patDao = new PatientDao();
-		Patient pat = patDao.findBySocialInsuranceNr("5678151082");	// should be Max Mustermann
+		Patient pat = patDao.findBySocialInsuranceNr("5736198542");	// should be Russel Fuller
 		System.out.println(pat.getFirstName() + " " + pat.getLastName() + " (" + pat.getSocialInsuranceNr() + ")");
 		
 		CalendarEvent ev1 = patDao.loadCalendarevents(pat).iterator().next();

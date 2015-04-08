@@ -15,11 +15,22 @@ public class PatientSearch {
 	
 	public static final Integer SOCIAL_INSURANCE_NR_LENGTH = 10;
 	
-//	public List<Patient> searchPatientByName(String firstName, String lastName) {
-//		if(socialInsurancrNr != null){
-//			searchPatientBy
-//		}
-//	}
+	public List<Patient> searchPatientByName(String firstName, String lastName) throws InvalidInputException {
+		List<Patient> patients = null;
+		PatientDao patientDao = new PatientDao();
+		if(firstName != null && lastName != null){
+			patients = patientDao.findByFullName(firstName, lastName);
+			return patients;
+		}else if(firstName != null){
+			//TODO
+			return patients;
+		}else if(lastName != null){
+			//TODO
+			return patients;
+		}else{
+			throw new InvalidInputException();
+		}
+	}
 	
 	/**
 	 * TODO

@@ -34,13 +34,42 @@ public class PatientDao extends GenericDao<Patient> {
 	/**
 	 * Load the Patients with the specified firstName and lastName from the database.
 	 * 
-	 * @param name The name of the Patient that should be loaded from the database.
+	 * @param firstName The first name of the Patient that should be loaded from the database.
+	 * @param lastName The last name of the Patient that should be loaded from the database.
 	 * @return A list of all patients that fit the supplied data. May be empty.
 	 */
 	public List<Patient> findByFullName(String firstName, String lastName) {
 		List<Patient> patients = null;
 		
 		patients = findByCriteria(Restrictions.eq("firstName", firstName), Restrictions.eq("lastName", lastName));
+		
+		return patients;
+	}
+	
+	/**
+	 * Load the Patients with the specified firstName from the database.
+	 * 
+	 * @param firstName The first name of the Patient that should be loaded from the database.
+	 * @return A list of all patients that fit the supplied data. May be empty.
+	 */
+	public List<Patient> findByFirstName(String firstName) {
+		List<Patient> patients = null;
+		
+		patients = findByCriteria(Restrictions.eq("firstName", firstName));
+		
+		return patients;
+	}
+	
+	/**
+	 * Load the Patients with the specified firstName from the database.
+	 * 
+	 * @param lastName The last name of the Patient that should be loaded from the database.
+	 * @return A list of all patients that fit the supplied data. May be empty.
+	 */
+	public List<Patient> findByLastName(String lastName) {
+		List<Patient> patients = null;
+		
+		patients = findByCriteria(Restrictions.eq("lastName", lastName));
 		
 		return patients;
 	}

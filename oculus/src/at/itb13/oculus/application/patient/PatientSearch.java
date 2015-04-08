@@ -53,9 +53,10 @@ public class PatientSearch {
 	}
 	
 	/**
-	 * TODO
-	 * @param socialInsuranceNr
-	 * @return
+	 * Checks if the provided insurance number is in a valid format.
+	 * 
+	 * @param socialInsuranceNr The social insurance number that should be checked.
+	 * @return true, if the socialInsuranceNr is in a valid format.
 	 */
 	private boolean isSocialInsuranceNrValid(String socialInsuranceNr) {
 		boolean isValid;

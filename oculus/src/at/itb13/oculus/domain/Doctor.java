@@ -26,7 +26,7 @@ public class Doctor implements java.io.Serializable {
 	private User user;
 	private Set<Doctor> doctors = new HashSet<Doctor>(0);
 	private Set<Queue> queues = new HashSet<Queue>(0);
-	private Set<Diagnosis> diagnosises = new HashSet<Diagnosis>(0);
+	private Set<Diagnosis> diagnoses = new HashSet<Diagnosis>(0);
 	private Set<Patient> patients = new HashSet<Patient>(0);
 
 	public Doctor() {
@@ -44,7 +44,7 @@ public class Doctor implements java.io.Serializable {
 		this.user = user;
 		this.doctors = doctors;
 		this.queues = queues;
-		this.diagnosises = diagnosises;
+		this.diagnoses = diagnosises;
 		this.patients = patients;
 	}
 
@@ -108,12 +108,12 @@ public class Doctor implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
-	public Set<Diagnosis> getDiagnosises() {
-		return this.diagnosises;
+	public Set<Diagnosis> getDiagnoses() {
+		return this.diagnoses;
 	}
 
-	public void setDiagnosises(Set<Diagnosis> diagnosises) {
-		this.diagnosises = diagnosises;
+	public void setDiagnoses(Set<Diagnosis> diagnoses) {
+		this.diagnoses = diagnoses;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")

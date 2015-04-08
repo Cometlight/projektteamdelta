@@ -70,13 +70,13 @@ public class DoctorDao extends GenericDao<Doctor> {
 	 */
 	public Set<Diagnosis> loadDiagnoses(Doctor doctor) {// TODO: rename getDiagnosises to getDiagnoses ??
 		try {
-			loadCollection(doctor, doctor.getDiagnosises());
+			loadCollection(doctor, doctor.getDiagnoses());
 		} catch (Exception e) {
 			_logger.error(e);
 			return Collections.emptySet();
 		}
 		
-		return doctor.getDiagnosises();
+		return doctor.getDiagnoses();
 	}
 	
 	// TODO: Why does a doctor contain a list of "doctors"?

@@ -1,4 +1,4 @@
-package at.itb13.oculus.domain;
+package at.itb13.oculus.presentation.model;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -22,6 +22,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import at.itb13.oculus.domain.Calendarevent;
+import at.itb13.oculus.domain.Doctor;
+import at.itb13.oculus.domain.Examinationprotocol;
+import at.itb13.oculus.domain.Prescription;
+import at.itb13.oculus.domain.Queue;
+import at.itb13.oculus.domain.Referralletter;
 
 /**
  * TODO: Is this class really a part of the domain layer? Or rather of the presentation layer? -- Daniel
@@ -50,8 +57,7 @@ public class PatientWithProperties implements java.io.Serializable {
 	private Set<Prescription> prescriptions = new HashSet<Prescription>(0);
 	private Set<Queue> queues = new HashSet<Queue>(0);
 	private Set<Referralletter> referralletters = new HashSet<Referralletter>(0);
-	private Set<Examinationprotocol> examinationprotocols = new HashSet<Examinationprotocol>(
-			0);
+	private Set<Examinationprotocol> examinationprotocols = new HashSet<Examinationprotocol>(0);
 
 	public PatientWithProperties() {
 	}

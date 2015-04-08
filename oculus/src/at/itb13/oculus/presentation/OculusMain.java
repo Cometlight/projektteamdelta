@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.prefs.Preferences;
 
-import at.itb13.oculus.domain.PatientWithProperties;
+import at.itb13.oculus.presentation.model.PatientWithProperties;
 import at.itb13.oculus.presentation.view.PatientController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -22,7 +22,9 @@ public class OculusMain extends Application {
 	 private BorderPane _rootLayout;
 	 private ObservableList<PatientWithProperties> _patientData = FXCollections.observableArrayList();
 
-	 public OculusMain(){}
+	 public OculusMain(){
+		//_patientData.add(??);
+	 }
 	 
 	 public ObservableList<PatientWithProperties> getPatientData() {
 	        return _patientData;

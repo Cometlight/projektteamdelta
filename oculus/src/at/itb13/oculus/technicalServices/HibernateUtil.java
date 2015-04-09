@@ -17,6 +17,8 @@ public class HibernateUtil {
 	private static final SessionFactory _sessionFactory;
 	private static final Logger _logger = LogManager.getLogger(HibernateUtil.class.getName());
 	
+	private HibernateUtil() { }
+	
 	static {
 		try {
 			Configuration config = new Configuration();

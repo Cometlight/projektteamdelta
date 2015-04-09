@@ -59,7 +59,14 @@ public class CalendarEvent implements java.io.Serializable {
 		this.isOpen = isOpen;
 	}
 	
-	private boolean isInTimespan(Date startDate, Date endDate){
+	/**
+	 * Checks if the CalendarEvent is in a timespan.
+	 * 
+	 * @param startDate the strat Date of the timespan.
+	 * @param endDate the end Date of the timespan.
+	 * @return true if the CalendarEvent is in the timespan and false if not.
+	 */
+	protected boolean isInTimespan(Date startDate, Date endDate){
 		if((startDate.compareTo(getEventStart()) <= 0) && endDate.compareTo(getEventEnd())>= 0){
 			return true;
 		} else{

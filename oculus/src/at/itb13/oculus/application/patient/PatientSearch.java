@@ -29,9 +29,9 @@ public class PatientSearch {
 		PatientDao patientDao = new PatientDao();
 		if(firstName != null && lastName != null){
 			patients = patientDao.findByFullName(firstName, lastName);
-		}else if(firstName != null){
+		}else if(lastName.equals("")){
 			patients = patientDao.findByFirstName(firstName);
-		}else if(lastName != null){
+		}else if(firstName.equals("")){
 			patients = patientDao.findByLastName(lastName);
 		}else{
 			throw new InvalidInputException();

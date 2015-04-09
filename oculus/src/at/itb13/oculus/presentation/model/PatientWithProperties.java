@@ -80,9 +80,9 @@ public class PatientWithProperties implements java.io.Serializable {
 		countryIsoCode = new SimpleStringProperty(patient.getCountryIsoCode());
 		phone = new SimpleStringProperty(patient.getPhone());
 		email = new SimpleStringProperty(patient.getEmail());
-//		allergy.set(patient.getAllergy());
-//		childhoodAilments.set(patient.getChildhoodAilments());
-//		medicineIntolerance.set(patient.getMedicineIntolerance());
+		allergy = new SimpleStringProperty(patient.getAllergy());
+		childhoodAilments = new SimpleStringProperty(patient.getChildhoodAilments());
+		medicineIntolerance = new SimpleStringProperty(patient.getMedicineIntolerance());
 		
 	}
 

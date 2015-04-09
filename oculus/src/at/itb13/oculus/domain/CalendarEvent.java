@@ -1,11 +1,15 @@
 package at.itb13.oculus.domain;
 
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+
 import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -53,6 +57,21 @@ public class CalendarEvent implements java.io.Serializable {
 		this.description = description;
 		this.patientName = patientName;
 		this.isOpen = isOpen;
+	}
+	
+	/**
+	 * Checks if the CalendarEvent is in a timespan.
+	 * 
+	 * @param startDate the strat Date of the timespan.
+	 * @param endDate the end Date of the timespan.
+	 * @return true if the CalendarEvent is in the timespan and false if not.
+	 */
+	protected boolean isInTimespan(Date startDate, Date endDate){
+		if((startDate.compareTo(getEventStart()) <= 0) && endDate.compareTo(getEventEnd())>= 0){
+			return true;
+		} else{
+			return false;
+		}
 	}
 
 	@Id

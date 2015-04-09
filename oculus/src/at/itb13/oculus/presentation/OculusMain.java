@@ -30,6 +30,10 @@ public class OculusMain extends Application {
 	 public ObservableList<PatientWithProperties> getPatientData() {
 	        return _patientData;
 	    }
+	 
+	 public void addPatientData(PatientWithProperties p){
+		 _patientData.add(p);
+	 }
 	@Override
 	public void start(Stage primaryStage) {
 		 _primaryStage = primaryStage;

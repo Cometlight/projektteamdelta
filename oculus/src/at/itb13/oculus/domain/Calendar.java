@@ -1,12 +1,20 @@
 package at.itb13.oculus.domain;
 
+import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
+
+import javassist.NotFoundException;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+
 import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -19,12 +27,12 @@ import javax.persistence.Table;
 @Table(name = "calendar", catalog = "oculusdb")
 public class Calendar implements java.io.Serializable {
 
-	private Integer calendarId;
-	private String title;
-	private Set<Doctor> doctors = new HashSet<Doctor>(0);
-	private Set<Orthoptist> orthoptists = new HashSet<Orthoptist>(0);
-	private Set<CalendarEvent> calendarevents = new HashSet<CalendarEvent>(0);
-	private Set<Workinghours> workinghourses = new HashSet<Workinghours>(0);
+	private Integer _calendarId;
+	private String _title;
+	private Set<Doctor> _doctors = new HashSet<Doctor>(0);
+	private Set<Orthoptist> _orthoptists = new HashSet<Orthoptist>(0);
+	private Set<CalendarEvent> _calendarevents = new HashSet<CalendarEvent>(0);
+	private Set<Workinghours> _workinghours = new HashSet<Workinghours>(0);
 
 	public Calendar() {
 	}
@@ -32,67 +40,84 @@ public class Calendar implements java.io.Serializable {
 	public Calendar(String title, Set<Doctor> doctors,
 			Set<Orthoptist> orthoptists, Set<CalendarEvent> calendarevents,
 			Set<Workinghours> workinghourses) {
-		this.title = title;
-		this.doctors = doctors;
-		this.orthoptists = orthoptists;
-		this.calendarevents = calendarevents;
-		this.workinghourses = workinghourses;
+		_title = title;
+		_doctors = doctors;
+		_orthoptists = orthoptists;
+		_calendarevents = calendarevents;
+		_workinghours = workinghourses;
+	}
+	
+	/**
+	 * Creates a list of Calendar Event in a chosen timespan.
+	 * 
+	 * @param startDate the start Date of the timespan.
+	 * @param endDate the end Date of the timespan.
+	 * @return A list of CalendarEvent.
+	 */
+	public List<CalendarEvent> getCalendarEvents(Date startDate, Date endDate){
+		List<CalendarEvent> curEvents = new LinkedList<>();
+		for(CalendarEvent c : _calendarevents){
+			if(c.isInTimespan(startDate, endDate)){
+				curEvents.add(c);
+			}
+		}
+		return curEvents;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "calendarId", unique = true, nullable = false)
 	public Integer getCalendarId() {
-		return this.calendarId;
+		return _calendarId;
 	}
 
 	public void setCalendarId(Integer calendarId) {
-		this.calendarId = calendarId;
+		_calendarId = calendarId;
 	}
 
 	@Column(name = "title")
 	public String getTitle() {
-		return this.title;
+		return _title;
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
+		_title = title;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "calendar")
 	public Set<Doctor> getDoctors() {
-		return this.doctors;
+		return _doctors;
 	}
 
 	public void setDoctors(Set<Doctor> doctors) {
-		this.doctors = doctors;
+		_doctors = doctors;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "calendar")
 	public Set<Orthoptist> getOrthoptists() {
-		return this.orthoptists;
+		return _orthoptists;
 	}
 
 	public void setOrthoptists(Set<Orthoptist> orthoptists) {
-		this.orthoptists = orthoptists;
+		_orthoptists = orthoptists;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "calendar")
 	public Set<CalendarEvent> getCalendarevents() {
-		return this.calendarevents;
+		return _calendarevents;
 	}
 
 	public void setCalendarevents(Set<CalendarEvent> calendarevents) {
-		this.calendarevents = calendarevents;
+		_calendarevents = calendarevents;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "calendars")
 	public Set<Workinghours> getWorkinghourses() {
-		return this.workinghourses;
+		return _workinghours;
 	}
 
 	public void setWorkinghourses(Set<Workinghours> workinghourses) {
-		this.workinghourses = workinghourses;
+		_workinghours = workinghourses;
 	}
 
 	//TODO getCalendarEvents 

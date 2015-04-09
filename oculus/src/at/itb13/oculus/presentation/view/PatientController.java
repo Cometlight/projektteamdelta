@@ -87,10 +87,10 @@ public class PatientController {
 	            _firstNameLabel.setText(value.getFirstName());
 	            _lastNameLabel.setText(value.getLastName());
 	            _SSNLabel.setText(value.getSocialInsuranceNr());
-	            _birthdayLabel.setText(value.getBirthDay().toString());
+	       //     _birthdayLabel.setText(value.getBirthDay().toString());
 	            _genderLabel.setText(value.getGender());	            
 	            _streetLabel.setText(value.getStreet());
-	     //       _postalCodeLabel.setText(Integer.toUnsignedString((newValue.getPostalCode())));
+	          _postalCodeLabel.setText(value.getPostalCode());
 	            _cityLabel.setText(value.getCity());
 	            _countryISOLabel.setText(value.getCountryIsoCode());
 	            _phoneLabel.setText(value.getPhone());

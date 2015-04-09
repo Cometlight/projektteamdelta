@@ -6,6 +6,9 @@ import java.util.Set;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import javax.persistence.Column;
@@ -63,22 +66,23 @@ public class PatientWithProperties implements java.io.Serializable {
 	public PatientWithProperties() {
 	}
 	public PatientWithProperties(Patient patient){
-		patientId.set(patient.getPatientId());
-		doctor.set(patient.getDoctor());
-		socialInsuranceNr.set(patient.getSocialInsuranceNr());
-		firstName.set(patient.getFirstName());
-		lastName.set(patient.getLastName());
-		birthDay.set(patient.getBirthDay());
-		gender.set(patient.getGender());
-		street.set(patient.getStreet());
-		postalCode.set(getPostalCode());
-		city.set(patient.getCity());
-		countryIsoCode.set(patient.getCountryIsoCode());
-		phone.set(patient.getPhone());
-		email.set(patient.getEmail());
-		allergy.set(patient.getAllergy());
-		childhoodAilments.set(patient.getChildhoodAilments());
-		medicineIntolerance.set(patient.getMedicineIntolerance());
+		patientId = new SimpleIntegerProperty(patient.getPatientId());
+	//	doctor = new SimpleObjectProperty(patient.getDoctor());
+		socialInsuranceNr = new SimpleStringProperty(patient.getSocialInsuranceNr());
+		firstName = new SimpleStringProperty(patient.getFirstName());
+		lastName = new SimpleStringProperty(patient.getLastName());
+
+	//	birthDay= new SimpleObjectProperty<>(patient.getBirthDay());
+		gender = new SimpleStringProperty(patient.getGender());
+		street = new SimpleStringProperty(patient.getStreet());
+		postalCode = new SimpleStringProperty(patient.getPostalCode());
+		city = new SimpleStringProperty(patient.getCity());
+		countryIsoCode = new SimpleStringProperty(patient.getCountryIsoCode());
+		phone = new SimpleStringProperty(patient.getPhone());
+		email = new SimpleStringProperty(patient.getEmail());
+//		allergy.set(patient.getAllergy());
+//		childhoodAilments.set(patient.getChildhoodAilments());
+//		medicineIntolerance.set(patient.getMedicineIntolerance());
 		
 	}
 

@@ -25,30 +25,33 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <Label text="First Name" />
             <Label text="Last Name" GridPane.rowIndex="1" />
-            <Label text="Social Security Number" GridPane.rowIndex="2" />
+            <Label text="Social Insurance Number" GridPane.rowIndex="2" />
             <Label text="Birthday" GridPane.rowIndex="3" />
             <Label text="Gender" GridPane.rowIndex="4" />
-            <Label text="Street" GridPane.rowIndex="5" />
-            <Label text="Postal Code" GridPane.rowIndex="6" />
-            <Label text="City" GridPane.rowIndex="7" />
-            <Label text="Country ISO Code" GridPane.rowIndex="8" />
-            <Label text="Phone" GridPane.rowIndex="9" />
-            <Label text="E-Mail" GridPane.rowIndex="10" />
+            <Label text="Street" GridPane.rowIndex="6" />
+            <Label text="Postal Code" GridPane.rowIndex="7" />
+            <Label text="City" GridPane.rowIndex="8" />
+            <Label text="Country ISO Code" GridPane.rowIndex="9" />
+            <Label text="Phone" GridPane.rowIndex="10" />
+            <Label text="E-Mail" GridPane.rowIndex="11" />
             <TextField fx:id="_firstNameField" prefHeight="25.0" prefWidth="230.0" promptText="first name" GridPane.columnIndex="1" />
-            <TextField fx:id="_lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="_SINField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="_birthdayField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="_genderField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="_streetField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="_postalCodeField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="_cityField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="_countryISOField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextField fx:id="_phoneField" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <TextField fx:id="_emailField" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <TextField fx:id="_lastNameField" promptText="last name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="_SINField" promptText="social insurance number" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="_birthdayField" promptText="birthday" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="_genderField" promptText="gender" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="_streetField" promptText="street" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="_postalCodeField" promptText="posatl code" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="_cityField" promptText="city" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="_countryISOField" promptText="country" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextField fx:id="_phoneField" promptText="phone" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <TextField fx:id="_emailField" promptText="email" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+            <Label text="Doctor" GridPane.rowIndex="5" />
+            <TextField fx:id="_doctorField" promptText="doctor" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       <Label layoutX="14.0" layoutY="6.0" text="Master Data" AnchorPane.leftAnchor="0.0" />

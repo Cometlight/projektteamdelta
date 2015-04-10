@@ -27,11 +27,11 @@ import javax.persistence.TemporalType;
 public class Patient implements java.io.Serializable {
 
 	private Integer _patientId;
-	private String _doctor;
+	private Doctor _doctor;
 	private String _socialInsuranceNr;
 	private String _firstName;
 	private String _lastName;
-	private String _birthDay;
+	private Date _birthDay;
 	private String _gender;
 	private String _street;
 	private String _postalCode;
@@ -58,8 +58,8 @@ public class Patient implements java.io.Serializable {
 		_gender = gender;
 	}
 	
-	public Patient(String doctor, String socialInsuranceNr, String firstName,
-			String lastName, String birthDay, String gender, String street,
+	public Patient(Doctor doctor, String socialInsuranceNr, String firstName,
+			String lastName, Date birthDay, String gender, String street,
 			String postalCode, String city, String countryIsoCode,
 			String phone, String email) {
 		_doctor = doctor;
@@ -76,8 +76,8 @@ public class Patient implements java.io.Serializable {
 		_email = email;
 	}
 
-	public Patient(String doctor, String socialInsuranceNr, String firstName,
-			String lastName, String birthDay, String gender, String street,
+	public Patient(Doctor doctor, String socialInsuranceNr, String firstName,
+			String lastName, Date birthDay, String gender, String street,
 			String postalCode, String city, String countryIsoCode,
 			String phone, String email, String allergy,
 			String childhoodAilments, String medicineIntolerance,
@@ -110,18 +110,12 @@ public class Patient implements java.io.Serializable {
 	 * 
 	 * @return
 	 */
-	public Patient buildPatient(String doctor, String socialInsuranceNr, String firstName, String lastName, 
-			  String birthday, String gender, String street, String postalCode, String city, 
+	public Patient buildPatient(Doctor doctor, String socialInsuranceNr, String firstName, String lastName, 
+			  Date birthday, String gender, String street, String postalCode, String city, 
 			  String countryIsoCode, String phone, String email){
 		
-		if(doctor.isEmpty()){
-			doctor = null;
-		}
 		if(socialInsuranceNr.isEmpty()){
 			socialInsuranceNr = null;
-		}
-		if(birthday.isEmpty()){
-			birthday = null;
 		}
 		if(street.isEmpty()){
 			street = null;
@@ -161,11 +155,11 @@ public class Patient implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctorId")
-	public String getDoctor() {
+	public Doctor getDoctor() {
 		return _doctor;
 	}
 
-	public void setDoctor(String doctor) {
+	public void setDoctor(Doctor doctor) {
 		_doctor = doctor;
 	}
 
@@ -198,11 +192,11 @@ public class Patient implements java.io.Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "birthDay", length = 10)
-	public String getBirthDay() {
+	public Date getBirthDay() {
 		return _birthDay;
 	}
 
-	public void setBirthDay(String birthDay) {
+	public void setBirthDay(Date birthDay) {
 		_birthDay = birthDay;
 	}
 

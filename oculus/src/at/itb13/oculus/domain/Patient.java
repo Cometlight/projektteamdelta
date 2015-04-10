@@ -161,11 +161,11 @@ public class Patient implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctorId")
-	public Doctor getDoctor() {
+	public String getDoctor() {
 		return _doctor;
 	}
 
-	public void setDoctor(Doctor doctor) {
+	public void setDoctor(String doctor) {
 		_doctor = doctor;
 	}
 
@@ -198,11 +198,11 @@ public class Patient implements java.io.Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "birthDay", length = 10)
-	public Date getBirthDay() {
+	public String getBirthDay() {
 		return _birthDay;
 	}
 
-	public void setBirthDay(Date birthDay) {
+	public void setBirthDay(String birthDay) {
 		_birthDay = birthDay;
 	}
 

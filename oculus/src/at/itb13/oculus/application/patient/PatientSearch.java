@@ -27,11 +27,11 @@ public class PatientSearch {
 	public List<Patient> searchPatientByName(String firstName, String lastName) throws InvalidInputException {
 		List<Patient> patients = null;
 		PatientDao patientDao = new PatientDao();
-		if(firstName != null && lastName != null){
+		if(!firstName.isEmpty() && !lastName.isEmpty()){
 			patients = patientDao.findByFullName(firstName, lastName);
-		}else if(firstName != null){
+		}else if(lastName.isEmpty()){
 			patients = patientDao.findByFirstName(firstName);
-		}else if(lastName != null){
+		}else if(firstName.isEmpty()){
 			patients = patientDao.findByLastName(lastName);
 		}else{
 			throw new InvalidInputException();

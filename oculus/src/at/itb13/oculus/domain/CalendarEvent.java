@@ -24,39 +24,39 @@ import javax.persistence.TemporalType;
 @Table(name = "calendarevent", catalog = "oculusdb")
 public class CalendarEvent implements java.io.Serializable {
 
-	private Integer calendarEventId;
-	private Calendar calendar;
-	private EventType eventtype;
-	private Patient patient;
-	private Date eventStart;
-	private Date eventEnd;
-	private String description;
-	private String patientName;
-	private boolean isOpen;
+	private Integer _calendarEventId;
+	private Calendar _calendar;
+	private EventType _eventtype;
+	private Patient _patient;
+	private Date _eventStart;
+	private Date _eventEnd;
+	private String _description;
+	private String _patientName;
+	private boolean _isOpen;
 
 	public CalendarEvent() {
 	}
 
 	public CalendarEvent(Calendar calendar, EventType eventtype,
 			Date eventStart, Date eventEnd, boolean isOpen) {
-		this.calendar = calendar;
-		this.eventtype = eventtype;
-		this.eventStart = eventStart;
-		this.eventEnd = eventEnd;
-		this.isOpen = isOpen;
+		_calendar = calendar;
+		_eventtype = eventtype;
+		_eventStart = eventStart;
+		_eventEnd = eventEnd;
+		_isOpen = isOpen;
 	}
 
 	public CalendarEvent(Calendar calendar, EventType eventtype,
 			Patient patient, Date eventStart, Date eventEnd,
 			String description, String patientName, boolean isOpen) {
-		this.calendar = calendar;
-		this.eventtype = eventtype;
-		this.patient = patient;
-		this.eventStart = eventStart;
-		this.eventEnd = eventEnd;
-		this.description = description;
-		this.patientName = patientName;
-		this.isOpen = isOpen;
+		_calendar = calendar;
+		_eventtype = eventtype;
+		_patient = patient;
+		_eventStart = eventStart;
+		_eventEnd = eventEnd;
+		_description = description;
+		_patientName = patientName;
+		_isOpen = isOpen;
 	}
 	
 	/**
@@ -78,88 +78,88 @@ public class CalendarEvent implements java.io.Serializable {
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "calendarEventId", unique = true, nullable = false)
 	public Integer getCalendarEventId() {
-		return this.calendarEventId;
+		return _calendarEventId;
 	}
 
 	public void setCalendarEventId(Integer calendarEventId) {
-		this.calendarEventId = calendarEventId;
+		_calendarEventId = calendarEventId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "calendarId", nullable = false)
 	public Calendar getCalendar() {
-		return this.calendar;
+		return _calendar;
 	}
 
 	public void setCalendar(Calendar calendar) {
-		this.calendar = calendar;
+		_calendar = calendar;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "eventTypeId", nullable = false)
 	public EventType getEventtype() {
-		return this.eventtype;
+		return _eventtype;
 	}
 
 	public void setEventtype(EventType eventtype) {
-		this.eventtype = eventtype;
+		_eventtype = eventtype;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "patientId")
 	public Patient getPatient() {
-		return this.patient;
+		return _patient;
 	}
 
 	public void setPatient(Patient patient) {
-		this.patient = patient;
+		_patient = patient;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "eventStart", nullable = false, length = 19)
 	public Date getEventStart() {
-		return this.eventStart;
+		return _eventStart;
 	}
 
 	public void setEventStart(Date eventStart) {
-		this.eventStart = eventStart;
+		_eventStart = eventStart;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "eventEnd", nullable = false, length = 19)
 	public Date getEventEnd() {
-		return this.eventEnd;
+		return _eventEnd;
 	}
 
 	public void setEventEnd(Date eventEnd) {
-		this.eventEnd = eventEnd;
+		_eventEnd = eventEnd;
 	}
 
 	@Column(name = "description", length = 65535)
 	public String getDescription() {
-		return this.description;
+		return _description;
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		_description = description;
 	}
 
 	@Column(name = "patientName", length = 100)
 	public String getPatientName() {
-		return this.patientName;
+		return _patientName;
 	}
 
 	public void setPatientName(String patientName) {
-		this.patientName = patientName;
+		_patientName = patientName;
 	}
 
 	@Column(name = "isOpen", nullable = false)
 	public boolean isIsOpen() {
-		return this.isOpen;
+		return _isOpen;
 	}
 
 	public void setIsOpen(boolean isOpen) {
-		this.isOpen = isOpen;
+		_isOpen = isOpen;
 	}
 
 }

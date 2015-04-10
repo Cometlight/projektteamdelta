@@ -120,4 +120,13 @@ public class Calendar implements java.io.Serializable {
 		_workinghours = workinghourses;
 	}
 
+	//TODO getCalendarEvents 
+	
+	/**
+	 * Returns calendarevents in timespan
+	 * @return
+	 */
+//	public Set<CalendarEvent> getCalendarevents(Calendar cal, anfang ende) {
+//		return this.calendarevents;
+//	}
 }

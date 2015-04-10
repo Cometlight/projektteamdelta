@@ -39,7 +39,7 @@ import at.itb13.oculus.domain.ReferralLetter;
  */
 @Entity
 @Table(name = "patient", catalog = "oculusdb")
-public class PatientWithProperties implements java.io.Serializable {
+public class PatientWithProperties2 implements java.io.Serializable {
 
 	private IntegerProperty patientId;
 	private ObjectProperty<Doctor> doctor;
@@ -62,10 +62,12 @@ public class PatientWithProperties implements java.io.Serializable {
 	private Set<Queue> queues = new HashSet<Queue>(0);
 	private Set<ReferralLetter> referralletters = new HashSet<ReferralLetter>(0);
 	private Set<ExaminationProtocol> examinationprotocols = new HashSet<ExaminationProtocol>(0);
+	private Patient _patient;
 
-	public PatientWithProperties() {
+	public PatientWithProperties2() {
 	}
-	public PatientWithProperties(Patient patient){
+	public PatientWithProperties2(Patient patient){
+		_patient = patient;
 		patientId = new SimpleIntegerProperty(patient.getPatientId());
 	//	doctor = new SimpleObjectProperty(patient.getDoctor());
 		socialInsuranceNr = new SimpleStringProperty(patient.getSocialInsuranceNr());
@@ -86,13 +88,13 @@ public class PatientWithProperties implements java.io.Serializable {
 		
 	}
 
-	public PatientWithProperties(String firstName, String lastName, String gender) {
+	public PatientWithProperties2(String firstName, String lastName, String gender) {
 		this.firstName.set(firstName);
 		this.lastName.set(lastName);
 		this.gender.set(gender);
 	}
 
-	public PatientWithProperties(Doctor doctor, String socialInsuranceNr, String firstName,
+	public PatientWithProperties2(Doctor doctor, String socialInsuranceNr, String firstName,
 			String lastName, Date birthDay, String gender, String street,
 			String postalCode, String city, String countryIsoCode,
 			String phone, String email, String allergy,
@@ -123,28 +125,31 @@ public class PatientWithProperties implements java.io.Serializable {
 	}
 
 
-	public Integer getPatientId() {
-		return this.patientId.get();
+	public Integer getPatientId(){
+		return _patient.getPatientId();
 	}
 
 	public void setPatientId(Integer patientId) {
+		_patient.setPatientId(patientId);
 		this.patientId.set(patientId);
 	}
 
 	public Doctor getDoctor() {
-		return this.doctor.get();
+		return _patient.getDoctor();
 	}
 
 	public void setDoctor(Doctor doctor) {
+		_patient.setDoctor(doctor);
 		this.doctor.set(doctor);
 	}
 
 	
 	public String getSocialInsuranceNr() {
-		return this.socialInsuranceNr.get();
+		return _patient.getSocialInsuranceNr();
 	}
 
 	public void setSocialInsuranceNr(String socialInsuranceNr) {
+		_patient.setSocialInsuranceNr(socialInsuranceNr);
 		this.socialInsuranceNr.set(socialInsuranceNr);
 	}
 	
@@ -153,10 +158,11 @@ public class PatientWithProperties implements java.io.Serializable {
 	    }
 
 	public String getFirstName() {
-		return this.firstName.get();
+		return _patient.getFirstName();
 	}
 
 	public void setFirstName(String firstName) {
+		_patient.setFirstName(firstName);
 		this.firstName.set(firstName);
 	}
 	
@@ -166,10 +172,11 @@ public class PatientWithProperties implements java.io.Serializable {
 
 	
 	public String getLastName() {
-		return this.lastName.get();
+		return _patient.getLastName();
 	}
 
 	public void setLastName(String lastName) {
+		_patient.setLastName(lastName);
 		this.lastName.set(lastName);
 	}
 	 public StringProperty lastNameProperty() {
@@ -177,10 +184,11 @@ public class PatientWithProperties implements java.io.Serializable {
 	    }
 
 	public Date getBirthDay() {
-		return this.birthDay.get();
+		return _patient.getBirthDay();
 	}
 
 	public void setBirthDay(Date birthDay) {
+		_patient.setBirthDay(birthDay);
 		this.birthDay.set(birthDay);
 	}
 	
@@ -189,10 +197,11 @@ public class PatientWithProperties implements java.io.Serializable {
 	    }
 
 	public String getGender() {
-		return this.gender.get();
+		return _patient.getGender();
 	}
 
 	public void setGender(String gender) {
+		_patient.setGender(gender);
 		this.gender.set(gender);
 	}
 	 public StringProperty genderProperty() {
@@ -200,10 +209,11 @@ public class PatientWithProperties implements java.io.Serializable {
 	    }
 
 	public String getStreet() {
-		return this.street.get();
+		return _patient.getStreet();
 	}
 
 	public void setStreet(String street) {
+		_patient.setStreet(street);
 		this.street.set(street);
 	}
 	 public StringProperty StreetProperty() {
@@ -211,66 +221,74 @@ public class PatientWithProperties implements java.io.Serializable {
 	    }
 
 	public String getPostalCode() {
-		return this.postalCode.get();
+		return _patient.getPostalCode();
 	}
 
 	public void setPostalCode(String postalCode) {
+		_patient.setPostalCode(postalCode);
 		this.postalCode.set(postalCode);
 	}
 
 	public String getCity() {
-		return this.city.get();
+		return _patient.getCity();
 	}
 
 	public void setCity(String city) {
+		_patient.setCity(city);
 		this.city.set(city);
 	}
 
 	public String getCountryIsoCode() {
-		return this.countryIsoCode.get();
+		return _patient.getCountryIsoCode();
 	}
 
 	public void setCountryIsoCode(String countryIsoCode) {
+		_patient.setCountryIsoCode(countryIsoCode);
 		this.countryIsoCode.set(countryIsoCode);
 	}
 
 	public String getPhone() {
-		return this.phone.get();
+		return _patient.getPhone();
 	}
 
 	public void setPhone(String phone) {
+		_patient.setPhone(phone);
 		this.phone.set(phone);
 	}
 
 	public String getEmail() {
-		return this.email.get();
+		return _patient.getEmail();
 	}
 
 	public void setEmail(String email) {
+		_patient.setEmail(email);
 		this.email.set(email);
 	}
 
 	public String getAllergy() {
-		return this.allergy.get();
+		return _patient.getAllergy();
 	}
 
 	public void setAllergy(String allergy) {
+		_patient.setAllergy(allergy);
 		this.allergy.set(allergy);
 	}
 
 	public String getChildhoodAilments() {
-		return this.childhoodAilments.get();
+		return _patient.getChildhoodAilments();
 	}
 
 	public void setChildhoodAilments(String childhoodAilments) {
+		_patient.setChildhoodAilments(childhoodAilments);
 		this.childhoodAilments.set(childhoodAilments);
 	}
 
 	public String getMedicineIntolerance() {
-		return this.medicineIntolerance.get();
+		return _patient.getMedicineIntolerance();
 	}
 
 	public void setMedicineIntolerance(String medicineIntolerance) {
+		_patient.setMedicineIntolerance(medicineIntolerance);
 		this.medicineIntolerance.set(medicineIntolerance);
 	}
 

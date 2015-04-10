@@ -80,7 +80,7 @@ public class NewPatientController {
         
         	//creating a new Patient and save it in the database
         	PatientCreation pc = new PatientCreation();
-        	pc.createPatient(_doctorBox.getText(), _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(), _birthdayField.getText(), _genderField.getText(), _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
+        	pc.createPatient(null, null, _firstNameField.getText(), _lastNameField.getText(), null, _genderField.getText(), _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
             okClicked = true;
             _dialogStage.close();
         }

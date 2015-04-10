@@ -113,7 +113,7 @@ public class Patient implements java.io.Serializable {
 	public Patient buildPatient(Doctor doctor, String socialInsuranceNr, String firstName, String lastName, 
 			  Date birthday, String gender, String street, String postalCode, String city, 
 			  String countryIsoCode, String phone, String email){
-		
+		Patient p = null;
 		if(socialInsuranceNr.isEmpty()){
 			socialInsuranceNr = null;
 		}
@@ -135,9 +135,14 @@ public class Patient implements java.io.Serializable {
 		if(email.isEmpty()){
 			email = null;
 		}
-		Patient p = new Patient(doctor, socialInsuranceNr, firstName, lastName, 
+		if(doctor == null && socialInsuranceNr == null && birthday == null && street == null && postalCode == null 
+		   && city == null && countryIsoCode == null && phone == null && email == null){
+		p = new Patient(firstName, lastName, gender);	
+		}else{
+		p = new Patient(doctor, socialInsuranceNr, firstName, lastName, 
 								birthday, gender, street, postalCode, city, 
 								countryIsoCode, phone, email);
+		}
 		return p;
 	}
 	

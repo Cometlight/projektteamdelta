@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.prefs.Preferences;
 
 import at.itb13.oculus.presentation.model.PatientWithProperties;
-import at.itb13.oculus.presentation.view.PatientController;
+import at.itb13.oculus.presentation.view.OverviewController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,6 +34,10 @@ public class OculusMain extends Application {
 	 public void addPatientData(PatientWithProperties p){
 		 _patientData.add(p);
 	 }
+	public void clearPatientData() {
+		_patientData.clear();
+			
+	}
 	@Override
 	public void start(Stage primaryStage) {
 		 _primaryStage = primaryStage;
@@ -60,7 +64,7 @@ public class OculusMain extends Application {
  	        _rootLayout.setCenter(overview);
 
  	        // Give the controller access to the main app.
- 	        PatientController controller = loader.getController();
+ 	        OverviewController controller = loader.getController();
  	        controller.setMain(this);
 
  	    } catch (IOException e) {
@@ -113,4 +117,6 @@ public class OculusMain extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
+	
 }

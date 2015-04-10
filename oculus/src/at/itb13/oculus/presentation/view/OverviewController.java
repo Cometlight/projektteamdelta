@@ -26,8 +26,9 @@ import javafx.scene.control.TextField;
  * @author Caroline Meusburger
  * @since 07.04.2015
  */
-public class PatientController {
+public class OverviewController {
 
+	//Tab Patient
 	@FXML
 	private TableView<PatientWithProperties> _patientTable;	
 	@FXML
@@ -101,6 +102,16 @@ public class PatientController {
 	        _patientTable.getSelectionModel().selectedItemProperty().addListener(
 	                (observable, oldValue, newValue) -> showAnamanesis(newValue));
 	    }
+	 private void clear(){
+		        	
+
+	        // Clear person details.
+	        showPatientMasterData(null);
+	        showAnamanesis(null);
+	        
+	        _main.clearPatientData();
+
+	 }
 	 
 	 private void showPatientMasterData(PatientWithProperties value) {
 	        if (value != null) {
@@ -152,6 +163,7 @@ public class PatientController {
 	  */
 	 @FXML
 	 private void searchByNumberControl(){
+		
 		 PatientSearch p = new PatientSearch();
 		 try {			
 			PatientWithProperties pa = new PatientWithProperties(p.searchPatientBySocialInsuranceNr(_ssnTextField.getText()));
@@ -178,6 +190,7 @@ public class PatientController {
 	  */
 	 @FXML
 	 private void searchByNameControl(){
+		 clear();
 		 PatientSearch p = new PatientSearch();
 		 List<Patient> patients = new ArrayList<>();
 		 try {			

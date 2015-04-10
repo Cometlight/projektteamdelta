@@ -27,6 +27,8 @@ public class NewPatientController {
 	@FXML
 	private TextField _genderField;
 	@FXML
+	private TextField _doctorField;
+	@FXML
 	private TextField _streetField;
 	@FXML
 	private TextField _postalCodeField;
@@ -100,33 +102,9 @@ public class NewPatientController {
         if (_lastNameField.getText() == null || _lastNameField.getText().length() == 0) {
             errorMessage += "No valid last name!\n"; 
         }
-        if(_SINField.getText() == null || _SINField.getText().length() == 0){
-        	errorMessage += "No valid Social Insurance Number!\n";
-        }
-        if(_birthdayField.getText() == null || _birthdayField.getText().length() == 0){
-        	errorMessage += "No valid birthdate!\n";
-        }
         if(_genderField.getText() == null || _genderField.getText().length() == 0){
         	errorMessage += "No valid gender!\n";
         }
-        if(_streetField.getText() == null || _streetField.getText().length() == 0){
-        	errorMessage += "No valid street!\n";
-        }
-        if(_postalCodeField.getText() == null || _postalCodeField.getText().length() == 0){
-        	errorMessage += "No valid postal code!\n";
-        }
-        if(_countryISOField.getText() == null || _countryISOField.getText().length() == 0){
-        	errorMessage += "No valid country!\n";
-        }
-        if(_cityField.getText() == null || _cityField.getText().length() == 0){
-        	errorMessage += "No valid city!\n";
-        }
-        if(_phoneField.getText() == null || _phoneField.getText().length() == 0){
-        	errorMessage += "No valid phone number!\n";
-        }
-        if(_emailField.getText() == null || _emailField.getText().length() == 0){
-        	errorMessage += "No valid email!\n";
-        } 
 
 
         if (errorMessage.length() == 0) {

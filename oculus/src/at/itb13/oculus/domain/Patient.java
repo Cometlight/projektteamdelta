@@ -31,7 +31,7 @@ public class Patient implements java.io.Serializable {
 	private String _socialInsuranceNr;
 	private String _firstName;
 	private String _lastName;
-	private Date _birthDay;
+	private String _birthDay;
 	private String _gender;
 	private String _street;
 	private String _postalCode;
@@ -59,7 +59,7 @@ public class Patient implements java.io.Serializable {
 	}
 	
 	public Patient(String doctor, String socialInsuranceNr, String firstName,
-			String lastName, Date birthDay, String gender, String street,
+			String lastName, String birthDay, String gender, String street,
 			String postalCode, String city, String countryIsoCode,
 			String phone, String email) {
 		_doctor = doctor;
@@ -77,7 +77,7 @@ public class Patient implements java.io.Serializable {
 	}
 
 	public Patient(String doctor, String socialInsuranceNr, String firstName,
-			String lastName, Date birthDay, String gender, String street,
+			String lastName, String birthDay, String gender, String street,
 			String postalCode, String city, String countryIsoCode,
 			String phone, String email, String allergy,
 			String childhoodAilments, String medicineIntolerance,
@@ -111,7 +111,7 @@ public class Patient implements java.io.Serializable {
 	 * @return
 	 */
 	public Patient buildPatient(String doctor, String socialInsuranceNr, String firstName, String lastName, 
-			  Date birthday, String gender, String street, String postalCode, String city, 
+			  String birthday, String gender, String street, String postalCode, String city, 
 			  String countryIsoCode, String phone, String email){
 		
 		if(doctor.isEmpty()){
@@ -119,6 +119,9 @@ public class Patient implements java.io.Serializable {
 		}
 		if(socialInsuranceNr.isEmpty()){
 			socialInsuranceNr = null;
+		}
+		if(birthday.isEmpty()){
+			birthday = null;
 		}
 		if(street.isEmpty()){
 			street = null;

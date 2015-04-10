@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.prefs.Preferences;
 
-import at.itb13.oculus.presentation.model.PatientWithProperties;
+
+import at.itb13.oculus.presentation.model.PatientWithProperties2;
+import at.itb13.oculus.presentation.view.NewPatientController;
 import at.itb13.oculus.presentation.view.OverviewController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -14,24 +16,25 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class OculusMain extends Application {
 	
 	 private Stage _primaryStage;
 	 private BorderPane _rootLayout;
-	 private ObservableList<PatientWithProperties> _patientData = FXCollections.observableArrayList();
+	 private ObservableList<PatientWithProperties2> _patientData = FXCollections.observableArrayList();
 
 	 public OculusMain(){
 		 
 		//_patientData.add(??);
 	 }
 	 
-	 public ObservableList<PatientWithProperties> getPatientData() {
+	 public ObservableList<PatientWithProperties2> getPatientData() {
 	        return _patientData;
 	    }
 	 
-	 public void addPatientData(PatientWithProperties p){
+	 public void addPatientData(PatientWithProperties2 p){
 		 _patientData.add(p);
 	 }
 	public void clearPatientData() {
@@ -88,6 +91,35 @@ public class OculusMain extends Application {
 	            e.printStackTrace();
 	        }
 	}
+	 public boolean showNewPatientDialog() {
+	       try {
+	           // Load the fxml file and create a new stage for the popup dialog.
+	           FXMLLoader loader = new FXMLLoader();
+	           loader.setLocation(OculusMain.class.getResource("view/NewPatientDialog.fxml"));
+	           AnchorPane page = (AnchorPane) loader.load();
+
+	           // Create the dialog Stage.
+	           Stage dialogStage = new Stage();
+	           dialogStage.setTitle("Edit Person");
+	           dialogStage.initModality(Modality.WINDOW_MODAL);
+	           dialogStage.initOwner(_primaryStage);
+	           Scene scene = new Scene(page);
+	           dialogStage.setScene(scene);
+
+	           // Set the person into the controller.
+	           NewPatientController controller = loader.getController();
+	           controller.setDialogStage(dialogStage);
+	          
+
+	           // Show the dialog and wait until the user closes it
+	           dialogStage.showAndWait();
+
+	           return controller.isOkClicked();
+	       } catch (IOException e) {
+	           e.printStackTrace();
+	           return false;
+	       }
+	   }
 	  public File getPersonFilePath() {
 	       Preferences prefs = Preferences.userNodeForPackage(OculusMain.class);
 	       String filePath = prefs.get("filePath", null);

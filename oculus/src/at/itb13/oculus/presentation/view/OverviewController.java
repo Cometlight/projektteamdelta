@@ -9,9 +9,7 @@ import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.patient.PatientSearch;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.presentation.OculusMain;
-import at.itb13.oculus.presentation.model.PatientWithProperties;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import at.itb13.oculus.presentation.model.PatientWithProperties2;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -28,15 +26,15 @@ import javafx.scene.control.TextField;
  */
 public class OverviewController {
 
-	//Tab Patient
+	//Tab Patient Attributs
 	@FXML
-	private TableView<PatientWithProperties> _patientTable;	
+	private TableView<PatientWithProperties2> _patientTable;	
 	@FXML
-	private TableColumn<PatientWithProperties, String> _firstNameColumn;	
+	private TableColumn<PatientWithProperties2, String> _firstNameColumn;	
 	@FXML
-	private TableColumn<PatientWithProperties, String> _lastNameColumn;	
+	private TableColumn<PatientWithProperties2, String> _lastNameColumn;	
 	@FXML
-	private TableColumn<PatientWithProperties, String> _SSNColumn;
+	private TableColumn<PatientWithProperties2, String> _SSNColumn;
 	
 	@FXML
 	private TextField _ssnTextField;
@@ -73,15 +71,18 @@ public class OverviewController {
 	private Label _childhoodAilmentsLabel;
 	@FXML
 	private Label _medicineintolerranceLabel;
+	
+	//general Attributs
 	private OculusMain _main;
 	
+	//general Methods
 	 public void setMain(OculusMain main) {
 	        _main = main;
 
-	        // Add observable list data to the table
-	        _patientTable.setItems(main.getPatientData());
 	        
-	    }
+	  }
+	 
+	 //Tab Patient Methods
 	 @FXML
 	 private void initialize() {
 	        // Initialize the person table with the three columns.
@@ -102,8 +103,7 @@ public class OverviewController {
 	        _patientTable.getSelectionModel().selectedItemProperty().addListener(
 	                (observable, oldValue, newValue) -> showAnamanesis(newValue));
 	    }
-	 private void clear(){
-		        	
+	 private void clearPatientTable(){		        	
 
 	        // Clear person details.
 	        showPatientMasterData(null);
@@ -113,7 +113,7 @@ public class OverviewController {
 
 	 }
 	 
-	 private void showPatientMasterData(PatientWithProperties value) {
+	 private void showPatientMasterData(PatientWithProperties2 value) {
 	        if (value != null) {
 	            // Fill the labels with info from the person object.
 	            _firstNameLabel.setText(value.getFirstName());
@@ -142,7 +142,7 @@ public class OverviewController {
 	            _emailLabel.setText("");	
 	        }
 	    }
-	 private void showAnamanesis(PatientWithProperties value) {
+	 private void showAnamanesis(PatientWithProperties2 value) {
 	        if (value != null) {
 	            // Fill the labels with info from the person object.
 	        	_alergiesLabel.setText(value.getAllergy());
@@ -166,7 +166,7 @@ public class OverviewController {
 		
 		 PatientSearch p = new PatientSearch();
 		 try {			
-			PatientWithProperties pa = new PatientWithProperties(p.searchPatientBySocialInsuranceNr(_ssnTextField.getText()));
+			PatientWithProperties2 pa = new PatientWithProperties2(p.searchPatientBySocialInsuranceNr(_ssnTextField.getText()));
 			showPatientMasterData(pa);
 			showAnamanesis(pa);
 			_main.addPatientData(pa);
@@ -190,14 +190,14 @@ public class OverviewController {
 	  */
 	 @FXML
 	 private void searchByNameControl(){
-		 clear();
+		 clearPatientTable();
 		 PatientSearch p = new PatientSearch();
 		 List<Patient> patients = new ArrayList<>();
 		 try {			
 			patients = p.searchPatientByName(_firstNameField.getText(), _lastNameField.getText());
 			if(patients.size() > 0){
 				for(Patient pa : patients){
-					_main.addPatientData(new PatientWithProperties(pa));
+					_main.addPatientData(new PatientWithProperties2(pa));
 				}
 				 _patientTable.setItems(_main.getPatientData());
 			}else{
@@ -212,5 +212,16 @@ public class OverviewController {
 			
 			//e.printStackTrace();
 		}
+	 }
+	 
+	 @FXML
+	 private void newPatientControl(){
+		
+	
+		_main.showNewPatientDialog();
+//		if (okClicked) {
+//		    _main.getPersonData().add();
+//		}
+		    
 	 }
 }

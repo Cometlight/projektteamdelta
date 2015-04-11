@@ -1,12 +1,16 @@
-package at.itb13.oculus.domain;
+package at.itb13.oculus.technicalServices.entities;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+
 import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,37 +20,42 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import at.itb13.oculus.domain.Doctor;
+import at.itb13.oculus.domain.Orthoptist;
+import at.itb13.oculus.domain.Patient;
+
 /**
- * TODO: DELETE ALL ANNOTATIONS AND CHANGE ACCORDING to the screenshots in telegram
+ * 
+ * TODO: Insert description here.
+ * 
+ * @author Daniel Scheffknecht
+ * @date 11.04.2015
  */
 @Entity
 @Table(name = "queue", catalog = "oculusdb", uniqueConstraints = @UniqueConstraint(columnNames = "patientId"))
-public class Queue implements java.io.Serializable {
+public class QueueEntity implements java.io.Serializable {
 
 	private Integer queueId;
 	private Doctor doctor;
 	private Orthoptist orthoptist;
 	private Patient patient;
-	private Queue queue;
 	private Date arrivalTime;
-	private Set<Queue> queues = new HashSet<Queue>(0);
+	private Integer queueIdParent;
 
-	public Queue() {
-	}
+	public QueueEntity() { }
 
-	public Queue(Patient patient, Date arrivalTime) {
+	public QueueEntity(Patient patient, Date arrivalTime) {
 		this.patient = patient;
 		this.arrivalTime = arrivalTime;
 	}
 
-	public Queue(Doctor doctor, Orthoptist orthoptist, Patient patient,
-			Queue queue, Date arrivalTime, Set<Queue> queues) {
+	public QueueEntity(Doctor doctor, Orthoptist orthoptist, Patient patient,
+			Date arrivalTime, Integer queueIdParent) {
 		this.doctor = doctor;
 		this.orthoptist = orthoptist;
 		this.patient = patient;
-		this.queue = queue;
 		this.arrivalTime = arrivalTime;
-		this.queues = queues;
+		this.queueIdParent = queueIdParent;
 	}
 
 	@Id
@@ -90,16 +99,6 @@ public class Queue implements java.io.Serializable {
 		this.patient = patient;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "queueIdParent")
-	public Queue getQueue() {
-		return this.queue;
-	}
-
-	public void setQueue(Queue queue) {
-		this.queue = queue;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "arrivalTime", nullable = false, length = 19)
 	public Date getArrivalTime() {
@@ -110,13 +109,12 @@ public class Queue implements java.io.Serializable {
 		this.arrivalTime = arrivalTime;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "queue")
-	public Set<Queue> getQueues() {
-		return this.queues;
+	@Column(name = "queueIdParent")
+	public Integer getQueueIdParent() {
+		return queueIdParent;
 	}
 
-	public void setQueues(Set<Queue> queues) {
-		this.queues = queues;
+	public void setQueueIdParent(Integer queueIdParent) {
+		this.queueIdParent = queueIdParent;
 	}
-
 }

@@ -16,6 +16,5 @@
 	<classpathentry kind="lib" path="lib/log4j-api-2.2.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-core-2.2.jar"/>
 	<classpathentry kind="lib" path="lib/jfxtras-agenda-8.0-r3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Caroline/Downloads/jfxtras-agenda-8.0-r3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

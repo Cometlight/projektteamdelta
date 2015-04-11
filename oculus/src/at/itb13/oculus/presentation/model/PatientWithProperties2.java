@@ -102,11 +102,11 @@ public class PatientWithProperties2 implements java.io.Serializable {
 			Set<CalendarEvent> calendarevents, Set<Prescription> prescriptions,
 			Set<Queue> queues, Set<ReferralLetter> referralletters,
 			Set<ExaminationProtocol> examinationprotocols) {
-		this.doctor.set(doctor);
+	//	this.doctor.set(doctor);
 		this.socialInsuranceNr.set(socialInsuranceNr);
 		this.firstName.set(firstName);
 		this.lastName.set(lastName);
-		this.birthDay.set(birthDay);
+	//	this.birthDay.set(birthDay);
 		this.gender.set(gender);
 		this.street.set(street);
 		this.postalCode.set(postalCode);

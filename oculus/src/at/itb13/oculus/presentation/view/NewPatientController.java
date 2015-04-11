@@ -1,8 +1,11 @@
 package at.itb13.oculus.presentation.view;
 
 
+import at.itb13.oculus.application.patient.PatientCreation;
+import at.itb13.oculus.domain.Doctor;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
@@ -27,7 +30,7 @@ public class NewPatientController {
 	@FXML
 	private TextField _genderField;
 	@FXML
-	private TextField _doctorField;
+	private ChoiceBox<Doctor> _doctorBox;
 	@FXML
 	private TextField _streetField;
 	@FXML
@@ -51,6 +54,7 @@ public class NewPatientController {
      */
     @FXML
     private void initialize() {
+    	
     }
     
     /**
@@ -75,7 +79,8 @@ public class NewPatientController {
         if (isInputValid()) {
         
         	//creating a new Patient and save it in the database
-
+        	PatientCreation pc = new PatientCreation();
+        	pc.createPatient(null, null, _firstNameField.getText(), _lastNameField.getText(), null, _genderField.getText(), _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
             okClicked = true;
             _dialogStage.close();
         }

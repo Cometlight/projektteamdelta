@@ -14,7 +14,7 @@ import at.itb13.oculus.technicalServices.dao.PatientDao;
  */
 public class PatientCreation {
 	private Patient _p;
-	public void createPatient(String doctor, String socialInsuranceNr, String firstName, String lastName, 
+	public void createPatient(Doctor doctor, String socialInsuranceNr, String firstName, String lastName, 
 							  Date birthday, String gender, String street, String postalCode, String city, 
 							  String countryIsoCode, String phone, String email){
 		_p = _p.buildPatient(doctor, socialInsuranceNr, firstName, lastName, birthday, gender, street, postalCode, city, countryIsoCode, phone, email);

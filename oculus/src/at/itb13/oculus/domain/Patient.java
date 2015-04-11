@@ -27,7 +27,7 @@ import javax.persistence.TemporalType;
 public class Patient implements java.io.Serializable {
 
 	private Integer _patientId;
-	private String _doctor;
+	private Doctor _doctor;
 	private String _socialInsuranceNr;
 	private String _firstName;
 	private String _lastName;
@@ -58,7 +58,7 @@ public class Patient implements java.io.Serializable {
 		_gender = gender;
 	}
 	
-	public Patient(String doctor, String socialInsuranceNr, String firstName,
+	public Patient(Doctor doctor, String socialInsuranceNr, String firstName,
 			String lastName, Date birthDay, String gender, String street,
 			String postalCode, String city, String countryIsoCode,
 			String phone, String email) {
@@ -76,7 +76,7 @@ public class Patient implements java.io.Serializable {
 		_email = email;
 	}
 
-	public Patient(String doctor, String socialInsuranceNr, String firstName,
+	public Patient(Doctor doctor, String socialInsuranceNr, String firstName,
 			String lastName, Date birthDay, String gender, String street,
 			String postalCode, String city, String countryIsoCode,
 			String phone, String email, String allergy,
@@ -110,13 +110,10 @@ public class Patient implements java.io.Serializable {
 	 * 
 	 * @return
 	 */
-	public Patient buildPatient(String doctor, String socialInsuranceNr, String firstName, String lastName, 
+	public Patient buildPatient(Doctor doctor, String socialInsuranceNr, String firstName, String lastName, 
 			  Date birthday, String gender, String street, String postalCode, String city, 
 			  String countryIsoCode, String phone, String email){
-		
-		if(doctor.isEmpty()){
-			doctor = null;
-		}
+		Patient p = null;
 		if(socialInsuranceNr.isEmpty()){
 			socialInsuranceNr = null;
 		}
@@ -138,9 +135,14 @@ public class Patient implements java.io.Serializable {
 		if(email.isEmpty()){
 			email = null;
 		}
-		Patient p = new Patient(doctor, socialInsuranceNr, firstName, lastName, 
+		if(doctor == null && socialInsuranceNr == null && birthday == null && street == null && postalCode == null 
+		   && city == null && countryIsoCode == null && phone == null && email == null){
+		p = new Patient(firstName, lastName, gender);	
+		}else{
+		p = new Patient(doctor, socialInsuranceNr, firstName, lastName, 
 								birthday, gender, street, postalCode, city, 
 								countryIsoCode, phone, email);
+		}
 		return p;
 	}
 	

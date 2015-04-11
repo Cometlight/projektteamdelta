@@ -32,6 +32,7 @@ import at.itb13.oculus.technicalServices.Reloader;
 @Table(name = "patient", catalog = "oculusdb")
 public class Patient implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	//TODO What should be logged in this class?
 	private static final Logger _logger = LogManager.getLogger(Patient.class
 			.getName());

@@ -16,6 +16,7 @@ import javax.persistence.Table;
 @Table(name = "insurancecarrier", catalog = "oculusdb")
 public class InsuranceCarrier implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private String insuranceCarrierKey;
 	private String name;
 	private Set<ExaminationProtocolServiceCode> examinationprotocolservicecodes = new HashSet<ExaminationProtocolServiceCode>(

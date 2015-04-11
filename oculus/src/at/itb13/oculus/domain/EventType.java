@@ -19,6 +19,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "eventtype", catalog = "oculusdb", uniqueConstraints = @UniqueConstraint(columnNames = "eventTypeName"))
 public class EventType implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer eventTypeId;
 	private String eventTypeName;
 	private Integer estimatedTime;

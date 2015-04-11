@@ -18,6 +18,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "servicecode", catalog = "oculusdb", uniqueConstraints = @UniqueConstraint(columnNames = "serviceCode"))
 public class ServiceCode implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer serviceCodeId;
 	private String serviceCode;
 	private String description;

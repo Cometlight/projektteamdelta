@@ -17,6 +17,7 @@ import javax.persistence.Table;
 @Table(name = "administrator", catalog = "oculusdb")
 public class Administrator implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer administratorId;
 	private User user;
 

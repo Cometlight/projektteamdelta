@@ -13,6 +13,8 @@ import at.itb13.oculus.technicalServices.Reloader;
  * @date 11.04.2015
  */
 public class QueueEntry {
+	
+	private static final long serialVersionUID = 1L;
 	private Integer _queueEntryId;
 	private Patient _patient;
 	private Date _arrivalTime;

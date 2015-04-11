@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Table(name = "weekday", catalog = "oculusdb")
 public class Weekday implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private String weekDayKey;
 	private String name;
 	private Set<Workinghours> workinghourses = new HashSet<Workinghours>(0);

@@ -20,6 +20,7 @@ import javax.persistence.TemporalType;
 @Table(name = "examinationresult", catalog = "oculusdb")
 public class ExaminationResult implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer examinationResultId;
 	private ExaminationProtocol examinationprotocol;
 	private User user;

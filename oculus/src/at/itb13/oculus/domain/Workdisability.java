@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 @Table(name = "workdisability", catalog = "oculusdb")
 public class Workdisability implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer workDisabilityId;
 	private Diagnosis diagnosis;
 	private Date startDisability;

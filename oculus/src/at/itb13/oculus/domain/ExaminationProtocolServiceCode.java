@@ -17,6 +17,7 @@ import javax.persistence.Table;
 @Table(name = "examinationprotocolservicecode", catalog = "oculusdb")
 public class ExaminationProtocolServiceCode implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private ExaminationProtocolServiceCodeID id;
 	private ExaminationProtocol examinationprotocol;
 	private InsuranceCarrier insurancecarrier;

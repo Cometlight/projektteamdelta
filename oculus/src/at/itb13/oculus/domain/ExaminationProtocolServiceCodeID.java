@@ -9,6 +9,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class ExaminationProtocolServiceCodeID implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private int examinationProtocolId;
 	private int serviceCodeId;
 	private String insuranceCarrierKey;

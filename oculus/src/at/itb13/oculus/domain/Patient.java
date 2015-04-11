@@ -44,7 +44,7 @@ public class Patient implements java.io.Serializable {
 	private String _medicineIntolerance;
 	private Set<CalendarEvent> _calendarevents = new HashSet<CalendarEvent>(0);
 	private Set<Prescription> _prescriptions = new HashSet<Prescription>(0);
-	private Set<Queue> _queues = new HashSet<Queue>(0);
+//	private Set<Queue> _queues = new HashSet<Queue>(0);
 	private Set<ReferralLetter> _referralletters = new HashSet<ReferralLetter>(0);
 	private Set<ExaminationProtocol> _examinationprotocols = new HashSet<ExaminationProtocol>(
 			0);
@@ -101,7 +101,7 @@ public class Patient implements java.io.Serializable {
 		_medicineIntolerance = medicineIntolerance;
 		_calendarevents = calendarevents;
 		_prescriptions = prescriptions;
-		_queues = queues;
+//		_queues = queues;
 		_referralletters = referralletters;
 		_examinationprotocols = examinationprotocols;
 	}
@@ -110,6 +110,7 @@ public class Patient implements java.io.Serializable {
 	 * 
 	 * @return
 	 */
+	// ################## TODO: Wieso nicht einfach den Konstruktor nehmen? Zumindest scheint mir sollte diese Funktion static sein, wenn sie nötig ist. 
 	public Patient buildPatient(Doctor doctor, String socialInsuranceNr, String firstName, String lastName, 
 			  Date birthday, String gender, String street, String postalCode, String city, 
 			  String countryIsoCode, String phone, String email){
@@ -313,14 +314,14 @@ public class Patient implements java.io.Serializable {
 		_prescriptions = prescriptions;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
-	public Set<Queue> getQueues() {
-		return _queues;
-	}
-
-	public void setQueues(Set<Queue> queues) {
-		_queues = queues;
-	}
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
+//	public Set<Queue> getQueues() {
+//		return _queues;
+//	}
+//
+//	public void setQueues(Set<Queue> queues) {
+//		_queues = queues;
+//	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
 	public Set<ReferralLetter> getReferralletters() {

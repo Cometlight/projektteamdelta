@@ -20,109 +20,89 @@ import javax.persistence.Table;
 @Table(name = "doctor", catalog = "oculusdb")
 public class Doctor implements java.io.Serializable {
 
-	private Integer doctorId;
-	private Calendar calendar;
-	private Doctor doctor;
-	private User user;
-	private Set<Doctor> doctors = new HashSet<Doctor>(0);
-	private Set<Queue> queues = new HashSet<Queue>(0);
-	private Set<Diagnosis> diagnoses = new HashSet<Diagnosis>(0);
-	private Set<Patient> patients = new HashSet<Patient>(0);
+	private Integer _doctorId;
+	private Calendar _calendar;
+	private Doctor _doctorSubstitute;
+	private User _user;
+	private Queue _queue;
+	private Set<Diagnosis> _diagnoses = new HashSet<Diagnosis>(0);
+	private Set<Patient> _patients = new HashSet<Patient>(0);
 
 	public Doctor() {
 	}
 
 	public Doctor(Calendar calendar) {
-		this.calendar = calendar;
+		_calendar = calendar;
 	}
 
-	public Doctor(Calendar calendar, Doctor doctor, User user,
-			Set<Doctor> doctors, Set<Queue> queues, Set<Diagnosis> diagnosises,
+	public Doctor(Calendar calendar, Doctor doctorSubstitute, User user,
+			Queue queue, Set<Diagnosis> diagnosises,
 			Set<Patient> patients) {
-		this.calendar = calendar;
-		this.doctor = doctor;
-		this.user = user;
-		this.doctors = doctors;
-		this.queues = queues;
-		this.diagnoses = diagnosises;
-		this.patients = patients;
+		_calendar = calendar;
+		_doctorSubstitute = doctorSubstitute;
+		_user = user;
+		_queue = queue;
+		_diagnoses = diagnosises;
+		_patients = patients;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "doctorId", unique = true, nullable = false)
 	public Integer getDoctorId() {
-		return this.doctorId;
+		return this._doctorId;
 	}
 
 	public void setDoctorId(Integer doctorId) {
-		this.doctorId = doctorId;
+		this._doctorId = doctorId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "calendarId", nullable = false)
 	public Calendar getCalendar() {
-		return this.calendar;
+		return this._calendar;
 	}
 
 	public void setCalendar(Calendar calendar) {
-		this.calendar = calendar;
+		this._calendar = calendar;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctorIdSubstitute")
-	public Doctor getDoctor() {
-		return this.doctor;
+	public Doctor getDoctorSubstitute() {
+		return this._doctorSubstitute;
 	}
 
-	public void setDoctor(Doctor doctor) {
-		this.doctor = doctor;
+	public void setDoctorSubstitute(Doctor doctor) {
+		this._doctorSubstitute = doctor;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userId")
 	public User getUser() {
-		return this.user;
+		return this._user;
 	}
 
 	public void setUser(User user) {
-		this.user = user;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
-	public Set<Doctor> getDoctors() {
-		return this.doctors;
-	}
-
-	public void setDoctors(Set<Doctor> doctors) {
-		this.doctors = doctors;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
-	public Set<Queue> getQueues() {
-		return this.queues;
-	}
-
-	public void setQueues(Set<Queue> queues) {
-		this.queues = queues;
+		this._user = user;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
 	public Set<Diagnosis> getDiagnoses() {
-		return this.diagnoses;
+		return this._diagnoses;
 	}
 
 	public void setDiagnoses(Set<Diagnosis> diagnoses) {
-		this.diagnoses = diagnoses;
+		this._diagnoses = diagnoses;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
 	public Set<Patient> getPatients() {
-		return this.patients;
+		return this._patients;
 	}
 
 	public void setPatients(Set<Patient> patients) {
-		this.patients = patients;
+		this._patients = patients;
 	}
 
 }

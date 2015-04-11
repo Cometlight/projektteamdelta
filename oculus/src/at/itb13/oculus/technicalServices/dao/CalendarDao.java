@@ -18,7 +18,7 @@ import at.itb13.oculus.technicalServices.GenericDao;
  */
 public class CalendarDao extends GenericDao<Calendar> {
 
-	private static final Logger _logger = LogManager.getLogger(DoctorDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(CalendarDao.class.getName());
 	
 	/**
 	 * @see GenericDao#GenericDao(Class);

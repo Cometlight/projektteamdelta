@@ -29,8 +29,6 @@ public class TestClassDani {
 
 		foo1();
 		foo2();
-		List<Patient> patientlist = new LinkedList<>();
-		System.out.println(patientlist.getClass());
 		
 		System.exit(0);
 	}
@@ -40,18 +38,23 @@ public class TestClassDani {
 		Patient pat = patDao.findBySocialInsuranceNr("5736198542");	// should be Russel Fuller
 		System.out.println(pat.getFirstName() + " " + pat.getLastName() + " (" + pat.getSocialInsuranceNr() + ")");
 		
-		CalendarEvent ev1 = patDao.loadCalendarevents(pat).iterator().next();
-		int numberOfCalEvents = pat.getCalendarevents().size();
-		
-		System.out.println(numberOfCalEvents + " calendarEvents associated with the patient");
-		System.out.print("First calendarEvent:\n\t");
-		System.out.println(ev1.getDescription());
+//		CalendarEvent ev1 = patDao.loadCalendarevents(pat).iterator().next();
+//		int numberOfCalEvents = pat.getCalendarevents().size();
+//		
+//		System.out.println(numberOfCalEvents + " calendarEvents associated with the patient");
+//		System.out.print("First calendarEvent:\n\t");
+//		System.out.println(ev1.getDescription());
 	}
 	
 	private static void foo2() {
 		Doctor doctor = new DoctorDao().findById(1);
 		Queue queue = AllQueues.getInstance().getQueueByDoctorId(doctor.getDoctorId());
 		System.out.println(queue.getQueueEntries().size());
+		for (QueueEntry qE : queue.getQueueEntries()) {
+			System.out.println(qE.getPatient().getFirstName());
+		}
+		System.out.print("DOCTOR: ");
+		System.out.println(queue.getQueueEntries().get(0).getPatient().getDoctor().getUser().getFirstName());
 	}
 
 }

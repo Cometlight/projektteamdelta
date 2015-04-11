@@ -22,7 +22,7 @@ import org.hibernate.criterion.Criterion;
  * @date 06.04.2015
  * @param <T> The class that this particular GenericDao is used for.
  */
-public abstract class GenericDao<T> {
+public /*abstract*/ class GenericDao<T> {
 	
 	private static final Logger _logger = LogManager.getLogger(GenericDao.class.getName());
 	private Class<T> _domainClass;

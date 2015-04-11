@@ -26,7 +26,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO: DELETE ALL ANNOTATIONS AND CHANGE ACCORDING to the screenshots in telegram
+ * 
+ * TODO: Insert description here.
+ * 
+ * @author Daniel Scheffknecht
+ * @date 11.04.2015
  */
 public class Queue implements java.io.Serializable {
 

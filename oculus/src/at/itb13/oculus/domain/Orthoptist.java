@@ -23,7 +23,7 @@ public class Orthoptist implements java.io.Serializable {
 	private Integer orthoptistId;
 	private Calendar calendar;
 	private User user;
-	private Set<Queue> queues = new HashSet<Queue>(0);
+	private Queue _queue;
 
 	public Orthoptist() {
 	}
@@ -32,10 +32,9 @@ public class Orthoptist implements java.io.Serializable {
 		this.calendar = calendar;
 	}
 
-	public Orthoptist(Calendar calendar, User user, Set<Queue> queues) {
+	public Orthoptist(Calendar calendar, User user) {
 		this.calendar = calendar;
 		this.user = user;
-		this.queues = queues;
 	}
 
 	@Id
@@ -69,13 +68,17 @@ public class Orthoptist implements java.io.Serializable {
 		this.user = user;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orthoptist")
-	public Set<Queue> getQueues() {
-		return this.queues;
+	/**
+	 * @return the queue
+	 */
+	public Queue getQueue() {
+		return _queue;
 	}
 
-	public void setQueues(Set<Queue> queues) {
-		this.queues = queues;
+	/**
+	 * @param queue the queue to set
+	 */
+	public void setQueue(Queue queue) {
+		_queue = queue; // TODO: CHECK IF queue.orthoptist id okay or maybe even remove setQueue()
 	}
-
 }

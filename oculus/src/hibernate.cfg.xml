@@ -49,7 +49,6 @@
         <mapping class="at.itb13.oculus.domain.EventType" />
         <mapping class="at.itb13.oculus.domain.Permission" />
         <mapping class="at.itb13.oculus.domain.Diagnosis" />
-        <mapping class="at.itb13.oculus.domain.Queue" />
         <mapping class="at.itb13.oculus.domain.Receptionist" />
         <mapping class="at.itb13.oculus.domain.Calendar" />
         <mapping class="at.itb13.oculus.domain.ExaminationProtocol" />
@@ -63,5 +62,6 @@
         <mapping class="at.itb13.oculus.domain.InsuranceCarrier" />
         <mapping class="at.itb13.oculus.domain.ExaminationProtocolServiceCode" />
         <mapping class="at.itb13.oculus.domain.ServiceCode" />
+        <mapping class="at.itb13.oculus.technicalServices.entities.QueueEntity" />
     </session-factory>
 </hibernate-configuration>

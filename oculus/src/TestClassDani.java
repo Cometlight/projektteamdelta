@@ -1,8 +1,13 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.domain.AllQueues;
 import at.itb13.oculus.domain.CalendarEvent;
+import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Patient;
+import at.itb13.oculus.domain.Queue;
+import at.itb13.oculus.domain.QueueEntry;
+import at.itb13.oculus.technicalServices.dao.DoctorDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 
 /**
@@ -18,6 +23,14 @@ public class TestClassDani {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+
+		foo1();
+		foo2();
+		
+		System.exit(0);
+	}
+	
+	private static void foo1() {
 		PatientDao patDao = new PatientDao();
 		Patient pat = patDao.findBySocialInsuranceNr("5736198542");	// should be Russel Fuller
 		System.out.println(pat.getFirstName() + " " + pat.getLastName() + " (" + pat.getSocialInsuranceNr() + ")");
@@ -28,8 +41,12 @@ public class TestClassDani {
 		System.out.println(numberOfCalEvents + " calendarEvents associated with the patient");
 		System.out.print("First calendarEvent:\n\t");
 		System.out.println(ev1.getDescription());
-		
-		System.exit(0);
+	}
+	
+	private static void foo2() {
+		Doctor doctor = new DoctorDao().findById(1);
+		Queue queue = AllQueues.getInstance().getQueueByDoctorId(doctor.getDoctorId());
+		System.out.println(queue.getQueueEntries().size());
 	}
 
 }

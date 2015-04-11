@@ -27,28 +27,28 @@ public class OrthoptistDao extends GenericDao<Orthoptist> {
 	public OrthoptistDao() {
 		super(Orthoptist.class);
 	}
-	
-	/**
-	 * Loads the collection from the database into the entity.
-	 * No changes are made to the database.
-	 * <p>
-	 * Example:
-	 * 		loadQueues(orthoptist);
-	 * 		queues = orthoptist.getQueues();
-	 * 
-	 * @param orthoptist The Orthoptist whose queues should be loaded. It must not be in a transient state!
-	 * @return The Queues that have been loaded. Returns {@link java.util.Collections#emptySet()} in case of failure.
-	 * @see GenericDao#loadCollection(T entity, Collection<?> collection)
-	 */
-	public Set<Queue> loadQueues(Orthoptist orthoptist) {
-		try {
-			loadCollection(orthoptist, orthoptist.getQueues());
-		} catch (Exception e) {
-			_logger.error(e);
-			return Collections.emptySet();
-		}
-		
-		return orthoptist.getQueues();
-	}
+//	
+//	/**
+//	 * Loads the collection from the database into the entity.
+//	 * No changes are made to the database.
+//	 * <p>
+//	 * Example:
+//	 * 		loadQueues(orthoptist);
+//	 * 		queues = orthoptist.getQueues();
+//	 * 
+//	 * @param orthoptist The Orthoptist whose queues should be loaded. It must not be in a transient state!
+//	 * @return The Queues that have been loaded. Returns {@link java.util.Collections#emptySet()} in case of failure.
+//	 * @see GenericDao#loadCollection(T entity, Collection<?> collection)
+//	 */
+//	public Set<Queue> loadQueues(Orthoptist orthoptist) {
+//		try {
+//			loadCollection(orthoptist, orthoptist.getQueues());
+//		} catch (Exception e) {
+//			_logger.error(e);
+//			return Collections.emptySet();
+//		}
+//		
+//		return orthoptist.getQueues();
+//	}
 	
 }

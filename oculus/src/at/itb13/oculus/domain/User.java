@@ -1,4 +1,5 @@
 package at.itb13.oculus.domain;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,13 +34,16 @@ public class User implements java.io.Serializable {
 	private String email;
 	private Date createDate;
 	private Date idleDate;
-	private Set<Doctor> doctors = new HashSet<Doctor>(0);
-	private Set<Orthoptist> orthoptists = new HashSet<Orthoptist>(0);
+	
+	//TODO Delete commented lines
+	
+//	private Set<Doctor> doctors = new HashSet<Doctor>(0);
+//	private Set<Orthoptist> orthoptists = new HashSet<Orthoptist>(0);
 	private Set<UserPermission> userpermissions = new HashSet<UserPermission>(0);
-	private Set<Administrator> administrators = new HashSet<Administrator>(0);
+//	private Set<Administrator> administrators = new HashSet<Administrator>(0);
 	private Set<ExaminationResult> examinationresults = new HashSet<ExaminationResult>(
 			0);
-	private Set<Receptionist> receptionists = new HashSet<Receptionist>(0);
+//	private Set<Receptionist> receptionists = new HashSet<Receptionist>(0);
 	private Set<ExaminationProtocol> examinationprotocols = new HashSet<ExaminationProtocol>(
 			0);
 
@@ -72,12 +76,12 @@ public class User implements java.io.Serializable {
 		this.email = email;
 		this.createDate = createDate;
 		this.idleDate = idleDate;
-		this.doctors = doctors;
-		this.orthoptists = orthoptists;
+//		this.doctors = doctors;
+//		this.orthoptists = orthoptists;
 		this.userpermissions = userpermissions;
-		this.administrators = administrators;
+//		this.administrators = administrators;
 		this.examinationresults = examinationresults;
-		this.receptionists = receptionists;
+//		this.receptionists = receptionists;
 		this.examinationprotocols = examinationprotocols;
 	}
 
@@ -176,23 +180,23 @@ public class User implements java.io.Serializable {
 		this.idleDate = idleDate;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	public Set<Doctor> getDoctors() {
-		return this.doctors;
-	}
-
-	public void setDoctors(Set<Doctor> doctors) {
-		this.doctors = doctors;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	public Set<Orthoptist> getOrthoptists() {
-		return this.orthoptists;
-	}
-
-	public void setOrthoptists(Set<Orthoptist> orthoptists) {
-		this.orthoptists = orthoptists;
-	}
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+//	public Set<Doctor> getDoctors() {
+//		return this.doctors;
+//	}
+//
+//	public void setDoctors(Set<Doctor> doctors) {
+//		this.doctors = doctors;
+//	}
+//
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+//	public Set<Orthoptist> getOrthoptists() {
+//		return this.orthoptists;
+//	}
+//
+//	public void setOrthoptists(Set<Orthoptist> orthoptists) {
+//		this.orthoptists = orthoptists;
+//	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	public Set<UserPermission> getUserpermissions() {
@@ -203,14 +207,14 @@ public class User implements java.io.Serializable {
 		this.userpermissions = userpermissions;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	public Set<Administrator> getAdministrators() {
-		return this.administrators;
-	}
-
-	public void setAdministrators(Set<Administrator> administrators) {
-		this.administrators = administrators;
-	}
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+//	public Set<Administrator> getAdministrators() {
+//		return this.administrators;
+//	}
+//
+//	public void setAdministrators(Set<Administrator> administrators) {
+//		this.administrators = administrators;
+//	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	public Set<ExaminationResult> getExaminationresults() {
@@ -221,14 +225,14 @@ public class User implements java.io.Serializable {
 		this.examinationresults = examinationresults;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	public Set<Receptionist> getReceptionists() {
-		return this.receptionists;
-	}
-
-	public void setReceptionists(Set<Receptionist> receptionists) {
-		this.receptionists = receptionists;
-	}
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+//	public Set<Receptionist> getReceptionists() {
+//		return this.receptionists;
+//	}
+//
+//	public void setReceptionists(Set<Receptionist> receptionists) {
+//		this.receptionists = receptionists;
+//	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	public Set<ExaminationProtocol> getExaminationprotocols() {

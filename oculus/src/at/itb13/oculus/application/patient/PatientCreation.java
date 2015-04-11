@@ -20,7 +20,7 @@ public class PatientCreation {
 			String street, String postalCode, String city,
 			String countryIsoCode, String phone, String email) {
 		
-		_p = new Patient(doctor, socialInsuranceNr, firstName, lastName,
+		_p = new Patient(doctor, socialInsuranceNr, firstName, lastName,	// rather use constructor
 				birthday, gender, street, postalCode, city, countryIsoCode,
 				phone, email);
 		

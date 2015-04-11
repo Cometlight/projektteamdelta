@@ -20,6 +20,7 @@ import javax.persistence.Table;
 @Table(name = "medicine", catalog = "oculusdb")
 public class Medicine implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer medicineId;
 	private Diagnosis diagnosis;
 	private String name;

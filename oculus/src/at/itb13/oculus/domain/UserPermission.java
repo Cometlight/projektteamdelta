@@ -16,6 +16,7 @@ import javax.persistence.Table;
 @Table(name = "userpermission", catalog = "oculusdb")
 public class UserPermission implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private UserPermissionID id;
 	private Permission permission;
 	private User user;

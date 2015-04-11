@@ -23,6 +23,7 @@ import javax.persistence.TemporalType;
 @Table(name = "prescription", catalog = "oculusdb")
 public class Prescription implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer prescriptionId;
 	private Patient patient;
 	private Date issueDate;

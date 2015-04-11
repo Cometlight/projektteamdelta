@@ -8,6 +8,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class UserPermissionID implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private int permissionId;
 	private int userId;
 	private int userGroupId;

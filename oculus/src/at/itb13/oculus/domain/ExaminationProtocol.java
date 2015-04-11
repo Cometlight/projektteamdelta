@@ -23,6 +23,7 @@ import javax.persistence.TemporalType;
 @Table(name = "examinationprotocol", catalog = "oculusdb")
 public class ExaminationProtocol implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer examinationProtocolId;
 	private Diagnosis diagnosis;
 	private Patient patient;

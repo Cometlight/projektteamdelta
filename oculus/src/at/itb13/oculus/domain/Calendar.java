@@ -27,6 +27,7 @@ import javax.persistence.Table;
 @Table(name = "calendar", catalog = "oculusdb")
 public class Calendar implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer _calendarId;
 	private String _title;
 	private Set<Doctor> _doctors = new HashSet<Doctor>(0);

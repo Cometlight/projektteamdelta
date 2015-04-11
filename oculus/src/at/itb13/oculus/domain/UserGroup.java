@@ -18,6 +18,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "usergroup", catalog = "oculusdb", uniqueConstraints = @UniqueConstraint(columnNames = "userGroupName"))
 public class UserGroup implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer userGroupId;
 	private String userGroupName;
 	private String description;

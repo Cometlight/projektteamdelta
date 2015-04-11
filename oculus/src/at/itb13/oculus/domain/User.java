@@ -22,6 +22,7 @@ import javax.persistence.TemporalType;
 @Table(name = "user", catalog = "oculusdb")
 public class User implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer userId;
 	private UserGroup usergroup;
 	private String userName;

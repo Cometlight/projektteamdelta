@@ -30,6 +30,7 @@ import javax.persistence.UniqueConstraint;
  */
 public class Workinghours implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer workingHoursId;
 	private Weekday weekday;
 	private Date morningFrom;

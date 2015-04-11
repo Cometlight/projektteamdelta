@@ -16,6 +16,7 @@ import javax.persistence.Table;
 @Table(name = "visualaid", catalog = "oculusdb")
 public class VisualAid implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer visualAidId;
 	private Diagnosis diagnosis;
 

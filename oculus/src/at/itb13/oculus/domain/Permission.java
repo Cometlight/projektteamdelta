@@ -19,6 +19,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "permission", catalog = "oculusdb", uniqueConstraints = @UniqueConstraint(columnNames = "permissionName"))
 public class Permission implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer permissionId;
 	private String permissionName;
 	private String description;

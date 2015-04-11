@@ -1,7 +1,6 @@
 package at.itb13.oculus.domain;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +23,7 @@ import javax.persistence.TemporalType;
 @Table(name = "calendarevent", catalog = "oculusdb")
 public class CalendarEvent implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer _calendarEventId;
 	private Calendar _calendar;
 	private EventType _eventtype;

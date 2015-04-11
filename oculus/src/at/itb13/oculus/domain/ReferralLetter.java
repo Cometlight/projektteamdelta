@@ -16,6 +16,7 @@ import javax.persistence.Table;
 @Table(name = "referralletter", catalog = "oculusdb")
 public class ReferralLetter implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer referralLetterId;
 	private ExaminationProtocol examinationprotocol;
 	private Patient patient;

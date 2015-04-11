@@ -32,15 +32,15 @@ public class CalendarDao extends GenericDao<Calendar> {
 	 * @param calendar
 	 * @return
 	 */
-	public Set<CalendarEvent> loadCalendarevents(Calendar calendar) {
-		try {
-			loadCollection(calendar, calendar.getCalendarevents());
-		} catch (Exception e) {
-			_logger.error(e);
-			return Collections.emptySet();
-		}
-		
-		return calendar.getCalendarevents();
-	}
+//	public Set<CalendarEvent> loadCalendarevents(Calendar calendar) {
+//		try {
+//			loadCollection(calendar, calendar.getCalendarevents());
+//		} catch (Exception e) {
+//			_logger.error(e);
+//			return Collections.emptySet();
+//		}
+//		
+//		return calendar.getCalendarevents();
+//	}
 	
 }

@@ -42,16 +42,16 @@ public class EventTypeDao extends GenericDao<EventType> {
 	 * @return The Calendarevents that have been loaded. Returns {@link java.util.Collections#emptySet()} in case of failure.
 	 * @see GenericDao#loadCollection(T entity, Collection<?> collection)
 	 */
-	public Set<CalendarEvent> loadCalendarevents(EventType eventtype) {
-		try {
-			loadCollection(eventtype, eventtype.getCalendarevents());
-		} catch (Exception e) {
-			_logger.error(e);
-			return Collections.emptySet();
-		}
-		
-		return eventtype.getCalendarevents();
-	}
+//	public Set<CalendarEvent> loadCalendarevents(EventType eventtype) {
+//		try {
+//			loadCollection(eventtype, eventtype.getCalendarevents());
+//		} catch (Exception e) {
+//			_logger.error(e);
+//			return Collections.emptySet();
+//		}
+//		
+//		return eventtype.getCalendarevents();
+//	}
 
 	/**
 	 * Load the Eventtype with the specified name from the database.

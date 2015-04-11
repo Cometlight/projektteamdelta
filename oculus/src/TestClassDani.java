@@ -55,6 +55,10 @@ public class TestClassDani {
 		}
 		System.out.print("DOCTOR: ");
 		System.out.println(queue.getQueueEntries().get(0).getPatient().getDoctor().getUser().getFirstName());
+		System.out.println(queue.getQueueEntries().get(0).getPatient().getDoctor().getUser().getFirstName());
+		for(CalendarEvent cE : queue.getQueueEntries().get(1).getPatient().getCalendarevents()) {
+			System.out.println(cE.getDescription());
+		}
 	}
 
 }

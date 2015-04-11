@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.hibernate.Hibernate;
 
-import at.itb13.oculus.technicalServices.Reloader;
+import at.itb13.oculus.technicalServices.ReloaderOLD_TODELETE;
 
 /**
  * TODO: Insert description here.
@@ -45,9 +45,9 @@ public class QueueEntry {
 	 * @return the patient
 	 */
 	public Patient getPatient() {
-		if(!Reloader.getInstance().isLoaded(_patient)) {
-			_patient = Reloader.getInstance().reload(Patient.class, _patient.getPatientId());
-		}
+//		if(!Reloader.getInstance().isLoaded(_patient)) { TODO: DELETE
+//			_patient = Reloader.getInstance().reload(Patient.class, _patient.getPatientId());
+//		}
 		return _patient;
 	}
 	

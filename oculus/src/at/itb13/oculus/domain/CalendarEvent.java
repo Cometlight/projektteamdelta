@@ -15,9 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-
-import at.itb13.oculus.technicalServices.Reloader;
 
 /**
  * 
@@ -107,7 +104,7 @@ public class CalendarEvent implements java.io.Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "eventTypeId", nullable = false)
 	public EventType getEventtype() {
-//		if(!_isFullyLoaded) {
+//		if(!_isFullyLoaded) {	TODO: DELETE
 //			Reloader.getInstance().reload(CalendarEvent.class, this);
 //		}
 		return _eventtype;
@@ -120,7 +117,7 @@ public class CalendarEvent implements java.io.Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "patientId")
 	public Patient getPatient() {
-//		if(!_isFullyLoaded) {
+//		if(!_isFullyLoaded) {	TODO: DELETE
 //			Reloader.getInstance().reload(CalendarEvent.class, this);
 //		}
 		return _patient;

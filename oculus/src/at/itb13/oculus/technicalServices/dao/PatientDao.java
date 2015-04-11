@@ -108,16 +108,16 @@ public class PatientDao extends GenericDao<Patient> {
 	 * @return The Calendarevents that have been loaded. Returns {@link java.util.Collections#emptySet()} in case of failure.
 	 * @see GenericDao#loadCollection(T entity, Collection<?> collection)
 	 */
-	public Set<CalendarEvent> loadCalendarevents(Patient patient) {
-		try {
-			loadCollection(patient, patient.getCalendarevents());
-		} catch (Exception e) {
-			_logger.error(e);
-			return Collections.emptySet();
-		}
-		
-		return patient.getCalendarevents();
-	}
+//	public Set<CalendarEvent> loadCalendarevents(Patient patient) {
+//		try {
+//			loadCollection(patient, patient.getCalendarevents());
+//		} catch (Exception e) {
+//			_logger.error(e);
+//			return Collections.emptySet();
+//		}
+//		
+//		return patient.getCalendarevents();
+//	}
 	
 	/**
 	 * Loads the collection from the database into the entity.
@@ -131,14 +131,14 @@ public class PatientDao extends GenericDao<Patient> {
 	 * @return The ExaminationProtocols that have been loaded. Returns {@link java.util.Collections#emptySet()} in case of failure.
 	 * @see GenericDao#loadCollection(T entity, Collection<?> collection)
 	 */
-	public Set<ExaminationProtocol> loadExaminationProtocols(Patient patient) {	// TODO: Examinationprotocols vs ExaminationProtocols --> see Trello
-		try {
-			loadCollection(patient, patient.getExaminationprotocols());
-		} catch (Exception e) {
-			_logger.error(e);
-			return Collections.emptySet();
-		}
-		
-		return patient.getExaminationprotocols();
-	}
+//	public Set<ExaminationProtocol> loadExaminationProtocols(Patient patient) {	// TODO: Examinationprotocols vs ExaminationProtocols --> see Trello
+//		try {
+//			loadCollection(patient, patient.getExaminationprotocols());
+//		} catch (Exception e) {
+//			_logger.error(e);
+//			return Collections.emptySet();
+//		}
+//		
+//		return patient.getExaminationprotocols();
+//	}
 }

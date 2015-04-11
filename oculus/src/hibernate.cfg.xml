@@ -20,6 +20,9 @@
 		<!-- SQL dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         
+        <!-- Lazy Loading -->
+        <property name="hibernate.enable_lazy_load_no_trans">true</property>
+        
         <!-- TODO: check if needed: (declare even default values)
         	"Enable Hibernate's automatic session context management"
         	"Disable the second-level cache"

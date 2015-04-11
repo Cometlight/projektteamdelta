@@ -45,16 +45,16 @@ public class DoctorDao extends GenericDao<Doctor> {
 	 * @return The Patients that have been loaded. Returns {@link java.util.Collections#emptySet()} in case of failure.
 	 * @see GenericDao#loadCollection(T entity, Collection<?> collection)
 	 */
-	public Set<Patient> loadPatients(Doctor doctor) {
-		try {
-			loadCollection(doctor, doctor.getPatients());
-		} catch (Exception e) {
-			_logger.error(e);
-			return Collections.emptySet();
-		}
-		
-		return doctor.getPatients();
-	}
+//	public Set<Patient> loadPatients(Doctor doctor) {
+//		try {
+//			loadCollection(doctor, doctor.getPatients());
+//		} catch (Exception e) {
+//			_logger.error(e);
+//			return Collections.emptySet();
+//		}
+//		
+//		return doctor.getPatients();
+//	}
 	
 	/**
 	 * Loads the collection from the database into the entity.
@@ -68,16 +68,16 @@ public class DoctorDao extends GenericDao<Doctor> {
 	 * @return The Patients that have been loaded. Returns {@link java.util.Collections#emptySet()} in case of failure.
 	 * @see GenericDao#loadCollection(T entity, Collection<?> collection)
 	 */
-	public Set<Diagnosis> loadDiagnoses(Doctor doctor) {// TODO: rename getDiagnosises to getDiagnoses ??
-		try {
-			loadCollection(doctor, doctor.getDiagnoses());
-		} catch (Exception e) {
-			_logger.error(e);
-			return Collections.emptySet();
-		}
-		
-		return doctor.getDiagnoses();
-	}
+//	public Set<Diagnosis> loadDiagnoses(Doctor doctor) {// TODO: rename getDiagnosises to getDiagnoses ??
+//		try {
+//			loadCollection(doctor, doctor.getDiagnoses());
+//		} catch (Exception e) {
+//			_logger.error(e);
+//			return Collections.emptySet();
+//		}
+//		
+//		return doctor.getDiagnoses();
+//	}
 	
 	// TODO: Why does a doctor contain a list of "doctors"?
 	/* TODO: Why does a doctor can contain several queues and not only one? --> I, Daniel, have asked D. Griesa

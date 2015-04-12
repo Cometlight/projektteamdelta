@@ -3,6 +3,9 @@ package at.itb13.oculus.domain;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import at.itb13.oculus.technicalServices.dao.QueueDao;
 
 /**
@@ -12,6 +15,9 @@ import at.itb13.oculus.technicalServices.dao.QueueDao;
  * @date 11.04.2015
  */
 public class AllQueues {
+	
+	private static final Logger _logger = LogManager.getLogger(AllQueues.class
+			.getName());
 	private static AllQueues _allQueues;
 	private List<Queue> _queues;
 	

@@ -2,6 +2,8 @@ package at.itb13.oculus.domain;
 
 import java.util.Date;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Hibernate;
 
 import at.itb13.oculus.technicalServices.ReloaderOLD_TODELETE;
@@ -14,6 +16,8 @@ import at.itb13.oculus.technicalServices.ReloaderOLD_TODELETE;
  */
 public class QueueEntry {
 	
+	private static final Logger _logger = LogManager.getLogger(QueueEntry.class
+			.getName());
 	private static final long serialVersionUID = 1L;
 	private Integer _queueEntryId;
 	private Patient _patient;

@@ -16,6 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import at.itb13.oculus.technicalServices.ReloaderOLD_TODELETE;
 
 /**
@@ -25,6 +28,8 @@ import at.itb13.oculus.technicalServices.ReloaderOLD_TODELETE;
 @Table(name = "doctor", catalog = "oculusdb")
 public class Doctor implements java.io.Serializable {
 
+	private static final Logger _logger = LogManager.getLogger(Doctor.class
+			.getName());
 	private static final long serialVersionUID = 1L;
 	private Integer _doctorId;
 	private Calendar _calendar;

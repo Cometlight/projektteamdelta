@@ -16,6 +16,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * 
  * TODO: Insert description here.
@@ -27,6 +30,8 @@ import javax.persistence.TemporalType;
 @Table(name = "calendarevent", catalog = "oculusdb")
 public class CalendarEvent implements java.io.Serializable {
 
+	private static final Logger _logger = LogManager.getLogger(CalendarEvent.class
+			.getName());
 	private static final long serialVersionUID = 1L;
 	private Integer _calendarEventId;
 	private Calendar _calendar;

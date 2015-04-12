@@ -1,8 +1,15 @@
 package at.itb13.oculus.presentation.view;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 import at.itb13.oculus.application.patient.PatientCreation;
 import at.itb13.oculus.domain.Doctor;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
@@ -44,6 +51,9 @@ public class NewPatientController {
 	@FXML
 	private TextField _emailField;
 	
+	private SimpleDateFormat _dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	private Date _date;
+	
 	private Stage _dialogStage;
   //  private PatientWithProperties2 _patient;
     private boolean okClicked = false;
@@ -54,6 +64,7 @@ public class NewPatientController {
      */
     @FXML
     private void initialize() {
+    ///	_doctorBox.setItems(FXCollections.observableArrayList("Dr. Hot", "Dr. Cool"));
     	
     }
     
@@ -78,10 +89,13 @@ public class NewPatientController {
     private void handleOk() {
         if (isInputValid()) {
         
+        	
+        	
+        	
         	//creating a new Patient and save it in the database
         	PatientCreation pc = new PatientCreation();
-        	pc.createPatient(null, null, _firstNameField.getText(), _lastNameField.getText(), null, _genderField.getText(), _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
-            okClicked = true;
+        	pc.createPatient(null, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _genderField.getText(), _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
+        	okClicked = true;
             _dialogStage.close();
         }
     }
@@ -109,6 +123,17 @@ public class NewPatientController {
         }
         if(_genderField.getText() == null || _genderField.getText().length() == 0){
         	errorMessage += "No valid gender!\n";
+        }
+        if(_birthdayField.getText() != null && _birthdayField.getText().length() > 0){
+        	try {
+				_date = _dateFormat.parse(_birthdayField.getText());
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        else{
+        	_date = null;
         }
 
 

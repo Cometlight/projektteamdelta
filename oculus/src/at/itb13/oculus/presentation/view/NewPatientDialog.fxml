@@ -51,7 +51,7 @@
             <TextField fx:id="_phoneField" promptText="phone" GridPane.columnIndex="1" GridPane.rowIndex="10" />
             <TextField fx:id="_emailField" promptText="email" GridPane.columnIndex="1" GridPane.rowIndex="11" />
             <Label text="Doctor" GridPane.rowIndex="5" />
-            <ChoiceBox prefHeight="25.0" prefWidth="259.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ChoiceBox fx:id="_doctorBox" prefHeight="25.0" prefWidth="259.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       <Label layoutX="14.0" layoutY="6.0" text="Master Data" AnchorPane.leftAnchor="0.0" />

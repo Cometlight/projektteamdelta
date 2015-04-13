@@ -1,5 +1,6 @@
 package at.itb13.oculus.domain;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -45,7 +46,7 @@ public class Patient implements java.io.Serializable {
 	private String _socialInsuranceNr;
 	private String _firstName;
 	private String _lastName;
-	private Date _birthDay;
+	private LocalDate _birthDay;
 	private String _gender;
 	private String _street;
 	private String _postalCode;
@@ -74,7 +75,7 @@ public class Patient implements java.io.Serializable {
 //	}
 
 	public Patient(Doctor doctor, String socialInsuranceNr, String firstName,
-			String lastName, Date birthDay, String gender, String street,
+			String lastName, LocalDate birthDay, String gender, String street,
 			String postalCode, String city, String countryIsoCode,
 			String phone, String email) {
 		
@@ -125,7 +126,7 @@ public class Patient implements java.io.Serializable {
 	}
 
 	public Patient(Doctor doctor, String socialInsuranceNr, String firstName,
-			String lastName, Date birthDay, String gender, String street,
+			String lastName, LocalDate birthDay, String gender, String street,
 			String postalCode, String city, String countryIsoCode,
 			String phone, String email, String allergy,
 			String childhoodAilments, String medicineIntolerance,
@@ -251,11 +252,11 @@ public class Patient implements java.io.Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "birthDay", length = 10)
-	public Date getBirthDay() {
+	public LocalDate getBirthDay() {
 		return _birthDay;
 	}
 
-	public void setBirthDay(Date birthDay) {
+	public void setBirthDay(LocalDate birthDay) {
 		_birthDay = birthDay;
 	}
 

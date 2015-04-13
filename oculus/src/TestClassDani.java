@@ -4,6 +4,9 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.application.ControllerFacade;
+import at.itb13.oculus.application.calendar.CalendarController;
+import at.itb13.oculus.application.patient.PatientSearch;
 import at.itb13.oculus.domain.AllQueues;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
@@ -33,8 +36,14 @@ public class TestClassDani {
 		foo2();
 		bar();
 		bar2();
+		foo3();
 		
 		System.exit(0);
+	}
+	
+	private static void foo3() {
+		PatientSearch pS = ControllerFacade.getInstance().getController(PatientSearch.class);
+		CalendarController cC = ControllerFacade.getInstance().getController(CalendarController.class);
 	}
 	
 	private static void foo1() {

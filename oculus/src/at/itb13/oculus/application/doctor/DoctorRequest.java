@@ -18,7 +18,7 @@ import at.itb13.oculus.technicalServices.dao.DoctorDao;
  */
 public class DoctorRequest {
 
-	public List<Doctor> getdoctor(){
+	public List<Doctor> getDoctorList(){
 		List<Doctor> doctorList = new ArrayList<Doctor>();
 		DoctorDao dd = new DoctorDao();
 		doctorList = dd.findAll();

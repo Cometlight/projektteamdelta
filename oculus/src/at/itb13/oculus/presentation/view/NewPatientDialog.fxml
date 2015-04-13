@@ -53,8 +53,8 @@
             <ChoiceBox fx:id="_doctorBox" prefHeight="25.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <ButtonBar prefHeight="37.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <buttons>
-                  <RadioButton fx:id="_male" mnemonicParsing="false" text="male" />
-                  <RadioButton fx:id="_female" minWidth="0.0" mnemonicParsing="false" prefHeight="17.0" text="female" />
+                  <RadioButton fx:id="_male" mnemonicParsing="false" onAction="#handleGender" text="male" />
+                  <RadioButton fx:id="_female" minWidth="0.0" mnemonicParsing="false" onAction="#handleGender" prefHeight="17.0" text="female" />
                </buttons>
             </ButtonBar>
          </children>

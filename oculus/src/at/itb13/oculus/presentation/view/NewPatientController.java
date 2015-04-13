@@ -2,20 +2,16 @@ package at.itb13.oculus.presentation.view;
 
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.List;
 
 import javafx.scene.control.ToggleGroup;
+import at.itb13.oculus.application.doctor.DoctorRequest;
 import at.itb13.oculus.application.patient.PatientCreation;
 import at.itb13.oculus.domain.Doctor;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -47,6 +43,8 @@ public class NewPatientController {
 	private String _gender;
 	@FXML
 	private ChoiceBox<Doctor> _doctorBox;
+	
+	private List<Doctor> _doctors;
 	@FXML
 	private TextField _streetField;
 	@FXML
@@ -60,11 +58,10 @@ public class NewPatientController {
 	@FXML
 	private TextField _emailField;
 	
-	private DateTimeFormatter _dateFormatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
 	private LocalDate _date;
 	
 	private Stage _dialogStage;
-  //  private PatientWithProperties2 _patient;
+
     private boolean okClicked = false;
     
     /**
@@ -74,6 +71,8 @@ public class NewPatientController {
     @FXML
     private void initialize() {
     ///	_doctorBox.setItems(FXCollections.observableArrayList("Dr. Hot", "Dr. Cool"));
+    	DoctorRequest docRequest = new DoctorRequest();
+    	_doctors = docRequest.getDoctorList();
     	_genderGroup = new ToggleGroup();
     	_female.setToggleGroup(_genderGroup);
     	_male.setToggleGroup(_genderGroup);
@@ -100,14 +99,20 @@ public class NewPatientController {
      */
     @FXML
     private void handleOk() {
-        if (isInputValid()) {   
-        	        	
-        	//creating a new Patient and save it in the database
-        	PatientCreation pc = new PatientCreation();
-        	pc.createPatient(null, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
-        	okClicked = true;
-            _dialogStage.close();
-        }
+     
+			try {
+				if (isInputValid()) {   
+					        	
+					//creating a new Patient and save it in the database
+					PatientCreation pc = new PatientCreation();
+					pc.createPatient(null, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
+					okClicked = true;
+				    _dialogStage.close();
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     }
     /**
      * Called when the user clicks cancel.
@@ -146,11 +151,11 @@ public class NewPatientController {
         }
         if(_birthdayField.getText() != null && _birthdayField.getText().length() > 0){
         	if(_birthdayField.getText().matches("([0-9]{4})-([0-9]{2})-([0-9]{2})")){
-        		_date = (LocalDate) _dateFormatter.parse(_birthdayField.getText().toString());
+        		_date = LocalDate.parse(_birthdayField.getText());
         	}else{
         		errorMessage += "No valid Birthday! Please make sure that you have choose the correct date format!\n";
-        	}
-        	
+        	}   	
+
         }
         else{
         	_date = null;

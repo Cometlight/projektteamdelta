@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.domain.AllQueues;
+import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Patient;
@@ -12,6 +13,7 @@ import at.itb13.oculus.domain.Queue;
 import at.itb13.oculus.domain.QueueEntry;
 import at.itb13.oculus.technicalServices.dao.DoctorDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
+import at.itb13.oculus.technicalServices.dao.QueueDao;
 
 /**
  * TODO: Insert description here.
@@ -29,6 +31,8 @@ public class TestClassDani {
 
 		foo1();
 		foo2();
+		bar();
+		bar2();
 		
 		System.exit(0);
 	}
@@ -59,6 +63,29 @@ public class TestClassDani {
 		for(CalendarEvent cE : queue.getQueueEntries().get(1).getPatient().getCalendarevents()) {
 			System.out.println(cE.getDescription());
 		}
+	}
+	
+	private static void bar(){
+		QueueDao qDao = new QueueDao();
+		Queue queue = qDao.findById(1,null);
+		
+		for(QueueEntry q : queue.getQueueEntries()){
+			System.out.println(q.getPatient().getFirstName());
+		}
+		
+	}
+	
+	private static void bar2(){
+		Patient p = new Patient();
+		p.setGender("M");
+		p.setFirstName("Hugo");
+		p.setLastName("Clonk");
+		Doctor doc = new DoctorDao().findById(1);
+//		new DoctorDao().finda
+		p.setDoctor(doc);
+		
+		PatientDao dao = new PatientDao();
+		dao.makePersistent(p);
 	}
 
 }

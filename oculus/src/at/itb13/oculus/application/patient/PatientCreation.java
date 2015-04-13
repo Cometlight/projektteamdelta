@@ -1,3 +1,4 @@
+
 package at.itb13.oculus.application.patient;
 
 import java.time.LocalDate;
@@ -8,7 +9,7 @@ import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 
 /**
- * TODO: Insert description here.
+ * adds a new patient and makes it persistent in the database
  *
  * @author Florin Metzler
  * @since 10.04.2015
@@ -29,3 +30,4 @@ public class PatientCreation {
 		patientDao.makePersistent(_p);
 	}
 }
+

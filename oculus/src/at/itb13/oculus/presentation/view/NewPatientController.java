@@ -3,16 +3,21 @@ package at.itb13.oculus.presentation.view;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.control.ToggleGroup;
+import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.doctor.DoctorRequest;
 import at.itb13.oculus.application.patient.PatientCreation;
 import at.itb13.oculus.domain.Doctor;
+import at.itb13.oculus.presentation.model.DoctorWithProperties;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -42,9 +47,10 @@ public class NewPatientController {
 	private RadioButton _female;	
 	private String _gender;
 	@FXML
-	private ChoiceBox<Doctor> _doctorBox;
+	private ComboBox<String> _doctorBox;
 	
 	private List<Doctor> _doctors;
+	private Doctor _doctor;
 	@FXML
 	private TextField _streetField;
 	@FXML
@@ -71,12 +77,14 @@ public class NewPatientController {
     @FXML
     private void initialize() {
     ///	_doctorBox.setItems(FXCollections.observableArrayList("Dr. Hot", "Dr. Cool"));
-    	DoctorRequest docRequest = new DoctorRequest();
-    	_doctors = docRequest.getDoctorList();
+    	setItemsToDoctorBox();
+    	
+    	_gender = "F";
     	_genderGroup = new ToggleGroup();
     	_female.setToggleGroup(_genderGroup);
     	_male.setToggleGroup(_genderGroup);
     	_female.setSelected(true);
+    	
     	
     }
     
@@ -129,11 +137,36 @@ public class NewPatientController {
     	else if(_female.isSelected()){
     		_gender = "F";
     	}
-    	else{
-    		_gender = "F";
-    	}
+    	
     }
-    
+    private void setItemsToDoctorBox(){
+    	_doctors = new ArrayList<>();
+    	ArrayList<String> docs = new ArrayList<>();
+    	DoctorRequest docRequest = ControllerFacade.getInstance().getController(DoctorRequest.class);
+    	_doctors = docRequest.getDoctorList();
+    	docs = new ArrayList<>();    
+    	if(_doctors.size() > 0){
+    		for(Doctor d : _doctors){
+    		
+        		docs.add((d.getUser().getFirstName()) + " " + d.getUser().getLastName());
+    			
+        	}
+    	}
+    	else{
+    		System.out.println("Keine Ärzte");
+    	}
+    	ObservableList<String> observablesDoctors = FXCollections.observableArrayList(docs);
+    	
+    	_doctorBox.getItems().setAll(observablesDoctors);    		
+    	
+    	_doctorBox.setVisibleRowCount(3);
+    	
+    }
+    @FXML
+    private void handleDoctorComboBox(){
+    	
+    	_doctorBox.getSelectionModel().getSelectedItem();
+    }
     
     /**
      * Validates the user input in the text fields.

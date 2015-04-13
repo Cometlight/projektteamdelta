@@ -61,7 +61,7 @@ public class Doctor implements java.io.Serializable {
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "doctorId", unique = true, nullable = false)
 	public Integer getDoctorId() {
-		return this._doctorId;
+		return _doctorId;
 	}
 
 	public void setDoctorId(Integer doctorId) {

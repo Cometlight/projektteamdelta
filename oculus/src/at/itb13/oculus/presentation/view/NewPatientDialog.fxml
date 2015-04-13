@@ -50,13 +50,13 @@
             <TextField fx:id="_phoneField" promptText="phone" GridPane.columnIndex="1" GridPane.rowIndex="10" />
             <TextField fx:id="_emailField" promptText="email" GridPane.columnIndex="1" GridPane.rowIndex="11" />
             <Label text="Doctor" GridPane.rowIndex="5" />
-            <ChoiceBox fx:id="_doctorBox" prefHeight="25.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <ButtonBar prefHeight="37.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <buttons>
                   <RadioButton fx:id="_male" mnemonicParsing="false" onAction="#handleGender" text="male" />
                   <RadioButton fx:id="_female" minWidth="0.0" mnemonicParsing="false" onAction="#handleGender" prefHeight="17.0" text="female" />
                </buttons>
             </ButtonBar>
+            <ComboBox fx:id="_doctorBox" onAction="#handleDoctorComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       <Label layoutX="14.0" layoutY="6.0" text="Master Data" AnchorPane.leftAnchor="0.0" />

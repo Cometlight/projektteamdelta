@@ -143,6 +143,10 @@ public class PatientWithProperties2 implements java.io.Serializable {
 		_patient.setDoctor(doctor);
 		this.doctor.set(doctor);
 	}
+	
+	public ObjectProperty<Doctor> DoctorProperty(){
+		return doctor;
+	}
 
 	
 	public String getSocialInsuranceNr() {

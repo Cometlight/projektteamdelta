@@ -18,6 +18,8 @@ public class ControllerFacade {
 	private static final Logger _logger = LogManager.getLogger(ControllerFacade.class.getName());
 	private static ControllerFacade _instance;
 	
+	private static List<>
+	
 	static {
 		_instance = new ControllerFacade();
 	}

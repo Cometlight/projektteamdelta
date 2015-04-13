@@ -1,4 +1,4 @@
-package at.itb13.oculus.technicalServices.utils;
+package at.itb13.oculus.technicalServices.util;
 
 import java.time.LocalDate;
 

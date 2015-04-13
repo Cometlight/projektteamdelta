@@ -213,9 +213,6 @@ public class Patient implements java.io.Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctorId")
 	public Doctor getDoctor() {
-		if(!ReloaderOLD_TODELETE.getInstance().isLoaded(_doctor)) {
-			_doctor = ReloaderOLD_TODELETE.getInstance().reload(Doctor.class, _doctor.getDoctorId());
-		}
 		return _doctor;
 	}
 

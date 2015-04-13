@@ -1,9 +1,13 @@
 package at.itb13.oculus.technicalServices.dao;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
+
+import javax.persistence.Transient;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,22 +28,25 @@ import at.itb13.oculus.technicalServices.HibernateUtil;
 import at.itb13.oculus.technicalServices.entities.QueueEntity;
 
 /**
- * TODO: Insert description here.
+ * Offers functionality for loading {@link at.itb13.oculus.domain.Queue}s with their {@link at.itb13.oculus.domain.QueueEntry}s.
  * 
  * @author Daniel Scheffknecht
  * @date 11.04.2015
  */
-// public class QueueDao implements DAO<Queue> {
 public class QueueDao {
 
-	private static final Logger _logger = LogManager.getLogger(QueueDao.class
-			.getName());
+	private static final Logger _logger = LogManager.getLogger(QueueDao.class.getName());
 
 	/**
+	 * Opens a new Hibernate session and looks up the Queue with the specified doctorID and orthoptistID.
+	 * The conversion between the database table "Queue" and the {@link at.itb13.oculus.domain.Queue}s with 
+	 * their {@link at.itb13.oculus.domain.QueueEntry}s is done automatically.
+	 * <P>
+	 * If both the doctorID and orthoptistID is null, the general orthoptist queue is returned.
 	 * 
-	 * @param doctorId
-	 * @param orthoptistId
-	 * @return null if no doctorid or orid exists
+	 * @param doctorId the id of the queue's doctor. May be null.
+	 * @param orthoptistId the id of the queue's orthoptist. May be null.
+	 * @return the desired queue if found, or null otherwise
 	 */
 	public Queue findById(Integer doctorId, Integer orthoptistId) {
 		Queue queue = new Queue();
@@ -73,8 +80,7 @@ public class QueueDao {
 				if (orthoptist != null) {
 					queue.setOrthoptist(orthoptist);
 				} else {
-					_logger.warn("Failed to find orthoptist with orthoptistId '"
-							+ orthoptistId + '"');
+					_logger.warn("Failed to find orthoptist with orthoptistId '" + orthoptistId + '"');
 					return null;
 				}
 			}
@@ -82,64 +88,100 @@ public class QueueDao {
 		}
 
 		// Load queue entries
-		List<QueueEntity> listQueueEntity = findByCriteria(doctorRestriction,
-				orthoptistRestriction);
-		LinkedList<QueueEntry> listQueueEntry = new LinkedList<>();
-
-		for (QueueEntity queueEntity : listQueueEntity) {
-			QueueEntry queueEntry = new QueueEntry(queueEntity.getQueueId(),
-					queueEntity.getPatient(), queueEntity.getArrivalTime());
-
-			// TODO: Optimize algorithm
-			if (queueEntity.getQueueIdParent() == null) { // front of queue
-				listQueueEntry.addFirst(queueEntry);
-			} else {
-				ListIterator<QueueEntry> it = listQueueEntry.listIterator();
-				while (it.hasNext()) {
-					QueueEntry curEntry = it.next();
-					if (curEntry.getQueueEntryId().equals(
-							queueEntity.getQueueIdParent())) {
-						it.add(queueEntry);
-					}
-				}
-			}
-		}
+		List<QueueEntity> listQueueEntity = findByCriteria(doctorRestriction, orthoptistRestriction);
+		List<QueueEntry> listQueueEntry = convertToQueueEntryList(listQueueEntity);
 
 		queue.setQueueEntries(listQueueEntry);
 
 		return queue;
 	}
 
-	/*
-	 * @see at.itb13.oculus.technicalServices.DAO#findById(java.lang.Integer)
+	/**
+	 * Opens a new Hibernate session and loads all {@link at.itb13.oculus.domain.Queue}s into a list.
+	 * If no Queues are found, the returned list is empty.
+	 * 
+	 * Alias: {@link #findAll() findAll}
+	 * 
+	 * @return a list of all Queues found in the database. May be empty.
 	 */
-	// @Override
-	// public Queue findById(Integer id) {
-	// throw new UnsupportedOperationException();
-	// }
-
-	/*
-	 * @see at.itb13.oculus.technicalServices.DAO#list()
-	 */
-	// @Override
+	@SuppressWarnings("unchecked")
 	public List<Queue> list() {
-		// TODO Auto-generated method stub
-		return null;
+		// Load the whole table 'Queue' from the database
+		List<QueueEntity> listQueueEntity = null;
+		Session session = null;
+		Transaction tx = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			tx = session.beginTransaction();
+			
+			listQueueEntity = (List<QueueEntity>) session.createCriteria(QueueEntity.class).list();
+			
+			tx.commit();
+		} catch (Exception ex) {
+			if(tx != null) {
+				tx.rollback();
+			}
+			_logger.error(ex);
+		} finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+		
+		// Split the list into lists representing the distinct queues
+		Map<Doctor, List<QueueEntity>> mapQueueEntityDoctors = new HashMap<>();
+		Map<Orthoptist, List<QueueEntity>> mapQueueEntityOrthoptists = new HashMap<>();
+		List<QueueEntity> listQueueEntityGeneralOrthoptists = new LinkedList<>();
+		
+		for(QueueEntity entity : listQueueEntity) {
+			Doctor doctor = entity.getDoctor();
+			Orthoptist orthoptist = entity.getOrthoptist();
+			if(doctor != null) {
+				if(!mapQueueEntityDoctors.containsKey(doctor)) {
+					mapQueueEntityDoctors.put(doctor, new LinkedList<>());
+				}
+				mapQueueEntityDoctors.get(doctor).add(entity);
+			} else if(orthoptist != null) {
+				if(!mapQueueEntityOrthoptists.containsKey(orthoptist)) {
+					mapQueueEntityOrthoptists.put(orthoptist, new LinkedList<>());
+				}
+				mapQueueEntityOrthoptists.get(orthoptist).add(entity);
+			} else {	// General Orthoptist Queue
+				listQueueEntityGeneralOrthoptists.add(entity);
+			}
+		}
+		
+		// Convert lists to queues
+		List<Queue> listAllQueues = new LinkedList<>();
+		
+		mapQueueEntityDoctors.values().forEach(list -> listAllQueues.add(convertToQueue(list)));
+		mapQueueEntityOrthoptists.values().forEach(list -> listAllQueues.add(convertToQueue(list)));
+		listAllQueues.add(convertToQueue(listQueueEntityGeneralOrthoptists));
+		
+		return listAllQueues;
 	}
 
-	/*
-	 * @see at.itb13.oculus.technicalServices.DAO#findAll()
+	/**
+	 * Opens a new Hibernate session and loads all {@link at.itb13.oculus.domain.Queue}s into a list.
+	 * If no Queues are found, the returned list is empty.
+	 * 
+	 * Alias: {@link #list() list}
+	 * 
+	 * @return a list of all Queues found in the database. May be empty.
 	 */
-	// @Override
 	public List<Queue> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return list();
 	}
 
-	/*
-	 * @see at.itb13.oculus.technicalServices.DAO#makePersistent(java.util.List)
+	/**
+	 * Opens a new Hibernate session and saves or updates the supplied entities.
+	 * If there is a problem with a single entity, no entity gets saved or updated at all and false is returned.
+	 * The entities are in a detached state after execution.
+	 * 
+	 * @param entities a list of entities that should be saved or updated
+	 * @return true if all entities have been saved or updated; false if no entity has been saved or updated.
+	 * @see #makePersistent(Queue... entities)
 	 */
-	// @Override
 	public boolean makePersistent(List<Queue> entities) {
 		Session session = null;
 		Transaction tx = null;
@@ -155,13 +197,7 @@ public class QueueDao {
 				Integer prevEntryId = null; // first element has NULL as
 											// queueIdParent
 				for (QueueEntry entry : queue.getQueueEntries()) {
-					QueueEntity entity = new QueueEntity();
-					entity.setQueueId(entry.getQueueEntryId());
-					entity.setDoctor(queue.getDoctor());
-					entity.setOrthoptist(queue.getOrthoptist());
-					entity.setPatient(entry.getPatient());
-					entity.setArrivalTime(entry.getArrivalTime());
-					entity.setQueueIdParent(prevEntryId);
+					QueueEntity entity = convertToQueueEntity(queue, entry, prevEntryId);
 
 					prevEntryId = entity.getQueueId();
 
@@ -200,11 +236,15 @@ public class QueueDao {
 		return true;
 	}
 
-	/*
-	 * @see
-	 * at.itb13.oculus.technicalServices.DAO#makePersistent(java.lang.Object[])
+	/**
+	 * Opens a new Hibernate session and saves or updates the supplied entities.
+	 * If there is a problem with a single entity, no entity gets saved or updated at all and false is returned.
+	 * The entities are in a detached state after execution.
+	 * 
+	 * @param entities a list of entities that should be saved or updated
+	 * @return true if all entities have been saved or updated; false if no entity has been saved or updated.
+	 * @see #makePersistent(List<Queue> entities);
 	 */
-	// @Override
 	public boolean makePersistent(Queue... entities) {
 		if (entities == null) {
 			_logger.error("No entities supplied. At least 1 entity has to be supplied!");
@@ -214,25 +254,68 @@ public class QueueDao {
 		return makePersistent(Arrays.asList(entities));
 	}
 
-	/*
-	 * @see at.itb13.oculus.technicalServices.DAO#makeTransient(java.util.List)
+	/**
+	 * Deletes all supplied queues as identified by their doctorID or orthoptistID.
+	 * Important: The whole queue is deleted, not only the QueueEntrys of the supplied Queue!
+	 * 
+	 * @param entities entities that should be deleted
+	 * @return  true if all entities have been deleted; false if no entity has been deleted.
+	 * @see #makeTransient(Queue... entities)
 	 */
-	// @Override
 	public boolean makeTransient(List<Queue> entities) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session = null;
+		Transaction tx = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			tx = session.beginTransaction();
+
+			for (Queue queue : entities) {
+				List<QueueEntity> listQueueDB = loadQueueEntitiesById(queue
+						.getDoctor().getDoctorId(), queue.getOrthoptist()
+						.getOrthoptistId());
+				
+				listQueueDB.forEach(session::delete);
+			}
+
+			tx.commit();
+		} catch (Exception ex) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			_logger.error(ex);
+			return false;
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+
+		return true;
 	}
 
-	/*
-	 * @see
-	 * at.itb13.oculus.technicalServices.DAO#makeTransient(java.lang.Object[])
+	/**
+	 * Deletes all supplied queues as identified by their doctorID or orthoptistID.
+	 * Important: The whole queue is deleted, not only the QueueEntrys of the supplied Queue!
+	 * 
+	 * @param entities entities that should be deleted
+	 * @return  true if all entities have been deleted; false if no entity has been deleted.
+	 * @see #makeTransient(List<Queue> entities)
 	 */
-	// @Override
-	public boolean makeTransient(Queue... entitites) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean makeTransient(Queue... entities) {
+		if(entities == null) {
+			_logger.error("No entities supplied. At least 1 entity has to be supplied!");
+			return false;
+		}
+		
+		return makeTransient(Arrays.asList(entities));
 	}
 
+	/**
+	 * TODO
+	 * @param doctorId
+	 * @param orthoptistId
+	 * @return
+	 */
 	private List<QueueEntity> loadQueueEntitiesById(Integer doctorId,
 			Integer orthoptistId) {
 		Criterion doctorRestriction = Restrictions.isNull("doctor.doctorId");
@@ -256,6 +339,11 @@ public class QueueDao {
 		return findByCriteria(doctorRestriction, orthoptistRestriction);
 	}
 
+	/**
+	 * TODO
+	 * @param criterion
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	private List<QueueEntity> findByCriteria(Criterion... criterion) {
 		List<QueueEntity> list = null;
@@ -282,5 +370,59 @@ public class QueueDao {
 		}
 
 		return list;
+	}
+	
+	private Queue convertToQueue(List<QueueEntity> entities) {
+		if(entities == null || entities.isEmpty()) {
+			throw new IllegalArgumentException();
+		}
+		Doctor doctor = entities.get(0).getDoctor();
+		Orthoptist orthoptist = entities.get(0).getOrthoptist();
+		Queue queue = new Queue(doctor, orthoptist);
+		
+		queue.setQueueEntries(convertToQueueEntryList(entities));
+		
+		return queue;
+	}
+	
+	private List<QueueEntry> convertToQueueEntryList(List<QueueEntity> entities) {
+		LinkedList<QueueEntry> listQueueEntry = new LinkedList<>();
+		
+		for (QueueEntity queueEntity : entities) {
+			QueueEntry queueEntry = convertToQueueEntry(queueEntity);
+
+			// TODO: Optimize algorithm
+			if (queueEntity.getQueueIdParent() == null) { // front of queue
+				listQueueEntry.addFirst(queueEntry);
+			} else {
+				ListIterator<QueueEntry> it = listQueueEntry.listIterator();
+				while (it.hasNext()) {
+					QueueEntry curEntry = it.next();
+					if (curEntry.getQueueEntryId().equals(
+							queueEntity.getQueueIdParent())) {
+						it.add(queueEntry);
+					}
+				}
+			}
+		}
+		
+		return listQueueEntry;
+	}
+	
+	private QueueEntry convertToQueueEntry(QueueEntity entity) {
+		return new QueueEntry(entity.getQueueId(), entity.getPatient(), entity.getArrivalTime());
+	}
+	
+	private QueueEntity convertToQueueEntity(Queue queue, QueueEntry entry, Integer queueIdParent) {
+		QueueEntity entity = new QueueEntity();
+		
+		entity.setQueueId(entry.getQueueEntryId());
+		entity.setDoctor(queue.getDoctor());
+		entity.setOrthoptist(queue.getOrthoptist());
+		entity.setPatient(entry.getPatient());
+		entity.setArrivalTime(entry.getArrivalTime());
+		entity.setQueueIdParent(queueIdParent);
+		
+		return entity;
 	}
 }

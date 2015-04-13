@@ -2,6 +2,7 @@ package at.itb13.oculus.technicalServices.entities;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -18,11 +19,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Orthoptist;
 import at.itb13.oculus.domain.Patient;
+import at.itb13.oculus.domain.Queue;
+import at.itb13.oculus.domain.QueueEntry;
 
 /**
  * 
@@ -57,7 +61,7 @@ public class QueueEntity implements java.io.Serializable {
 		this.arrivalTime = arrivalTime;
 		this.queueIdParent = queueIdParent;
 	}
-
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "queueId", unique = true, nullable = false)

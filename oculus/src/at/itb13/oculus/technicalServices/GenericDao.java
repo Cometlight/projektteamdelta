@@ -22,7 +22,7 @@ import org.hibernate.criterion.Criterion;
  * @date 06.04.2015
  * @param <T> The class that this particular GenericDao is used for.
  */
-public /*abstract*/ class GenericDao<T> implements DAO<T> {
+public abstract class GenericDao<T> implements DAO<T> {
 	
 	private static final Logger _logger = LogManager.getLogger(GenericDao.class.getName());
 	private Class<T> _domainClass;
@@ -73,7 +73,7 @@ public /*abstract*/ class GenericDao<T> implements DAO<T> {
 	
 	/**
 	 * Opens a new Hibernate session and loads all objects with the domainClass specified in the constructor into a list.
-	 * If no objects are found, the returned is empty.
+	 * If no objects are found, the returned list is empty.
 	 * 
 	 * Alias: {@link #findAll() findAll}
 	 * 
@@ -112,7 +112,7 @@ public /*abstract*/ class GenericDao<T> implements DAO<T> {
 	
 	/**
 	 * Opens a new Hibernate session and loads all objects with the domainClass specified in the constructor into a list.
-	 * If no objects are found, the returned is empty.
+	 * If no objects are found, the returned list is empty.
 	 * 
 	 * Alias: {@link #list() list}
 	 * 

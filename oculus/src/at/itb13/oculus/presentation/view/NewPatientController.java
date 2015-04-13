@@ -2,20 +2,18 @@ package at.itb13.oculus.presentation.view;
 
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.List;
 
+import javafx.scene.control.ToggleGroup;
+import at.itb13.oculus.application.doctor.DoctorRequest;
 import at.itb13.oculus.application.patient.PatientCreation;
 import at.itb13.oculus.domain.Doctor;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -35,10 +33,18 @@ public class NewPatientController {
 	private TextField _SINField;
 	@FXML
 	private TextField _birthdayField;
+	
+	private ToggleGroup _genderGroup;
+	
 	@FXML
-	private TextField _genderField;
+	private RadioButton _male;
+	@FXML
+	private RadioButton _female;	
+	private String _gender;
 	@FXML
 	private ChoiceBox<Doctor> _doctorBox;
+	
+	private List<Doctor> _doctors;
 	@FXML
 	private TextField _streetField;
 	@FXML
@@ -52,11 +58,10 @@ public class NewPatientController {
 	@FXML
 	private TextField _emailField;
 	
-	private SimpleDateFormat _dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	private LocalDate _date;
 	
 	private Stage _dialogStage;
-  //  private PatientWithProperties2 _patient;
+
     private boolean okClicked = false;
     
     /**
@@ -66,6 +71,12 @@ public class NewPatientController {
     @FXML
     private void initialize() {
     ///	_doctorBox.setItems(FXCollections.observableArrayList("Dr. Hot", "Dr. Cool"));
+    	DoctorRequest docRequest = new DoctorRequest();
+    	_doctors = docRequest.getDoctorList();
+    	_genderGroup = new ToggleGroup();
+    	_female.setToggleGroup(_genderGroup);
+    	_male.setToggleGroup(_genderGroup);
+    	_female.setSelected(true);
     	
     }
     
@@ -88,17 +99,20 @@ public class NewPatientController {
      */
     @FXML
     private void handleOk() {
-        if (isInputValid()) {
-        
-        	
-        	
-        	
-        	//creating a new Patient and save it in the database
-        	PatientCreation pc = new PatientCreation();
-        	pc.createPatient(null, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _genderField.getText(), _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
-        	okClicked = true;
-            _dialogStage.close();
-        }
+     
+			try {
+				if (isInputValid()) {   
+					        	
+					//creating a new Patient and save it in the database
+					PatientCreation pc = new PatientCreation();
+					pc.createPatient(null, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
+					okClicked = true;
+				    _dialogStage.close();
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     }
     /**
      * Called when the user clicks cancel.
@@ -107,13 +121,26 @@ public class NewPatientController {
     private void handleCancel() {
         _dialogStage.close();
     }
+    @FXML
+    private void handleGender(){
+    	if(_male.isSelected()){
+    		_gender = "M";
+    	}
+    	else if(_female.isSelected()){
+    		_gender = "F";
+    	}
+    	else{
+    		_gender = "F";
+    	}
+    }
+    
     
     /**
      * Validates the user input in the text fields.
      * 
      * @return true if the input is valid
      */
-    private boolean isInputValid() {
+    private boolean isInputValid() throws ParseException {
         String errorMessage = "";
 
         if (_firstNameField.getText() == null || _firstNameField.getText().length() == 0) {
@@ -122,18 +149,13 @@ public class NewPatientController {
         if (_lastNameField.getText() == null || _lastNameField.getText().length() == 0) {
             errorMessage += "No valid last name!\n"; 
         }
-        if(_genderField.getText() == null || _genderField.getText().length() == 0){
-        	errorMessage += "No valid gender!\n";
-        }
         if(_birthdayField.getText() != null && _birthdayField.getText().length() > 0){
-//        	try {
-        		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-				_date = LocalDate.parse(_birthdayField.getText(), dtf);
-//						_dateFormat.parse(_birthdayField.getText());
-//			} catch (ParseException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+        	if(_birthdayField.getText().matches("([0-9]{4})-([0-9]{2})-([0-9]{2})")){
+        		_date = LocalDate.parse(_birthdayField.getText());
+        	}else{
+        		errorMessage += "No valid Birthday! Please make sure that you have choose the correct date format!\n";
+        	}   	
+
         }
         else{
         	_date = null;

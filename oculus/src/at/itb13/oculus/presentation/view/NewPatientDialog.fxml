@@ -31,7 +31,7 @@
             <Label text="First Name" />
             <Label text="Last Name" GridPane.rowIndex="1" />
             <Label text="Social Insurance Number" GridPane.rowIndex="2" />
-            <Label text="Birthday" GridPane.rowIndex="3" />
+            <Label text="Birthday (yyyy-MM-dd)" GridPane.rowIndex="3" />
             <Label text="Gender" GridPane.rowIndex="4" />
             <Label text="Street" GridPane.rowIndex="6" />
             <Label text="Postal Code" GridPane.rowIndex="7" />
@@ -42,8 +42,7 @@
             <TextField fx:id="_firstNameField" prefHeight="25.0" prefWidth="230.0" promptText="first name" GridPane.columnIndex="1" />
             <TextField fx:id="_lastNameField" promptText="last name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="_SINField" promptText="social insurance number" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="_birthdayField" promptText="birthday" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="_genderField" promptText="gender" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="_birthdayField" promptText="birthday (yyyy-MM-dd)" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="_streetField" promptText="street" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="_postalCodeField" promptText="posatl code" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <TextField fx:id="_cityField" promptText="city" GridPane.columnIndex="1" GridPane.rowIndex="8" />
@@ -51,7 +50,13 @@
             <TextField fx:id="_phoneField" promptText="phone" GridPane.columnIndex="1" GridPane.rowIndex="10" />
             <TextField fx:id="_emailField" promptText="email" GridPane.columnIndex="1" GridPane.rowIndex="11" />
             <Label text="Doctor" GridPane.rowIndex="5" />
-            <ChoiceBox fx:id="_doctorBox" prefHeight="25.0" prefWidth="259.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ChoiceBox fx:id="_doctorBox" prefHeight="25.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ButtonBar prefHeight="37.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <buttons>
+                  <RadioButton fx:id="_male" mnemonicParsing="false" onAction="#handleGender" text="male" />
+                  <RadioButton fx:id="_female" minWidth="0.0" mnemonicParsing="false" onAction="#handleGender" prefHeight="17.0" text="female" />
+               </buttons>
+            </ButtonBar>
          </children>
       </GridPane>
       <Label layoutX="14.0" layoutY="6.0" text="Master Data" AnchorPane.leftAnchor="0.0" />

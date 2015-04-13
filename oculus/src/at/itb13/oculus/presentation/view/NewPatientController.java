@@ -3,6 +3,7 @@ package at.itb13.oculus.presentation.view;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -52,7 +53,7 @@ public class NewPatientController {
 	private TextField _emailField;
 	
 	private SimpleDateFormat _dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	private Date _date;
+	private LocalDate _date;
 	
 	private Stage _dialogStage;
   //  private PatientWithProperties2 _patient;
@@ -125,12 +126,14 @@ public class NewPatientController {
         	errorMessage += "No valid gender!\n";
         }
         if(_birthdayField.getText() != null && _birthdayField.getText().length() > 0){
-        	try {
-				_date = _dateFormat.parse(_birthdayField.getText());
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//        	try {
+        		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+				_date = LocalDate.parse(_birthdayField.getText(), dtf);
+//						_dateFormat.parse(_birthdayField.getText());
+//			} catch (ParseException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
         }
         else{
         	_date = null;

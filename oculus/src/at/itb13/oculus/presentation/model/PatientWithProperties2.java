@@ -1,5 +1,6 @@
 package at.itb13.oculus.presentation.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -46,7 +47,7 @@ public class PatientWithProperties2 implements java.io.Serializable {
 	private StringProperty socialInsuranceNr;
 	private StringProperty firstName;
 	private StringProperty lastName;
-	private ObjectProperty<Date> birthDay;
+	private ObjectProperty<LocalDate> birthDay;
 	private StringProperty gender;
 	private StringProperty street;
 	private StringProperty postalCode;
@@ -183,16 +184,16 @@ public class PatientWithProperties2 implements java.io.Serializable {
 	        return lastName;
 	    }
 
-	public Date getBirthDay() {
+	public LocalDate getBirthDay() {
 		return _patient.getBirthDay();
 	}
 
-	public void setBirthDay(Date birthDay) {
+	public void setBirthDay(LocalDate birthDay) {
 		_patient.setBirthDay(birthDay);
 		this.birthDay.set(birthDay);
 	}
 	
-	 public ObjectProperty<Date> birthDayProperty() {
+	 public ObjectProperty<LocalDate> birthDayProperty() {
 	        return birthDay;
 	    }
 

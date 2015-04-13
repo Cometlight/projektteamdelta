@@ -29,10 +29,10 @@ public class TestClassDani {
 	 */
 	public static void main(String[] args) {
 
-//		foo1();
-//		foo2();
+		foo1();
+		foo2();
 		bar();
-//		bar2();
+		bar2();
 		
 		System.exit(0);
 	}

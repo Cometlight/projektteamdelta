@@ -27,19 +27,19 @@ public class ReloaderOLD_TODELETE {
 		return Hibernate.isInitialized(object);
 	}
 	
-	public <T> T reload(Class<T> clazz, Integer id) {
-		GenericDao<T> dao = new GenericDao<T>(clazz);
-		return dao.findById(id);
-	}
-	
-//	public <T> void reload(Class<T> clazz, T entity, Collection<?> collection) {
+//	public <T> T reload(Class<T> clazz, Integer id) {
 //		GenericDao<T> dao = new GenericDao<T>(clazz);
-//		try {
-//			dao.loadCollection(entity, collection);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-////			e.printStackTrace();
-//			System.out.println("oh noes");
-//		}
+//		return dao.findById(id);
 //	}
+//	
+////	public <T> void reload(Class<T> clazz, T entity, Collection<?> collection) {
+////		GenericDao<T> dao = new GenericDao<T>(clazz);
+////		try {
+////			dao.loadCollection(entity, collection);
+////		} catch (Exception e) {
+////			// TODO Auto-generated catch block
+//////			e.printStackTrace();
+////			System.out.println("oh noes");
+////		}
+////	}
 }

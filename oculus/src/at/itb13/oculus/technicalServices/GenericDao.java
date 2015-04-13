@@ -22,7 +22,7 @@ import org.hibernate.criterion.Criterion;
  * @date 06.04.2015
  * @param <T> The class that this particular GenericDao is used for.
  */
-public /*abstract*/ class GenericDao<T> implements DAO<T> {
+public abstract class GenericDao<T> {
 	
 	private static final Logger _logger = LogManager.getLogger(GenericDao.class.getName());
 	private Class<T> _domainClass;
@@ -43,7 +43,6 @@ public /*abstract*/ class GenericDao<T> implements DAO<T> {
 	 * @param id the unique identifier of the desired object. The id must be valid!
 	 * @return the desired object if found, or null otherwise.
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
 	public T findById(Integer id) {
 		T domainClass = null;
@@ -73,13 +72,12 @@ public /*abstract*/ class GenericDao<T> implements DAO<T> {
 	
 	/**
 	 * Opens a new Hibernate session and loads all objects with the domainClass specified in the constructor into a list.
-	 * If no objects are found, the returned is empty.
+	 * If no objects are found, the returned list is empty.
 	 * 
 	 * Alias: {@link #findAll() findAll}
 	 * 
 	 * @return a list of all objects found in the database. May be empty.
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
 	public List<T> list() {
 		List<T> list = null;
@@ -112,13 +110,12 @@ public /*abstract*/ class GenericDao<T> implements DAO<T> {
 	
 	/**
 	 * Opens a new Hibernate session and loads all objects with the domainClass specified in the constructor into a list.
-	 * If no objects are found, the returned is empty.
+	 * If no objects are found, the returned list is empty.
 	 * 
 	 * Alias: {@link #list() list}
 	 * 
 	 * @return a list of all objects found in the database. May be empty.
 	 */
-	@Override
 	public List<T> findAll() {
 		return list();
 	}
@@ -181,7 +178,6 @@ public /*abstract*/ class GenericDao<T> implements DAO<T> {
 	 * @see #makeTransient(T... entities)
 	 * @see #makeTransient(List<T> entities)
 	 */
-	@Override
 	public boolean makePersistent(List<T> entities) {
 		Session session = null;
 		Transaction tx = null;
@@ -220,7 +216,6 @@ public /*abstract*/ class GenericDao<T> implements DAO<T> {
 	 * @see #makeTransient(T... entities)
 	 * @see #makeTransient(List<T> entities)
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
 	public boolean makePersistent(T... entities) {
 		if(entities == null) {
@@ -241,7 +236,6 @@ public /*abstract*/ class GenericDao<T> implements DAO<T> {
 	 * @see #makePersistent(List<T> entities)
 	 * @see #makePersistent(T... entities)
 	 */
-	@Override
 	public boolean makeTransient(List<T> entities) {
 		Session session = null;
 		Transaction tx = null;
@@ -277,7 +271,6 @@ public /*abstract*/ class GenericDao<T> implements DAO<T> {
 	 * @see #makePersistent(List<T> entities)
 	 * @see #makePersistent(T... entities)
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
 	public boolean makeTransient(T... entities) {
 		if(entities == null) {

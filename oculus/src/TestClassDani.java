@@ -40,8 +40,22 @@ public class TestClassDani {
 		bar();
 		bar2();
 		foo3();
+		foo4();
 		
 		System.exit(0);
+	}
+	
+	private static void foo4() {
+		System.out.println("--- foo4: ---");
+		QueueDao dao = new QueueDao();
+		for(Queue q : dao.list()) {
+			System.out.println(q.getQueueEntries().size());
+		}
+		
+		Queue q = dao.findById(1, null);
+		System.out.println(q.getDoctor().getUser().getFirstName());
+		
+		// TODO: Check if dao.makePersistent is working as intended
 	}
 	
 	private static void foo3() {

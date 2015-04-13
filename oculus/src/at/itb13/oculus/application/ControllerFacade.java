@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import at.itb13.oculus.application.calendar.CalendarController;
 
 /**
- * This class is responsible for delivering usecase-controller to the application layer. There is only one instance available (Singleton).
+ * TODO: Insert description here.
  * 
  * @author Andrew Sparr
  * @date 12 Apr 2015
@@ -26,12 +26,6 @@ public class ControllerFacade {
 		return _instance;
 	}
 	
-	/**
-	 * This method returns, depending on the parameter 'controllerClass', the needed usecase-controller.  
-	 * 
-	 * @param controllerClass This parameter determines which controller is going to be returned.
-	 * @return returns instantiated controller
-	 */
 	public <T> T getController(Class<T> controllerClass) {
 		T controller = null;
 		

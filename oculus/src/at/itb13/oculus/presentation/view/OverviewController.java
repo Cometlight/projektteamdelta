@@ -119,7 +119,7 @@ public class OverviewController {
 	            _firstNameLabel.setText(value.getFirstName());
 	            _lastNameLabel.setText(value.getLastName());
 	            _SSNLabel.setText(value.getSocialInsuranceNr());
-	       //     _birthdayLabel.setText(value.getBirthDay().toString());
+	           _birthdayLabel.setText(value.getBirthDay().toString());
 	            _genderLabel.setText(value.getGender());	            
 	            _streetLabel.setText(value.getStreet());
 	          _postalCodeLabel.setText(value.getPostalCode());
@@ -132,7 +132,7 @@ public class OverviewController {
 	            _firstNameLabel.setText("");
 	            _lastNameLabel.setText("");
 	            _SSNLabel.setText("");
-	       //     _birthdayLabel.setText("");
+	           _birthdayLabel.setText("");
 	            _genderLabel.setText("");	            
 	            _streetLabel.setText("");
 	          _postalCodeLabel.setText("");

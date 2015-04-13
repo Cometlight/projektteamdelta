@@ -1,6 +1,9 @@
+
+
 package at.itb13.oculus.application;
 
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.application.calendar.CalendarController;
 
@@ -12,20 +15,34 @@ import at.itb13.oculus.application.calendar.CalendarController;
  */
 public class ControllerFacade {
 	
-	private static ControllerFacade instance;
+	private static final Logger _logger = LogManager.getLogger(ControllerFacade.class.getName());
+	private static ControllerFacade _instance;
+	
+	static {
+		_instance = new ControllerFacade();
+	}
+	
+	private ControllerFacade() { }
 	
 	public static ControllerFacade getInstance() {
-		if(instance == null) {
-			instance = new ControllerFacade();
-		}
-		return instance;
+		return _instance;
+	}
+	
+	public <T> T getController(Class<T> controllerClass) {
+		T controller = null;
+		
+//		if(controllerClass == CalendarController.class) {
+//			TODO
+//		} else {
+			try {
+				controller = controllerClass.newInstance();
+			} catch (InstantiationException | IllegalAccessException e) {
+				_logger.error(e);
+			}
+//		}
+		
+		return controller;
 	}
 
-	//TODO Controller einfach als Classparameter? Oder Interface? Irgendwie zusammenfassen? 
-	
-//	public IController getController(Class controllerClass){
-//		if (controllerClass instanceof CalendarController){
-//			return new CalendarController();
-//		}
-//	}
 }
+

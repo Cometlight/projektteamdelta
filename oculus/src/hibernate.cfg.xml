@@ -40,31 +40,33 @@
         <property name="hibernate.validator.apply_to_ddl">false</property>
         
         <!-- Mappings -->
-        <mapping class="at.itb13.oculus.domain.Prescription" />
-        <mapping class="at.itb13.oculus.domain.User" />
-        <mapping class="at.itb13.oculus.domain.ExaminationResult" />
-        <mapping class="at.itb13.oculus.domain.CalendarEvent" />
-        <mapping class="at.itb13.oculus.domain.Workinghours" />
-        <mapping class="at.itb13.oculus.domain.Orthoptist" />
-        <mapping class="at.itb13.oculus.domain.Weekday" />
         <mapping class="at.itb13.oculus.domain.Administrator" />
-        <mapping class="at.itb13.oculus.domain.ReferralLetter" />
-        <mapping class="at.itb13.oculus.domain.EventType" />
-        <mapping class="at.itb13.oculus.domain.Permission" />
-        <mapping class="at.itb13.oculus.domain.Diagnosis" />
-        <mapping class="at.itb13.oculus.domain.Receptionist" />
         <mapping class="at.itb13.oculus.domain.Calendar" />
+        <mapping class="at.itb13.oculus.domain.CalendarEvent" />
+        <mapping class="at.itb13.oculus.domain.CalendarWorkingHours" />
+        <mapping class="at.itb13.oculus.domain.Diagnosis" />
+        <mapping class="at.itb13.oculus.domain.Doctor" />
+        <mapping class="at.itb13.oculus.domain.EventType" />
         <mapping class="at.itb13.oculus.domain.ExaminationProtocol" />
+        <mapping class="at.itb13.oculus.domain.ExaminationProtocolServiceCode" />
+        <mapping class="at.itb13.oculus.domain.ExaminationResult" />
+        <mapping class="at.itb13.oculus.domain.InsuranceCarrier" />
+        <mapping class="at.itb13.oculus.domain.Medicine" />
+        <mapping class="at.itb13.oculus.domain.Orthoptist" />
         <mapping class="at.itb13.oculus.domain.Patient" />
+        <mapping class="at.itb13.oculus.domain.Permission" />
+        <mapping class="at.itb13.oculus.domain.Prescription" />
+        <mapping class="at.itb13.oculus.domain.PrescriptionEntry" />
+        <mapping class="at.itb13.oculus.domain.Receptionist" />
+        <mapping class="at.itb13.oculus.domain.ReferralLetter" />
+        <mapping class="at.itb13.oculus.domain.ServiceCode" />
+        <mapping class="at.itb13.oculus.domain.User" />
+        <mapping class="at.itb13.oculus.domain.UserGroup" />
         <mapping class="at.itb13.oculus.domain.UserPermission" />
         <mapping class="at.itb13.oculus.domain.VisualAid" />
-        <mapping class="at.itb13.oculus.domain.UserGroup" />
-        <mapping class="at.itb13.oculus.domain.Doctor" />
-        <mapping class="at.itb13.oculus.domain.Medicine" />
-        <mapping class="at.itb13.oculus.domain.Workdisability" />
-        <mapping class="at.itb13.oculus.domain.InsuranceCarrier" />
-        <mapping class="at.itb13.oculus.domain.ExaminationProtocolServiceCode" />
-        <mapping class="at.itb13.oculus.domain.ServiceCode" />
+        <mapping class="at.itb13.oculus.domain.WorkDisability" />
+        <mapping class="at.itb13.oculus.domain.WorkingHours" />
         <mapping class="at.itb13.oculus.technicalServices.entities.QueueEntity" />
+
     </session-factory>
 </hibernate-configuration>

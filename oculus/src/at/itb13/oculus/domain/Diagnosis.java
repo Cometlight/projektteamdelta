@@ -36,7 +36,7 @@ public class Diagnosis implements java.io.Serializable {
 	private Set<ExaminationProtocol> examinationprotocols = new HashSet<ExaminationProtocol>(
 			0);
 	private Set<VisualAid> visualaids = new HashSet<VisualAid>(0);
-	private Set<Workdisability> workdisabilities = new HashSet<Workdisability>(
+	private Set<WorkDisability> workdisabilities = new HashSet<WorkDisability>(
 			0);
 	private Set<Medicine> medicines = new HashSet<Medicine>(0);
 
@@ -45,7 +45,7 @@ public class Diagnosis implements java.io.Serializable {
 
 	public Diagnosis(Doctor doctor, String title, String description,
 			Set<ExaminationProtocol> examinationprotocols,
-			Set<VisualAid> visualaids, Set<Workdisability> workdisabilities,
+			Set<VisualAid> visualaids, Set<WorkDisability> workdisabilities,
 			Set<Medicine> medicines) {
 		this.doctor = doctor;
 		this.title = title;
@@ -115,11 +115,11 @@ public class Diagnosis implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "diagnosis")
-	public Set<Workdisability> getWorkdisabilities() {
+	public Set<WorkDisability> getWorkdisabilities() {
 		return this.workdisabilities;
 	}
 
-	public void setWorkdisabilities(Set<Workdisability> workdisabilities) {
+	public void setWorkdisabilities(Set<WorkDisability> workdisabilities) {
 		this.workdisabilities = workdisabilities;
 	}
 

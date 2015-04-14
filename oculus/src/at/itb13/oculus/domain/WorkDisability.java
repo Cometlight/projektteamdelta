@@ -27,9 +27,9 @@ import at.itb13.oculus.technicalServices.util.LocalDatePersistenceConverter;
  */
 @Entity
 @Table(name = "workdisability", catalog = "oculusdb")
-public class Workdisability implements java.io.Serializable {
+public class WorkDisability implements java.io.Serializable {
 
-	private static final Logger _logger = LogManager.getLogger(Workdisability.class
+	private static final Logger _logger = LogManager.getLogger(WorkDisability.class
 			.getName());
 	private static final long serialVersionUID = 1L;
 	private Integer workDisabilityId;
@@ -39,10 +39,10 @@ public class Workdisability implements java.io.Serializable {
 	private String reason;
 	private Boolean bedRest;
 
-	public Workdisability() {
+	public WorkDisability() {
 	}
 
-	public Workdisability(Diagnosis diagnosis, LocalDate startDisability,
+	public WorkDisability(Diagnosis diagnosis, LocalDate startDisability,
 			LocalDate endDisability, String reason, Boolean bedRest) {
 		this.diagnosis = diagnosis;
 		this.startDisability = startDisability;

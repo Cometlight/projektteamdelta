@@ -12,8 +12,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.logging.log4j.LogManager;
@@ -25,15 +25,14 @@ import org.apache.logging.log4j.Logger;
 @Entity
 @Table(name = "medicine", catalog = "oculusdb")
 public class Medicine implements java.io.Serializable {
-
-	private static final Logger _logger = LogManager.getLogger(Medicine.class
-			.getName());
-	private static final long serialVersionUID = 1L;
+	private static final Logger _logger = LogManager.getLogger(Medicine.class.getName());
+	
 	private Integer medicineId;
 	private Diagnosis diagnosis;
 	private String name;
 	private String dose;
-	private Set<Prescription> prescriptions = new HashSet<Prescription>(0);
+	private Set<PrescriptionEntry> prescriptionentries = new HashSet<PrescriptionEntry>(
+			0);
 
 	public Medicine() {
 	}
@@ -44,11 +43,11 @@ public class Medicine implements java.io.Serializable {
 	}
 
 	public Medicine(Diagnosis diagnosis, String name, String dose,
-			Set<Prescription> prescriptions) {
+			Set<PrescriptionEntry> prescriptionentries) {
 		this.diagnosis = diagnosis;
 		this.name = name;
 		this.dose = dose;
-		this.prescriptions = prescriptions;
+		this.prescriptionentries = prescriptionentries;
 	}
 
 	@Id
@@ -90,13 +89,14 @@ public class Medicine implements java.io.Serializable {
 		this.dose = dose;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "medicines")
-	public Set<Prescription> getPrescriptions() {
-		return this.prescriptions;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "medicine")
+	public Set<PrescriptionEntry> getPrescriptionentries() {
+		return this.prescriptionentries;
 	}
 
-	public void setPrescriptions(Set<Prescription> prescriptions) {
-		this.prescriptions = prescriptions;
+	public void setPrescriptionentries(
+			Set<PrescriptionEntry> prescriptionentries) {
+		this.prescriptionentries = prescriptionentries;
 	}
 
 }

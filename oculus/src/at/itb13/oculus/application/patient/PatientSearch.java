@@ -64,7 +64,7 @@ public class PatientSearch {
 	 * @param socialInsuranceNr The social insurance number that should be checked.
 	 * @return true, if the socialInsuranceNr is in a valid format.
 	 */
-	private boolean isSocialInsuranceNrValid(String socialInsuranceNr) {
+	private boolean isSocialInsuranceNrValid(String socialInsuranceNr) {	// FIXME Move to domain.Patient as static method
 		boolean isValid;
 		isValid = socialInsuranceNr != null && socialInsuranceNr.length() == SOCIAL_INSURANCE_NR_LENGTH;
 		// TODO: RegEx-Check, if valid?

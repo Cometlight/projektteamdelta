@@ -22,10 +22,10 @@ import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Orthoptist;
 import at.itb13.oculus.domain.Queue;
 import at.itb13.oculus.domain.QueueEntry;
+import at.itb13.oculus.domain.entities.QueueEntity;
 import at.itb13.oculus.technicalServices.DAO;
 import at.itb13.oculus.technicalServices.GenericDao;
 import at.itb13.oculus.technicalServices.HibernateUtil;
-import at.itb13.oculus.technicalServices.entities.QueueEntity;
 
 /**
  * Offers functionality for loading {@link at.itb13.oculus.domain.Queue}s with their {@link at.itb13.oculus.domain.QueueEntry}s.

@@ -12,6 +12,7 @@ import at.itb13.oculus.application.doctor.DoctorRequest;
 import at.itb13.oculus.application.patient.PatientCreation;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.presentation.model.DoctorWithProperties;
+import at.itb13.oculus.presentation.util.DoctorSringConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -47,7 +48,7 @@ public class NewPatientController {
 	private RadioButton _female;	
 	private String _gender;
 	@FXML
-	private ComboBox<String> _doctorBox;
+	private ComboBox<Doctor> _doctorBox;
 	
 	private List<Doctor> _doctors;
 	private Doctor _doctor;
@@ -113,7 +114,7 @@ public class NewPatientController {
 					        	
 					//creating a new Patient and save it in the database
 					PatientCreation pc = new PatientCreation();
-					pc.createPatient(null, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
+					pc.createPatient(_doctor, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
 					okClicked = true;
 				    _dialogStage.close();
 				}
@@ -140,32 +141,17 @@ public class NewPatientController {
     	
     }
     private void setItemsToDoctorBox(){
-    	_doctors = new ArrayList<>();
-    	ArrayList<String> docs = new ArrayList<>();
+   
     	DoctorRequest docRequest = ControllerFacade.getInstance().getController(DoctorRequest.class);
-    	_doctors = docRequest.getDoctorList();
-    	docs = new ArrayList<>();    
-    	if(_doctors.size() > 0){
-    		for(Doctor d : _doctors){
-    		
-        		docs.add((d.getUser().getFirstName()) + " " + d.getUser().getLastName());
-    			
-        	}
-    	}
-    	else{
-    		System.out.println("Keine Ärzte");
-    	}
-    	ObservableList<String> observablesDoctors = FXCollections.observableArrayList(docs);
-    	
-    	_doctorBox.getItems().setAll(observablesDoctors);    		
-    	
-    	_doctorBox.setVisibleRowCount(3);
+       	
+    	 _doctorBox.setConverter(new DoctorSringConverter());
+    	 _doctorBox.getItems().addAll(docRequest.getDoctorList());   	
     	
     }
     @FXML
     private void handleDoctorComboBox(){
     	
-    	_doctorBox.getSelectionModel().getSelectedItem();
+    	_doctor = _doctorBox.getSelectionModel().getSelectedItem();
     }
     
     /**

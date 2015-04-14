@@ -1,7 +1,6 @@
 package at.itb13.oculus.domain;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,17 +17,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.Hibernate;
 
-import at.itb13.oculus.technicalServices.GenericDao;
-import at.itb13.oculus.technicalServices.ReloaderOLD_TODELETE;
-import at.itb13.oculus.technicalServices.dao.PatientDao;
 import at.itb13.oculus.technicalServices.util.LocalDatePersistenceConverter;
 
 /**
@@ -39,7 +31,6 @@ import at.itb13.oculus.technicalServices.util.LocalDatePersistenceConverter;
 public class Patient implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
-	//TODO What should be logged in this class?
 	private static final Logger _logger = LogManager.getLogger(Patient.class
 			.getName());
 
@@ -66,13 +57,6 @@ public class Patient implements java.io.Serializable {
 
 	public Patient() {
 	}
-
-// TODO Is this constructor still necessary?
-//	public Patient(String firstName, String lastName, String gender) {
-//		_firstName = firstName;
-//		_lastName = lastName;
-//		_gender = gender;
-//	}
 
 	public Patient(Doctor doctor, String socialInsuranceNr, String firstName,
 			String lastName, LocalDate birthDay, String gender, String street,
@@ -153,51 +137,6 @@ public class Patient implements java.io.Serializable {
 		_referralletters = referralletters;
 		_examinationprotocols = examinationprotocols;
 	}
-
-//	/**
-//	 * 
-//	 * @return
-//	 */
-//	// ################## TODO: Wieso nicht einfach den Konstruktor nehmen?
-//	// Zumindest scheint mir sollte diese Funktion static sein, wenn sie nötig
-//	// ist.
-//	public Patient buildPatient(Doctor doctor, String socialInsuranceNr,
-//			String firstName, String lastName, Date birthday, String gender,
-//			String street, String postalCode, String city,
-//			String countryIsoCode, String phone, String email) {
-//		Patient p = null;
-//		if (socialInsuranceNr.isEmpty()) {
-//			socialInsuranceNr = null;
-//		}
-//		if (street.isEmpty()) {
-//			street = null;
-//		}
-//		if (postalCode.isEmpty()) {
-//			postalCode = null;
-//		}
-//		if (city.isEmpty()) {
-//			city = null;
-//		}
-//		if (countryIsoCode.isEmpty()) {
-//			countryIsoCode = null;
-//		}
-//		if (phone.isEmpty()) {
-//			phone = null;
-//		}
-//		if (email.isEmpty()) {
-//			email = null;
-//		}
-//		if (doctor == null && socialInsuranceNr == null && birthday == null
-//				&& street == null && postalCode == null && city == null
-//				&& countryIsoCode == null && phone == null && email == null) {
-//			p = new Patient(firstName, lastName, gender);
-//		} else {
-//			p = new Patient(doctor, socialInsuranceNr, firstName, lastName,
-//					birthday, gender, street, postalCode, city, countryIsoCode,
-//					phone, email);
-//		}
-//		return p;
-//	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -349,14 +288,6 @@ public class Patient implements java.io.Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
 	public Set<CalendarEvent> getCalendarevents() {
-//		if(!Reloader.getInstance().isLoaded(_calendarevents)) { TODO: DELETE EVERYTHING
-//			System.out.println("k");
-////			Reloader.getInstance().reload(Patient.class, this, _calendarevents);
-//			PatientDao dao = new PatientDao();
-//			dao.loadCalendarevents(this);
-//		} else {
-//			System.out.println("nope");
-//		}
 		return _calendarevents;
 	}
 

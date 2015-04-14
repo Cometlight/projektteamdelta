@@ -1,5 +1,6 @@
 package at.itb13.oculus.domain;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import javax.persistence.Convert;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,6 +20,9 @@ import javax.persistence.TemporalType;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import at.itb13.oculus.technicalServices.util.LocalDatePersistenceConverter;
+import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
 
 /**
  * 
@@ -37,8 +42,8 @@ public class CalendarEvent implements java.io.Serializable {
 	private Calendar _calendar;
 	private EventType _eventtype;
 	private Patient _patient;
-	private Date _eventStart;
-	private Date _eventEnd;
+	private LocalDateTime _eventStart;
+	private LocalDateTime _eventEnd;
 	private String _description;
 	private String _patientName;
 	private boolean _isOpen;
@@ -49,7 +54,7 @@ public class CalendarEvent implements java.io.Serializable {
 	}
 
 	public CalendarEvent(Calendar calendar, EventType eventtype,
-			Date eventStart, Date eventEnd, boolean isOpen) {
+			LocalDateTime eventStart, LocalDateTime eventEnd, boolean isOpen) {
 		_calendar = calendar;
 		_eventtype = eventtype;
 		_eventStart = eventStart;
@@ -58,7 +63,7 @@ public class CalendarEvent implements java.io.Serializable {
 	}
 
 	public CalendarEvent(Calendar calendar, EventType eventtype,
-			Patient patient, Date eventStart, Date eventEnd,
+			Patient patient, LocalDateTime eventStart, LocalDateTime eventEnd,
 			String description, String patientName, boolean isOpen) {
 		_calendar = calendar;
 		_eventtype = eventtype;
@@ -77,8 +82,8 @@ public class CalendarEvent implements java.io.Serializable {
 	 * @param endDate the end Date of the timespan.
 	 * @return true if the CalendarEvent is in the timespan and false if not.
 	 */
-	protected boolean isInTimespan(Date startDate, Date endDate){
-		if((startDate.compareTo(getEventStart()) <= 0) && endDate.compareTo(getEventEnd())>= 0){
+	protected boolean isInTimespan(LocalDateTime startDate, LocalDateTime endDate){
+		if((startDate.compareTo(getEventStart()) <= 0) && endDate.compareTo(getEventEnd())>= 0){	// FIXME Check if it still works with LocalDateTime instead of Date
 			return true;
 		} else{
 			return false;
@@ -132,23 +137,23 @@ public class CalendarEvent implements java.io.Serializable {
 		_patient = patient;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Convert(converter = LocalDateTimePersistenceConverter.class)
 	@Column(name = "eventStart", nullable = false, length = 19)
-	public Date getEventStart() {
+	public LocalDateTime getEventStart() {
 		return _eventStart;
 	}
 
-	public void setEventStart(Date eventStart) {
+	public void setEventStart(LocalDateTime eventStart) {
 		_eventStart = eventStart;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Convert(converter = LocalDateTimePersistenceConverter.class)
 	@Column(name = "eventEnd", nullable = false, length = 19)
-	public Date getEventEnd() {
+	public LocalDateTime getEventEnd() {
 		return _eventEnd;
 	}
 
-	public void setEventEnd(Date eventEnd) {
+	public void setEventEnd(LocalDateTime eventEnd) {
 		_eventEnd = eventEnd;
 	}
 

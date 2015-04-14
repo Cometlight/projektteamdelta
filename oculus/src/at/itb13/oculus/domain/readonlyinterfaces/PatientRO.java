@@ -1,4 +1,4 @@
-package at.itb13.oculus.application.readonlyinterfaces;
+package at.itb13.oculus.domain.readonlyinterfaces;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -15,7 +15,7 @@ import at.itb13.oculus.domain.ReferralLetter;
  * @author Daniel Scheffknecht
  * @date 14.04.2015
  */
-public interface Patient {
+public interface PatientRO {
 	Integer getPatientId();
 	Doctor getDoctor();
 	String getSocialInsuranceNr();

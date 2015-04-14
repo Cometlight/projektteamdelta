@@ -1,5 +1,6 @@
 package at.itb13.oculus.application.calendar;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class CalendarController{
 	 * @return A list of CalendarEvent.
 	 * @throws InvalidInputException when the startDate is bigger then the endDate.
 	 */
-	public List<CalendarEvent> getCalendarEventsByTimespan(Date startDate, Date endDate) throws InvalidInputException{
+	public List<CalendarEvent> getCalendarEventsByTimespan(LocalDateTime startDate, LocalDateTime endDate) throws InvalidInputException{
 		Calendar calendar = new Calendar();
 		List<CalendarEvent> c = new LinkedList<>();
 		if(startDate.compareTo(endDate) < 0){

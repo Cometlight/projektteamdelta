@@ -1,5 +1,6 @@
 package at.itb13.oculus.domain;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -62,10 +63,10 @@ public class Calendar implements java.io.Serializable {
 	 *            the end Date of the timespan.
 	 * @return A list of CalendarEvent.
 	 */
-	public List<CalendarEvent> getCalendarEvents(Date startDate, Date endDate) {
+	public List<CalendarEvent> getCalendarEvents(LocalDateTime startDate, LocalDateTime endDate) {
 		List<CalendarEvent> curEvents = new LinkedList<>();
 		for (CalendarEvent c : _calendarevents) {
-			if (c.isInTimespan(startDate, endDate)) {
+			if (c.isInTimespan(startDate, endDate)) {	// FIXME Check if it still works, even though Date got changed to LocalDateTime
 				curEvents.add(c);
 			}
 		}

@@ -1,5 +1,6 @@
 package at.itb13.oculus.domain.entities;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.persistence.GeneratedValue;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import javax.persistence.Convert;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,6 +29,7 @@ import at.itb13.oculus.domain.Orthoptist;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Queue;
 import at.itb13.oculus.domain.QueueEntry;
+import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
 
 /**
  * 
@@ -43,18 +46,18 @@ public class QueueEntity implements java.io.Serializable {
 	private Doctor doctor;
 	private Orthoptist orthoptist;
 	private Patient patient;
-	private Date arrivalTime;
+	private LocalDateTime arrivalTime;
 	private Integer queueIdParent;
 
 	public QueueEntity() { }
 
-	public QueueEntity(Patient patient, Date arrivalTime) {
+	public QueueEntity(Patient patient, LocalDateTime arrivalTime) {
 		this.patient = patient;
 		this.arrivalTime = arrivalTime;
 	}
 
 	public QueueEntity(Doctor doctor, Orthoptist orthoptist, Patient patient,
-			Date arrivalTime, Integer queueIdParent) {
+			LocalDateTime arrivalTime, Integer queueIdParent) {
 		this.doctor = doctor;
 		this.orthoptist = orthoptist;
 		this.patient = patient;
@@ -103,13 +106,13 @@ public class QueueEntity implements java.io.Serializable {
 		this.patient = patient;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Convert(converter = LocalDateTimePersistenceConverter.class)
 	@Column(name = "arrivalTime", nullable = false, length = 19)
-	public Date getArrivalTime() {
+	public LocalDateTime getArrivalTime() {
 		return this.arrivalTime;
 	}
 
-	public void setArrivalTime(Date arrivalTime) {
+	public void setArrivalTime(LocalDateTime arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
 

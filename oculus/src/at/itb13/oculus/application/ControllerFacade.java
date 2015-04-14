@@ -1,11 +1,12 @@
-
-
 package at.itb13.oculus.application;
+
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.application.calendar.CalendarController;
+import at.itb13.oculus.application.queue.QueueController;
 
 /**
  * This class is responsible for delivering usecase-controller to the application layer. There is only one instance available (Singleton).
@@ -18,7 +19,7 @@ public class ControllerFacade {
 	private static final Logger _logger = LogManager.getLogger(ControllerFacade.class.getName());
 	private static ControllerFacade _instance;
 	
-//	private static List<>
+	private static List<QueueController> _listQueueController;
 	
 	static {
 		_instance = new ControllerFacade();
@@ -40,17 +41,31 @@ public class ControllerFacade {
 	public <T> T getController(Class<T> controllerClass) {
 		T controller = null;
 		
-//		if(controllerClass == CalendarController.class) {
-//			TODO
-//		} else {
+		if(controllerClass == QueueController.class) {
+			
+		} else {
 			try {
 				controller = controllerClass.newInstance();
 			} catch (InstantiationException | IllegalAccessException e) {
 				_logger.error(e);
 			}
-//		}
+		}
 		
 		return controller;
+	}
+	
+	public QueueController getQueueController(Integer doctorId, Integer orthoptistId) {
+		QueueController controller = null;
+		
+		for(QueueController qC : _listQueueController) {
+			
+		}
+		
+		return controller;
+	}
+	
+	public List<QueueController> getAllQueueController() {
+		return _listQueueController;
 	}
 
 }

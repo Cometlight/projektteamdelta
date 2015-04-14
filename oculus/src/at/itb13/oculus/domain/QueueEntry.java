@@ -6,17 +6,17 @@ import java.util.Date;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.domain.readonlyinterfaces.QueueEntryRO;
+
 /**
  * TODO: Insert description here.
  * 
  * @author Daniel Scheffknecht
  * @date 11.04.2015
  */
-public class QueueEntry {
+public class QueueEntry implements QueueEntryRO {
+	private static final Logger _logger = LogManager.getLogger(QueueEntry.class.getName());
 	
-	private static final Logger _logger = LogManager.getLogger(QueueEntry.class
-			.getName());
-	private static final long serialVersionUID = 1L;
 	private Integer _queueEntryId;
 	private Patient _patient;
 	private LocalDateTime _arrivalTime;

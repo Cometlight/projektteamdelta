@@ -25,6 +25,8 @@ import javax.persistence.UniqueConstraint;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
+
 /**
  * 
  * TODO: Insert description here.
@@ -32,7 +34,7 @@ import org.apache.logging.log4j.Logger;
  * @author Daniel Scheffknecht
  * @date 11.04.2015
  */
-public class Queue implements java.io.Serializable {
+public class Queue implements QueueRO {
 
 	private static final Logger _logger = LogManager.getLogger(Queue.class.getName());
 	

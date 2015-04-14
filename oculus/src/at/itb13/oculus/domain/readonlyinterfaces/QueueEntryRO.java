@@ -2,6 +2,8 @@ package at.itb13.oculus.domain.readonlyinterfaces;
 
 import java.time.LocalDateTime;
 
+import at.itb13.oculus.domain.Patient;
+
 /**
  * TODO: Insert description here.
  * 
@@ -10,6 +12,6 @@ import java.time.LocalDateTime;
  */
 public interface QueueEntryRO {
 	Integer getQueueEntryId();
-	PatientRO getPatient();
+	Patient getPatient();
 	LocalDateTime getArrivalTime();
 }

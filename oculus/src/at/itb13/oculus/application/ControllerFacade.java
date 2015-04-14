@@ -38,11 +38,12 @@ public class ControllerFacade {
 	 * @param controllerClass This parameter determines which controller is going to be returned.
 	 * @return returns instantiated controller
 	 */
-	public <T> T getController(Class<T> controllerClass) {
+	public <T extends IController> T getController(Class<T> controllerClass) {
 		T controller = null;
 		
 		if(controllerClass == QueueController.class) {
-			
+			// TODO Which QueueController to return? If no solution for this problem is found
+			// this method must be deleted and instead one method must be created for every single use case controller
 		} else {
 			try {
 				controller = controllerClass.newInstance();
@@ -58,7 +59,11 @@ public class ControllerFacade {
 		QueueController controller = null;
 		
 		for(QueueController qC : _listQueueController) {
-			
+			if(qC.getQueue().getDoctor().getDoctorId().equals(doctorId) 
+					&& qC.getQueue().getOrthoptist().getOrthoptistId().equals(orthoptistId)) {
+				controller = qC;
+				break;
+			}
 		}
 		
 		return controller;

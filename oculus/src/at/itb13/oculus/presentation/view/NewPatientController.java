@@ -11,7 +11,7 @@ import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.doctor.DoctorRequest;
 import at.itb13.oculus.application.patient.PatientCreation;
 import at.itb13.oculus.domain.Doctor;
-import at.itb13.oculus.presentation.model.DoctorWithProperties;
+
 import at.itb13.oculus.presentation.util.DoctorSringConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -81,6 +82,7 @@ public class CalendarEvent implements java.io.Serializable {
 	 * @param endDate the end Date of the timespan.
 	 * @return true if the CalendarEvent is in the timespan and false if not.
 	 */
+	@Transient
 	protected boolean isInTimespan(LocalDateTime startDate, LocalDateTime endDate){
 		if((startDate.compareTo(getEventStart()) <= 0) && endDate.compareTo(getEventEnd())>= 0){	// FIXME Check if it still works with LocalDateTime instead of Date
 			return true;

@@ -10,7 +10,6 @@ import org.apache.logging.log4j.Logger;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.patient.PatientSearch;
-import at.itb13.oculus.domain.AllQueues;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Doctor;
@@ -36,7 +35,7 @@ public class TestClassDani {
 	public static void main(String[] args) {
 
 		foo1();
-		foo2();
+//		foo2();
 		bar();
 		bar2();
 		foo3();
@@ -76,20 +75,20 @@ public class TestClassDani {
 //		System.out.println(ev1.getDescription());
 	}
 	
-	private static void foo2() {
-		Doctor doctor = new DoctorDao().findById(1);
-		Queue queue = AllQueues.getInstance().getQueueByDoctorId(doctor.getDoctorId());
-		System.out.println(queue.getQueueEntries().size());
-		for (QueueEntry qE : queue.getQueueEntries()) {
-			System.out.println(qE.getPatient().getFirstName());
-		}
-		System.out.print("DOCTOR: ");
-		System.out.println(queue.getQueueEntries().get(0).getPatient().getDoctor().getUser().getFirstName());
-		System.out.println(queue.getQueueEntries().get(0).getPatient().getDoctor().getUser().getFirstName());
-		for(CalendarEvent cE : queue.getQueueEntries().get(1).getPatient().getCalendarevents()) {
-			System.out.println(cE.getDescription());
-		}
-	}
+//	private static void foo2() {
+//		Doctor doctor = new DoctorDao().findById(1);
+//		Queue queue = AllQueues.getInstance().getQueueByDoctorId(doctor.getDoctorId());
+//		System.out.println(queue.getQueueEntries().size());
+//		for (QueueEntry qE : queue.getQueueEntries()) {
+//			System.out.println(qE.getPatient().getFirstName());
+//		}
+//		System.out.print("DOCTOR: ");
+//		System.out.println(queue.getQueueEntries().get(0).getPatient().getDoctor().getUser().getFirstName());
+//		System.out.println(queue.getQueueEntries().get(0).getPatient().getDoctor().getUser().getFirstName());
+//		for(CalendarEvent cE : queue.getQueueEntries().get(1).getPatient().getCalendarevents()) {
+//			System.out.println(cE.getDescription());
+//		}
+//	}
 	
 	private static void bar(){
 		QueueDao qDao = new QueueDao();

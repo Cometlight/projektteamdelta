@@ -28,8 +28,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * @author Caroline Meusburger
  * @since 07.04.2015
  */
-public class OverviewController {
-	private static final Logger _logger = LogManager.getLogger(OverviewController.class.getName());
+public class PatientController {
+	private static final Logger _logger = LogManager.getLogger(PatientController.class.getName());
 
 	//Tab Patient Attributs
 	@FXML
@@ -87,7 +87,7 @@ public class OverviewController {
 	        
 	  }
 	 
-	 //Tab Patient Methods
+	 
 	 @FXML
 	 private void initialize() {
 	        // Initialize the person table with the three columns.

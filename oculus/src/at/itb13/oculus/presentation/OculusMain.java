@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.util.prefs.Preferences;
 
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
-
+import at.itb13.oculus.presentation.view.AppointmentsController;
 import at.itb13.oculus.presentation.view.NewPatientController;
-import at.itb13.oculus.presentation.view.OverviewController;
+import at.itb13.oculus.presentation.view.PatientController;
+import at.itb13.oculus.presentation.view.QueueController;
+import at.itb13.oculus.presentation.view.RootLayoutController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +25,7 @@ public class OculusMain extends Application {
 	
 	 private Stage _primaryStage;
 	 private BorderPane _rootLayout;
+	
 	 private ObservableList<PatientRO> _patientData = FXCollections.observableArrayList();
 
 	 public OculusMain(){
@@ -44,30 +47,58 @@ public class OculusMain extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		 _primaryStage = primaryStage;
-	        _primaryStage.setTitle("Oculus");
+	     _primaryStage.setTitle("Oculus");
 
 	     // Set the application icon.
 	       _primaryStage.getIcons().add(new Image("file:ApplicationResources/Images/eye.png"));
 	        
 	        initRootLayout();
-	        showOverview();
+	        
+            showAppointmentsOverview();
+	        
+	   
 		
 	}
+	public void initRootLayout() {
+        try {
+            // Load root layout from fxml file.
+        	
+ 	        
+            FXMLLoader loader = new FXMLLoader();           
+            loader.setLocation(OculusMain.class.getResource("view/RootLayout.fxml")); 
+            _rootLayout = (BorderPane) loader.load();
+           
+ 	        
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(_rootLayout);
+            _primaryStage.setScene(scene);
+            _primaryStage.show();
+            
+
+            
+            // Give the controller access to the main app.
+//            RootLayoutController controller = loader.getController();
+// 	        controller.setMain(this);
+ 	       	
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+}
 	 /**
 	 * 
 	 */
-	private void showOverview() {
+	public void showPatientOverview() {
 		 try {
  	        // Load person overview.
  	        FXMLLoader loader = new FXMLLoader();
- 	        loader.setLocation(OculusMain.class.getResource("view/Overview.fxml"));
- 	        AnchorPane overview = (AnchorPane) loader.load();
+ 	        loader.setLocation(OculusMain.class.getResource("view/PatientOverview.fxml"));
+ 	        AnchorPane overview = (AnchorPane) loader.load();	
 
  	        // Set person overview into the center of root layout.
  	        _rootLayout.setCenter(overview);
 
  	        // Give the controller access to the main app.
- 	        OverviewController controller = loader.getController();
+ 	        PatientController controller = loader.getController();
  	        controller.setMain(this);
 
  	    } catch (IOException e) {
@@ -75,22 +106,47 @@ public class OculusMain extends Application {
  	    }
 		
 	}
+	public void showAppointmentsOverview() {
+		 try {
+	 	        // Load person overview.
+	 	        FXMLLoader loader = new FXMLLoader();
+	 	        loader.setLocation(OculusMain.class.getResource("view/AppointmentsOverview.fxml"));
+	 	        AnchorPane overview = (AnchorPane) loader.load();	
 
-	public void initRootLayout() {
-	        try {
-	            // Load root layout from fxml file.
-	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(OculusMain.class.getResource("view/RootLayout.fxml"));
-	            _rootLayout = (BorderPane) loader.load();
+	 	        // Set person overview into the center of root layout.
+	 	        _rootLayout.setCenter(overview);
 
-	            // Show the scene containing the root layout.
-	            Scene scene = new Scene(_rootLayout);
-	            _primaryStage.setScene(scene);
-	            _primaryStage.show();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
+	 	        // Give the controller access to the main app.
+	 	        AppointmentsController controller = loader.getController();
+	 	        controller.setMain(this);
+
+	 	    } catch (IOException e) {
+	 	        e.printStackTrace();
+	 	    }
+		
 	}
+
+	public void showQueue() {
+		 try {
+	 	        // Load person overview.
+	 	        FXMLLoader loader = new FXMLLoader();
+	 	        loader.setLocation(OculusMain.class.getResource("view/Queue.fxml"));
+	 	        AnchorPane overview = (AnchorPane) loader.load();	
+
+	 	        // Set person overview into the center of root layout.
+	 	        _rootLayout.setCenter(overview);
+
+	 	        // Give the controller access to the main app.
+	 	       QueueController controller = loader.getController();
+	 	        controller.setMain(this);
+
+	 	    } catch (IOException e) {
+	 	        e.printStackTrace();
+	 	    }
+		
+	}
+
+	
 	 public boolean showNewPatientDialog() {
 	       try {
 	           // Load the fxml file and create a new stage for the popup dialog.

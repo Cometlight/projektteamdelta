@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -80,6 +81,7 @@ public class Orthoptist implements java.io.Serializable {
 	/**
 	 * @return the queue
 	 */
+	@Transient
 	public Queue getQueue() {
 		return _queue;
 	}

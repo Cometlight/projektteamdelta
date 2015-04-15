@@ -1,13 +1,16 @@
 package at.itb13.oculus.presentation.view;
 
 import java.util.ArrayList;
-
-
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.patient.PatientSearch;
+import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Patient;
+import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.OculusMain;
 import at.itb13.oculus.presentation.model.PatientWithProperties2;
 import javafx.fxml.FXML;
@@ -17,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * TODO: Insert description here.
@@ -25,16 +29,17 @@ import javafx.scene.control.TextField;
  * @since 07.04.2015
  */
 public class OverviewController {
+	private static final Logger _logger = LogManager.getLogger(OverviewController.class.getName());
 
 	//Tab Patient Attributs
 	@FXML
-	private TableView<PatientWithProperties2> _patientTable;	
+	private TableView<PatientRO> _patientTable;	
 	@FXML
-	private TableColumn<PatientWithProperties2, String> _firstNameColumn;	
+	private TableColumn<PatientRO, String> _firstNameColumn;	
 	@FXML
-	private TableColumn<PatientWithProperties2, String> _lastNameColumn;	
+	private TableColumn<PatientRO, String> _lastNameColumn;	
 	@FXML
-	private TableColumn<PatientWithProperties2, String> _SSNColumn;
+	private TableColumn<PatientRO, String> _SSNColumn;
 	
 	@FXML
 	private TextField _ssnTextField;
@@ -86,13 +91,16 @@ public class OverviewController {
 	 @FXML
 	 private void initialize() {
 	        // Initialize the person table with the three columns.
-	        _firstNameColumn.setCellValueFactory(
-	                cellData -> cellData.getValue().firstNameProperty());
-	        _lastNameColumn.setCellValueFactory(
-	                cellData -> cellData.getValue().lastNameProperty());
-	        _SSNColumn.setCellValueFactory(
-	        		cellData -> cellData.getValue().SocialInsuranceNrProperty());
-
+//	        _firstNameColumn.setCellValueFactory(	// TODO: OLD, -> DELETE
+//	                cellData -> cellData.getValue().firstNameProperty());
+//	        _lastNameColumn.setCellValueFactory(
+//	                cellData -> cellData.getValue().lastNameProperty());
+//	        _SSNColumn.setCellValueFactory(
+//	        		cellData -> cellData.getValue().SocialInsuranceNrProperty());
+	        _firstNameColumn.setCellValueFactory(new PropertyValueFactory<PatientRO, String>("firstName"));
+	        _lastNameColumn.setCellValueFactory(new PropertyValueFactory<PatientRO, String>("lastName"));
+	        _SSNColumn.setCellValueFactory(new PropertyValueFactory<PatientRO, String>("socialInsuranceNr"));
+		 
 	        // Clear person details.
 	        showPatientMasterData(null);
 	        showAnamanesis(null);
@@ -113,36 +121,36 @@ public class OverviewController {
 
 	 }
 	 
-	 private void showPatientMasterData(PatientWithProperties2 value) {
+	 private void showPatientMasterData(PatientRO value) {
 	        if (value != null) {
 	            // Fill the labels with info from the person object.
-	            _firstNameLabel.setText(value.getFirstName());
-	            _lastNameLabel.setText(value.getLastName());
-	            _SSNLabel.setText(value.getSocialInsuranceNr());
-	           _birthdayLabel.setText(value.getBirthDay().toString());
-	            _genderLabel.setText(value.getGender());	            
-	            _streetLabel.setText(value.getStreet());
-	          _postalCodeLabel.setText(value.getPostalCode());
-	            _cityLabel.setText(value.getCity());
-	            _countryISOLabel.setText(value.getCountryIsoCode());
-	            _phoneLabel.setText(value.getPhone());
-	            _emailLabel.setText(value.getEmail());	           
+	        	_firstNameLabel.setText(value.getFirstName());
+	        	_lastNameLabel.setText(value.getLastName());
+	        	_SSNLabel.setText(value.getSocialInsuranceNr());
+	        	_birthdayLabel.setText((value.getBirthDay() == null) ? "" : value.getBirthDay().toString());
+	        	_genderLabel.setText(value.getGender());	            
+	        	_streetLabel.setText(value.getStreet());
+	        	_postalCodeLabel.setText(value.getPostalCode());
+	        	_cityLabel.setText(value.getCity());
+	        	_countryISOLabel.setText(value.getCountryIsoCode());
+	        	_phoneLabel.setText(value.getPhone());
+	        	_emailLabel.setText(value.getEmail());	           
 	        } else {
 	            // Person is null, remove all the text.
 	            _firstNameLabel.setText("");
 	            _lastNameLabel.setText("");
 	            _SSNLabel.setText("");
-	           _birthdayLabel.setText("");
+	            _birthdayLabel.setText("");
 	            _genderLabel.setText("");	            
 	            _streetLabel.setText("");
-	          _postalCodeLabel.setText("");
+	            _postalCodeLabel.setText("");
 	            _cityLabel.setText("");
 	            _countryISOLabel.setText("");
 	            _phoneLabel.setText("");
 	            _emailLabel.setText("");	
 	        }
 	    }
-	 private void showAnamanesis(PatientWithProperties2 value) {
+	 private void showAnamanesis(PatientRO value) {
 	        if (value != null) {
 	            // Fill the labels with info from the person object.
 	        	_alergiesLabel.setText(value.getAllergy());
@@ -156,34 +164,34 @@ public class OverviewController {
 	        	_medicineintolerranceLabel.setText("");	
 	        }
 	    }
-	 /*
+	 
+	 /**
 	  * Controls the "search" Button, for searching by Social Insurancel Number.
 	  * It gets a Patient from the PatientSearch Class and creates a new Patient with Property.
 	  * The Patient Data are shown in the GUI
 	  */
 	 @FXML
 	 private void searchByNumberControl(){
-		
+		 clearPatientTable();
 		 PatientSearch p = new PatientSearch();
 		 try {			
-			PatientWithProperties2 pa = new PatientWithProperties2(p.searchPatientBySocialInsuranceNr(_ssnTextField.getText()));
+			PatientRO pa = p.searchPatientBySocialInsuranceNr(_ssnTextField.getText());
 			showPatientMasterData(pa);
 			showAnamanesis(pa);
-			_main.addPatientData(pa);
+			_main.addPatientData(pa);	// TODO: Why must a patient be stored in _main?
 			_patientTable.setItems(_main.getPatientData());			 
 
 		} catch (InvalidInputException e) {
-			// TODO Auto-generated catch block
-			
+			_logger.info(e);
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("No Patient found");
 			alert.setHeaderText("Sorry, the Patient could not be found.");
 	        alert.setContentText("Please make sure you have entered the right Social Insurance Number!");
 	        alert.showAndWait();
-	        // e.printStackTrace();
 		}
 	 }
-	 /*
+	 
+	 /**
 	  * Controls the "search" Button, for searching by Name.
 	  * It gets a List of Patients from the PatientSearch Class and creates new Patients with Property.
 	  * The Patient Data are shown in the GUI
@@ -196,9 +204,10 @@ public class OverviewController {
 		 try {			
 			patients = p.searchPatientByName(_firstNameField.getText(), _lastNameField.getText());
 			if(patients.size() > 0){
-				for(Patient pa : patients){
-					_main.addPatientData(new PatientWithProperties2(pa));
-				}
+//				for(Patient pa : patients){	// TODO: OLD, -> Delete
+//					_main.addPatientData(new PatientWithProperties2(pa));
+//				}
+				patients.forEach(_main::addPatientData);
 				 _patientTable.setItems(_main.getPatientData());
 			}else{
 				Alert alert = new Alert(AlertType.WARNING);
@@ -209,7 +218,7 @@ public class OverviewController {
 			}
 
 		} catch (InvalidInputException e) {			
-			
+			// TODO (eg. _logger.error(e) + alerts
 			//e.printStackTrace();
 		}
 	 }

@@ -5,6 +5,7 @@ import java.util.List;
 import at.itb13.oculus.application.IController;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.Patient;
+import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 
 /**
@@ -47,7 +48,7 @@ public class PatientSearch implements IController {
 	 * @return The patient with the supplied social insurance number. May be null, if no patient has been found.
 	 * @throws InvalidInputException thrown if the provided socialInsuranceNr is not in an appropriate format.
 	 */
-	public Patient searchPatientBySocialInsuranceNr(String socialInsuranceNr) throws InvalidInputException {
+	public PatientRO searchPatientBySocialInsuranceNr(String socialInsuranceNr) throws InvalidInputException {
 		Patient patient = null;
 		if(isSocialInsuranceNrValid(socialInsuranceNr)) {
 			PatientDao patientDao = new PatientDao();

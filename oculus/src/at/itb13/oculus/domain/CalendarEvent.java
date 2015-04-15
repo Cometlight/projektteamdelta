@@ -35,8 +35,7 @@ import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
 @Table(name = "calendarevent", catalog = "oculusdb")
 public class CalendarEvent implements java.io.Serializable {
 
-	private static final Logger _logger = LogManager.getLogger(CalendarEvent.class
-			.getName());
+	private static final Logger _logger = LogManager.getLogger(CalendarEvent.class.getName());
 	private static final long serialVersionUID = 1L;
 	private Integer _calendarEventId;
 	private Calendar _calendar;

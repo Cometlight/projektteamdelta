@@ -1,12 +1,16 @@
 package at.itb13.oculus.application;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.application.calendar.CalendarController;
+import at.itb13.oculus.application.doctor.DoctorRequest;
+import at.itb13.oculus.application.patient.PatientCreation;
+import at.itb13.oculus.application.patient.PatientSearch;
 import at.itb13.oculus.application.queue.QueueController;
+import at.itb13.oculus.technicalServices.dao.QueueDao;
 
 /**
  * This class is responsible for delivering usecase-controller to the application layer. There is only one instance available (Singleton).
@@ -22,37 +26,40 @@ public class ControllerFacade {
 	private static List<QueueController> _listQueueController;
 	
 	static {
-		_instance = new ControllerFacade();
+		init();
 	}
 	
 	private ControllerFacade() { }
+	
+	public static void init() {
+		_instance = new ControllerFacade();
+		
+		_listQueueController = new LinkedList<>();
+		QueueDao queueDao = new QueueDao();
+		queueDao.findAll().forEach(q -> {
+			QueueController qC = new QueueController(q);
+			_listQueueController.add(qC);
+		});
+	}
 	
 	public static ControllerFacade getInstance() {
 		return _instance;
 	}
 	
-	
 	/**
-	 * This method returns, depending on the parameter 'controllerClass', the needed usecase-controller.  
 	 * 
-	 * @param controllerClass This parameter determines which controller is going to be returned.
-	 * @return returns instantiated controller
+	 * @return instantiated controller
 	 */
-	public <T extends IController> T getController(Class<T> controllerClass) {
-		T controller = null;
-		
-		if(controllerClass == QueueController.class) {
-			// TODO Which QueueController to return? If no solution for this problem is found
-			// this method must be deleted and instead one method must be created for every single use case controller
-		} else {
-			try {
-				controller = controllerClass.newInstance();
-			} catch (InstantiationException | IllegalAccessException e) {
-				_logger.error(e);
-			}
-		}
-		
-		return controller;
+	public PatientSearch getPatientSearch() {
+		return new PatientSearch();
+	}
+	
+	public PatientCreation getPatientCreation() {
+		return new PatientCreation();
+	}
+	
+	public DoctorRequest getDoctorRequest() {
+		return new DoctorRequest();
 	}
 	
 	public QueueController getQueueController(Integer doctorId, Integer orthoptistId) {

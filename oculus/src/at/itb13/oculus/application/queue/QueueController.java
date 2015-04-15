@@ -19,6 +19,10 @@ public class QueueController {
 	// ############################################
 	private Queue _queue;
 	
+	public QueueController(Queue queue) {
+		_queue = queue;
+	}
+	
 	public QueueRO getQueue() {
 		return _queue;
 	}

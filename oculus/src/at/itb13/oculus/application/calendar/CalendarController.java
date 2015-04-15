@@ -2,13 +2,16 @@ package at.itb13.oculus.application.calendar;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import at.itb13.oculus.application.IController;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
+import at.itb13.oculus.domain.Patient;
 
 /**
  * TODO
@@ -35,5 +38,23 @@ public class CalendarController implements IController {
 		}else{
 			throw new InvalidInputException();
 		}
+	}
+	
+	/**
+	 * @author Karin Trommelschlaeger
+	 * @since 15.04.2015
+	 * 
+	 * @param c CalendarEvent, inserted to Patient p
+	 * @param p Patient, inserted to Set<CalendarEvents>
+	 */
+	public void connectCalendarEventwithPatient (CalendarEvent c, Patient p){
+		Set<CalendarEvent> cals= new HashSet<CalendarEvent>();
+		boolean issuccessful;
+		c.setPatient(p);
+		issuccessful = cals.add(c);
+		if (issuccessful) {
+			p.setCalendarevents(cals);
+		}
+		
 	}
 }

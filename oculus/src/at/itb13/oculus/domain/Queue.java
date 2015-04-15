@@ -61,7 +61,9 @@ public class Queue implements QueueRO {
 	}
 	
 	public void removeQueueEntry(QueueEntry queueEntry) {
-		_queueEntries.remove(_queueEntries);	// TODO: log if not contained. (maybe warn or so)
+		if(!_queueEntries.remove(_queueEntries)) {
+			_logger.warn("queueEntry not in list.");	
+		}
 	}
 
 	/**

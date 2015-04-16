@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -58,7 +59,7 @@ public class Orthoptist implements java.io.Serializable {
 		this.orthoptistId = orthoptistId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "calendarId", nullable = false)
 	public Calendar getCalendar() {
 		return this.calendar;

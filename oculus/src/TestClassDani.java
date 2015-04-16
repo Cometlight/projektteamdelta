@@ -33,7 +33,7 @@ public class TestClassDani {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
+		calEvTest1();
 		foo1();
 //		foo2();
 		bar();
@@ -44,6 +44,11 @@ public class TestClassDani {
 		System.exit(0);
 	}
 	
+	private static void calEvTest1() {
+		CalendarController cC = ControllerFacade.getInstance().getCalendarController(1, null);
+		System.out.println("CalDoc: " + cC.getCalendar().getDoctor().getUser().getFirstName());
+	}
+
 	private static void foo4() {
 		System.out.println("--- foo4: ---");
 		for(Queue q : QueueDao.getInstance().list()) {

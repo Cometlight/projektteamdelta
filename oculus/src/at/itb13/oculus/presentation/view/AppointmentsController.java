@@ -63,7 +63,7 @@ public class AppointmentsController {
 	}
 	
 	private void getTodaysCalendarEvents(){
-		CalendarController calCo = ControllerFacade.getInstance().getCalendarController();
+		List<CalendarController> listCalCo = ControllerFacade.getInstance().getAllCalendarController();
 		LocalDateTime start = LocalDateTime.of(2014, 1, 1, 1, 0);
 		LocalDate startofend = LocalDate.now();
 		LocalDateTime end = LocalDateTime.of(startofend, LocalTime.MAX);
@@ -73,7 +73,11 @@ public class AppointmentsController {
 			System.out.println(start);
 			System.out.println(LocalDateTime.now());
 			
-			events = calCo.getCalendarEventsByTimespan(start, LocalDateTime.now());
+//			events = listCalCo.getCalendarEventsInTimespan(start, LocalDateTime.now());
+			// With list instead:
+			for(CalendarController calCo : listCalCo) {
+				events.addAll(calCo.getCalendarEventsInTimespan(start, LocalDateTime.now()));
+			}
 			System.out.println(events.toString());
 			for(CalendarEvent e : events){
 				_appointments.add(e);

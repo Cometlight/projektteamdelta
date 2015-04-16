@@ -19,7 +19,7 @@ public class QueueController {
 	// ############################################
 	private Queue _queue;
 	
-	public QueueController(Queue queue) {
+	public QueueController(Queue queue) {	// TODO: sichtbarkeit einschränken, wenn möglich
 		_queue = queue;
 	}
 	

@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.apache.logging.log4j.LogManager;
@@ -66,7 +67,7 @@ public class Doctor implements java.io.Serializable {
 		this._doctorId = doctorId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "calendarId", nullable = false)
 	public Calendar getCalendar() {
 		return this._calendar;

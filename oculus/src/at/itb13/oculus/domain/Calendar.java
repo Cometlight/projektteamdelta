@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.OneToOne;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -35,8 +36,10 @@ public class Calendar implements java.io.Serializable {
 	
 	private Integer _calendarId;
 	private String _title;
-	private Set<Doctor> _doctors = new HashSet<Doctor>(0);
-	private Set<Orthoptist> _orthoptists = new HashSet<Orthoptist>(0);
+	private Doctor _doctor;
+	private Orthoptist _orthoptist;
+//	private Set<Doctor> _doctors = new HashSet<Doctor>(0);
+//	private Set<Orthoptist> _orthoptists = new HashSet<Orthoptist>(0);
 	private Set<CalendarEvent> _calendarevents = new HashSet<CalendarEvent>(0);
 	private Set<CalendarWorkingHours> _calendarworkinghours = new HashSet<CalendarWorkingHours>(
 			0);
@@ -44,12 +47,14 @@ public class Calendar implements java.io.Serializable {
 	public Calendar() {
 	}
 
-	public Calendar(String title, Set<Doctor> doctors,
-			Set<Orthoptist> orthoptists, Set<CalendarEvent> calendarevents,
+	public Calendar(String title, /*Set<Doctor> doctors,
+			Set<Orthoptist> orthoptists,*/ Doctor doctor, Orthoptist orthoptist, Set<CalendarEvent> calendarevents,
 			Set<CalendarWorkingHours> calendarworkinghourses) {
 		this._title = title;
-		this._doctors = doctors;
-		this._orthoptists = orthoptists;
+		_doctor = doctor;
+		_orthoptist = orthoptist;
+//		this._doctors = doctors;
+//		this._orthoptists = orthoptists;
 		this._calendarevents = calendarevents;
 		this._calendarworkinghours = calendarworkinghourses;
 	}
@@ -58,19 +63,19 @@ public class Calendar implements java.io.Serializable {
 	 * Creates a list of Calendar Event in a chosen timespan.
 	 * 
 	 * @param startDate
-	 *            the start Date of the timespan.
+	 *            the start Date of the timespan. (inclusive)
 	 * @param endDate
-	 *            the end Date of the timespan.
+	 *            the end Date of the timespan. (inclusive)
 	 * @return A list of CalendarEvent.
 	 */
-	public List<CalendarEvent> getCalendarEvents(LocalDateTime startDate, LocalDateTime endDate) {
-		List<CalendarEvent> curEvents = new LinkedList<>();
+	public List<CalendarEvent> getCalendarEventsInTimespan(LocalDateTime startDate, LocalDateTime endDate) {
+		List<CalendarEvent> listCalEv = new LinkedList<>();
 		for (CalendarEvent c : _calendarevents) {
-			if (c.isInTimespan(startDate, endDate)) {	// FIXME Check if it still works, even though Date got changed to LocalDateTime
-				curEvents.add(c);
+			if (c.isInTimespan(startDate, endDate)) {
+				listCalEv.add(c);
 			}
 		}
-		return curEvents;
+		return listCalEv;
 	}
 
 	@Id
@@ -93,22 +98,40 @@ public class Calendar implements java.io.Serializable {
 		this._title = title;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "calendar")
-	public Set<Doctor> getDoctors() {
-		return this._doctors;
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "calendar")
+//	public Set<Doctor> getDoctors() {
+//		return this._doctors;
+//	}
+//
+//	public void setDoctors(Set<Doctor> doctors) {
+//		this._doctors = doctors;
+//	}
+//
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "calendar")
+//	public Set<Orthoptist> getOrthoptists() {
+//		return this._orthoptists;
+//	}
+//
+//	public void setOrthoptists(Set<Orthoptist> orthoptists) {
+//		this._orthoptists = orthoptists;
+//	}
+	
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "calendar")
+	public Doctor getDoctor() {
+		return _doctor;
 	}
 
-	public void setDoctors(Set<Doctor> doctors) {
-		this._doctors = doctors;
+	public void setDoctor(Doctor doctor) {
+		_doctor = doctor;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "calendar")
-	public Set<Orthoptist> getOrthoptists() {
-		return this._orthoptists;
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "calendar")
+	public Orthoptist getOrthoptist() {
+		return _orthoptist;
 	}
 
-	public void setOrthoptists(Set<Orthoptist> orthoptists) {
-		this._orthoptists = orthoptists;
+	public void setOrthoptist(Orthoptist orthoptist) {
+		_orthoptist = orthoptist;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "calendar")

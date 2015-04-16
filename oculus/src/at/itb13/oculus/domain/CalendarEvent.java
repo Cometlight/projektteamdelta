@@ -78,17 +78,14 @@ public class CalendarEvent implements java.io.Serializable {
 	/**
 	 * Checks if the CalendarEvent is in a timespan.
 	 * 
-	 * @param startDate the strat Date of the timespan.
-	 * @param endDate the end Date of the timespan.
+	 * @param startDate the strat Date of the timespan. (inclusive)
+	 * @param endDate the end Date of the timespan. (inclusive)
 	 * @return true if the CalendarEvent is in the timespan and false if not.
 	 */
 	@Transient
-	protected boolean isInTimespan(LocalDateTime startDate, LocalDateTime endDate){
-		if((startDate.compareTo(getEventStart()) <= 0) && endDate.compareTo(getEventEnd())>= 0){	// FIXME Check if it still works with LocalDateTime instead of Date
-			return true;
-		} else{
-			return false;
-		}
+	public boolean isInTimespan(LocalDateTime startDate, LocalDateTime endDate){
+		return ( _eventStart.isAfter(startDate) || _eventStart.isEqual(startDate) )
+				&& ( _eventEnd.isBefore(endDate) || _eventEnd.isEqual(endDate) );
 	}
 
 	@Id

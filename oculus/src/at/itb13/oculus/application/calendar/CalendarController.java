@@ -1,7 +1,6 @@
 package at.itb13.oculus.application.calendar;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,29 +18,36 @@ import at.itb13.oculus.domain.Patient;
  * @since 09.04.2015
  */
 public class CalendarController {
+	private Calendar _calendar;
+	
+	public CalendarController(Calendar calendar) {
+		_calendar = calendar;
+	}
+	
+	public Calendar getCalendar() {	// TODO: sichtbarkeit einschränken, wenn möglich
+		return _calendar;
+	}
 	
 	/**
-	 * Loads a list of Calendar Event in a chosen timespan.
+	 * Loads a list of CalendarEvent in a chosen timespan.
 	 * 
-	 * @param startDate the start Date of the timespan.
-	 * @param endDate the end Date of the timespan.
+	 * @param startDate the start Date of the timespan. (inclusive)
+	 * @param endDate the end Date of the timespan. (inclusive)
 	 * @return A list of CalendarEvent.
 	 * @throws InvalidInputException when the startDate is bigger then the endDate.
 	 */
-	public List<CalendarEvent> getCalendarEventsByTimespan(LocalDateTime startDate, LocalDateTime endDate) throws InvalidInputException{
-		Calendar calendar = new Calendar();
-		List<CalendarEvent> c = new LinkedList<>();
-		if(startDate.compareTo(endDate) < 0){
-			c = calendar.getCalendarEvents(startDate, endDate);			
-			return c;
+	public List<CalendarEvent> getCalendarEventsInTimespan(LocalDateTime startDate, LocalDateTime endDate) throws InvalidInputException {
+		List<CalendarEvent> calendarEvents = new LinkedList<>();
+		if(startDate.isBefore(endDate)){
+			calendarEvents = _calendar.getCalendarEventsInTimespan(startDate, endDate);			
+			return calendarEvents;
 		}else{
 			throw new InvalidInputException();
 		}
 	}
 	
 	/**
-	 * @author Karin Trommelschlaeger
-	 * @since 15.04.2015
+	 * TODO: @Karin: Insert description! eg. mention that makePersitent is used. Author + Date not needed for methods.
 	 * 
 	 * @param c CalendarEvent, inserted to Patient p
 	 * @param p Patient, inserted to Set<CalendarEvents>
@@ -54,6 +60,6 @@ public class CalendarController {
 		if (issuccessful) {
 			p.setCalendarevents(cals);
 		}
-		
+		// FIXME makePersistent missing?
 	}
 }

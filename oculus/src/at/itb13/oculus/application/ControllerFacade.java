@@ -11,6 +11,9 @@ import at.itb13.oculus.application.doctor.DoctorRequest;
 import at.itb13.oculus.application.patient.PatientCreation;
 import at.itb13.oculus.application.patient.PatientSearch;
 import at.itb13.oculus.application.queue.QueueController;
+import at.itb13.oculus.domain.Doctor;
+import at.itb13.oculus.domain.Orthoptist;
+import at.itb13.oculus.technicalServices.dao.CalendarDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 import at.itb13.oculus.technicalServices.dao.QueueDao;
 
@@ -26,6 +29,7 @@ public class ControllerFacade {
 	private static ControllerFacade _instance;
 	
 	private static List<QueueController> _listQueueController;
+	private static List<CalendarController> _listCalendarController;
 	
 	static {
 		init();
@@ -41,6 +45,13 @@ public class ControllerFacade {
 			QueueController qC = new QueueController(q);
 			_listQueueController.add(qC);
 		});
+		
+		_listCalendarController = new LinkedList<>();
+		CalendarDao.getInstance().findAll().forEach(q -> {
+			CalendarController cC = new CalendarController(q);
+			_listCalendarController.add(cC);
+		});
+		
 	}
 	
 	public static ControllerFacade getInstance() {
@@ -67,7 +78,7 @@ public class ControllerFacade {
 		QueueController controller = null;
 		
 		for(QueueController qC : _listQueueController) {
-			if(qC.getQueue().getDoctor().getDoctorId().equals(doctorId) 
+			if(qC.getQueue().getDoctor().getDoctorId().equals(doctorId) // FIXME What if null? see getCalendarController
 					&& qC.getQueue().getOrthoptist().getOrthoptistId().equals(orthoptistId)) {
 				controller = qC;
 				break;
@@ -81,12 +92,24 @@ public class ControllerFacade {
 		return _listQueueController;
 	}
 
-	/**
-	 * @return
-	 */
-	public CalendarController getCalendarController() {
-		return new CalendarController();
+	public CalendarController getCalendarController(Integer doctorId, Integer orthoptistId) {
+		CalendarController controller = null;
+		
+		for(CalendarController cC : _listCalendarController) {
+			Integer calDocId = (cC.getCalendar().getDoctor() == null) ? null : cC.getCalendar().getDoctor().getDoctorId();
+			Integer calOrtId = (cC.getCalendar().getOrthoptist() == null) ? null : cC.getCalendar().getOrthoptist().getOrthoptistId();
+			if( ( (calDocId == null && doctorId == null) || calDocId.equals(doctorId) ) 	// careful: doctorId.equals(calDocId) might throw a NullPointerException
+					&& ( (calOrtId == null && orthoptistId == null) || calOrtId.equals(orthoptistId) ) ) {
+				controller = cC;
+				break;
+			}
+		}
+		
+		return controller;
 	}
 
+	public List<CalendarController> getAllCalendarController() {
+		return _listCalendarController;
+	}
 }
 

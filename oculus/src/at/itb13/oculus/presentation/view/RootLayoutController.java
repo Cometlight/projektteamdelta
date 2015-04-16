@@ -1,5 +1,8 @@
 package at.itb13.oculus.presentation.view;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import at.itb13.oculus.presentation.OculusMain;
 import javafx.fxml.FXML;
 
@@ -11,6 +14,7 @@ import javafx.fxml.FXML;
  * @since 15.04.2015
  */
 public class RootLayoutController {
+	private static final Logger _logger = LogManager.getLogger(RootLayoutController.class.getName());
 	
 
 	

@@ -10,6 +10,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.prefs.Preferences;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,6 +34,7 @@ import at.itb13.oculus.presentation.OculusMain;
  * @since 15.04.2015
  */
 public class AppointmentsController {
+	private static final Logger _logger = LogManager.getLogger(AppointmentsController.class.getName());
 	
 	@FXML
 	private TableView<CalendarEvent> _appointmentTable;	
@@ -39,7 +43,7 @@ public class AppointmentsController {
 	@FXML
 	private TableColumn<CalendarEvent, String> _patientColumn;	
 	@FXML
-	private TableColumn<CalendarEvent, String> _doctorColumn;
+	private TableColumn<CalendarEvent, String> _otherColumn;
 	
 	private ObservableList<CalendarEvent> _appointments = FXCollections.observableArrayList();
 	//general Attributs
@@ -54,11 +58,11 @@ public class AppointmentsController {
 	private void initialize() {
 		
 		getTodaysCalendarEvents();
-		_appointmentTable.setItems(_appointments);	
+		_appointmentTable.setItems(_appointments);
 		
-		  _timeColumn.setCellValueFactory(new PropertyValueFactory<CalendarEvent, String>("_eventStart"));
-	        _patientColumn.setCellValueFactory(new PropertyValueFactory<CalendarEvent, String>("_patientName"));
-	  //      _doctorColumn.setCellValueFactory(new PropertyValueFactory<CalendarEvent, String>("socialInsuranceNr"));
+		  _timeColumn.setCellValueFactory(new PropertyValueFactory<CalendarEvent, String>("eventStart"));
+	      _patientColumn.setCellValueFactory(new PropertyValueFactory<CalendarEvent, String>("patientId"));
+	      _otherColumn.setCellValueFactory(new PropertyValueFactory<CalendarEvent, String>("patientName"));
 		
 	}
 	
@@ -69,20 +73,18 @@ public class AppointmentsController {
 		LocalDateTime end = LocalDateTime.of(startofend, LocalTime.MAX);
 		
 		List<CalendarEvent> events = new LinkedList<>();
-		try {
-			System.out.println(start);
-			System.out.println(LocalDateTime.now());
+		try {			
 			
-//			events = listCalCo.getCalendarEventsInTimespan(start, LocalDateTime.now());
 			// With list instead:
 			for(CalendarController calCo : listCalCo) {
 				events.addAll(calCo.getCalendarEventsInTimespan(start, LocalDateTime.now()));
 			}
-			System.out.println(events.toString());
+			
 			for(CalendarEvent e : events){
 				_appointments.add(e);
-				System.out.println(e.toString());
+				
 			}
+			
 		} catch (InvalidInputException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,29 +103,5 @@ public class AppointmentsController {
 			
 	}
 	
-	 public File getCalendarEventFilePath() {
-	       Preferences prefs = Preferences.userNodeForPackage(OculusMain.class);
-	       String filePath = prefs.get("filePath", null);
-	       if (filePath != null) {
-	           return new File(filePath);
-	       } else {
-	           return null;
-	       }
-	   }
 
-
-	   public void setCalendarEventFilePath(File file) {
-	       Preferences prefs = Preferences.userNodeForPackage(OculusMain.class);
-	       if (file != null) {
-	           prefs.put("filePath", file.getPath());
-
-	           // Update the stage title.
-	         //  _primaryStage.setTitle("Oculus Patient - " + file.getName());
-	       } else {
-	           prefs.remove("filePath");
-
-	           // Update the stage title.
-	       //    _primaryStage.setTitle("Oculus");
-	       }
-	   }
 }

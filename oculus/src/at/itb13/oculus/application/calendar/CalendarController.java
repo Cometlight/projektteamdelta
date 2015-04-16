@@ -8,13 +8,14 @@ import java.util.Set;
 
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.Calendar;
-import at.itb13.oculus.domain.CalendarEvent;
+import at.itb13.oculus.domain.CalendarEventRO;
 import at.itb13.oculus.domain.Patient;
+import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
 
 /**
  * TODO
  *
- * @author Florin Metzler
+ * @author Florin Metzler, Daniel Scheffknecht
  * @since 09.04.2015
  */
 public class CalendarController {
@@ -24,7 +25,7 @@ public class CalendarController {
 		_calendar = calendar;
 	}
 	
-	public Calendar getCalendar() {	// TODO: sichtbarkeit einschränken, wenn möglich
+	public CalendarRO getCalendar() {	// TODO: sichtbarkeit einschränken, wenn möglich
 		return _calendar;
 	}
 	
@@ -36,8 +37,8 @@ public class CalendarController {
 	 * @return A list of CalendarEvent.
 	 * @throws InvalidInputException when the startDate is bigger then the endDate.
 	 */
-	public List<CalendarEvent> getCalendarEventsInTimespan(LocalDateTime startDate, LocalDateTime endDate) throws InvalidInputException {
-		List<CalendarEvent> calendarEvents = new LinkedList<>();
+	public List<? extends CalendarEventRO> getCalendarEventsInTimespan(LocalDateTime startDate, LocalDateTime endDate) throws InvalidInputException {
+		List<CalendarEventRO> calendarEvents = new LinkedList<>();
 		if(startDate.isBefore(endDate)){
 			calendarEvents = _calendar.getCalendarEventsInTimespan(startDate, endDate);			
 			return calendarEvents;
@@ -52,8 +53,8 @@ public class CalendarController {
 	 * @param c CalendarEvent, inserted to Patient p
 	 * @param p Patient, inserted to Set<CalendarEvents>
 	 */
-	public void connectCalendarEventwithPatient (CalendarEvent c, Patient p){
-		Set<CalendarEvent> cals= new HashSet<CalendarEvent>();	// Unnecessary!
+	public void connectCalendarEventwithPatient (CalendarEventRO c, Patient p){
+		Set<CalendarEventRO> cals= new HashSet<CalendarEventRO>();	// Unnecessary!
 		boolean issuccessful;
 		c.setPatient(p);
 		issuccessful = cals.add(c);

@@ -3,7 +3,7 @@ package at.itb13.oculus.technicalServices.dao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.domain.CalendarEvent;
+import at.itb13.oculus.domain.CalendarEventRO;
 import at.itb13.oculus.technicalServices.GenericDao;
 
 /**
@@ -13,7 +13,7 @@ import at.itb13.oculus.technicalServices.GenericDao;
  * @author Andrew Sparr
  * @date 09.04.2015
  */
-public class CalendarEventDao extends GenericDao<CalendarEvent> {
+public class CalendarEventDao extends GenericDao<CalendarEventRO> {
 	
 	private static final Logger _logger = LogManager.getLogger(CalendarEventDao.class.getName());
 	
@@ -27,7 +27,7 @@ public class CalendarEventDao extends GenericDao<CalendarEvent> {
 	 * @see GenericDao#GenericDao(Class);
 	 */
 	private CalendarEventDao() {
-		super(CalendarEvent.class);
+		super(CalendarEventRO.class);
 	}
 	
 	/**

@@ -34,9 +34,9 @@ import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
  */
 @Entity
 @Table(name = "calendarevent", catalog = "oculusdb")
-public class CalendarEvent implements java.io.Serializable {
+public class CalendarEventRO implements java.io.Serializable {
 
-	private static final Logger _logger = LogManager.getLogger(CalendarEvent.class.getName());
+	private static final Logger _logger = LogManager.getLogger(CalendarEventRO.class.getName());
 	private static final long serialVersionUID = 1L;
 	private Integer _calendarEventId;
 	private Calendar _calendar;
@@ -50,10 +50,10 @@ public class CalendarEvent implements java.io.Serializable {
 	
 	private boolean _isFullyLoaded;
 
-	public CalendarEvent() {
+	public CalendarEventRO() {
 	}
 
-	public CalendarEvent(Calendar calendar, EventType eventtype,
+	public CalendarEventRO(Calendar calendar, EventType eventtype,
 			LocalDateTime eventStart, LocalDateTime eventEnd, boolean isOpen) {
 		_calendar = calendar;
 		_eventtype = eventtype;
@@ -62,7 +62,7 @@ public class CalendarEvent implements java.io.Serializable {
 		_isOpen = isOpen;
 	}
 
-	public CalendarEvent(Calendar calendar, EventType eventtype,
+	public CalendarEventRO(Calendar calendar, EventType eventtype,
 			Patient patient, LocalDateTime eventStart, LocalDateTime eventEnd,
 			String description, String patientName, boolean isOpen) {
 		_calendar = calendar;

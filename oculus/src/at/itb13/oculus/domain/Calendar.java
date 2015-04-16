@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -22,6 +23,8 @@ import javax.persistence.Table;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
+
 /**
  * 
  * TODO: Insert description here.
@@ -31,7 +34,7 @@ import org.apache.logging.log4j.Logger;
  */
 @Entity
 @Table(name = "calendar", catalog = "oculusdb")
-public class Calendar implements java.io.Serializable {
+public class Calendar implements java.io.Serializable, CalendarRO {
 	private static final Logger _logger = LogManager.getLogger(Calendar.class.getName());
 	
 	private Integer _calendarId;
@@ -40,23 +43,23 @@ public class Calendar implements java.io.Serializable {
 	private Orthoptist _orthoptist;
 //	private Set<Doctor> _doctors = new HashSet<Doctor>(0);
 //	private Set<Orthoptist> _orthoptists = new HashSet<Orthoptist>(0);
-	private Set<CalendarEvent> _calendarevents = new HashSet<CalendarEvent>(0);
-	private Set<CalendarWorkingHours> _calendarworkinghours = new HashSet<CalendarWorkingHours>(
+	private Set<CalendarEventRO> _calendarEvents = new HashSet<CalendarEventRO>(0);
+	private Set<CalendarWorkingHours> _calendarWorkingHours = new HashSet<CalendarWorkingHours>(
 			0);
 
 	public Calendar() {
 	}
 
 	public Calendar(String title, /*Set<Doctor> doctors,
-			Set<Orthoptist> orthoptists,*/ Doctor doctor, Orthoptist orthoptist, Set<CalendarEvent> calendarevents,
+			Set<Orthoptist> orthoptists,*/ Doctor doctor, Orthoptist orthoptist, Set<CalendarEventRO> calendarevents,
 			Set<CalendarWorkingHours> calendarworkinghourses) {
 		this._title = title;
 		_doctor = doctor;
 		_orthoptist = orthoptist;
 //		this._doctors = doctors;
 //		this._orthoptists = orthoptists;
-		this._calendarevents = calendarevents;
-		this._calendarworkinghours = calendarworkinghourses;
+		this._calendarEvents = calendarevents;
+		this._calendarWorkingHours = calendarworkinghourses;
 	}
 	
 	/**
@@ -68,9 +71,10 @@ public class Calendar implements java.io.Serializable {
 	 *            the end Date of the timespan. (inclusive)
 	 * @return A list of CalendarEvent.
 	 */
-	public List<CalendarEvent> getCalendarEventsInTimespan(LocalDateTime startDate, LocalDateTime endDate) {
-		List<CalendarEvent> listCalEv = new LinkedList<>();
-		for (CalendarEvent c : _calendarevents) {
+	@Transient
+	public List<CalendarEventRO> getCalendarEventsInTimespan(LocalDateTime startDate, LocalDateTime endDate) {
+		List<CalendarEventRO> listCalEv = new LinkedList<>();
+		for (CalendarEventRO c : _calendarEvents) {
 			if (c.isInTimespan(startDate, endDate)) {
 				listCalEv.add(c);
 			}
@@ -135,22 +139,22 @@ public class Calendar implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "calendar")
-	public Set<CalendarEvent> getCalendarevents() {
-		return this._calendarevents;
+	public Set<CalendarEventRO> getCalendarEvents() {
+		return this._calendarEvents;
 	}
 
-	public void setCalendarevents(Set<CalendarEvent> calendarevents) {
-		this._calendarevents = calendarevents;
+	public void setCalendarEvents(Set<CalendarEventRO> calendarEvents) {
+		this._calendarEvents = calendarEvents;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "calendar")
-	public Set<CalendarWorkingHours> getCalendarworkinghourses() {
-		return this._calendarworkinghours;
+	public Set<CalendarWorkingHours> getCalendarWorkingHours() {
+		return this._calendarWorkingHours;
 	}
 
-	public void setCalendarworkinghourses(
-			Set<CalendarWorkingHours> calendarworkinghourses) {
-		this._calendarworkinghours = calendarworkinghourses;
+	public void setCalendarWorkingHours (
+			Set<CalendarWorkingHours> calendarWorkingHours) {
+		this._calendarWorkingHours = calendarWorkingHours;
 	}
 
 }

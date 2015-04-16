@@ -34,7 +34,7 @@ public class EventType implements java.io.Serializable {
 	private String eventTypeName;
 	private Integer estimatedTime;
 	private String description;
-	private Set<CalendarEvent> calendarevents = new HashSet<CalendarEvent>(0);
+	private Set<CalendarEventRO> calendarevents = new HashSet<CalendarEventRO>(0);
 
 	public EventType() {
 	}
@@ -44,7 +44,7 @@ public class EventType implements java.io.Serializable {
 	}
 
 	public EventType(String eventTypeName, Integer estimatedTime,
-			String description, Set<CalendarEvent> calendarevents) {
+			String description, Set<CalendarEventRO> calendarevents) {
 		this.eventTypeName = eventTypeName;
 		this.estimatedTime = estimatedTime;
 		this.description = description;
@@ -90,11 +90,11 @@ public class EventType implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "eventtype")
-	public Set<CalendarEvent> getCalendarevents() {
+	public Set<CalendarEventRO> getCalendarevents() {
 		return this.calendarevents;
 	}
 
-	public void setCalendarevents(Set<CalendarEvent> calendarevents) {
+	public void setCalendarevents(Set<CalendarEventRO> calendarevents) {
 		this.calendarevents = calendarevents;
 	}
 

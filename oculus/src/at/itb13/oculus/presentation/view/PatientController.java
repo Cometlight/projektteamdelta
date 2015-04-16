@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.patient.PatientSearch;
-import at.itb13.oculus.domain.CalendarEvent;
+import at.itb13.oculus.domain.CalendarEventRO;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.OculusMain;

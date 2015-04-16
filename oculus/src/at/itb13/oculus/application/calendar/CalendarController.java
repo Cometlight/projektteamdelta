@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import at.itb13.oculus.application.IController;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
@@ -19,7 +18,7 @@ import at.itb13.oculus.domain.Patient;
  * @author Florin Metzler
  * @since 09.04.2015
  */
-public class CalendarController implements IController {
+public class CalendarController {
 	
 	/**
 	 * Loads a list of Calendar Event in a chosen timespan.

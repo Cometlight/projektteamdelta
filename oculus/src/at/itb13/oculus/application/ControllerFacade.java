@@ -10,6 +10,7 @@ import at.itb13.oculus.application.doctor.DoctorRequest;
 import at.itb13.oculus.application.patient.PatientCreation;
 import at.itb13.oculus.application.patient.PatientSearch;
 import at.itb13.oculus.application.queue.QueueController;
+import at.itb13.oculus.technicalServices.dao.PatientDao;
 import at.itb13.oculus.technicalServices.dao.QueueDao;
 
 /**
@@ -35,8 +36,7 @@ public class ControllerFacade {
 		_instance = new ControllerFacade();
 		
 		_listQueueController = new LinkedList<>();
-		QueueDao queueDao = new QueueDao();
-		queueDao.findAll().forEach(q -> {
+		QueueDao.getInstance().findAll().forEach(q -> {
 			QueueController qC = new QueueController(q);
 			_listQueueController.add(qC);
 		});

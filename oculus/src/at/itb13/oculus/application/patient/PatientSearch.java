@@ -28,13 +28,12 @@ public class PatientSearch implements IController {
 	 */
 	public List<Patient> searchPatientByName(String firstName, String lastName) throws InvalidInputException {
 		List<Patient> patients = null;
-		PatientDao patientDao = new PatientDao();
 		if(!firstName.isEmpty() && !lastName.isEmpty()){
-			patients = patientDao.findByFullName(firstName, lastName);
+			patients = PatientDao.getInstance().findByFullName(firstName, lastName);
 		}else if(lastName.isEmpty()){
-			patients = patientDao.findByFirstName(firstName);
+			patients = PatientDao.getInstance().findByFirstName(firstName);
 		}else if(firstName.isEmpty()){
-			patients = patientDao.findByLastName(lastName);
+			patients = PatientDao.getInstance().findByLastName(lastName);
 		}else{
 			throw new InvalidInputException();
 		}
@@ -51,8 +50,7 @@ public class PatientSearch implements IController {
 	public PatientRO searchPatientBySocialInsuranceNr(String socialInsuranceNr) throws InvalidInputException {
 		Patient patient = null;
 		if(isSocialInsuranceNrValid(socialInsuranceNr)) {
-			PatientDao patientDao = new PatientDao();
-			patient = patientDao.findBySocialInsuranceNr(socialInsuranceNr);
+			patient = PatientDao.getInstance().findBySocialInsuranceNr(socialInsuranceNr);
 		} else {
 			throw new InvalidInputException();
 		}

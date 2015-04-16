@@ -37,7 +37,7 @@ public class TestClassDani {
 		foo1();
 //		foo2();
 		bar();
-		bar2();
+//		bar2();
 		foo3();
 		foo4();
 		
@@ -46,25 +46,22 @@ public class TestClassDani {
 	
 	private static void foo4() {
 		System.out.println("--- foo4: ---");
-		QueueDao dao = new QueueDao();
-		for(Queue q : dao.list()) {
+		for(Queue q : QueueDao.getInstance().list()) {
 			System.out.println(q.getQueueEntries().size());
 		}
 		
-		Queue q = dao.findById(1, null);
+		Queue q = QueueDao.getInstance().findById(1, null);
 		System.out.println(q.getDoctor().getUser().getFirstName());
 		
 		// TODO: Check if dao.makePersistent is working as intended
 	}
 	
 	private static void foo3() {
-		PatientSearch pS = ControllerFacade.getInstance().getController(PatientSearch.class);
-		CalendarController cC = ControllerFacade.getInstance().getController(CalendarController.class);
+		PatientSearch pS = ControllerFacade.getInstance().getPatientSearch();
 	}
 	
 	private static void foo1() {
-		PatientDao patDao = new PatientDao();
-		Patient pat = patDao.findBySocialInsuranceNr("5736198542");	// should be Russel Fuller
+		Patient pat = PatientDao.getInstance().findBySocialInsuranceNr("5736198542");	// should be Russel Fuller
 		System.out.println(pat.getFirstName() + " " + pat.getLastName() + " (" + pat.getSocialInsuranceNr() + ")");
 		
 //		CalendarEvent ev1 = patDao.loadCalendarevents(pat).iterator().next();
@@ -91,8 +88,7 @@ public class TestClassDani {
 //	}
 	
 	private static void bar(){
-		QueueDao qDao = new QueueDao();
-		Queue queue = qDao.findById(1,null);
+		Queue queue = QueueDao.getInstance().findById(1,null);
 		
 		for(QueueEntry q : queue.getQueueEntries()){
 			System.out.println(q.getPatient().getFirstName());
@@ -105,12 +101,11 @@ public class TestClassDani {
 		p.setGender("M");
 		p.setFirstName("Hugo");
 		p.setLastName("Clonk");
-		Doctor doc = new DoctorDao().findById(1);
+		Doctor doc = DoctorDao.getInstance().findById(1);
 //		new DoctorDao().finda
 		p.setDoctor(doc);
 		
-		PatientDao dao = new PatientDao();
-		dao.makePersistent(p);
+		PatientDao.getInstance().makePersistent(p);
 	}
 
 }

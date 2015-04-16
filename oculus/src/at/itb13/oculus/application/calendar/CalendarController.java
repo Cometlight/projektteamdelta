@@ -53,7 +53,7 @@ public class CalendarController {
 	 * @param p Patient, inserted to Set<CalendarEvents>
 	 */
 	public void connectCalendarEventwithPatient (CalendarEvent c, Patient p){
-		Set<CalendarEvent> cals= new HashSet<CalendarEvent>();
+		Set<CalendarEvent> cals= new HashSet<CalendarEvent>();	// Unnecessary!
 		boolean issuccessful;
 		c.setPatient(p);
 		issuccessful = cals.add(c);

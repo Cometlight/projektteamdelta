@@ -426,7 +426,7 @@ public class QueueDao {
 	private QueueEntity convertToQueueEntity(Queue queue, QueueEntry entry, Integer queueIdParent) {
 		QueueEntity entity = new QueueEntity();
 		
-		entity.setQueueId(entry.getQueueEntryId());
+		entity.setQueueId(entry.getQueueEntryId());	// it's okay if getQueueEntryId is null
 		entity.setDoctor(queue.getDoctor());
 		entity.setOrthoptist(queue.getOrthoptist());
 		entity.setPatient(entry.getPatient());

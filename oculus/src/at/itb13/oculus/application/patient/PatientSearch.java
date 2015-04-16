@@ -23,7 +23,7 @@ public class PatientSearch {
 	 * @return List<Patient> The patient with the supplied name. Maybe null, if no patient has been found.
 	 * @throws InvalidInputException thrown if the provided name is not in an appropriate format.
 	 */
-	public List<Patient> searchPatientByName(String firstName, String lastName) throws InvalidInputException {
+	public List<? extends PatientRO> searchPatientByName(String firstName, String lastName) throws InvalidInputException {
 		List<Patient> patients = null;
 		if(!firstName.isEmpty() && !lastName.isEmpty()){
 			patients = PatientDao.getInstance().findByFullName(firstName, lastName);

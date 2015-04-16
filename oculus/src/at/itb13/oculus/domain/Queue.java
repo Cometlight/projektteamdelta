@@ -3,6 +3,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Deque;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -56,14 +57,43 @@ public class Queue implements QueueRO {
 		_queueEntries = queueEntries;
 	}
 	
-	public void addQueueEntry(QueueEntry queueEntry) {
+	public void pushQueueEntry(QueueEntry queueEntry) {
 		_queueEntries.add(queueEntry);
 	}
 	
-	public void removeQueueEntry(QueueEntry queueEntry) {
+	/**
+	 * 
+	 * @return null if empty QueueEntryList
+	 */
+	public QueueEntry peek() {
+		QueueEntry queueEntry = null;
+		if(!_queueEntries.isEmpty()) {
+			Iterator<QueueEntry> it = _queueEntries.iterator();
+			queueEntry = it.next();
+		}
+		return queueEntry;
+	}
+	
+	/**
+	 * 
+	 * @return null if empty QueueEntryList
+	 */
+	public QueueEntry popQueueEntry() {
+		QueueEntry queueEntry = null;
+		if(!_queueEntries.isEmpty()) {
+			Iterator<QueueEntry> it = _queueEntries.iterator();
+			queueEntry = it.next();
+			it.remove();
+		}
+		return queueEntry;
+	}
+	
+	public boolean removeQueueEntry(QueueEntry queueEntry) {
 		if(!_queueEntries.remove(_queueEntries)) {
 			_logger.warn("queueEntry not in list.");	
+			return false;
 		}
+		return true;
 	}
 
 	/**

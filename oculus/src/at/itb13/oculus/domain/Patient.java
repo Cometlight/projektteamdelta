@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,7 +31,8 @@ import at.itb13.oculus.technicalServices.util.LocalDatePersistenceConverter;
 @Entity
 @Table(name = "patient", catalog = "oculusdb")
 public class Patient implements java.io.Serializable, PatientRO {
-
+	public static final Integer SOCIAL_INSURANCE_NR_LENGTH = 10;
+	
 	private static final long serialVersionUID = 1L;
 	private static final Logger _logger = LogManager.getLogger(Patient.class
 			.getName());
@@ -137,6 +139,20 @@ public class Patient implements java.io.Serializable, PatientRO {
 		_prescriptions = prescriptions;
 		_referralletters = referralletters;
 		_examinationprotocols = examinationprotocols;
+	}
+	
+	/**
+	 * Checks if the provided insurance number is in a valid format.
+	 * 
+	 * @param socialInsuranceNr The social insurance number that should be checked.
+	 * @return true, if the socialInsuranceNr is in a valid format.
+	 */
+	@Transient
+	public static boolean isSocialInsuranceNrValid(String socialInsuranceNr) {
+		boolean isValid;
+		isValid = socialInsuranceNr != null && socialInsuranceNr.length() == SOCIAL_INSURANCE_NR_LENGTH;
+		// TODO: RegEx-Check, if valid?
+		return isValid;
 	}
 
 	@Id

@@ -16,8 +16,6 @@ import at.itb13.oculus.technicalServices.dao.PatientDao;
  */
 public class PatientSearch implements IController {
 	
-	public static final Integer SOCIAL_INSURANCE_NR_LENGTH = 10;
-	
 	/**
 	 * Load the patient with the wanted name. It can search only the fistName, lastName or both.
 	 * 
@@ -49,25 +47,12 @@ public class PatientSearch implements IController {
 	 */
 	public PatientRO searchPatientBySocialInsuranceNr(String socialInsuranceNr) throws InvalidInputException {
 		Patient patient = null;
-		if(isSocialInsuranceNrValid(socialInsuranceNr)) {
+		if(Patient.isSocialInsuranceNrValid(socialInsuranceNr)) {
 			patient = PatientDao.getInstance().findBySocialInsuranceNr(socialInsuranceNr);
 		} else {
 			throw new InvalidInputException();
 		}
 		
 		return patient;
-	}
-	
-	/**
-	 * Checks if the provided insurance number is in a valid format.
-	 * 
-	 * @param socialInsuranceNr The social insurance number that should be checked.
-	 * @return true, if the socialInsuranceNr is in a valid format.
-	 */
-	private boolean isSocialInsuranceNrValid(String socialInsuranceNr) {	// FIXME Move to domain.Patient as static method
-		boolean isValid;
-		isValid = socialInsuranceNr != null && socialInsuranceNr.length() == SOCIAL_INSURANCE_NR_LENGTH;
-		// TODO: RegEx-Check, if valid?
-		return isValid;
 	}
 }

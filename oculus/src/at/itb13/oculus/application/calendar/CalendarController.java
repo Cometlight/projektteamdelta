@@ -32,7 +32,7 @@ public class CalendarController {
 		Calendar calendar = new Calendar();
 		List<CalendarEvent> c = new LinkedList<>();
 		if(startDate.compareTo(endDate) < 0){
-			c = calendar.getCalendarEvents(startDate, endDate);
+			c = calendar.getCalendarEvents(startDate, endDate);			
 			return c;
 		}else{
 			throw new InvalidInputException();

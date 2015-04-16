@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.doctor.DoctorRequest;
 import at.itb13.oculus.application.patient.PatientCreation;
 import at.itb13.oculus.application.patient.PatientSearch;
@@ -78,6 +79,13 @@ public class ControllerFacade {
 	
 	public List<QueueController> getAllQueueController() {
 		return _listQueueController;
+	}
+
+	/**
+	 * @return
+	 */
+	public CalendarController getCalendarController() {
+		return new CalendarController();
 	}
 
 }

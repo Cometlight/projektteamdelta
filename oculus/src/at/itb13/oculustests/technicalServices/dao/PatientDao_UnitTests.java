@@ -16,17 +16,16 @@ public class PatientDao_UnitTests {
 
 	@Test
 	public void testIfNull() {
-		PatientDao patDao = new PatientDao();
-		assertEquals(true, (patDao != null));
+		assertEquals(true, (PatientDao.getInstance() != null));
 		
-		assertEquals(true, (patDao.findAll() != null));
-		assertEquals(true, (patDao.findByFirstName("Test").isEmpty()));
-		assertEquals(true, (patDao.findById(null) == null));
-		assertEquals(true, (patDao.findByLastName(null)).isEmpty());
-		assertEquals(true, (patDao.findByLastName(null)).isEmpty());
-		assertEquals(true, (patDao.findByFullName(null, null).isEmpty()));
-		assertEquals(true, (patDao.findBySocialInsuranceNr(null)) == null);
-		assertEquals(true, (patDao.list().isEmpty()));
+		assertEquals(true, (PatientDao.getInstance().findAll() != null));
+		assertEquals(true, (PatientDao.getInstance().findByFirstName("Test").isEmpty()));
+		assertEquals(true, (PatientDao.getInstance().findById(null) == null));
+		assertEquals(true, (PatientDao.getInstance().findByLastName(null)).isEmpty());
+		assertEquals(true, (PatientDao.getInstance().findByLastName(null)).isEmpty());
+		assertEquals(true, (PatientDao.getInstance().findByFullName(null, null).isEmpty()));
+		assertEquals(true, (PatientDao.getInstance().findBySocialInsuranceNr(null)) == null);
+		assertEquals(true, (PatientDao.getInstance().list().isEmpty()));
 	}
 
 }

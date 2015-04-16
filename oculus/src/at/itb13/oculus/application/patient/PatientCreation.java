@@ -27,8 +27,7 @@ public class PatientCreation implements IController {
 				birthday, gender, street, postalCode, city, countryIsoCode,
 				phone, email);
 		
-		PatientDao patientDao = new PatientDao();
-		patientDao.makePersistent(_p);
+		PatientDao.getInstance().makePersistent(_p);
 	}
 }
 

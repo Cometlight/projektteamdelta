@@ -31,6 +31,22 @@ import at.itb13.oculus.technicalServices.HibernateUtil;
 public class QueueDao {
 
 	private static final Logger _logger = LogManager.getLogger(QueueDao.class.getName());
+	
+	private static QueueDao _queueDao;
+	
+	static {
+		_queueDao = new QueueDao();
+	}
+	
+	private QueueDao() { }
+	
+	/**
+	 * 
+	 * @return instance of the Singleton
+	 */
+	public static QueueDao getInstance() {
+		return _queueDao;
+	}
 
 	/**
 	 * Opens a new Hibernate session and looks up the Queue with the specified doctorID and orthoptistID.
@@ -57,7 +73,7 @@ public class QueueDao {
 				doctorRestriction = Restrictions
 						.eq("doctor.doctorId", doctorId);
 
-				Doctor doctor = new DoctorDao().findById(doctorId);
+				Doctor doctor = DoctorDao.getInstance().findById(doctorId);
 				if (doctor != null) {
 					queue.setDoctor(doctor);
 
@@ -70,8 +86,7 @@ public class QueueDao {
 				orthoptistRestriction = Restrictions.eq(
 						"orthoptist.orthoptistId", orthoptistId);
 
-				Orthoptist orthoptist = new OrthoptistDao()
-						.findById(orthoptistId);
+				Orthoptist orthoptist = OrthoptistDao.getInstance().findById(orthoptistId);
 				if (orthoptist != null) {
 					queue.setOrthoptist(orthoptist);
 				} else {

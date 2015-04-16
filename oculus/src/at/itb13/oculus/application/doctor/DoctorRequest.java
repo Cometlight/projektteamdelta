@@ -22,8 +22,7 @@ public class DoctorRequest implements IController {
 
 	public List<Doctor> getDoctorList(){
 		List<Doctor> doctorList = new ArrayList<Doctor>();
-		DoctorDao dd = new DoctorDao();
-		doctorList = dd.findAll();
+		doctorList = DoctorDao.getInstance().findAll();
 		return doctorList;
 		
 	}

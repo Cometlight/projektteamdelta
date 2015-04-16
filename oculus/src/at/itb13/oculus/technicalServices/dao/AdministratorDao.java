@@ -16,12 +16,24 @@ public class AdministratorDao extends GenericDao<Administrator> {
 	
 	private static final Logger _logger = LogManager.getLogger(AdministratorDao.class.getName());
 	
+	private static AdministratorDao _administratorDao;
+	
+	static {
+		_administratorDao = new AdministratorDao();
+	}
+	
 	/**
 	 * @see GenericDao#GenericDao(Class);
 	 */
-	public AdministratorDao() {
+	private AdministratorDao() {
 		super(Administrator.class);
 	}
 	
-	//TODO add methods
+	/**
+	 * 
+	 * @return instance of the Singleton
+	 */
+	public static AdministratorDao getInstance() {
+		return _administratorDao;
+	}
 }

@@ -54,7 +54,7 @@ public class OculusMain extends Application {
 	        
 	        initRootLayout();
 	        
-            showAppointmentsOverview();
+        //   showAppointmentsOverview();
 	        
 	   
 		
@@ -66,19 +66,17 @@ public class OculusMain extends Application {
  	        
             FXMLLoader loader = new FXMLLoader();           
             loader.setLocation(OculusMain.class.getResource("view/RootLayout.fxml")); 
-            _rootLayout = (BorderPane) loader.load();
-           
+            _rootLayout = (BorderPane) loader.load();           
  	        
             // Show the scene containing the root layout.
             Scene scene = new Scene(_rootLayout);
             _primaryStage.setScene(scene);
-            _primaryStage.show();
-            
+            _primaryStage.show();            
 
-            
             // Give the controller access to the main app.
-//            RootLayoutController controller = loader.getController();
-// 	        controller.setMain(this);
+            RootLayoutController controller = loader.getController();
+ 	        controller.setMain(this);             
+          
  	       	
         } catch (IOException e) {
             e.printStackTrace();

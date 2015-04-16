@@ -142,7 +142,7 @@ public class NewPatientController {
     }
     private void setItemsToDoctorBox(){
    
-    	DoctorRequest docRequest = ControllerFacade.getInstance().getController(DoctorRequest.class);
+    	DoctorRequest docRequest = ControllerFacade.getInstance().getDoctorRequest();
        	
     	 _doctorBox.setConverter(new DoctorSringConverter());
     	 _doctorBox.getItems().addAll(docRequest.getDoctorList());   	

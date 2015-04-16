@@ -78,8 +78,10 @@ public class ControllerFacade {
 		QueueController controller = null;
 		
 		for(QueueController qC : _listQueueController) {
-			if(qC.getQueue().getDoctor().getDoctorId().equals(doctorId) // FIXME What if null? see getCalendarController
-					&& qC.getQueue().getOrthoptist().getOrthoptistId().equals(orthoptistId)) {
+			Integer queueDocId = (qC.getQueue().getDoctor() == null) ? null : qC.getQueue().getDoctor().getDoctorId();
+			Integer queueOrtId = (qC.getQueue().getOrthoptist() == null) ? null : qC.getQueue().getOrthoptist().getOrthoptistId();
+			if( ( (queueDocId == null && doctorId == null) || queueDocId.equals(doctorId) ) 	// careful: doctorId.equals(queueDocId) might throw a NullPointerException
+					&& ( (queueOrtId == null && orthoptistId == null) || queueOrtId.equals(orthoptistId) ) ) {
 				controller = qC;
 				break;
 			}

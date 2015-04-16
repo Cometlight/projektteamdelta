@@ -2,7 +2,9 @@
 package at.itb13.oculus.application.patient;
 
 import java.time.LocalDate;
+import java.util.Date;
 
+import at.itb13.oculus.application.IController;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
@@ -13,7 +15,7 @@ import at.itb13.oculus.technicalServices.dao.PatientDao;
  * @author Florin Metzler
  * @since 10.04.2015
  */
-public class PatientCreation {
+public class PatientCreation implements IController {
 	private Patient _p;
 
 	public void createPatient(Doctor doctor, String socialInsuranceNr,

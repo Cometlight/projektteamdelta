@@ -2,6 +2,7 @@ package at.itb13.oculus.application.patient;
 
 import java.util.List;
 
+import at.itb13.oculus.application.IController;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
@@ -13,7 +14,7 @@ import at.itb13.oculus.technicalServices.dao.PatientDao;
  * @author Daniel Scheffknecht
  * @date 08.04.2015
  */
-public class PatientSearch {
+public class PatientSearch implements IController {
 	
 	/**
 	 * Load the patient with the wanted name. It can search only the fistName, lastName or both.

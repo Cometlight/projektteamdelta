@@ -3,6 +3,7 @@ package at.itb13.oculus.domain;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -151,7 +152,7 @@ public class Patient implements java.io.Serializable, PatientRO {
 	public static boolean isSocialInsuranceNrValid(String socialInsuranceNr) {
 		boolean isValid;
 		isValid = socialInsuranceNr != null && socialInsuranceNr.length() == SOCIAL_INSURANCE_NR_LENGTH;
-		// TODO: RegEx-Check, if valid?
+		isValid = Pattern.matches("//d", socialInsuranceNr);
 		return isValid;
 	}
 

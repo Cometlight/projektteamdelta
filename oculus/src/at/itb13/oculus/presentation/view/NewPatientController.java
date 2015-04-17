@@ -81,8 +81,7 @@ public class NewPatientController {
 	 */
 	@FXML
 	private void initialize() {
-		// / _doctorBox.setItems(FXCollections.observableArrayList("Dr. Hot",
-		// "Dr. Cool"));
+		
 		setItemsToDoctorBox();
 
 		_gender = "F";

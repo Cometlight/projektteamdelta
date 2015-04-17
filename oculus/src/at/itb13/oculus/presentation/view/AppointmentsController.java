@@ -165,7 +165,10 @@ public class AppointmentsController {
 	 private void addPatientControl(){
 					
 			_main.showNewPatientDialog();
-			CalendarController calco = ControllerFacade.getInstance().getCalendarController(null, null);
+			
+			CalendarController calco = ControllerFacade.getInstance().getCalendarController(_appointmentTable.getSelectionModel().getSelectedItem().getCalendar());
+			System.out.println("CalendarEvent" + _appointmentTable.getSelectionModel().getSelectedItem());
+			System.out.println("Patient" + _main.getCreatedPatient().getFirstName());
 			calco.connectCalendarEventWithPatient( _appointmentTable.getSelectionModel().getSelectedItem(), _main.getCreatedPatient());
 			
 		 }

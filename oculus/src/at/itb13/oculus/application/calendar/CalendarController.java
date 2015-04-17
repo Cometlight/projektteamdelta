@@ -8,7 +8,7 @@ import java.util.Set;
 
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.Calendar;
-import at.itb13.oculus.domain.CalendarEventRO;
+import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
 
@@ -37,8 +37,8 @@ public class CalendarController {
 	 * @return A list of CalendarEvent.
 	 * @throws InvalidInputException when the startDate is bigger then the endDate.
 	 */
-	public List<? extends CalendarEventRO> getCalendarEventsInTimespan(LocalDateTime startDate, LocalDateTime endDate) throws InvalidInputException {
-		List<CalendarEventRO> calendarEvents = new LinkedList<>();
+	public List<? extends CalendarEvent> getCalendarEventsInTimespan(LocalDateTime startDate, LocalDateTime endDate) throws InvalidInputException {
+		List<CalendarEvent> calendarEvents = new LinkedList<>();
 		if(startDate.isBefore(endDate)){
 			calendarEvents = _calendar.getCalendarEventsInTimespan(startDate, endDate);			
 			return calendarEvents;
@@ -53,8 +53,8 @@ public class CalendarController {
 	 * @param c CalendarEvent, inserted to Patient p
 	 * @param p Patient, inserted to Set<CalendarEvents>
 	 */
-	public void connectCalendarEventwithPatient (CalendarEventRO c, Patient p){
-		Set<CalendarEventRO> cals= new HashSet<CalendarEventRO>();	// Unnecessary!
+	public void connectCalendarEventwithPatient (CalendarEvent c, Patient p){
+		Set<CalendarEvent> cals= new HashSet<CalendarEvent>();	// Unnecessary!
 		boolean issuccessful;
 		c.setPatient(p);
 		issuccessful = cals.add(c);

@@ -3,7 +3,7 @@ package at.itb13.oculus.domain.readonlyinterfaces;
 import java.time.LocalDate;
 import java.util.Set;
 
-import at.itb13.oculus.domain.CalendarEventRO;
+import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.ExaminationProtocol;
 import at.itb13.oculus.domain.Prescription;
@@ -32,7 +32,7 @@ public interface PatientRO {
 	String getAllergy();
 	String getChildhoodAilments();
 	String getMedicineIntolerance();
-	Set<CalendarEventRO> getCalendarevents();
+	Set<CalendarEvent> getCalendarevents();
 	Set<Prescription> getPrescriptions();
 	Set<ReferralLetter> getReferralletters();
 	Set<ExaminationProtocol> getExaminationprotocols();

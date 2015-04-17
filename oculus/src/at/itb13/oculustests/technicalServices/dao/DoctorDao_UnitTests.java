@@ -1,4 +1,4 @@
-package at.itb13.oculustests.technicalservices.dao;
+package at.itb13.oculustests.technicalServices.dao;
 
 import static org.junit.Assert.*;
 

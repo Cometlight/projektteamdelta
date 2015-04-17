@@ -11,6 +11,9 @@ import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
+import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
+import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
+import at.itb13.oculus.technicalServices.dao.PatientDao;
 
 /**
  * TODO
@@ -53,14 +56,21 @@ public class CalendarController {
 	 * @param c CalendarEvent, inserted to Patient p
 	 * @param p Patient, inserted to Set<CalendarEvents>
 	 */
-	public void connectCalendarEventwithPatient (CalendarEvent c, Patient p){
-		Set<CalendarEvent> cals= new HashSet<CalendarEvent>();	// Unnecessary!
-		boolean issuccessful;
-		c.setPatient(p);
-		issuccessful = cals.add(c);
-		if (issuccessful) {
-			p.setCalendarevents(cals);
-		}
-		// FIXME makePersistent missing?
+//	public void connectCalendarEventwithPatient (CalendarEvent c, Patient p){
+//		Set<CalendarEvent> cals= new HashSet<CalendarEvent>();	// Unnecessary!
+//		boolean issuccessful;
+//		c.setPatient(p);
+//		issuccessful = cals.add(c);
+//		if (issuccessful) {
+//			p.setCalendarevents(cals);
+//		}
+//		// FIXME makePersistent missing?
+//	}
+	public boolean connectCalendarEventWithPatient (CalendarEventRO calendarEventRO, PatientRO patientRO){
+		Patient patient = PatientDao.getInstance().findById(patientRO.getPatientId());
+		CalendarEventDao calEvDao = CalendarEventDao.getInstance();
+		CalendarEvent calEv = calEvDao.findById(calendarEventRO.getCalendarEventId());
+		calEv.setPatient(patient);
+		return calEvDao.makePersistent(calEv);
 	}
 }

@@ -169,6 +169,8 @@ public class AppointmentsController {
 			CalendarController calco = ControllerFacade.getInstance().getCalendarController(_appointmentTable.getSelectionModel().getSelectedItem().getCalendar());
 			System.out.println("CalendarEvent" + _appointmentTable.getSelectionModel().getSelectedItem());
 			System.out.println("Patient" + _main.getCreatedPatient().getFirstName());
+			System.out.println("Calendar: " + _appointmentTable.getSelectionModel().getSelectedItem().getCalendar());
+			System.out.println("CalendarController: " + calco);
 			calco.connectCalendarEventWithPatient( _appointmentTable.getSelectionModel().getSelectedItem(), _main.getCreatedPatient());
 			
 		 }

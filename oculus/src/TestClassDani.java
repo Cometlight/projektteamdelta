@@ -62,7 +62,7 @@ public class TestClassDani {
 	}
 	
 	private static void foo3() {
-		PatientSearch pS = ControllerFacade.getInstance().getPatientSearch();
+		//PatientSearch pS = ControllerFacade.getInstance().getPatientSearch();
 	}
 	
 	private static void foo1() {

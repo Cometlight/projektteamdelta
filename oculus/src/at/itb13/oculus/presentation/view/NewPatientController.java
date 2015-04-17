@@ -8,6 +8,7 @@ import java.util.List;
 import javafx.scene.control.ToggleGroup;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.doctor.DoctorRequest;
+import at.itb13.oculus.application.patient.PatientController;
 import at.itb13.oculus.application.patient.PatientCreation;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
@@ -122,7 +123,7 @@ public class NewPatientController {
 				if (isInputValid()) {   
 					        	
 					//creating a new Patient and save it in the database
-					PatientCreation pc = new PatientCreation();
+					PatientController pc = ControllerFacade.getInstance().getPatientController();
 					_patient =	pc.createPatient(_doctor, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
 					okClicked = true;
 				    _dialogStage.close();

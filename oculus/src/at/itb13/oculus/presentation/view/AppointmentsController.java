@@ -34,6 +34,7 @@ import at.itb13.oculus.application.doctor.DoctorRequest;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.EventType;
+import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.OculusMain;
 
@@ -47,13 +48,13 @@ public class AppointmentsController {
 	private static final Logger _logger = LogManager.getLogger(AppointmentsController.class.getName());
 	
 	@FXML
-	private TableView<CalendarEvent> _appointmentTable;	
+	private TableView<CalendarEventRO> _appointmentTable;	
 	@FXML
-	private TableColumn<CalendarEvent, String> _timeColumn;	
+	private TableColumn<CalendarEventRO, String> _timeColumn;	
 	@FXML
-	private TableColumn<CalendarEvent, String> _patientColumn;	
+	private TableColumn<CalendarEventRO, String> _patientColumn;	
 	@FXML
-	private TableColumn<CalendarEvent, String> _otherColumn;
+	private TableColumn<CalendarEventRO, String> _otherColumn;
 
 	
 	@FXML
@@ -74,7 +75,7 @@ public class AppointmentsController {
 	
 	
 
-	private ObservableList<CalendarEvent> _appointments = FXCollections.observableArrayList();
+	private ObservableList<CalendarEventRO> _appointments = FXCollections.observableArrayList();
 
 	private OculusMain _main;
 			
@@ -89,9 +90,9 @@ public class AppointmentsController {
 		getTodaysCalendarEvents();
 		_appointmentTable.setItems(_appointments);
 		
-		  _timeColumn.setCellValueFactory(new PropertyValueFactory<CalendarEvent, String>("eventStart"));
-	      _patientColumn.setCellValueFactory(new PropertyValueFactory<CalendarEvent, String>("patientId"));
-	      _otherColumn.setCellValueFactory(new PropertyValueFactory<CalendarEvent, String>("patientName"));
+		  _timeColumn.setCellValueFactory(new PropertyValueFactory<CalendarEventRO, String>("eventStart"));
+	      _patientColumn.setCellValueFactory(new PropertyValueFactory<CalendarEventRO, String>("patientId"));
+	      _otherColumn.setCellValueFactory(new PropertyValueFactory<CalendarEventRO, String>("patientName"));
 	      
 	     // showAppointmentInformation(null);
 	      
@@ -106,7 +107,7 @@ public class AppointmentsController {
 		LocalDate startofend = LocalDate.now();
 		LocalDateTime end = LocalDateTime.of(startofend, LocalTime.MAX);
 		
-		List<CalendarEvent> events = new LinkedList<>();
+		List<CalendarEventRO> events = new LinkedList<>();
 		try {			
 			
 			// With list instead:
@@ -114,7 +115,7 @@ public class AppointmentsController {
 				events.addAll(calCo.getCalendarEventsInTimespan(start, LocalDateTime.now()));
 			}
 			
-			for(CalendarEvent e : events){
+			for(CalendarEventRO e : events){
 				_appointments.add(e);
 				
 			}
@@ -125,11 +126,11 @@ public class AppointmentsController {
 		}
 	}
 
-	 public ObservableList<CalendarEvent> getAppointments() {
+	 public ObservableList<CalendarEventRO> getAppointments() {
 	        return _appointments;
 	    }
 	 
-	 public void addAppointment(CalendarEvent e){
+	 public void addAppointment(CalendarEventRO e){
 		 _appointments.add(e);
 	 }
 	public void clearAppointments() {
@@ -137,7 +138,7 @@ public class AppointmentsController {
 			
 	}
 	
-	private void showAppointmentInformation(CalendarEvent event) {
+	private void showAppointmentInformation(CalendarEventRO event) {
 		_description.setText(event.getDescription());
 		if(event.getPatient() == null){
 			_patientNotInDatabase.setText("Patient is not in Database.\nPatient Name");
@@ -163,7 +164,7 @@ public class AppointmentsController {
 					
 			_main.showNewPatientDialog();
 			CalendarController calco = ControllerFacade.getInstance().getCalendarController(null, null);
-			calco.connectCalendarEventwithPatient( _appointmentTable.getSelectionModel().getSelectedItem(), _main.getCreatedPatient());
+			calco.connectCalendarEventWithPatient( _appointmentTable.getSelectionModel().getSelectedItem(), _main.getCreatedPatient());
 			
 		 }
 	

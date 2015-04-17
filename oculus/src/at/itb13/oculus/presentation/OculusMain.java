@@ -20,11 +20,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class OculusMain extends Application {
 	
 	 private Stage _primaryStage;
 	 private BorderPane _rootLayout;
+	 
+	 private PatientRO _tempPatient;
 	
 	 private ObservableList<PatientRO> _patientData = FXCollections.observableArrayList();
 
@@ -167,13 +170,17 @@ public class OculusMain extends Application {
 
 	           // Show the dialog and wait until the user closes it
 	           dialogStage.showAndWait();
-
+	          // _tempPatient = controller.getPatient();
 	           return controller.isOkClicked();
 	       } catch (IOException e) {
 	           e.printStackTrace();
 	           return false;
 	       }
 	   }
+	 
+	 public PatientRO getCreatedPatient(){
+		 return _tempPatient;
+	 }
 	  public File getPersonFilePath() {
 	       Preferences prefs = Preferences.userNodeForPackage(OculusMain.class);
 	       String filePath = prefs.get("filePath", null);
@@ -202,6 +209,13 @@ public class OculusMain extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	/**
+	 * @return
+	 */
+	public Window getPrimaryStage() {
+		return _primaryStage;
 	}
 
 	

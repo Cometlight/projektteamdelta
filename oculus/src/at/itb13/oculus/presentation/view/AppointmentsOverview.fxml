@@ -31,19 +31,13 @@
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <ComboBox prefWidth="150.0" promptText="insert in Queue" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0" />
-                              <TextFlow layoutX="26.0" layoutY="-37.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
-                                 <children>
-                                    <Label text="Information">
-                                       <padding>
-                                          <Insets left="10.0" top="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </children></TextFlow>
-                              <Button layoutX="770.0" layoutY="46.0" mnemonicParsing="false" text="insert" AnchorPane.rightAnchor="5.0" />
+                              <ComboBox fx:id="_queueBox" prefWidth="150.0" promptText="choose a Queue" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0" />
+                              <Button fx:id="_insertQueueButton" layoutX="770.0" layoutY="46.0" mnemonicParsing="false" text="insert" AnchorPane.rightAnchor="5.0" />
+                              <Label fx:id="_patient" layoutX="448.0" layoutY="50.0" text="Label" />
+                              <Label fx:id="_eventType" layoutX="14.0" layoutY="14.0" text="Label" />
+                              <Label fx:id="_description" layoutX="14.0" layoutY="50.0" text="Label" />
+                              <Label fx:id="_patientNotInDatabase" layoutX="448.0" layoutY="14.0" text="Label" />
+                              <Button fx:id="_addPatient" layoutX="594.0" layoutY="10.0" mnemonicParsing="false" onAction="#addPatientControl" text="add Patient" />
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">

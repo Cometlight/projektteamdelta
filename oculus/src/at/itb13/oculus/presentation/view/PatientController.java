@@ -6,13 +6,13 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.patient.PatientSearch;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.OculusMain;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -173,7 +173,7 @@ public class PatientController {
 	 @FXML
 	 private void searchByNumberControl(){
 		 clearPatientTable();
-		 PatientSearch p = new PatientSearch();
+		 at.itb13.oculus.application.patient.PatientController p = ControllerFacade.getInstance().getPatientController();
 		 try {			
 			PatientRO pa = p.searchPatientBySocialInsuranceNr(_ssnTextField.getText());
 			showPatientMasterData(pa);
@@ -199,7 +199,7 @@ public class PatientController {
 	 @FXML
 	 private void searchByNameControl(){
 		 clearPatientTable();
-		 PatientSearch p = new PatientSearch();
+		 at.itb13.oculus.application.patient.PatientController p = ControllerFacade.getInstance().getPatientController();
 		 List<PatientRO> patients = new ArrayList<>();
 		 try {			
 			patients =  (List<PatientRO>) p.searchPatientByName(_firstNameField.getText(), _lastNameField.getText());

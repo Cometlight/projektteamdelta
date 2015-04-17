@@ -6,6 +6,7 @@ import java.util.List;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Queue;
 import at.itb13.oculus.domain.QueueEntry;
+import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueEntryRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
@@ -69,9 +70,11 @@ public class QueueController {
 	
 	/**
 	 * 
+	 * @param calendarEventRo the CalendarEventRO which status will be updated if necessary
 	 * @return null if empty QueueEntryList
 	 */
-	public QueueEntryRO popQueueEntry() {
+	public QueueEntryRO popQueueEntry(CalendarEventRO calendarEventRO) {
+		// TODO: change status of calendarEvent concerning queue (if in generalQueue then not yet)
 		return _queue.popQueueEntry();
 	}
 	

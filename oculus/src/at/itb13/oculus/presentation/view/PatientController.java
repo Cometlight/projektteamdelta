@@ -200,9 +200,9 @@ public class PatientController {
 	 private void searchByNameControl(){
 		 clearPatientTable();
 		 PatientSearch p = new PatientSearch();
-		 List<Patient> patients = new ArrayList<>();
+		 List<PatientRO> patients = new ArrayList<>();
 		 try {			
-			patients = p.searchPatientByName(_firstNameField.getText(), _lastNameField.getText());
+			patients =  (List<PatientRO>) p.searchPatientByName(_firstNameField.getText(), _lastNameField.getText());
 			if(patients.size() > 0){
 //				for(Patient pa : patients){	// TODO: OLD, -> Delete
 //					_main.addPatientData(new PatientWithProperties2(pa));

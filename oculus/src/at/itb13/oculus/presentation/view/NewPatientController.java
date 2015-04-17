@@ -11,7 +11,7 @@ import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.doctor.DoctorRequest;
 import at.itb13.oculus.application.patient.PatientCreation;
 import at.itb13.oculus.domain.Doctor;
-
+import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
 import at.itb13.oculus.presentation.util.DoctorSringConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,10 +48,10 @@ public class NewPatientController {
 	private RadioButton _female;	
 	private String _gender;
 	@FXML
-	private ComboBox<Doctor> _doctorBox;
+	private ComboBox<DoctorRO> _doctorBox;
 	
-	private List<Doctor> _doctors;
-	private Doctor _doctor;
+	private List<DoctorRO> _doctors;
+	private DoctorRO _doctor;
 	@FXML
 	private TextField _streetField;
 	@FXML

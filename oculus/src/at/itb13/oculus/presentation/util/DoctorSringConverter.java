@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import at.itb13.oculus.domain.Doctor;
+import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
 import javafx.util.StringConverter;
 
 
@@ -14,15 +15,15 @@ import javafx.util.StringConverter;
  * @author Caroline Meusburger
  * @since 13.04.2015
  */
-public class DoctorSringConverter extends StringConverter<Doctor> {
+public class DoctorSringConverter extends StringConverter<DoctorRO> {
 	
-	private Map<String, Doctor> mapDoctors = new HashMap<String, Doctor>();
+	private Map<String, DoctorRO> mapDoctors = new HashMap<String, DoctorRO>();
 
 	/*
 	 * @see javafx.util.StringConverter#toString(java.lang.Object)
 	 */
 	@Override
-	public String toString(Doctor doctor) {
+	public String toString(DoctorRO doctor) {
 		String name = (doctor.getUser().getFirstName()+" "+doctor.getUser().getLastName());
 		mapDoctors.put(name, doctor);
 	    return name;
@@ -32,7 +33,7 @@ public class DoctorSringConverter extends StringConverter<Doctor> {
 	 * @see javafx.util.StringConverter#fromString(java.lang.String)
 	 */
 	@Override
-	public Doctor fromString(String name) {
+	public DoctorRO fromString(String name) {
 		 return mapDoctors.get(name);
 	}
 

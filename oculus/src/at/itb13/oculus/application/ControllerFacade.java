@@ -14,6 +14,7 @@ import at.itb13.oculus.application.patient.PatientSearch;
 import at.itb13.oculus.application.queue.QueueController;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Orthoptist;
+import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
 import at.itb13.oculus.technicalServices.dao.CalendarDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 import at.itb13.oculus.technicalServices.dao.QueueDao;
@@ -107,6 +108,19 @@ public class ControllerFacade {
 			Integer calOrtId = (cC.getCalendar().getOrthoptist() == null) ? null : cC.getCalendar().getOrthoptist().getOrthoptistId();
 			if( ( (calDocId == null && doctorId == null) || calDocId.equals(doctorId) ) 	// careful: doctorId.equals(calDocId) might throw a NullPointerException
 					&& ( (calOrtId == null && orthoptistId == null) || calOrtId.equals(orthoptistId) ) ) {
+				controller = cC;
+				break;
+			}
+		}
+		
+		return controller;
+	}
+	
+	public CalendarController getCalendarController(CalendarRO calendarRO) {
+		CalendarController controller = null;
+		
+		for(CalendarController cC : _listCalendarController) {
+			if(cC.getCalendar().equals(calendarRO)) {
 				controller = cC;
 				break;
 			}

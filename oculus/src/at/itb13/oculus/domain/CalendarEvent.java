@@ -22,6 +22,7 @@ import javax.persistence.Transient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.technicalServices.util.LocalDatePersistenceConverter;
 import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
 
@@ -34,7 +35,7 @@ import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
  */
 @Entity
 @Table(name = "calendarevent", catalog = "oculusdb")
-public class CalendarEvent implements java.io.Serializable {
+public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
 
 	private static final Logger _logger = LogManager.getLogger(CalendarEvent.class.getName());
 	private static final long serialVersionUID = 1L;

@@ -41,11 +41,9 @@ public class CalendarController {
 	 * @return A list of CalendarEvent.
 	 * @throws InvalidInputException when the startDate is bigger then the endDate.
 	 */
-	public List<? extends CalendarEvent> getCalendarEventsInTimespan(LocalDateTime startDate, LocalDateTime endDate) throws InvalidInputException {
-		List<CalendarEvent> calendarEvents = new LinkedList<>();
+	public List<? extends CalendarEventRO> getCalendarEventsInTimespan(LocalDateTime startDate, LocalDateTime endDate) throws InvalidInputException {
 		if(startDate.isBefore(endDate)){
-			calendarEvents = _calendar.getCalendarEventsInTimespan(startDate, endDate);			
-			return calendarEvents;
+			return _calendar.getCalendarEventsInTimespan(startDate, endDate);			
 		}else{
 			throw new InvalidInputException();
 		}

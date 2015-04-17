@@ -120,7 +120,7 @@ public class ControllerFacade {
 		CalendarController controller = null;
 		
 		for(CalendarController cC : _listCalendarController) {
-			if(cC.getCalendar().equals(calendarRO)) {
+			if(cC.getCalendar().getCalendarId().equals(calendarRO.getCalendarId())) {
 				controller = cC;
 				break;
 			}

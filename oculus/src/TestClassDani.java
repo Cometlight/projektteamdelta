@@ -16,6 +16,7 @@ import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Queue;
 import at.itb13.oculus.domain.QueueEntry;
+import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
 import at.itb13.oculus.technicalServices.dao.DoctorDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 import at.itb13.oculus.technicalServices.dao.QueueDao;
@@ -33,15 +34,22 @@ public class TestClassDani {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		calEvTest1();
-		foo1();
+		newTest();
+//		calEvTest1();
+//		foo1();
 //		foo2();
-		bar();
+//		bar();
 //		bar2();
-		foo3();
-		foo4();
+//		foo3();
+//		foo4();
 		
 		System.exit(0);
+	}
+	
+	private static void newTest() {
+		CalendarRO cal = ControllerFacade.getInstance().getCalendarController(1, null).getCalendar();
+		CalendarController calCol = ControllerFacade.getInstance().getCalendarController(cal);
+		System.out.println(calCol);
 	}
 	
 	private static void calEvTest1() {

@@ -174,11 +174,11 @@ public class CalendarEvent implements java.io.Serializable {
 	}
 
 	@Column(name = "isOpen", nullable = false)
-	public boolean isIsOpen() {
+	public boolean isOpen() {
 		return _isOpen;
 	}
 
-	public void setIsOpen(boolean isOpen) {
+	public void setOpen(boolean isOpen) {
 		_isOpen = isOpen;
 	}
 

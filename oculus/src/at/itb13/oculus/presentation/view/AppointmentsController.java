@@ -1,6 +1,7 @@
 package at.itb13.oculus.presentation.view;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -16,15 +17,23 @@ import org.apache.logging.log4j.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.doctor.DoctorRequest;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.CalendarEvent;
+import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.OculusMain;
 
@@ -50,9 +59,18 @@ public class AppointmentsController {
 	@FXML
 	private Label _description;
 	@FXML
+	private Label _patientNotInDatabase;
+	@FXML
 	private Label _patient;
 	@FXML
 	private Label _eventType;
+	@FXML
+	private Button _addPatient;
+	
+	@FXML
+	private ComboBox _queueBox;
+	@FXML
+	private Button _insertQueueButton;
 	
 	
 
@@ -74,6 +92,11 @@ public class AppointmentsController {
 		  _timeColumn.setCellValueFactory(new PropertyValueFactory<CalendarEvent, String>("eventStart"));
 	      _patientColumn.setCellValueFactory(new PropertyValueFactory<CalendarEvent, String>("patientId"));
 	      _otherColumn.setCellValueFactory(new PropertyValueFactory<CalendarEvent, String>("patientName"));
+	      
+	     // showAppointmentInformation(null);
+	      
+	      _appointmentTable.getSelectionModel().selectedItemProperty().addListener(
+	                (observable, oldValue, newValue) -> showAppointmentInformation(newValue));
 		
 	}
 	
@@ -113,6 +136,36 @@ public class AppointmentsController {
 		_appointments.clear();
 			
 	}
+	
+	private void showAppointmentInformation(CalendarEvent event) {
+		_description.setText(event.getDescription());
+		if(event.getPatient() == null){
+			_patientNotInDatabase.setText("Patient is not in Database.\nPatient Name");
+			_addPatient.setDisable(false);
+			_addPatient.setVisible(true);
+			_queueBox.setDisable(true);
+			_insertQueueButton.setDisable(true);
+		}else{
+			_patientNotInDatabase.setText("");
+			_addPatient.setDisable(true);
+			_addPatient.setVisible(false);
+			_queueBox.setDisable(false);
+			_insertQueueButton.setDisable(false);
+		}
+		_patient.setText(event.getPatientName());
+		EventType type = event.getEventtype();
+		
+		_eventType.setText(type.getEventTypeName());
+	}
+	
+	@FXML
+	 private void addPatientControl(){
+					
+			_main.showNewPatientDialog();
+			CalendarController calco = ControllerFacade.getInstance().getCalendarController(null, null);
+			calco.connectCalendarEventwithPatient( _appointmentTable.getSelectionModel().getSelectedItem(), _main.getCreatedPatient());
+			
+		 }
 	
 
 }

@@ -110,7 +110,7 @@
          </font></Label>
       <ButtonBar layoutX="386.0" layoutY="500.0" prefHeight="40.0" prefWidth="200.0">
          <buttons>
-            <Button mnemonicParsing="false" onAction="#handleOk" prefHeight="18.0" text="Save" />
+            <Button fx:id="_patient" mnemonicParsing="false" onAction="#handleOk" prefHeight="18.0" text="Save" />
             <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
          </buttons>
       </ButtonBar>

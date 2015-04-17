@@ -43,7 +43,7 @@ public class Calendar implements java.io.Serializable, CalendarRO {
 	private Orthoptist _orthoptist;
 //	private Set<Doctor> _doctors = new HashSet<Doctor>(0);
 //	private Set<Orthoptist> _orthoptists = new HashSet<Orthoptist>(0);
-	private Set<CalendarEventRO> _calendarEvents = new HashSet<CalendarEventRO>(0);
+	private Set<CalendarEvent> _calendarEvents = new HashSet<CalendarEvent>(0);
 	private Set<CalendarWorkingHours> _calendarWorkingHours = new HashSet<CalendarWorkingHours>(
 			0);
 
@@ -51,7 +51,7 @@ public class Calendar implements java.io.Serializable, CalendarRO {
 	}
 
 	public Calendar(String title, /*Set<Doctor> doctors,
-			Set<Orthoptist> orthoptists,*/ Doctor doctor, Orthoptist orthoptist, Set<CalendarEventRO> calendarevents,
+			Set<Orthoptist> orthoptists,*/ Doctor doctor, Orthoptist orthoptist, Set<CalendarEvent> calendarevents,
 			Set<CalendarWorkingHours> calendarworkinghourses) {
 		this._title = title;
 		_doctor = doctor;
@@ -72,9 +72,9 @@ public class Calendar implements java.io.Serializable, CalendarRO {
 	 * @return A list of CalendarEvent.
 	 */
 	@Transient
-	public List<CalendarEventRO> getCalendarEventsInTimespan(LocalDateTime startDate, LocalDateTime endDate) {
-		List<CalendarEventRO> listCalEv = new LinkedList<>();
-		for (CalendarEventRO c : _calendarEvents) {
+	public List<CalendarEvent> getCalendarEventsInTimespan(LocalDateTime startDate, LocalDateTime endDate) {
+		List<CalendarEvent> listCalEv = new LinkedList<>();
+		for (CalendarEvent c : _calendarEvents) {
 			if (c.isInTimespan(startDate, endDate)) {
 				listCalEv.add(c);
 			}
@@ -139,11 +139,11 @@ public class Calendar implements java.io.Serializable, CalendarRO {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "calendar")
-	public Set<CalendarEventRO> getCalendarEvents() {
+	public Set<CalendarEvent> getCalendarEvents() {
 		return this._calendarEvents;
 	}
 
-	public void setCalendarEvents(Set<CalendarEventRO> calendarEvents) {
+	public void setCalendarEvents(Set<CalendarEvent> calendarEvents) {
 		this._calendarEvents = calendarEvents;
 	}
 

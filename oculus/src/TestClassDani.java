@@ -11,7 +11,7 @@ import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.patient.PatientSearch;
 import at.itb13.oculus.domain.Calendar;
-import at.itb13.oculus.domain.CalendarEventRO;
+import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Queue;

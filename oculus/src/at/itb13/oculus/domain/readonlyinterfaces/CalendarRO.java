@@ -2,7 +2,7 @@ package at.itb13.oculus.domain.readonlyinterfaces;
 
 import java.util.Set;
 
-import at.itb13.oculus.domain.CalendarEventRO;
+import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.CalendarWorkingHours;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Orthoptist;
@@ -18,6 +18,6 @@ public interface CalendarRO {
 	String getTitle();
 	Doctor getDoctor();
 	Orthoptist getOrthoptist();
-	Set<CalendarEventRO> getCalendarEvents();
+	Set<CalendarEvent> getCalendarEvents();
 	Set<CalendarWorkingHours> getCalendarWorkingHours();
 }

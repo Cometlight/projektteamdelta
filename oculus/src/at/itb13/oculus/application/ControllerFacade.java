@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.doctor.DoctorRequest;
+import at.itb13.oculus.application.patient.PatientController;
 import at.itb13.oculus.application.patient.PatientCreation;
 import at.itb13.oculus.application.patient.PatientSearch;
 import at.itb13.oculus.application.queue.QueueController;
@@ -58,16 +59,20 @@ public class ControllerFacade {
 		return _instance;
 	}
 	
-	/**
-	 * 
-	 * @return instantiated controller
-	 */
-	public PatientSearch getPatientSearch() {
-		return new PatientSearch();
-	}
+//	/**
+//	 * 
+//	 * @return instantiated controller
+//	 */
+//	public PatientSearch getPatientSearch() {
+//		return new PatientSearch();
+//	}
+//	
+//	public PatientCreation getPatientCreation() {
+//		return new PatientCreation();
+//	}
 	
-	public PatientCreation getPatientCreation() {
-		return new PatientCreation();
+	public PatientController getPatientController() {
+		return new PatientController();
 	}
 	
 	public DoctorRequest getDoctorRequest() {

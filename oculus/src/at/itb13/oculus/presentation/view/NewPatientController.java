@@ -72,7 +72,7 @@ public class NewPatientController {
 
 	private boolean okClicked = false;
 	
-	@FXML
+	
 	private PatientRO _patient;
 
 	/**
@@ -116,15 +116,15 @@ public class NewPatientController {
 	 * Called when the user clicks ok.
 	 */
 	@FXML
-    private PatientRO handleOk() {
+    private void handleOk() {
      
-		PatientRO patient = null;
+		
 			try {
 				if (isInputValid()) {   
 					        	
 					//creating a new Patient and save it in the database
 					PatientController pc = ControllerFacade.getInstance().getPatientController();
-					_patient =	pc.createPatient(_doctor, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
+					_patient = pc.createPatient(_doctor, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
 					okClicked = true;
 				    _dialogStage.close();
 				}
@@ -133,7 +133,6 @@ public class NewPatientController {
 				e.printStackTrace();
 			}
 			
-			return patient;
     }
 
 	/**

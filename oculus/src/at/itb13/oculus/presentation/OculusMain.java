@@ -170,7 +170,7 @@ public class OculusMain extends Application {
 
 	           // Show the dialog and wait until the user closes it
 	           dialogStage.showAndWait();
-	           _tempPatient = controller.getPatient();
+	          // _tempPatient = controller.getPatient();
 	           return controller.isOkClicked();
 	       } catch (IOException e) {
 	           e.printStackTrace();

@@ -100,7 +100,9 @@ public class AppointmentsController {
 	                (observable, oldValue, newValue) -> showAppointmentInformation(newValue));
 		
 	}
-	
+	/*
+	 * 
+	 */
 	private void getTodaysCalendarEvents(){
 		List<CalendarController> listCalCo = ControllerFacade.getInstance().getAllCalendarController();
 		LocalDateTime start = LocalDateTime.of(2014, 1, 1, 1, 0);

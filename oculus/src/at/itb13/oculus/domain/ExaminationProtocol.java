@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -21,10 +22,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.domain.readonlyinterfaces.ExaminationProtocolRO;
 import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
 
 /**
@@ -32,7 +35,7 @@ import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
  */
 @Entity
 @Table(name = "examinationprotocol", catalog = "oculusdb")
-public class ExaminationProtocol implements java.io.Serializable {
+public class ExaminationProtocol implements java.io.Serializable, ExaminationProtocolRO {
 
 	private static final Logger _logger = LogManager.getLogger(ExaminationProtocol.class
 			.getName());
@@ -72,6 +75,13 @@ public class ExaminationProtocol implements java.io.Serializable {
 		this.examinationresults = examinationresults;
 		this.examinationprotocolservicecodes = examinationprotocolservicecodes;
 		this.referralletters = referralletters;
+	}
+	
+	@Transient
+	private static List<ExaminationProtocol> sortExaminationProtocolsByStartDate(
+			Set<ExaminationProtocol> examinationProtocols) {
+		
+		return null;
 	}
 
 	@Id

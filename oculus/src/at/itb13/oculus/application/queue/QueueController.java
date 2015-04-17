@@ -60,6 +60,13 @@ public class QueueController {
 		return QueueDao.getInstance().makePersistent(_queue);
 	}
 	
+	public boolean pushQueueEntry(PatientRO patientRO) {
+		QueueEntry queueEntry = new QueueEntry();
+		queueEntry.setPatient((Patient) patientRO);
+		queueEntry.setArrivalTime(LocalDateTime.now());
+		return pushQueueEntry(queueEntry);
+	}
+	
 	/**
 	 * 
 	 * @return null if empty QueueEntryList

@@ -30,17 +30,17 @@
                            <children>
                               <ComboBox fx:id="_queueBox" prefWidth="150.0" promptText="choose a Queue" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0" />
                               <Button fx:id="_insertQueueButton" layoutX="770.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleInsertInQueueButton" text="insert" AnchorPane.rightAnchor="5.0" />
-                              <Label fx:id="_patient" layoutX="448.0" layoutY="50.0" text="Label" />
-                              <Label fx:id="_eventType" layoutX="158.0" layoutY="14.0" text="Label" />
-                              <Label fx:id="_description" layoutX="14.0" layoutY="50.0" text="Label" />
-                              <Label fx:id="_patientNotInDatabase" layoutX="448.0" layoutY="14.0" text="Label" />
-                              <Button fx:id="_addPatient" layoutX="594.0" layoutY="10.0" mnemonicParsing="false" onAction="#addPatientControl" text="add Patient" />
-                              <Label fx:id="_dateTime" layoutX="14.0" layoutY="14.0" text="Label" />
+                              <Label fx:id="_patientLabel" layoutX="448.0" layoutY="50.0" text="Label" />
+                              <Label fx:id="_eventTypeLabel" layoutX="158.0" layoutY="14.0" text="Label" />
+                              <Label fx:id="_descriptionLabel" layoutX="14.0" layoutY="50.0" text="Label" />
+                              <Label fx:id="_patientNotInDatabaseLabel" layoutX="448.0" layoutY="14.0" text="Label" />
+                              <Button fx:id="_addPatientButton" layoutX="594.0" layoutY="10.0" mnemonicParsing="false" onAction="#addPatientControl" text="add Patient" />
+                              <Label fx:id="_dateTimeLabel" layoutX="14.0" layoutY="14.0" text="Label" />
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <BorderPane fx:id="_patientRecord" layoutX="14.0" layoutY="-16.0" prefHeight="345.0" prefWidth="836.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <BorderPane fx:id="_patientRecordBorderPane" layoutX="14.0" layoutY="-16.0" prefHeight="345.0" prefWidth="836.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children></AnchorPane>
                     </items>
                   </SplitPane>

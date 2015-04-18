@@ -88,8 +88,7 @@ public class AppointmentsController {
 	@FXML
 	private BorderPane _patientRecordBorderPane;
 
-	private ObservableList<CalendarEventRO> _appointmentsList = FXCollections
-			.observableArrayList();
+	private ObservableList<CalendarEventRO> _appointmentsList = FXCollections.observableArrayList();
 
 	private OculusMain _main;
 
@@ -101,7 +100,7 @@ public class AppointmentsController {
 	@FXML
 	private void initialize() {
 
-		getTodaysCalendarEvents();
+		setTodaysCalendarEvents();
 		_appointmentTable.setItems(_appointmentsList);
 
 		_timeColumn
@@ -169,10 +168,9 @@ public class AppointmentsController {
 	/*
 	 * 
 	 */
-	private void getTodaysCalendarEvents() {
+	private void setTodaysCalendarEvents() {
 		List<CalendarController> listCalCo = ControllerFacade.getInstance()
 				.getAllCalendarController();
-		LocalDateTime start = LocalDateTime.of(2014, 1, 1, 1, 0);
 		LocalDate startofend = LocalDate.now();
 		LocalDateTime end = LocalDateTime.of(startofend, LocalTime.MAX);
 
@@ -181,8 +179,8 @@ public class AppointmentsController {
 
 			// With list instead:
 			for (CalendarController calCo : listCalCo) {
-				events.addAll(calCo.getCalendarEventsInTimespan(start,
-						LocalDateTime.now()));
+				events.addAll(calCo.getCalendarEventsInTimespan(LocalDateTime.now(),
+						LocalDateTime.MAX));
 			}
 
 			for (CalendarEventRO e : events) {
@@ -253,17 +251,14 @@ public class AppointmentsController {
 				.getCalendarController(
 						_appointmentTable.getSelectionModel().getSelectedItem()
 								.getCalendar());
-		calco.connectCalendarEventWithPatient(_appointmentTable
-				.getSelectionModel().getSelectedItem(), _main
-				.getCreatedPatient());
+		calco.connectCalendarEventWithPatient(_appointmentTable.getSelectionModel().getSelectedItem(), _main.getCreatedPatient());
 	}
 
 	private void setItemsToQueueBox() {
 
 		_queueBox.setConverter(new QueueSringConverter());
-		List<QueueController> queController = ControllerFacade.getInstance()
-				.getAllQueueController();
-		for (QueueController controller : queController) {
+		List<QueueController> queController = ControllerFacade.getInstance().getAllQueueController();
+		for (QueueController controller : queController) {		
 			_queueBox.getItems().add(controller.getQueue());
 		}
 	}
@@ -276,18 +271,12 @@ public class AppointmentsController {
 
 		if (queue != null) {
 			if (queue.getDoctor() != null) {
-				controller = ControllerFacade.getInstance().getQueueController(
-						queue.getDoctor().getDoctorId(), null);
+				controller = ControllerFacade.getInstance().getQueueController(queue.getDoctor().getDoctorId(), null);
 			} else if (queue.getOrthoptist() != null) {
-				controller = ControllerFacade.getInstance().getQueueController(
-						null, queue.getOrthoptist().getOrthoptistId());
+				controller = ControllerFacade.getInstance().getQueueController(null, queue.getOrthoptist().getOrthoptistId());
 			}
 			if (controller != null) {
-				System.out.println("Patient: "
-						+ _appointmentTable.getSelectionModel()
-								.getSelectedItem().getPatient());
-				controller.pushQueueEntry(_appointmentTable.getSelectionModel()
-						.getSelectedItem().getPatient());
+				controller.pushQueueEntry(_appointmentTable.getSelectionModel().getSelectedItem().getPatient());
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setContentText("Patient is added to Queue");
 				alert.showAndWait();

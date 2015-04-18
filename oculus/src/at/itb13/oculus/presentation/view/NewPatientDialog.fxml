@@ -90,8 +90,8 @@
                </GridPane.margin></ComboBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
-                  <RadioButton fx:id="_female" minWidth="0.0" mnemonicParsing="false" onAction="#handleGender" prefHeight="17.0" text="female" />
-                  <RadioButton fx:id="_male" mnemonicParsing="false" onAction="#handleGender" text="male" />
+                  <RadioButton fx:id="_femaleRadioButton" minWidth="0.0" mnemonicParsing="false" onAction="#handleGender" prefHeight="17.0" text="female" />
+                  <RadioButton fx:id="_maleRadioButton" mnemonicParsing="false" onAction="#handleGender" text="male" />
                </children>
             </HBox>
             <Label text="Personal">

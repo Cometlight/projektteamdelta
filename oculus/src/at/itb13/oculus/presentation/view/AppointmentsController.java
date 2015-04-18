@@ -179,7 +179,7 @@ public class AppointmentsController {
 
 			// With list instead:
 			for (CalendarController calCo : listCalCo) {
-				events.addAll(calCo.getCalendarEventsInTimespan(LocalDateTime.now(),
+				events.addAll(calCo.getCalendarEventsInTimespan(LocalDateTime.MIN,
 						LocalDateTime.MAX));
 			}
 

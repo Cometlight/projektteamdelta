@@ -25,7 +25,7 @@ import at.itb13.oculus.presentation.util.QueueSringConverter;
  * @author Caroline Meusburger
  * @since 15.04.2015
  */
-public class QueueController {
+public class QueueController implements ControllerMainSetter {
 	
 	@FXML
 	private ListView<QueueEntryRO> _queueEntrysListView;

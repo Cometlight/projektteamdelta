@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.view.AppointmentsController;
-import at.itb13.oculus.presentation.view.IController;
+import at.itb13.oculus.presentation.view.ControllerMainSetter;
 import at.itb13.oculus.presentation.view.NewPatientController;
 import at.itb13.oculus.presentation.view.PatientController;
 import at.itb13.oculus.presentation.view.PatientRecordController;
@@ -129,7 +129,7 @@ public class OculusMain extends Application {
 	 * @param fxmlPath The path of the .fxml-File, eg. "view/PatientOverview.fxml"
 	 * @param controllerClass The class of the associated controller. Must implement the interface IController.
 	 */
-	public <T extends IController> void showTab(String fxmlPath, Class<T> controllerClass) {
+	public <T extends ControllerMainSetter> void showTab(String fxmlPath, Class<T> controllerClass) {
 		if(_rootLayout != null) {
 			try {
 				// Load person overview.
@@ -185,25 +185,28 @@ public class OculusMain extends Application {
 	 * TODO: Insert Description
 	 */
 	public void showAppointmentsOverview() {
-		if(_rootLayout != null) {
-			try {
-				// Load person overview.
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(OculusMain.class
-						.getResource("view/AppointmentsOverview.fxml"));
-				AnchorPane overview = (AnchorPane) loader.load();
-	
-				// Set person overview into the center of root layout.
-				_rootLayout.setCenter(overview);
-	
-				// Give the controller access to the main app.
-				AppointmentsController controller = loader.getController();
-				controller.setMain(this);
-	
-			} catch (IOException ex) {
-				_logger.error(ex);
-			}
-		}
+		showTab("view/AppointmentsOverview.fxml", AppointmentsController.class);
+		
+		// "Old" way of doing that:
+//		if(_rootLayout != null) {
+//			try {
+//				// Load person overview.
+//				FXMLLoader loader = new FXMLLoader();
+//				loader.setLocation(OculusMain.class
+//						.getResource("view/AppointmentsOverview.fxml"));
+//				AnchorPane overview = (AnchorPane) loader.load();
+//	
+//				// Set person overview into the center of root layout.
+//				_rootLayout.setCenter(overview);
+//	
+//				// Give the controller access to the main app.
+//				AppointmentsController controller = loader.getController();
+//				controller.setMain(this);
+//	
+//			} catch (IOException ex) {
+//				_logger.error(ex);
+//			}
+//		}
 
 	}
 
@@ -211,24 +214,27 @@ public class OculusMain extends Application {
 	 * TODO: Insert Description
 	 */
 	public void showQueue() {
-		if(_rootLayout != null) {
-			try {
-				// Load person overview.
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(OculusMain.class.getResource("view/Queue.fxml"));
-				AnchorPane overview = (AnchorPane) loader.load();
-	
-				// Set person overview into the center of root layout.
-				_rootLayout.setCenter(overview);
-	
-				// Give the controller access to the main app.
-				QueueController controller = loader.getController();
-				controller.setMain(this);
-	
-			} catch (IOException ex) {
-				_logger.error(ex);
-			}
-		}
+		showTab("view/Queue.fxml", QueueController.class);
+		
+		// "Old" way of doing that:
+//		if(_rootLayout != null) {
+//			try {
+//				// Load person overview.
+//				FXMLLoader loader = new FXMLLoader();
+//				loader.setLocation(OculusMain.class.getResource("view/Queue.fxml"));
+//				AnchorPane overview = (AnchorPane) loader.load();
+//	
+//				// Set person overview into the center of root layout.
+//				_rootLayout.setCenter(overview);
+//	
+//				// Give the controller access to the main app.
+//				QueueController controller = loader.getController();
+//				controller.setMain(this);
+//	
+//			} catch (IOException ex) {
+//				_logger.error(ex);
+//			}
+//		}
 	}
 
 	/**

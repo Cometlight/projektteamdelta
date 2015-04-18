@@ -8,6 +8,6 @@ import at.itb13.oculus.presentation.OculusMain;
  * @author Daniel Scheffknecht
  * @date 18.04.2015
  */
-public interface IController {
+public interface ControllerMainSetter {
 	void setMain(OculusMain oculusMain);
 }

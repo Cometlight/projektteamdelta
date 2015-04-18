@@ -29,7 +29,7 @@ import javafx.scene.layout.BorderPane;
  * @author Caroline Meusburger
  * @since 07.04.2015
  */
-public class PatientController implements IController {
+public class PatientController implements ControllerMainSetter {
 	private static final Logger _logger = LogManager.getLogger(PatientController.class.getName());
 
 	//Tab Patient Attributs

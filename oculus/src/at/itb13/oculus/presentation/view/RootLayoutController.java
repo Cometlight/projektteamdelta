@@ -20,7 +20,7 @@ import javafx.scene.layout.BorderPane;
  * @author Caroline Meusburger
  * @since 15.04.2015
  */
-public class RootLayoutController {
+public class RootLayoutController implements ControllerMainSetter {
 	private static final Logger _logger = LogManager.getLogger(RootLayoutController.class.getName());
 	
 

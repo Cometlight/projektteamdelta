@@ -145,4 +145,8 @@ public class PatientController {
 		Set<ExaminationProtocol> listExPro = patientRO.getExaminationprotocols();
 		return ExaminationProtocol.sortExaminationProtocolsByStartDate(listExPro);
 	}
+	
+	public boolean isSocialInsuranceNrValid(String socialInsuranceNr) {
+		return Patient.isSocialInsuranceNrValid(socialInsuranceNr);
+	}
 }

@@ -5,15 +5,20 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javafx.scene.control.ToggleGroup;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.doctor.DoctorRequest;
+import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.patient.PatientController;
 import at.itb13.oculus.application.patient.PatientCreation;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.util.DoctorSringConverter;
+import at.itb13.oculus.technicalServices.GenericDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,6 +37,8 @@ import javafx.stage.Stage;
  * @since 10.04.2015
  */
 public class NewPatientController {
+	private static final Logger _logger = LogManager.getLogger(NewPatientController.class.getName());
+	
 	@FXML
 	private TextField _firstNameField;
 	@FXML
@@ -210,6 +217,32 @@ public class NewPatientController {
 			alert.showAndWait();
 
 			return false;
+		}
+	}
+	
+	@FXML
+	private void onActionSINField() {
+		PatientController patCol = ControllerFacade.getInstance().getPatientController();
+		String sin = _SINField.getText();
+		if(patCol.isSocialInsuranceNrValid(sin)) {
+			try {
+				PatientRO patientRO = patCol.searchPatientBySocialInsuranceNr(sin);
+
+				if(patientRO != null) {	// Patient with SIN already exists
+					Alert alert = new Alert(AlertType.WARNING);
+					alert.initOwner(_dialogStage);
+					alert.setTitle("Patient already exists");
+					alert.setHeaderText("A patient with the social insurance nr '" + sin + "' already exists!");
+					alert.setContentText("Patient information: "
+							+ "first name: '" + patientRO.getFirstName()
+							+ "', last name: '" + patientRO.getLastName()
+							+ "', birthday: '" + patientRO.getBirthDay() + "'");
+	
+					alert.showAndWait();
+				}
+			} catch (InvalidInputException e) {
+				_logger.warn(e);
+			}
 		}
 	}
 

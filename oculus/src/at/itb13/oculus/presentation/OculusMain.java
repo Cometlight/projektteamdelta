@@ -20,6 +20,7 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -80,10 +81,20 @@ public class OculusMain extends Application {
 		try {
 			// Load root layout from fxml file.
 
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(OculusMain.class
-					.getResource("view/RootLayout.fxml"));
-			_rootLayout = (BorderPane) loader.load();
+//			FXMLLoader loader = new FXMLLoader();
+//			loader.setLocation(OculusMain.class
+//					.getResource("view/RootLayout.fxml"));
+////			RootLayoutController rlc = new RootLayoutController();
+////			rlc.setMain(this);
+////			loader.setController(rlc);
+//			_rootLayout = (BorderPane) loader.load();
+////			_rootLayout = FXMLLoader.load(getClass().getResource("view/RootLayout.fxml"));
+			
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("view/RootLayout.fxml"));
+			RootLayoutController rlc = new RootLayoutController();
+			rlc.setMain(this);
+			loader.setController(rlc);
+			_rootLayout = loader.load();
 
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(_rootLayout);
@@ -93,6 +104,7 @@ public class OculusMain extends Application {
 			// Give the controller access to the main app.
 			RootLayoutController controller = loader.getController();
 			controller.setMain(this);
+			showAppointmentsOverview();		// Info: NEW
 			_logger.info("initRootLayout() successful");
 
 		} catch (IOException ex) {
@@ -129,23 +141,25 @@ public class OculusMain extends Application {
 	}
 
 	public void showAppointmentsOverview() {
-		try {
-			// Load person overview.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(OculusMain.class
-					.getResource("view/AppointmentsOverview.fxml"));
-			AnchorPane overview = (AnchorPane) loader.load();
-
-			// Set person overview into the center of root layout.
-			_rootLayout.setCenter(overview);
-
-			// Give the controller access to the main app.
-			AppointmentsController controller = loader.getController();
-			controller.setMain(this);
-
-		} catch (IOException ex) {
-			ex.printStackTrace();
-			_logger.error(ex);
+		if(_rootLayout != null) {
+			try {
+				// Load person overview.
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(OculusMain.class
+						.getResource("view/AppointmentsOverview.fxml"));
+				AnchorPane overview = (AnchorPane) loader.load();
+	
+				// Set person overview into the center of root layout.
+				_rootLayout.setCenter(overview);
+	
+				// Give the controller access to the main app.
+				AppointmentsController controller = loader.getController();
+				controller.setMain(this);
+	
+			} catch (IOException ex) {
+				ex.printStackTrace();
+				_logger.error(ex);
+			}
 		}
 
 	}

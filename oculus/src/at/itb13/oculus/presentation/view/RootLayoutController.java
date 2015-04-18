@@ -47,9 +47,7 @@ public class RootLayoutController {
 		 
 		 @FXML
 		 private void tabAppointmentsControl(){	
-		
-			_main.showAppointmentsOverview();
-			    
+			 _main.showAppointmentsOverview();
 		 }
 		 
 		 @FXML

@@ -76,6 +76,7 @@ public class PatientController {
 			String street, String postalCode, String city,
 			String countryIsoCode, String phone, String email) {
 		
+		// TODO: Check if patient with social insurance nr already exists; don't insert otherwise!
 		Doctor doctor = DoctorDao.getInstance().findById(doctorRO.getDoctorId());
 		
 		Patient patient = new Patient(doctor, socialInsuranceNr, firstName, lastName,

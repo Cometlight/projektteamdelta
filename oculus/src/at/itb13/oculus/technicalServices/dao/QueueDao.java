@@ -200,9 +200,10 @@ public class QueueDao {
 			tx = session.beginTransaction();
 
 			for (Queue queue : entities) {
-				List<QueueEntity> listQueueDB = loadQueueEntitiesById(queue
-						.getDoctor().getDoctorId(), queue.getOrthoptist()
-						.getOrthoptistId());
+				Doctor doc = queue.getDoctor();
+				Orthoptist ort = queue.getOrthoptist();
+				List<QueueEntity> listQueueDB = loadQueueEntitiesById((doc == null) ? null : doc.getDoctorId(), 
+						(ort == null) ? null : ort.getOrthoptistId());
 
 				Integer prevEntryId = null; // first element has NULL as
 											// queueIdParent
@@ -211,23 +212,18 @@ public class QueueDao {
 
 					prevEntryId = entity.getQueueId();
 
-					session.saveOrUpdate(entity);
-
-					// remove entity if it exists
-					ListIterator<QueueEntity> it = listQueueDB.listIterator();
-					while (it.hasNext()) {
-						QueueEntity entityDB = it.next();
-						if (entityDB.getQueueId().equals(entity.getQueueId())) {
-							it.remove();
-							break;
-						}
+					/* Do not use saveOrUpdate, otherwise a NonUniqueObjectException is thrown because the QueueEntities have
+					 * already been loaded with loadQueueEntitiesById a few rows above
+					 */
+					if (deleteIfInQueueDB(entity, listQueueDB)) {
+						session.update(entity);
+					} else {
+						session.save(entity);
 					}
-
-					// delete all entries that are currently in the database,
-					// but
-					// aren't in the queue
-					listQueueDB.forEach(session::delete);
 				}
+				
+				// delete all entries that are currently in the database, but aren't in the queue
+				listQueueDB.forEach(session::delete);
 			}
 
 			tx.commit();
@@ -244,6 +240,23 @@ public class QueueDao {
 		}
 
 		return true;
+	}
+
+	/** TODO
+	 * @param entity
+	 * @return
+	 */
+	private boolean deleteIfInQueueDB(QueueEntity entity, List<QueueEntity> list) {
+		ListIterator<QueueEntity> it = list.listIterator();
+		while (it.hasNext()) {
+			QueueEntity entityDB = it.next();
+			if (entityDB.getQueueId().equals(entity.getQueueId())) {
+				it.remove();
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	/**

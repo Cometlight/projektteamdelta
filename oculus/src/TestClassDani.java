@@ -56,11 +56,11 @@ public class TestClassDani {
 			System.out.println(q.getQueue().getDoctor() + " - " + q.getQueue().getOrthoptist());
 			try {
 				System.out.println("# Start 1");
-				q.getQueueEntries().forEach(System.out::print);
+				q.getQueueEntries().forEach(qe -> System.out.println(qe.getPatient().getFirstName()));
 				PatientRO patientRO = ControllerFacade.getInstance().getPatientController().searchPatientBySocialInsuranceNr("7531653399");
-				q.pushQueueEntry(patientRO);
+				System.out.println(q.pushQueueEntry(patientRO));
 				System.out.println("# Start 2");
-				q.getQueueEntries().forEach(System.out::print);
+				q.getQueueEntries().forEach(qe -> System.out.println(qe.getPatient().getFirstName()));
 			} catch (InvalidInputException e) {
 				e.printStackTrace();
 			}

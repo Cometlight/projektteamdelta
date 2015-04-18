@@ -2,8 +2,11 @@ package at.itb13.oculus.domain;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -76,12 +79,48 @@ public class ExaminationProtocol implements java.io.Serializable, ExaminationPro
 		this.examinationprotocolservicecodes = examinationprotocolservicecodes;
 		this.referralletters = referralletters;
 	}
+	/**
+	 * 
+	 * compares startprotocol of to ExaminationProtocols
+	 * 
+	 * @author Karin Trommelschläger
+	 * @date 18.04.2015
+	 *
+	 */
+//	class ExaminationProtocolComparator implements Comparator<ExaminationProtocol> {
+//	
+//		@Override
+//		public int compare(ExaminationProtocol ep1, ExaminationProtocol ep2) {
+//			return (ep1.getStartProtocol().compareTo(ep2.getStartProtocol()));
+//		}
+//
+//    }
+	/**
+	 * Gives back a sorted Linked List<ExaminationProtocols>, the newest ExaminationProtocol is the first Element.
+	 * 
+	 * @param Set <ExaminationProtocol> examinationProtocols
+	 * @return Linked List <ExaminationProtocol>
+	 */
 	
 	@Transient
 	private static List<ExaminationProtocol> sortExaminationProtocolsByStartDate(
 			Set<ExaminationProtocol> examinationProtocols) {
-		
-		return null;
+			List<ExaminationProtocol> unsortedExaminationProtocols = new LinkedList<ExaminationProtocol>(examinationProtocols);
+			List<ExaminationProtocol> sortedExaminationProtocols = new LinkedList<ExaminationProtocol>();
+			ExaminationProtocol epMax = null;
+			while (!unsortedExaminationProtocols.isEmpty()){
+				epMax = unsortedExaminationProtocols.get(0);
+				for (ExaminationProtocol ep:unsortedExaminationProtocols){
+					if (epMax.getStartProtocol().isBefore(ep.getStartProtocol())){
+						epMax = ep;
+					}
+				}
+				sortedExaminationProtocols.add(epMax);
+				unsortedExaminationProtocols.remove(epMax);
+			}
+			
+//			Collections.sort(sortedExaminationProtocols, new ExaminationProtocolComparator());
+		return sortedExaminationProtocols;
 	}
 
 	@Id

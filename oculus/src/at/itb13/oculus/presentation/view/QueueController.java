@@ -47,6 +47,7 @@ public class QueueController {
 			 
 	@FXML
 	private void initialize() {
+		
 		setItemsToQueueBox();
 		_queueEntrysListView.setItems(_queueEntryList);
 		
@@ -81,6 +82,13 @@ public class QueueController {
 		
 	}
 
+	private void clearQueue() {
+			
+		
+		_queueEntryList.clear();
+
+	}
+
 	private void setItemsToQueueBox() {
 
 		_queueBox.setConverter(new QueueSringConverter());
@@ -92,13 +100,13 @@ public class QueueController {
 	
 	@FXML
 	private void handleQueueComboBox() {
-
 		_queue = _queueBox.getSelectionModel().getSelectedItem();
 		setQueueEntriesInList();
 	}
 	
 	private void setQueueEntriesInList(){
 		
+		clearQueue();
 		at.itb13.oculus.application.queue.QueueController controller = ControllerFacade.getInstance().getQueueController(_queue);
 		List<QueueEntryRO> entries = (List<QueueEntryRO>) controller.getQueueEntries();
 		

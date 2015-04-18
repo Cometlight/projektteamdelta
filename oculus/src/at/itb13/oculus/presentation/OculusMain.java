@@ -28,6 +28,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+
 public class OculusMain extends Application {
 
 	private static final Logger _logger = LogManager.getLogger(OculusMain.class

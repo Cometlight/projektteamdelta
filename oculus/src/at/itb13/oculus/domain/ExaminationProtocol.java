@@ -79,31 +79,15 @@ public class ExaminationProtocol implements java.io.Serializable, ExaminationPro
 		this.examinationprotocolservicecodes = examinationprotocolservicecodes;
 		this.referralletters = referralletters;
 	}
-	/**
-	 * 
-	 * compares startprotocol of to ExaminationProtocols
-	 * 
-	 * @author Karin Trommelschläger
-	 * @date 18.04.2015
-	 *
-	 */
-//	class ExaminationProtocolComparator implements Comparator<ExaminationProtocol> {
-//	
-//		@Override
-//		public int compare(ExaminationProtocol ep1, ExaminationProtocol ep2) {
-//			return (ep1.getStartProtocol().compareTo(ep2.getStartProtocol()));
-//		}
-//
-//    }
+	
 	/**
 	 * Gives back a sorted Linked List<ExaminationProtocols>, the newest ExaminationProtocol is the first Element.
 	 * 
 	 * @param Set <ExaminationProtocol> examinationProtocols
 	 * @return Linked List <ExaminationProtocol>
 	 */
-	
 	@Transient
-	private static List<ExaminationProtocol> sortExaminationProtocolsByStartDate(
+	public static List<ExaminationProtocol> sortExaminationProtocolsByStartDate(
 			Set<ExaminationProtocol> examinationProtocols) {
 			List<ExaminationProtocol> unsortedExaminationProtocols = new LinkedList<ExaminationProtocol>(examinationProtocols);
 			List<ExaminationProtocol> sortedExaminationProtocols = new LinkedList<ExaminationProtocol>();
@@ -194,31 +178,31 @@ public class ExaminationProtocol implements java.io.Serializable, ExaminationPro
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "examinationprotocol")
-	public Set<ExaminationResult> getExaminationresults() {
+	public Set<ExaminationResult> getExaminationResults() {
 		return this.examinationresults;
 	}
 
-	public void setExaminationresults(Set<ExaminationResult> examinationresults) {
-		this.examinationresults = examinationresults;
+	public void setExaminationResults(Set<ExaminationResult> examinationResults) {
+		this.examinationresults = examinationResults;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "examinationprotocol")
-	public Set<ExaminationProtocolServiceCode> getExaminationprotocolservicecodes() {
+	public Set<ExaminationProtocolServiceCode> getExaminationProtocolServiceCodes() {
 		return this.examinationprotocolservicecodes;
 	}
 
-	public void setExaminationprotocolservicecodes(
-			Set<ExaminationProtocolServiceCode> examinationprotocolservicecodes) {
-		this.examinationprotocolservicecodes = examinationprotocolservicecodes;
+	public void setExaminationProtocolServiceCodes(
+			Set<ExaminationProtocolServiceCode> examinationProtocolServiceCodes) {
+		this.examinationprotocolservicecodes = examinationProtocolServiceCodes;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "examinationprotocol")
-	public Set<ReferralLetter> getReferralletters() {
+	public Set<ReferralLetter> getReferralLetters() {
 		return this.referralletters;
 	}
 
-	public void setReferralletters(Set<ReferralLetter> referralletters) {
-		this.referralletters = referralletters;
+	public void setReferralLetters(Set<ReferralLetter> referralLetters) {
+		this.referralletters = referralLetters;
 	}
 
 }

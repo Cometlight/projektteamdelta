@@ -2,11 +2,14 @@ package at.itb13.oculus.application.patient;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.Doctor;
+import at.itb13.oculus.domain.ExaminationProtocol;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
+import at.itb13.oculus.domain.readonlyinterfaces.ExaminationProtocolRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.technicalServices.dao.DoctorDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
@@ -136,5 +139,10 @@ public class PatientController {
 		}
 		
 		return patient;
+	}
+	
+	public List<? extends ExaminationProtocolRO> getAllExaminationProtocolsSorted(PatientRO patientRO) {
+		Set<ExaminationProtocol> listExPro = patientRO.getExaminationprotocols();
+		return ExaminationProtocol.sortExaminationProtocolsByStartDate(listExPro);
 	}
 }

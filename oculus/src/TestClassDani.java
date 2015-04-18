@@ -11,15 +11,18 @@ import org.apache.logging.log4j.Logger;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
+import at.itb13.oculus.application.patient.PatientController;
 import at.itb13.oculus.application.patient.PatientSearch;
 import at.itb13.oculus.application.queue.QueueController;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Doctor;
+import at.itb13.oculus.domain.ExaminationProtocol;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Queue;
 import at.itb13.oculus.domain.QueueEntry;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
+import at.itb13.oculus.domain.readonlyinterfaces.ExaminationProtocolRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueEntryRO;
 import at.itb13.oculus.technicalServices.dao.DoctorDao;
@@ -39,8 +42,9 @@ public class TestClassDani {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		exProtTest1();
 //		listTest();
-		queue1Output();
+//		queue1Output();
 //		queueTestMove1();
 //		queueTest1();
 //		queueTest2();
@@ -56,6 +60,26 @@ public class TestClassDani {
 		System.exit(0);
 	}
 	
+	private static void exProtTest1() {
+		PatientController pCol = ControllerFacade.getInstance().getPatientController();
+		PatientRO patRO = null;
+		try {
+			patRO = pCol.searchPatientBySocialInsuranceNr("7531653399");
+		} catch (InvalidInputException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("# not sorted:");
+		for(ExaminationProtocol eP : patRO.getExaminationprotocols()) {
+			System.out.println(eP.getStartProtocol());
+		}
+		
+		System.out.println("\n# sorted:");
+		for(ExaminationProtocolRO ePRO : pCol.getAllExaminationProtocolsSorted(patRO)) {
+			System.out.println(ePRO.getStartProtocol());
+		}
+	}
+
 	private static void queue1Output() {
 		QueueController q = ControllerFacade.getInstance().getQueueController(1, null);
 		

@@ -15,6 +15,7 @@ import at.itb13.oculus.application.queue.QueueController;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Orthoptist;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
+import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
 import at.itb13.oculus.technicalServices.dao.CalendarDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 import at.itb13.oculus.technicalServices.dao.QueueDao;
@@ -94,6 +95,11 @@ public class ControllerFacade {
 		}
 		
 		return controller;
+	}
+	
+	public QueueController getQueueController(QueueRO queueRO) {
+		return getQueueController((queueRO.getDoctor() == null) ? null : queueRO.getDoctor().getDoctorId(), 
+				(queueRO.getOrthoptist() == null) ? null : queueRO.getOrthoptist().getOrthoptistId());
 	}
 	
 	public List<QueueController> getAllQueueController() {

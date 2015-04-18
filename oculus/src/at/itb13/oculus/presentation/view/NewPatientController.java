@@ -44,14 +44,14 @@ public class NewPatientController {
 	private ToggleGroup _genderGroup;
 
 	@FXML
-	private RadioButton _male;
+	private RadioButton _maleRadioButton;
 	@FXML
-	private RadioButton _female;
+	private RadioButton _femaleRadioButton;
 	private String _gender;
 	@FXML
 	private ComboBox<DoctorRO> _doctorBox;
 
-	private List<DoctorRO> _doctors;
+	private List<DoctorRO> _doctorsList;
 	private DoctorRO _doctor;
 	@FXML
 	private TextField _streetField;
@@ -86,9 +86,9 @@ public class NewPatientController {
 
 		_gender = "F";
 		_genderGroup = new ToggleGroup();
-		_female.setToggleGroup(_genderGroup);
-		_male.setToggleGroup(_genderGroup);
-		_female.setSelected(true);
+		_femaleRadioButton.setToggleGroup(_genderGroup);
+		_maleRadioButton.setToggleGroup(_genderGroup);
+		_femaleRadioButton.setSelected(true);
 
 	}
 
@@ -144,9 +144,9 @@ public class NewPatientController {
 
 	@FXML
 	private void handleGender() {
-		if (_male.isSelected()) {
+		if (_maleRadioButton.isSelected()) {
 			_gender = "M";
-		} else if (_female.isSelected()) {
+		} else if (_femaleRadioButton.isSelected()) {
 			_gender = "F";
 		}
 

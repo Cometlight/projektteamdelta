@@ -15,7 +15,7 @@ public class QueueController {
 	@FXML
 	private ListView _queueEntrys;
 	
-	//general Attributs
+	//general Attributes
 	private OculusMain _main;
 			
 	//general Methods

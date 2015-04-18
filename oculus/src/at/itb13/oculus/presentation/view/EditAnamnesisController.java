@@ -15,9 +15,9 @@ public class EditAnamnesisController {
 	@FXML
 	private TextArea _allergiesText;
 	@FXML
-	private TextArea _childhoodAilments;
+	private TextArea _childhoodAilmentsText;
 	@FXML
-	private TextArea _medicineIntolerance;
+	private TextArea _medicineIntoleranceText;
 	
 
 	

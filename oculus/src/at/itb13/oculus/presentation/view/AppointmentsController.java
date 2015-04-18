@@ -14,6 +14,7 @@ import java.util.prefs.Preferences;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -27,8 +28,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -108,9 +111,19 @@ public class AppointmentsController implements ControllerMainSetter {
 		
 		_appointmentTable.setItems(_appointmentsList);
 
-		_timeColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
+//		_timeColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
+//			@Override
+//			public ObservableValue<String> call(TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
+//				return new SimpleStringProperty(
+//						event.getValue().getEventStart().getHour()
+//						+ ":"
+//						+ event.getValue().getEventStart().getMinute());
+//			}
+//		});
+		
+		_timeColumn.setCellValueFactory(new Callback<CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
 			@Override
-			public ObservableValue<String> call(TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
+			public ObservableValue<String> call(CellDataFeatures<CalendarEventRO, String> event) {
 				return new SimpleStringProperty(
 						event.getValue().getEventStart().getHour()
 						+ ":"
@@ -138,6 +151,27 @@ public class AppointmentsController implements ControllerMainSetter {
 				return new SimpleStringProperty(event.getValue().getEventtype().getEventTypeName());
 			}
 		});
+		
+		// Color the rows depending on the state of the CalendarEvents
+		_appointmentTable.setRowFactory(new Callback<TableView<CalendarEventRO>, TableRow<CalendarEventRO>>() {
+	        @Override
+	        public TableRow<CalendarEventRO> call(TableView<CalendarEventRO> tableView) {
+	            final TableRow<CalendarEventRO> row = new TableRow<CalendarEventRO>() {
+	                @Override
+	                protected void updateItem(CalendarEventRO calEv, boolean empty){
+	                    super.updateItem(calEv, empty);
+	                    if(calEv != null) {
+	                    	if(calEv.isOpen()) {
+		                    	setStyle("-fx-background-color: green");	// rather use  getStyleClass().add("classname");
+		                    } else {
+		                    	setStyle("-fx-background-color: red");	// rather use  getStyleClass().removeAll(Collections.singleton("classname"));
+		                    }
+	                    }
+	                }
+	            };
+	            return row;
+	        }
+	    });
 		
 		setItemsToQueueBox();
 		showAppointmentInformation(null);

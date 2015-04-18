@@ -411,22 +411,34 @@ public class QueueDao {
 	private List<QueueEntry> convertToQueueEntryList(List<QueueEntity> entities) {
 		LinkedList<QueueEntry> listQueueEntry = new LinkedList<>();
 		
-		for (QueueEntity queueEntity : entities) {
-			QueueEntry queueEntry = convertToQueueEntry(queueEntity);
-
-			// TODO: Optimize algorithm
-			if (queueEntity.getQueueIdParent() == null) { // front of queue
-				listQueueEntry.addFirst(queueEntry);
-			} else {
-				ListIterator<QueueEntry> it = listQueueEntry.listIterator();
-				while (it.hasNext()) {
-					QueueEntry curEntry = it.next();
-					if (curEntry.getQueueEntryId().equals(
-							queueEntity.getQueueIdParent())) {
-						it.add(queueEntry);
-					}
+		Integer prevId = null;
+		// Insert 1st element (parentID == NULL)
+		for(QueueEntity entity : entities) {
+			if(entity.getQueueIdParent() == null) {
+				listQueueEntry.addFirst(convertToQueueEntry(entity));
+				prevId = entity.getQueueId();
+			}
+		}
+		
+		if(prevId == null) {
+			_logger.error("No QueueEntity with QueueIdParent == null found!");
+			return listQueueEntry;
+		}
+		
+		// Insert remaining elements
+		int maxIterations = 1000;	// to prevent infinite loop
+		while(listQueueEntry.size() != entities.size() && maxIterations-- > 0) {
+			for(QueueEntity entity : entities) {	// FIXME: Optimize algorithm
+				if(entity.getQueueIdParent() != null && entity.getQueueIdParent().equals(prevId)) {
+					listQueueEntry.add(convertToQueueEntry(entity));
+					prevId = entity.getQueueId();
+					break;
 				}
 			}
+		}
+		
+		if(maxIterations <= 0) {
+			_logger.error("Aborting infinite loop; check if the table \"Queue\" in the database is in a consistent state.");
 		}
 		
 		return listQueueEntry;

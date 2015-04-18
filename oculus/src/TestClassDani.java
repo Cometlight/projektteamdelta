@@ -9,7 +9,9 @@ import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.calendar.CalendarController;
+import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.patient.PatientSearch;
+import at.itb13.oculus.application.queue.QueueController;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Doctor;
@@ -17,6 +19,7 @@ import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Queue;
 import at.itb13.oculus.domain.QueueEntry;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
+import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.technicalServices.dao.DoctorDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 import at.itb13.oculus.technicalServices.dao.QueueDao;
@@ -34,7 +37,8 @@ public class TestClassDani {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		newTest();
+		queueTest1();
+//		newTest();
 //		calEvTest1();
 //		foo1();
 //		foo2();
@@ -44,6 +48,24 @@ public class TestClassDani {
 //		foo4();
 		
 		System.exit(0);
+	}
+	
+	private static void queueTest1() {
+		List<QueueController> queues = ControllerFacade.getInstance().getAllQueueController();
+		for(QueueController q : queues) {
+			System.out.println(q.getQueue().getDoctor() + " - " + q.getQueue().getOrthoptist());
+			try {
+				System.out.println("# Start 1");
+				q.getQueueEntries().forEach(System.out::print);
+				PatientRO patientRO = ControllerFacade.getInstance().getPatientController().searchPatientBySocialInsuranceNr("7531653399");
+				q.pushQueueEntry(patientRO);
+				System.out.println("# Start 2");
+				q.getQueueEntries().forEach(System.out::print);
+			} catch (InvalidInputException e) {
+				e.printStackTrace();
+			}
+			break;
+		}
 	}
 	
 	private static void newTest() {

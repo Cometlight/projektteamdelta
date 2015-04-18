@@ -150,10 +150,8 @@ public class Patient implements java.io.Serializable, PatientRO {
 	 */
 	@Transient
 	public static boolean isSocialInsuranceNrValid(String socialInsuranceNr) {
-		boolean isValid;
-		isValid = socialInsuranceNr != null && socialInsuranceNr.length() == SOCIAL_INSURANCE_NR_LENGTH;
-		isValid = Pattern.matches("//d", socialInsuranceNr);
-		return isValid;
+		String pattern = "^\\d{" + SOCIAL_INSURANCE_NR_LENGTH + "}$";
+		return socialInsuranceNr != null && Pattern.matches(pattern, socialInsuranceNr);
 	}
 
 	@Id

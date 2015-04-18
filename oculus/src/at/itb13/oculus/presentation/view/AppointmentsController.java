@@ -161,7 +161,7 @@ public class AppointmentsController {
 				.addListener(
 						(observable, oldValue, newValue) -> _main
 								.showPatientRecord(_patientRecordBorderPane,
-										newValue));
+										newValue.getPatient()));
 
 	}
 

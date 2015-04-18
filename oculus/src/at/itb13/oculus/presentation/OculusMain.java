@@ -205,33 +205,6 @@ public class OculusMain extends Application {
 		return _tempPatient;
 	}
 
-	/**
-	 * @param newValue
-	 * @return
-	 */
-	public Object showPatientRecord(BorderPane layout, CalendarEventRO event) {
-		try {
-			// Load person overview.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(OculusMain.class
-					.getResource("view/PatientRecord.fxml"));
-			AnchorPane overview = (AnchorPane) loader.load();
-
-			// Set person overview into the center of root layout.
-			layout.setCenter(overview);
-
-			// Give the controller access to the main app.
-			PatientRecordController controller = loader.getController();
-			controller.setMain(this);
-			controller.showPatientMasterData(event.getPatient());
-			controller.showAnamanesis(event.getPatient());
-			_logger.info("showPatientRecord successful");
-		} catch (IOException ex) {
-			ex.printStackTrace();
-			_logger.error(ex);
-		}
-		return null;
-	}
 
 	/**
 	 * @param newValue

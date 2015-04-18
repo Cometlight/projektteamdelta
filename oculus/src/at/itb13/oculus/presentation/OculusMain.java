@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.prefs.Preferences;
 
+import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.view.AppointmentsController;
 import at.itb13.oculus.presentation.view.NewPatientController;
 import at.itb13.oculus.presentation.view.PatientController;
+import at.itb13.oculus.presentation.view.PatientRecordController;
 import at.itb13.oculus.presentation.view.QueueController;
 import at.itb13.oculus.presentation.view.RootLayoutController;
 import javafx.application.Application;
@@ -181,6 +183,56 @@ public class OculusMain extends Application {
 	 public PatientRO getCreatedPatient(){
 		 return _tempPatient;
 	 }
+	 /**
+		 * @param newValue
+		 * @return
+		 */
+		public Object showPatientRecord(BorderPane layout, CalendarEventRO event) {
+			 try {
+		 	        // Load person overview.
+		 	        FXMLLoader loader = new FXMLLoader();
+		 	        loader.setLocation(OculusMain.class.getResource("view/PatientRecord.fxml"));
+		 	        AnchorPane overview = (AnchorPane) loader.load();	
+
+		 	        // Set person overview into the center of root layout.
+		 	        layout.setCenter(overview);
+
+		 	        // Give the controller access to the main app.
+		 	        PatientRecordController controller = loader.getController();
+		 	        controller.setMain(this);
+		 	        controller.showPatientMasterData(event.getPatient());
+		 	        controller.showAnamanesis(event.getPatient());
+
+		 	    } catch (IOException e) {
+		 	        e.printStackTrace();
+		 	    }
+			return null;
+		}
+		/**
+		 * @param newValue
+		 * @return
+		 */
+		public Object showPatientRecord(BorderPane layout, PatientRO patient) {
+			 try {
+		 	        // Load person overview.
+		 	        FXMLLoader loader = new FXMLLoader();
+		 	        loader.setLocation(OculusMain.class.getResource("view/PatientRecord.fxml"));
+		 	        AnchorPane overview = (AnchorPane) loader.load();	
+
+		 	        // Set person overview into the center of root layout.
+		 	        layout.setCenter(overview);
+
+		 	        // Give the controller access to the main app.
+		 	        PatientRecordController controller = loader.getController();
+		 	        controller.setMain(this);
+		 	        controller.showPatientMasterData(patient);
+		 	        controller.showAnamanesis(patient);
+
+		 	    } catch (IOException e) {
+		 	        e.printStackTrace();
+		 	    }
+			return null;
+		}
 	  public File getPersonFilePath() {
 	       Preferences prefs = Preferences.userNodeForPackage(OculusMain.class);
 	       String filePath = prefs.get("filePath", null);

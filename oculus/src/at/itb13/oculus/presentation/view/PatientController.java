@@ -21,6 +21,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 
 /**
  * TODO: Insert description here.
@@ -42,40 +43,14 @@ public class PatientController {
 	private TableColumn<PatientRO, String> _SSNColumn;
 	
 	@FXML
-	private TextField _ssnTextField;
-	@FXML
-	private TextField _firstNameField;
-	@FXML
-	private TextField _lastNameField;
+	private BorderPane _patientRecord;
 	
 	@FXML
-	private Label _firstNameLabel;
+	private TextField _sinField;
 	@FXML
-	private Label _lastNameLabel;
+	private TextField _firstnameSearch;
 	@FXML
-	private Label _SSNLabel;
-	@FXML
-	private Label _birthdayLabel;
-	@FXML
-	private Label _genderLabel;
-	@FXML
-	private Label _streetLabel;
-	@FXML
-	private Label _postalCodeLabel;
-	@FXML
-	private Label _cityLabel;
-	@FXML
-	private Label _countryISOLabel;
-	@FXML
-	private Label _phoneLabel;
-	@FXML
-	private Label _emailLabel;
-	@FXML
-	private Label _alergiesLabel;
-	@FXML
-	private Label _childhoodAilmentsLabel;
-	@FXML
-	private Label _medicineintolerranceLabel;
+	private TextField _lastnameSearch;
 	
 	//general Attributs
 	private OculusMain _main;
@@ -83,87 +58,27 @@ public class PatientController {
 	//general Methods
 	 public void setMain(OculusMain main) {
 	        _main = main;
-
-	        
 	  }
 	 
 	 
 	 @FXML
 	 private void initialize() {
 	        // Initialize the person table with the three columns.
-//	        _firstNameColumn.setCellValueFactory(	// TODO: OLD, -> DELETE
-//	                cellData -> cellData.getValue().firstNameProperty());
-//	        _lastNameColumn.setCellValueFactory(
-//	                cellData -> cellData.getValue().lastNameProperty());
-//	        _SSNColumn.setCellValueFactory(
-//	        		cellData -> cellData.getValue().SocialInsuranceNrProperty());
 	        _firstNameColumn.setCellValueFactory(new PropertyValueFactory<PatientRO, String>("firstName"));
 	        _lastNameColumn.setCellValueFactory(new PropertyValueFactory<PatientRO, String>("lastName"));
 	        _SSNColumn.setCellValueFactory(new PropertyValueFactory<PatientRO, String>("socialInsuranceNr"));
 		 
-	        // Clear person details.
-	        showPatientMasterData(null);
-	        showAnamanesis(null);
-
 	        // Listen for selection changes and show the person details when changed.
 	        _patientTable.getSelectionModel().selectedItemProperty().addListener(
-	                (observable, oldValue, newValue) -> showPatientMasterData(newValue));
-	        _patientTable.getSelectionModel().selectedItemProperty().addListener(
-	                (observable, oldValue, newValue) -> showAnamanesis(newValue));
+	                (observable, oldValue, newValue) -> _main.showPatientRecord(_patientRecord, newValue));
+
 	    }
 	 private void clearPatientTable(){		        	
 
 	        // Clear person details.
-	        showPatientMasterData(null);
-	        showAnamanesis(null);
-	        
-	        _main.clearPatientData();
+		 	_main.clearPatientData();
 
 	 }
-	 
-	 private void showPatientMasterData(PatientRO value) {
-	        if (value != null) {
-	            // Fill the labels with info from the person object.
-	        	_firstNameLabel.setText(value.getFirstName());
-	        	_lastNameLabel.setText(value.getLastName());
-	        	_SSNLabel.setText(value.getSocialInsuranceNr());
-	        	_birthdayLabel.setText((value.getBirthDay() == null) ? "" : value.getBirthDay().toString());
-	        	_genderLabel.setText(value.getGender());	            
-	        	_streetLabel.setText(value.getStreet());
-	        	_postalCodeLabel.setText(value.getPostalCode());
-	        	_cityLabel.setText(value.getCity());
-	        	_countryISOLabel.setText(value.getCountryIsoCode());
-	        	_phoneLabel.setText(value.getPhone());
-	        	_emailLabel.setText(value.getEmail());	           
-	        } else {
-	            // Person is null, remove all the text.
-	            _firstNameLabel.setText("");
-	            _lastNameLabel.setText("");
-	            _SSNLabel.setText("");
-	            _birthdayLabel.setText("");
-	            _genderLabel.setText("");	            
-	            _streetLabel.setText("");
-	            _postalCodeLabel.setText("");
-	            _cityLabel.setText("");
-	            _countryISOLabel.setText("");
-	            _phoneLabel.setText("");
-	            _emailLabel.setText("");	
-	        }
-	    }
-	 private void showAnamanesis(PatientRO value) {
-	        if (value != null) {
-	            // Fill the labels with info from the person object.
-	        	_alergiesLabel.setText(value.getAllergy());
-	        	_childhoodAilmentsLabel.setText(value.getChildhoodAilments());
-	        	_medicineintolerranceLabel.setText(value.getMedicineIntolerance());
-	                      
-	        } else {
-	            // Person is null, remove all the text.
-	        	_alergiesLabel.setText("");
-	        	_childhoodAilmentsLabel.setText("");
-	        	_medicineintolerranceLabel.setText("");	
-	        }
-	    }
 	 
 	 /**
 	  * Controls the "search" Button, for searching by Social Insurancel Number.
@@ -175,11 +90,10 @@ public class PatientController {
 		 clearPatientTable();
 		 at.itb13.oculus.application.patient.PatientController p = ControllerFacade.getInstance().getPatientController();
 		 try {			
-			PatientRO pa = p.searchPatientBySocialInsuranceNr(_ssnTextField.getText());
-			showPatientMasterData(pa);
-			showAnamanesis(pa);
+			PatientRO pa = p.searchPatientBySocialInsuranceNr(_sinField.getText());
 			_main.addPatientData(pa);	// TODO: Why must a patient be stored in _main?
-			_patientTable.setItems(_main.getPatientData());			 
+			_patientTable.setItems(_main.getPatientData());	
+			_main.showPatientRecord(_patientRecord, pa);
 
 		} catch (InvalidInputException e) {
 			_logger.info(e);
@@ -202,11 +116,8 @@ public class PatientController {
 		 at.itb13.oculus.application.patient.PatientController p = ControllerFacade.getInstance().getPatientController();
 		 List<PatientRO> patients = new ArrayList<>();
 		 try {			
-			patients =  (List<PatientRO>) p.searchPatientByName(_firstNameField.getText(), _lastNameField.getText());
+			patients =  (List<PatientRO>) p.searchPatientByName(_firstnameSearch.getText(), _lastnameSearch.getText());
 			if(patients.size() > 0){
-//				for(Patient pa : patients){	// TODO: OLD, -> Delete
-//					_main.addPatientData(new PatientWithProperties2(pa));
-//				}
 				patients.forEach(_main::addPatientData);
 				 _patientTable.setItems(_main.getPatientData());
 			}else{
@@ -225,8 +136,6 @@ public class PatientController {
 	 
 	 @FXML
 	 private void newPatientControl(){
-		
-	
 		_main.showNewPatientDialog();
 //		if (okClicked) {
 //		    _main.getPersonData().add();

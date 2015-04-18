@@ -15,138 +15,32 @@
                <children>
                   <TableView fx:id="_appointmentTable" layoutY="47.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="_timeColumn" prefWidth="75.0" text="Time" />
-                      <TableColumn fx:id="_patientColumn" prefWidth="75.0" text="Patient" />
-                        <TableColumn fx:id="_otherColumn" prefWidth="75.0" text="Additional Information" />
+                      <TableColumn fx:id="_timeColumn" prefWidth="64.0" text="Time" />
+                      <TableColumn fx:id="_patientColumn" prefWidth="127.99996948242188" text="Patient" />
+                        <TableColumn fx:id="_otherColumn" prefWidth="162.00003051757812" text="Type" />
                     </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
                   </TableView>
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <SplitPane dividerPositions="0.13505747126436782" layoutX="119.0" layoutY="122.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane dividerPositions="0.17385057471264367" layoutX="119.0" layoutY="122.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
                               <ComboBox fx:id="_queueBox" prefWidth="150.0" promptText="choose a Queue" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0" />
-                              <Button fx:id="_insertQueueButton" layoutX="770.0" layoutY="46.0" mnemonicParsing="false" text="insert" AnchorPane.rightAnchor="5.0" />
+                              <Button fx:id="_insertQueueButton" layoutX="770.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleInsertInQueueButton" text="insert" AnchorPane.rightAnchor="5.0" />
                               <Label fx:id="_patient" layoutX="448.0" layoutY="50.0" text="Label" />
-                              <Label fx:id="_eventType" layoutX="14.0" layoutY="14.0" text="Label" />
+                              <Label fx:id="_eventType" layoutX="158.0" layoutY="14.0" text="Label" />
                               <Label fx:id="_description" layoutX="14.0" layoutY="50.0" text="Label" />
                               <Label fx:id="_patientNotInDatabase" layoutX="448.0" layoutY="14.0" text="Label" />
                               <Button fx:id="_addPatient" layoutX="594.0" layoutY="10.0" mnemonicParsing="false" onAction="#addPatientControl" text="add Patient" />
+                              <Label fx:id="_dateTime" layoutX="14.0" layoutY="14.0" text="Label" />
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <tabs>
-                                    <Tab closable="false" text="General">
-                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="372.0" prefWidth="337.0">
-                                             <children>
-                                                <GridPane layoutY="320.0" prefHeight="157.0" prefWidth="478.0" AnchorPane.bottomAnchor="163.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="320.0">
-                                                   <columnConstraints>
-                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="306.0" minWidth="9.0" prefWidth="45.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="594.0" minWidth="2.0" prefWidth="341.0" />
-                                                   </columnConstraints>
-                                                   <rowConstraints>
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                   </rowConstraints>
-                                                   <children>
-                                                      <Label fx:id="_streetLabel" text="Label" GridPane.columnIndex="1" />
-                                                      <Label fx:id="_postalCodeLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                      <Label fx:id="_cityLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                                         <GridPane.margin>
-                                                            <Insets left="200.0" />
-                                                         </GridPane.margin>
-                                                      </Label>
-                                                      <Label fx:id="_countryISOLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                   </children>
-                                                </GridPane>
-                                                <Button mnemonicParsing="false" text="Edit" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
-                                                <GridPane layoutX="14.0" layoutY="8.0" prefHeight="168.0" prefWidth="494.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="30.0">
-                                                   <columnConstraints>
-                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="223.0" minWidth="10.0" prefWidth="48.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="456.0" minWidth="10.0" prefWidth="446.0" />
-                                                   </columnConstraints>
-                                                   <rowConstraints>
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                   </rowConstraints>
-                                                   <children>
-                                                      <Label fx:id="_genderLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                      <Label fx:id="_birthdayLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                      <Label fx:id="_SSNLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                      <Label fx:id="_lastNameLabel" text="Label" GridPane.columnIndex="1">
-                                                         <GridPane.margin>
-                                                            <Insets left="200.0" />
-                                                         </GridPane.margin>
-                                                      </Label>
-                                                      <Label fx:id="_firstNameLabel" text="Label" GridPane.columnIndex="1" />
-                                                   </children>
-                                                </GridPane>
-                                                <Label layoutX="14.0" layoutY="6.0" nodeOrientation="LEFT_TO_RIGHT" text="Personal Information" AnchorPane.leftAnchor="10.0">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label layoutX="10.0" layoutY="296.0" text="Address">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label layoutX="13.0" layoutY="207.0" nodeOrientation="LEFT_TO_RIGHT" text="Doctor">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label layoutX="44.0" layoutY="235.0" text="Label" />
-                                                <Label layoutY="449.0" text="Contact">
-                                                   <padding>
-                                                      <Insets left="10.0" />
-                                                   </padding>
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label fx:id="_phoneLabel" layoutX="42.0" layoutY="476.0" text="Label" />
-                                                <Label fx:id="_emailLabel" layoutX="42.0" layoutY="509.0" text="Label" />
-                                             </children>
-                                             <opaqueInsets>
-                                                <Insets />
-                                             </opaqueInsets>
-                                          </AnchorPane>
-                                       </content>
-                                    </Tab>
-                                    <Tab text="Anamnesis">
-                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                             <children>
-                                                <Label layoutX="14.0" layoutY="30.0" text="Allergies" />
-                                                <Label fx:id="_alergiesLabel" layoutX="46.0" layoutY="59.0" text="Label" />
-                                                <Label layoutX="14.0" layoutY="116.0" text="Childhood Ailments" />
-                                                <Label fx:id="_childhoodAilmentsLabel" layoutX="46.0" layoutY="245.0" text="Label" />
-                                                <Label layoutX="16.0" layoutY="213.0" text="Medicine Intolerances" />
-                                                <Label fx:id="_medicineintolerranceLabel" layoutX="46.0" layoutY="148.0" text="Label" />
-                                             </children>
-                                          </AnchorPane>
-                                       </content>
-                                    </Tab>
-                                    <Tab text="Examination Protocols">
-                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                       </content>
-                                    </Tab>
-                                 </tabs>
-                              </TabPane>
+                              <BorderPane fx:id="_patientRecord" layoutX="14.0" layoutY="-16.0" prefHeight="345.0" prefWidth="836.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children></AnchorPane>
                     </items>
                   </SplitPane>

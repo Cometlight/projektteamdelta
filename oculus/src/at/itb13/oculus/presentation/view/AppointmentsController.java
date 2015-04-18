@@ -14,29 +14,40 @@ import java.util.prefs.Preferences;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.doctor.DoctorRequest;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
+import at.itb13.oculus.application.queue.QueueController;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
+import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
 import at.itb13.oculus.presentation.OculusMain;
+import at.itb13.oculus.presentation.util.DoctorSringConverter;
+import at.itb13.oculus.presentation.util.QueueSringConverter;
 
 /**
  * TODO: Insert description here.
@@ -60,6 +71,8 @@ public class AppointmentsController {
 	@FXML
 	private Label _description;
 	@FXML
+	private Label _dateTime;
+	@FXML
 	private Label _patientNotInDatabase;
 	@FXML
 	private Label _patient;
@@ -69,9 +82,11 @@ public class AppointmentsController {
 	private Button _addPatient;
 	
 	@FXML
-	private ComboBox _queueBox;
+	private ComboBox<QueueRO> _queueBox;
 	@FXML
 	private Button _insertQueueButton;
+	@FXML
+	private BorderPane _patientRecord;
 	
 	
 
@@ -90,16 +105,49 @@ public class AppointmentsController {
 		getTodaysCalendarEvents();
 		_appointmentTable.setItems(_appointments);
 		
-		  _timeColumn.setCellValueFactory(new PropertyValueFactory<CalendarEventRO, String>("eventStart"));
-	      _patientColumn.setCellValueFactory(new PropertyValueFactory<CalendarEventRO, String>("patientId"));
-	      _otherColumn.setCellValueFactory(new PropertyValueFactory<CalendarEventRO, String>("patientName"));
+		 _timeColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
+
+	    	    @Override
+	    	    public ObservableValue<String> call(TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
+	    	      
+	    	        return new SimpleStringProperty(event.getValue().getEventStart().getHour() +":"+ event.getValue().getEventStart().getMinute());
+	    	    }
+
+				
+	    	});
+	      _patientColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
+
+	    	    @Override
+	    	    public ObservableValue<String> call(TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
+	    	        if (event.getValue().getPatient() != null) {
+	    	            return new SimpleStringProperty(event.getValue().getPatient().getFirstName() + " " + event.getValue().getPatient().getLastName());
+	    	        } else {
+	    	            return new SimpleStringProperty(event.getValue().getPatientName());
+	    	        }
+	    	    }
+
+				
+	    	});
 	      
-	     // showAppointmentInformation(null);
-	      
+	      _otherColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
+
+	    	    @Override
+	    	    public ObservableValue<String> call(TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
+	    	    	return new SimpleStringProperty(event.getValue().getEventtype().getEventTypeName());
+	    	    }
+
+				
+	    	});
+	      setItemsToQueueBox();
+	      showAppointmentInformation(null);
 	      _appointmentTable.getSelectionModel().selectedItemProperty().addListener(
 	                (observable, oldValue, newValue) -> showAppointmentInformation(newValue));
+	      _appointmentTable.getSelectionModel().selectedItemProperty().addListener(
+	                (observable, oldValue, newValue) -> _main.showPatientRecord(_patientRecord, newValue));
 		
 	}
+	
+
 	/*
 	 * 
 	 */
@@ -141,24 +189,38 @@ public class AppointmentsController {
 	}
 	
 	private void showAppointmentInformation(CalendarEventRO event) {
-		_description.setText(event.getDescription());
-		if(event.getPatient() == null){
-			_patientNotInDatabase.setText("Patient is not in Database.\nPatient Name");
-			_addPatient.setDisable(false);
-			_addPatient.setVisible(true);
-			_queueBox.setDisable(true);
-			_insertQueueButton.setDisable(true);
+		if(event != null){
+			_description.setText(event.getDescription());
+			_dateTime.setText(event.getEventStart().toString());
+			if(event.getPatient() == null){
+				_patientNotInDatabase.setText("Patient is not in Database.\nPatient Name");
+				_addPatient.setDisable(false);
+				_addPatient.setVisible(true);
+				_queueBox.setDisable(true);
+				_insertQueueButton.setDisable(true);
+			}else{
+				_patientNotInDatabase.setText("");
+				_addPatient.setDisable(true);
+				_addPatient.setVisible(false);
+				_queueBox.setDisable(false);
+				_insertQueueButton.setDisable(false);
+			}
+			_patient.setText(event.getPatientName());
+			EventType type = event.getEventtype();
+			
+			_eventType.setText(type.getEventTypeName());
 		}else{
+			_description.setText("");
+			_dateTime.setText("");
+			_eventType.setText("");
 			_patientNotInDatabase.setText("");
+			_patient.setText("");
 			_addPatient.setDisable(true);
 			_addPatient.setVisible(false);
-			_queueBox.setDisable(false);
-			_insertQueueButton.setDisable(false);
+			_queueBox.setDisable(true);
+			_insertQueueButton.setDisable(true);
+			
 		}
-		_patient.setText(event.getPatientName());
-		EventType type = event.getEventtype();
-		
-		_eventType.setText(type.getEventTypeName());
 	}
 	
 	@FXML
@@ -167,13 +229,47 @@ public class AppointmentsController {
 			_main.showNewPatientDialog();
 			
 			CalendarController calco = ControllerFacade.getInstance().getCalendarController(_appointmentTable.getSelectionModel().getSelectedItem().getCalendar());
-			System.out.println("CalendarEvent" + _appointmentTable.getSelectionModel().getSelectedItem());
-			System.out.println("Patient" + _main.getCreatedPatient().getFirstName());
-			System.out.println("Calendar: " + _appointmentTable.getSelectionModel().getSelectedItem().getCalendar());
-			System.out.println("CalendarController: " + calco);
 			calco.connectCalendarEventWithPatient( _appointmentTable.getSelectionModel().getSelectedItem(), _main.getCreatedPatient());
 			
-		 }
+	}
+	private void setItemsToQueueBox() {
+
+		
+		_queueBox.setConverter(new QueueSringConverter());
+		List<QueueController> queController = ControllerFacade.getInstance().getAllQueueController();
+		for(QueueController controller : queController){
+			_queueBox.getItems().add(controller.getQueue());
+		}
+	}
+
+	@FXML
+	private void handleInsertInQueueButton() {
+
+		QueueRO queue = _queueBox.getSelectionModel().getSelectedItem();
+		QueueController controller = null;
+		
+		if(queue != null){
+			if(queue.getDoctor() != null){
+				controller = ControllerFacade.getInstance().getQueueController(queue.getDoctor().getDoctorId(),null);
+			}else if(queue.getOrthoptist() != null){
+				controller = ControllerFacade.getInstance().getQueueController(null,queue.getOrthoptist().getOrthoptistId());
+			}
+			if(controller != null){
+				System.out.println("Patient: "+_appointmentTable.getSelectionModel().getSelectedItem().getPatient());
+				controller.pushQueueEntry(_appointmentTable.getSelectionModel().getSelectedItem().getPatient());
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setContentText("Patient is added to Queue");
+				alert.showAndWait();
+			}
+			
+		}else{
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText("No queue selected");
+			alert.setContentText("Please choose a Queue bevor insert.");
+			alert.setTitle("No queue selected");
+			alert.showAndWait();
+		}
+	}
 	
 
 }

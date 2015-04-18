@@ -160,11 +160,20 @@ public class AppointmentsController implements ControllerMainSetter {
 	                @Override
 	                protected void updateItem(CalendarEventRO calEv, boolean empty){
 	                    super.updateItem(calEv, empty);
+	                    // Rather use a css file and
+	                    //  use  getStyleClass().add("classname");
+	                    // and
+	                    //  use  getStyleClass().removeAll(Collections.singleton("classname"));
+	                    // instead of applying the colors directly here in the code.
 	                    if(calEv != null) {
 	                    	if(calEv.isOpen()) {
-		                    	setStyle("-fx-background-color: green");	// rather use  getStyleClass().add("classname");
+	                    		if(calEv.getEventEnd().isBefore(LocalDateTime.now())) {	// patient missed the appointment
+	                    			setStyle("-fx-background-color: red");
+	                    		} else {	// it's ok; the patient still has time to come to the appointment sometime in the future
+	                    			// no color I suppose
+	                    		}
 		                    } else {
-		                    	setStyle("-fx-background-color: red");	// rather use  getStyleClass().removeAll(Collections.singleton("classname"));
+		                    	setStyle("-fx-background-color: lightgrey");
 		                    }
 	                    }
 	                }

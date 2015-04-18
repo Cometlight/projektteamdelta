@@ -49,6 +49,7 @@ public class QueueController {
 	private void initialize() {
 		
 		setItemsToQueueBox();
+		
 		_queueEntrysListView.setItems(_queueEntryList);
 		
 		 _queueEntrysListView.setCellFactory(new Callback<ListView<QueueEntryRO>, ListCell<QueueEntryRO>>(){
@@ -62,6 +63,8 @@ public class QueueController {
                         super.updateItem(t, bln);
                         if(t != null){
                         	setText(t.getPatient().getFirstName() + " "+ t.getPatient().getLastName());
+                        }else{
+                        	setText("");
                         }
                     }
 				};
@@ -70,7 +73,6 @@ public class QueueController {
 			 
 		 });
 			 
-		
 		_queueEntrysListView
 		.getSelectionModel()
 		.selectedItemProperty()
@@ -79,14 +81,11 @@ public class QueueController {
 						.showPatientRecord(_patientRecordBorderPane,
 								newValue.getPatient()));
 		
-		
 	}
 
 	private void clearQueue() {
-			
-		
 		_queueEntryList.clear();
-
+		
 	}
 
 	private void setItemsToQueueBox() {

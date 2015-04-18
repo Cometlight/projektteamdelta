@@ -47,7 +47,9 @@ public class QueueController {
 			 
 	@FXML
 	private void initialize() {
+		
 		setItemsToQueueBox();
+		
 		_queueEntrysListView.setItems(_queueEntryList);
 		
 		 _queueEntrysListView.setCellFactory(new Callback<ListView<QueueEntryRO>, ListCell<QueueEntryRO>>(){
@@ -61,6 +63,8 @@ public class QueueController {
                         super.updateItem(t, bln);
                         if(t != null){
                         	setText(t.getPatient().getFirstName() + " "+ t.getPatient().getLastName());
+                        }else{
+                        	setText("");
                         }
                     }
 				};
@@ -69,7 +73,6 @@ public class QueueController {
 			 
 		 });
 			 
-		
 		_queueEntrysListView
 		.getSelectionModel()
 		.selectedItemProperty()
@@ -78,6 +81,10 @@ public class QueueController {
 						.showPatientRecord(_patientRecordBorderPane,
 								newValue.getPatient()));
 		
+	}
+
+	private void clearQueue() {
+		_queueEntryList.clear();
 		
 	}
 
@@ -92,13 +99,13 @@ public class QueueController {
 	
 	@FXML
 	private void handleQueueComboBox() {
-
 		_queue = _queueBox.getSelectionModel().getSelectedItem();
 		setQueueEntriesInList();
 	}
 	
 	private void setQueueEntriesInList(){
 		
+		clearQueue();
 		at.itb13.oculus.application.queue.QueueController controller = ControllerFacade.getInstance().getQueueController(_queue);
 		List<QueueEntryRO> entries = (List<QueueEntryRO>) controller.getQueueEntries();
 		

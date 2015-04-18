@@ -15,7 +15,7 @@
                <children>
                   <VBox layoutX="18.0" layoutY="55.0" prefHeight="610.0" prefWidth="245.0">
                      <children>
-                        <ListView fx:id="_queueEntrysListView" fixedCellSize="100.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="610.0" prefWidth="245.0" />
+                        <ListView fx:id="_queueEntrysListView" fixedCellSize="100.0" prefHeight="610.0" prefWidth="245.0" />
                      </children>
                   </VBox>
                   <ComboBox fx:id="_queueBox" layoutX="18.0" layoutY="21.0" onAction="#handleQueueComboBox" prefHeight="25.0" prefWidth="245.0" promptText="choose a Queue" />

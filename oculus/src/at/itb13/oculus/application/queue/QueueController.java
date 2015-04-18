@@ -119,7 +119,9 @@ public class QueueController {
 	 */
 	public QueueEntryRO popQueueEntry() {
 		QueueEntryRO queueEntryRO = _queue.popQueueEntry();
-		QueueDao.getInstance().makePersistent(_queue);
+		if(queueEntryRO != null) {
+			QueueDao.getInstance().makePersistent(_queue);
+		}
 		return queueEntryRO;
 	}
 	

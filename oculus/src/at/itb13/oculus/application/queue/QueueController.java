@@ -134,4 +134,17 @@ public class QueueController {
 	public QueueEntryRO peekQueueEntry() {
 		return _queue.peek();
 	}
+	
+	/**
+	 * 
+	 * @param queueEntryRO the QueueEntryRO that should be moved. Must currently be located in the QueueControllers Queue!
+	 * @param moveUp if true, the queueEntryRO moves 1 step up (forward, towards the start). If false, the queueEntryRO is moved 1 step "down", toward the end of the queue.
+	 * @return true if the QueueEntry was successfully moved and this change was saved to the database.
+	 */
+	public boolean moveQueueEntry(QueueEntryRO queueEntryRO, boolean moveUp) {
+		if(_queue.move(queueEntryRO.getQueueEntryId(), moveUp)) {
+			return QueueDao.getInstance().makePersistent(_queue);
+		}
+		return false;
+	}
 }

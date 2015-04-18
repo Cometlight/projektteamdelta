@@ -3,6 +3,7 @@
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,6 +39,9 @@ public class TestClassDani {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+//		listTest();
+		queue1Output();
+//		queueTestMove1();
 //		queueTest1();
 //		queueTest2();
 //		newTest();
@@ -52,6 +56,52 @@ public class TestClassDani {
 		System.exit(0);
 	}
 	
+	private static void queue1Output() {
+		QueueController q = ControllerFacade.getInstance().getQueueController(1, null);
+		
+		System.out.println("# Content of Queue (1, null): ");
+		q.getQueueEntries().forEach(qEs -> System.out.println(qEs.getPatient().getFirstName()));
+		
+	}
+
+	private static void listTest() {
+		LinkedList<Integer> list = new LinkedList<>();
+		list.add(1);
+		list.add(2);
+		list.add(3);
+		list.add(4);
+		list.add(5);
+		list.add(6);
+		
+		ListIterator<Integer> it = list.listIterator();
+		list.forEach(System.out::print);
+		System.out.println();
+		
+		it.next();
+		it.next();
+		Integer temp = it.previous();
+		it.remove();
+		it.next();
+		it.add(temp);
+		
+		list.forEach(System.out::print);
+	}
+	
+	private static void queueTestMove1() {
+		QueueController q = ControllerFacade.getInstance().getQueueController(1, null);
+		
+		System.out.println("# Content of Queue: ");
+		q.getQueueEntries().forEach(qEs -> System.out.println(qEs.getPatient().getFirstName()));
+		
+		System.out.println("-- MOVE --");
+		System.out.print("Result of Move: ");
+		QueueEntryRO qERO = q.getQueueEntries().get(1);
+		System.out.println(q.moveQueueEntry(qERO, true) + "\n");
+		
+		System.out.println("# Content of Queue: ");
+		q.getQueueEntries().forEach(qEs -> System.out.println(qEs.getPatient().getFirstName()));
+	}
+
 	private static void queueTest2() {
 		QueueController q = ControllerFacade.getInstance().getQueueController(1, null);
 		

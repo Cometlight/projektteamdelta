@@ -1,11 +1,12 @@
 package at.itb13.oculus.application.calendar;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
@@ -23,6 +24,7 @@ import at.itb13.oculus.technicalServices.dao.PatientDao;
  * @since 09.04.2015
  */
 public class CalendarController {
+	private static final Logger _logger = LogManager.getLogger(CalendarController.class.getName());
 	private Calendar _calendar;
 	
 	public CalendarController(Calendar calendar) {
@@ -61,5 +63,25 @@ public class CalendarController {
 		CalendarEvent calEv = calEvDao.findById(calendarEventRO.getCalendarEventId());
 		calEv.setPatient(patient);
 		return calEvDao.makePersistent(calEv);
+	}
+	
+	/**
+	 * Note: calendarEventRO.isOpen() and state should differ. Otherwise this method does not access the database,
+	 * because it's not needed to change something (in this case false is returned).
+	 * 
+	 * @param calendarEventRO
+	 * @param state
+	 * @return true if state has been successfully changed in the database
+	 */
+	public boolean setCalendarEventState(CalendarEventRO calendarEventRO, boolean state) {
+		if(calendarEventRO.isOpen() != state) {	// only access the DB if necessary
+			CalendarEventDao calEvDao = CalendarEventDao.getInstance();
+			CalendarEvent calEv = calEvDao.findById(calendarEventRO.getCalendarEventId());
+			calEv.setOpen(state);
+			return calEvDao.makePersistent(calEv);
+		} else {
+			_logger.info("The CalendarEvent's state is already set to the desired state (" + state + "). No change in the database required.");
+			return false;
+		}
 	}
 }

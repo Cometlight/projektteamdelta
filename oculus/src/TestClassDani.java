@@ -20,6 +20,7 @@ import at.itb13.oculus.domain.Queue;
 import at.itb13.oculus.domain.QueueEntry;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
+import at.itb13.oculus.domain.readonlyinterfaces.QueueEntryRO;
 import at.itb13.oculus.technicalServices.dao.DoctorDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 import at.itb13.oculus.technicalServices.dao.QueueDao;
@@ -37,7 +38,8 @@ public class TestClassDani {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		queueTest1();
+//		queueTest1();
+		queueTest2();
 //		newTest();
 //		calEvTest1();
 //		foo1();
@@ -50,6 +52,29 @@ public class TestClassDani {
 		System.exit(0);
 	}
 	
+	private static void queueTest2() {
+		QueueController q = ControllerFacade.getInstance().getQueueController(1, null);
+		
+		System.out.println("# Content of Queue: ");
+		q.getQueueEntries().forEach(qEs -> System.out.println(qEs.getPatient().getFirstName()));
+		
+		System.out.println("# First patient: ");
+		QueueEntryRO qERO = q.peekQueueEntry();
+		System.out.println(qERO.getPatient().getFirstName());
+		
+		System.out.println("-- POP --");
+		System.out.print("Result of POP: ");
+		System.out.println(q.popQueueEntry() + "\n");
+		
+		
+		System.out.println("# Content of Queue: ");
+		q.getQueueEntries().forEach(qEs -> System.out.println(qEs.getPatient().getFirstName()));
+		
+		System.out.println("# First patient: ");
+		QueueEntryRO qERO2 = q.peekQueueEntry();
+		System.out.println(qERO2.getPatient().getFirstName());
+	}
+	
 	private static void queueTest1() {
 		List<QueueController> queues = ControllerFacade.getInstance().getAllQueueController();
 		for(QueueController q : queues) {
@@ -59,6 +84,8 @@ public class TestClassDani {
 				q.getQueueEntries().forEach(qe -> System.out.println(qe.getPatient().getFirstName()));
 				PatientRO patientRO = ControllerFacade.getInstance().getPatientController().searchPatientBySocialInsuranceNr("7531653399");
 				System.out.println(q.pushQueueEntry(patientRO));
+				// or q.pushQueueEntry(patientRO, the associated CalendarEvent); // in order to change the CalendarEvent's state (isOpen)
+				
 				System.out.println("# Start 2");
 				q.getQueueEntries().forEach(qe -> System.out.println(qe.getPatient().getFirstName()));
 			} catch (InvalidInputException e) {

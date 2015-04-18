@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.NewPatientController">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.NewPatientController">
    <children>
       <GridPane layoutX="8.0" layoutY="35.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
          <columnConstraints>
@@ -60,7 +60,7 @@
                <GridPane.margin>
                   <Insets right="200.0" />
                </GridPane.margin></TextField>
-            <TextField fx:id="_postalCodeField" promptText="posatl code" GridPane.columnIndex="1" GridPane.rowIndex="9">
+            <TextField fx:id="_postalCodeField" promptText="postal code" GridPane.columnIndex="1" GridPane.rowIndex="9">
                <GridPane.margin>
                   <Insets right="250.0" />
                </GridPane.margin></TextField>

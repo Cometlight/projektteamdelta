@@ -25,6 +25,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -69,6 +70,9 @@ public class AppointmentsController {
 	private TableColumn<CalendarEventRO, String> _otherColumn;
 
 	@FXML
+	private DatePicker _datePicker;
+	
+	@FXML
 	private Label _descriptionLabel;
 	@FXML
 	private Label _dateTimeLabel;
@@ -99,57 +103,45 @@ public class AppointmentsController {
 
 	@FXML
 	private void initialize() {
-
-		setTodaysCalendarEvents();
+		
+		_datePicker.setValue(LocalDate.now());	// Show today's appointments by default
+		
 		_appointmentTable.setItems(_appointmentsList);
 
-		_timeColumn
-				.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
+		_timeColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
+				return new SimpleStringProperty(
+						event.getValue().getEventStart().getHour()
+						+ ":"
+						+ event.getValue().getEventStart().getMinute());
+			}
+		});
+		
+		_patientColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
+				if (event.getValue().getPatient() != null) {
+					return new SimpleStringProperty(
+							event.getValue().getPatient().getFirstName()
+							+ " "
+							+ event.getValue().getPatient().getLastName());
+				} else {
+					return new SimpleStringProperty(event.getValue().getPatientName());
+				}
+			}
+		});
 
-					@Override
-					public ObservableValue<String> call(
-							TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
-
-						return new SimpleStringProperty(event.getValue()
-								.getEventStart().getHour()
-								+ ":"
-								+ event.getValue().getEventStart().getMinute());
-					}
-
-				});
-		_patientColumn
-				.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
-
-					@Override
-					public ObservableValue<String> call(
-							TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
-						if (event.getValue().getPatient() != null) {
-							return new SimpleStringProperty(event.getValue()
-									.getPatient().getFirstName()
-									+ " "
-									+ event.getValue().getPatient()
-											.getLastName());
-						} else {
-							return new SimpleStringProperty(event.getValue()
-									.getPatientName());
-						}
-					}
-
-				});
-
-		_otherColumn
-				.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
-
-					@Override
-					public ObservableValue<String> call(
-							TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
-						return new SimpleStringProperty(event.getValue()
-								.getEventtype().getEventTypeName());
-					}
-
-				});
+		_otherColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
+				return new SimpleStringProperty(event.getValue().getEventtype().getEventTypeName());
+			}
+		});
+		
 		setItemsToQueueBox();
 		showAppointmentInformation(null);
+		
 		_appointmentTable
 				.getSelectionModel()
 				.selectedItemProperty()
@@ -159,28 +151,28 @@ public class AppointmentsController {
 				.getSelectionModel()
 				.selectedItemProperty()
 				.addListener(
-						(observable, oldValue, newValue) -> _main
-								.showPatientRecord(_patientRecordBorderPane,
-										newValue.getPatient()));
+						(observable, oldValue, newValue) -> _main.showPatientRecord(_patientRecordBorderPane,newValue.getPatient()));
 
 	}
 
-	/*
+	/**
 	 * 
 	 */
-	private void setTodaysCalendarEvents() {
+	private void setCalendarEvents(LocalDateTime startDate, LocalDateTime endDate) {
 		List<CalendarController> listCalCo = ControllerFacade.getInstance()
 				.getAllCalendarController();
 		LocalDate startofend = LocalDate.now();
 		LocalDateTime end = LocalDateTime.of(startofend, LocalTime.MAX);
 
+		// delete current appointments from the list
+		_appointmentsList.clear();
+		
 		List<CalendarEventRO> events = new LinkedList<>();
 		try {
 
 			// With list instead:
 			for (CalendarController calCo : listCalCo) {
-				events.addAll(calCo.getCalendarEventsInTimespan(LocalDateTime.MIN,
-						LocalDateTime.MAX));
+				events.addAll(calCo.getCalendarEventsInTimespan(startDate,endDate));
 			}
 
 			for (CalendarEventRO e : events) {
@@ -188,9 +180,9 @@ public class AppointmentsController {
 
 			}
 
+			_logger.info("Showing appointments between " + startDate + " and " + endDate);
 		} catch (InvalidInputException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_logger.warn(e);
 		}
 	}
 
@@ -291,4 +283,8 @@ public class AppointmentsController {
 		}
 	}
 
+	@FXML
+	private void changeDate() {
+		setCalendarEvents(_datePicker.getValue().atTime(0, 0), _datePicker.getValue().atTime(23, 59));
+	}
 }

@@ -56,188 +56,214 @@ import at.itb13.oculus.presentation.util.QueueSringConverter;
  * @since 15.04.2015
  */
 public class AppointmentsController {
-	private static final Logger _logger = LogManager.getLogger(AppointmentsController.class.getName());
-	
+	private static final Logger _logger = LogManager
+			.getLogger(AppointmentsController.class.getName());
+
 	@FXML
-	private TableView<CalendarEventRO> _appointmentTable;	
+	private TableView<CalendarEventRO> _appointmentTable;
 	@FXML
-	private TableColumn<CalendarEventRO, String> _timeColumn;	
+	private TableColumn<CalendarEventRO, String> _timeColumn;
 	@FXML
-	private TableColumn<CalendarEventRO, String> _patientColumn;	
+	private TableColumn<CalendarEventRO, String> _patientColumn;
 	@FXML
 	private TableColumn<CalendarEventRO, String> _otherColumn;
 
-	
 	@FXML
-	private Label _description;
+	private Label _descriptionLabel;
 	@FXML
-	private Label _dateTime;
+	private Label _dateTimeLabel;
 	@FXML
-	private Label _patientNotInDatabase;
+	private Label _patientNotInDatabaseLabel;
 	@FXML
-	private Label _patient;
+	private Label _patientLabel;
 	@FXML
-	private Label _eventType;
+	private Label _eventTypeLabel;
 	@FXML
-	private Button _addPatient;
-	
+	private Button _addPatientButton;
+
 	@FXML
 	private ComboBox<QueueRO> _queueBox;
 	@FXML
 	private Button _insertQueueButton;
 	@FXML
-	private BorderPane _patientRecord;
-	
-	
+	private BorderPane _patientRecordBorderPane;
 
-	private ObservableList<CalendarEventRO> _appointments = FXCollections.observableArrayList();
+	private ObservableList<CalendarEventRO> _appointmentsList = FXCollections
+			.observableArrayList();
 
 	private OculusMain _main;
-			
-	//general Methods
+
+	// general Methods
 	public void setMain(OculusMain main) {
-		_main = main;		        
+		_main = main;
 	}
-			 
+
 	@FXML
 	private void initialize() {
-		
+
 		getTodaysCalendarEvents();
-		_appointmentTable.setItems(_appointments);
-		
-		 _timeColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
+		_appointmentTable.setItems(_appointmentsList);
 
-	    	    @Override
-	    	    public ObservableValue<String> call(TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
-	    	      
-	    	        return new SimpleStringProperty(event.getValue().getEventStart().getHour() +":"+ event.getValue().getEventStart().getMinute());
-	    	    }
+		_timeColumn
+				.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
 
-				
-	    	});
-	      _patientColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(
+							TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
 
-	    	    @Override
-	    	    public ObservableValue<String> call(TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
-	    	        if (event.getValue().getPatient() != null) {
-	    	            return new SimpleStringProperty(event.getValue().getPatient().getFirstName() + " " + event.getValue().getPatient().getLastName());
-	    	        } else {
-	    	            return new SimpleStringProperty(event.getValue().getPatientName());
-	    	        }
-	    	    }
+						return new SimpleStringProperty(event.getValue()
+								.getEventStart().getHour()
+								+ ":"
+								+ event.getValue().getEventStart().getMinute());
+					}
 
-				
-	    	});
-	      
-	      _otherColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
+				});
+		_patientColumn
+				.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
 
-	    	    @Override
-	    	    public ObservableValue<String> call(TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
-	    	    	return new SimpleStringProperty(event.getValue().getEventtype().getEventTypeName());
-	    	    }
+					@Override
+					public ObservableValue<String> call(
+							TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
+						if (event.getValue().getPatient() != null) {
+							return new SimpleStringProperty(event.getValue()
+									.getPatient().getFirstName()
+									+ " "
+									+ event.getValue().getPatient()
+											.getLastName());
+						} else {
+							return new SimpleStringProperty(event.getValue()
+									.getPatientName());
+						}
+					}
 
-				
-	    	});
-	      setItemsToQueueBox();
-	      showAppointmentInformation(null);
-	      _appointmentTable.getSelectionModel().selectedItemProperty().addListener(
-	                (observable, oldValue, newValue) -> showAppointmentInformation(newValue));
-	      _appointmentTable.getSelectionModel().selectedItemProperty().addListener(
-	                (observable, oldValue, newValue) -> _main.showPatientRecord(_patientRecord, newValue));
-		
+				});
+
+		_otherColumn
+				.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
+
+					@Override
+					public ObservableValue<String> call(
+							TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
+						return new SimpleStringProperty(event.getValue()
+								.getEventtype().getEventTypeName());
+					}
+
+				});
+		setItemsToQueueBox();
+		showAppointmentInformation(null);
+		_appointmentTable
+				.getSelectionModel()
+				.selectedItemProperty()
+				.addListener(
+						(observable, oldValue, newValue) -> showAppointmentInformation(newValue));
+		_appointmentTable
+				.getSelectionModel()
+				.selectedItemProperty()
+				.addListener(
+						(observable, oldValue, newValue) -> _main
+								.showPatientRecord(_patientRecordBorderPane,
+										newValue));
+
 	}
-	
 
 	/*
 	 * 
 	 */
-	private void getTodaysCalendarEvents(){
-		List<CalendarController> listCalCo = ControllerFacade.getInstance().getAllCalendarController();
+	private void getTodaysCalendarEvents() {
+		List<CalendarController> listCalCo = ControllerFacade.getInstance()
+				.getAllCalendarController();
 		LocalDateTime start = LocalDateTime.of(2014, 1, 1, 1, 0);
 		LocalDate startofend = LocalDate.now();
 		LocalDateTime end = LocalDateTime.of(startofend, LocalTime.MAX);
-		
+
 		List<CalendarEventRO> events = new LinkedList<>();
-		try {			
-			
+		try {
+
 			// With list instead:
-			for(CalendarController calCo : listCalCo) {
-				events.addAll(calCo.getCalendarEventsInTimespan(start, LocalDateTime.now()));
+			for (CalendarController calCo : listCalCo) {
+				events.addAll(calCo.getCalendarEventsInTimespan(start,
+						LocalDateTime.now()));
 			}
-			
-			for(CalendarEventRO e : events){
-				_appointments.add(e);
-				
+
+			for (CalendarEventRO e : events) {
+				_appointmentsList.add(e);
+
 			}
-			
+
 		} catch (InvalidInputException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	 public ObservableList<CalendarEventRO> getAppointments() {
-	        return _appointments;
-	    }
-	 
-	 public void addAppointment(CalendarEventRO e){
-		 _appointments.add(e);
-	 }
-	public void clearAppointments() {
-		_appointments.clear();
-			
+	public ObservableList<CalendarEventRO> getAppointments() {
+		return _appointmentsList;
 	}
-	
+
+	public void addAppointment(CalendarEventRO e) {
+		_appointmentsList.add(e);
+	}
+
+	public void clearAppointments() {
+		_appointmentsList.clear();
+
+	}
+
 	private void showAppointmentInformation(CalendarEventRO event) {
-		if(event != null){
-			_description.setText(event.getDescription());
-			_dateTime.setText(event.getEventStart().toString());
-			if(event.getPatient() == null){
-				_patientNotInDatabase.setText("Patient is not in Database.\nPatient Name");
-				_addPatient.setDisable(false);
-				_addPatient.setVisible(true);
+		if (event != null) {
+			_descriptionLabel.setText(event.getDescription());
+			_dateTimeLabel.setText(event.getEventStart().toString());
+			if (event.getPatient() == null) {
+				_patientNotInDatabaseLabel
+						.setText("Patient is not in Database.\nPatient Name");
+				_addPatientButton.setDisable(false);
+				_addPatientButton.setVisible(true);
 				_queueBox.setDisable(true);
 				_insertQueueButton.setDisable(true);
-			}else{
-				_patientNotInDatabase.setText("");
-				_addPatient.setDisable(true);
-				_addPatient.setVisible(false);
+			} else {
+				_patientNotInDatabaseLabel.setText("");
+				_addPatientButton.setDisable(true);
+				_addPatientButton.setVisible(false);
 				_queueBox.setDisable(false);
 				_insertQueueButton.setDisable(false);
 			}
-			_patient.setText(event.getPatientName());
+			_patientLabel.setText(event.getPatientName());
 			EventType type = event.getEventtype();
-			
-			_eventType.setText(type.getEventTypeName());
-		}else{
-			_description.setText("");
-			_dateTime.setText("");
-			_eventType.setText("");
-			_patientNotInDatabase.setText("");
-			_patient.setText("");
-			_addPatient.setDisable(true);
-			_addPatient.setVisible(false);
+
+			_eventTypeLabel.setText(type.getEventTypeName());
+		} else {
+			_descriptionLabel.setText("");
+			_dateTimeLabel.setText("");
+			_eventTypeLabel.setText("");
+			_patientNotInDatabaseLabel.setText("");
+			_patientLabel.setText("");
+			_addPatientButton.setDisable(true);
+			_addPatientButton.setVisible(false);
 			_queueBox.setDisable(true);
 			_insertQueueButton.setDisable(true);
-			
 		}
 	}
-	
+
 	@FXML
-	 private void addPatientControl(){
-					
-			_main.showNewPatientDialog();
-			
-			CalendarController calco = ControllerFacade.getInstance().getCalendarController(_appointmentTable.getSelectionModel().getSelectedItem().getCalendar());
-			calco.connectCalendarEventWithPatient( _appointmentTable.getSelectionModel().getSelectedItem(), _main.getCreatedPatient());
-			
+	private void addPatientControl() {
+
+		_main.showNewPatientDialog();
+
+		CalendarController calco = ControllerFacade.getInstance()
+				.getCalendarController(
+						_appointmentTable.getSelectionModel().getSelectedItem()
+								.getCalendar());
+		calco.connectCalendarEventWithPatient(_appointmentTable
+				.getSelectionModel().getSelectedItem(), _main
+				.getCreatedPatient());
 	}
+
 	private void setItemsToQueueBox() {
 
-		
 		_queueBox.setConverter(new QueueSringConverter());
-		List<QueueController> queController = ControllerFacade.getInstance().getAllQueueController();
-		for(QueueController controller : queController){
+		List<QueueController> queController = ControllerFacade.getInstance()
+				.getAllQueueController();
+		for (QueueController controller : queController) {
 			_queueBox.getItems().add(controller.getQueue());
 		}
 	}
@@ -247,22 +273,27 @@ public class AppointmentsController {
 
 		QueueRO queue = _queueBox.getSelectionModel().getSelectedItem();
 		QueueController controller = null;
-		
-		if(queue != null){
-			if(queue.getDoctor() != null){
-				controller = ControllerFacade.getInstance().getQueueController(queue.getDoctor().getDoctorId(),null);
-			}else if(queue.getOrthoptist() != null){
-				controller = ControllerFacade.getInstance().getQueueController(null,queue.getOrthoptist().getOrthoptistId());
+
+		if (queue != null) {
+			if (queue.getDoctor() != null) {
+				controller = ControllerFacade.getInstance().getQueueController(
+						queue.getDoctor().getDoctorId(), null);
+			} else if (queue.getOrthoptist() != null) {
+				controller = ControllerFacade.getInstance().getQueueController(
+						null, queue.getOrthoptist().getOrthoptistId());
 			}
-			if(controller != null){
-				System.out.println("Patient: "+_appointmentTable.getSelectionModel().getSelectedItem().getPatient());
-				controller.pushQueueEntry(_appointmentTable.getSelectionModel().getSelectedItem().getPatient());
+			if (controller != null) {
+				System.out.println("Patient: "
+						+ _appointmentTable.getSelectionModel()
+								.getSelectedItem().getPatient());
+				controller.pushQueueEntry(_appointmentTable.getSelectionModel()
+						.getSelectedItem().getPatient());
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setContentText("Patient is added to Queue");
 				alert.showAndWait();
 			}
-			
-		}else{
+
+		} else {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setHeaderText("No queue selected");
 			alert.setContentText("Please choose a Queue bevor insert.");
@@ -270,6 +301,5 @@ public class AppointmentsController {
 			alert.showAndWait();
 		}
 	}
-	
 
 }

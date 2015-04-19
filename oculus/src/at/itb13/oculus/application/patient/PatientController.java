@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.ExaminationProtocol;
@@ -11,6 +14,7 @@ import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
 import at.itb13.oculus.domain.readonlyinterfaces.ExaminationProtocolRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
+import at.itb13.oculus.technicalServices.GenericDao;
 import at.itb13.oculus.technicalServices.dao.DoctorDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 
@@ -22,7 +26,10 @@ import at.itb13.oculus.technicalServices.dao.PatientDao;
  */
 public class PatientController {
 	
+	private static final Logger _logger = LogManager.getLogger(PatientController.class.getName());
+	
 	/**
+	 * TODO
 	 * 
 	 * @param patientRO only the id is used
 	 * @param doctorRO
@@ -56,7 +63,8 @@ public class PatientController {
 	}
 	
 	/**
-	 * A new patient is created and saved in the database.
+	 * A new patient is created and saved in the database. TODO
+	 * 
 	 * @param doctor
 	 * @param socialInsuranceNr
 	 * @param firstName
@@ -69,7 +77,7 @@ public class PatientController {
 	 * @param countryIsoCode
 	 * @param phone
 	 * @param email
-	 * @return null only if not able to save patient.
+	 * @return null only if not able to save patient. or if patient with socialInsuranceNr already exists. TODO
 	 */
 	public PatientRO createPatient(DoctorRO doctorRO, String socialInsuranceNr,
 			String firstName, String lastName, LocalDate birthday, String gender,
@@ -77,16 +85,24 @@ public class PatientController {
 			String countryIsoCode, String phone, String email) {
 		
 		// TODO: Check if patient with social insurance nr already exists; don't insert otherwise!
-		Doctor doctor = DoctorDao.getInstance().findById(doctorRO.getDoctorId());
-		
-		Patient patient = new Patient(doctor, socialInsuranceNr, firstName, lastName,
-				birthday, gender, street, postalCode, city, countryIsoCode,
-				phone, email);
-		
-		return makePersistent(patient);
+		if (PatientDao.getInstance().findBySocialInsuranceNr(socialInsuranceNr) != null) {
+			Doctor doctor = DoctorDao.getInstance().findById(doctorRO.getDoctorId());
+			
+			Patient patient = new Patient(doctor, socialInsuranceNr, firstName, lastName,
+					birthday, gender, street, postalCode, city, countryIsoCode,
+					phone, email);
+			
+			return makePersistent(patient);
+		} else {
+			_logger.warn("A patient with the social insurance number '" + socialInsuranceNr + "' already exists in the database! "
+					+ "Thus, a new patient has not been saved.");
+			return null;
+		}
 	}
 
 	/**
+	 * TODO
+	 * 
 	 * @param patient
 	 * @return
 	 */
@@ -142,11 +158,23 @@ public class PatientController {
 		return patient;
 	}
 	
+	/**
+	 * TODO
+	 * 
+	 * @param patientRO
+	 * @return
+	 */
 	public List<? extends ExaminationProtocolRO> getAllExaminationProtocolsSorted(PatientRO patientRO) {
 		Set<ExaminationProtocol> listExPro = patientRO.getExaminationprotocols();
 		return ExaminationProtocol.sortExaminationProtocolsByStartDate(listExPro);
 	}
 	
+	/**
+	 * TODO
+	 * 
+	 * @param socialInsuranceNr
+	 * @return
+	 */
 	public boolean isSocialInsuranceNrValid(String socialInsuranceNr) {
 		return Patient.isSocialInsuranceNrValid(socialInsuranceNr);
 	}

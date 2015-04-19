@@ -1,0 +1,7 @@
+<map id="at.itb13.oculus.presentation.view.ControllerMainSetter" name="at.itb13.oculus.presentation.view.ControllerMainSetter">
+<area shape="rect" id="node2" href="$classat_1_1itb13_1_1oculus_1_1presentation_1_1view_1_1_appointments_controller.html" title="{at.itb13.oculus.presentation.view.\lAppointmentsController\n||+ setMain()\l+ getAppointments()\l+ addAppointment()\l+ clearAppointments()\l}" alt="" coords="5,145,215,281"/>
+<area shape="rect" id="node3" href="$classat_1_1itb13_1_1oculus_1_1presentation_1_1view_1_1_patient_controller.html" title="{at.itb13.oculus.presentation.view.\lPatientController\n||+ setMain()\l}" alt="" coords="239,167,448,259"/>
+<area shape="rect" id="node4" href="$classat_1_1itb13_1_1oculus_1_1presentation_1_1view_1_1_patient_record_controller.html" title="{at.itb13.oculus.presentation.view.\lPatientRecordController\n||+ setMain()\l+ showPatientMasterData()\l+ showAnamanesis()\l}" alt="" coords="472,153,681,274"/>
+<area shape="rect" id="node5" href="$classat_1_1itb13_1_1oculus_1_1presentation_1_1view_1_1_queue_controller.html" title="{at.itb13.oculus.presentation.view.\lQueueController\n||+ setMain()\l}" alt="" coords="705,167,915,259"/>
+<area shape="rect" id="node6" href="$classat_1_1itb13_1_1oculus_1_1presentation_1_1view_1_1_root_layout_controller.html" title="{at.itb13.oculus.presentation.view.\lRootLayoutController\n||+ setMain()\l}" alt="" coords="939,167,1148,259"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="at.itb13.oculus.application.queue.QueueController.pushQueueEntry" name="at.itb13.oculus.application.queue.QueueController.pushQueueEntry">
+<area shape="rect" id="node2" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1dao_1_1_queue_dao.html#a0fc76a0352b510c7fd4c344fdc8ef922" title="at.itb13.oculus.technical\lServices.dao.QueueDao.getInstance" alt="" coords="275,5,492,47"/>
+<area shape="rect" id="node3" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1dao_1_1_queue_dao.html#a99860fe7691d1d4136cc86342dc65c58" title="at.itb13.oculus.technical\lServices.dao.QueueDao.makePersistent" alt="" coords="264,71,503,112"/>
+<area shape="rect" id="node4" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1_hibernate_util.html#aab43e3d72014b864f59099e662933539" title="at.itb13.oculus.technical\lServices.HibernateUtil.getSession\lFactory" alt="" coords="551,63,756,119"/>
+</map>

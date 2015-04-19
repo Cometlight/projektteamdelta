@@ -1,0 +1,8 @@
+<map id="at.itb13.oculus.application.queue.QueueController.pushQueueEntry" name="at.itb13.oculus.application.queue.QueueController.pushQueueEntry">
+<area shape="rect" id="node2" href="$classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#aa359d0cf8e674b5494097476a9cf2db8" title="at.itb13.oculus.domain.Queue.get\lDoctor" alt="" coords="266,5,473,47"/>
+<area shape="rect" id="node3" href="$classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#a8f284c954b3440aeb56e9eb7afaabddf" title="at.itb13.oculus.domain.Queue.get\lOrthoptist" alt="" coords="266,71,473,112"/>
+<area shape="rect" id="node4" href="$classat_1_1itb13_1_1oculus_1_1application_1_1queue_1_1_queue_controller.html#ab98d22c26e916875f3f95cdd820cf871" title="at.itb13.oculus.application.queue.\lQueueController.pushQueueEntry" alt="" coords="264,136,475,177"/>
+<area shape="rect" id="node5" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1dao_1_1_queue_dao.html#a0fc76a0352b510c7fd4c344fdc8ef922" title="at.itb13.oculus.technical\lServices.dao.QueueDao.getInstance" alt="" coords="533,103,751,144"/>
+<area shape="rect" id="node6" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1dao_1_1_queue_dao.html#a99860fe7691d1d4136cc86342dc65c58" title="at.itb13.oculus.technical\lServices.dao.QueueDao.makePersistent" alt="" coords="523,168,761,209"/>
+<area shape="rect" id="node7" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1_hibernate_util.html#aab43e3d72014b864f59099e662933539" title="at.itb13.oculus.technical\lServices.HibernateUtil.getSession\lFactory" alt="" coords="809,161,1015,217"/>
+</map>

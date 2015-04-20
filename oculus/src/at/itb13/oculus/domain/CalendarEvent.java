@@ -54,8 +54,6 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
 	private String _patientName;
 	private boolean _isOpen;
 	
-	private boolean _isFullyLoaded;
-
 	public CalendarEvent() {
 	}
 

@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.application.ControllerFacade;
+import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.view.AppointmentsController;
 import at.itb13.oculus.presentation.view.ControllerMainSetter;
@@ -21,6 +22,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -42,7 +44,8 @@ public class OculusMain extends Application {
 	
 	private Stage _primaryStage;
 	private BorderPane _rootLayout;
-
+	private RootLayoutController _rootLayoutController;
+	
 	private PatientRO _tempPatient;
 
 	private ObservableList<PatientRO> _patientData = FXCollections.observableArrayList();
@@ -110,6 +113,7 @@ public class OculusMain extends Application {
 			rlc.setMain(this);
 			loader.setController(rlc);
 			_rootLayout = loader.load();
+			rlc.setTabPane((TabPane)_rootLayout.getTop());
 
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(_rootLayout);
@@ -117,8 +121,8 @@ public class OculusMain extends Application {
 			_primaryStage.show();
 
 			// Give the controller access to the main app.
-			RootLayoutController controller = loader.getController();
-			controller.setMain(this);
+			_rootLayoutController = loader.getController();
+			_rootLayoutController.setMain(this);
 			
 			_logger.info("initRootLayout() successful");
 		} catch (IOException ex) {
@@ -131,8 +135,10 @@ public class OculusMain extends Application {
 	 * 
 	 * @param fxmlPath The path of the .fxml-File, eg. "view/PatientOverview.fxml"
 	 * @param controllerClass The class of the associated controller. Must implement the interface IController.
+	 * @return A reference to the created controller. May be null, if failed to do so.
 	 */
-	public <T extends ControllerMainSetter> void showTab(String fxmlPath, Class<T> controllerClass) {
+	 <T extends ControllerMainSetter> T showTab(String fxmlPath, Class<T> controllerClass) {
+		T controller = null;
 		if(_rootLayout != null) {
 			try {
 				// Load person overview.
@@ -145,7 +151,7 @@ public class OculusMain extends Application {
 				_rootLayout.setCenter(overview);
 	
 				// Give the controller access to the main app.
-				T controller = loader.getController();
+				controller = loader.getController();
 				controller.setMain(this);
 				
 				_logger.info("Successfully loaded " + controllerClass.getName());
@@ -153,13 +159,15 @@ public class OculusMain extends Application {
 				_logger.error(ex);
 			}
 		}
+		return controller;
 	}
 
 	/**
 	 * TODO: Insert Description
+	 * @return 
 	 */
-	public void showPatientOverview() {
-		showTab("view/PatientOverview.fxml", PatientController.class);
+	public PatientController showPatientOverview() {
+		return showTab("view/PatientOverview.fxml", PatientController.class);
 		
 		// "Old" way of doing that:
 //		if(_rootLayout != null) {
@@ -186,9 +194,10 @@ public class OculusMain extends Application {
 
 	/**
 	 * TODO: Insert Description
+	 * @return 
 	 */
-	public void showAppointmentsOverview() {
-		showTab("view/AppointmentsOverview.fxml", AppointmentsController.class);
+	public AppointmentsController showAppointmentsOverview() {
+		return showTab("view/AppointmentsOverview.fxml", AppointmentsController.class);
 		
 		// "Old" way of doing that:
 //		if(_rootLayout != null) {
@@ -215,9 +224,10 @@ public class OculusMain extends Application {
 
 	/**
 	 * TODO: Insert Description
+	 * @return 
 	 */
-	public void showQueue() {
-		showTab("view/Queue.fxml", QueueController.class);
+	public QueueController showQueue() {
+		return showTab("view/Queue.fxml", QueueController.class);
 		
 		// "Old" way of doing that:
 //		if(_rootLayout != null) {
@@ -308,6 +318,7 @@ public class OculusMain extends Application {
 			controller.setMain(this);
 			controller.showPatientMasterData(patient);
 			controller.showAnamanesis(patient);
+			controller.showAppointments(patient);
 			_logger.info("showPatientRecord");
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -349,6 +360,17 @@ public class OculusMain extends Application {
 			// Update the stage title.
 			_primaryStage.setTitle("Oculus");
 		}
+	}
+	
+	/**
+	 * TODO
+	 * 
+	 * @param calendarEventRO
+	 */
+	public void showAppointment(CalendarEventRO calendarEventRO) {
+		_rootLayoutController.setTab(0);	// TODO: maybe declare as static final int
+		AppointmentsController controller = showAppointmentsOverview();
+		controller.showAppointmentInformation(calendarEventRO);
 	}
 
 	/**

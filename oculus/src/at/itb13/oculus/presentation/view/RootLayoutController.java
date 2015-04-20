@@ -10,6 +10,7 @@ import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.OculusMain;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
@@ -23,88 +24,97 @@ import javafx.scene.layout.BorderPane;
 public class RootLayoutController implements ControllerMainSetter {
 	private static final Logger _logger = LogManager.getLogger(RootLayoutController.class.getName());
 	
-
+	@FXML
+	private TabPane _tabPaneRoot;
 	
 	//general Attributs
-		private OculusMain _main;
+	private OculusMain _main;
+	
+	//general Methods
+	 public void setMain(OculusMain main) {
+	        _main = main;		        
+	  }
+	 
+	 public void setTabPane(TabPane tabPane) {
+		 _tabPaneRoot = tabPane;
+	 }
+	 
+	 @FXML
+	 private void initialize() {}
+	 
+	 @FXML
+	 private void tabPatientControl(){
 		
-		
-		
-		//general Methods
-		 public void setMain(OculusMain main) {
-		        _main = main;		        
-		  }
+		_main.showPatientOverview();
+		    
+	 }
+	 
+	 @FXML
+	 private void tabAppointmentsControl(){	
+		 _main.showAppointmentsOverview();
+	 }
+	 
+	 @FXML
+	 private void tabQueueControl(){					
+		_main.showQueue();
+		    
+	 }
+	 
+	 public void setTab(int index) {
+		 _tabPaneRoot.getSelectionModel().select(index);
+	 }
 		 
-		 @FXML
-		 private void initialize() {}
-		 
-		 @FXML
-		 private void tabPatientControl(){
-			
-			_main.showPatientOverview();
-			    
-		 }
-		 
-		 @FXML
-		 private void tabAppointmentsControl(){	
-			 _main.showAppointmentsOverview();
-		 }
-		 
-		 @FXML
-		 private void tabQueueControl(){					
-			_main.showQueue();
-			    
-		 }
-		 
-			/**
-			 * @param newValue
-			 * @return
-			 */
-			private Object showPatientRecord(BorderPane layout, CalendarEventRO event) {
-				 try {
-			 	        // Load person overview.
-			 	        FXMLLoader loader = new FXMLLoader();
-			 	        loader.setLocation(OculusMain.class.getResource("view/PatientRecord.fxml"));
-			 	        AnchorPane overview = (AnchorPane) loader.load();	
+	/**
+	 * @param newValue
+	 * @return
+	 */
+	private Object showPatientRecord(BorderPane layout, CalendarEventRO event) {
+		 try {
+	 	        // Load person overview.
+	 	        FXMLLoader loader = new FXMLLoader();
+	 	        loader.setLocation(OculusMain.class.getResource("view/PatientRecord.fxml"));
+	 	        AnchorPane overview = (AnchorPane) loader.load();	
 
-			 	        // Set person overview into the center of root layout.
-			 	        layout.setCenter(overview);
+	 	        // Set person overview into the center of root layout.
+	 	        layout.setCenter(overview);
 
-			 	        // Give the controller access to the main app.
-			 	        PatientRecordController controller = loader.getController();
-			 	        controller.setMain(_main);
-			 	        controller.showPatientMasterData(event.getPatient());
-			 	        controller.showAnamanesis(event.getPatient());
+	 	        // Give the controller access to the main app.
+	 	        PatientRecordController controller = loader.getController();
+	 	        controller.setMain(_main);
+	 	        controller.showPatientMasterData(event.getPatient());
+	 	        controller.showAnamanesis(event.getPatient());
 
-			 	    } catch (IOException e) {
-			 	        e.printStackTrace();
-			 	    }
-				return null;
-			}
-			/**
-			 * @param newValue
-			 * @return
-			 */
-			private Object showPatientRecord(BorderPane layout, PatientRO patient) {
-				 try {
-			 	        // Load person overview.
-			 	        FXMLLoader loader = new FXMLLoader();
-			 	        loader.setLocation(OculusMain.class.getResource("view/PatientRecord.fxml"));
-			 	        AnchorPane overview = (AnchorPane) loader.load();	
+	 	    } catch (IOException e) {
+	 	        e.printStackTrace();
+	 	    }
+		return null;
+	}
+	
+	/**
+	 * TODO
+	 * 
+	 * @param newValue
+	 * @return
+	 */
+	private Object showPatientRecord(BorderPane layout, PatientRO patient) {
+		 try {
+	 	        // Load person overview.
+	 	        FXMLLoader loader = new FXMLLoader();
+	 	        loader.setLocation(OculusMain.class.getResource("view/PatientRecord.fxml"));
+	 	        AnchorPane overview = (AnchorPane) loader.load();	
 
-			 	        // Set person overview into the center of root layout.
-			 	        layout.setCenter(overview);
+	 	        // Set person overview into the center of root layout.
+	 	        layout.setCenter(overview);
 
-			 	        // Give the controller access to the main app.
-			 	        PatientRecordController controller = loader.getController();
-			 	        controller.setMain(_main);
-			 	        controller.showPatientMasterData(patient);
-			 	        controller.showAnamanesis(patient);
+	 	        // Give the controller access to the main app.
+	 	        PatientRecordController controller = loader.getController();
+	 	        controller.setMain(_main);
+	 	        controller.showPatientMasterData(patient);
+	 	        controller.showAnamanesis(patient);
 
-			 	    } catch (IOException e) {
-			 	        e.printStackTrace();
-			 	    }
-				return null;
-			}
-
+	 	    } catch (IOException e) {
+	 	        e.printStackTrace();
+	 	    }
+		return null;
+	}
 }

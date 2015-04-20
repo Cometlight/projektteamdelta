@@ -243,7 +243,7 @@ public class AppointmentsController implements ControllerMainSetter {
 
 	}
 
-	private void showAppointmentInformation(CalendarEventRO event) {
+	public void showAppointmentInformation(CalendarEventRO event) {
 		if (event != null) {
 			_descriptionLabel.setText(event.getDescription());
 			_dateTimeLabel.setText(event.getEventStart().toString());

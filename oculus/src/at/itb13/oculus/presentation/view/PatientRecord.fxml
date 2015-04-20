@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.PatientRecordController">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.PatientRecordController">
    <children>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -121,6 +121,20 @@
                   <Tab text="Examination Protocols">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                     </content>
+                  </Tab>
+                  <Tab text="Appointments">
+                     <content>
+                        <TableView fx:id="_appointmentTable" prefHeight="200.0" prefWidth="200.0">
+                          <columns>
+                              <TableColumn fx:id="_stateColumn" prefWidth="75.0" text="State" />
+                            <TableColumn fx:id="_dateColumn" prefWidth="70.0" text="Date" />
+                              <TableColumn fx:id="_timeStartColumn" prefWidth="70.0" text="Time (start)" />
+                              <TableColumn fx:id="_timeEndColumn" prefWidth="70.0" text="Time (end)" />
+                            <TableColumn fx:id="_eventTypeColumn" prefWidth="113.0" text="Event Type" />
+                              <TableColumn fx:id="_descriptionColumn" prefWidth="202.0" text="Description" />
+                          </columns>
+                        </TableView>
                      </content>
                   </Tab>
                </tabs>

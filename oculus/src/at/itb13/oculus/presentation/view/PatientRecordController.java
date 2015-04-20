@@ -147,8 +147,10 @@ public class PatientRecordController implements ControllerMainSetter {
 	 
 	public void showAppointments(PatientRO value) {
 		_appointmentsList.clear();
-		_appointmentsList.addAll(
-				ControllerFacade.getInstance().getPatientController().getAllCalendarEventsSorted(value));
+		if(value != null && value.getCalendarevents() != null) {
+			_appointmentsList.addAll(
+					ControllerFacade.getInstance().getPatientController().getAllCalendarEventsSorted(value));
+		}
 	}
 	 
 	private void initAppointmentsTab() {

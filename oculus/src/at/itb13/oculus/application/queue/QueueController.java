@@ -147,4 +147,14 @@ public class QueueController {
 		}
 		return false;
 	}
+	
+	/**
+	 * TODO
+	 * 
+	 * @param patientRO
+	 * @return
+	 */
+	public boolean isPatientInQueue(PatientRO patientRO) {
+		return _queue.containsPatient(patientRO.getPatientId());
+	}
 }

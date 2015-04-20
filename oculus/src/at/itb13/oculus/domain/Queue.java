@@ -156,6 +156,21 @@ public class Queue implements QueueRO {
 		
 		return false;
 	}
+	
+	/**
+	 * TODO
+	 * 
+	 * @param patient
+	 * @return
+	 */
+	public boolean containsPatient(Integer patientID) {
+		for(QueueEntry queueEntry : _queueEntries) {
+			if(queueEntry.getPatient().getPatientId().equals(patientID)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * @return the doctor

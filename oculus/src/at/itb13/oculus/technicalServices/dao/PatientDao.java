@@ -1,15 +1,11 @@
 package at.itb13.oculus.technicalServices.dao;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
-import at.itb13.oculus.domain.CalendarEvent;
-import at.itb13.oculus.domain.ExaminationProtocol;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.technicalServices.GenericDao;
 
@@ -23,12 +19,26 @@ import at.itb13.oculus.technicalServices.GenericDao;
 public class PatientDao extends GenericDao<Patient> {
 	
 	private static final Logger _logger = LogManager.getLogger(PatientDao.class.getName());
+	
+	private static PatientDao _patientDao;
+	
+	static {
+		_patientDao = new PatientDao();
+	}
 
 	/**
 	 * @see GenericDao#GenericDao(Class);
 	 */
-	public PatientDao() {
+	private PatientDao() {
 		super(Patient.class);
+	}
+	
+	/**
+	 * 
+	 * @return instance of the Singleton
+	 */
+	public static PatientDao getInstance() {
+		return _patientDao;
 	}
 
 	/**
@@ -94,51 +104,5 @@ public class PatientDao extends GenericDao<Patient> {
 		}
 		
 		return patient;
-	}
-	
-	/**
-	 * Loads the collection from the database into the entity.
-	 * No changes are made to the database.
-	 * <p>
-	 * Example:
-	 * 		loadCalendarevents(patient);
-	 * 		calendarevents = patient.getCalendarevents();
-	 * 
-	 * @param patient The Patient whose calendarevents should be loaded. It must not be in a transient state!
-	 * @return The Calendarevents that have been loaded. Returns {@link java.util.Collections#emptySet()} in case of failure.
-	 * @see GenericDao#loadCollection(T entity, Collection<?> collection)
-	 */
-	public Set<CalendarEvent> loadCalendarevents(Patient patient) {
-		try {
-			loadCollection(patient, patient.getCalendarevents());
-		} catch (Exception e) {
-			_logger.error(e);
-			return Collections.emptySet();
-		}
-		
-		return patient.getCalendarevents();
-	}
-	
-	/**
-	 * Loads the collection from the database into the entity.
-	 * No changes are made to the database.
-	 * <p>
-	 * Example:
-	 * 		loadExaminationProtocols(patient);
-	 * 		examinationProtcols = patient.getExaminationProtocols();
-	 * 
-	 * @param patient The Patient whose examinationProtocols should be loaded. It must not be in a transient state!
-	 * @return The ExaminationProtocols that have been loaded. Returns {@link java.util.Collections#emptySet()} in case of failure.
-	 * @see GenericDao#loadCollection(T entity, Collection<?> collection)
-	 */
-	public Set<ExaminationProtocol> loadExaminationProtocols(Patient patient) {	// TODO: Examinationprotocols vs ExaminationProtocols --> see Trello
-		try {
-			loadCollection(patient, patient.getExaminationprotocols());
-		} catch (Exception e) {
-			_logger.error(e);
-			return Collections.emptySet();
-		}
-		
-		return patient.getExaminationprotocols();
 	}
 }

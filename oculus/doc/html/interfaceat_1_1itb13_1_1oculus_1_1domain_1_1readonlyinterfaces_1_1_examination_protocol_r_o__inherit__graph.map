@@ -1,0 +1,3 @@
+<map id="at.itb13.oculus.domain.readonlyinterfaces.ExaminationProtocolRO" name="at.itb13.oculus.domain.readonlyinterfaces.ExaminationProtocolRO">
+<area shape="rect" id="node2" href="$classat_1_1itb13_1_1oculus_1_1domain_1_1_examination_protocol.html" title="{at.itb13.oculus.domain.Examination\lProtocol\n||+ ExaminationProtocol()\l+ ExaminationProtocol()\l+ getExaminationProtocolId()\l+ setExaminationProtocolId()\l+ getDiagnosis()\l+ setDiagnosis()\l+ getPatient()\l+ setPatient()\l+ getUser()\l+ setUser()\land 12 more...\l+ sortExaminationProtocols\lByStartDate()\l}" alt="" coords="24,292,247,560"/>
+</map>

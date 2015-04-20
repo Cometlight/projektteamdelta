@@ -61,8 +61,8 @@
 			<tbody>
 					<tr>
 						<td>
-							<a href="#column_detail_prescriptionId">
-								prescriptionId
+							<a href="#column_detail_prescriptionEntryId">
+								prescriptionEntryId
 							</a>
 						</td>
 						<td>
@@ -79,6 +79,31 @@
 						</td>
 						<td>
 							false
+						</td>
+						<td>
+							true
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="#column_detail_prescriptionId">
+								prescriptionId
+							</a>
+						</td>
+						<td>
+							N/D
+						</td>
+						<td>
+							255
+						</td>
+						<td>
+							19
+						</td>
+						<td>
+							2
+						</td>
+						<td>
+							true
 						</td>
 						<td>
 							false
@@ -103,7 +128,7 @@
 							2
 						</td>
 						<td>
-							false
+							true
 						</td>
 						<td>
 							false
@@ -134,11 +159,8 @@
 								PRIMARY
 						</td>
 						<td>
-								<a href="#column_detail_prescriptionId">
-									prescriptionId
-								</a>
-								<a href="#column_detail_medicineId">
-									medicineId
+								<a href="#column_detail_prescriptionEntryId">
+									prescriptionEntryId
 								</a>
 						</td>
 					</tr>
@@ -183,6 +205,36 @@
 						<tr>
 							<td>
 								prescriptionentry_ibfk_1
+							</td>
+							<td>
+								<a href="prescription.html" target="generalFrame">
+									prescription
+								</a>
+							</td>
+							<td>
+									<a href="#column_detail_prescriptionId">
+										prescriptionId
+									</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								FK_j11oj0gox7vlny0mq2ocl6csi
+							</td>
+							<td>
+								<a href="medicine.html" target="generalFrame">
+									medicine
+								</a>
+							</td>
+							<td>
+									<a href="#column_detail_medicineId">
+										medicineId
+									</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								FK_f9l3orms6ptuph6m8hqd1laxt
 							</td>
 							<td>
 								<a href="prescription.html" target="generalFrame">
@@ -243,7 +295,7 @@
 				Column Detail
 			</p>
 				
-				<h3 id="column_detail_prescriptionId">prescriptionId</h3>
+				<h3 id="column_detail_prescriptionEntryId">prescriptionEntryId</h3>
 				
 				<ul>
 					<li>
@@ -260,6 +312,34 @@
 					</li>
 					<li>
 						<strong>Nullable:</strong> false
+					</li>
+					<li>
+						<strong>Unique:</strong> true
+					</li>
+					<li>
+						<strong>Comment:</strong> 
+					</li>
+				</ul>
+
+
+				<hr/>
+				<h3 id="column_detail_prescriptionId">prescriptionId</h3>
+				
+				<ul>
+					<li>
+						<strong>Type:</strong> N/D
+					</li>
+					<li>
+						<strong>Length:</strong> 255
+					</li>
+					<li>
+						<strong>Precision:</strong> 19
+					</li>
+					<li>
+						<strong>Scale:</strong> 2
+					</li>
+					<li>
+						<strong>Nullable:</strong> true
 					</li>
 					<li>
 						<strong>Unique:</strong> false
@@ -287,7 +367,7 @@
 						<strong>Scale:</strong> 2
 					</li>
 					<li>
-						<strong>Nullable:</strong> false
+						<strong>Nullable:</strong> true
 					</li>
 					<li>
 						<strong>Unique:</strong> false

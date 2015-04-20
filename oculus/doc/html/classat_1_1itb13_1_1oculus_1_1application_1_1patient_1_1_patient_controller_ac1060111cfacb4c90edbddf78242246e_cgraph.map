@@ -1,0 +1,7 @@
+<map id="at.itb13.oculus.application.patient.PatientController.createPatient" name="at.itb13.oculus.application.patient.PatientController.createPatient">
+<area shape="rect" id="node2" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1dao_1_1_patient_dao.html#a509a2d5135389ca358a6167c86c5a0dc" title="at.itb13.oculus.technical\lServices.dao.PatientDao.getInstance" alt="" coords="271,5,492,47"/>
+<area shape="rect" id="node3" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1dao_1_1_patient_dao.html#a14ab0f701d4dd83daa3ce902d71d8e61" title="at.itb13.oculus.technical\lServices.dao.PatientDao.findBy\lSocialInsuranceNr" alt="" coords="285,71,478,127"/>
+<area shape="rect" id="node5" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1dao_1_1_doctor_dao.html#a8dabdacfc79d5b7e515ad4437fad98dc" title="at.itb13.oculus.technical\lServices.dao.DoctorDao.getInstance" alt="" coords="272,152,491,193"/>
+<area shape="rect" id="node6" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1_generic_dao.html#a8b05dc1201c03f43209c23a1fa4d0591" title="at.itb13.oculus.technical\lServices.GenericDao.findById" alt="" coords="290,217,473,259"/>
+<area shape="rect" id="node4" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1_generic_dao.html#ae47b7616f2c3240bdc79f64d272594d6" title="at.itb13.oculus.technical\lServices.GenericDao.findByCriteria" alt="" coords="540,79,755,120"/>
+</map>

@@ -61,8 +61,8 @@
 			<tbody>
 					<tr>
 						<td>
-							<a href="#column_detail_workingHoursId">
-								workingHoursId
+							<a href="#column_detail_calendarWorkingHoursId">
+								calendarWorkingHoursId
 							</a>
 						</td>
 						<td>
@@ -81,6 +81,31 @@
 							false
 						</td>
 						<td>
+							true
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="#column_detail_workingHoursId">
+								workingHoursId
+							</a>
+						</td>
+						<td>
+							integer
+						</td>
+						<td>
+							255
+						</td>
+						<td>
+							19
+						</td>
+						<td>
+							2
+						</td>
+						<td>
+							true
+						</td>
+						<td>
 							false
 						</td>
 					</tr>
@@ -95,6 +120,31 @@
 						</td>
 						<td>
 							255
+						</td>
+						<td>
+							19
+						</td>
+						<td>
+							2
+						</td>
+						<td>
+							true
+						</td>
+						<td>
+							false
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="#column_detail_weekDayKey">
+								weekDayKey
+							</a>
+						</td>
+						<td>
+							varchar(4)
+						</td>
+						<td>
+							4
 						</td>
 						<td>
 							19
@@ -134,11 +184,8 @@
 								PRIMARY
 						</td>
 						<td>
-								<a href="#column_detail_workingHoursId">
-									workingHoursId
-								</a>
-								<a href="#column_detail_calendarId">
-									calendarId
+								<a href="#column_detail_calendarWorkingHoursId">
+									calendarWorkingHoursId
 								</a>
 						</td>
 					</tr>
@@ -183,6 +230,36 @@
 						<tr>
 							<td>
 								calendarworkinghours_ibfk_1
+							</td>
+							<td>
+								<a href="workinghours.html" target="generalFrame">
+									workinghours
+								</a>
+							</td>
+							<td>
+									<a href="#column_detail_workingHoursId">
+										workingHoursId
+									</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								FK_qmouv4al90khs308qe6nbghnp
+							</td>
+							<td>
+								<a href="calendar.html" target="generalFrame">
+									calendar
+								</a>
+							</td>
+							<td>
+									<a href="#column_detail_calendarId">
+										calendarId
+									</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								FK_ltct513evp2uhmr1twrsf8oe2
 							</td>
 							<td>
 								<a href="workinghours.html" target="generalFrame">
@@ -243,7 +320,7 @@
 				Column Detail
 			</p>
 				
-				<h3 id="column_detail_workingHoursId">workingHoursId</h3>
+				<h3 id="column_detail_calendarWorkingHoursId">calendarWorkingHoursId</h3>
 				
 				<ul>
 					<li>
@@ -260,6 +337,34 @@
 					</li>
 					<li>
 						<strong>Nullable:</strong> false
+					</li>
+					<li>
+						<strong>Unique:</strong> true
+					</li>
+					<li>
+						<strong>Comment:</strong> 
+					</li>
+				</ul>
+
+
+				<hr/>
+				<h3 id="column_detail_workingHoursId">workingHoursId</h3>
+				
+				<ul>
+					<li>
+						<strong>Type:</strong> integer
+					</li>
+					<li>
+						<strong>Length:</strong> 255
+					</li>
+					<li>
+						<strong>Precision:</strong> 19
+					</li>
+					<li>
+						<strong>Scale:</strong> 2
+					</li>
+					<li>
+						<strong>Nullable:</strong> true
 					</li>
 					<li>
 						<strong>Unique:</strong> false
@@ -279,6 +384,34 @@
 					</li>
 					<li>
 						<strong>Length:</strong> 255
+					</li>
+					<li>
+						<strong>Precision:</strong> 19
+					</li>
+					<li>
+						<strong>Scale:</strong> 2
+					</li>
+					<li>
+						<strong>Nullable:</strong> true
+					</li>
+					<li>
+						<strong>Unique:</strong> false
+					</li>
+					<li>
+						<strong>Comment:</strong> 
+					</li>
+				</ul>
+
+
+				<hr/>
+				<h3 id="column_detail_weekDayKey">weekDayKey</h3>
+				
+				<ul>
+					<li>
+						<strong>Type:</strong> varchar(4)
+					</li>
+					<li>
+						<strong>Length:</strong> 4
 					</li>
 					<li>
 						<strong>Precision:</strong> 19

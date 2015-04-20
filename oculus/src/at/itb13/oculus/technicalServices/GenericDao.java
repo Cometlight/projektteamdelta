@@ -72,7 +72,7 @@ public abstract class GenericDao<T> {
 	
 	/**
 	 * Opens a new Hibernate session and loads all objects with the domainClass specified in the constructor into a list.
-	 * If no objects are found, the returned is empty.
+	 * If no objects are found, the returned list is empty.
 	 * 
 	 * Alias: {@link #findAll() findAll}
 	 * 
@@ -110,7 +110,7 @@ public abstract class GenericDao<T> {
 	
 	/**
 	 * Opens a new Hibernate session and loads all objects with the domainClass specified in the constructor into a list.
-	 * If no objects are found, the returned is empty.
+	 * If no objects are found, the returned list is empty.
 	 * 
 	 * Alias: {@link #list() list}
 	 * 
@@ -291,39 +291,39 @@ public abstract class GenericDao<T> {
 	 * @param collection The collection that should be loaded.
 	 * @throws Exception Most likely indicates that either the entity wasn't in a transient state or the collection couldn't be initialized.
 	 */
-	protected void loadCollection(T entity, Collection<?> collection) throws Exception {
-		if(Hibernate.isInitialized(collection)) {
-			_logger.info("The supplied collection was already loaded. No need to load it again.");
-			// There is no need to throw an exception. It's not harmful, only unnecessary.
-		} else {
-			Session session = null;
-			Transaction tx = null;
-			try {
-				session = HibernateUtil.getSessionFactory().openSession();
-				tx = session.beginTransaction();
-				
-				/* 
-				 * It's not a good idea to use update(), merge() or something similar to reattach the entity to the session.
-				 * Doing so would update the database. However, we only want to retrieve some data, as saving and updating to
-				 * the database is done using the method saveOrUpdate().
-				 */
-				session.buildLockRequest(LockOptions.NONE).lock(entity);
-				
-				Hibernate.initialize(collection);
-				
-				tx.commit();
-			} catch (Exception ex) {
-				if(tx != null) {
-					tx.rollback();
-				}
-				throw ex;
-			} finally {
-				if(session != null) {
-					session.close();
-				}
-			}
-		}
-	}
+//	protected void loadCollection(T entity, Collection<?> collection) throws Exception {
+//		if(Hibernate.isInitialized(collection)) {
+//			_logger.info("The supplied collection was already loaded. No need to load it again.");
+//			// There is no need to throw an exception. It's not harmful, only unnecessary.
+//		} else {
+//			Session session = null;
+//			Transaction tx = null;
+//			try {
+//				session = HibernateUtil.getSessionFactory().openSession();
+//				tx = session.beginTransaction();
+//				
+//				/* 
+//				 * It's not a good idea to use update(), merge() or something similar to reattach the entity to the session.
+//				 * Doing so would update the database. However, we only want to retrieve some data, as saving and updating to
+//				 * the database is done using the method saveOrUpdate().
+//				 */
+//				session.buildLockRequest(LockOptions.NONE).lock(entity);
+//				
+//				Hibernate.initialize(collection);
+//				
+//				tx.commit();
+//			} catch (Exception ex) {
+//				if(tx != null) {
+//					tx.rollback();
+//				}
+//				throw ex;
+//			} finally {
+//				if(session != null) {
+//					session.close();
+//				}
+//			}
+//		}
+//	}
 
 	/**
 	 * 

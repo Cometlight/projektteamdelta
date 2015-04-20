@@ -1,13 +1,9 @@
 package at.itb13.oculus.technicalServices.dao;
 
-import java.util.Collections;
-import java.util.Set;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.domain.Calendar;
-import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.technicalServices.GenericDao;
 
 /**
@@ -18,29 +14,26 @@ import at.itb13.oculus.technicalServices.GenericDao;
  */
 public class CalendarDao extends GenericDao<Calendar> {
 
-	private static final Logger _logger = LogManager.getLogger(DoctorDao.class.getName());
+	private static final Logger _logger = LogManager.getLogger(CalendarDao.class.getName());
+	
+	private static CalendarDao _calendarDao;
+	
+	static {
+		_calendarDao = new CalendarDao();
+	}
 	
 	/**
 	 * @see GenericDao#GenericDao(Class);
 	 */
-	public CalendarDao() {
+	private CalendarDao() {
 		super(Calendar.class);
 	}
 	
 	/**
-	 * TODO
-	 * @param calendar
-	 * @return
+	 * 
+	 * @return instance of the Singleton
 	 */
-	public Set<CalendarEvent> loadCalendarevents(Calendar calendar) {
-		try {
-			loadCollection(calendar, calendar.getCalendarevents());
-		} catch (Exception e) {
-			_logger.error(e);
-			return Collections.emptySet();
-		}
-		
-		return calendar.getCalendarevents();
+	public static CalendarDao getInstance() {
+		return _calendarDao;
 	}
-	
 }

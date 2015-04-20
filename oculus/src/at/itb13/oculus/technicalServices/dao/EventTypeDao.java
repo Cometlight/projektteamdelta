@@ -1,14 +1,11 @@
 package at.itb13.oculus.technicalServices.dao;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
-import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.technicalServices.GenericDao;
 
@@ -23,36 +20,27 @@ public class EventTypeDao extends GenericDao<EventType> {
 	
 	private static final Logger _logger = LogManager.getLogger(EventTypeDao.class.getName());
 	
+	private static EventTypeDao _eventTypeDao;
+	
+	static {
+		_eventTypeDao = new EventTypeDao();
+	}
+	
 	/**
 	 * @see GenericDao#GenericDao(Class);
 	 */
-	public EventTypeDao() {
+	private EventTypeDao() {
 		super(EventType.class);
 	}
 	
 	/**
-	 * Loads the collection from the database into the entity.
-	 * No changes are made to the database.
-	 * <p>
-	 * Example:
-	 * 		loadCalendarevents(eventtype);
-	 * 		calendarevents = eventtype.getCalendarevents();
 	 * 
-	 * @param eventtype The Eventtype whose calendarevents should be loaded. It must not be in a transient state!
-	 * @return The Calendarevents that have been loaded. Returns {@link java.util.Collections#emptySet()} in case of failure.
-	 * @see GenericDao#loadCollection(T entity, Collection<?> collection)
+	 * @return instance of the Singleton
 	 */
-	public Set<CalendarEvent> loadCalendarevents(EventType eventtype) {
-		try {
-			loadCollection(eventtype, eventtype.getCalendarevents());
-		} catch (Exception e) {
-			_logger.error(e);
-			return Collections.emptySet();
-		}
-		
-		return eventtype.getCalendarevents();
+	public static EventTypeDao getInstance() {
+		return _eventTypeDao;
 	}
-
+	
 	/**
 	 * Load the Eventtype with the specified name from the database.
 	 * 

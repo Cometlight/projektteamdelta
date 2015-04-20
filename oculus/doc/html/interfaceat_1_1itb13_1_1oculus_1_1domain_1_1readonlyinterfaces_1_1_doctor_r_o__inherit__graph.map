@@ -1,0 +1,3 @@
+<map id="at.itb13.oculus.domain.readonlyinterfaces.DoctorRO" name="at.itb13.oculus.domain.readonlyinterfaces.DoctorRO">
+<area shape="rect" id="node2" href="$classat_1_1itb13_1_1oculus_1_1domain_1_1_doctor.html" title="{at.itb13.oculus.domain.Doctor\n||+ Doctor()\l+ Doctor()\l+ Doctor()\l+ getDoctorId()\l+ setDoctorId()\l+ getCalendar()\l+ setCalendar()\l+ getDoctorSubstitute()\l+ setDoctorSubstitute()\l+ getUser()\l+ setUser()\l+ getDiagnoses()\l+ setDiagnoses()\l+ getPatients()\l+ setPatients()\l}" alt="" coords="40,219,231,501"/>
+</map>

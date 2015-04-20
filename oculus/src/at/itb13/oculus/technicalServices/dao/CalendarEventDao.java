@@ -1,11 +1,9 @@
 package at.itb13.oculus.technicalServices.dao;
 
-import java.util.Collections;
-import java.util.Set;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.domain.CalendarEvent;
-import at.itb13.oculus.domain.Diagnosis;
-import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.technicalServices.GenericDao;
 
 /**
@@ -17,11 +15,27 @@ import at.itb13.oculus.technicalServices.GenericDao;
  */
 public class CalendarEventDao extends GenericDao<CalendarEvent> {
 	
+	private static final Logger _logger = LogManager.getLogger(CalendarEventDao.class.getName());
+	
+	private static CalendarEventDao _calendarEventDao;
+	
+	static {
+		_calendarEventDao = new CalendarEventDao();
+	}
+	
 	/**
 	 * @see GenericDao#GenericDao(Class);
 	 */
-	public CalendarEventDao() {
+	private CalendarEventDao() {
 		super(CalendarEvent.class);
+	}
+	
+	/**
+	 * 
+	 * @return instance of the Singleton
+	 */
+	public static CalendarEventDao getInstance() {
+		return _calendarEventDao;
 	}
 	
 	

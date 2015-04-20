@@ -7,6 +7,7 @@ import java.util.prefs.Preferences;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.view.AppointmentsController;
 import at.itb13.oculus.presentation.view.ControllerMainSetter;
@@ -89,6 +90,8 @@ public class OculusMain extends Application {
 		_primaryStage.getIcons().add(
 				new Image("file:ApplicationResources/Images/eye.png"));
 
+		ControllerFacade.init();	// Load early, so the user does not have to wait when using the application
+			// TODO: Show splashscreen or progress bar while loading?
 		initRootLayout();
 		
 		showAppointmentsOverview();

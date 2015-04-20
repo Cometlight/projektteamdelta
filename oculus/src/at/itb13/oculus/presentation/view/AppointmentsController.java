@@ -107,8 +107,6 @@ public class AppointmentsController implements ControllerMainSetter {
 	@FXML
 	private void initialize() {
 		
-		_datePicker.setValue(LocalDate.now());	// Show today's appointments by default
-		
 		_appointmentTable.setItems(_appointmentsList);
 
 //		_timeColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
@@ -195,6 +193,9 @@ public class AppointmentsController implements ControllerMainSetter {
 				.selectedItemProperty()
 				.addListener(
 						(observable, oldValue, newValue) -> _main.showPatientRecord(_patientRecordBorderPane,newValue.getPatient()));
+		
+		_datePicker.setValue(LocalDate.now());	// Show today's appointments by default
+		changeDate(); 							// make sure, the appointments of today are loaded
 
 	}
 

@@ -1,7 +1,12 @@
 package at.itb13.oculus.domain;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -87,6 +92,33 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
 	public boolean isInTimespan(LocalDateTime startDate, LocalDateTime endDate){
 		return ( _eventStart.isAfter(startDate) || _eventStart.isEqual(startDate) )
 				&& ( _eventEnd.isBefore(endDate) || _eventEnd.isEqual(endDate) );
+	}
+	
+	/**
+	 * TODO
+	 * 
+	 * @param listCalEv
+	 * @return
+	 */
+	@Transient
+	public static List<? extends CalendarEventRO> sortCalendarEventsByStartDate(Set<CalendarEvent> listCalEv) {
+		List<CalendarEvent> listSorted = new LinkedList<>(listCalEv);
+		Collections.sort(listSorted, new Comparator<CalendarEvent>() {
+			@Override
+			public int compare(CalendarEvent o1, CalendarEvent o2) {
+				// -1 -> o1 < o2
+				// 0 -> o1 == 02
+				// 1 -> o1 > 02
+				if(o1.getEventStart().isEqual(o2.getEventStart())) {
+					return 0;
+				} else if (o1.getEventStart().isAfter(o2.getEventStart())) {
+					return 1;
+				} else {	// if(o1.getEventStart().isBefore(o2.getEventStart()))
+					return -1;
+				}
+			}
+		});
+		return listSorted;
 	}
 
 	@Id

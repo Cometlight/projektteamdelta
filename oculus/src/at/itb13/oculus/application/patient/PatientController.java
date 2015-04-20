@@ -8,9 +8,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.application.exceptions.InvalidInputException;
+import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.ExaminationProtocol;
 import at.itb13.oculus.domain.Patient;
+import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
 import at.itb13.oculus.domain.readonlyinterfaces.ExaminationProtocolRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
@@ -175,6 +177,17 @@ public class PatientController {
 	public List<? extends ExaminationProtocolRO> getAllExaminationProtocolsSorted(PatientRO patientRO) {
 		Set<ExaminationProtocol> listExPro = patientRO.getExaminationprotocols();
 		return ExaminationProtocol.sortExaminationProtocolsByStartDate(listExPro);
+	}
+	
+	/**
+	 * TODO
+	 * 
+	 * @param patientRO
+	 * @return
+	 */
+	public List<? extends CalendarEventRO> getAllCalendarEventsSorted(PatientRO patientRO) {
+		Set<CalendarEvent> listCalEv = patientRO.getCalendarevents();
+		return CalendarEvent.sortCalendarEventsByStartDate(listCalEv);
 	}
 	
 	/**

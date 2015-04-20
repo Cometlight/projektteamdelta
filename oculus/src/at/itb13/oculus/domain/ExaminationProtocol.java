@@ -102,8 +102,7 @@ public class ExaminationProtocol implements java.io.Serializable, ExaminationPro
 				sortedExaminationProtocols.add(epMax);
 				unsortedExaminationProtocols.remove(epMax);
 			}
-			
-//			Collections.sort(sortedExaminationProtocols, new ExaminationProtocolComparator());
+			// TODO: could be made more efficient; see CalendarEvent.sortCalendarEventsByStartDate
 		return sortedExaminationProtocols;
 	}
 

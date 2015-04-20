@@ -44,22 +44,30 @@ public class PatientController {
 	 * @param countryIsoCode
 	 * @param phone
 	 * @param email
-	 * @return null only if not able to update patient.
+	 * @return null only if not able to update patient. or patient doesn't exist yet in the database
 	 */
 	public PatientRO updatePatient(PatientRO patientRO, DoctorRO doctorRO, String socialInsuranceNr,
 			String firstName, String lastName, LocalDate birthday, String gender,
 			String street, String postalCode, String city,
 			String countryIsoCode, String phone, String email) {
 		
-		Doctor doctor = DoctorDao.getInstance().findById(doctorRO.getDoctorId());
-		
-		Patient patient = new Patient(doctor, socialInsuranceNr, firstName, lastName,
-				birthday, gender, street, postalCode, city, countryIsoCode,
-				phone, email);
-		
-		patient.setPatientId(patientRO.getPatientId());
-		
-		return makePersistent(patient);
+		Patient patient = PatientDao.getInstance().findById(patientRO.getPatientId());
+		if (patient != null) {	// Only update if patient already exists
+			Doctor doctor = DoctorDao.getInstance().findById(doctorRO.getDoctorId());
+			patient.setDoctor(doctor);
+			patient.setSocialInsuranceNr(socialInsuranceNr);
+			patient.setFirstName(firstName);
+			patient.setLastName(lastName);
+			patient.setBirthDay(birthday);
+			patient.setGender(gender);
+			patient.setCountryIsoCode(countryIsoCode);
+			patient.setPhone(phone);
+			patient.setEmail(email);
+			
+			return makePersistent(patient);
+		} else {
+			return null;
+		}
 	}
 	
 	/**
@@ -84,7 +92,7 @@ public class PatientController {
 			String street, String postalCode, String city,
 			String countryIsoCode, String phone, String email) {
 		
-		// TODO: Check if patient with social insurance nr already exists; don't insert otherwise!
+		// Check if patient with social insurance nr already exists; don't insert otherwise!
 		if (PatientDao.getInstance().findBySocialInsuranceNr(socialInsuranceNr) != null) {
 			Doctor doctor = DoctorDao.getInstance().findById(doctorRO.getDoctorId());
 			

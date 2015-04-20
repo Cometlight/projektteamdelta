@@ -39,7 +39,7 @@ import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
  * @date 11.04.2015
  */
 @Entity
-@Table(name = "queue", catalog = "oculusdb", uniqueConstraints = @UniqueConstraint(columnNames = "patientId"))
+@Table(name = "queue", catalog = "oculus_d", uniqueConstraints = @UniqueConstraint(columnNames = "patientId"))
 public class QueueEntity implements java.io.Serializable {
 
 	private Integer queueId;

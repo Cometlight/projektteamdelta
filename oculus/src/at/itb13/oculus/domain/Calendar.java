@@ -33,7 +33,7 @@ import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
  * @date 14.04.2015
  */
 @Entity
-@Table(name = "calendar", catalog = "oculusdb")
+@Table(name = "calendar", catalog = "oculus_d")
 public class Calendar implements java.io.Serializable, CalendarRO {
 	private static final Logger _logger = LogManager.getLogger(Calendar.class.getName());
 	

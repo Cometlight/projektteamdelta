@@ -23,7 +23,7 @@ import org.apache.logging.log4j.Logger;
  * @date 14.04.2015
  */
 @Entity
-@Table(name = "calendarworkinghours", catalog = "oculusdb")
+@Table(name = "calendarworkinghours", catalog = "oculus_d")
 public class CalendarWorkingHours implements java.io.Serializable {
 	private static final Logger _logger = LogManager.getLogger(CalendarWorkingHours.class.getName());
 	

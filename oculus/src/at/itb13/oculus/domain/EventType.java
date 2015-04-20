@@ -26,7 +26,7 @@ import org.apache.logging.log4j.Logger;
  * @date 14.04.2015
  */
 @Entity
-@Table(name = "eventtype", catalog = "oculusdb", uniqueConstraints = @UniqueConstraint(columnNames = "eventTypeName"))
+@Table(name = "eventtype", catalog = "oculus_d", uniqueConstraints = @UniqueConstraint(columnNames = "eventTypeName"))
 public class EventType implements java.io.Serializable {
 	private static final Logger _logger = LogManager.getLogger(EventType.class.getName());
 	

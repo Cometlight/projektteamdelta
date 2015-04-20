@@ -29,7 +29,7 @@ import org.apache.logging.log4j.Logger;
  * @date 14.04.2015
  */
 @Entity
-@Table(name = "workinghours", catalog = "oculusdb", uniqueConstraints = @UniqueConstraint(columnNames = {
+@Table(name = "workinghours", catalog = "oculus_d", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"morningFrom", "morningTo", "afternoonFrom", "afternoonTo" }))
 public class WorkingHours implements java.io.Serializable {
 	private static final Logger _logger = LogManager.getLogger(WorkingHours.class.getName());

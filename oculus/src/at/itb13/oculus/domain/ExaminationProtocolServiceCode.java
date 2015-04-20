@@ -23,7 +23,7 @@ import org.apache.logging.log4j.Logger;
  * @date 14.04.2015
  */
 @Entity
-@Table(name = "examinationprotocolservicecode", catalog = "oculusdb")
+@Table(name = "examinationprotocolservicecode", catalog = "oculus_d")
 public class ExaminationProtocolServiceCode implements java.io.Serializable {
 	private static final Logger _logger = LogManager.getLogger(ExaminationProtocolServiceCode.class.getName());
 	

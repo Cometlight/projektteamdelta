@@ -247,6 +247,7 @@ public class AppointmentsController {
 		if (event != null) {
 			_descriptionLabel.setText(event.getDescription());
 			_dateTimeLabel.setText(event.getEventStart().toString());
+			
 			if (event.getPatient() == null) {
 				_patientNotInDatabaseLabel
 						.setText("Patient is not in Database.\nPatient Name");
@@ -258,8 +259,17 @@ public class AppointmentsController {
 				_patientNotInDatabaseLabel.setText("");
 				_addPatientButton.setDisable(true);
 				_addPatientButton.setVisible(false);
-				_queueBox.setDisable(false);
-				_insertQueueButton.setDisable(false);
+				Boolean inQue = false;
+				List<QueueController> queCon = ControllerFacade.getInstance().getAllQueueController();
+				for(QueueController controller: queCon){
+					if(controller.isPatientInQueue(event.getPatient())){
+						inQue = true;
+					}
+				}
+				if(!inQue){
+					_queueBox.setDisable(false);
+					_insertQueueButton.setDisable(false);
+				}
 			}
 			_patientLabel.setText(event.getPatientName());
 			EventType type = event.getEventtype();
@@ -285,13 +295,14 @@ public class AppointmentsController {
 
 		if(_main.getCreatedPatient() != null){
 			
-			System.out.println("Patient: " +_main.getCreatedPatient().getFirstName());
-			
 			CalendarController calco = ControllerFacade.getInstance()
 					.getCalendarController(
 							_appointmentTable.getSelectionModel().getSelectedItem()
 									.getCalendar());
 			calco.connectCalendarEventWithPatient(_appointmentTable.getSelectionModel().getSelectedItem(), _main.getCreatedPatient());
+			showAppointmentInformation(null);
+			showAppointmentInformation(_appointmentTable.getSelectionModel().getSelectedItem());
+		_main.showPatientRecord(_patientRecordBorderPane, _main.getCreatedPatient());
 		}
 	}
 

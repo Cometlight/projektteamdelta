@@ -70,6 +70,19 @@ public class QueueController {
 	
 	/**
 	 * 
+	 * @param patient
+	 * @return true if the patient was in the queue and was removed successfully
+	 */
+	public boolean removeQueueEntry(PatientRO patient) {
+		if(_queue.removeQueueEntry((Patient) patient)) {
+			return QueueDao.getInstance().makePersistent(_queue);
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * 
 	 * @param queueEntryRO the QueueEntryRO that should be moved. Must currently be located in the QueueControllers Queue!
 	 * @param moveUp if true, the queueEntryRO moves 1 step up (forward, towards the start). If false, the queueEntryRO is moved 1 step "down", toward the end of the queue.
 	 * @return true if the QueueEntry was successfully moved and this change was saved to the database.

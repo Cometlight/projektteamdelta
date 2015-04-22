@@ -40,7 +40,8 @@ public class TestClassDani {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		loggingTest();
+		removeIfTest();
+//		loggingTest();
 //		exProtTest1();
 //		listTest();
 //		queue1Output();
@@ -59,6 +60,22 @@ public class TestClassDani {
 		System.exit(0);
 	}
 	
+	private static void removeIfTest() {
+		LinkedList<Integer> list = new LinkedList<>();
+		list.add(1);
+		list.add(2);
+		list.add(3);
+		list.add(4);
+		list.add(5);
+		list.add(6);
+		list.add(7);
+		list.add(8);
+		list.add(9);
+		
+		list.removeIf(i -> i > 3 && i <= 5);
+		list.forEach(System.out::println);
+	}
+
 	private static void loggingTest() {
 		System.out.println("logging:");
 		_logger.info("okay, info");

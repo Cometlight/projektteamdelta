@@ -12,7 +12,9 @@ import at.itb13.oculus.application.queue.QueueController;
 import at.itb13.oculus.application.receptionist.NewPatient;
 import at.itb13.oculus.application.receptionist.PatientSearch;
 import at.itb13.oculus.application.receptionist.WelcomeAtReception;
+import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
+import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
 import at.itb13.oculus.technicalServices.dao.CalendarDao;
 import at.itb13.oculus.technicalServices.dao.QueueDao;
@@ -30,6 +32,8 @@ public class ControllerFacade {
 	
 	private static List<QueueController> _listQueueController;
 	private static List<CalendarController> _listCalendarController;
+	
+	private static Patient _patientSelected;	// TODO work with this patient instead of _tempPatient of OculusMain ###############################################
 	
 	static {
 		init();
@@ -140,5 +144,21 @@ public class ControllerFacade {
 	public List<CalendarController> getAllCalendarController() {
 		return _listCalendarController;
 	}
+
+	/* -- Selected Domain Objects -- */
+	/**
+	 * @return the patientSelected
+	 */
+	public static PatientRO getPatientSelected() {
+		return _patientSelected;
+	}
+
+	/**
+	 * @param patientSelected the patientSelected to set
+	 */
+	public static void setPatientSelected(Patient patientSelected) {
+		_patientSelected = patientSelected;
+	}
+	
 }
 

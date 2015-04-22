@@ -116,6 +116,15 @@ public class Queue implements QueueRO {
 	}
 	
 	/**
+	 * 
+	 * @param patient
+	 * @return true if removed; false if patient wasn't in the queue
+	 */
+	public boolean removeQueueEntry(Patient patient) {
+		return _queueEntries.removeIf(entry -> entry.getPatient().getPatientId().equals(patient.getPatientId()));
+	}
+	
+	/**
 	 * TODO
 	 * @param queueEntryID
 	 * @return

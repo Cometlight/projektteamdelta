@@ -32,7 +32,7 @@ public class QueueSringConverter extends StringConverter<QueueRO> {
 			name = ("Orthoptist "+queue.getOrthoptist().getUser().getFirstName() + " " +queue.getOrthoptist().getUser().getLastName());
 		}
 		else{
-			name = "general orthoptists";
+			name = "Orthoptists";
 		}
 		mapQueue.put(name, queue);
 	    return name;

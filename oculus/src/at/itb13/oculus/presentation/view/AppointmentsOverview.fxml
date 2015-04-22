@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.AppointmentsController">
+<AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.AppointmentsController">
    <children>
       <SplitPane dividerPositions="0.3" layoutX="60.0" layoutY="93.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -31,13 +31,13 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
-                        <ComboBox fx:id="_queueBox" prefWidth="150.0" promptText="choose a Queue" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0" />
-                        <Button fx:id="_insertQueueButton" layoutX="770.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleInsertInQueueButton" text="insert" AnchorPane.rightAnchor="5.0" />
+                        <ComboBox fx:id="_queueBox" prefWidth="150.0" promptText="Select a Queue" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0" />
+                        <Button fx:id="_insertQueueButton" layoutX="770.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleInsertInQueueButton" text="Insert" AnchorPane.rightAnchor="5.0" />
                         <Label fx:id="_patientLabel" layoutX="448.0" layoutY="50.0" text="Label" />
                         <Label fx:id="_eventTypeLabel" layoutX="158.0" layoutY="14.0" text="Label" />
                         <Label fx:id="_descriptionLabel" layoutX="14.0" layoutY="50.0" text="Label" />
                         <Label fx:id="_patientNotInDatabaseLabel" layoutX="448.0" layoutY="14.0" text="Label" />
-                        <Button fx:id="_addPatientButton" layoutX="594.0" layoutY="10.0" mnemonicParsing="false" onAction="#addPatientControl" text="add Patient" />
+                        <Button fx:id="_addPatientButton" layoutX="594.0" layoutY="10.0" mnemonicParsing="false" onAction="#addPatientControl" text="Add Patient" />
                         <Label fx:id="_dateTimeLabel" layoutX="14.0" layoutY="14.0" text="Label" />
                      </children>
                   </AnchorPane>

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.NewPatientController">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.NewPatientController">
    <children>
       <GridPane layoutX="8.0" layoutY="35.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
          <columnConstraints>
@@ -40,43 +40,43 @@
                <padding>
                   <Insets left="10.0" />
                </padding></Label>
-            <TextField fx:id="_firstNameField" prefHeight="25.0" prefWidth="230.0" promptText="first name" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="_firstNameField" prefHeight="25.0" prefWidth="230.0" promptText="First Name" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="250.0" />
                </GridPane.margin></TextField>
-            <TextField fx:id="_lastNameField" prefHeight="25.0" prefWidth="229.0" promptText="last name" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="_lastNameField" prefHeight="25.0" prefWidth="229.0" promptText="Last Name" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="200.0" right="5.0" />
                </GridPane.margin></TextField>
-            <TextField fx:id="_SINField" onKeyReleased="#onActionSINField" promptText="social insurance number" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="_SINField" onKeyReleased="#onActionSINField" promptText="Social Insurance Number" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="5.0" />
                </GridPane.margin></TextField>
-            <TextField fx:id="_birthdayField" promptText="birthday (yyyy-MM-dd)" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <TextField fx:id="_birthdayField" promptText="Birthday (yyyy-MM-dd)" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets right="200.0" />
                </GridPane.margin></TextField>
-            <TextField fx:id="_streetField" prefHeight="25.0" prefWidth="146.0" promptText="street" GridPane.columnIndex="1" GridPane.rowIndex="8">
+            <TextField fx:id="_streetField" prefHeight="25.0" prefWidth="146.0" promptText="Street" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <GridPane.margin>
                   <Insets right="200.0" />
                </GridPane.margin></TextField>
-            <TextField fx:id="_postalCodeField" promptText="postal code" GridPane.columnIndex="1" GridPane.rowIndex="9">
+            <TextField fx:id="_postalCodeField" promptText="Postal Code" GridPane.columnIndex="1" GridPane.rowIndex="9">
                <GridPane.margin>
                   <Insets right="250.0" />
                </GridPane.margin></TextField>
-            <TextField fx:id="_cityField" promptText="city" GridPane.columnIndex="1" GridPane.rowIndex="9">
+            <TextField fx:id="_cityField" promptText="City" GridPane.columnIndex="1" GridPane.rowIndex="9">
                <GridPane.margin>
                   <Insets left="200.0" right="5.0" />
                </GridPane.margin></TextField>
-            <TextField fx:id="_countryISOField" promptText="country" GridPane.columnIndex="1" GridPane.rowIndex="10">
+            <TextField fx:id="_countryISOField" promptText="Country" GridPane.columnIndex="1" GridPane.rowIndex="10">
                <GridPane.margin>
                   <Insets right="5.0" />
                </GridPane.margin></TextField>
-            <TextField fx:id="_phoneField" promptText="phone" GridPane.columnIndex="1" GridPane.rowIndex="12">
+            <TextField fx:id="_phoneField" promptText="Phone" GridPane.columnIndex="1" GridPane.rowIndex="12">
                <GridPane.margin>
                   <Insets right="200.0" />
                </GridPane.margin></TextField>
-            <TextField fx:id="_emailField" promptText="email" GridPane.columnIndex="1" GridPane.rowIndex="13">
+            <TextField fx:id="_emailField" promptText="Email" GridPane.columnIndex="1" GridPane.rowIndex="13">
                <GridPane.margin>
                   <Insets right="200.0" />
                </GridPane.margin></TextField>
@@ -90,8 +90,8 @@
                </GridPane.margin></ComboBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
-                  <RadioButton fx:id="_femaleRadioButton" minWidth="0.0" mnemonicParsing="false" onAction="#handleGender" prefHeight="17.0" text="female" />
-                  <RadioButton fx:id="_maleRadioButton" mnemonicParsing="false" onAction="#handleGender" text="male" />
+                  <RadioButton fx:id="_femaleRadioButton" minWidth="0.0" mnemonicParsing="false" onAction="#handleGender" prefHeight="17.0" text="Female" />
+                  <RadioButton fx:id="_maleRadioButton" mnemonicParsing="false" onAction="#handleGender" text="Male" />
                </children>
             </HBox>
             <Label text="Personal">

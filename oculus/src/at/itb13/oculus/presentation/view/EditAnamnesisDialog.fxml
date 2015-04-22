@@ -21,15 +21,15 @@
             <Label text="Allergies" />
             <Label text="Childhood Ailments" GridPane.rowIndex="1" />
             <Label text="Medicine Intolerances" GridPane.rowIndex="2" />
-            <TextArea prefHeight="200.0" prefWidth="200.0" promptText="allergies" GridPane.columnIndex="1" />
-            <TextArea prefHeight="200.0" prefWidth="200.0" promptText="childhood ailments" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextArea prefHeight="200.0" prefWidth="200.0" promptText="medicine intolerances" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextArea prefHeight="200.0" prefWidth="200.0" promptText="Allergies" GridPane.columnIndex="1" />
+            <TextArea prefHeight="200.0" prefWidth="200.0" promptText="Childhood Ailments" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextArea prefHeight="200.0" prefWidth="200.0" promptText="Medicine Intolerances" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <Label layoutY="6.0" text="Anamnesis" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
       <ButtonBar layoutX="568.0" layoutY="246.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
         <buttons>
-          <Button mnemonicParsing="false" text="Cancle" />
+          <Button mnemonicParsing="false" text="Cancel" />
             <Button mnemonicParsing="false" text="Save" />
         </buttons>
       </ButtonBar>

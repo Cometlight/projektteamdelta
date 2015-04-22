@@ -18,7 +18,7 @@
                         <ListView fx:id="_queueEntrysListView" fixedCellSize="100.0" prefHeight="610.0" prefWidth="245.0" />
                      </children>
                   </VBox>
-                  <ComboBox fx:id="_queueBox" layoutX="18.0" layoutY="21.0" onAction="#handleQueueComboBox" prefHeight="25.0" prefWidth="245.0" promptText="choose a Queue" />
+                  <ComboBox fx:id="_queueBox" layoutX="18.0" layoutY="21.0" onAction="#handleQueueComboBox" prefHeight="25.0" prefWidth="245.0" promptText="Select a Queue" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

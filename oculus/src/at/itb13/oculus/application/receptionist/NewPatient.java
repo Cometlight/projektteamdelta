@@ -46,7 +46,7 @@ public class NewPatient {
 		PatientRO patROReturn = null;
 		
 		// Check if patient with social insurance nr already exists; don't insert otherwise!
-		if (PatientDao.getInstance().findBySocialInsuranceNr(socialInsuranceNr) != null) {
+		if (PatientDao.getInstance().findBySocialInsuranceNr(socialInsuranceNr) == null) {
 			Doctor doctor = DoctorDao.getInstance().findById(doctorRO.getDoctorId());
 			
 			Patient patient = new Patient(doctor, socialInsuranceNr, firstName, lastName,

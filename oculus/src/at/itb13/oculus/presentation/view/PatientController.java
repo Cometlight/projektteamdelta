@@ -136,7 +136,7 @@ public class PatientController {
 	 
 	 @FXML
 	 private void newPatientControl(){
-		_main.showNewPatientDialog();
+		_main.showNewPatientDialog(null);
 //		if (okClicked) {
 //		    _main.getPersonData().add();
 //		}

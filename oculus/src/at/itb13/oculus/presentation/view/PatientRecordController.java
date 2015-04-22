@@ -81,6 +81,7 @@ public class PatientRecordController {
 	@FXML
 	private TableColumn<CalendarEventRO, String> _descriptionColumn;
 	
+	private PatientRO _patient;
 	private ObservableList<CalendarEventRO> _appointmentsList = FXCollections.observableArrayList();
 	
 	//general Attributs
@@ -100,6 +101,7 @@ public class PatientRecordController {
 	 
 	public void showPatientMasterData(PatientRO value) {
 		if (value != null) {
+			_patient = value;
             // Fill the labels with info from the person object.
         	_firstNameLabel.setText(value.getFirstName());
         	_lastNameLabel.setText(value.getLastName());
@@ -132,6 +134,7 @@ public class PatientRecordController {
 	
 	public void showAnamanesis(PatientRO value) {
         if (value != null) {
+        	_patient = value;
             // Fill the labels with info from the person object.
         	_alergiesLabel.setText(value.getAllergy());
         	_childhoodAilmentsLabel.setText(value.getChildhoodAilments());
@@ -209,5 +212,14 @@ public class PatientRecordController {
 		});
 		
 		_descriptionColumn.setCellValueFactory(new PropertyValueFactory<CalendarEventRO, String>("description"));
+	}
+	
+	@FXML
+	private void handleEditAnamnesis(){
+		_main.showEditAnamnesis(_patient);
+	}
+	@FXML
+	private void handleEditGeneral(){
+		_main.showNewPatientDialog(_patient);
 	}
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.control.*?>
@@ -23,12 +24,29 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <SplitPane dividerPositions="0.21264367816091953" layoutX="81.0" layoutY="231.0" orientation="VERTICAL" prefHeight="698.0" prefWidth="906.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane dividerPositions="0.16522988505747127" layoutX="81.0" layoutY="231.0" orientation="VERTICAL" prefHeight="698.0" prefWidth="906.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="130.0" prefWidth="904.0">
+                           <children>
+                              <Label layoutX="20.0" layoutY="14.0" text="Time">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Label>
+                              <Label layoutX="20.0" layoutY="46.0" text="Type">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Label>
+                              <Label layoutX="20.0" layoutY="80.0" text="Reason">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Label>
+                              <Label fx:id="_dateTimeLabel" layoutX="122.0" layoutY="14.0" text="Label" />
+                              <Label fx:id="_typeLabel" layoutX="122.0" layoutY="46.0" text="Label" />
+                              <Label fx:id="_reasonLabel" layoutX="122.0" layoutY="80.0" text="Label" />
+                           </children></AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <BorderPane fx:id="_patientRecordBorderPane" layoutX="124.0" layoutY="63.0" prefHeight="545.0" prefWidth="904.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <BorderPane fx:id="_patientRecordBorderPane" layoutX="124.0" layoutY="-35.0" prefHeight="580.0" prefWidth="904.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                     </items>

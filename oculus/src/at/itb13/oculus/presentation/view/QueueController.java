@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
@@ -35,6 +36,12 @@ public class QueueController {
 	
 	private ObservableList<QueueEntryRO> _queueEntryList = FXCollections.observableArrayList();
 	
+	@FXML
+	private Label _dateTimeLabel;
+	@FXML
+	private Label _typeLabel;
+	@FXML
+	private Label _reasonLabel;
 	@FXML
 	private BorderPane _patientRecordBorderPane;
 	//general Attributes
@@ -72,7 +79,7 @@ public class QueueController {
 			}
 			 
 		 });
-			 
+		showAppointmentInfo(null);	 
 		_queueEntrysListView
 		.getSelectionModel()
 		.selectedItemProperty()
@@ -80,6 +87,12 @@ public class QueueController {
 				(observable, oldValue, newValue) -> _main
 						.showPatientRecord(_patientRecordBorderPane,
 								newValue.getPatient()));
+		_queueEntrysListView
+		.getSelectionModel()
+		.selectedItemProperty()
+		.addListener(
+				(observable, oldValue, newValue) -> showAppointmentInfo(newValue));
+		
 		
 	}
 
@@ -111,6 +124,19 @@ public class QueueController {
 		
 		for(QueueEntryRO entry : entries){
 			_queueEntryList.add(entry);
+		}
+	}
+	
+	private void showAppointmentInfo(QueueEntryRO entry){
+		if((entry!= null)&&(entry.getCalendarEvent() != null)){
+			_dateTimeLabel.setText(entry.getCalendarEvent().getEventStart().toString());
+			_typeLabel.setText(entry.getCalendarEvent().getEventtype().getEventTypeName());
+			_reasonLabel.setText(entry.getCalendarEvent().getDescription());
+			
+		}else{
+			_dateTimeLabel.setText("");
+			_typeLabel.setText("");
+			_reasonLabel.setText("");
 		}
 	}
 	

@@ -86,6 +86,8 @@ public class AppointmentsController {
 	@FXML
 	private Label _eventTypeLabel;
 	@FXML
+	private Label _doctorLabel;
+	@FXML
 	private Button _addPatientButton;
 
 	@FXML
@@ -247,28 +249,48 @@ public class AppointmentsController {
 		if (event != null) {
 			_descriptionLabel.setText(event.getDescription());
 			_dateTimeLabel.setText(event.getEventStart().toString());
+			EventType type = event.getEventtype();
+			_eventTypeLabel.setText(type.getEventTypeName());
+			if(event.getCalendar().getDoctor() != null){
+				_doctorLabel.setText(event.getCalendar().getDoctor().getUser().getFirstName() + event.getCalendar().getDoctor().getUser().getLastName());
+			}else if(event.getCalendar().getOrthoptist() != null){
+				_doctorLabel.setText(event.getCalendar().getOrthoptist().getUser().getFirstName() + event.getCalendar().getOrthoptist().getUser().getLastName());
+
+			}else{
+				_doctorLabel.setText("");
+			}
 			if (event.getPatient() == null) {
 				_patientNotInDatabaseLabel
 						.setText("Patient is not in Database.\nPatient Name");
+				_patientLabel.setText(event.getPatientName());
 				_addPatientButton.setDisable(false);
 				_addPatientButton.setVisible(true);
 				_queueBox.setDisable(true);
 				_insertQueueButton.setDisable(true);
 			} else {
 				_patientNotInDatabaseLabel.setText("");
+				_patientLabel.setText("");
 				_addPatientButton.setDisable(true);
 				_addPatientButton.setVisible(false);
-				_queueBox.setDisable(false);
-				_insertQueueButton.setDisable(false);
+				Boolean inQue = false;
+				List<QueueController> queCon = ControllerFacade.getInstance().getAllQueueController();
+				for(QueueController controller: queCon){
+					if(controller.isPatientInQueue(event.getPatient())){
+						inQue = true;
+					}
+				}
+				if(!inQue){
+					_queueBox.setDisable(false);
+					_insertQueueButton.setDisable(false);
+				}
 			}
-			_patientLabel.setText(event.getPatientName());
-			EventType type = event.getEventtype();
-
-			_eventTypeLabel.setText(type.getEventTypeName());
+			
+			
 		} else {
 			_descriptionLabel.setText("");
 			_dateTimeLabel.setText("");
 			_eventTypeLabel.setText("");
+			_doctorLabel.setText("");
 			_patientNotInDatabaseLabel.setText("");
 			_patientLabel.setText("");
 			_addPatientButton.setDisable(true);
@@ -281,13 +303,19 @@ public class AppointmentsController {
 	@FXML
 	private void addPatientControl() {
 
-		_main.showNewPatientDialog();
+		_main.showNewPatientDialog(null);
 
-		CalendarController calco = ControllerFacade.getInstance()
-				.getCalendarController(
-						_appointmentTable.getSelectionModel().getSelectedItem()
-								.getCalendar());
-		calco.connectCalendarEventWithPatient(_appointmentTable.getSelectionModel().getSelectedItem(), _main.getCreatedPatient());
+		if(_main.getCreatedPatient() != null){
+			
+			CalendarController calco = ControllerFacade.getInstance()
+					.getCalendarController(
+							_appointmentTable.getSelectionModel().getSelectedItem()
+									.getCalendar());
+			calco.connectCalendarEventWithPatient(_appointmentTable.getSelectionModel().getSelectedItem(), _main.getCreatedPatient());
+			showAppointmentInformation(null);
+			showAppointmentInformation(_appointmentTable.getSelectionModel().getSelectedItem());
+		_main.showPatientRecord(_patientRecordBorderPane, _main.getCreatedPatient());
+		}
 	}
 
 	private void setItemsToQueueBox() {

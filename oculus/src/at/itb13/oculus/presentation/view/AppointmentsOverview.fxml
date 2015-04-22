@@ -34,11 +34,32 @@
                         <ComboBox fx:id="_queueBox" prefWidth="150.0" promptText="Select a Queue" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0" />
                         <Button fx:id="_insertQueueButton" layoutX="770.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleInsertInQueueButton" text="Insert" AnchorPane.rightAnchor="5.0" />
                         <Label fx:id="_patientLabel" layoutX="448.0" layoutY="50.0" text="Label" />
-                        <Label fx:id="_eventTypeLabel" layoutX="158.0" layoutY="14.0" text="Label" />
-                        <Label fx:id="_descriptionLabel" layoutX="14.0" layoutY="50.0" text="Label" />
+                        <Label fx:id="_eventTypeLabel" layoutX="111.0" layoutY="42.0" text="Label" />
+                        <Label fx:id="_descriptionLabel" layoutX="111.0" layoutY="72.0" text="Label" />
                         <Label fx:id="_patientNotInDatabaseLabel" layoutX="448.0" layoutY="14.0" text="Label" />
                         <Button fx:id="_addPatientButton" layoutX="594.0" layoutY="10.0" mnemonicParsing="false" onAction="#addPatientControl" text="Add Patient" />
-                        <Label fx:id="_dateTimeLabel" layoutX="14.0" layoutY="14.0" text="Label" />
+                        <Label fx:id="_dateTimeLabel" layoutX="111.0" layoutY="14.0" text="Label" />
+                        <Label layoutX="14.0" layoutY="13.0" text="Time">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="15.0" layoutY="40.0" text="Type">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="15.0" layoutY="70.0" text="Reason">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="16.0" layoutY="96.0" text="Doctor">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="_doctorLabel" layoutX="111.0" layoutY="96.0" text="Label" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">

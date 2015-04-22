@@ -86,6 +86,8 @@ public class AppointmentsController {
 	@FXML
 	private Label _eventTypeLabel;
 	@FXML
+	private Label _doctorLabel;
+	@FXML
 	private Button _addPatientButton;
 
 	@FXML
@@ -247,7 +249,14 @@ public class AppointmentsController {
 		if (event != null) {
 			_descriptionLabel.setText(event.getDescription());
 			_dateTimeLabel.setText(event.getEventStart().toString());
-			
+			if(event.getCalendar().getDoctor() != null){
+				_doctorLabel.setText(event.getCalendar().getDoctor().getUser().getFirstName() + event.getCalendar().getDoctor().getUser().getLastName());
+			}else if(event.getCalendar().getOrthoptist() != null){
+				_doctorLabel.setText(event.getCalendar().getOrthoptist().getUser().getFirstName() + event.getCalendar().getOrthoptist().getUser().getLastName());
+
+			}else{
+				_doctorLabel.setText("");
+			}
 			if (event.getPatient() == null) {
 				_patientNotInDatabaseLabel
 						.setText("Patient is not in Database.\nPatient Name");

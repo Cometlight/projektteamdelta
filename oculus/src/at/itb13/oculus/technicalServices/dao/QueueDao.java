@@ -445,7 +445,7 @@ public class QueueDao {
 	}
 	
 	private QueueEntry convertToQueueEntry(QueueEntity entity) {
-		return new QueueEntry(entity.getQueueId(), entity.getPatient(), entity.getArrivalTime());
+		return new QueueEntry(entity.getQueueId(), entity.getPatient(), entity.getCalendarEvent(), entity.getArrivalTime());
 	}
 	
 	private QueueEntity convertToQueueEntity(Queue queue, QueueEntry entry, Integer queueIdParent) {
@@ -455,6 +455,7 @@ public class QueueDao {
 		entity.setDoctor(queue.getDoctor());
 		entity.setOrthoptist(queue.getOrthoptist());
 		entity.setPatient(entry.getPatient());
+		entity.setCalendarEvent(entry.getCalendarEvent());
 		entity.setArrivalTime(entry.getArrivalTime());
 		entity.setQueueIdParent(queueIdParent);
 		

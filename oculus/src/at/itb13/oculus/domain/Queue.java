@@ -1,4 +1,5 @@
 package at.itb13.oculus.domain;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Deque;
@@ -60,6 +61,17 @@ public class Queue implements QueueRO {
 	
 	public void pushQueueEntry(QueueEntry queueEntry) {
 		_queueEntries.add(queueEntry);
+	}
+	
+	public void pushQueueEntry(Patient patient) {
+		pushQueueEntry(patient, LocalDateTime.now());
+	}
+	
+	public void pushQueueEntry(Patient patient, LocalDateTime arrivalTime) {
+		QueueEntry entry = new QueueEntry();
+		entry.setPatient(patient);
+		entry.setArrivalTime(arrivalTime);
+		pushQueueEntry(entry);
 	}
 	
 	/**

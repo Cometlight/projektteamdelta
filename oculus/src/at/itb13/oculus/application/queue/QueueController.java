@@ -42,15 +42,15 @@ public class QueueController {
 	 * @param arrivalTime
 	 * @return
 	 */
-	public QueueEntryRO createQueueEntry(PatientRO patientRO, LocalDateTime arrivalTime) {
-		Patient patient = PatientDao.getInstance().findById(patientRO.getPatientId());
-		
-		QueueEntry queueEntry = new QueueEntry();
-		queueEntry.setPatient(patient);
-		queueEntry.setArrivalTime(arrivalTime);
-		
-		return queueEntry;
-	}
+//	public QueueEntryRO createQueueEntry(PatientRO patientRO, LocalDateTime arrivalTime) {	// TODO: delete
+//		Patient patient = PatientDao.getInstance().findById(patientRO.getPatientId());
+//		
+//		QueueEntry queueEntry = new QueueEntry();
+//		queueEntry.setPatient(patient);
+//		queueEntry.setArrivalTime(arrivalTime);
+//		
+//		return queueEntry;
+//	}
 	
 	/**
 	 * Inserts queueEntryRO to the last position in the Queue's QueueEntryList
@@ -59,9 +59,8 @@ public class QueueController {
 	 * @return true if the queueEntry was successfully added to the Queue and saved in the database
 	 * @see #pushQueueEntry(QueueEntryRO, CalendarEventRO)
 	 */
-	public boolean pushQueueEntry(QueueEntryRO queueEntryRO) {
-		QueueEntry queueEntry = (QueueEntry) queueEntryRO;
-		_queue.pushQueueEntry(queueEntry);
+	public boolean pushQueueEntry(PatientRO patientRO) {
+		_queue.pushQueueEntry((Patient) patientRO);
 		return QueueDao.getInstance().makePersistent(_queue);
 	}
 	
@@ -74,22 +73,22 @@ public class QueueController {
 	 * @return true if the queueEntry was successfully added to the Queue and saved in the database
 	 * @see #pushQueueEntry(QueueEntryRO)
 	 */
-	public boolean pushQueueEntry(QueueEntryRO queueEntryRO, CalendarEventRO calendarEventRO) {
-		if(_queue.getDoctor() != null || _queue.getOrthoptist() != null) {	// if(not in general orthoptist queue)
-			ControllerFacade.getInstance().getCalendarController(calendarEventRO.getCalendar()).setCalendarEventState(calendarEventRO, false);
-		}
-		return pushQueueEntry(queueEntryRO);
-	}
+//	public boolean pushQueueEntry(QueueEntryRO queueEntryRO, CalendarEventRO calendarEventRO) {
+//		if(_queue.getDoctor() != null || _queue.getOrthoptist() != null) {	// if(not in general orthoptist queue)
+//			ControllerFacade.getInstance().getCalendarController(calendarEventRO.getCalendar()).setCalendarEventState(calendarEventRO, false);
+//		}
+//		return pushQueueEntry(queueEntryRO);
+//	}
 	
 	/**
 	 * Inserts a QueueEntry that is associated with patientRO to the last position in the Queue's QueueEntryList.
 	 * @param patientRO the PatientRO to be inserted
 	 * @return true if the new QueueEntry (with its patientRO) was successfully added to the Queue and saved in the database
 	 */
-	public boolean pushQueueEntry(PatientRO patientRO) {
-		QueueEntry queueEntry = createQueueEntry(patientRO);
-		return pushQueueEntry(queueEntry);
-	}
+//	public boolean pushQueueEntry(PatientRO patientRO) { TODO: delete
+//		QueueEntry queueEntry = createQueueEntry(patientRO);
+//		return pushQueueEntry(queueEntry);
+//	}
 	
 	/**
 	 * Inserts a QueueEntry that is associated with patientRO to the last position in the Queue's QueueEntryList.
@@ -99,17 +98,17 @@ public class QueueController {
 	 * @param calendarEventRO the CalendarEventRO which state (isOpen) will be updated if necessary
 	 * @return true if the new QueueEntry (with its patientRO) was successfully added to the Queue and saved in the database
 	 */
-	public boolean pushQueueEntry(PatientRO patientRO, CalendarEventRO calendarEventRO) {
-		QueueEntry queueEntry = createQueueEntry(patientRO);
-		return pushQueueEntry(queueEntry, calendarEventRO);
-	}
+//	public boolean pushQueueEntry(PatientRO patientRO, CalendarEventRO calendarEventRO) {
+//		QueueEntry queueEntry = createQueueEntry(patientRO);
+//		return pushQueueEntry(queueEntry, calendarEventRO);
+//	}
 
-	private QueueEntry createQueueEntry(PatientRO patientRO) {
-		QueueEntry queueEntry = new QueueEntry();
-		queueEntry.setPatient((Patient) patientRO);
-		queueEntry.setArrivalTime(LocalDateTime.now());
-		return queueEntry;
-	}
+//	private QueueEntry createQueueEntry(PatientRO patientRO) {
+//		QueueEntry queueEntry = new QueueEntry();
+//		queueEntry.setPatient((Patient) patientRO);
+//		queueEntry.setArrivalTime(LocalDateTime.now());
+//		return queueEntry;
+//	}
 	
 	/**
 	 * Returns the QueueEntry that's at the front of the queue and removes it from the queue, as well as from the database.

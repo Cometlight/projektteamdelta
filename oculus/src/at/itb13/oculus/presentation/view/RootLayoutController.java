@@ -21,7 +21,7 @@ import javafx.scene.layout.BorderPane;
  * @author Caroline Meusburger
  * @since 15.04.2015
  */
-public class RootLayoutController implements ControllerMainSetter {
+public class RootLayoutController {
 	private static final Logger _logger = LogManager.getLogger(RootLayoutController.class.getName());
 	
 	@FXML
@@ -31,9 +31,9 @@ public class RootLayoutController implements ControllerMainSetter {
 	private OculusMain _main;
 	
 	//general Methods
-	 public void setMain(OculusMain main) {
-	        _main = main;		        
-	  }
+	public void setMain(OculusMain main) {
+		_main = main;		        
+	}
 	 
 	 public void setTabPane(TabPane tabPane) {
 		 _tabPaneRoot = tabPane;
@@ -44,20 +44,17 @@ public class RootLayoutController implements ControllerMainSetter {
 	 
 	 @FXML
 	 private void tabPatientControl(){
-		
-		_main.showPatientOverview();
-		    
+		_main.showPatientTab();
 	 }
 	 
 	 @FXML
 	 private void tabAppointmentsControl(){	
-		 _main.showAppointmentsOverview();
+		 _main.showAppointmentsTab();
 	 }
 	 
 	 @FXML
 	 private void tabQueueControl(){					
-		_main.showQueue();
-		    
+		 _main.showQueueTab();
 	 }
 	 
 	 public void setTab(int index) {

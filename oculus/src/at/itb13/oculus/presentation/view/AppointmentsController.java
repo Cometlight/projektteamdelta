@@ -59,7 +59,7 @@ import at.itb13.oculus.presentation.util.QueueSringConverter;
  * @author Caroline Meusburger
  * @since 15.04.2015
  */
-public class AppointmentsController implements ControllerMainSetter {
+public class AppointmentsController {
 	private static final Logger _logger = LogManager
 			.getLogger(AppointmentsController.class.getName());
 

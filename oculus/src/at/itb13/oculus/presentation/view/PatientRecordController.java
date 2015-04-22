@@ -25,7 +25,7 @@ import at.itb13.oculus.presentation.OculusMain;
  * @author Caroline Meusburger
  * @since 17.04.2015
  */
-public class PatientRecordController implements ControllerMainSetter {
+public class PatientRecordController {
 
 	@FXML
 	private TextField _ssnTextField;

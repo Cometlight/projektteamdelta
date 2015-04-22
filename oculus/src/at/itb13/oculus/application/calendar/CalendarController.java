@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
@@ -31,7 +30,7 @@ public class CalendarController {
 		_calendar = calendar;
 	}
 	
-	public CalendarRO getCalendar() {	// TODO: sichtbarkeit einschränken, wenn möglich
+	public CalendarRO getCalendar() {
 		return _calendar;
 	}
 	

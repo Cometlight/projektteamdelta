@@ -7,17 +7,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.application.calendar.CalendarController;
-import at.itb13.oculus.application.doctor.DoctorRequest;
-import at.itb13.oculus.application.patient.PatientController;
-import at.itb13.oculus.application.patient.PatientCreation;
-import at.itb13.oculus.application.patient.PatientSearch;
+import at.itb13.oculus.application.doctor.WelcomePatient;
 import at.itb13.oculus.application.queue.QueueController;
-import at.itb13.oculus.domain.Doctor;
-import at.itb13.oculus.domain.Orthoptist;
+import at.itb13.oculus.application.receptionist.NewPatient;
+import at.itb13.oculus.application.receptionist.PatientSearch;
+import at.itb13.oculus.application.receptionist.WelcomeAtReception;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
 import at.itb13.oculus.technicalServices.dao.CalendarDao;
-import at.itb13.oculus.technicalServices.dao.PatientDao;
 import at.itb13.oculus.technicalServices.dao.QueueDao;
 
 /**
@@ -41,6 +38,8 @@ public class ControllerFacade {
 	private ControllerFacade() { }
 	
 	public static void init() {
+		_logger.info("Initializing ControllerFacade...");
+		
 		_instance = new ControllerFacade();
 		
 		_listQueueController = new LinkedList<>();
@@ -55,32 +54,34 @@ public class ControllerFacade {
 			_listCalendarController.add(cC);
 		});
 		
+		_logger.info("ControllerFacade has been initialized.");
 	}
 	
 	public static ControllerFacade getInstance() {
 		return _instance;
 	}
 	
-//	/**
-//	 * 
-//	 * @return instantiated controller
-//	 */
-//	public PatientSearch getPatientSearch() {
-//		return new PatientSearch();
-//	}
-//	
-//	public PatientCreation getPatientCreation() {
-//		return new PatientCreation();
-//	}
-	
-	public PatientController getPatientController() {
-		return new PatientController();
+	/* -- PatientSearch -- */
+	public PatientSearch getPatientSearch() {
+		return new PatientSearch();
 	}
 	
-	public DoctorRequest getDoctorRequest() {
-		return new DoctorRequest();
+	/* -- NewPatient -- */
+	public NewPatient getNewPatient() {
+		return new NewPatient();
 	}
 	
+	/* -- WelcomeAtReception -- */
+	public WelcomeAtReception getWelcomeAtReception() {
+		return new WelcomeAtReception();
+	}
+	
+	/* -- WelcomePatient -- */
+	public WelcomePatient getWelcomePatient() {
+		return new WelcomePatient();
+	}
+	
+	/* -- QueueController -- */
 	public QueueController getQueueController(Integer doctorId, Integer orthoptistId) {
 		QueueController controller = null;
 		
@@ -106,6 +107,7 @@ public class ControllerFacade {
 		return _listQueueController;
 	}
 
+	/* -- CalendarController -- */
 	public CalendarController getCalendarController(Integer doctorId, Integer orthoptistId) {
 		CalendarController controller = null;
 		

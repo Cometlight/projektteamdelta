@@ -33,6 +33,7 @@ import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
 /**
  * 
  * TODO: Insert description here.
+ * If neither the doctor nor the orthoptist is set, it's the general orthoptist queue.
  * 
  * @author Daniel Scheffknecht
  * @date 11.04.2015

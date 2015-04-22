@@ -64,7 +64,8 @@ public class TestClassDani {
 		PatientController pCol = ControllerFacade.getInstance().getPatientController();
 		PatientRO patRO = null;
 		try {
-			patRO = pCol.searchPatientBySocialInsuranceNr("7531653399");
+//			patRO = pCol.searchPatientBySocialInsuranceNr("7531653399");
+			patRO = new at.itb13.oculus.application.receptionist.PatientSearch().searchPatientBySocialInsuranceNr("7531653399");
 		} catch (InvalidInputException e) {
 			e.printStackTrace();
 		}
@@ -149,25 +150,25 @@ public class TestClassDani {
 		System.out.println(qERO2.getPatient().getFirstName());
 	}
 	
-	private static void queueTest1() {
-		List<QueueController> queues = ControllerFacade.getInstance().getAllQueueController();
-		for(QueueController q : queues) {
-			System.out.println(q.getQueue().getDoctor() + " - " + q.getQueue().getOrthoptist());
-			try {
-				System.out.println("# Start 1");
-				q.getQueueEntries().forEach(qe -> System.out.println(qe.getPatient().getFirstName()));
-				PatientRO patientRO = ControllerFacade.getInstance().getPatientController().searchPatientBySocialInsuranceNr("7531653399");
-				System.out.println(q.pushQueueEntry(patientRO));
-				// or q.pushQueueEntry(patientRO, the associated CalendarEvent); // in order to change the CalendarEvent's state (isOpen)
-				
-				System.out.println("# Start 2");
-				q.getQueueEntries().forEach(qe -> System.out.println(qe.getPatient().getFirstName()));
-			} catch (InvalidInputException e) {
-				e.printStackTrace();
-			}
-			break;
-		}
-	}
+//	private static void queueTest1() {
+//		List<QueueController> queues = ControllerFacade.getInstance().getAllQueueController();
+//		for(QueueController q : queues) {
+//			System.out.println(q.getQueue().getDoctor() + " - " + q.getQueue().getOrthoptist());
+//			try {
+//				System.out.println("# Start 1");
+//				q.getQueueEntries().forEach(qe -> System.out.println(qe.getPatient().getFirstName()));
+//				PatientRO patientRO = ControllerFacade.getInstance().getPatientController().searchPatientBySocialInsuranceNr("7531653399");
+//				System.out.println(q.pushQueueEntry(patientRO));
+//				// or q.pushQueueEntry(patientRO, the associated CalendarEvent); // in order to change the CalendarEvent's state (isOpen)
+//				
+//				System.out.println("# Start 2");
+//				q.getQueueEntries().forEach(qe -> System.out.println(qe.getPatient().getFirstName()));
+//			} catch (InvalidInputException e) {
+//				e.printStackTrace();
+//			}
+//			break;
+//		}
+//	}
 	
 	private static void newTest() {
 		CalendarRO cal = ControllerFacade.getInstance().getCalendarController(1, null).getCalendar();

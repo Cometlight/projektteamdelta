@@ -7,6 +7,7 @@ import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Patient;
@@ -42,11 +43,16 @@ public class WelcomeAtReception {
 	 * @param phone
 	 * @param email
 	 * @return null only if not able to update patient. or patient doesn't exist yet in the database
+	 * @throws InvalidInputException patientRO, doctorRO, firstName, lastName and gender must not be null
 	 */
 	public PatientRO updatePatient(PatientRO patientRO, DoctorRO doctorRO, String socialInsuranceNr,
 			String firstName, String lastName, LocalDate birthday, String gender,
 			String street, String postalCode, String city,
-			String countryIsoCode, String phone, String email) {
+			String countryIsoCode, String phone, String email) throws InvalidInputException {
+		
+		if(patientRO == null || doctorRO == null || firstName == null || lastName == null || gender == null) {
+			throw new InvalidInputException("patientRO, doctorRO, firstName, lastName and gender must not be null");
+		}
 		
 		PatientRO patROReturn = null;
 		

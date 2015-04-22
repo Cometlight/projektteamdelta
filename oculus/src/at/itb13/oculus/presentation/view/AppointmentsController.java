@@ -1,56 +1,38 @@
 package at.itb13.oculus.presentation.view;
 
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.prefs.Preferences;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.calendar.CalendarController;
-import at.itb13.oculus.application.doctor.DoctorRequest;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.queue.QueueController;
-import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
-import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
 import at.itb13.oculus.presentation.OculusMain;
-import at.itb13.oculus.presentation.util.DoctorSringConverter;
 import at.itb13.oculus.presentation.util.QueueSringConverter;
 
 /**
@@ -194,7 +176,7 @@ public class AppointmentsController {
 				.getSelectionModel()
 				.selectedItemProperty()
 				.addListener(
-						(observable, oldValue, newValue) -> _main.showPatientRecord(_patientRecordBorderPane,newValue.getPatient()));
+						(observable, oldValue, newValue) -> _main.showPatientRecord(_patientRecordBorderPane, (newValue == null) ? null : newValue.getPatient()));
 		
 		_datePicker.setValue(LocalDate.now());	// Show today's appointments by default
 		changeDate(); 							// make sure, the appointments of today are loaded
@@ -207,8 +189,6 @@ public class AppointmentsController {
 	private void setCalendarEvents(LocalDateTime startDate, LocalDateTime endDate) {
 		List<CalendarController> listCalCo = ControllerFacade.getInstance()
 				.getAllCalendarController();
-		LocalDate startofend = LocalDate.now();
-		LocalDateTime end = LocalDateTime.of(startofend, LocalTime.MAX);
 
 		// delete current appointments from the list
 		_appointmentsList.clear();
@@ -300,21 +280,29 @@ public class AppointmentsController {
 		}
 	}
 
+	/**
+	 * TODO: Description
+	 */
 	@FXML
 	private void addPatientControl() {
 
 		_main.showNewPatientDialog(null);
 
-		if(_main.getCreatedPatient() != null){
+		if(_main.getCreatedPatient() != null) {
+			CalendarEventRO calEv = _appointmentTable.getSelectionModel().getSelectedItem();
 			
-			CalendarController calco = ControllerFacade.getInstance()
-					.getCalendarController(
-							_appointmentTable.getSelectionModel().getSelectedItem()
-									.getCalendar());
-			calco.connectCalendarEventWithPatient(_appointmentTable.getSelectionModel().getSelectedItem(), _main.getCreatedPatient());
-			showAppointmentInformation(null);
-			showAppointmentInformation(_appointmentTable.getSelectionModel().getSelectedItem());
-		_main.showPatientRecord(_patientRecordBorderPane, _main.getCreatedPatient());
+			// connect the calendarevent with the newly created patient
+			CalendarController calco = ControllerFacade.getInstance().getCalendarController(calEv.getCalendar());
+			CalendarEventRO calEvUpdated = calco.connectCalendarEventWithPatient(calEv, _main.getCreatedPatient());
+			if(calEvUpdated != null) {
+				// update the view as now a patient actually exists
+				showAppointmentInformation(calEvUpdated);
+				_main.showPatientRecord(_patientRecordBorderPane, _main.getCreatedPatient());
+			} else {
+				_logger.error("Failed to save the connection between the CalendarEvent (" + calEv.getCalendarEventId() 
+						+ ") and the recently created Patient (" + _main.getCreatedPatient().getPatientId() + ").");
+				// TODO: warning that it didn't work?
+			}
 		}
 	}
 
@@ -338,18 +326,24 @@ public class AppointmentsController {
 				controller = ControllerFacade.getInstance().getQueueController(queue.getDoctor().getDoctorId(), null);
 			} else if (queue.getOrthoptist() != null) {
 				controller = ControllerFacade.getInstance().getQueueController(null, queue.getOrthoptist().getOrthoptistId());
+			} else {	// general orthoptist queue
+				controller = ControllerFacade.getInstance().getQueueController(null, null);
 			}
+			
 			if (controller != null) {
 				controller.pushQueueEntry(_appointmentTable.getSelectionModel().getSelectedItem().getPatient());
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setContentText("Patient is added to Queue");
 				alert.showAndWait();
+			} else {
+				_logger.error("Could not load QueueController for Queue with doctor '" + queue.getDoctor().getDoctorId()
+						+ "' and with orthoptist '" + queue.getOrthoptist().getOrthoptistId() + "'!");
 			}
 
 		} else {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setHeaderText("No queue selected");
-			alert.setContentText("Please choose a Queue bevor insert.");
+			alert.setContentText("Please choose a Queue before insert.");
 			alert.setTitle("No queue selected");
 			alert.showAndWait();
 		}

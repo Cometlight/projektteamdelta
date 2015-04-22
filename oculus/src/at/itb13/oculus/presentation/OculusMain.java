@@ -17,6 +17,7 @@ import at.itb13.oculus.presentation.view.PatientController;
 import at.itb13.oculus.presentation.view.PatientRecordController;
 import at.itb13.oculus.presentation.view.QueueController;
 import at.itb13.oculus.presentation.view.RootLayoutController;
+import at.itb13.oculus.technicalServices.HibernateUtil;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -53,7 +54,7 @@ public class OculusMain extends Application {
 	private AnchorPane _queueTab;
 	private QueueController _queueController;
 	
-	private PatientRO _tempPatient;
+	private PatientRO _tempPatient;	// TODO: Should be moved to the application layer (into the ControllerFacade)
 
 	private ObservableList<PatientRO> _patientData = FXCollections.observableArrayList();
 
@@ -111,6 +112,16 @@ public class OculusMain extends Application {
 		showAppointmentsTab();
 
 		_logger.info("Finished starting OculusMain");
+	}
+	
+	/*
+	 * @see javafx.application.Application#stop()
+	 */
+	@Override
+	public void stop() throws Exception {
+		_logger.info("Shutting down application...");
+		super.stop();
+		System.exit(0);	// TODO: Find another way to stop the application. Currently Hibernate won't stop, even when closing any SessionFactory.
 	}
 
 	/**
@@ -254,18 +265,21 @@ public class OculusMain extends Application {
 	public void showAppointmentsTab() {
 		if(_appointmentsTab != null) {
 			_rootLayout.setCenter(_appointmentsTab);
+			_queueController.stopQueueReloader();
 		}
 	}
 	
 	public void showPatientTab() {
 		if(_patientTab != null) {
 			_rootLayout.setCenter(_patientTab);
+			_queueController.stopQueueReloader();
 		}
 	}
 	
 	public void showQueueTab() {
 		if(_queueTab != null) {
 			_rootLayout.setCenter(_queueTab);
+			_queueController.startQueueReloader();
 		}
 	}
 	
@@ -337,10 +351,12 @@ public class OculusMain extends Application {
 			// Give the controller access to the main app.
 			PatientRecordController controller = loader.getController();
 			controller.setMain(this);
-			controller.showPatientMasterData(patient);
-			controller.showAnamanesis(patient);
-			controller.showAppointments(patient);
-			_logger.info("showPatientRecord");
+			if(patient != null) {
+				controller.showPatientMasterData(patient);
+				controller.showAnamanesis(patient);
+				controller.showAppointments(patient);
+				_logger.info("showPatientRecord");
+			}
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			_logger.error(ex);

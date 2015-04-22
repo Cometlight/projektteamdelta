@@ -1,6 +1,5 @@
 package at.itb13.oculus.presentation.view;
 
-import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -52,7 +51,6 @@ public class EditAnamnesisController {
 	
 	@FXML
 	private void handleSave(){
-		at.itb13.oculus.application.patient.PatientController controller = ControllerFacade.getInstance().getPatientController();
 		_dialogStage.close();
 	}
 	

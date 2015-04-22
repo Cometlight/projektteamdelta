@@ -10,10 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import javafx.scene.control.ToggleGroup;
 import at.itb13.oculus.application.ControllerFacade;
-import at.itb13.oculus.application.doctor.DoctorRequest;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
-import at.itb13.oculus.application.patient.PatientController;
-import at.itb13.oculus.application.patient.PatientCreation;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
@@ -58,7 +55,7 @@ public class NewPatientController {
 	@FXML
 	private ComboBox<DoctorRO> _doctorBox;
 
-	private List<DoctorRO> _doctorsList;
+	private List<DoctorRO> _doctorsList;	// TODO FIXME delete?
 	private DoctorRO _doctor;
 	@FXML
 	private TextField _streetField;
@@ -118,6 +115,10 @@ public class NewPatientController {
 	public PatientRO getPatient(){
 		return _patient;
 	}
+	/**
+	 * TODO: Description
+	 * @param patient
+	 */
 	public void setPatientRO(PatientRO patient){
 		if(patient != null){
 			_isNewPatient = false;
@@ -150,27 +151,34 @@ public class NewPatientController {
 	 */
 	@FXML
     private void handleOk() {
-     
-		
-			try {
-				if (isInputValid()) {   
-					PatientController pc = ControllerFacade.getInstance().getPatientController();
-					if(_isNewPatient){
-						//creating a new Patient and save it in the database
-						_patient = pc.createPatient(_doctor, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
-						
-					}else{
-						pc.updatePatient(_patient, _doctor, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
+		try {
+			if (isInputValid()) {
+				if(_isNewPatient){
+					//creating a new Patient and save it in the database
+					try {
+						_patient = ControllerFacade.getInstance().getNewPatient()
+								.createPatient(_doctor, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
+					} catch (InvalidInputException e) {
+						_logger.error(e);
+						e.printStackTrace();	// TODO no stacktrace
 					}
-					
-					okClicked = true;
-				    _dialogStage.close();
+				} else{
+					try {
+						ControllerFacade.getInstance().getWelcomeAtReception()
+							.updatePatient(_patient, _doctor, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
+					} catch (InvalidInputException e) {
+						_logger.error(e);
+						e.printStackTrace();	// TODO no stacktrace
+					}
 				}
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				okClicked = true;
+			    _dialogStage.close();
 			}
-			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
 	/**
@@ -192,12 +200,8 @@ public class NewPatientController {
 	}
 
 	private void setItemsToDoctorBox() {
-
-		DoctorRequest docRequest = ControllerFacade.getInstance()
-				.getDoctorRequest();
-
 		_doctorBox.setConverter(new DoctorSringConverter());
-		_doctorBox.getItems().addAll(docRequest.getDoctorList());
+		_doctorBox.getItems().addAll(ControllerFacade.getInstance().getWelcomeAtReception().getDoctorList());
 
 	}
 
@@ -235,6 +239,9 @@ public class NewPatientController {
 		} else {
 			_date = null;
 		}
+		if (_doctorBox.getSelectionModel().getSelectedItem() == null) {
+			errorMessage += "No doctor selected!\n";
+		}
 
 		if (errorMessage.length() == 0) {
 			return true;
@@ -254,11 +261,10 @@ public class NewPatientController {
 	
 	@FXML
 	private void onActionSINField() {
-		PatientController patCol = ControllerFacade.getInstance().getPatientController();
 		String sin = _SINField.getText();
-		if(patCol.isSocialInsuranceNrValid(sin)) {
+		if(ControllerFacade.getInstance().getWelcomeAtReception().isSocialInsuranceNrValid(sin)) {
 			try {
-				PatientRO patientRO = patCol.searchPatientBySocialInsuranceNr(sin);
+				PatientRO patientRO = ControllerFacade.getInstance().getPatientSearch().searchPatientBySocialInsuranceNr(sin);
 
 				if(patientRO != null) {	// Patient with SIN already exists
 					Alert alert = new Alert(AlertType.WARNING);

@@ -152,7 +152,7 @@ public class PatientRecordController {
 		_appointmentsList.clear();
 		if(value != null && value.getCalendarevents() != null) {
 			_appointmentsList.addAll(
-					ControllerFacade.getInstance().getPatientController().getAllCalendarEventsSorted(value));
+					ControllerFacade.getInstance().getWelcomeAtReception().getAllCalendarEventsSorted(value));
 		}
 	}
 	 

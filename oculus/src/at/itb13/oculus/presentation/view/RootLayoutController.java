@@ -65,7 +65,7 @@ public class RootLayoutController {
 	 * @param newValue
 	 * @return
 	 */
-	private Object showPatientRecord(BorderPane layout, CalendarEventRO event) {
+	private Object showPatientRecord(BorderPane layout, CalendarEventRO event) {	// TODO delete because it's not used???
 		 try {
 	 	        // Load person overview.
 	 	        FXMLLoader loader = new FXMLLoader();
@@ -93,7 +93,7 @@ public class RootLayoutController {
 	 * @param newValue
 	 * @return
 	 */
-	private Object showPatientRecord(BorderPane layout, PatientRO patient) {
+	private Object showPatientRecord(BorderPane layout, PatientRO patient) {	// TODO delete because it's not used???
 		 try {
 	 	        // Load person overview.
 	 	        FXMLLoader loader = new FXMLLoader();

@@ -55,13 +55,14 @@ public class CalendarController {
 	 * 
 	 * @param c CalendarEvent, inserted to Patient p
 	 * @param p Patient, inserted to Set<CalendarEvents>
+	 * @return The updated CalendarEvent; may be null if it failed to save the changes to the database.
 	 */
-	public boolean connectCalendarEventWithPatient (CalendarEventRO calendarEventRO, PatientRO patientRO){
+	public CalendarEventRO connectCalendarEventWithPatient (CalendarEventRO calendarEventRO, PatientRO patientRO){
 		Patient patient = PatientDao.getInstance().findById(patientRO.getPatientId());
 		CalendarEventDao calEvDao = CalendarEventDao.getInstance();
 		CalendarEvent calEv = calEvDao.findById(calendarEventRO.getCalendarEventId());
 		calEv.setPatient(patient);
-		return calEvDao.makePersistent(calEv);
+		return calEvDao.makePersistent(calEv) ? calEv : null;
 	}
 	
 	/**

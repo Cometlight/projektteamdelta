@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
-import at.itb13.oculus.application.patient.PatientSearch;
+import at.itb13.oculus.application.receptionist.PatientSearch;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
@@ -88,7 +88,7 @@ public class PatientController {
 	 @FXML
 	 private void searchByNumberControl(){
 		 clearPatientTable();
-		 at.itb13.oculus.application.patient.PatientController p = ControllerFacade.getInstance().getPatientController();
+		 PatientSearch p = ControllerFacade.getInstance().getPatientSearch();
 		 try {			
 			PatientRO pa = p.searchPatientBySocialInsuranceNr(_sinField.getText());
 			_main.addPatientData(pa);	// TODO: Why must a patient be stored in _main?
@@ -113,7 +113,7 @@ public class PatientController {
 	 @FXML
 	 private void searchByNameControl(){
 		 clearPatientTable();
-		 at.itb13.oculus.application.patient.PatientController p = ControllerFacade.getInstance().getPatientController();
+		 PatientSearch p = ControllerFacade.getInstance().getPatientSearch();
 		 List<PatientRO> patients = new ArrayList<>();
 		 try {			
 			patients =  (List<PatientRO>) p.searchPatientByName(_firstnameSearch.getText(), _lastnameSearch.getText());

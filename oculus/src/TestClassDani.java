@@ -11,8 +11,6 @@ import org.apache.logging.log4j.Logger;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
-import at.itb13.oculus.application.patient.PatientController;
-import at.itb13.oculus.application.patient.PatientSearch;
 import at.itb13.oculus.application.queue.QueueController;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
@@ -36,13 +34,14 @@ import at.itb13.oculus.technicalServices.dao.QueueDao;
  * @date 03.04.2015
  */
 public class TestClassDani {
-	static final Logger logger = LogManager.getLogger(TestClassDani.class.getName());
+	static final Logger _logger = LogManager.getLogger(TestClassDani.class.getName());
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		exProtTest1();
+		loggingTest();
+//		exProtTest1();
 //		listTest();
 //		queue1Output();
 //		queueTestMove1();
@@ -60,26 +59,34 @@ public class TestClassDani {
 		System.exit(0);
 	}
 	
-	private static void exProtTest1() {
-		PatientController pCol = ControllerFacade.getInstance().getPatientController();
-		PatientRO patRO = null;
-		try {
-//			patRO = pCol.searchPatientBySocialInsuranceNr("7531653399");
-			patRO = new at.itb13.oculus.application.receptionist.PatientSearch().searchPatientBySocialInsuranceNr("7531653399");
-		} catch (InvalidInputException e) {
-			e.printStackTrace();
-		}
-		
-		System.out.println("# not sorted:");
-		for(ExaminationProtocol eP : patRO.getExaminationprotocols()) {
-			System.out.println(eP.getStartProtocol());
-		}
-		
-		System.out.println("\n# sorted:");
-		for(ExaminationProtocolRO ePRO : pCol.getAllExaminationProtocolsSorted(patRO)) {
-			System.out.println(ePRO.getStartProtocol());
-		}
+	private static void loggingTest() {
+		System.out.println("logging:");
+		_logger.info("okay, info");
+		System.out.println("...");
+		_logger.error("error as well! D:");
+		System.out.println("done logging");
 	}
+
+//	private static void exProtTest1() {
+//		PatientController pCol = ControllerFacade.getInstance().getPatientController();
+//		PatientRO patRO = null;
+//		try {
+////			patRO = pCol.searchPatientBySocialInsuranceNr("7531653399");
+//			patRO = new at.itb13.oculus.application.receptionist.PatientSearch().searchPatientBySocialInsuranceNr("7531653399");
+//		} catch (InvalidInputException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		System.out.println("# not sorted:");
+//		for(ExaminationProtocol eP : patRO.getExaminationprotocols()) {
+//			System.out.println(eP.getStartProtocol());
+//		}
+//		
+//		System.out.println("\n# sorted:");
+//		for(ExaminationProtocolRO ePRO : pCol.getAllExaminationProtocolsSorted(patRO)) {
+//			System.out.println(ePRO.getStartProtocol());
+//		}
+//	}
 
 	private static void queue1Output() {
 		QueueController q = ControllerFacade.getInstance().getQueueController(1, null);

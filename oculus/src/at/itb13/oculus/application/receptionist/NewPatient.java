@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
@@ -37,11 +38,16 @@ public class NewPatient {
 	 * @param phone
 	 * @param email
 	 * @return null only if not able to save patient. or if patient with socialInsuranceNr already exists. TODO
+	 * @throws InvalidInputException doctorRO, firstName, lastName and gender must not be null
 	 */
 	public PatientRO createPatient(DoctorRO doctorRO, String socialInsuranceNr,
 			String firstName, String lastName, LocalDate birthday, String gender,
 			String street, String postalCode, String city,
-			String countryIsoCode, String phone, String email) {
+			String countryIsoCode, String phone, String email) throws InvalidInputException {
+		
+		if(doctorRO == null || firstName == null || lastName == null || gender == null) {
+			throw new InvalidInputException("doctorRO, firstName, lastName and gender must not be null");
+		}
 		
 		PatientRO patROReturn = null;
 		

@@ -1,37 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.EditAnamnesisController">
    <children>
-      <GridPane layoutX="103.0" layoutY="35.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="454.0" minWidth="10.0" prefWidth="172.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="691.0" minWidth="10.0" prefWidth="428.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints maxHeight="158.0" minHeight="10.0" prefHeight="69.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="215.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <Label text="Allergies" />
-            <Label text="Childhood Ailments" GridPane.rowIndex="1" />
-            <Label text="Medicine Intolerances" GridPane.rowIndex="2" />
-            <TextArea prefHeight="200.0" prefWidth="200.0" promptText="Allergies" GridPane.columnIndex="1" />
-            <TextArea prefHeight="200.0" prefWidth="200.0" promptText="Childhood Ailments" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextArea prefHeight="200.0" prefWidth="200.0" promptText="Medicine Intolerances" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-         </children>
-      </GridPane>
-      <Label layoutY="6.0" text="Anamnesis" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+      <Label layoutY="6.0" text="Anamnesis" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
       <ButtonBar layoutX="568.0" layoutY="246.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
         <buttons>
-          <Button mnemonicParsing="false" text="Cancel" />
             <Button mnemonicParsing="false" text="Save" />
+          <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
         </buttons>
       </ButtonBar>
+      <TextArea fx:id="_allergiesText" layoutX="26.0" layoutY="41.0" prefHeight="81.0" prefWidth="540.0" promptText="Allergies" />
+      <TextArea fx:id="_childhoodAilmentsText" layoutX="26.0" layoutY="144.0" prefHeight="81.0" prefWidth="540.0" promptText="Childhood Ailments" />
+      <TextArea fx:id="_medicineIntoleranceText" layoutX="26.0" layoutY="250.0" prefHeight="81.0" prefWidth="540.0" promptText="Medicine Intolerances" />
    </children>
 </AnchorPane>

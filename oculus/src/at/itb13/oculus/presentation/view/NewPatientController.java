@@ -80,7 +80,8 @@ public class NewPatientController {
 	private boolean okClicked = false;
 	
 	
-	private PatientRO _patient;
+	private PatientRO _patient;	
+	private Boolean _isNewPatient = true;
 
 	/**
 	 * Initializes the controller class. This method is automatically called
@@ -117,6 +118,32 @@ public class NewPatientController {
 	public PatientRO getPatient(){
 		return _patient;
 	}
+	public void setPatientRO(PatientRO patient){
+		if(patient != null){
+			_isNewPatient = false;
+			_patient = patient;
+			_firstNameField.setText(_patient.getFirstName());
+			_lastNameField.setText(_patient.getLastName());
+			_SINField.setText(_patient.getSocialInsuranceNr());
+			_birthdayField.setText(_patient.getBirthDay().toString());
+			if(_patient.getGender().equals("M")){
+				_maleRadioButton.setSelected(true);
+			}
+			_cityField.setText(_patient.getCity());
+			_postalCodeField.setText(_patient.getPostalCode());
+			_countryISOField.setText(_patient.getCountryIsoCode());
+			_streetField.setText(_patient.getStreet());
+			_phoneField.setText(_patient.getPhone());
+			_emailField.setText(_patient.getEmail());
+//			DoctorRO doc = null;
+//			for(DoctorRO d : _doctorsList){
+//				if(_patient.getDoctor().equals(d)){
+//					doc = d;
+//				}
+//			}
+//			_doctorBox.setValue(doc);
+		}
+	}
 
 	/**
 	 * Called when the user clicks ok.
@@ -127,10 +154,15 @@ public class NewPatientController {
 		
 			try {
 				if (isInputValid()) {   
-					        	
-					//creating a new Patient and save it in the database
 					PatientController pc = ControllerFacade.getInstance().getPatientController();
-					_patient = pc.createPatient(_doctor, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
+					if(_isNewPatient){
+						//creating a new Patient and save it in the database
+						_patient = pc.createPatient(_doctor, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
+						
+					}else{
+						pc.updatePatient(_patient, _doctor, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
+					}
+					
 					okClicked = true;
 				    _dialogStage.close();
 				}

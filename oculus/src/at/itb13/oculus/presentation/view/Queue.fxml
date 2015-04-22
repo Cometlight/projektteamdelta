@@ -40,9 +40,9 @@
                                  <font>
                                     <Font size="14.0" />
                                  </font></Label>
-                              <Label layoutX="83.0" layoutY="14.0" text="Label" />
-                              <Label layoutX="83.0" layoutY="46.0" text="Label" />
-                              <Label layoutX="83.0" layoutY="80.0" text="Label" />
+                              <Label fx:id="_dateTimeLabel" layoutX="122.0" layoutY="14.0" text="Label" />
+                              <Label fx:id="_typeLabel" layoutX="122.0" layoutY="46.0" text="Label" />
+                              <Label fx:id="_reasonLabel" layoutX="122.0" layoutY="80.0" text="Label" />
                            </children></AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>

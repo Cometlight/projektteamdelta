@@ -11,6 +11,7 @@ import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.view.AppointmentsController;
+import at.itb13.oculus.presentation.view.EditAnamnesisController;
 import at.itb13.oculus.presentation.view.NewPatientController;
 import at.itb13.oculus.presentation.view.PatientController;
 import at.itb13.oculus.presentation.view.PatientRecordController;
@@ -274,7 +275,7 @@ public class OculusMain extends Application {
 	 * 
 	 * @return
 	 */
-	public boolean showNewPatientDialog() {
+	public boolean showNewPatientDialog(PatientRO patient) {
 		try {
 			_tempPatient = null;
 			// Load the fxml file and create a new stage for the popup dialog.
@@ -294,11 +295,11 @@ public class OculusMain extends Application {
 			// Set the person into the controller.
 			NewPatientController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
+			controller.setPatientRO(patient);
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
 			_tempPatient = controller.getPatient();
-			System.out.println(_tempPatient);
 			_logger.info("showNewPatientDialog successful");
 			return controller.isOkClicked();
 		} catch (IOException ex) {
@@ -409,6 +410,45 @@ public class OculusMain extends Application {
 	 */
 	public Window getPrimaryStage() {
 		return _primaryStage;
+	}
+
+	/**
+	 * @return 
+	 * 
+	 */
+	public boolean showEditAnamnesis(PatientRO patient) {
+		try {
+			_tempPatient = null;
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(OculusMain.class
+					.getResource("view/EditAnamnesisDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Edit Anamnesis");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(_primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the person into the controller.
+			EditAnamnesisController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setPatientRO(patient);
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+			
+			_tempPatient = controller.getPatient();
+			
+			_logger.info("showNewPatientDialog successful");
+			return controller.isSaveClicked();
+		} catch (IOException ex) {
+			_logger.error(ex);
+			return false;
+		}
+		
 	}
 
 }

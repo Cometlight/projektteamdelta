@@ -249,6 +249,8 @@ public class AppointmentsController {
 		if (event != null) {
 			_descriptionLabel.setText(event.getDescription());
 			_dateTimeLabel.setText(event.getEventStart().toString());
+			EventType type = event.getEventtype();
+			_eventTypeLabel.setText(type.getEventTypeName());
 			if(event.getCalendar().getDoctor() != null){
 				_doctorLabel.setText(event.getCalendar().getDoctor().getUser().getFirstName() + event.getCalendar().getDoctor().getUser().getLastName());
 			}else if(event.getCalendar().getOrthoptist() != null){
@@ -260,12 +262,14 @@ public class AppointmentsController {
 			if (event.getPatient() == null) {
 				_patientNotInDatabaseLabel
 						.setText("Patient is not in Database.\nPatient Name");
+				_patientLabel.setText(event.getPatientName());
 				_addPatientButton.setDisable(false);
 				_addPatientButton.setVisible(true);
 				_queueBox.setDisable(true);
 				_insertQueueButton.setDisable(true);
 			} else {
 				_patientNotInDatabaseLabel.setText("");
+				_patientLabel.setText("");
 				_addPatientButton.setDisable(true);
 				_addPatientButton.setVisible(false);
 				Boolean inQue = false;
@@ -280,14 +284,13 @@ public class AppointmentsController {
 					_insertQueueButton.setDisable(false);
 				}
 			}
-			_patientLabel.setText(event.getPatientName());
-			EventType type = event.getEventtype();
-
-			_eventTypeLabel.setText(type.getEventTypeName());
+			
+			
 		} else {
 			_descriptionLabel.setText("");
 			_dateTimeLabel.setText("");
 			_eventTypeLabel.setText("");
+			_doctorLabel.setText("");
 			_patientNotInDatabaseLabel.setText("");
 			_patientLabel.setText("");
 			_addPatientButton.setDisable(true);
@@ -300,7 +303,7 @@ public class AppointmentsController {
 	@FXML
 	private void addPatientControl() {
 
-		_main.showNewPatientDialog();
+		_main.showNewPatientDialog(null);
 
 		if(_main.getCreatedPatient() != null){
 			

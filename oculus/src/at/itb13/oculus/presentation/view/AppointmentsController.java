@@ -283,11 +283,16 @@ public class AppointmentsController implements ControllerMainSetter {
 
 		_main.showNewPatientDialog();
 
-		CalendarController calco = ControllerFacade.getInstance()
-				.getCalendarController(
-						_appointmentTable.getSelectionModel().getSelectedItem()
-								.getCalendar());
-		calco.connectCalendarEventWithPatient(_appointmentTable.getSelectionModel().getSelectedItem(), _main.getCreatedPatient());
+		if(_main.getCreatedPatient() != null){
+			
+			System.out.println("Patient: " +_main.getCreatedPatient().getFirstName());
+			
+			CalendarController calco = ControllerFacade.getInstance()
+					.getCalendarController(
+							_appointmentTable.getSelectionModel().getSelectedItem()
+									.getCalendar());
+			calco.connectCalendarEventWithPatient(_appointmentTable.getSelectionModel().getSelectedItem(), _main.getCreatedPatient());
+		}
 	}
 
 	private void setItemsToQueueBox() {

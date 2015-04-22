@@ -257,6 +257,7 @@ public class OculusMain extends Application {
 	 */
 	public boolean showNewPatientDialog() {
 		try {
+			_tempPatient = null;
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(OculusMain.class
@@ -278,6 +279,7 @@ public class OculusMain extends Application {
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
 			_tempPatient = controller.getPatient();
+			System.out.println(_tempPatient);
 			_logger.info("showNewPatientDialog successful");
 			return controller.isOkClicked();
 		} catch (IOException ex) {

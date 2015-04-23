@@ -19,6 +19,7 @@ import at.itb13.oculus.domain.ExaminationProtocol;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Queue;
 import at.itb13.oculus.domain.QueueEntry;
+import at.itb13.oculus.domain.Patient.Gender;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
 import at.itb13.oculus.domain.readonlyinterfaces.ExaminationProtocolRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
@@ -259,7 +260,7 @@ public class TestClassDani {
 	
 	private static void bar2(){
 		Patient p = new Patient();
-		p.setGender("M");
+		p.setGender(Gender.M);
 		p.setFirstName("Hugo");
 		p.setLastName("Clonk");
 		Doctor doc = DoctorDao.getInstance().findById(1);

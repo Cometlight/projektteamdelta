@@ -26,63 +26,63 @@ import org.apache.logging.log4j.Logger;
 @Table(name = "examinationprotocolservicecode", catalog = "oculus_d")
 public class ExaminationProtocolServiceCode implements java.io.Serializable {
 	private static final Logger _logger = LogManager.getLogger(ExaminationProtocolServiceCode.class.getName());
-	private static final long serialVersionUID = 1L;
 	
-	private Integer _examinationProtocolServiceCodeId;
-	private ExaminationProtocol _examinationProtocol;
-	private InsuranceCarrier _insuranceCarrier;
-	private ServiceCode _serviceCode;
+	private Integer examinationProtocolServiceCodeId;
+	private ExaminationProtocol examinationprotocol;
+	private InsuranceCarrier insurancecarrier;
+	private ServiceCode servicecode;
 
-	public ExaminationProtocolServiceCode() { }
+	public ExaminationProtocolServiceCode() {
+	}
 
 	public ExaminationProtocolServiceCode(
 			ExaminationProtocol examinationprotocol,
 			InsuranceCarrier insurancecarrier, ServiceCode servicecode) {
-		_examinationProtocol = examinationprotocol;
-		_insuranceCarrier = insurancecarrier;
-		_serviceCode = servicecode;
+		this.examinationprotocol = examinationprotocol;
+		this.insurancecarrier = insurancecarrier;
+		this.servicecode = servicecode;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "examinationProtocolServiceCodeId", unique = true, nullable = false)
 	public Integer getExaminationProtocolServiceCodeId() {
-		return _examinationProtocolServiceCodeId;
+		return this.examinationProtocolServiceCodeId;
 	}
 
 	public void setExaminationProtocolServiceCodeId(
 			Integer examinationProtocolServiceCodeId) {
-		_examinationProtocolServiceCodeId = examinationProtocolServiceCodeId;
+		this.examinationProtocolServiceCodeId = examinationProtocolServiceCodeId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "examinationProtocolId")
-	public ExaminationProtocol getExaminationProtocol() {
-		return _examinationProtocol;
+	public ExaminationProtocol getExaminationprotocol() {
+		return this.examinationprotocol;
 	}
 
-	public void setExaminationProtocol(ExaminationProtocol examinationprotocol) {
-		_examinationProtocol = examinationprotocol;
+	public void setExaminationprotocol(ExaminationProtocol examinationprotocol) {
+		this.examinationprotocol = examinationprotocol;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "insuranceCarrierKey")
-	public InsuranceCarrier getInsuranceCarrier() {
-		return _insuranceCarrier;
+	public InsuranceCarrier getInsurancecarrier() {
+		return this.insurancecarrier;
 	}
 
-	public void setInsuranceCarrier(InsuranceCarrier insurancecarrier) {
-		_insuranceCarrier = insurancecarrier;
+	public void setInsurancecarrier(InsuranceCarrier insurancecarrier) {
+		this.insurancecarrier = insurancecarrier;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "serviceCodeId")
-	public ServiceCode getServiceCode() {
-		return _serviceCode;
+	public ServiceCode getServicecode() {
+		return this.servicecode;
 	}
 
 	public void setServicecode(ServiceCode servicecode) {
-		_serviceCode = servicecode;
+		this.servicecode = servicecode;
 	}
 
 }

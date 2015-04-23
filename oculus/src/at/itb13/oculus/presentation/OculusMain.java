@@ -160,7 +160,7 @@ public class OculusMain extends Application {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(OculusMain.class
-					.getResource("view/StartPatient.fxml"));
+					.getResource("view/StartProcess.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.
@@ -172,14 +172,14 @@ public class OculusMain extends Application {
 			dialogStage.setScene(scene);
 
 			// Set the person into the controller.
-			NewPatientController controller = loader.getController();
+			StartProcessController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
 			
-			_logger.info("showNewPatientDialog successful");
+			_logger.info("initStartProcess successful");
 		
 		} catch (IOException ex) {
 			_logger.error(ex);

@@ -3,3 +3,9 @@
 /C:/Users/Caroline/git/projektteamdelta/oculus/bin/at/itb13/oculus/presentation/view/AppointmentsOverview.fxml
 
 2015-04-23 10:04:16.590 [JavaFX Application Thread] ERROR at.itb13.oculus.technicalServices.dao.QueueDao - org.hibernate.exception.ConstraintViolationException: could not execute statement
+2015-25-23 10:25:23.639 [JavaFX Application Thread] ERROR at.itb13.oculus.presentation.OculusMain - javafx.fxml.LoadException: 
+/C:/Users/Caroline/git/projektteamdelta/oculus/bin/at/itb13/oculus/presentation/view/StartProcess.fxml
+
+2015-29-23 10:29:57.493 [JavaFX Application Thread] ERROR at.itb13.oculus.presentation.OculusMain - javafx.fxml.LoadException: 
+/C:/Users/Caroline/git/projektteamdelta/oculus/bin/at/itb13/oculus/presentation/view/StartProcess.fxml
+

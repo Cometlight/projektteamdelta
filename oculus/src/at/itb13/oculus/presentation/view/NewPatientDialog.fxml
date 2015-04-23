@@ -104,7 +104,7 @@
             </Label>
          </children>
       </GridPane>
-      <Label layoutX="14.0" layoutY="6.0" text="New Patient - General Information" AnchorPane.leftAnchor="0.0">
+      <Label layoutX="14.0" layoutY="6.0" text="General Information" AnchorPane.leftAnchor="0.0">
          <font>
             <Font size="14.0" />
          </font></Label>

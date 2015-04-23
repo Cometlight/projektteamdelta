@@ -136,13 +136,10 @@ public class NewPatientController {
 			_streetField.setText(_patient.getStreet());
 			_phoneField.setText(_patient.getPhone());
 			_emailField.setText(_patient.getEmail());
-//			DoctorRO doc = null;
-//			for(DoctorRO d : _doctorsList){
-//				if(_patient.getDoctor().equals(d)){
-//					doc = d;
-//				}
-//			}
-//			_doctorBox.setValue(doc);
+			Doctor doc = _patient.getDoctor();
+			if(doc != null){
+				_doctorBox.getSelectionModel().select(doc);
+			}
 		}
 	}
 

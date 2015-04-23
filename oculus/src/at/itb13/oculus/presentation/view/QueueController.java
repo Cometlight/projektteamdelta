@@ -13,13 +13,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 import at.itb13.oculus.application.ControllerFacade;
+import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueEntryRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
 import at.itb13.oculus.presentation.OculusMain;
@@ -51,6 +55,14 @@ public class QueueController {
 	private Label _typeLabel;
 	@FXML
 	private Label _reasonLabel;
+	@FXML
+	private Button _endExaminationButton;
+	@FXML
+	private ComboBox<QueueRO> _nextQueueBox;
+	@FXML
+	private Button _insertButton;
+	@FXML
+	private Label _orLabel;
 	@FXML
 	private BorderPane _patientRecordBorderPane;
 	//general Attributes
@@ -142,9 +154,11 @@ public class QueueController {
 
 	private void setItemsToQueueBox() {
 		_queueBox.setConverter(new QueueSringConverter());
+		_nextQueueBox.setConverter(new QueueSringConverter());
 		List<QueueRO> queues = new LinkedList<>();
 		ControllerFacade.getInstance().getAllQueueController().forEach( qCol -> {queues.add(qCol.getQueue());} );
 		_queueBox.getItems().setAll(queues);
+		_nextQueueBox.getItems().setAll(queues);
 	}
 	
 	@FXML
@@ -167,16 +181,32 @@ public class QueueController {
 	}
 	
 	private void showAppointmentInfo(QueueEntryRO entry){
-		if((entry!= null)&&(entry.getCalendarEvent() != null)){
-			_dateTimeLabel.setText(entry.getCalendarEvent().getEventStart().toString());
-			_typeLabel.setText(entry.getCalendarEvent().getEventtype().getEventTypeName());
-			_reasonLabel.setText(entry.getCalendarEvent().getDescription());
+		if(entry != null){
+			_nextQueueBox.setVisible(true);
+			_insertButton.setVisible(true);
+			_endExaminationButton.setVisible(true);
+			_orLabel.setText("or");
 			
+			
+			if((entry.getCalendarEvent() != null)){
+				_dateTimeLabel.setText(entry.getCalendarEvent().getEventStart().toString());
+				_typeLabel.setText(entry.getCalendarEvent().getEventtype().getEventTypeName());
+				_reasonLabel.setText(entry.getCalendarEvent().getDescription());
+				
+				
+			}else{
+				_dateTimeLabel.setText("");
+				_typeLabel.setText("");
+				_reasonLabel.setText("");
+				
+			}
 		}else{
-			_dateTimeLabel.setText("");
-			_typeLabel.setText("");
-			_reasonLabel.setText("");
+			_nextQueueBox.setVisible(false);
+			_insertButton.setVisible(false);
+			_endExaminationButton.setVisible(false);
+			_orLabel.setText("");
 		}
+		
 	}
 	
 //	private class QueueReloader extends TimerTask {
@@ -192,4 +222,47 @@ public class QueueController {
 //			});
 //		}
 //	}
+	
+	@FXML
+	private void handleInsertInQueueButton() {
+
+		QueueRO queue = _nextQueueBox.getSelectionModel().getSelectedItem();
+		at.itb13.oculus.application.queue.QueueController controller = null;
+		PatientRO patient;
+
+		if (queue != null) {
+			if (queue.getDoctor() != null) {
+				controller = ControllerFacade.getInstance().getQueueController(queue.getDoctor().getDoctorId(), null);
+			} else if (queue.getOrthoptist() != null) {
+				controller = ControllerFacade.getInstance().getQueueController(null, queue.getOrthoptist().getOrthoptistId());
+			} else {	// general orthoptist queue
+				controller = ControllerFacade.getInstance().getQueueController(null, null);
+			}
+			
+			if (controller != null) {
+				patient=_queueEntrysListView.getSelectionModel().getSelectedItem().getPatient();
+				handleEndExamination();
+				controller.pushQueueEntry(patient);				
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setContentText("Patient is added to Queue");
+				alert.showAndWait();
+			} else {
+				_logger.error("Could not load QueueController for Queue with doctor '" + queue.getDoctor().getDoctorId()
+						+ "' and with orthoptist '" + queue.getOrthoptist().getOrthoptistId() + "'!");
+			}
+
+		} else {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText("No queue selected");
+			alert.setContentText("Please choose a Queue before insert.");
+			alert.setTitle("No queue selected");
+			alert.showAndWait();
+		}
+	}
+	
+	@FXML
+	private void handleEndExamination(){
+		at.itb13.oculus.application.queue.QueueController controller = ControllerFacade.getInstance().getQueueController(_queue);
+		controller.removeQueueEntry(_queueEntrysListView.getSelectionModel().getSelectedItem().getPatient());
+	}
 }

@@ -1,1 +1,5 @@
 2015-30-22 20:30:24.559 [JavaFX Application Thread] ERROR at.itb13.oculus.technicalServices.dao.QueueDao - org.hibernate.PropertyValueException: not-null property references a null or transient value : at.itb13.oculus.domain.entities.QueueEntity.patient
+2015-21-23 09:21:48.385 [JavaFX Application Thread] ERROR at.itb13.oculus.presentation.OculusMain - javafx.fxml.LoadException: 
+/C:/Users/Caroline/git/projektteamdelta/oculus/bin/at/itb13/oculus/presentation/view/AppointmentsOverview.fxml
+
+2015-04-23 10:04:16.590 [JavaFX Application Thread] ERROR at.itb13.oculus.technicalServices.dao.QueueDao - org.hibernate.exception.ConstraintViolationException: could not execute statement

@@ -335,7 +335,11 @@ public class OculusMain extends Application {
 
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("New Patient");
+			if(patient == null){
+				dialogStage.setTitle("New Patient");
+			}else{
+				dialogStage.setTitle("Edit Patient");
+			}
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(_primaryStage);
 			Scene scene = new Scene(page);

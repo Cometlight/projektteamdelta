@@ -39,7 +39,7 @@ public class QueueController {
 	
 	private static final Logger _logger = LogManager.getLogger(QueueController.class.getName());
 	
-	private static final int REFRESH_INTERVAL = 10000;	// in milliseconds
+	private static final int REFRESH_INTERVAL = 60000;	// in milliseconds
 	
 	@FXML
 	private ListView<QueueEntryRO> _queueEntrysListView;
@@ -208,20 +208,6 @@ public class QueueController {
 		}
 		
 	}
-	
-//	private class QueueReloader extends TimerTask {
-//		@Override
-//		public void run() {
-//			_logger.trace("Refreshing Queues");
-//			Platform.runLater(new Runnable() {
-//				@Override
-//				public void run() {
-//					setItemsToQueueBox();		// TODO only update, if 
-//					setQueueEntriesInList();	// visible			
-//				}
-//			});
-//		}
-//	}
 	
 	@FXML
 	private void handleInsertInQueueButton() {

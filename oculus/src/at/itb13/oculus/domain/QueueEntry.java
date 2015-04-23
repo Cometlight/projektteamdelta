@@ -1,7 +1,6 @@
 package at.itb13.oculus.domain;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

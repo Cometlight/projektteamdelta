@@ -36,13 +36,12 @@ import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
 @Table(name = "calendar", catalog = "oculus_d")
 public class Calendar implements java.io.Serializable, CalendarRO {
 	private static final Logger _logger = LogManager.getLogger(Calendar.class.getName());
+	private static final long serialVersionUID = 1L;
 	
 	private Integer _calendarId;
 	private String _title;
 	private Doctor _doctor;
 	private Orthoptist _orthoptist;
-//	private Set<Doctor> _doctors = new HashSet<Doctor>(0);
-//	private Set<Orthoptist> _orthoptists = new HashSet<Orthoptist>(0);
 	private Set<CalendarEvent> _calendarEvents = new HashSet<CalendarEvent>(0);
 	private Set<CalendarWorkingHours> _calendarWorkingHours = new HashSet<CalendarWorkingHours>(
 			0);
@@ -50,16 +49,13 @@ public class Calendar implements java.io.Serializable, CalendarRO {
 	public Calendar() {
 	}
 
-	public Calendar(String title, /*Set<Doctor> doctors,
-			Set<Orthoptist> orthoptists,*/ Doctor doctor, Orthoptist orthoptist, Set<CalendarEvent> calendarevents,
+	public Calendar(String title, Doctor doctor, Orthoptist orthoptist, Set<CalendarEvent> calendarevents,
 			Set<CalendarWorkingHours> calendarworkinghourses) {
-		this._title = title;
+		_title = title;
 		_doctor = doctor;
 		_orthoptist = orthoptist;
-//		this._doctors = doctors;
-//		this._orthoptists = orthoptists;
-		this._calendarEvents = calendarevents;
-		this._calendarWorkingHours = calendarworkinghourses;
+		_calendarEvents = calendarevents;
+		_calendarWorkingHours = calendarworkinghourses;
 	}
 	
 	/**
@@ -86,40 +82,22 @@ public class Calendar implements java.io.Serializable, CalendarRO {
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "calendarId", unique = true, nullable = false)
 	public Integer getCalendarId() {
-		return this._calendarId;
+		return _calendarId;
 	}
 
 	public void setCalendarId(Integer calendarId) {
-		this._calendarId = calendarId;
+		_calendarId = calendarId;
 	}
 
 	@Column(name = "title")
 	public String getTitle() {
-		return this._title;
+		return _title;
 	}
 
 	public void setTitle(String title) {
-		this._title = title;
+		_title = title;
 	}
 
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "calendar")
-//	public Set<Doctor> getDoctors() {
-//		return this._doctors;
-//	}
-//
-//	public void setDoctors(Set<Doctor> doctors) {
-//		this._doctors = doctors;
-//	}
-//
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "calendar")
-//	public Set<Orthoptist> getOrthoptists() {
-//		return this._orthoptists;
-//	}
-//
-//	public void setOrthoptists(Set<Orthoptist> orthoptists) {
-//		this._orthoptists = orthoptists;
-//	}
-	
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "calendar")
 	public Doctor getDoctor() {
 		return _doctor;
@@ -140,21 +118,21 @@ public class Calendar implements java.io.Serializable, CalendarRO {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "calendar")
 	public Set<CalendarEvent> getCalendarEvents() {
-		return this._calendarEvents;
+		return _calendarEvents;
 	}
 
 	public void setCalendarEvents(Set<CalendarEvent> calendarEvents) {
-		this._calendarEvents = calendarEvents;
+		_calendarEvents = calendarEvents;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "calendar")
 	public Set<CalendarWorkingHours> getCalendarWorkingHours() {
-		return this._calendarWorkingHours;
+		return _calendarWorkingHours;
 	}
 
 	public void setCalendarWorkingHours (
 			Set<CalendarWorkingHours> calendarWorkingHours) {
-		this._calendarWorkingHours = calendarWorkingHours;
+		_calendarWorkingHours = calendarWorkingHours;
 	}
 
 }

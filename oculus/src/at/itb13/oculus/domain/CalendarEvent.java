@@ -41,9 +41,9 @@ import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
 @Entity
 @Table(name = "calendarevent", catalog = "oculus_d")
 public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
-
 	private static final Logger _logger = LogManager.getLogger(CalendarEvent.class.getName());
 	private static final long serialVersionUID = 1L;
+	
 	private Integer _calendarEventId;
 	private Calendar _calendar;
 	private EventType _eventtype;
@@ -132,7 +132,7 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "calendarId", nullable = false)
-	public Calendar getCalendar() {		// TODO: Muss ein calendarEvent wirklich wissen, zu welchem calendar es gehört? Oder reicht es nicht auch, wenn einfach der Calendar seine CalendarEvents kennt?
+	public Calendar getCalendar() {
 		return _calendar;
 	}
 
@@ -143,9 +143,6 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "eventTypeId", nullable = false)
 	public EventType getEventtype() {
-//		if(!_isFullyLoaded) {	TODO: DELETE
-//			Reloader.getInstance().reload(CalendarEvent.class, this);
-//		}
 		return _eventtype;
 	}
 
@@ -156,9 +153,6 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "patientId")
 	public Patient getPatient() {
-//		if(!_isFullyLoaded) {	TODO: DELETE
-//			Reloader.getInstance().reload(CalendarEvent.class, this);
-//		}
 		return _patient;
 	}
 

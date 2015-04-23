@@ -2,6 +2,8 @@ package at.itb13.oculus.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 
@@ -26,64 +28,70 @@ import org.apache.logging.log4j.Logger;
 @Table(name = "calendarworkinghours", catalog = "oculus_d")
 public class CalendarWorkingHours implements java.io.Serializable {
 	private static final Logger _logger = LogManager.getLogger(CalendarWorkingHours.class.getName());
+	private static final long serialVersionUID = 1L;
 	
-	private Integer calendarWorkingHoursId;
-	private Calendar calendar;
-	private WorkingHours workinghours;
-	private String weekDayKey;
+	private Integer _calendarWorkingHoursId;
+	private Calendar _calendar;
+	private WorkingHours _workingHours;
+	private WeekDayKey _weekDayKey;
 
+	public enum WeekDayKey {
+		MON, TUE, WED, THU, FRI, SAT, SUN
+	}
+	
 	public CalendarWorkingHours() {
 	}
 
-	public CalendarWorkingHours(String weekDayKey) {
-		this.weekDayKey = weekDayKey;
+	public CalendarWorkingHours(WeekDayKey weekDayKey) {
+		_weekDayKey = weekDayKey;
 	}
 
 	public CalendarWorkingHours(Calendar calendar, WorkingHours workinghours,
-			String weekDayKey) {
-		this.calendar = calendar;
-		this.workinghours = workinghours;
-		this.weekDayKey = weekDayKey;
+			WeekDayKey weekDayKey) {
+		_calendar = calendar;
+		_workingHours = workinghours;
+		_weekDayKey = weekDayKey;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "calendarWorkingHoursId", unique = true, nullable = false)
 	public Integer getCalendarWorkingHoursId() {
-		return this.calendarWorkingHoursId;
+		return _calendarWorkingHoursId;
 	}
 
 	public void setCalendarWorkingHoursId(Integer calendarWorkingHoursId) {
-		this.calendarWorkingHoursId = calendarWorkingHoursId;
+		_calendarWorkingHoursId = calendarWorkingHoursId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "calendarId")
 	public Calendar getCalendar() {
-		return this.calendar;
+		return _calendar;
 	}
 
 	public void setCalendar(Calendar calendar) {
-		this.calendar = calendar;
+		_calendar = calendar;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "workingHoursId")
 	public WorkingHours getWorkinghours() {
-		return this.workinghours;
+		return _workingHours;
 	}
 
 	public void setWorkinghours(WorkingHours workinghours) {
-		this.workinghours = workinghours;
+		_workingHours = workinghours;
 	}
 
-	@Column(name = "weekDayKey", nullable = false, length = 4)
-	public String getWeekDayKey() {
-		return this.weekDayKey;
+	@Enumerated (EnumType.STRING)
+	@Column(name = "weekDayKey", nullable = false)
+	public WeekDayKey getWeekDayKey() {
+		return _weekDayKey;
 	}
 
-	public void setWeekDayKey(String weekDayKey) {
-		this.weekDayKey = weekDayKey;
+	public void setWeekDayKey(WeekDayKey weekDayKey) {
+		_weekDayKey = weekDayKey;
 	}
 
 }

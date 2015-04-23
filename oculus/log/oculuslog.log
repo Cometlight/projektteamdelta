@@ -1,2 +1,0 @@
-2015-30-22 20:30:24.559 [JavaFX Application Thread] ERROR at.itb13.oculus.technicalServices.dao.QueueDao - org.hibernate.PropertyValueException: not-null property references a null or transient value : at.itb13.oculus.domain.entities.QueueEntity.patient
-2015-35-23 09:35:17.028 [JavaFX Application Thread] FATAL at.itb13.oculus.technicalServices.HibernateUtil - org.hibernate.exception.JDBCConnectionException: Error calling Driver#connect

@@ -19,7 +19,7 @@
         </buttons>
       </ButtonBar>
       <TextArea fx:id="_allergiesText" layoutX="26.0" layoutY="41.0" prefHeight="81.0" prefWidth="540.0" promptText="Allergies" />
-      <TextArea fx:id="_childhoodAilmentsText" layoutX="26.0" layoutY="144.0" prefHeight="81.0" prefWidth="540.0" promptText="Childhood Ailments" />
-      <TextArea fx:id="_medicineIntoleranceText" layoutX="26.0" layoutY="250.0" prefHeight="81.0" prefWidth="540.0" promptText="Medicine Intolerances" />
+      <TextArea fx:id="_childhoodAilmentsText" layoutX="26.0" layoutY="144.0" prefHeight="81.0" prefWidth="540.0" promptText="Childhood Illnesses" />
+      <TextArea fx:id="_medicineIntoleranceText" layoutX="26.0" layoutY="250.0" prefHeight="81.0" prefWidth="540.0" promptText="Drug Intolerances" />
    </children>
 </AnchorPane>

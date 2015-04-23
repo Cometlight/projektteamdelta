@@ -12,6 +12,7 @@ import javafx.scene.control.ToggleGroup;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.Doctor;
+import at.itb13.oculus.domain.Patient.Gender;
 import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.util.DoctorSringConverter;
@@ -51,7 +52,7 @@ public class NewPatientController {
 	private RadioButton _maleRadioButton;
 	@FXML
 	private RadioButton _femaleRadioButton;
-	private String _gender;
+	private Gender _gender;
 	@FXML
 	private ComboBox<DoctorRO> _doctorBox;
 
@@ -89,7 +90,7 @@ public class NewPatientController {
 		
 		setItemsToDoctorBox();
 
-		_gender = "F";
+		_gender = Gender.F;
 		_genderGroup = new ToggleGroup();
 		_femaleRadioButton.setToggleGroup(_genderGroup);
 		_maleRadioButton.setToggleGroup(_genderGroup);
@@ -136,13 +137,10 @@ public class NewPatientController {
 			_streetField.setText(_patient.getStreet());
 			_phoneField.setText(_patient.getPhone());
 			_emailField.setText(_patient.getEmail());
-//			DoctorRO doc = null;
-//			for(DoctorRO d : _doctorsList){
-//				if(_patient.getDoctor().equals(d)){
-//					doc = d;
-//				}
-//			}
-//			_doctorBox.setValue(doc);
+			Doctor doc = _patient.getDoctor();
+			if(doc != null){
+				_doctorBox.getSelectionModel().select(doc);
+			}
 		}
 	}
 
@@ -192,9 +190,9 @@ public class NewPatientController {
 	@FXML
 	private void handleGender() {
 		if (_maleRadioButton.isSelected()) {
-			_gender = "M";
+			_gender = Gender.M;
 		} else if (_femaleRadioButton.isSelected()) {
-			_gender = "F";
+			_gender = Gender.F;
 		}
 
 	}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.StartProcessController">
+   <children>
+      <ProgressBar fx:id="_progressBar" layoutX="13.0" layoutY="260.0" prefHeight="18.0" prefWidth="376.0" progress="0.0" />
+      <ImageView fx:id="_imageView" fitHeight="240.0" fitWidth="308.0" layoutX="47.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

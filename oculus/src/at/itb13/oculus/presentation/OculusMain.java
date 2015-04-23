@@ -17,6 +17,7 @@ import at.itb13.oculus.presentation.view.PatientController;
 import at.itb13.oculus.presentation.view.PatientRecordController;
 import at.itb13.oculus.presentation.view.QueueController;
 import at.itb13.oculus.presentation.view.RootLayoutController;
+import at.itb13.oculus.presentation.view.StartProcessController;
 import at.itb13.oculus.technicalServices.HibernateUtil;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -92,6 +93,7 @@ public class OculusMain extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		_logger.info("Starting OculusMain");
+		
 		_primaryStage = primaryStage;
 		_primaryStage.setTitle("Oculus");
 		_primaryStage.setMinWidth(MIN_WIDTH);
@@ -103,6 +105,7 @@ public class OculusMain extends Application {
 
 		ControllerFacade.init();	// Load early, so the user does not have to wait when using the application
 			// TODO: Show splashscreen or progress bar while loading?
+		//initStartLayout();
 		initRootLayout();
 		
 		initAppointmentsTab();
@@ -149,6 +152,38 @@ public class OculusMain extends Application {
 			_logger.info("initRootLayout() successful");
 		} catch (IOException ex) {
 			_logger.error(ex);
+		}
+	}
+	public void initStartLayout() {
+		try {
+		
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(OculusMain.class
+					.getResource("view/StartPatient.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Start Oculus");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(_primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the person into the controller.
+			NewPatientController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+			
+			_logger.info("showNewPatientDialog successful");
+		
+		} catch (IOException ex) {
+			_logger.error(ex);
+		
 		}
 	}
 	
@@ -300,7 +335,11 @@ public class OculusMain extends Application {
 
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("New Patient");
+			if(patient == null){
+				dialogStage.setTitle("New Patient");
+			}else{
+				dialogStage.setTitle("Edit Patient");
+			}
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(_primaryStage);
 			Scene scene = new Scene(page);

@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -64,6 +65,10 @@ public class PatientRecordController {
 	private Label _childhoodAilmentsLabel;
 	@FXML
 	private Label _medicineintolerranceLabel;
+	@FXML
+	private Button _editGeneralButton;
+	@FXML
+	private Button _editAnamnesisButton;
 	
 	// Appointments Tab
 	@FXML
@@ -96,11 +101,15 @@ public class PatientRecordController {
 	private void initialize() {
 		 showPatientMasterData(null);
 		 showAnamanesis(null);
+		 _editGeneralButton.setVisible(false);
+		 _editAnamnesisButton.setVisible(false);
 		 initAppointmentsTab();
 	}
 	 
 	public void showPatientMasterData(PatientRO value) {
 		if (value != null) {
+			_editGeneralButton.setVisible(true);
+			_editAnamnesisButton.setVisible(true);
 			_patient = value;
             // Fill the labels with info from the person object.
         	_firstNameLabel.setText(value.getFirstName());
@@ -108,7 +117,7 @@ public class PatientRecordController {
         	_SSNLabel.setText(value.getSocialInsuranceNr());
         	_birthdayLabel.setText((value.getBirthDay() == null) ? "" : value.getBirthDay().toString());
         	_docLabel.setText(value.getDoctor().getUser().getFirstName() + " " +value.getDoctor().getUser().getLastName());
-        	_genderLabel.setText(value.getGender());	            
+        	_genderLabel.setText(value.getGender().toString());	            
         	_streetLabel.setText(value.getStreet());
         	_postalCodeLabel.setText(value.getPostalCode());
         	_cityLabel.setText(value.getCity());

@@ -240,8 +240,10 @@ public class NewPatientController {
 		if (_doctorBox.getSelectionModel().getSelectedItem() == null) {
 			errorMessage += "No doctor selected!\n";
 		}
-		if(_countryISOField.getText().length() > 2){
-			errorMessage+="The Country ISO Code is to long. It should have 2 letters.";
+		if((_countryISOField.getText() != null)&&(_countryISOField.getText().length() > 0)){
+			if(_countryISOField.getText().length() > 2){
+				errorMessage+="The Country ISO Code is to long. It should have 2 letters.\n";
+			}
 		}
 
 		if (errorMessage.length() == 0) {

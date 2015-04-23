@@ -250,5 +250,8 @@ public class TabQueueController {
 	private void handleEndExamination(){
 		at.itb13.oculus.application.queue.QueueController controller = ControllerFacade.getInstance().getQueueController(_queue);
 		controller.removeQueueEntry(_queueEntrysListView.getSelectionModel().getSelectedItem().getPatient());
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setContentText("Examination is closed. Patient is no longer in a Waitinglist.");
+		alert.showAndWait();
 	}
 }

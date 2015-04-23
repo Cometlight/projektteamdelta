@@ -117,7 +117,7 @@ public class PatientRecordController {
         	_SSNLabel.setText(value.getSocialInsuranceNr());
         	_birthdayLabel.setText((value.getBirthDay() == null) ? "" : value.getBirthDay().toString());
         	_docLabel.setText(value.getDoctor().getUser().getFirstName() + " " +value.getDoctor().getUser().getLastName());
-        	_genderLabel.setText(value.getGender());	            
+        	_genderLabel.setText(value.getGender().toString());	            
         	_streetLabel.setText(value.getStreet());
         	_postalCodeLabel.setText(value.getPostalCode());
         	_cityLabel.setText(value.getCity());

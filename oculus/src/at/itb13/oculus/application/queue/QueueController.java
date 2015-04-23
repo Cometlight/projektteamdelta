@@ -19,7 +19,7 @@ import at.itb13.oculus.technicalServices.dao.QueueDao;
 public class QueueController {
 	private Queue _queue;
 	
-	public QueueController(Queue queue) {	// TODO: sichtbarkeit einschränken, wenn möglich
+	public QueueController(Queue queue) {
 		_queue = queue;
 	}
 	

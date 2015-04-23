@@ -11,6 +11,7 @@ import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Patient;
+import at.itb13.oculus.domain.Patient.Gender;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
@@ -46,7 +47,7 @@ public class WelcomeAtReception {
 	 * @throws InvalidInputException patientRO, doctorRO, firstName, lastName and gender must not be null
 	 */
 	public PatientRO updatePatient(PatientRO patientRO, DoctorRO doctorRO, String socialInsuranceNr,
-			String firstName, String lastName, LocalDate birthday, String gender,
+			String firstName, String lastName, LocalDate birthday, Gender gender,
 			String street, String postalCode, String city,
 			String countryIsoCode, String phone, String email) throws InvalidInputException {
 		

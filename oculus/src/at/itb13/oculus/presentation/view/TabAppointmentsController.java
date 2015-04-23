@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -41,9 +43,9 @@ import at.itb13.oculus.presentation.util.QueueSringConverter;
  * @author Caroline Meusburger
  * @since 15.04.2015
  */
-public class AppointmentsController {
+public class TabAppointmentsController {
 	private static final Logger _logger = LogManager
-			.getLogger(AppointmentsController.class.getName());
+			.getLogger(TabAppointmentsController.class.getName());
 
 	@FXML
 	private TableView<CalendarEventRO> _appointmentTable;
@@ -331,10 +333,26 @@ public class AppointmentsController {
 			}
 			
 			if (controller != null) {
-				controller.pushQueueEntry(_appointmentTable.getSelectionModel().getSelectedItem().getPatient());
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setContentText("Patient is added to Queue");
-				alert.showAndWait();
+				if(_appointmentTable.getSelectionModel().getSelectedItem().getCalendar().getDoctor().equals(queue.getDoctor())){
+					controller.pushQueueEntry(_appointmentTable.getSelectionModel().getSelectedItem().getPatient());
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setContentText("Patient is added to Queue");
+					alert.showAndWait();
+				}else{
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.setHeaderText("Waitinglist is not equate to the Doctor");
+					alert.setContentText("Selected Waitinglist is not equate to the Doctor of the Appointment. Are you sure you want to continue?");
+					alert.showAndWait();
+					Optional<ButtonType> result = alert.showAndWait();
+					if (result.get() == ButtonType.OK){
+						controller.pushQueueEntry(_appointmentTable.getSelectionModel().getSelectedItem().getPatient());
+						alert = new Alert(AlertType.INFORMATION);
+						alert.setContentText("Patient is added to Queue");
+						alert.showAndWait();
+					} else {
+					    alert.close();
+					}
+				}
 			} else {
 				_logger.error("Could not load QueueController for Queue with doctor '" + queue.getDoctor().getDoctorId()
 						+ "' and with orthoptist '" + queue.getOrthoptist().getOrthoptistId() + "'!");

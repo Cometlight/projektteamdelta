@@ -35,9 +35,9 @@ import at.itb13.oculus.presentation.util.QueueSringConverter;
  * @author Caroline Meusburger
  * @since 15.04.2015
  */
-public class QueueController {
+public class TabQueueController {
 	
-	private static final Logger _logger = LogManager.getLogger(QueueController.class.getName());
+	private static final Logger _logger = LogManager.getLogger(TabQueueController.class.getName());
 	
 	private static final int REFRESH_INTERVAL = 60000;	// in milliseconds
 	
@@ -92,7 +92,7 @@ public class QueueController {
                     protected void updateItem(QueueEntryRO t, boolean bln) {
                         super.updateItem(t, bln);
                         if(t != null){
-                        	setText(t.getPatient().getFirstName() + " "+ t.getPatient().getLastName());
+                        	setText(t.getPatient().getFirstName() + " "+ t.getPatient().getLastName()+"\n" +t.getArrivalTime());
                         }else{
                         	setText("");
                         }
@@ -250,5 +250,8 @@ public class QueueController {
 	private void handleEndExamination(){
 		at.itb13.oculus.application.queue.QueueController controller = ControllerFacade.getInstance().getQueueController(_queue);
 		controller.removeQueueEntry(_queueEntrysListView.getSelectionModel().getSelectedItem().getPatient());
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setContentText("Examination is closed. Patient is no longer in a Waitinglist.");
+		alert.showAndWait();
 	}
 }

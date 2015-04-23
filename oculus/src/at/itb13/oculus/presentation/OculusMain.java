@@ -10,12 +10,12 @@ import org.apache.logging.log4j.Logger;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
-import at.itb13.oculus.presentation.view.AppointmentsController;
+import at.itb13.oculus.presentation.view.TabAppointmentsController;
 import at.itb13.oculus.presentation.view.EditAnamnesisController;
 import at.itb13.oculus.presentation.view.NewPatientController;
-import at.itb13.oculus.presentation.view.PatientController;
+import at.itb13.oculus.presentation.view.TabPatientController;
 import at.itb13.oculus.presentation.view.PatientRecordController;
-import at.itb13.oculus.presentation.view.QueueController;
+import at.itb13.oculus.presentation.view.TabQueueController;
 import at.itb13.oculus.presentation.view.RootLayoutController;
 import at.itb13.oculus.presentation.view.StartProcessController;
 import at.itb13.oculus.technicalServices.HibernateUtil;
@@ -49,11 +49,11 @@ public class OculusMain extends Application {
 	private RootLayoutController _rootLayoutController;
 	
 	private AnchorPane _appointmentsTab;
-	private AppointmentsController _appointmentsController;
+	private TabAppointmentsController _appointmentsController;
 	private AnchorPane _patientTab;
-	private PatientController _patientController;
+	private TabPatientController _patientController;
 	private AnchorPane _queueTab;
-	private QueueController _queueController;
+	private TabQueueController _queueController;
 	
 	private PatientRO _tempPatient;	// TODO: Should be moved to the application layer (into the ControllerFacade)
 
@@ -232,14 +232,14 @@ public class OculusMain extends Application {
 				// Load person overview.
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(OculusMain.class
-						.getResource("view/PatientOverview.fxml"));
+						.getResource("view/TabPatient.fxml"));
 				AnchorPane overview = (AnchorPane) loader.load();
 	
 				// Set person overview into the center of root layout.
 				_rootLayout.setCenter(overview);
 	
 				// Give the controller access to the main app.
-				PatientController controller = loader.getController();
+				TabPatientController controller = loader.getController();
 				controller.setMain(this);
 				
 				_logger.info("Successfully loaded PatientOverview");
@@ -253,7 +253,7 @@ public class OculusMain extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(OculusMain.class
-					.getResource("view/AppointmentsOverview.fxml"));
+					.getResource("view/TabAppointments.fxml"));
 			_appointmentsTab = (AnchorPane) loader.load();
 
 			// Give the controller access to the main app.
@@ -269,7 +269,7 @@ public class OculusMain extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(OculusMain.class
-					.getResource("view/PatientOverview.fxml"));
+					.getResource("view/TabPatient.fxml"));
 			_patientTab = (AnchorPane) loader.load();
 
 			// Give the controller access to the main app.
@@ -285,7 +285,7 @@ public class OculusMain extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(OculusMain.class
-					.getResource("view/Queue.fxml"));
+					.getResource("view/TabQueue.fxml"));
 			_queueTab = (AnchorPane) loader.load();
 
 			// Give the controller access to the main app.
@@ -497,7 +497,7 @@ public class OculusMain extends Application {
 			
 			_tempPatient = controller.getPatient();
 			
-			_logger.info("showNewPatientDialog successful");
+			_logger.info("editAnamnesisDialog successful");
 			return controller.isSaveClicked();
 		} catch (IOException ex) {
 			_logger.error(ex);

@@ -35,11 +35,11 @@ import at.itb13.oculus.presentation.util.QueueSringConverter;
  * @author Caroline Meusburger
  * @since 15.04.2015
  */
-public class QueueController {
+public class TabQueueController {
 	
-	private static final Logger _logger = LogManager.getLogger(QueueController.class.getName());
+	private static final Logger _logger = LogManager.getLogger(TabQueueController.class.getName());
 	
-	private static final int REFRESH_INTERVAL = 10000;	// in milliseconds
+	private static final int REFRESH_INTERVAL = 60000;	// in milliseconds
 	
 	@FXML
 	private ListView<QueueEntryRO> _queueEntrysListView;
@@ -92,7 +92,7 @@ public class QueueController {
                     protected void updateItem(QueueEntryRO t, boolean bln) {
                         super.updateItem(t, bln);
                         if(t != null){
-                        	setText(t.getPatient().getFirstName() + " "+ t.getPatient().getLastName());
+                        	setText(t.getPatient().getFirstName() + " "+ t.getPatient().getLastName()+"\n" +t.getArrivalTime());
                         }else{
                         	setText("");
                         }
@@ -208,20 +208,6 @@ public class QueueController {
 		}
 		
 	}
-	
-//	private class QueueReloader extends TimerTask {
-//		@Override
-//		public void run() {
-//			_logger.trace("Refreshing Queues");
-//			Platform.runLater(new Runnable() {
-//				@Override
-//				public void run() {
-//					setItemsToQueueBox();		// TODO only update, if 
-//					setQueueEntriesInList();	// visible			
-//				}
-//			});
-//		}
-//	}
 	
 	@FXML
 	private void handleInsertInQueueButton() {

@@ -29,73 +29,73 @@ import org.apache.logging.log4j.Logger;
 @Table(name = "eventtype", catalog = "oculus_d", uniqueConstraints = @UniqueConstraint(columnNames = "eventTypeName"))
 public class EventType implements java.io.Serializable {
 	private static final Logger _logger = LogManager.getLogger(EventType.class.getName());
+	private static final long serialVersionUID = 1L;
 	
-	private Integer eventTypeId;
-	private String eventTypeName;
-	private Integer estimatedTime;
-	private String description;
-	private Set<CalendarEvent> calendarevents = new HashSet<CalendarEvent>(0);
+	private Integer _eventTypeId;
+	private String _eventTypeName;
+	private Integer _estimatedTime;
+	private String _description;
+	private Set<CalendarEvent> _calendarEvents = new HashSet<CalendarEvent>(0);
 
-	public EventType() {
-	}
+	public EventType() { }
 
 	public EventType(String eventTypeName) {
-		this.eventTypeName = eventTypeName;
+		_eventTypeName = eventTypeName;
 	}
 
 	public EventType(String eventTypeName, Integer estimatedTime,
 			String description, Set<CalendarEvent> calendarevents) {
-		this.eventTypeName = eventTypeName;
-		this.estimatedTime = estimatedTime;
-		this.description = description;
-		this.calendarevents = calendarevents;
+		_eventTypeName = eventTypeName;
+		_estimatedTime = estimatedTime;
+		_description = description;
+		_calendarEvents = calendarevents;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "eventTypeId", unique = true, nullable = false)
 	public Integer getEventTypeId() {
-		return this.eventTypeId;
+		return _eventTypeId;
 	}
 
 	public void setEventTypeId(Integer eventTypeId) {
-		this.eventTypeId = eventTypeId;
+		_eventTypeId = eventTypeId;
 	}
 
 	@Column(name = "eventTypeName", unique = true, nullable = false, length = 50)
 	public String getEventTypeName() {
-		return this.eventTypeName;
+		return _eventTypeName;
 	}
 
 	public void setEventTypeName(String eventTypeName) {
-		this.eventTypeName = eventTypeName;
+		_eventTypeName = eventTypeName;
 	}
 
 	@Column(name = "estimatedTime")
 	public Integer getEstimatedTime() {
-		return this.estimatedTime;
+		return _estimatedTime;
 	}
 
 	public void setEstimatedTime(Integer estimatedTime) {
-		this.estimatedTime = estimatedTime;
+		_estimatedTime = estimatedTime;
 	}
 
 	@Column(name = "description", length = 65535)
 	public String getDescription() {
-		return this.description;
+		return _description;
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		_description = description;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "eventtype")
-	public Set<CalendarEvent> getCalendarevents() {
-		return this.calendarevents;
+	public Set<CalendarEvent> getCalendarEvents() {
+		return _calendarEvents;
 	}
 
-	public void setCalendarevents(Set<CalendarEvent> calendarevents) {
-		this.calendarevents = calendarevents;
+	public void setCalendarEvents(Set<CalendarEvent> calendarevents) {
+		_calendarEvents = calendarevents;
 	}
 
 }

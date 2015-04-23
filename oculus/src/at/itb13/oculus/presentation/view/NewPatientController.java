@@ -231,7 +231,7 @@ public class NewPatientController {
 					"([0-9]{4})-([0-9]{2})-([0-9]{2})")) {
 				_date = LocalDate.parse(_birthdayField.getText());
 			} else {
-				errorMessage += "No valid Birthday! Please make sure that you have choose the correct date format!\n";
+				errorMessage += "No valid Birthday! Please make sure that you have choosen the correct date format!\n";
 			}
 
 		} else {
@@ -239,6 +239,9 @@ public class NewPatientController {
 		}
 		if (_doctorBox.getSelectionModel().getSelectedItem() == null) {
 			errorMessage += "No doctor selected!\n";
+		}
+		if(_countryISOField.getText().length() > 2){
+			errorMessage+="The Country ISO Code is to long. It should have 2 letters.";
 		}
 
 		if (errorMessage.length() == 0) {

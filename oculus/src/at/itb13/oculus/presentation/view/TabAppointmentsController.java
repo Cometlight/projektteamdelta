@@ -41,9 +41,9 @@ import at.itb13.oculus.presentation.util.QueueSringConverter;
  * @author Caroline Meusburger
  * @since 15.04.2015
  */
-public class AppointmentsController {
+public class TabAppointmentsController {
 	private static final Logger _logger = LogManager
-			.getLogger(AppointmentsController.class.getName());
+			.getLogger(TabAppointmentsController.class.getName());
 
 	@FXML
 	private TableView<CalendarEventRO> _appointmentTable;

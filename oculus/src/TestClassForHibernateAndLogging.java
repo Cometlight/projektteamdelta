@@ -38,7 +38,7 @@ public class TestClassForHibernateAndLogging {
 			session.beginTransaction();
 
 			EventType eventType = new EventType();
-			eventType.setCalendarevents(null);
+			eventType.setCalendarEvents(null);
 			eventType.setDescription("Test by Andrew");
 			eventType.setEstimatedTime(0);
 			eventType.setEventTypeId(1000);

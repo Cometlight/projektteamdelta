@@ -258,16 +258,16 @@ public class TestClassDani {
 		
 	}
 	
-	private static void bar2(){
-		Patient p = new Patient();
-		p.setGender(Gender.M);
-		p.setFirstName("Hugo");
-		p.setLastName("Clonk");
-		Doctor doc = DoctorDao.getInstance().findById(1);
-//		new DoctorDao().finda
-		p.setDoctor(doc);
-		
-		PatientDao.getInstance().makePersistent(p);
-	}
+//	private static void bar2(){
+//		Patient p = new Patient();
+//		p.setGender("M");
+//		p.setFirstName("Hugo");
+//		p.setLastName("Clonk");
+//		Doctor doc = DoctorDao.getInstance().findById(1);
+////		new DoctorDao().finda
+//		p.setDoctor(doc);
+//		
+//		PatientDao.getInstance().makePersistent(p);
+//	}
 
 }

@@ -111,4 +111,24 @@ public class WelcomeAtReception {
 	public List<? extends DoctorRO> getDoctorList(){
 		return DoctorDao.getInstance().findAll();
 	}
+	
+	/**
+	 * 
+	 * @param patientRO
+	 * @param allergy
+	 * @param childhoodAilments
+	 * @param medicineIntolerance
+	 * @return the updated Patient. Null, if not possible to update patient and to save to the database.
+	 */
+	public PatientRO updateAnamnesis(PatientRO patientRO, String allergy, String childhoodAilments, String medicineIntolerance) {
+		Patient patient = PatientDao.getInstance().findById(patientRO.getPatientId());
+		if(patient != null) {
+			patient.setAllergy(allergy);
+			patient.setChildhoodAilments(childhoodAilments);
+			patient.setMedicineIntolerance(medicineIntolerance);
+			return PatientDao.getInstance().makePersistent(patient) ? patient : null;
+		} else {
+			return null;
+		}
+	}
 }

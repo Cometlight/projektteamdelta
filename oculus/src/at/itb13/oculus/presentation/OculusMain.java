@@ -19,18 +19,34 @@ import at.itb13.oculus.presentation.view.TabQueueController;
 import at.itb13.oculus.presentation.view.RootLayoutController;
 import at.itb13.oculus.presentation.view.StartProcessController;
 import at.itb13.oculus.technicalServices.HibernateUtil;
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TabPane;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.Window;
+import javafx.util.Duration;
 
 /**
  * 
@@ -43,7 +59,9 @@ public class OculusMain extends Application {
 	private static final Logger _logger = LogManager.getLogger(OculusMain.class.getName());
 	private static final double MIN_WIDTH = 800d;
 	private static final double MIN_HEIGHT = 600d;
+	private static final String APPLICATION_ICON_PATH = "file:ApplicationResources/Images/eye.png";
 	
+	private Scene _primaryScene;
 	private Stage _primaryStage;
 	private BorderPane _rootLayout;
 	private RootLayoutController _rootLayoutController;
@@ -58,35 +76,16 @@ public class OculusMain extends Application {
 	private PatientRO _tempPatient;	// TODO: Should be moved to the application layer (into the ControllerFacade)
 
 	private ObservableList<PatientRO> _patientData = FXCollections.observableArrayList();
+	
+	private SplashScreen _splashScreen;
 
 	public OculusMain() { }
-
-	/**
-	 * TODO: Insert Description
-	 * 
-	 * @return
-	 */
-	public ObservableList<PatientRO> getPatientData() {
-		return _patientData;
+    
+	@Override
+	public void init() throws Exception {
+		_splashScreen = new SplashScreen();
 	}
-
-	/**
-	 * TODO: Insert Description
-	 * 
-	 * @param p
-	 */
-	public void addPatientData(PatientRO p) {
-		_patientData.add(p);
-	}
-
-	/**
-	 * TODO: Insert Description
-	 */
-	public void clearPatientData() {
-		_patientData.clear();
-
-	}
-
+	
 	/**
 	 * TODO: Insert Description
 	 */
@@ -95,31 +94,51 @@ public class OculusMain extends Application {
 		_logger.info("Starting OculusMain");
 		
 		_primaryStage = primaryStage;
-		_primaryStage.setTitle("Oculus");
-		_primaryStage.setMinWidth(MIN_WIDTH);
-		_primaryStage.setMinHeight(MIN_HEIGHT);
-
-		// Set the application icon.
-		_primaryStage.getIcons().add(
-				new Image("file:ApplicationResources/Images/eye.png"));
-
-		ControllerFacade.init();	// Load early, so the user does not have to wait when using the application
-			// TODO: Show splashscreen or progress bar while loading?
-		//initStartLayout();
-		initRootLayout();
 		
-		initAppointmentsTab();
-		initPatientTab();
-		initQueueTab();
-		
-		showAppointmentsTab();
+		final Task<Integer> startupTask = new Task<Integer>() {
+            @Override
+            protected Integer call() throws InterruptedException {
+            	updateMessage("Loading Application Icon...");
+            	
+        		// Set the application icon.
+        		_primaryStage.getIcons().add(
+        				new Image(APPLICATION_ICON_PATH));
+        		
+        		updateMessage("Connecting to database ...");
+        		HibernateUtil.init();
+        		
+        		updateMessage("Loading from database ...");
+        		ControllerFacade.init();	// Load early, so the user does not have to wait when using the application
 
-		_logger.info("Finished starting OculusMain");
+        		updateMessage("Loading Main Tabs ...");
+        		initRootLayout();
+        		
+        		initAppointmentsTab();
+        		initPatientTab();
+        		initQueueTab();
+        		
+        		updateMessage("Finished.");
+        		
+        		return 1;	// TODO
+            }
+        };
+ 
+        _splashScreen.showSplash(new Stage(), startupTask, () -> showMainStage());
+        new Thread(startupTask).start();
 	}
 	
-	/*
-	 * @see javafx.application.Application#stop()
-	 */
+    private void showMainStage() {
+    	_primaryStage.setScene(_primaryScene);
+    	_primaryStage.setTitle("Oculus");
+		_primaryStage.setMinWidth(MIN_WIDTH);
+		_primaryStage.setMinHeight(MIN_HEIGHT);
+		_primaryStage.show();
+		
+		_logger.info("Finished starting OculusMain");
+		
+		showAppointmentsTab();
+    }
+	
 	@Override
 	public void stop() throws Exception {
 		_logger.info("Shutting down application...");
@@ -141,9 +160,7 @@ public class OculusMain extends Application {
 			rlc.setTabPane((TabPane)_rootLayout.getTop());
 
 			// Show the scene containing the root layout.
-			Scene scene = new Scene(_rootLayout);
-			_primaryStage.setScene(scene);
-			_primaryStage.show();
+			_primaryScene = new Scene(_rootLayout);
 
 			// Give the controller access to the main app.
 			_rootLayoutController = loader.getController();
@@ -154,6 +171,10 @@ public class OculusMain extends Application {
 			_logger.error(ex);
 		}
 	}
+	
+	/**
+	 * TODO: Insert description
+	 */
 	public void initStartLayout() {
 		try {
 		
@@ -188,45 +209,9 @@ public class OculusMain extends Application {
 	}
 	
 	/**
-	 * Loads the .fxml-File and display it in the center of the root-Layout.
-	 * 
-	 * @param fxmlPath The path of the .fxml-File, eg. "view/PatientOverview.fxml"
-	 * @param controllerClass The class of the associated controller. Must implement the interface IController.
-	 * @return A reference to the created controller. May be null, if failed to do so.
-	 */
-//	 <T extends ControllerMainSetter> T showTab(String fxmlPath, Class<T> controllerClass) {
-//		T controller = null;
-//		if(_rootLayout != null) {
-//			try {
-//				// Load person overview.
-//				FXMLLoader loader = new FXMLLoader();
-//				loader.setLocation(OculusMain.class
-//						.getResource(fxmlPath));
-//				AnchorPane overview = (AnchorPane) loader.load();
-//	
-//				// Set person overview into the center of root layout.
-//				_rootLayout.setCenter(overview);
-//	
-//				// Give the controller access to the main app.
-//				controller = loader.getController();
-//				controller.setMain(this);
-//				
-//				_logger.info("Successfully loaded " + controllerClass.getName());
-//			} catch (IOException ex) {
-//				_logger.error(ex);
-//			}
-//		}
-//		return controller;
-//	}
-
-	/**
-	 * TODO: Insert Description
-	 * @return 
+	 * Loads the view/tabPatient.fxml-File and display it in the center of the root-Layout.
 	 */
 	public void showPatientOverview() {
-//		return showTab("view/PatientOverview.fxml", PatientController.class);
-		
-		// "Old" way of doing that:
 		if(_rootLayout != null) {
 			try {
 				// Load person overview.
@@ -504,6 +489,32 @@ public class OculusMain extends Application {
 			return false;
 		}
 		
+	}
+	
+	/**
+	 * TODO: Insert Description
+	 * 
+	 * @return
+	 */
+	public ObservableList<PatientRO> getPatientData() {
+		return _patientData;
+	}
+
+	/**
+	 * TODO: Insert Description
+	 * 
+	 * @param p
+	 */
+	public void addPatientData(PatientRO p) {
+		_patientData.add(p);
+	}
+
+	/**
+	 * TODO: Insert Description
+	 */
+	public void clearPatientData() {
+		_patientData.clear();
+
 	}
 
 }

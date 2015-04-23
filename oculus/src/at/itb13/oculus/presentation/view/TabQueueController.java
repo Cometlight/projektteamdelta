@@ -128,7 +128,6 @@ public class TabQueueController {
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
-							System.out.println("refreshing");
 							setItemsToQueueBox();
 							if(!_queueEntrysListView.getSelectionModel().isEmpty()) {
 								setQueueEntriesInList();

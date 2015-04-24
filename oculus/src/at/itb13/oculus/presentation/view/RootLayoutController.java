@@ -42,16 +42,24 @@ public class RootLayoutController {
 	 @FXML
 	 private void initialize() {}
 	 
+	 /**
+	  * is called when the tab "Patient" is selceted
+	  */
 	 @FXML
 	 private void tabPatientControl(){
 		_main.showPatientTab();
 	 }
 	 
+	 /**
+	  * is called when the tab "Appointments" is selceted
+	  */
 	 @FXML
 	 private void tabAppointmentsControl(){	
 		 _main.showAppointmentsTab();
 	 }
-	 
+	 /**
+	  * is called when the tab "Waitinglist" is selected
+	  */
 	 @FXML
 	 private void tabQueueControl(){					
 		 _main.showQueueTab();
@@ -62,8 +70,9 @@ public class RootLayoutController {
 	 }
 		 
 	/**
+	 * 
 	 * @param newValue
-	 * @return
+	 * @return null
 	 */
 	private Object showPatientRecord(BorderPane layout, CalendarEventRO event) {	// TODO delete because it's not used???
 		 try {
@@ -88,10 +97,10 @@ public class RootLayoutController {
 	}
 	
 	/**
-	 * TODO
+	 *shows the patientRecord
 	 * 
 	 * @param newValue
-	 * @return
+	 * @return nulll
 	 */
 	private Object showPatientRecord(BorderPane layout, PatientRO patient) {	// TODO delete because it's not used???
 		 try {

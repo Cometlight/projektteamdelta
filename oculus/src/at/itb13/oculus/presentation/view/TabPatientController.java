@@ -134,6 +134,9 @@ public class TabPatientController {
 		}
 	 }
 	 
+	 /**
+	  * is called when the button "new Patient" is pushed
+	  */
 	 @FXML
 	 private void newPatientControl(){
 		_main.showNewPatientDialog(null);

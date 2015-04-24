@@ -56,7 +56,7 @@ public class NewPatientController {
 	@FXML
 	private ComboBox<DoctorRO> _doctorBox;
 
-	private List<DoctorRO> _doctorsList;	// TODO FIXME delete?
+
 	private DoctorRO _doctor;
 	@FXML
 	private TextField _streetField;
@@ -117,7 +117,7 @@ public class NewPatientController {
 		return _patient;
 	}
 	/**
-	 * TODO: Description
+	 * sets the patient information to formular for editing a specific patient.
 	 * @param patient
 	 */
 	public void setPatientRO(PatientRO patient){
@@ -147,6 +147,7 @@ public class NewPatientController {
 
 	/**
 	 * Called when the user clicks ok.
+	 * creats a new patient or updates a specific patient
 	 */
 	@FXML
     private void handleOk() {
@@ -188,6 +189,9 @@ public class NewPatientController {
 		_dialogStage.close();
 	}
 
+	/**
+	 * is called when the gender radiobuttons are changed
+	 */
 	@FXML
 	private void handleGender() {
 		if (_maleRadioButton.isSelected()) {
@@ -198,12 +202,18 @@ public class NewPatientController {
 
 	}
 
+	/**
+	 * fills the combobox doctor
+	 */
 	private void setItemsToDoctorBox() {
 		_doctorBox.setConverter(new DoctorSringConverter());
 		_doctorBox.getItems().addAll(ControllerFacade.getInstance().getWelcomeAtReception().getDoctorList());
 
 	}
 
+	/**
+	 * is called when the doctor combobox is changed
+	 */
 	@FXML
 	private void handleDoctorComboBox() {
 
@@ -263,6 +273,9 @@ public class NewPatientController {
 		}
 	}
 	
+	/**
+	 * checks if the social insurance number allready exists
+	 */
 	@FXML
 	private void onActionSINField() {
 		String sin = _SINField.getText();

@@ -164,6 +164,9 @@ public class TabQueueController {
 		
 	}
 
+	/**
+	 * fills the combobox queue with all queues
+	 */
 	private void setItemsToQueueBox() {
 		_queueBox.setConverter(new QueueSringConverter());
 		_nextQueueBox.setConverter(new QueueSringConverter());
@@ -172,13 +175,17 @@ public class TabQueueController {
 		_queueBox.getItems().setAll(queues);
 		_nextQueueBox.getItems().setAll(queues);
 	}
-	
+	/**
+	 * is called when the an other queue has been selected
+	 */
 	@FXML
 	private void handleQueueComboBox() {
 		_queue = _queueBox.getSelectionModel().getSelectedItem();
 		setQueueEntriesInList();
 	}
-	
+	/**
+	 * fills the list with Queue Entries of the selected Queue
+	 */
 	private void setQueueEntriesInList() {
 		QueueEntryRO entrySelected = _queueEntrysListView.getSelectionModel().getSelectedItem();
 		
@@ -201,7 +208,10 @@ public class TabQueueController {
 			}
 		}
 	}
-	
+	/**
+	 * shows the appointment information of the selected queue entry
+	 * @param entry
+	 */
 	private void showAppointmentInfo(QueueEntryRO entry){
 		if(entry != null){
 			_nextQueueBox.setVisible(true);
@@ -273,7 +283,9 @@ public class TabQueueController {
 			alert.showAndWait();
 		}
 	}
-	
+	/**
+	 * is called when the button "close examination" is called
+	 */
 	@FXML
 	private void handleEndExamination(){
 		at.itb13.oculus.application.queue.QueueController controller = ControllerFacade.getInstance().getQueueController(_queue);

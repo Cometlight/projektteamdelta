@@ -43,7 +43,10 @@ public class EditAnamnesisController {
 	public PatientRO getPatient(){
 		return _patient;
 	}
-	
+	/**
+	 * sets the patientint-formation to the formular
+	 * @param patient
+	 */
 	public void setPatientRO(PatientRO patient){
 		_patient = patient;
 		_allergiesText.setText(_patient.getAllergy());
@@ -51,6 +54,10 @@ public class EditAnamnesisController {
 		_medicineIntoleranceText.setText(_patient.getMedicineIntolerance());
 	}
 	
+	/**
+	 * handles the save botton. is called when the save-button of the formular is clicked
+	 * updatets the anamnesis of the patient
+	 */
 	@FXML
 	private void handleSave(){
 		
@@ -60,6 +67,10 @@ public class EditAnamnesisController {
 		_dialogStage.close();
 	}
 	
+	/**
+	 * is called when the cancel-button is pushed.
+	 * closes the dialog
+	 */	
 	@FXML
 	private void handleCancel() {
 		_dialogStage.close();

@@ -105,7 +105,11 @@ public class PatientRecordController {
 		 _editAnamnesisButton.setVisible(false);
 		 initAppointmentsTab();
 	}
-	 
+	
+	 /**
+	  * shows the patient general data of the specific patient
+	  * @param value
+	  */
 	public void showPatientMasterData(PatientRO value) {
 		if (value != null) {
 			_editGeneralButton.setVisible(true);
@@ -141,6 +145,10 @@ public class PatientRecordController {
         }
 	}
 	
+	/**
+	 * shows the anamnesis of the specific patient
+	 * @param value
+	 */
 	public void showAnamanesis(PatientRO value) {
         if (value != null) {
         	_patient = value;
@@ -157,6 +165,10 @@ public class PatientRecordController {
         }
     }
 	 
+	/**
+	 * shows the appointments of the specific patient
+	 * @param value
+	 */
 	public void showAppointments(PatientRO value) {
 		_appointmentsList.clear();
 		if(value != null && value.getCalendarevents() != null) {
@@ -164,7 +176,9 @@ public class PatientRecordController {
 					ControllerFacade.getInstance().getWelcomeAtReception().getAllCalendarEventsSorted(value));
 		}
 	}
-	 
+	 /**
+	  * initializes the appointment tab. 
+	  */
 	private void initAppointmentsTab() {
 		// double click -> show appointment details
 		_appointmentTable.setRowFactory( tv -> {
@@ -222,13 +236,18 @@ public class PatientRecordController {
 		
 		_descriptionColumn.setCellValueFactory(new PropertyValueFactory<CalendarEventRO, String>("description"));
 	}
-	
+	/**
+	 * is called when the edit button on the anamnesis screen is pushed
+	 */
 	@FXML
 	private void handleEditAnamnesis(){
 		_main.showEditAnamnesis(_patient);
 		_patient = _main.getCreatedPatient();
 		showAnamanesis(_patient);
 	}
+	/**
+	 * is called when the edit button in the general information screen is pushed
+	 */
 	@FXML
 	private void handleEditGeneral(){
 		_main.showNewPatientDialog(_patient);

@@ -17,7 +17,6 @@ import at.itb13.oculus.presentation.view.TabPatientController;
 import at.itb13.oculus.presentation.view.PatientRecordController;
 import at.itb13.oculus.presentation.view.TabQueueController;
 import at.itb13.oculus.presentation.view.RootLayoutController;
-import at.itb13.oculus.presentation.view.StartProcessController;
 import at.itb13.oculus.technicalServices.HibernateUtil;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -72,7 +71,7 @@ public class OculusMain extends Application {
 	}
 	
 	/**
-	 * TODO: Insert Description
+	 * is called when the programm has been started
 	 */
 	@Override
 	public void start(Stage primaryStage) {
@@ -123,7 +122,9 @@ public class OculusMain extends Application {
 		
 		showAppointmentsTab();
     }
-	
+	/**
+	 * is called when the "X" on the screen has been pushed
+	 */
 	@Override
 	public void stop() throws Exception {
 		_logger.info("Shutting down application...");
@@ -132,7 +133,7 @@ public class OculusMain extends Application {
 	}
 
 	/**
-	 * TODO: Insert Description
+	 * initializes the root layout and opens the root layout screen
 	 */
 	public void initRootLayout() {
 		try {
@@ -252,9 +253,10 @@ public class OculusMain extends Application {
 	
 	
 	/**
-	 * TODO: Insert Description
+	 * is called when the button "edit" or "new patient" has been pushed
 	 * 
-	 * @return
+	 * @return boolean
+	 * @param patient
 	 */
 	public boolean showNewPatientDialog(PatientRO patient) {
 		try {

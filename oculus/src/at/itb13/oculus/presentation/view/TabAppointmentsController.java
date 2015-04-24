@@ -185,7 +185,8 @@ public class TabAppointmentsController {
 	}
 
 	/**
-	 * 
+	 * fills the table with the events of the selected date
+	 * @param startDate, endDate
 	 */
 	private void setCalendarEvents(LocalDateTime startDate, LocalDateTime endDate) {
 		List<CalendarController> listCalCo = ControllerFacade.getInstance()
@@ -230,6 +231,10 @@ public class TabAppointmentsController {
 		_main.showPatientRecord(_patientRecordBorderPane, patient);
 	}
 
+	/**
+	 * shows the appointment Informations of the selected CalendarEvent
+	 * @param event
+	 */
 	public void showAppointmentInformation(CalendarEventRO event) {
 		if (event != null) {
 			_descriptionLabel.setText(event.getDescription());
@@ -286,13 +291,17 @@ public class TabAppointmentsController {
 		}
 	}
 	
+	/**
+	 * fills the table with the events of the current date
+	 * @param calendarEventRo
+	 */
 	public void selectCalendarEventInTable(CalendarEventRO calendarEventRo) {
 		_datePicker.setValue(calendarEventRo.getEventStart().toLocalDate());
 		_appointmentTable.getSelectionModel().select(calendarEventRo);
 	}
 
 	/**
-	 * TODO: Description
+	 * is called when the button "add Patient" is pushed
 	 */
 	@FXML
 	private void addPatientControl() {
@@ -317,6 +326,9 @@ public class TabAppointmentsController {
 		}
 	}
 
+	/**
+	 * fills the combo box with all queues
+	 */
 	private void setItemsToQueueBox() {
 
 		_queueBox.setConverter(new QueueSringConverter());
@@ -326,6 +338,9 @@ public class TabAppointmentsController {
 		}
 	}
 
+	/**
+	 * is called when the button "insert" is pushed.
+	 */
 	@FXML
 	private void handleInsertInQueueButton() {
 
@@ -382,6 +397,9 @@ public class TabAppointmentsController {
 		}
 	}
 
+	/**
+	 * is called when the date has changed
+	 */
 	@FXML
 	private void changeDate() {
 		setCalendarEvents(_datePicker.getValue().atTime(0, 0), _datePicker.getValue().atTime(23, 59));

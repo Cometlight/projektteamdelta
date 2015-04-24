@@ -251,7 +251,7 @@ public class TabAppointmentsController {
 			}
 			if (event.getPatient() == null) {
 				_patientNotInDatabaseLabel
-						.setText("New patient! Please add the patient by clicking on \"Add Patient\".\nPatient Name:");
+						.setText("New patient!\nPlease add the patient by clicking on \"Add Patient\".\nPatient Name:");
 				_patientLabel.setText(event.getPatientName());
 				_addPatientButton.setDisable(false);
 				_addPatientButton.setVisible(true);

@@ -160,6 +160,7 @@ public class NewPatientController {
 								.createPatient(_doctor, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("New Patient has been saved");
+						alert.setHeaderText("New Patient saved");
 						alert.setContentText("The Patient has been saved succecfully!");
 						alert.showAndWait();
 					} catch (InvalidInputException e) {
@@ -172,6 +173,7 @@ public class NewPatientController {
 							.updatePatient(_patient, _doctor, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Patient has been edited");
+						alert.setHeaderText("Changes saved");
 						alert.setContentText("The Patient has been edited succecfully!");
 						alert.showAndWait();
 					} catch (InvalidInputException e) {

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.TabQueueController">
+<AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.TabQueueController">
    <children>
       <SplitPane dividerPositions="0.24123539232053423" layoutX="93.0" layoutY="252.0" prefHeight="700.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -40,13 +40,13 @@
                                  <font>
                                     <Font size="14.0" />
                                  </font></Label>
-                              <Label fx:id="_dateTimeLabel" layoutX="122.0" layoutY="14.0" text="Label" />
-                              <Label fx:id="_typeLabel" layoutX="122.0" layoutY="46.0" text="Label" />
-                              <Label fx:id="_reasonLabel" layoutX="122.0" layoutY="80.0" text="Label" />
+                              <Label fx:id="_dateTimeLabel" layoutX="122.0" layoutY="14.0" text="-" />
+                              <Label fx:id="_typeLabel" layoutX="122.0" layoutY="46.0" text="-" />
+                              <Label fx:id="_reasonLabel" layoutX="122.0" layoutY="80.0" text="-" />
                               <Button fx:id="_endExaminationButton" layoutX="758.0" layoutY="12.0" mnemonicParsing="false" onAction="#handleEndExamination" text="Close Examination" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0" />
                               <Label fx:id="_orLabel" layoutX="751.0" layoutY="10.0" text="or" AnchorPane.topAnchor="10.0" />
                               <ComboBox fx:id="_nextQueueBox" layoutX="586.0" layoutY="10.0" prefWidth="150.0" promptText="Select a Waitinglist" AnchorPane.topAnchor="10.0" />
-                              <Button fx:id="_insertButton" layoutX="689.0" layoutY="44.0" mnemonicParsing="false" onAction="#handleInsertInQueueButton" text="Insert" />
+                              <Button fx:id="_insertButton" layoutX="689.0" layoutY="44.0" mnemonicParsing="false" onAction="#handleRelocateQueueButton" text="Insert" />
                            </children></AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>

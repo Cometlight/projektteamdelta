@@ -23,6 +23,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 import at.itb13.oculus.application.ControllerFacade;
+import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueEntryRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
@@ -207,35 +208,41 @@ public class TabQueueController {
 		}
 		
 	}
-	
+
 	@FXML
-	private void handleInsertInQueueButton() {
+	private void handleRelocateQueueButton() {
 
-		QueueRO queue = _nextQueueBox.getSelectionModel().getSelectedItem();
-		at.itb13.oculus.application.queue.QueueController controller = null;
-		PatientRO patient;
+		QueueRO queueNext = _nextQueueBox.getSelectionModel().getSelectedItem();
+		QueueRO queueOld = _queueBox.getSelectionModel().getSelectedItem();
+		PatientRO patient = _queueEntrysListView.getSelectionModel().getSelectedItem().getPatient();
 
-		if (queue != null) {
-			if (queue.getDoctor() != null) {
-				controller = ControllerFacade.getInstance().getQueueController(queue.getDoctor().getDoctorId(), null);
-			} else if (queue.getOrthoptist() != null) {
-				controller = ControllerFacade.getInstance().getQueueController(null, queue.getOrthoptist().getOrthoptistId());
-			} else {	// general orthoptist queue
-				controller = ControllerFacade.getInstance().getQueueController(null, null);
+		if (queueNext != null && queueOld != null && patient != null) {
+			at.itb13.oculus.application.queue.QueueController controllerNext = ControllerFacade.getInstance().getQueueController(queueNext);
+			at.itb13.oculus.application.queue.QueueController controllerOld = ControllerFacade.getInstance().getQueueController(queueOld);
+			
+			if (controllerNext != null && controllerOld != null) {
+				if(controllerOld.removeQueueEntry(patient)) {
+					try {
+						if(controllerNext.pushQueueEntry(patient)) {
+							Alert alert = new Alert(AlertType.INFORMATION);
+							alert.setContentText("Patient is added to Queue");
+							alert.showAndWait();
+							return;
+						}
+					} catch (InvalidInputException e) {
+						_logger.error(e);	// Won't happen because the patient was just removed an instant ago
+					}
+				} else {
+					_logger.error("Failed to remove patient (" + patient.getPatientId() + ") from queue.");
+				}
+			} else {
+				_logger.error("Could not load QueueController for Queue with doctor '" + queueNext.getDoctor().getDoctorId()
+						+ "' and with orthoptist '" + queueNext.getOrthoptist().getOrthoptistId() + "'!");
 			}
 			
-			if (controller != null) {
-				patient=_queueEntrysListView.getSelectionModel().getSelectedItem().getPatient();
-				handleEndExamination();
-				controller.pushQueueEntry(patient);				
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setContentText("Patient is added to Queue");
-				alert.showAndWait();
-			} else {
-				_logger.error("Could not load QueueController for Queue with doctor '" + queue.getDoctor().getDoctorId()
-						+ "' and with orthoptist '" + queue.getOrthoptist().getOrthoptistId() + "'!");
-			}
-
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setContentText("Failed to move patient to another queue!");
+			alert.showAndWait();
 		} else {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setHeaderText("No queue selected");
@@ -248,9 +255,14 @@ public class TabQueueController {
 	@FXML
 	private void handleEndExamination(){
 		at.itb13.oculus.application.queue.QueueController controller = ControllerFacade.getInstance().getQueueController(_queue);
-		controller.removeQueueEntry(_queueEntrysListView.getSelectionModel().getSelectedItem().getPatient());
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setContentText("Examination is closed. Patient is no longer in a Waitinglist.");
-		alert.showAndWait();
+		if(controller.removeQueueEntry(_queueEntrysListView.getSelectionModel().getSelectedItem().getPatient())) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setContentText("Examination is closed. Patient is no longer in a Waitinglist.");
+			alert.showAndWait();
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setContentText("Failed to close examination. Patient is still in a Waitinglist.");
+			alert.showAndWait();
+		}
 	}
 }

@@ -109,7 +109,7 @@ public class TabAppointmentsController {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<CalendarEventRO, String> event) {
 				return new SimpleStringProperty(
-						event.getValue().getEventStart().getHour()
+						event.getValue().getEventStart().getHour()	// TODO: Better formatting #hashtag
 						+ ":"
 						+ event.getValue().getEventStart().getMinute());
 			}
@@ -254,14 +254,15 @@ public class TabAppointmentsController {
 				_patientLabel.setText("");
 				_addPatientButton.setDisable(true);
 				_addPatientButton.setVisible(false);
-				Boolean inQue = false;
+				Boolean inQueue = false;
 				List<QueueController> queCon = ControllerFacade.getInstance().getAllQueueController();
 				for(QueueController controller: queCon){
 					if(controller.isPatientInQueue(event.getPatient())){
-						inQue = true;
+						inQueue = true;
+						break;
 					}
 				}
-				if(!inQue){
+				if(!inQueue){
 					_queueBox.setDisable(false);
 					_insertQueueButton.setDisable(false);
 				}
@@ -321,34 +322,40 @@ public class TabAppointmentsController {
 	private void handleInsertInQueueButton() {
 
 		QueueRO queue = _queueBox.getSelectionModel().getSelectedItem();
-		QueueController controller = null;
 
 		if (queue != null) {
-			if (queue.getDoctor() != null) {
-				controller = ControllerFacade.getInstance().getQueueController(queue.getDoctor().getDoctorId(), null);
-			} else if (queue.getOrthoptist() != null) {
-				controller = ControllerFacade.getInstance().getQueueController(null, queue.getOrthoptist().getOrthoptistId());
-			} else {	// general orthoptist queue
-				controller = ControllerFacade.getInstance().getQueueController(null, null);
-			}
-			
+			QueueController controller = ControllerFacade.getInstance().getQueueController(queue);
 			if (controller != null) {
-				if(_appointmentTable.getSelectionModel().getSelectedItem().getCalendar().getDoctor().equals(queue.getDoctor())){
-					controller.pushQueueEntry(_appointmentTable.getSelectionModel().getSelectedItem().getPatient());
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setContentText("Patient is added to Queue");
-					alert.showAndWait();
-				}else{
+				if(_appointmentTable.getSelectionModel().getSelectedItem().getCalendar().getDoctor().equals(queue.getDoctor())){	// check if the calendarEvent's doctor is equal to the queue's doctor
+					try {
+						controller.pushQueueEntry(_appointmentTable.getSelectionModel().getSelectedItem().getPatient());
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setContentText("Patient is added to Queue");
+						alert.showAndWait();
+					} catch (InvalidInputException e) {
+						Alert alert = new Alert(AlertType.WARNING);
+						alert.setContentText("Patient was not added to the Queue, because the patient is already in a queue.");
+						alert.showAndWait();
+					}
+					
+				} else {
 					Alert alert = new Alert(AlertType.CONFIRMATION);
 					alert.setHeaderText("Waitinglist is not equate to the Doctor");
 					alert.setContentText("Selected Waitinglist is not equate to the Doctor of the Appointment. Are you sure you want to continue?");
 					alert.showAndWait();
 					Optional<ButtonType> result = alert.showAndWait();
 					if (result.get() == ButtonType.OK){
-						controller.pushQueueEntry(_appointmentTable.getSelectionModel().getSelectedItem().getPatient());
-						alert = new Alert(AlertType.INFORMATION);
-						alert.setContentText("Patient is added to Queue");
-						alert.showAndWait();
+						try {
+							controller.pushQueueEntry(_appointmentTable.getSelectionModel().getSelectedItem().getPatient());
+							alert = new Alert(AlertType.INFORMATION);
+							alert.setContentText("Patient is added to Queue");
+							alert.showAndWait();
+						} catch (InvalidInputException e) {
+							alert = new Alert(AlertType.WARNING);
+							alert.setContentText("Patient was not added to the Queue, because the patient is already in a queue.");
+							alert.showAndWait();
+						}
+
 					} else {
 					    alert.close();
 					}

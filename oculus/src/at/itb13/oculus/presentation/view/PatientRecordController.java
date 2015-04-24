@@ -175,7 +175,7 @@ public class PatientRecordController {
 		            _main.showAppointment(rowData);
 		        }
 		    });
-		    return row ;
+		    return row;
 		});
 		
 		_appointmentTable.setItems(_appointmentsList);

@@ -46,19 +46,33 @@ public class ControllerFacade {
 		
 		_instance = new ControllerFacade();
 		
+		reloadQueueController();
+		
+		reloadCalendarController();
+		
+		_logger.info("ControllerFacade has been initialized.");
+	}
+	
+	/**
+	 * Loads all queues from the database and assigns them to _listQueueController.
+	 */
+	private static void reloadQueueController() {
 		_listQueueController = new LinkedList<>();
 		QueueDao.getInstance().findAll().forEach(q -> {
 			QueueController qC = new QueueController(q);
 			_listQueueController.add(qC);
 		});
-		
+	}
+	
+	/**
+	 * Loads all calendars from the database and assigns them to _listCalendarController.
+	 */
+	private static void reloadCalendarController() {
 		_listCalendarController = new LinkedList<>();
 		CalendarDao.getInstance().findAll().forEach(q -> {
 			CalendarController cC = new CalendarController(q);
 			_listCalendarController.add(cC);
 		});
-		
-		_logger.info("ControllerFacade has been initialized.");
 	}
 	
 	public static ControllerFacade getInstance() {
@@ -110,6 +124,10 @@ public class ControllerFacade {
 	public List<QueueController> getAllQueueController() {
 		return _listQueueController;
 	}
+	
+	public void refreshQueueController() {
+		reloadQueueController();
+	}
 
 	/* -- CalendarController -- */
 	public CalendarController getCalendarController(Integer doctorId, Integer orthoptistId) {
@@ -143,6 +161,10 @@ public class ControllerFacade {
 
 	public List<CalendarController> getAllCalendarController() {
 		return _listCalendarController;
+	}
+	
+	public void refreshCalendarController() {
+		reloadCalendarController();
 	}
 
 	/* -- Selected Domain Objects -- */

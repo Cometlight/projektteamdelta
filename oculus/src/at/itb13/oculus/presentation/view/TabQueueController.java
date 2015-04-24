@@ -129,11 +129,7 @@ public class TabQueueController {
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
-							setItemsToQueueBox();
-//							if(!_queueEntrysListView.getSelectionModel().isEmpty()) {
-								setQueueEntriesInList();
-//							}
-								System.out.println("refreshing");
+							refreshQueueOnce();
 						}
 					});
 				}
@@ -142,8 +138,11 @@ public class TabQueueController {
 	}
 	
 	public void refreshQueueOnce() {
+		System.out.println("refreshing start");
+		ControllerFacade.getInstance().refreshQueueController();
 		setItemsToQueueBox();
 		setQueueEntriesInList();
+		System.out.println("refreshing end");
 	}
 	
 	public void stopQueueReloader() {
@@ -182,8 +181,13 @@ public class TabQueueController {
 			List<QueueEntryRO> entries = (List<QueueEntryRO>) controller.getQueueEntries();
 			_queueEntryList.addAll(entries);
 		
-			if(entrySelected != null && _queueEntryList.contains(entrySelected)) {	// reselect (necessary if updating)
-				_queueEntrysListView.getSelectionModel().select(entrySelected);
+			if(entrySelected != null && _queue.contains(entrySelected.getQueueEntryId())) {	// reselect (necessary if updating)
+				for(QueueEntryRO entry : entries) {
+					if(entry.getQueueEntryId().equals(entrySelected.getQueueEntryId())) {
+						_queueEntrysListView.getSelectionModel().select(entry);	// need to select an entry that's contained in entries; not another one!
+						break;
+					}
+				}
 			}
 		}
 	}

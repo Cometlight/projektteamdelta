@@ -106,20 +106,6 @@ public class Queue implements QueueRO {
 	}
 	
 	/**
-	 * TODO
-	 * @param queueEntryID
-	 * @return
-	 */
-	public boolean contains(Integer queueEntryID) {
-		for(QueueEntry qE : _queueEntries) {
-			if(qE.getQueueEntryId().equals(queueEntryID)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	/**
 	 * Moves a QueueEntry in the Queue's list up (forward) or down (to the back).
 	 * 
 	 * @param queueEntryID The ID of the QueueEntry to be moved
@@ -173,6 +159,29 @@ public class Queue implements QueueRO {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * TODO
+	 * @param queueEntryID
+	 * @return
+	 */
+	public boolean contains(Integer queueEntryID) {
+		for(QueueEntry qE : _queueEntries) {
+			if(qE.getQueueEntryId().equals(queueEntryID)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public QueueEntry getQueueEntryById(Integer queueEntryID) {
+		for(QueueEntry qE : _queueEntries) {
+			if(qE.getQueueEntryId().equals(queueEntryID)) {
+				return qE;
+			}
+		}
+		return null;
 	}
 
 	/**

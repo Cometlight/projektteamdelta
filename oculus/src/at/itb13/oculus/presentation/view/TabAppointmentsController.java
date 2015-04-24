@@ -285,6 +285,11 @@ public class TabAppointmentsController {
 			_insertQueueButton.setDisable(true);
 		}
 	}
+	
+	public void selectCalendarEventInTable(CalendarEventRO calendarEventRo) {
+		_datePicker.setValue(calendarEventRo.getEventStart().toLocalDate());
+		_appointmentTable.getSelectionModel().select(calendarEventRo);
+	}
 
 	/**
 	 * TODO: Description

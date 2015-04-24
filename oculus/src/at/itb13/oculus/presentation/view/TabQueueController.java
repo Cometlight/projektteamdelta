@@ -40,7 +40,7 @@ public class TabQueueController {
 	
 	private static final Logger _logger = LogManager.getLogger(TabQueueController.class.getName());
 	
-	private static final int REFRESH_INTERVAL = 30000;	// in milliseconds
+	private static final int REFRESH_INTERVAL = 10000;	// in milliseconds
 	
 	@FXML
 	private ListView<QueueEntryRO> _queueEntrysListView;
@@ -129,10 +129,7 @@ public class TabQueueController {
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
-							setItemsToQueueBox();
-							if(!_queueEntrysListView.getSelectionModel().isEmpty()) {
-								setQueueEntriesInList();
-							}
+							refreshQueueOnce();
 						}
 					});
 				}
@@ -141,8 +138,11 @@ public class TabQueueController {
 	}
 	
 	public void refreshQueueOnce() {
+		System.out.println("refreshing start");
+		ControllerFacade.getInstance().refreshQueueController();
 		setItemsToQueueBox();
 		setQueueEntriesInList();
+		System.out.println("refreshing end");
 	}
 	
 	public void stopQueueReloader() {
@@ -176,12 +176,19 @@ public class TabQueueController {
 		QueueEntryRO entrySelected = _queueEntrysListView.getSelectionModel().getSelectedItem();
 		
 		clearQueue();
-		at.itb13.oculus.application.queue.QueueController controller = ControllerFacade.getInstance().getQueueController(_queue);
-		List<QueueEntryRO> entries = (List<QueueEntryRO>) controller.getQueueEntries();
-		_queueEntryList.addAll(entries);
+		if(_queue != null) {
+			at.itb13.oculus.application.queue.QueueController controller = ControllerFacade.getInstance().getQueueController(_queue);
+			List<QueueEntryRO> entries = (List<QueueEntryRO>) controller.getQueueEntries();
+			_queueEntryList.addAll(entries);
 		
-		if(entrySelected != null && _queueEntryList.contains(entrySelected)) {	// reselect (necessary if updating)
-			_queueEntrysListView.getSelectionModel().select(entrySelected);
+			if(entrySelected != null && _queue.contains(entrySelected.getQueueEntryId())) {	// reselect (necessary if updating)
+				for(QueueEntryRO entry : entries) {
+					if(entry.getQueueEntryId().equals(entrySelected.getQueueEntryId())) {
+						_queueEntrysListView.getSelectionModel().select(entry);	// need to select an entry that's contained in entries; not another one!
+						break;
+					}
+				}
+			}
 		}
 	}
 	

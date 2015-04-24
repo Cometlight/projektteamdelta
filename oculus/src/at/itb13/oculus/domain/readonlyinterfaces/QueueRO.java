@@ -18,4 +18,5 @@ public interface QueueRO {
 	List<QueueEntry> getQueueEntries();
 	boolean contains(Integer queueEntryID);
 	boolean containsPatient(Integer patientID);
+	QueueEntry getQueueEntryById(Integer queueEntryID);
 }

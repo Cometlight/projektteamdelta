@@ -90,7 +90,7 @@ public class OculusMain extends Application {
         				new Image(APPLICATION_ICON_PATH));
         		
         		updateMessage("Connecting to database ...");
-        		HibernateUtil.init();
+        		HibernateUtil.init();	// TODO: Show alert if no connection to database ###########################################################################################################################
         		
         		updateMessage("Loading from database ...");
         		ControllerFacade.init();	// Load early, so the user does not have to wait when using the application
@@ -348,6 +348,7 @@ public class OculusMain extends Application {
 	public void showAppointment(CalendarEventRO calendarEventRO) {
 		_appointmentsController.showAppointmentInformation(calendarEventRO);
 		_appointmentsController.showPatientRecord(calendarEventRO.getPatient());
+		_appointmentsController.selectCalendarEventInTable(calendarEventRO);
 		showAppointmentsTab();
 		_rootLayoutController.setTab(0);
 	}

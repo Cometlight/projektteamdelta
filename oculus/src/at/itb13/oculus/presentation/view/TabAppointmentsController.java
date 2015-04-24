@@ -55,7 +55,7 @@ public class TabAppointmentsController {
 	@FXML
 	private TableColumn<CalendarEventRO, String> _patientColumn;
 	@FXML
-	private TableColumn<CalendarEventRO, String> _otherColumn;
+	private TableColumn<CalendarEventRO, String> _typeColumn;
 
 	@FXML
 	private DatePicker _datePicker;
@@ -130,7 +130,7 @@ public class TabAppointmentsController {
 			}
 		});
 
-		_otherColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
+		_typeColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
 				return new SimpleStringProperty(event.getValue().getEventtype().getEventTypeName());

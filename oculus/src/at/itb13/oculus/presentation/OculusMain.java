@@ -57,7 +57,7 @@ public class OculusMain extends Application {
 	private AnchorPane _queueTab;
 	private TabQueueController _queueController;
 	
-	private PatientRO _tempPatient;	// TODO: Should be moved to the application layer (into the ControllerFacade)
+//	private PatientRO _tempPatient;	// TODO: Should be moved to the application layer (into the ControllerFacade)
 
 	private ObservableList<PatientRO> _patientData = FXCollections.observableArrayList();
 	
@@ -260,7 +260,8 @@ public class OculusMain extends Application {
 	 */
 	public boolean showNewPatientDialog(PatientRO patient) {
 		try {
-			_tempPatient = null;
+		//	_tempPatient = null;
+			ControllerFacade.setPatientSelected(null);
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(OculusMain.class
@@ -286,7 +287,8 @@ public class OculusMain extends Application {
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
-			_tempPatient = controller.getPatient();
+		//	_tempPatient = controller.getPatient();
+		//	ControllerFacade.setPatientSelected(controller.getPatient());
 			_logger.info("showNewPatientDialog successful");
 			return controller.isOkClicked();
 		} catch (IOException ex) {

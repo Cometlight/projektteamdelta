@@ -179,6 +179,9 @@ public class TabQueueController {
 		if(_queue != null) {
 			at.itb13.oculus.application.queue.QueueController controller = ControllerFacade.getInstance().getQueueController(_queue);
 			List<QueueEntryRO> entries = (List<QueueEntryRO>) controller.getQueueEntries();
+			for(QueueEntryRO entry : entries) {
+				System.out.print(entry.getPatient().getFirstName() + ", ");
+			}
 			_queueEntryList.addAll(entries);
 		
 			if(entrySelected != null && _queue.contains(entrySelected.getQueueEntryId())) {	// reselect (necessary if updating)

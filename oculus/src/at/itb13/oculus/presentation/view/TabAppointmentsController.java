@@ -242,9 +242,9 @@ public class TabAppointmentsController {
 			EventType type = event.getEventtype();
 			_eventTypeLabel.setText(type.getEventTypeName());
 			if(event.getCalendar().getDoctor() != null){
-				_doctorLabel.setText(event.getCalendar().getDoctor().getUser().getFirstName() + event.getCalendar().getDoctor().getUser().getLastName());
+				_doctorLabel.setText(event.getCalendar().getDoctor().getUser().getFirstName() + " " +event.getCalendar().getDoctor().getUser().getLastName());
 			}else if(event.getCalendar().getOrthoptist() != null){
-				_doctorLabel.setText(event.getCalendar().getOrthoptist().getUser().getFirstName() + event.getCalendar().getOrthoptist().getUser().getLastName());
+				_doctorLabel.setText(event.getCalendar().getOrthoptist().getUser().getFirstName() +" " + event.getCalendar().getOrthoptist().getUser().getLastName());
 
 			}else{
 				_doctorLabel.setText("");
@@ -349,7 +349,7 @@ public class TabAppointmentsController {
 		if (queue != null) {
 			QueueController controller = ControllerFacade.getInstance().getQueueController(queue);
 			if (controller != null) {
-				if(_appointmentTable.getSelectionModel().getSelectedItem().getCalendar().getDoctor().equals(queue.getDoctor())){	// check if the calendarEvent's doctor is equal to the queue's doctor
+				if(_appointmentTable.getSelectionModel().getSelectedItem().getCalendar().getDoctor().getDoctorId().equals(queue.getDoctor().getDoctorId())){	// check if the calendarEvent's doctor is equal to the queue's doctor
 					try {
 						controller.pushQueueEntry(_appointmentTable.getSelectionModel().getSelectedItem().getPatient());
 						Alert alert = new Alert(AlertType.INFORMATION);
@@ -365,7 +365,6 @@ public class TabAppointmentsController {
 					Alert alert = new Alert(AlertType.CONFIRMATION);
 					alert.setHeaderText("Waitinglist is not equate to the Doctor");
 					alert.setContentText("Selected Waitinglist is not equate to the Doctor of the Appointment. Are you sure you want to continue?");
-					alert.showAndWait();
 					Optional<ButtonType> result = alert.showAndWait();
 					if (result.get() == ButtonType.OK){
 						try {

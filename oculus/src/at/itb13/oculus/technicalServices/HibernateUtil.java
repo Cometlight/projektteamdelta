@@ -14,22 +14,28 @@ import org.hibernate.cfg.Configuration;
  * @date 04.04.2015
  */
 public class HibernateUtil {
-	private static final SessionFactory _sessionFactory;
+	private static SessionFactory _sessionFactory;
 	private static final Logger _logger = LogManager.getLogger(HibernateUtil.class.getName());
 	
 	private HibernateUtil() { }
 	
 	static {
-		try {
-			Configuration config = new Configuration();
-			config.configure("hibernate.cfg.xml");
-			StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-					.applySettings(config.getProperties()).build();
-			_sessionFactory = config.buildSessionFactory(serviceRegistry);
-			_logger.info("_sessionFactory has been initialized.");
-		} catch (Throwable ex) {
-			_logger.fatal(ex);
-			throw new ExceptionInInitializerError(ex);
+		init();
+	}
+	
+	public static void init() {
+		if(_sessionFactory == null) {
+			try {
+				Configuration config = new Configuration();
+				config.configure("hibernate.cfg.xml");
+				StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+						.applySettings(config.getProperties()).build();
+				_sessionFactory = config.buildSessionFactory(serviceRegistry);
+				_logger.info("_sessionFactory has been initialized.");
+			} catch (Throwable ex) {
+				_logger.fatal(ex);
+				throw new ExceptionInInitializerError(ex);
+			}
 		}
 	}
 	

@@ -11,34 +11,15 @@
         <property name="hibernate.bytecode.use_reflection_optimizer">false</property><!-- TODO: check -->
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.password">WrZ9E0]BNt1Z</property>
-       <property name="hibernate.connection.url">jdbc:mysql://83.212.126.222:3306/oculus_d</property> 
-        <!--  <property name="hibernate.connection.url">jdbc:mysql://localhost/oculus_d</property>-->
+        <property name="hibernate.connection.url">jdbc:mysql://83.212.126.222:3306/oculus_d</property> 
+        <!--  <property name="hibernate.connection.url">jdbc:mysql://localhost/oculus_d</property> -->
         <property name="hibernate.connection.username">oculus_d</property>
         
-        <!-- JDBC connection pool -->
-        <!-- TODO -->
-       
 		<!-- SQL dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         
         <!-- Lazy Loading -->
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
-        
-        <!-- TODO: check if needed: (declare even default values)
-        	"Enable Hibernate's automatic session context management"
-        	"Disable the second-level cache"
-			"Drop and re-create the database schema on startup"
-			"Use lazy loading"        
-			"disable auto commit"	
-			"To enable the thread-bound strategy in your Hibernate configuration:
-				set hibernate.transaction.factory_class to org.hibernate.transaction.JDBCTransactionFactory
-				set hibernate.current_session_context_class to thread"
-			
-         -->
-        
-        <!--  -->
-        <property name="hibernate.search.autoregister_listeners">false</property>
-        <property name="hibernate.validator.apply_to_ddl">false</property>
         
         <!-- Mappings -->
         <mapping class="at.itb13.oculus.domain.Administrator" />

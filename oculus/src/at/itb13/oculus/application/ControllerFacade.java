@@ -1,5 +1,6 @@
 package at.itb13.oculus.application;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import at.itb13.oculus.application.receptionist.NewPatient;
 import at.itb13.oculus.application.receptionist.PatientSearch;
 import at.itb13.oculus.application.receptionist.WelcomeAtReception;
 import at.itb13.oculus.domain.Patient;
+import at.itb13.oculus.domain.User;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
@@ -62,6 +64,27 @@ public class ControllerFacade {
 			QueueController qC = new QueueController(q);
 			_listQueueController.add(qC);
 		});
+		
+		_listQueueController.sort(new Comparator<QueueController>() {
+			@Override
+			public int compare(QueueController o1, QueueController o2) {
+				String o1Name = getNameOfQueueController(o1);
+				String o2Name = getNameOfQueueController(o2);
+				return o1Name.compareTo(o2Name);
+			}
+		});
+	}
+	
+	private static String getNameOfQueueController(QueueController queueController) {
+		if(queueController.getQueue().getDoctor() != null) {
+			User user = queueController.getQueue().getDoctor().getUser();
+			return "Dr " + user.getFirstName() + " " + user.getLastName();
+		} else if(queueController.getQueue().getOrthoptist() != null) {
+			User user = queueController.getQueue().getOrthoptist().getUser();
+			return "Orthoptist " + user.getFirstName() + " " + user.getLastName();
+		} else {
+			return "Orthoptists";	// general orthoptist queue
+		}
 	}
 	
 	/**

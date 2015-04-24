@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -19,7 +20,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 import at.itb13.oculus.application.ControllerFacade;
@@ -29,6 +32,7 @@ import at.itb13.oculus.domain.readonlyinterfaces.QueueEntryRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
 import at.itb13.oculus.presentation.OculusMain;
 import at.itb13.oculus.presentation.util.QueueSringConverter;
+import at.itb13.oculus.technicalServices.HibernateUtil;
 
 /**
  * TODO: Insert description here.
@@ -39,8 +43,6 @@ import at.itb13.oculus.presentation.util.QueueSringConverter;
 public class TabQueueController {
 	
 	private static final Logger _logger = LogManager.getLogger(TabQueueController.class.getName());
-	
-	private static final int REFRESH_INTERVAL = 10000;	// in milliseconds
 	
 	@FXML
 	private ListView<QueueEntryRO> _queueEntrysListView;
@@ -66,11 +68,11 @@ public class TabQueueController {
 	private Label _orLabel;
 	@FXML
 	private BorderPane _patientRecordBorderPane;
+	@FXML
+	private ProgressIndicator _progressIndicatorRefreshQueues;
 	//general Attributes
 	private OculusMain _main;
 	
-	private Timer _timer;
-			
 	//general Methods
 	public void setMain(OculusMain main) {
 		_main = main;		        
@@ -116,40 +118,45 @@ public class TabQueueController {
 		
 	}
 	
-	/**
-	 * Automatically refresh the queues every {@link #REFRESH_INTERVAL} seconds
-	 */
-	public void startQueueReloader() {
-		if(_timer == null) {
-			_timer = new Timer("QueueReloader");
-			_timer.schedule(new TimerTask() {
-				@Override
-				public void run() {
-					_logger.trace("Refreshing Queues");
-					Platform.runLater(new Runnable() {
-						@Override
-						public void run() {
-							refreshQueueOnce();
-						}
-					});
-				}
-			}, 0, REFRESH_INTERVAL);
-		}
-	}
-	
-	public void refreshQueueOnce() {
-		System.out.println("refreshing start");
-		ControllerFacade.getInstance().refreshQueueController();
-		setItemsToQueueBox();
-		setQueueEntriesInList();
-		System.out.println("refreshing end");
-	}
-	
-	public void stopQueueReloader() {
-		if(_timer != null) {
-			_timer.cancel();
-			_timer = null;
-		}
+	@FXML
+	public void refreshQueue() {
+		final Task<Integer> refreshQueueTask = new Task<Integer>() {
+            @Override
+            protected Integer call() throws InterruptedException {
+            	updateProgress(1, 2);
+            	ControllerFacade.getInstance().refreshQueueController();
+    			setItemsToQueueBox();
+    			setQueueEntriesInList();
+//    			_progressIndicatorRefreshQueues.setVisible(false);
+    			updateProgress(2,2);
+        		return 1;	// TODO
+            }
+        };
+        _progressIndicatorRefreshQueues.progressProperty().bind(refreshQueueTask.progressProperty());
+        new Thread(refreshQueueTask).start();
+		
+		
+		
+//		_progressIndicatorRefreshQueues.setVisible(true);
+//		Platform.runLater(() -> {
+//			ControllerFacade.getInstance().refreshQueueController();
+//			setItemsToQueueBox();
+//			setQueueEntriesInList();
+//			_progressIndicatorRefreshQueues.setVisible(false);
+//		});
+		
+		
+//		System.out.println("refresh start");
+//		System.out.println(_progressIndicatorRefreshQueues.isVisible());
+//		_progressIndicatorRefreshQueues.setVisible(true);
+//		System.out.println(_progressIndicatorRefreshQueues.isVisible());
+////		ControllerFacade.getInstance().refreshQueueController();
+////		setItemsToQueueBox();
+////		setQueueEntriesInList();
+////		_progressIndicatorRefreshQueues.setVisible(false);
+//		System.out.println(_progressIndicatorRefreshQueues.isVisible());
+//		System.out.println("refresh end");
+//		System.out.println();
 	}
 	
 	private void clearQueue() {
@@ -239,7 +246,6 @@ public class TabQueueController {
 				if(controllerOld.removeQueueEntry(patient)) {
 					try {
 						if(controllerNext.pushQueueEntry(patient)) {
-							refreshQueueOnce();
 							Alert alert = new Alert(AlertType.INFORMATION);
 							alert.setContentText("Patient is added to Queue");
 							alert.showAndWait();
@@ -272,7 +278,6 @@ public class TabQueueController {
 	private void handleEndExamination(){
 		at.itb13.oculus.application.queue.QueueController controller = ControllerFacade.getInstance().getQueueController(_queue);
 		if(controller.removeQueueEntry(_queueEntrysListView.getSelectionModel().getSelectedItem().getPatient())) {
-			refreshQueueOnce();
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setContentText("Examination is closed. Patient is no longer in a Waitinglist.");
 			alert.showAndWait();

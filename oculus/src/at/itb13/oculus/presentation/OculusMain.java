@@ -235,21 +235,18 @@ public class OculusMain extends Application {
 	public void showAppointmentsTab() {
 		if(_appointmentsTab != null) {
 			_rootLayout.setCenter(_appointmentsTab);
-			_queueController.stopQueueReloader();
 		}
 	}
 	
 	public void showPatientTab() { 
 		if(_patientTab != null) {
 			_rootLayout.setCenter(_patientTab);
-			_queueController.stopQueueReloader();
 		}
 	}
 	
 	public void showQueueTab() {
 		if(_queueTab != null) {
 			_rootLayout.setCenter(_queueTab);
-			_queueController.startQueueReloader();
 		}
 	}
 	

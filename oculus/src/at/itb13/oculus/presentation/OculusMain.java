@@ -403,40 +403,7 @@ public class OculusMain extends Application {
 		return null;
 	}
 
-	/**
-	 * TODO: Insert Description
-	 * 
-	 * @return
-	 */
-	public File getPersonFilePath() {	// FIXME: Where is this method used?
-		Preferences prefs = Preferences.userNodeForPackage(OculusMain.class);
-		String filePath = prefs.get("filePath", null);
-		if (filePath != null) {
-			return new File(filePath);
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 * TODO: Insert Description
-	 * 
-	 * @param file
-	 */
-	public void setPatientFilePath(File file) {	// FIXME: Where is this method used?
-		Preferences prefs = Preferences.userNodeForPackage(OculusMain.class);
-		if (file != null) {
-			prefs.put("filePath", file.getPath());
-
-			// Update the stage title.
-			_primaryStage.setTitle("Oculus Patient - " + file.getName());
-		} else {
-			prefs.remove("filePath");
-
-			// Update the stage title.
-			_primaryStage.setTitle("Oculus");
-		}
-	}
+	
 	
 	/**
 	 * TODO

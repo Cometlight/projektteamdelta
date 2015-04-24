@@ -77,9 +77,9 @@ public class OculusMain extends Application {
 		
 		_primaryStage = primaryStage;
 		
-		final Task<Integer> startupTask = new Task<Integer>() {
+		final Task<Void> startupTask = new Task<Void>() {
             @Override
-            protected Integer call() throws InterruptedException {
+            protected Void call() throws InterruptedException {
             	updateMessage("Loading Application Icon...");
             	
         		// Set the application icon.
@@ -101,7 +101,7 @@ public class OculusMain extends Application {
         		
         		updateMessage("Finished.");
         		
-        		return 1;	// TODO
+				return null;
             }
         };
  
@@ -234,18 +234,22 @@ public class OculusMain extends Application {
 	public void showAppointmentsTab() {
 		if(_appointmentsTab != null) {
 			_rootLayout.setCenter(_appointmentsTab);
+			_queueController.stopQueueReloader();
 		}
 	}
 	
 	public void showPatientTab() { 
 		if(_patientTab != null) {
 			_rootLayout.setCenter(_patientTab);
+			_queueController.stopQueueReloader();
 		}
 	}
 	
 	public void showQueueTab() {
 		if(_queueTab != null) {
 			_rootLayout.setCenter(_queueTab);
+			_queueController.refreshQueueOnce();
+			_queueController.startQueueReloader();
 		}
 	}
 	

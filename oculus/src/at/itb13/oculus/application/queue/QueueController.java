@@ -2,6 +2,8 @@ package at.itb13.oculus.application.queue;
 
 import java.util.List;
 
+import org.omg.CORBA._PolicyStub;
+
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Queue;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
@@ -35,12 +37,16 @@ public class QueueController {
 	 * Inserts queueEntryRO to the last position in the Queue's QueueEntryList and updates the database accordingly.
 	 * 
 	 * @param queueEntryRO the QueueEntry to be inserted
-	 * @return true if the queueEntry was successfully added to the Queue and saved in the database
+	 * @return true if the queueEntry was successfully added to the Queue and saved in the database and patient wasn't in the queue before.
 	 * @see #pushQueueEntry(QueueEntryRO, CalendarEventRO)
 	 */
 	public boolean pushQueueEntry(PatientRO patientRO) {
-		_queue.pushQueueEntry((Patient) patientRO);
-		return QueueDao.getInstance().makePersistent(_queue);
+		if(!_queue.containsPatient(patientRO.getPatientId())) {
+			_queue.pushQueueEntry((Patient) patientRO);
+			return QueueDao.getInstance().makePersistent(_queue);
+		} else {
+			return false;
+		}
 	}
 	
 	/**

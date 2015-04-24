@@ -16,4 +16,6 @@ public interface QueueRO {
 	Doctor getDoctor();
 	Orthoptist getOrthoptist();
 	List<QueueEntry> getQueueEntries();
+	boolean contains(Integer queueEntryID);
+	boolean containsPatient(Integer patientID);
 }

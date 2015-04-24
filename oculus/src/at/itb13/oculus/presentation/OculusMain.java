@@ -19,34 +19,19 @@ import at.itb13.oculus.presentation.view.TabQueueController;
 import at.itb13.oculus.presentation.view.RootLayoutController;
 import at.itb13.oculus.presentation.view.StartProcessController;
 import at.itb13.oculus.technicalServices.HibernateUtil;
-import javafx.animation.FadeTransition;
 import javafx.application.Application;
-import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.concurrent.Worker;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TabPane;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.Window;
-import javafx.util.Duration;
 
 /**
  * 
@@ -172,41 +157,6 @@ public class OculusMain extends Application {
 		}
 	}
 	
-	/**
-	 * TODO: Insert description
-	 */
-	public void initStartLayout() {
-		try {
-		
-			// Load the fxml file and create a new stage for the popup dialog.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(OculusMain.class
-					.getResource("view/StartProcess.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
-
-			// Create the dialog Stage.
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Start Oculus");
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(_primaryStage);
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
-
-			// Set the person into the controller.
-			StartProcessController controller = loader.getController();
-			controller.setDialogStage(dialogStage);
-			
-
-			// Show the dialog and wait until the user closes it
-			dialogStage.showAndWait();
-			
-			_logger.info("initStartProcess successful");
-		
-		} catch (IOException ex) {
-			_logger.error(ex);
-		
-		}
-	}
 	
 	/**
 	 * Loads the view/tabPatient.fxml-File and display it in the center of the root-Layout.
@@ -289,7 +239,7 @@ public class OculusMain extends Application {
 		}
 	}
 	
-	public void showPatientTab() {
+	public void showPatientTab() { 
 		if(_patientTab != null) {
 			_rootLayout.setCenter(_patientTab);
 			_queueController.stopQueueReloader();
@@ -303,7 +253,7 @@ public class OculusMain extends Application {
 		}
 	}
 	
-
+	
 	/**
 	 * TODO: Insert Description
 	 * 

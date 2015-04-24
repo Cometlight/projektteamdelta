@@ -66,6 +66,9 @@ public class WelcomeAtReception {
 			patient.setLastName(lastName);
 			patient.setBirthDay(birthday);
 			patient.setGender(gender);
+			patient.setStreet(street);
+			patient.setPostalCode(postalCode);
+			patient.setCity(city);
 			patient.setCountryIsoCode(countryIsoCode);
 			patient.setPhone(phone);
 			patient.setEmail(email);
@@ -77,7 +80,7 @@ public class WelcomeAtReception {
 				_logger.error("Could not update Patient (" + patientRO.getPatientId() + ") in the database.");
 			}
 		} else {
-			_logger.info("Patient with ID '" + patientRO.getPatientId() + "' already exists.");
+			_logger.info("Patient with ID '" + patientRO.getPatientId() + "' not exists.");
 		}
 		
 		return patROReturn;

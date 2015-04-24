@@ -158,6 +158,10 @@ public class NewPatientController {
 					try {
 						_patient = ControllerFacade.getInstance().getNewPatient()
 								.createPatient(_doctor, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("New Patient has been saved");
+						alert.setContentText("The Patient has been saved succecfully!");
+						alert.showAndWait();
 					} catch (InvalidInputException e) {
 						_logger.error(e);
 						e.printStackTrace();	// TODO no stacktrace
@@ -166,11 +170,17 @@ public class NewPatientController {
 					try {
 						ControllerFacade.getInstance().getWelcomeAtReception()
 							.updatePatient(_patient, _doctor, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Patient has been edited");
+						alert.setContentText("The Patient has been edited succecfully!");
+						alert.showAndWait();
 					} catch (InvalidInputException e) {
 						_logger.error(e);
 						e.printStackTrace();	// TODO no stacktrace
 					}
 				}
+				
+					
 				
 				okClicked = true;
 			    _dialogStage.close();

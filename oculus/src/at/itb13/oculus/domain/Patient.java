@@ -161,6 +161,11 @@ public class Patient implements java.io.Serializable, PatientRO {
 		String pattern = "^\\d{" + SOCIAL_INSURANCE_NR_LENGTH + "}$";
 		return socialInsuranceNr != null && Pattern.matches(pattern, socialInsuranceNr);
 	}
+	
+	@Transient
+	public void addCalendarEvent(CalendarEvent event){
+		_calendarevents.add(event);
+	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)

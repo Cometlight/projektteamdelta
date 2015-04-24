@@ -62,8 +62,8 @@ public class EditAnamnesisController {
 	private void handleSave(){
 		
 		WelcomeAtReception controller = ControllerFacade.getInstance().getWelcomeAtReception();
-		controller.updateAnamnesis(_patient,_allergiesText.getText(), _childhoodAilmentsText.getText(), _medicineIntoleranceText.getText());
-	
+		PatientRO p =controller.updateAnamnesis(_patient,_allergiesText.getText(), _childhoodAilmentsText.getText(), _medicineIntoleranceText.getText());
+		ControllerFacade.setPatientSelected(p);
 		_dialogStage.close();
 	}
 	

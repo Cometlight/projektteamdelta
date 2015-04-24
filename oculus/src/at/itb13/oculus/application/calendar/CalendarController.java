@@ -62,6 +62,7 @@ public class CalendarController {
 		CalendarEventDao calEvDao = CalendarEventDao.getInstance();
 		CalendarEvent calEv = calEvDao.findById(calendarEventRO.getCalendarEventId());
 		calEv.setPatient(patient);
+		((Patient)patientRO).addCalendarEvent(calEv);
 		return calEvDao.makePersistent(calEv) ? calEv : null;
 	}
 	

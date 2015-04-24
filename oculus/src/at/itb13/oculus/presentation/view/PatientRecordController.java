@@ -242,7 +242,7 @@ public class PatientRecordController {
 	@FXML
 	private void handleEditAnamnesis(){
 		_main.showEditAnamnesis(_patient);
-		_patient = _main.getCreatedPatient();
+		_patient = ControllerFacade.getPatientSelected();
 		showAnamanesis(_patient);
 	}
 	/**
@@ -251,7 +251,7 @@ public class PatientRecordController {
 	@FXML
 	private void handleEditGeneral(){
 		_main.showNewPatientDialog(_patient);
-		_patient = _main.getCreatedPatient();
+		_patient = ControllerFacade.getPatientSelected();
 		showPatientMasterData(_patient);
 	}
 }

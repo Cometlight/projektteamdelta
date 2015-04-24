@@ -35,7 +35,7 @@ public class ControllerFacade {
 	private static List<QueueController> _listQueueController;
 	private static List<CalendarController> _listCalendarController;
 	
-	private static Patient _patientSelected;	// TODO work with this patient instead of _tempPatient of OculusMain ###############################################
+	private static PatientRO _patientSelected;	// TODO work with this patient instead of _tempPatient of OculusMain ###############################################
 	
 	static {
 		init();
@@ -201,7 +201,7 @@ public class ControllerFacade {
 	/**
 	 * @param patientSelected the patientSelected to set
 	 */
-	public static void setPatientSelected(Patient patientSelected) {
+	public static void setPatientSelected(PatientRO patientSelected) {
 		_patientSelected = patientSelected;
 	}
 	

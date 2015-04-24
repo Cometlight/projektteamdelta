@@ -307,20 +307,22 @@ public class TabAppointmentsController {
 	private void addPatientControl() {
 
 		_main.showNewPatientDialog(null);
+		
+		PatientRO patient = ControllerFacade.getPatientSelected();
 
-		if(_main.getCreatedPatient() != null) {
+		if(patient != null) {
 			CalendarEventRO calEv = _appointmentTable.getSelectionModel().getSelectedItem();
 			
 			// connect the calendarevent with the newly created patient
 			CalendarController calco = ControllerFacade.getInstance().getCalendarController(calEv.getCalendar());
-			CalendarEventRO calEvUpdated = calco.connectCalendarEventWithPatient(calEv, _main.getCreatedPatient());
+			CalendarEventRO calEvUpdated = calco.connectCalendarEventWithPatient(calEv, patient);
 			if(calEvUpdated != null) {
 				// update the view as now a patient actually exists
 				showAppointmentInformation(calEvUpdated);
-				_main.showPatientRecord(_patientRecordBorderPane, _main.getCreatedPatient());
+				_main.showPatientRecord(_patientRecordBorderPane, patient);
 			} else {
 				_logger.error("Failed to save the connection between the CalendarEvent (" + calEv.getCalendarEventId() 
-						+ ") and the recently created Patient (" + _main.getCreatedPatient().getPatientId() + ").");
+						+ ") and the recently created Patient (" + patient.getPatientId() + ").");
 				// TODO: warning that it didn't work?
 			}
 		}

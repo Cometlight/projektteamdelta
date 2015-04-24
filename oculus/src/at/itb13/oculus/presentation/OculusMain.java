@@ -57,8 +57,6 @@ public class OculusMain extends Application {
 	private AnchorPane _queueTab;
 	private TabQueueController _queueController;
 	
-//	private PatientRO _tempPatient;	// TODO: Should be moved to the application layer (into the ControllerFacade)
-
 	private ObservableList<PatientRO> _patientData = FXCollections.observableArrayList();
 	
 	private SplashScreen _splashScreen;
@@ -260,7 +258,6 @@ public class OculusMain extends Application {
 	 */
 	public boolean showNewPatientDialog(PatientRO patient) {
 		try {
-		//	_tempPatient = null;
 			ControllerFacade.setPatientSelected(null);
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -287,8 +284,7 @@ public class OculusMain extends Application {
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
-		//	_tempPatient = controller.getPatient();
-		//	ControllerFacade.setPatientSelected(controller.getPatient());
+
 			_logger.info("showNewPatientDialog successful");
 			return controller.isOkClicked();
 		} catch (IOException ex) {
@@ -297,14 +293,7 @@ public class OculusMain extends Application {
 		}
 	}
 
-	/**
-	 * TODO: Insert Description
-	 * 
-	 * @return
-	 */
-	public PatientRO getCreatedPatient() {
-		return _tempPatient;
-	}
+
 
 	/**
 	 * TODO: Insert Description
@@ -378,7 +367,7 @@ public class OculusMain extends Application {
 	 */
 	public boolean showEditAnamnesis(PatientRO patient) {
 		try {
-			_tempPatient = null;
+		
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(OculusMain.class
@@ -400,7 +389,7 @@ public class OculusMain extends Application {
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
 			
-			_tempPatient = controller.getPatient();
+			
 			
 			_logger.info("editAnamnesisDialog successful");
 			return controller.isSaveClicked();

@@ -169,7 +169,7 @@ public class NewPatientController {
 					}
 				} else{
 					try {
-						ControllerFacade.getInstance().getWelcomeAtReception()
+					_patient =	ControllerFacade.getInstance().getWelcomeAtReception()
 							.updatePatient(_patient, _doctor, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Patient has been edited");
@@ -182,7 +182,7 @@ public class NewPatientController {
 					}
 				}
 				
-					
+				ControllerFacade.setPatientSelected(_patient);	
 				
 				okClicked = true;
 			    _dialogStage.close();

@@ -130,9 +130,10 @@ public class TabQueueController {
 						@Override
 						public void run() {
 							setItemsToQueueBox();
-							if(!_queueEntrysListView.getSelectionModel().isEmpty()) {
+//							if(!_queueEntrysListView.getSelectionModel().isEmpty()) {
 								setQueueEntriesInList();
-							}
+//							}
+								System.out.println("refreshing");
 						}
 					});
 				}
@@ -176,12 +177,14 @@ public class TabQueueController {
 		QueueEntryRO entrySelected = _queueEntrysListView.getSelectionModel().getSelectedItem();
 		
 		clearQueue();
-		at.itb13.oculus.application.queue.QueueController controller = ControllerFacade.getInstance().getQueueController(_queue);
-		List<QueueEntryRO> entries = (List<QueueEntryRO>) controller.getQueueEntries();
-		_queueEntryList.addAll(entries);
+		if(_queue != null) {
+			at.itb13.oculus.application.queue.QueueController controller = ControllerFacade.getInstance().getQueueController(_queue);
+			List<QueueEntryRO> entries = (List<QueueEntryRO>) controller.getQueueEntries();
+			_queueEntryList.addAll(entries);
 		
-		if(entrySelected != null && _queueEntryList.contains(entrySelected)) {	// reselect (necessary if updating)
-			_queueEntrysListView.getSelectionModel().select(entrySelected);
+			if(entrySelected != null && _queueEntryList.contains(entrySelected)) {	// reselect (necessary if updating)
+				_queueEntrysListView.getSelectionModel().select(entrySelected);
+			}
 		}
 	}
 	

@@ -2,6 +2,10 @@ package at.itb13.oculus.application.queue;
 
 import java.util.List;
 
+import org.omg.CORBA._PolicyStub;
+
+import at.itb13.oculus.application.ControllerFacade;
+import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Queue;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
@@ -35,10 +39,16 @@ public class QueueController {
 	 * Inserts queueEntryRO to the last position in the Queue's QueueEntryList and updates the database accordingly.
 	 * 
 	 * @param queueEntryRO the QueueEntry to be inserted
-	 * @return true if the queueEntry was successfully added to the Queue and saved in the database
+	 * @return true if the queueEntry was successfully added to the Queue and saved in the database and patient wasn't in the queue before.
+	 * @throws InvalidInputException Indicates that the patient is already in a queue. A patient may only be in 1 queue at a time.
 	 * @see #pushQueueEntry(QueueEntryRO, CalendarEventRO)
 	 */
-	public boolean pushQueueEntry(PatientRO patientRO) {
+	public boolean pushQueueEntry(PatientRO patientRO) throws InvalidInputException {
+		for(QueueController qC : ControllerFacade.getInstance().getAllQueueController()) {
+			if(qC.getQueue().containsPatient(patientRO.getPatientId())) {
+				throw new InvalidInputException("Patient (" + patientRO.getPatientId() + ") is already in a queue");
+			}
+		}
 		_queue.pushQueueEntry((Patient) patientRO);
 		return QueueDao.getInstance().makePersistent(_queue);
 	}

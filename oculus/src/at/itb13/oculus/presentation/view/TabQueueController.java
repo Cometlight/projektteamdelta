@@ -40,7 +40,7 @@ public class TabQueueController {
 	
 	private static final Logger _logger = LogManager.getLogger(TabQueueController.class.getName());
 	
-	private static final int REFRESH_INTERVAL = 30000;	// in milliseconds
+	private static final int REFRESH_INTERVAL = 10000;	// in milliseconds
 	
 	@FXML
 	private ListView<QueueEntryRO> _queueEntrysListView;

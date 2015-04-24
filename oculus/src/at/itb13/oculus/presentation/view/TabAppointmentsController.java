@@ -137,6 +137,7 @@ public class TabAppointmentsController {
 			}
 		});
 		
+		
 		// Color the rows depending on the state of the CalendarEvents
 		_appointmentTable.setRowFactory(new Callback<TableView<CalendarEventRO>, TableRow<CalendarEventRO>>() {
 	        @Override
@@ -150,15 +151,18 @@ public class TabAppointmentsController {
 	                    // and
 	                    //  use  getStyleClass().removeAll(Collections.singleton("classname"));
 	                    // instead of applying the colors directly here in the code.
+	                    setStyle(null);
 	                    if(calEv != null) {
 	                    	if(calEv.isOpen()) {
 	                    		if(calEv.getEventEnd().isBefore(LocalDateTime.now())) {	// patient missed the appointment
 	                    			setStyle("-fx-background-color: red");
 	                    		} else {	// it's ok; the patient still has time to come to the appointment sometime in the future
-	                    			// no color I suppose
+	                    			setStyle(null);
+	                    			System.out.println("calev is after now");
 	                    		}
 		                    } else {
 		                    	setStyle("-fx-background-color: lightgrey");
+		                    	
 		                    }
 	                    }
 	                }

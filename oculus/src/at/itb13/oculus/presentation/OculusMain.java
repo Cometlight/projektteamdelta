@@ -347,6 +347,7 @@ public class OculusMain extends Application {
 	 */
 	public void showAppointment(CalendarEventRO calendarEventRO) {
 		_appointmentsController.showAppointmentInformation(calendarEventRO);
+		_appointmentsController.showPatientRecord(calendarEventRO.getPatient());
 		showAppointmentsTab();
 		_rootLayoutController.setTab(0);
 	}

@@ -33,6 +33,7 @@ import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.queue.QueueController;
 import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
+import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
 import at.itb13.oculus.presentation.OculusMain;
 import at.itb13.oculus.presentation.util.QueueSringConverter;
@@ -173,12 +174,10 @@ public class TabAppointmentsController {
 				.getSelectionModel()
 				.selectedItemProperty()
 				.addListener(
-						(observable, oldValue, newValue) -> showAppointmentInformation(newValue));
-		_appointmentTable
-				.getSelectionModel()
-				.selectedItemProperty()
-				.addListener(
-						(observable, oldValue, newValue) -> _main.showPatientRecord(_patientRecordBorderPane, (newValue == null) ? null : newValue.getPatient()));
+						(observable, oldValue, newValue) -> {
+							showAppointmentInformation(newValue);
+							showPatientRecord((newValue == null) ? null : newValue.getPatient());
+						});
 		
 		_datePicker.setValue(LocalDate.now());	// Show today's appointments by default
 		changeDate(); 							// make sure, the appointments of today are loaded
@@ -226,6 +225,10 @@ public class TabAppointmentsController {
 		_appointmentsList.clear();
 
 	}
+	
+	public void showPatientRecord(PatientRO patient) {
+		_main.showPatientRecord(_patientRecordBorderPane, patient);
+	}
 
 	public void showAppointmentInformation(CalendarEventRO event) {
 		if (event != null) {
@@ -243,7 +246,7 @@ public class TabAppointmentsController {
 			}
 			if (event.getPatient() == null) {
 				_patientNotInDatabaseLabel
-						.setText("Patient is not in Database.\nPatient Name");
+						.setText("New patient! Please add the patient by clicking on \"Add Patient\".\nPatient Name:");
 				_patientLabel.setText(event.getPatientName());
 				_addPatientButton.setDisable(false);
 				_addPatientButton.setVisible(true);

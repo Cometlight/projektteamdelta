@@ -40,7 +40,7 @@ public class TabQueueController {
 	
 	private static final Logger _logger = LogManager.getLogger(TabQueueController.class.getName());
 	
-	private static final int REFRESH_INTERVAL = 60000;	// in milliseconds
+	private static final int REFRESH_INTERVAL = 30000;	// in milliseconds
 	
 	@FXML
 	private ListView<QueueEntryRO> _queueEntrysListView;
@@ -140,6 +140,11 @@ public class TabQueueController {
 		}
 	}
 	
+	public void refreshQueueOnce() {
+		setItemsToQueueBox();
+		setQueueEntriesInList();
+	}
+	
 	public void stopQueueReloader() {
 		if(_timer != null) {
 			_timer.cancel();
@@ -224,6 +229,7 @@ public class TabQueueController {
 				if(controllerOld.removeQueueEntry(patient)) {
 					try {
 						if(controllerNext.pushQueueEntry(patient)) {
+							refreshQueueOnce();
 							Alert alert = new Alert(AlertType.INFORMATION);
 							alert.setContentText("Patient is added to Queue");
 							alert.showAndWait();
@@ -256,6 +262,7 @@ public class TabQueueController {
 	private void handleEndExamination(){
 		at.itb13.oculus.application.queue.QueueController controller = ControllerFacade.getInstance().getQueueController(_queue);
 		if(controller.removeQueueEntry(_queueEntrysListView.getSelectionModel().getSelectedItem().getPatient())) {
+			refreshQueueOnce();
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setContentText("Examination is closed. Patient is no longer in a Waitinglist.");
 			alert.showAndWait();

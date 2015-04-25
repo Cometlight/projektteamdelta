@@ -7,7 +7,7 @@ import org.junit.Test;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 
 /**
- * TODO: Insert description here.
+ * Unittesting for class PatientDao
  * 
  * @author Andrew Sparr
  * @date 13.04.2015
@@ -15,17 +15,34 @@ import at.itb13.oculus.technicalServices.dao.PatientDao;
 public class PatientDao_UnitTests {
 
 	@Test
-	public void testIfNull() {
+	public void getInstance() {
 		assertEquals(true, (PatientDao.getInstance() != null));
-		
-		assertEquals(true, (PatientDao.getInstance().findAll() != null));
-		assertEquals(true, (PatientDao.getInstance().findByFirstName("Test").isEmpty()));
-		assertEquals(true, (PatientDao.getInstance().findById(null) == null));
-		assertEquals(true, (PatientDao.getInstance().findByLastName(null)).isEmpty());
-		assertEquals(true, (PatientDao.getInstance().findByLastName(null)).isEmpty());
-		assertEquals(true, (PatientDao.getInstance().findByFullName(null, null).isEmpty()));
-		assertEquals(true, (PatientDao.getInstance().findBySocialInsuranceNr(null)) == null);
-		assertEquals(true, (PatientDao.getInstance().list().isEmpty()));
 	}
-
+	
+	@Test
+	public void findAll() {
+		assertEquals(true, (PatientDao.getInstance().findAll() != null));
+	}
+	@Test
+	public void findByFirstName() {
+		assertEquals(true, (PatientDao.getInstance().findByFirstName("Test").isEmpty()));
+	}
+	@Test
+	public void findById() {
+		assertEquals(true, (PatientDao.getInstance().findById(null) == null));
+	}
+	@Test
+	public void findByLastName() {
+		assertEquals(true, (PatientDao.getInstance().findByLastName(null)).isEmpty());
+	}
+	@Test
+	public void findByFullName() {
+		assertEquals(true, (PatientDao.getInstance().findByFullName(null, null).isEmpty()));
+	}
+	
+	@Test
+	public void findBySocialInsuranceNr() {
+		assertEquals(true, (PatientDao.getInstance().findBySocialInsuranceNr(null)) == null);
+	}
+	
 }

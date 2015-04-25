@@ -183,6 +183,19 @@ public class Queue implements QueueRO {
 		}
 		return null;
 	}
+	
+	/**
+	 * Not overriding equals() because this method only checks concerning the IDs.
+	 * @param queue
+	 * @return
+	 */
+	public boolean representsSameQueueByID(Queue queue) {
+		return (
+				   (_doctor != null && queue.getDoctor() != null && _doctor.getDoctorId().equals(queue.getDoctor().getDoctorId()))
+				|| (_orthoptist != null && queue.getOrthoptist() != null && _orthoptist.getOrthoptistId().equals(queue.getOrthoptist().getOrthoptistId()))
+				|| (_doctor == null && _orthoptist == null && queue.getDoctor() == null && queue.getOrthoptist() == null)
+			);
+	}
 
 	/**
 	 * @return the doctor

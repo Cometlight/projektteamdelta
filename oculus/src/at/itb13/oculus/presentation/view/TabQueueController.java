@@ -1,5 +1,6 @@
 package at.itb13.oculus.presentation.view;
 
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
@@ -11,7 +12,6 @@ import org.apache.logging.log4j.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -46,7 +46,7 @@ public class TabQueueController {
 	private ListView<QueueEntryRO> _queueEntrysListView;
 	@FXML
 	private ComboBox<QueueRO> _queueBox;
-	private QueueRO _queue;
+//	private QueueRO _queueCurDisplayed;
 	
 	private ObservableList<QueueEntryRO> _queueEntryList = FXCollections.observableArrayList();
 	
@@ -79,7 +79,7 @@ public class TabQueueController {
 	@FXML
 	private void initialize() {
 		
-		setItemsToQueueBox();
+//		setItemsToQueueBox();
 		
 		_queueEntrysListView.setItems(_queueEntryList);
 		
@@ -93,7 +93,7 @@ public class TabQueueController {
                     protected void updateItem(QueueEntryRO t, boolean bln) {
                         super.updateItem(t, bln);
                         if(t != null){
-                        	setText(t.getPatient().getFirstName() + " "+ t.getPatient().getLastName()+"\n" +t.getArrivalTime());
+                        	setText(t.getPatient().getFirstName() + " "+ t.getPatient().getLastName()+"\nArrival Time: " +t.getArrivalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
                         }else{
                         	setText("");
                         }
@@ -103,7 +103,6 @@ public class TabQueueController {
 			}
 			 
 		 });
-		showAppointmentInfo(null);	 
 		
 		_queueEntrysListView
 			.getSelectionModel().selectedItemProperty().addListener(
@@ -114,6 +113,7 @@ public class TabQueueController {
 					}
 			);
 		
+		showAppointmentInfo(null);
 	}
 	
 	/**
@@ -139,9 +139,10 @@ public class TabQueueController {
 	
 	public void refreshQueueOnce() {
 		System.out.println("refreshing start");
-		ControllerFacade.getInstance().refreshQueueController();
+//		ControllerFacade.getInstance().refreshQueueController();
 		setItemsToQueueBox();
-		setQueueEntriesInList();
+		// setQueueEntriesInList(); is automatically called by setItemsToQueueBox, as that method selects one of the queues and 
+		// thus triggering the event that refreshes the EntriesList.
 		System.out.println("refreshing end");
 	}
 	
@@ -151,41 +152,69 @@ public class TabQueueController {
 			_timer = null;
 		}
 	}
-	
-	private void clearQueue() {
-		_queueEntryList.clear();
-		
-	}
 
+	/**
+	 * Clears _queueBox and _nextQueueBox and inserts new queues from ControllerFacade.
+	 */
 	private void setItemsToQueueBox() {
+		QueueRO curQueueQueueBox = _queueBox.getSelectionModel().getSelectedItem();
+		QueueRO curQueueNextQueueBox = _nextQueueBox.getSelectionModel().getSelectedItem();
+		
+		// Clear HashMaps of StringConverter
 		_queueBox.setConverter(new QueueSringConverter());
 		_nextQueueBox.setConverter(new QueueSringConverter());
+		
+		// update _queueBox and _nextQueueBox
 		List<QueueRO> queues = new LinkedList<>();
-		ControllerFacade.getInstance().getAllQueueController().forEach( qCol -> {queues.add(qCol.getQueue());} );
+		for(at.itb13.oculus.application.queue.QueueController qC : ControllerFacade.getInstance().getAllQueueController()) {
+			QueueRO q = qC.getQueue();
+			queues.add(q);
+			// Update references of old selected queues to the new ones, so it's possible to reselect them in the next step
+			if( curQueueQueueBox != null && qC.representsSameQueueByID(curQueueQueueBox)) {
+				curQueueQueueBox = q;
+			}
+			if( curQueueNextQueueBox != null && qC.representsSameQueueByID(curQueueNextQueueBox)) {
+				curQueueNextQueueBox = q;
+			}
+		}
+		
 		_queueBox.getItems().setAll(queues);
 		_nextQueueBox.getItems().setAll(queues);
+		
+		// if necessary, reselect items that were selected before the update
+		if(curQueueQueueBox != null) {
+			_queueBox.getSelectionModel().select(curQueueQueueBox);
+		}
+		if(curQueueNextQueueBox != null) {
+			_nextQueueBox.getSelectionModel().select(curQueueNextQueueBox);
+		}
 	}
 	
 	@FXML
 	private void handleQueueComboBox() {
-		_queue = _queueBox.getSelectionModel().getSelectedItem();
+//		_queueCurDisplayed = _queueBox.getSelectionModel().getSelectedItem();
+		System.out.println("## handleQueueComboBox, : " + _queueBox.getSelectionModel().getSelectedItem().getDoctor().getUser().getFirstName());
 		setQueueEntriesInList();
 	}
 	
+	/**
+	 * Clears _queueEntryList and fills the list with the current queue from ControllerFacade.
+	 */
 	private void setQueueEntriesInList() {
 		QueueEntryRO entrySelected = _queueEntrysListView.getSelectionModel().getSelectedItem();
+		QueueRO queueSelected = _queueBox.getSelectionModel().getSelectedItem();
 		
-		clearQueue();
-		if(_queue != null) {
-			at.itb13.oculus.application.queue.QueueController controller = ControllerFacade.getInstance().getQueueController(_queue);
-			_queue = controller.getQueue();
-			List<QueueEntryRO> entries = (List<QueueEntryRO>) controller.getQueueEntries();
-			for(QueueEntryRO entry : entries) {
-				System.out.print(entry.getPatient().getFirstName() + ", ");
-			}
-			_queueEntryList.addAll(entries);
+		_queueEntryList.clear();	// delete old entries
+		if(queueSelected != null) {
+			at.itb13.oculus.application.queue.QueueController queueController = ControllerFacade.getInstance().getQueueController(queueSelected);
+//			queueSelected = queueController.getQueue();	// update queue 
+			queueController.reloadQueue();
+			@SuppressWarnings("unchecked")
+			List<QueueEntryRO> entries = (List<QueueEntryRO>) queueController.getQueueEntries();
+			_queueEntryList.addAll(entries);	// add new entries
+			_logger.info("Queue (_queueBox) has been updated");
 		
-			if(entrySelected != null && _queue.contains(entrySelected.getQueueEntryId())) {	// reselect (necessary if updating)
+			if(entrySelected != null && queueSelected.contains(entrySelected.getQueueEntryId())) {	// reselect (necessary if updating)
 				for(QueueEntryRO entry : entries) {
 					if(entry.getQueueEntryId().equals(entrySelected.getQueueEntryId())) {
 						_queueEntrysListView.getSelectionModel().select(entry);	// need to select an entry that's contained in entries; not another one!
@@ -193,30 +222,31 @@ public class TabQueueController {
 					}
 				}
 			}
+		} else {
+			_logger.info("No queue selected in _queueBox");
 		}
 	}
 	
 	private void showAppointmentInfo(QueueEntryRO entry){
-		if(entry != null){
+		if (entry != null) {
+			System.out.println("entry not null");
 			_nextQueueBox.setVisible(true);
+			_nextQueueBox.getSelectionModel().clearSelection();
 			_insertButton.setVisible(true);
 			_endExaminationButton.setVisible(true);
 			_orLabel.setText("or");
 			
-			
-			if((entry.getCalendarEvent() != null)){
+			if (entry.getCalendarEvent() != null) {
 				_dateTimeLabel.setText(entry.getCalendarEvent().getEventStart().toString());
 				_typeLabel.setText(entry.getCalendarEvent().getEventtype().getEventTypeName());
 				_reasonLabel.setText(entry.getCalendarEvent().getDescription());
-				
-				
-			}else{
+			} else {
 				_dateTimeLabel.setText("");
 				_typeLabel.setText("");
 				_reasonLabel.setText("");
-				
 			}
-		}else{
+		} else {
+			System.out.println("entry is null !!!");
 			_nextQueueBox.setVisible(false);
 			_insertButton.setVisible(false);
 			_endExaminationButton.setVisible(false);
@@ -242,7 +272,7 @@ public class TabQueueController {
 						if(controllerNext.pushQueueEntry(patient)) {
 							refreshQueueOnce();
 							Alert alert = new Alert(AlertType.INFORMATION);
-							alert.setContentText("Patient is added to Queue");
+							alert.setContentText("Patient was moved to the selected Queue.");
 							alert.showAndWait();
 							return;
 						}
@@ -269,10 +299,13 @@ public class TabQueueController {
 		}
 	}
 	
+	/**
+	 * Removes an Entry from the queue
+	 */
 	@FXML
 	private void handleEndExamination(){
-		at.itb13.oculus.application.queue.QueueController controller = ControllerFacade.getInstance().getQueueController(_queue);
-		if(controller.removeQueueEntry(_queueEntrysListView.getSelectionModel().getSelectedItem().getPatient())) {
+		at.itb13.oculus.application.queue.QueueController queueController = ControllerFacade.getInstance().getQueueController( _queueBox.getSelectionModel().getSelectedItem() );
+		if(queueController.removeQueueEntry(_queueEntrysListView.getSelectionModel().getSelectedItem().getPatient())) {
 			refreshQueueOnce();
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setContentText("Examination is closed. Patient is no longer in a Waitinglist.");

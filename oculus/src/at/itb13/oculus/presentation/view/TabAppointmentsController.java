@@ -2,6 +2,7 @@ package at.itb13.oculus.presentation.view;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -23,10 +24,12 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
@@ -95,6 +98,8 @@ public class TabAppointmentsController {
 	private void initialize() {
 		
 		_appointmentTable.setItems(_appointmentsList);
+		_timeColumn.setSortType(SortType.ASCENDING);
+		_appointmentTable.getSortOrder().add(_timeColumn);
 
 //		_timeColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
 //			@Override
@@ -105,16 +110,18 @@ public class TabAppointmentsController {
 //						+ event.getValue().getEventStart().getMinute());
 //			}
 //		});
-		
 		_timeColumn.setCellValueFactory(new Callback<CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<CalendarEventRO, String> event) {
 				return new SimpleStringProperty(
-						event.getValue().getEventStart().getHour()	// TODO: Better formatting #hashtag
-						+ ":"
-						+ event.getValue().getEventStart().getMinute());
+						event.getValue().getEventStart().format(DateTimeFormatter.ofPattern("HH:mm")));
+						
+//						event.getValue().getEventStart().getHour()	// TODO: Better formatting #hashtag
+//						+ ":"
+//						+ event.getValue().getEventStart().getMinute());
 			}
 		});
+		
 		
 		_patientColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
 			@Override
@@ -183,6 +190,28 @@ public class TabAppointmentsController {
 							showPatientRecord((newValue == null) ? null : newValue.getPatient());
 						});
 		
+		/* -- Date Picker -- */
+		_datePicker.setConverter(new StringConverter<LocalDate>() {
+			 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		     @Override 
+		     public String toString(LocalDate date) {
+		         if (date != null) {
+		             return dateFormatter.format(date);
+		         } else {
+		             return "";
+		         }
+		     }
+
+		     @Override 
+		     public LocalDate fromString(String string) {
+		         if (string != null && !string.isEmpty()) {
+		             return LocalDate.parse(string, dateFormatter);
+		         } else {
+		             return null;
+		         }
+		     }
+		});
 		_datePicker.setValue(LocalDate.now());	// Show today's appointments by default
 		changeDate(); 							// make sure, the appointments of today are loaded
 
@@ -196,6 +225,14 @@ public class TabAppointmentsController {
 		List<CalendarController> listCalCo = ControllerFacade.getInstance()
 				.getAllCalendarController();
 
+		// save the SortType
+		TableColumn<CalendarEventRO, ?> sortColumn = null;
+		SortType sortType = null;
+		if(_appointmentTable.getSortOrder().size() > 0) {
+			sortColumn = (TableColumn<CalendarEventRO, ?>) _appointmentTable.getSortOrder().get(0);
+			sortType = sortColumn.getSortType();
+		}
+		
 		// delete current appointments from the list
 		_appointmentsList.clear();
 		
@@ -211,7 +248,14 @@ public class TabAppointmentsController {
 				_appointmentsList.add(e);
 
 			}
-
+			
+			// reenable the SortType
+			if(sortColumn != null) {
+				_appointmentTable.getSortOrder().add(sortColumn);
+				sortColumn.setSortType(sortType);
+				sortColumn.setSortable(true); // performs a sort
+			}
+			
 			_logger.info("Showing appointments between " + startDate + " and " + endDate);
 		} catch (InvalidInputException e) {
 			_logger.warn(e);

@@ -1,5 +1,8 @@
 package at.itb13.oculus.presentation.view;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -12,6 +15,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import at.itb13.oculus.application.ControllerFacade;
@@ -193,16 +197,33 @@ public class PatientRecordController {
 		});
 		
 		_appointmentTable.setItems(_appointmentsList);
+		_dateColumn.setSortType(SortType.ASCENDING);
+		_appointmentTable.getSortOrder().add(_dateColumn);
 		
-		_stateColumn.setCellValueFactory(new PropertyValueFactory<CalendarEventRO, String>("open"));	// TODO: Don't write "true/false", but more meaningful string. See also AppointmentsController.initialize()->_appointmentTable.setRowFactory()
+		_stateColumn.setCellValueFactory(new PropertyValueFactory<CalendarEventRO, String>("open"));
+		
+		_stateColumn.setCellValueFactory(new Callback<CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<CalendarEventRO, String> event) {
+				String str;
+				if(event.getValue().isOpen()) {
+					if(event.getValue().getEventEnd().isBefore(LocalDateTime.now())) {
+						str = "missed";
+					} else {
+						str = "open";
+					}
+				} else {
+					str = "closed";
+				}
+				return new SimpleStringProperty(str);
+			}
+		});
 		
 		_dateColumn.setCellValueFactory(new Callback<CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<CalendarEventRO, String> event) {
 				return new SimpleStringProperty(
-						event.getValue().getEventStart().getYear() + "-" 
-						+ event.getValue().getEventStart().getMonthValue() + "-" 
-						+ event.getValue().getEventStart().getDayOfMonth());
+						event.getValue().getEventStart().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 			}
 		});
 		
@@ -210,9 +231,7 @@ public class PatientRecordController {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<CalendarEventRO, String> event) {
 				return new SimpleStringProperty(
-						event.getValue().getEventStart().getHour()
-						+ ":"
-						+ event.getValue().getEventStart().getMinute());
+						event.getValue().getEventStart().format(DateTimeFormatter.ofPattern("HH:mm")));
 			}
 		});
 		
@@ -220,9 +239,7 @@ public class PatientRecordController {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<CalendarEventRO, String> event) {
 				return new SimpleStringProperty(
-						event.getValue().getEventEnd().getHour()
-						+ ":"
-						+ event.getValue().getEventEnd().getMinute());
+						event.getValue().getEventEnd().format(DateTimeFormatter.ofPattern("HH:mm")));
 			}
 		});
 		

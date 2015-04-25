@@ -24,7 +24,9 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -44,6 +46,7 @@ public class OculusMain extends Application {
 	private static final double MIN_WIDTH = 800d;
 	private static final double MIN_HEIGHT = 600d;
 	private static final String APPLICATION_ICON_PATH = "file:ApplicationResources/Images/eye.png";
+	private static final int ERROR_TIME_BEFORE_SHUTDOWN = 2000;
 	
 	private Scene _primaryScene;
 	private Stage _primaryStage;
@@ -69,7 +72,7 @@ public class OculusMain extends Application {
 	}
 	
 	/**
-	 * is called when the programm has been started
+	 * is called when the program has been started
 	 */
 	@Override
 	public void start(Stage primaryStage) {
@@ -80,14 +83,20 @@ public class OculusMain extends Application {
 		final Task<Void> startupTask = new Task<Void>() {
             @Override
             protected Void call() throws InterruptedException {
-            	updateMessage("Loading Application Icon...");
+            	updateMessage("Loading Application Icon ...");
             	
         		// Set the application icon.
         		_primaryStage.getIcons().add(
         				new Image(APPLICATION_ICON_PATH));
         		
         		updateMessage("Connecting to database ...");
-        		HibernateUtil.init();	// TODO: Show alert if no connection to database ###########################################################################################################################
+        		try {
+        			HibernateUtil.init();
+        		} catch (Throwable t) {
+        			updateMessage("ERROR: Failed to connect to database!");
+        			Thread.sleep(ERROR_TIME_BEFORE_SHUTDOWN);
+        			System.exit(-1);
+        		}
         		
         		updateMessage("Loading from database ...");
         		ControllerFacade.init();	// Load early, so the user does not have to wait when using the application
@@ -248,7 +257,6 @@ public class OculusMain extends Application {
 	public void showQueueTab() {
 		if(_queueTab != null) {
 			_rootLayout.setCenter(_queueTab);
-			_queueController.refreshQueueOnce();
 			_queueController.startQueueReloader();
 		}
 	}

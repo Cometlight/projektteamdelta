@@ -48,9 +48,9 @@ public class ControllerFacade {
 		
 		_instance = new ControllerFacade();
 		
-		reloadQueueController();
+		reloadAllQueueController();
 		
-		reloadCalendarController();
+		reloadAllCalendarController();
 		
 		_logger.info("ControllerFacade has been initialized.");
 	}
@@ -58,7 +58,7 @@ public class ControllerFacade {
 	/**
 	 * Loads all queues from the database and assigns them to _listQueueController.
 	 */
-	private static void reloadQueueController() {
+	private static void reloadAllQueueController() {
 		_listQueueController = new LinkedList<>();
 		QueueDao.getInstance().findAll().forEach(q -> {
 			QueueController qC = new QueueController(q);
@@ -90,7 +90,7 @@ public class ControllerFacade {
 	/**
 	 * Loads all calendars from the database and assigns them to _listCalendarController.
 	 */
-	private static void reloadCalendarController() {
+	private static void reloadAllCalendarController() {
 		_listCalendarController = new LinkedList<>();
 		CalendarDao.getInstance().findAll().forEach(q -> {
 			CalendarController cC = new CalendarController(q);
@@ -139,6 +139,11 @@ public class ControllerFacade {
 		return controller;
 	}
 	
+	/**
+	 * Returns a queue Controller with the same doctorID and orthoptistID.
+	 * @param queueRO
+	 * @return
+	 */
 	public QueueController getQueueController(QueueRO queueRO) {
 		return getQueueController((queueRO.getDoctor() == null) ? null : queueRO.getDoctor().getDoctorId(), 
 				(queueRO.getOrthoptist() == null) ? null : queueRO.getOrthoptist().getOrthoptistId());
@@ -149,7 +154,7 @@ public class ControllerFacade {
 	}
 	
 	public void refreshQueueController() {
-		reloadQueueController();
+		reloadAllQueueController();
 	}
 
 	/* -- CalendarController -- */
@@ -187,7 +192,7 @@ public class ControllerFacade {
 	}
 	
 	public void refreshCalendarController() {
-		reloadCalendarController();
+		reloadAllCalendarController();
 	}
 
 	/* -- Selected Domain Objects -- */

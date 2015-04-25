@@ -4,6 +4,7 @@ import java.util.List;
 
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Orthoptist;
+import at.itb13.oculus.domain.Queue;
 import at.itb13.oculus.domain.QueueEntry;
 
 /**

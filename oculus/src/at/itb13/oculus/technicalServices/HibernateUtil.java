@@ -7,6 +7,8 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
+import at.itb13.oculus.application.exceptions.InvalidInputException;
+
 /**
  * Singleton for org.hibernate.SessionFactory, which should be instantiated only once as it's expensive doing so.
  * 
@@ -20,10 +22,15 @@ public class HibernateUtil {
 	private HibernateUtil() { }
 	
 	static {
-		init();
+		try {
+			init();
+		} catch (InvalidInputException e) {
+			_logger.error(e);
+			_sessionFactory = null;
+		}
 	}
 	
-	public static void init() {
+	public static void init() throws InvalidInputException {
 		if(_sessionFactory == null) {
 			try {
 				Configuration config = new Configuration();
@@ -32,9 +39,9 @@ public class HibernateUtil {
 						.applySettings(config.getProperties()).build();
 				_sessionFactory = config.buildSessionFactory(serviceRegistry);
 				_logger.info("_sessionFactory has been initialized.");
-			} catch (Throwable ex) {
-				_logger.fatal(ex);
-				throw new ExceptionInInitializerError(ex);
+			} catch (Throwable t) {
+				_logger.fatal(t);
+				throw new InvalidInputException();
 			}
 		}
 	}

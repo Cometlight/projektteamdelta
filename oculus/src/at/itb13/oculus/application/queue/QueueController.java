@@ -113,4 +113,15 @@ public class QueueController {
 	public boolean isPatientInQueue(PatientRO patientRO) {
 		return _queue.containsPatient(patientRO.getPatientId());
 	}
+	
+	public boolean representsSameQueueByID(QueueRO queueRO) {
+		return _queue.representsSameQueueByID((Queue) queueRO);
+	}
+	
+	/**
+	 * Reloads the queue from the database
+	 */
+	public void reloadQueue() {
+		_queue = QueueDao.getInstance().findById(_queue.getDoctor() == null ? null : _queue.getDoctor().getDoctorId(), _queue.getOrthoptist() == null ? null : _queue.getOrthoptist().getOrthoptistId());
+	}
 }

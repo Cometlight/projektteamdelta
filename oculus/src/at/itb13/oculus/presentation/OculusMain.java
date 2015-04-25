@@ -16,6 +16,7 @@ import at.itb13.oculus.presentation.view.PatientRecordController;
 import at.itb13.oculus.presentation.view.TabQueueController;
 import at.itb13.oculus.presentation.view.RootLayoutController;
 import at.itb13.oculus.technicalServices.HibernateUtil;
+import at.itb13.oculus.technicalServices.exceptions.NoDatabaseConnectionException;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -88,7 +89,7 @@ public class OculusMain extends Application {
         		updateMessage("Connecting to database ...");
         		try {
         			HibernateUtil.init();
-        		} catch (Throwable t) {
+        		} catch (NoDatabaseConnectionException ex) {
         			updateMessage("ERROR: Failed to connect to database!");
         			Thread.sleep(ERROR_TIME_BEFORE_SHUTDOWN);
         			System.exit(-1);

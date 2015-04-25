@@ -131,7 +131,7 @@ public class QueueDao {
 			if(tx != null) {
 				tx.rollback();
 			}
-			_logger.error(ex);
+			_logger.error("Error in list()", ex);
 		} finally {
 			if(session != null) {
 				session.close();
@@ -231,7 +231,7 @@ public class QueueDao {
 			if (tx != null) {
 				tx.rollback();
 			}
-			_logger.error(ex);
+			_logger.error("Error in makePersistent(List<Queue)", ex);
 			return false;
 		} finally {
 			if (session != null) {
@@ -305,7 +305,7 @@ public class QueueDao {
 			if (tx != null) {
 				tx.rollback();
 			}
-			_logger.error(ex);
+			_logger.error("Error in makeTransient(List<Queue>)", ex);
 			return false;
 		} finally {
 			if (session != null) {
@@ -381,7 +381,7 @@ public class QueueDao {
 			}
 			list = crit.list();
 		} catch (Exception ex) {
-			_logger.error(ex);
+			_logger.error("Error in findByCriteria(Criterion...)", ex);
 		} finally {
 			if (session != null) {
 				session.close();

@@ -158,7 +158,7 @@ public class OculusMain extends Application {
 			
 			_logger.info("initRootLayout() successful");
 		} catch (IOException ex) {
-			_logger.error(ex);
+			_logger.error("initRootLayout() failed", ex);
 		}
 	}
 	
@@ -183,7 +183,8 @@ public class OculusMain extends Application {
 				
 				_logger.info("Successfully loaded PatientOverview");
 			} catch (IOException ex) {
-				_logger.error(ex);
+				_logger.error("Failed to load PatientOverview",ex);
+				
 			}
 		}
 	}
@@ -232,7 +233,7 @@ public class OculusMain extends Application {
 			_queueController.setMain(this);
 
 		} catch (IOException ex) {
-			_logger.error(ex);
+			_logger.error("Fail: initQueueTab",ex);
 		}
 	}
 
@@ -296,7 +297,7 @@ public class OculusMain extends Application {
 			_logger.info("showNewPatientDialog successful");
 			return controller.isOkClicked();
 		} catch (IOException ex) {
-			_logger.error(ex);
+			_logger.error("showNewPatientDialog failed", ex);
 			return false;
 		}
 	}
@@ -323,7 +324,7 @@ public class OculusMain extends Application {
 			}
 		} catch (IOException ex) {
 			ex.printStackTrace();
-			_logger.error(ex);
+			_logger.error("showPatientRecord failed", ex);
 		}
 		return null;
 	}
@@ -373,7 +374,7 @@ public class OculusMain extends Application {
 			_logger.info("editAnamnesisDialog successful");
 			return controller.isSaveClicked();
 		} catch (IOException ex) {
-			_logger.error(ex);
+			_logger.error("editAnamnesisDialog failed", ex);
 			return false;
 		}
 		

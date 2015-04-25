@@ -1,0 +1,4 @@
+<map id="at.itb13.oculus.application.receptionist.WelcomeAtReception.getDoctorList" name="at.itb13.oculus.application.receptionist.WelcomeAtReception.getDoctorList">
+<area shape="rect" id="node2" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1dao_1_1_doctor_dao.html#a8dabdacfc79d5b7e515ad4437fad98dc" title="at.itb13.oculus.technical\lServices.dao.DoctorDao.getInstance" alt="" coords="297,5,516,47"/>
+<area shape="rect" id="node3" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1_generic_dao.html#af971d776326b3519ad4b73154c84d14c" title="at.itb13.oculus.technical\lServices.GenericDao.findAll" alt="" coords="319,71,494,112"/>
+</map>

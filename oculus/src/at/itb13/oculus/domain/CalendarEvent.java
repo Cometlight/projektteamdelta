@@ -1,7 +1,11 @@
 package at.itb13.oculus.domain;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,16 +18,14 @@ import javax.persistence.Convert;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
-import at.itb13.oculus.technicalServices.util.LocalDatePersistenceConverter;
 import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
 
 /**
@@ -34,11 +36,11 @@ import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
  * @date 11.04.2015
  */
 @Entity
-@Table(name = "calendarevent", catalog = "oculusdb")
+@Table(name = "calendarevent", catalog = "oculus_d")
 public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
-
 	private static final Logger _logger = LogManager.getLogger(CalendarEvent.class.getName());
 	private static final long serialVersionUID = 1L;
+	
 	private Integer _calendarEventId;
 	private Calendar _calendar;
 	private EventType _eventtype;
@@ -49,8 +51,6 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
 	private String _patientName;
 	private boolean _isOpen;
 	
-	private boolean _isFullyLoaded;
-
 	public CalendarEvent() {
 	}
 
@@ -88,6 +88,33 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
 		return ( _eventStart.isAfter(startDate) || _eventStart.isEqual(startDate) )
 				&& ( _eventEnd.isBefore(endDate) || _eventEnd.isEqual(endDate) );
 	}
+	
+	/**
+	 * TODO
+	 * 
+	 * @param listCalEv
+	 * @return
+	 */
+	@Transient
+	public static List<? extends CalendarEventRO> sortCalendarEventsByStartDate(Set<CalendarEvent> listCalEv) {
+		List<CalendarEvent> listSorted = new LinkedList<>(listCalEv);
+		Collections.sort(listSorted, new Comparator<CalendarEvent>() {
+			@Override
+			public int compare(CalendarEvent o1, CalendarEvent o2) {
+				// -1 -> o1 < o2
+				// 0 -> o1 == 02
+				// 1 -> o1 > 02
+				if(o1.getEventStart().isEqual(o2.getEventStart())) {
+					return 0;
+				} else if (o1.getEventStart().isAfter(o2.getEventStart())) {
+					return 1;
+				} else {	// if(o1.getEventStart().isBefore(o2.getEventStart()))
+					return -1;
+				}
+			}
+		});
+		return listSorted;
+	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -100,9 +127,9 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
 		_calendarEventId = calendarEventId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "calendarId", nullable = false)
-	public Calendar getCalendar() {		// TODO: Muss ein calendarEvent wirklich wissen, zu welchem calendar es gehört? Oder reicht es nicht auch, wenn einfach der Calendar seine CalendarEvents kennt?
+	public Calendar getCalendar() {
 		return _calendar;
 	}
 
@@ -113,9 +140,6 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "eventTypeId", nullable = false)
 	public EventType getEventtype() {
-//		if(!_isFullyLoaded) {	TODO: DELETE
-//			Reloader.getInstance().reload(CalendarEvent.class, this);
-//		}
 		return _eventtype;
 	}
 
@@ -126,9 +150,6 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "patientId")
 	public Patient getPatient() {
-//		if(!_isFullyLoaded) {	TODO: DELETE
-//			Reloader.getInstance().reload(CalendarEvent.class, this);
-//		}
 		return _patient;
 	}
 

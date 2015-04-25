@@ -38,9 +38,5 @@ public class CalendarEventDao extends GenericDao<CalendarEvent> {
 		return _calendarEventDao;
 	}
 	
-	
-	
-	
-	
 
 }

@@ -1,0 +1,12 @@
+<map id="at.itb13.oculus.application.queue.QueueController.reloadQueue" name="at.itb13.oculus.application.queue.QueueController.reloadQueue">
+<area shape="rect" id="node2" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1dao_1_1_queue_dao.html#a0fc76a0352b510c7fd4c344fdc8ef922" title="at.itb13.oculus.technical\lServices.dao.QueueDao.getInstance" alt="" coords="264,107,481,148"/>
+<area shape="rect" id="node3" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1dao_1_1_queue_dao.html#a635a619cec71c01108c464263ce62d52" title="at.itb13.oculus.technical\lServices.dao.QueueDao.findById" alt="" coords="273,172,473,213"/>
+<area shape="rect" id="node10" href="$classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#aa359d0cf8e674b5494097476a9cf2db8" title="at.itb13.oculus.domain.Queue.get\lDoctor" alt="" coords="269,237,476,279"/>
+<area shape="rect" id="node11" href="$classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#a8f284c954b3440aeb56e9eb7afaabddf" title="at.itb13.oculus.domain.Queue.get\lOrthoptist" alt="" coords="269,303,476,344"/>
+<area shape="rect" id="node4" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1dao_1_1_doctor_dao.html#a8dabdacfc79d5b7e515ad4437fad98dc" title="at.itb13.oculus.technical\lServices.dao.DoctorDao.getInstance" alt="" coords="529,5,748,47"/>
+<area shape="rect" id="node5" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1_generic_dao.html#a8b05dc1201c03f43209c23a1fa4d0591" title="at.itb13.oculus.technical\lServices.GenericDao.findById" alt="" coords="547,71,730,112"/>
+<area shape="rect" id="node6" href="$classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#a0ba422c4368106e24d8f08e37747f18d" title="at.itb13.oculus.domain.Queue.set\lDoctor" alt="" coords="535,136,742,177"/>
+<area shape="rect" id="node7" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1dao_1_1_orthoptist_dao.html#a143baf9594f681fb018fa9ca494d7f4f" title="at.itb13.oculus.technical\lServices.dao.OrthoptistDao.get\lInstance" alt="" coords="543,202,735,258"/>
+<area shape="rect" id="node8" href="$classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#aa9ab7e12ada810b5c50dc7bf75059b56" title="at.itb13.oculus.domain.Queue.set\lOrthoptist" alt="" coords="535,283,742,324"/>
+<area shape="rect" id="node9" href="$classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#a22bed2743941c186d810f7f987f6ddaa" title="at.itb13.oculus.domain.Queue.set\lQueueEntries" alt="" coords="535,348,742,389"/>
+</map>

@@ -4,14 +4,28 @@
 		<Console name="CONSOLE" target="SYSTEM_OUT">
 			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
 		</Console>
+		<File name="LogFile" fileName="log/oculuslog.log" immediateFlush="false">
+			<PatternLayout
+				pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</File>
 	</Appenders>
 	<Loggers>
 		<Root level="error">
-			<AppenderRef ref="Console" />
+			<AppenderRef ref="CONSOLE" />
+			<AppenderRef ref="LogFile" />
+		</Root>
+		<Root level="info">
+			<AppenderRef ref="CONSOLE" />
+			<AppenderRef ref="LogFile" />
 		</Root>
 		<logger name="javabeat.net.util" level="TRACE" />
 		<Root level="ERROR">
 			<AppenderRef ref="CONSOLE" />
+			<AppenderRef ref="LogFile" />
+		</Root>
+		<Root level="INFO">
+			<AppenderRef ref="CONSOLE" />
+			<AppenderRef ref="LogFile" />
 		</Root>
 	</Loggers>
 </Configuration>

@@ -131,7 +131,7 @@ public class QueueDao {
 			if(tx != null) {
 				tx.rollback();
 			}
-			_logger.error(ex);
+			_logger.error("Error in list()", ex);
 		} finally {
 			if(session != null) {
 				session.close();
@@ -231,7 +231,7 @@ public class QueueDao {
 			if (tx != null) {
 				tx.rollback();
 			}
-			_logger.error(ex);
+			_logger.error("Error in makePersistent(List<Queue)", ex);
 			return false;
 		} finally {
 			if (session != null) {
@@ -305,7 +305,7 @@ public class QueueDao {
 			if (tx != null) {
 				tx.rollback();
 			}
-			_logger.error(ex);
+			_logger.error("Error in makeTransient(List<Queue>)", ex);
 			return false;
 		} finally {
 			if (session != null) {
@@ -381,7 +381,7 @@ public class QueueDao {
 			}
 			list = crit.list();
 		} catch (Exception ex) {
-			_logger.error(ex);
+			_logger.error("Error in findByCriteria(Criterion...)", ex);
 		} finally {
 			if (session != null) {
 				session.close();
@@ -445,7 +445,7 @@ public class QueueDao {
 	}
 	
 	private QueueEntry convertToQueueEntry(QueueEntity entity) {
-		return new QueueEntry(entity.getQueueId(), entity.getPatient(), entity.getArrivalTime());
+		return new QueueEntry(entity.getQueueId(), entity.getPatient(), entity.getCalendarEvent(), entity.getArrivalTime());
 	}
 	
 	private QueueEntity convertToQueueEntity(Queue queue, QueueEntry entry, Integer queueIdParent) {
@@ -455,6 +455,7 @@ public class QueueDao {
 		entity.setDoctor(queue.getDoctor());
 		entity.setOrthoptist(queue.getOrthoptist());
 		entity.setPatient(entry.getPatient());
+		entity.setCalendarEvent(entry.getCalendarEvent());
 		entity.setArrivalTime(entry.getArrivalTime());
 		entity.setQueueIdParent(queueIdParent);
 		

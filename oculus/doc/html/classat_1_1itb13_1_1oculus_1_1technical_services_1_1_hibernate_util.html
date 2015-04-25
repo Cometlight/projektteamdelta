@@ -103,11 +103,13 @@ Collaboration diagram for at.itb13.oculus.technicalServices.HibernateUtil:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ab088ffc8385bdcafb262d07d76354730"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classat_1_1itb13_1_1oculus_1_1technical_services_1_1_hibernate_util.html#ab088ffc8385bdcafb262d07d76354730">init</a> ()  throws NoDatabaseConnectionException </td></tr>
+<tr class="separator:ab088ffc8385bdcafb262d07d76354730"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab43e3d72014b864f59099e662933539"><td class="memItemLeft" align="right" valign="top">static SessionFactory&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classat_1_1itb13_1_1oculus_1_1technical_services_1_1_hibernate_util.html#aab43e3d72014b864f59099e662933539">getSessionFactory</a> ()</td></tr>
 <tr class="separator:aab43e3d72014b864f59099e662933539"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Singleton for org.hibernate.SessionFactory, which should be instantiated only once as it's expensive doing so.</p>
+<div class="textblock"><p>Singleton for org.hibernate.SessionFactory, which should be instantiated only once as it's expensive doing so. An NoDatabaseConnectionException is thrown, if it's not possible to initialize everything that's needed to work with the database.</p>
 <dl class="section author"><dt>Author</dt><dd>Daniel Scheffknecht </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>04.04.2015 </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
@@ -135,13 +137,37 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ab088ffc8385bdcafb262d07d76354730"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void at.itb13.oculus.technicalServices.HibernateUtil.init </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> throws <a class="el" href="classat_1_1itb13_1_1oculus_1_1technical_services_1_1exceptions_1_1_no_database_connection_exception.html">NoDatabaseConnectionException</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Unfortunately, config.buildSessionFactory(Configuration) only some Exceptions. Some other exceptions are catched inside the function and printed, but not re-thrown. Thus, this workaround is needed in order to check if it's possible to connect to the database.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>D:/Documents/Dropbox/Private/FHV/ITB 4/Objektorientierte Analyse und Design/project_notebook/projektteamdelta/oculus/src/at/itb13/oculus/technicalServices/HibernateUtil.java</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 20 2015 01:06:23 for Oculus by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Apr 25 2015 17:30:05 for Oculus by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

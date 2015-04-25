@@ -2,25 +2,18 @@ package at.itb13.oculus.presentation.view;
 
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javafx.scene.control.ToggleGroup;
 import at.itb13.oculus.application.ControllerFacade;
-import at.itb13.oculus.application.doctor.DoctorRequest;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
-import at.itb13.oculus.application.patient.PatientController;
-import at.itb13.oculus.application.patient.PatientCreation;
 import at.itb13.oculus.domain.Doctor;
+import at.itb13.oculus.domain.Patient.Gender;
 import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.util.DoctorSringConverter;
-import at.itb13.oculus.technicalServices.GenericDao;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -54,11 +47,11 @@ public class NewPatientController {
 	private RadioButton _maleRadioButton;
 	@FXML
 	private RadioButton _femaleRadioButton;
-	private String _gender;
+	private Gender _gender;
 	@FXML
 	private ComboBox<DoctorRO> _doctorBox;
 
-	private List<DoctorRO> _doctorsList;
+
 	private DoctorRO _doctor;
 	@FXML
 	private TextField _streetField;
@@ -80,7 +73,8 @@ public class NewPatientController {
 	private boolean okClicked = false;
 	
 	
-	private PatientRO _patient;
+	private PatientRO _patient;	
+	private Boolean _isNewPatient = true;
 
 	/**
 	 * Initializes the controller class. This method is automatically called
@@ -91,7 +85,7 @@ public class NewPatientController {
 		
 		setItemsToDoctorBox();
 
-		_gender = "F";
+		_gender = Gender.F;
 		_genderGroup = new ToggleGroup();
 		_femaleRadioButton.setToggleGroup(_genderGroup);
 		_maleRadioButton.setToggleGroup(_genderGroup);
@@ -114,31 +108,83 @@ public class NewPatientController {
 	public boolean isOkClicked() {
 		return okClicked;
 	}
+	
 	public PatientRO getPatient(){
 		return _patient;
+	}
+	
+	/**
+	 * sets the patient information to formular for editing a specific patient.
+	 * @param patient
+	 */
+	public void setPatientRO(PatientRO patient){
+		if(patient != null){
+			_isNewPatient = false;
+			_patient = patient;
+			_firstNameField.setText(_patient.getFirstName());
+			_lastNameField.setText(_patient.getLastName());
+			_SINField.setText(_patient.getSocialInsuranceNr());
+			_birthdayField.setText(_patient.getBirthDay().toString());
+			if(_patient.getGender().equals("M")){
+				_maleRadioButton.setSelected(true);
+			}
+			_cityField.setText(_patient.getCity());
+			_postalCodeField.setText(_patient.getPostalCode());
+			_countryISOField.setText(_patient.getCountryIsoCode());
+			_streetField.setText(_patient.getStreet());
+			_phoneField.setText(_patient.getPhone());
+			_emailField.setText(_patient.getEmail());
+			Doctor doc = _patient.getDoctor();
+			if(doc != null){
+				_doctorBox.getSelectionModel().select(doc);
+				_doctor = doc;
+			}
+		}
 	}
 
 	/**
 	 * Called when the user clicks ok.
+	 * creats a new patient or updates a specific patient
 	 */
 	@FXML
     private void handleOk() {
-     
-		
-			try {
-				if (isInputValid()) {   
-					        	
+		try {
+			if (isInputValid()) {
+				if(_isNewPatient){
 					//creating a new Patient and save it in the database
-					PatientController pc = ControllerFacade.getInstance().getPatientController();
-					_patient = pc.createPatient(_doctor, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
-					okClicked = true;
-				    _dialogStage.close();
+					try {
+						_patient = ControllerFacade.getInstance().getNewPatient()
+								.createPatient(_doctor, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("New Patient has been saved");
+						alert.setHeaderText("New Patient saved");
+						alert.setContentText("The Patient has been saved succecfully!");
+						alert.showAndWait();
+					} catch (InvalidInputException e) {
+						_logger.error(e);
+					}
+				} else{
+					try {
+					_patient =	ControllerFacade.getInstance().getWelcomeAtReception()
+							.updatePatient(_patient, _doctor, _SINField.getText(), _firstNameField.getText(), _lastNameField.getText(),_date, _gender, _streetField.getText(), _postalCodeField.getText(),_cityField.getText(), _countryISOField.getText(), _phoneField.getText(), _emailField.getText());
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Patient has been edited");
+						alert.setHeaderText("Changes saved");
+						alert.setContentText("The Patient has been edited succecfully!");
+						alert.showAndWait();
+					} catch (InvalidInputException e) {
+						_logger.error(e);
+					}
 				}
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				ControllerFacade.setPatientSelected(_patient);	
+				
+				okClicked = true;
+			    _dialogStage.close();
 			}
-			
+		} catch (ParseException e) {
+			_logger.error(e);
+		}
     }
 
 	/**
@@ -149,26 +195,31 @@ public class NewPatientController {
 		_dialogStage.close();
 	}
 
+	/**
+	 * is called when the gender radiobuttons are changed
+	 */
 	@FXML
 	private void handleGender() {
 		if (_maleRadioButton.isSelected()) {
-			_gender = "M";
+			_gender = Gender.M;
 		} else if (_femaleRadioButton.isSelected()) {
-			_gender = "F";
+			_gender = Gender.F;
 		}
 
 	}
 
+	/**
+	 * fills the combobox doctor
+	 */
 	private void setItemsToDoctorBox() {
-
-		DoctorRequest docRequest = ControllerFacade.getInstance()
-				.getDoctorRequest();
-
 		_doctorBox.setConverter(new DoctorSringConverter());
-		_doctorBox.getItems().addAll(docRequest.getDoctorList());
+		_doctorBox.getItems().addAll(ControllerFacade.getInstance().getWelcomeAtReception().getDoctorList());
 
 	}
 
+	/**
+	 * is called when the doctor combobox is changed
+	 */
 	@FXML
 	private void handleDoctorComboBox() {
 
@@ -197,11 +248,19 @@ public class NewPatientController {
 					"([0-9]{4})-([0-9]{2})-([0-9]{2})")) {
 				_date = LocalDate.parse(_birthdayField.getText());
 			} else {
-				errorMessage += "No valid Birthday! Please make sure that you have choose the correct date format!\n";
+				errorMessage += "No valid Birthday! Please make sure that you have choosen the correct date format!\n";
 			}
 
 		} else {
 			_date = null;
+		}
+		if (_doctorBox.getSelectionModel().getSelectedItem() == null) {
+			errorMessage += "No doctor selected!\n";
+		}
+		if((_countryISOField.getText() != null)&&(_countryISOField.getText().length() > 0)){
+			if(_countryISOField.getText().length() > 3){
+				errorMessage+="The Country ISO Code is to long. It should have 3 letters.\n";
+			}
 		}
 
 		if (errorMessage.length() == 0) {
@@ -220,13 +279,15 @@ public class NewPatientController {
 		}
 	}
 	
+	/**
+	 * checks if the social insurance number allready exists
+	 */
 	@FXML
 	private void onActionSINField() {
-		PatientController patCol = ControllerFacade.getInstance().getPatientController();
 		String sin = _SINField.getText();
-		if(patCol.isSocialInsuranceNrValid(sin)) {
+		if(ControllerFacade.getInstance().getWelcomeAtReception().isSocialInsuranceNrValid(sin)) {
 			try {
-				PatientRO patientRO = patCol.searchPatientBySocialInsuranceNr(sin);
+				PatientRO patientRO = ControllerFacade.getInstance().getPatientSearch().searchPatientBySocialInsuranceNr(sin);
 
 				if(patientRO != null) {	// Patient with SIN already exists
 					Alert alert = new Alert(AlertType.WARNING);

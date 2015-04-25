@@ -1,3 +1,3 @@
 <map id="at.itb13.oculus.domain.Queue" name="at.itb13.oculus.domain.Queue">
-<area shape="rect" id="node2" href="$interfaceat_1_1itb13_1_1oculus_1_1domain_1_1readonlyinterfaces_1_1_queue_r_o.html" title="{at.itb13.oculus.domain.readonlyinterfaces.\lQueueRO\n||+ getDoctor()\l+ getOrthoptist()\l+ getQueueEntries()\l}" alt="" coords="5,5,265,127"/>
+<area shape="rect" id="node2" href="$interfaceat_1_1itb13_1_1oculus_1_1domain_1_1readonlyinterfaces_1_1_queue_r_o.html" title="{at.itb13.oculus.domain.readonlyinterfaces.\lQueueRO\n||+ getDoctor()\l+ getOrthoptist()\l+ getQueueEntries()\l+ contains()\l+ containsPatient()\l+ getQueueEntryById()\l}" alt="" coords="5,5,265,171"/>
 </map>

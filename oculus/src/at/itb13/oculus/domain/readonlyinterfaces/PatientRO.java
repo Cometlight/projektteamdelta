@@ -6,6 +6,7 @@ import java.util.Set;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.ExaminationProtocol;
+import at.itb13.oculus.domain.Patient.Gender;
 import at.itb13.oculus.domain.Prescription;
 import at.itb13.oculus.domain.ReferralLetter;
 
@@ -22,7 +23,7 @@ public interface PatientRO {
 	String getFirstName();
 	String getLastName();
 	LocalDate getBirthDay();
-	String getGender();
+	Gender getGender();
 	String getStreet();
 	String getPostalCode();
 	String getCity();

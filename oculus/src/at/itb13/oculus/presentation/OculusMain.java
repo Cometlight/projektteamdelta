@@ -1,25 +1,29 @@
 package at.itb13.oculus.presentation;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.prefs.Preferences;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.application.ControllerFacade;
+import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
-import at.itb13.oculus.presentation.view.AppointmentsController;
-import at.itb13.oculus.presentation.view.ControllerMainSetter;
+import at.itb13.oculus.presentation.view.TabAppointmentsController;
+import at.itb13.oculus.presentation.view.EditAnamnesisController;
 import at.itb13.oculus.presentation.view.NewPatientController;
-import at.itb13.oculus.presentation.view.PatientController;
+import at.itb13.oculus.presentation.view.TabPatientController;
 import at.itb13.oculus.presentation.view.PatientRecordController;
-import at.itb13.oculus.presentation.view.QueueController;
+import at.itb13.oculus.presentation.view.TabQueueController;
 import at.itb13.oculus.presentation.view.RootLayoutController;
+import at.itb13.oculus.technicalServices.HibernateUtil;
+import at.itb13.oculus.technicalServices.exceptions.NoDatabaseConnectionException;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -38,66 +42,103 @@ public class OculusMain extends Application {
 	private static final Logger _logger = LogManager.getLogger(OculusMain.class.getName());
 	private static final double MIN_WIDTH = 800d;
 	private static final double MIN_HEIGHT = 600d;
+	private static final String APPLICATION_ICON_PATH = "file:ApplicationResources/Images/eye.png";
+	private static final int ERROR_TIME_BEFORE_SHUTDOWN = 4000;
 	
+	private Scene _primaryScene;
 	private Stage _primaryStage;
 	private BorderPane _rootLayout;
-
-	private PatientRO _tempPatient;
-
+	private RootLayoutController _rootLayoutController;
+	
+	private AnchorPane _appointmentsTab;
+	private TabAppointmentsController _appointmentsController;
+	private AnchorPane _patientTab;
+	private TabPatientController _patientController;
+	private AnchorPane _queueTab;
+	private TabQueueController _queueController;
+	
 	private ObservableList<PatientRO> _patientData = FXCollections.observableArrayList();
+	
+	private SplashScreen _splashScreen;
 
 	public OculusMain() { }
-
-	/**
-	 * TODO: Insert Description
-	 * 
-	 * @return
-	 */
-	public ObservableList<PatientRO> getPatientData() {
-		return _patientData;
+    
+	@Override
+	public void init() throws Exception {
+		_splashScreen = new SplashScreen();
 	}
-
+	
 	/**
-	 * TODO: Insert Description
-	 * 
-	 * @param p
-	 */
-	public void addPatientData(PatientRO p) {
-		_patientData.add(p);
-	}
-
-	/**
-	 * TODO: Insert Description
-	 */
-	public void clearPatientData() {
-		_patientData.clear();
-
-	}
-
-	/**
-	 * TODO: Insert Description
+	 * is called when the program has been started
 	 */
 	@Override
 	public void start(Stage primaryStage) {
 		_logger.info("Starting OculusMain");
+		
 		_primaryStage = primaryStage;
-		_primaryStage.setTitle("Oculus");
+		
+		final Task<Void> startupTask = new Task<Void>() {
+            @Override
+            protected Void call() throws InterruptedException {
+            	updateMessage("Loading Application Icon ...");
+            	
+        		// Set the application icon.
+        		_primaryStage.getIcons().add(
+        				new Image(APPLICATION_ICON_PATH));
+        		
+        		updateMessage("Connecting to database ...");
+        		try {
+        			HibernateUtil.init();
+        		} catch (NoDatabaseConnectionException ex) {
+        			updateMessage("ERROR: Failed to connect to database!");
+        			Thread.sleep(ERROR_TIME_BEFORE_SHUTDOWN);
+        			System.exit(-1);
+        		}
+        		
+        		updateMessage("Loading from database ...");
+        		ControllerFacade.init();	// Load early, so the user does not have to wait when using the application
+
+        		updateMessage("Loading Main Tabs ...");
+        		initRootLayout();
+        		
+        		initAppointmentsTab();
+        		initPatientTab();
+        		initQueueTab();
+        		
+        		updateMessage("Finished.");
+        		
+				return null;
+            }
+        };
+ 
+        _splashScreen.showSplash(new Stage(), startupTask, () -> showMainStage());
+        new Thread(startupTask).start();
+	}
+	
+    private void showMainStage() {
+    	_primaryStage.setScene(_primaryScene);
+    	_primaryStage.setTitle("Oculus");
 		_primaryStage.setMinWidth(MIN_WIDTH);
 		_primaryStage.setMinHeight(MIN_HEIGHT);
-
-		// Set the application icon.
-		_primaryStage.getIcons().add(
-				new Image("file:ApplicationResources/Images/eye.png"));
-
-		initRootLayout();
+		_primaryStage.show();
 		
-		showAppointmentsOverview();
-
 		_logger.info("Finished starting OculusMain");
+		
+		showAppointmentsTab();
+    }
+    
+	/**
+	 * is called when the "X" on the screen has been pushed
+	 */
+	@Override
+	public void stop() throws Exception {
+		_logger.info("Shutting down application...");
+		super.stop();
+		System.exit(0);	// TODO: Find another way to stop the application. Currently Hibernate won't stop, even when closing any exisiting SessionFactory.
 	}
 
 	/**
-	 * TODO: Insert Description
+	 * initializes the root layout and opens the root layout screen
 	 */
 	public void initRootLayout() {
 		try {
@@ -107,143 +148,127 @@ public class OculusMain extends Application {
 			rlc.setMain(this);
 			loader.setController(rlc);
 			_rootLayout = loader.load();
+			rlc.setTabPane((TabPane)_rootLayout.getTop());
 
 			// Show the scene containing the root layout.
-			Scene scene = new Scene(_rootLayout);
-			_primaryStage.setScene(scene);
-			_primaryStage.show();
+			_primaryScene = new Scene(_rootLayout);
 
 			// Give the controller access to the main app.
-			RootLayoutController controller = loader.getController();
-			controller.setMain(this);
+			_rootLayoutController = loader.getController();
+			_rootLayoutController.setMain(this);
 			
 			_logger.info("initRootLayout() successful");
 		} catch (IOException ex) {
-			_logger.error(ex);
+			_logger.error("initRootLayout() failed", ex);
 		}
 	}
 	
 	/**
-	 * Loads the .fxml-File and display it in the center of the root-Layout.
-	 * 
-	 * @param fxmlPath The path of the .fxml-File, eg. "view/PatientOverview.fxml"
-	 * @param controllerClass The class of the associated controller. Must implement the interface IController.
+	 * Loads the view/tabPatient.fxml-File and display it in the center of the root-Layout.
 	 */
-	public <T extends ControllerMainSetter> void showTab(String fxmlPath, Class<T> controllerClass) {
+	public void showPatientOverview() {
 		if(_rootLayout != null) {
 			try {
 				// Load person overview.
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(OculusMain.class
-						.getResource(fxmlPath));
+						.getResource("view/TabPatient.fxml"));
 				AnchorPane overview = (AnchorPane) loader.load();
 	
 				// Set person overview into the center of root layout.
 				_rootLayout.setCenter(overview);
 	
 				// Give the controller access to the main app.
-				T controller = loader.getController();
+				TabPatientController controller = loader.getController();
 				controller.setMain(this);
 				
-				_logger.info("Successfully loaded " + controllerClass.getName());
+				_logger.info("Successfully loaded PatientOverview");
 			} catch (IOException ex) {
-				_logger.error(ex);
+				_logger.error("Failed to load PatientOverview",ex);
+				
 			}
 		}
 	}
-
-	/**
-	 * TODO: Insert Description
-	 */
-	public void showPatientOverview() {
-		showTab("view/PatientOverview.fxml", PatientController.class);
-		
-		// "Old" way of doing that:
-//		if(_rootLayout != null) {
-//			try {
-//				// Load person overview.
-//				FXMLLoader loader = new FXMLLoader();
-//				loader.setLocation(OculusMain.class
-//						.getResource("view/PatientOverview.fxml"));
-//				AnchorPane overview = (AnchorPane) loader.load();
-//	
-//				// Set person overview into the center of root layout.
-//				_rootLayout.setCenter(overview);
-//	
-//				// Give the controller access to the main app.
-//				PatientController controller = loader.getController();
-//				controller.setMain(this);
-//				
-//				_logger.info("Successfully loaded PatientOverview");
-//			} catch (IOException ex) {
-//				_logger.error(ex);
-//			}
-//		}
-	}
-
-	/**
-	 * TODO: Insert Description
-	 */
-	public void showAppointmentsOverview() {
-		showTab("view/AppointmentsOverview.fxml", AppointmentsController.class);
-		
-		// "Old" way of doing that:
-//		if(_rootLayout != null) {
-//			try {
-//				// Load person overview.
-//				FXMLLoader loader = new FXMLLoader();
-//				loader.setLocation(OculusMain.class
-//						.getResource("view/AppointmentsOverview.fxml"));
-//				AnchorPane overview = (AnchorPane) loader.load();
-//	
-//				// Set person overview into the center of root layout.
-//				_rootLayout.setCenter(overview);
-//	
-//				// Give the controller access to the main app.
-//				AppointmentsController controller = loader.getController();
-//				controller.setMain(this);
-//	
-//			} catch (IOException ex) {
-//				_logger.error(ex);
-//			}
-//		}
-
-	}
-
-	/**
-	 * TODO: Insert Description
-	 */
-	public void showQueue() {
-		showTab("view/Queue.fxml", QueueController.class);
-		
-		// "Old" way of doing that:
-//		if(_rootLayout != null) {
-//			try {
-//				// Load person overview.
-//				FXMLLoader loader = new FXMLLoader();
-//				loader.setLocation(OculusMain.class.getResource("view/Queue.fxml"));
-//				AnchorPane overview = (AnchorPane) loader.load();
-//	
-//				// Set person overview into the center of root layout.
-//				_rootLayout.setCenter(overview);
-//	
-//				// Give the controller access to the main app.
-//				QueueController controller = loader.getController();
-//				controller.setMain(this);
-//	
-//			} catch (IOException ex) {
-//				_logger.error(ex);
-//			}
-//		}
-	}
-
-	/**
-	 * TODO: Insert Description
-	 * 
-	 * @return
-	 */
-	public boolean showNewPatientDialog() {
+	
+	private void initAppointmentsTab() {
 		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(OculusMain.class
+					.getResource("view/TabAppointments.fxml"));
+			_appointmentsTab = (AnchorPane) loader.load();
+
+			// Give the controller access to the main app.
+			_appointmentsController = loader.getController();
+			_appointmentsController.setMain(this);
+
+		} catch (IOException ex) {
+			_logger.error(ex);
+		}
+	}
+	
+	private void initPatientTab() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(OculusMain.class
+					.getResource("view/TabPatient.fxml"));
+			_patientTab = (AnchorPane) loader.load();
+
+			// Give the controller access to the main app.
+			_patientController = loader.getController();
+			_patientController.setMain(this);
+
+		} catch (IOException ex) {
+			_logger.error(ex);
+		}
+	}
+	
+	private void initQueueTab() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(OculusMain.class
+					.getResource("view/TabQueue.fxml"));
+			_queueTab = (AnchorPane) loader.load();
+
+			// Give the controller access to the main app.
+			_queueController = loader.getController();
+			_queueController.setMain(this);
+
+		} catch (IOException ex) {
+			_logger.error("Fail: initQueueTab",ex);
+		}
+	}
+
+	public void showAppointmentsTab() {
+		if(_appointmentsTab != null) {
+			_rootLayout.setCenter(_appointmentsTab);
+			_queueController.stopQueueReloader();
+		}
+	}
+	
+	public void showPatientTab() { 
+		if(_patientTab != null) {
+			_rootLayout.setCenter(_patientTab);
+			_queueController.stopQueueReloader();
+		}
+	}
+	
+	public void showQueueTab() {
+		if(_queueTab != null) {
+			_rootLayout.setCenter(_queueTab);
+			_queueController.startQueueReloader();
+		}
+	}
+	
+	
+	/**
+	 * is called when the button "edit" or "new patient" has been pushed
+	 * 
+	 * @return boolean
+	 * @param patient
+	 */
+	public boolean showNewPatientDialog(PatientRO patient) {
+		try {
+			ControllerFacade.setPatientSelected(null);
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(OculusMain.class
@@ -252,7 +277,11 @@ public class OculusMain extends Application {
 
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("New Patient");
+			if(patient == null){
+				dialogStage.setTitle("New Patient");
+			}else{
+				dialogStage.setTitle("Edit Patient");
+			}
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(_primaryStage);
 			Scene scene = new Scene(page);
@@ -261,34 +290,19 @@ public class OculusMain extends Application {
 			// Set the person into the controller.
 			NewPatientController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
+			controller.setPatientRO(patient);
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
-			_tempPatient = controller.getPatient();
+
 			_logger.info("showNewPatientDialog successful");
 			return controller.isOkClicked();
 		} catch (IOException ex) {
-			_logger.error(ex);
+			_logger.error("showNewPatientDialog failed", ex);
 			return false;
 		}
 	}
 
-	/**
-	 * TODO: Insert Description
-	 * 
-	 * @return
-	 */
-	public PatientRO getCreatedPatient() {
-		return _tempPatient;
-	}
-
-
-	/**
-	 * TODO: Insert Description
-	 * 
-	 * @param newValue
-	 * @return
-	 */
 	public Object showPatientRecord(BorderPane layout, PatientRO patient) {
 		try {
 			// Load person overview.
@@ -303,67 +317,80 @@ public class OculusMain extends Application {
 			// Give the controller access to the main app.
 			PatientRecordController controller = loader.getController();
 			controller.setMain(this);
-			controller.showPatientMasterData(patient);
-			controller.showAnamanesis(patient);
-			_logger.info("showPatientRecord");
+			if(patient != null) {
+				controller.showPatientMasterData(patient);
+				controller.showAnamanesis(patient);
+				controller.showAppointments(patient);
+				_logger.info("showPatientRecord");
+			}
 		} catch (IOException ex) {
 			ex.printStackTrace();
-			_logger.error(ex);
+			_logger.error("showPatientRecord failed", ex);
 		}
 		return null;
 	}
 
-	/**
-	 * TODO: Insert Description
-	 * 
-	 * @return
-	 */
-	public File getPersonFilePath() {	// FIXME: Where is this method used?
-		Preferences prefs = Preferences.userNodeForPackage(OculusMain.class);
-		String filePath = prefs.get("filePath", null);
-		if (filePath != null) {
-			return new File(filePath);
-		} else {
-			return null;
-		}
+	public void showAppointment(CalendarEventRO calendarEventRO) {
+		_appointmentsController.showAppointmentInformation(calendarEventRO);
+		_appointmentsController.showPatientRecord(calendarEventRO.getPatient());
+		_appointmentsController.selectCalendarEventInTable(calendarEventRO);
+		showAppointmentsTab();
+		_rootLayoutController.setTab(0);
 	}
-
-	/**
-	 * TODO: Insert Description
-	 * 
-	 * @param file
-	 */
-	public void setPatientFilePath(File file) {	// FIXME: Where is this method used?
-		Preferences prefs = Preferences.userNodeForPackage(OculusMain.class);
-		if (file != null) {
-			prefs.put("filePath", file.getPath());
-
-			// Update the stage title.
-			_primaryStage.setTitle("Oculus Patient - " + file.getName());
-		} else {
-			prefs.remove("filePath");
-
-			// Update the stage title.
-			_primaryStage.setTitle("Oculus");
-		}
-	}
-
-	/**
-	 * TODO: Insert Description
-	 * 
-	 * @param args
-	 */
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
 
-	/**
-	 * TODO: Insert Description
-	 * 
-	 * @return
-	 */
 	public Window getPrimaryStage() {
 		return _primaryStage;
+	}
+
+	public boolean showEditAnamnesis(PatientRO patient) {
+		try {
+		
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(OculusMain.class
+					.getResource("view/EditAnamnesisDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Edit Anamnesis");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(_primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the person into the controller.
+			EditAnamnesisController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setPatientRO(patient);
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+			
+			
+			
+			_logger.info("editAnamnesisDialog successful");
+			return controller.isSaveClicked();
+		} catch (IOException ex) {
+			_logger.error("editAnamnesisDialog failed", ex);
+			return false;
+		}
+		
+	}
+	
+	public ObservableList<PatientRO> getPatientData() {
+		return _patientData;
+	}
+
+	public void addPatientData(PatientRO p) {
+		_patientData.add(p);
+	}
+
+	public void clearPatientData() {
+		_patientData.clear();
 	}
 
 }

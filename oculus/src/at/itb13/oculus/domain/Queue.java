@@ -1,28 +1,10 @@
 package at.itb13.oculus.domain;
+
+import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.Date;
-import java.util.Deque;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-
-import static javax.persistence.GenerationType.IDENTITY;
-
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,6 +14,7 @@ import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
 /**
  * 
  * TODO: Insert description here.
+ * If neither the doctor nor the orthoptist is set, it's the general orthoptist queue.
  * 
  * @author Daniel Scheffknecht
  * @date 11.04.2015
@@ -42,7 +25,7 @@ public class Queue implements QueueRO {
 	
 	private Doctor _doctor;
 	private Orthoptist _orthoptist;
-	private List<QueueEntry> _queueEntries;	// sorted
+	private List<QueueEntry> _queueEntries;	// sorted, newest at front
 
 	public Queue() {
 	}
@@ -60,6 +43,24 @@ public class Queue implements QueueRO {
 	
 	public void pushQueueEntry(QueueEntry queueEntry) {
 		_queueEntries.add(queueEntry);
+	}
+	
+	public void pushQueueEntry(Patient patient, CalendarEvent calendarEvent) {
+		pushQueueEntry(patient, calendarEvent, LocalDateTime.now());
+	}
+	
+	/**
+	 * 
+	 * @param patient
+	 * @param calendarEvent may be null, if only the patient without reference to a calendarEvent should be inserted
+	 * @param arrivalTime
+	 */
+	public void pushQueueEntry(Patient patient, CalendarEvent calendarEvent, LocalDateTime arrivalTime) {
+		QueueEntry entry = new QueueEntry();
+		entry.setPatient(patient);
+		entry.setCalendarEvent(calendarEvent);
+		entry.setArrivalTime(arrivalTime);
+		pushQueueEntry(entry);
 	}
 	
 	/**
@@ -90,12 +91,11 @@ public class Queue implements QueueRO {
 	}
 	
 	/**
-	 * TODO: needed?
 	 * @param queueEntry
 	 * @return
 	 */
 	public boolean removeQueueEntry(QueueEntry queueEntry) {
-		if(!_queueEntries.remove(_queueEntries)) {
+		if(!_queueEntries.remove(queueEntry)) {
 			_logger.warn("queueEntry not in list.");	
 			return false;
 		}
@@ -103,17 +103,12 @@ public class Queue implements QueueRO {
 	}
 	
 	/**
-	 * TODO
-	 * @param queueEntryID
-	 * @return
+	 * 
+	 * @param patient
+	 * @return true if removed; false if patient wasn't in the queue
 	 */
-	public boolean contains(Integer queueEntryID) {
-		for(QueueEntry qE : _queueEntries) {
-			if(qE.getQueueEntryId().equals(queueEntryID)) {
-				return true;
-			}
-		}
-		return false;
+	public boolean removeQueueEntry(Patient patient) {
+		return _queueEntries.removeIf(entry -> entry.getPatient().getPatientId().equals(patient.getPatientId()));
 	}
 	
 	/**
@@ -155,6 +150,57 @@ public class Queue implements QueueRO {
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * TODO
+	 * 
+	 * @param patient
+	 * @return
+	 */
+	public boolean containsPatient(Integer patientID) {
+		for(QueueEntry queueEntry : _queueEntries) {
+			if(queueEntry.getPatient().getPatientId().equals(patientID)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * TODO
+	 * @param queueEntryID
+	 * @return
+	 */
+	public boolean contains(Integer queueEntryID) {
+		for(QueueEntry qE : _queueEntries) {
+			if(qE.getQueueEntryId().equals(queueEntryID)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public QueueEntry getQueueEntryById(Integer queueEntryID) {
+		for(QueueEntry qE : _queueEntries) {
+			if(qE.getQueueEntryId().equals(queueEntryID)) {
+				return qE;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Not overriding equals() because this method only checks concerning the IDs.
+	 * @param queue
+	 * @return
+	 */
+	public boolean representsSameQueueByID(Queue queue) {
+		return (
+				   (_doctor != null && queue.getDoctor() != null && _doctor.getDoctorId().equals(queue.getDoctor().getDoctorId()))
+				|| (_orthoptist != null && queue.getOrthoptist() != null && _orthoptist.getOrthoptistId().equals(queue.getOrthoptist().getOrthoptistId()))
+				|| (_doctor == null && _orthoptist == null && queue.getDoctor() == null && queue.getOrthoptist() == null)
+			);
 	}
 
 	/**

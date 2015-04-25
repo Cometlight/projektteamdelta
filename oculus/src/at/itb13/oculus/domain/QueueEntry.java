@@ -1,7 +1,6 @@
 package at.itb13.oculus.domain;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,13 +18,15 @@ public class QueueEntry implements QueueEntryRO {
 	
 	private Integer _queueEntryId;
 	private Patient _patient;
+	private CalendarEvent _calendarEvent;
 	private LocalDateTime _arrivalTime;
 	
 	public QueueEntry() { }
 	
-	public QueueEntry(Integer queueEntryId, Patient patient, LocalDateTime arrivalTime) {
+	public QueueEntry(Integer queueEntryId, Patient patient, CalendarEvent calendarEvent, LocalDateTime arrivalTime) {
 		_queueEntryId = queueEntryId;
 		_patient = patient;
+		_calendarEvent = calendarEvent;
 		_arrivalTime = arrivalTime;
 	}
 	
@@ -69,5 +70,19 @@ public class QueueEntry implements QueueEntryRO {
 	 */
 	public void setArrivalTime(LocalDateTime arrivalTime) {
 		_arrivalTime = arrivalTime;
+	}
+
+	/**
+	 * @return the calendarEvent
+	 */
+	public CalendarEvent getCalendarEvent() {
+		return _calendarEvent;
+	}
+
+	/**
+	 * @param calendarEvent the calendarEvent to set
+	 */
+	public void setCalendarEvent(CalendarEvent calendarEvent) {
+		_calendarEvent = calendarEvent;
 	}
 }

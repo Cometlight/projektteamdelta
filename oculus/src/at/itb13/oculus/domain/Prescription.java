@@ -30,65 +30,65 @@ import org.apache.logging.log4j.Logger;
  * @date 14.04.2015
  */
 @Entity
-@Table(name = "prescription", catalog = "oculusdb")
+@Table(name = "prescription", catalog = "oculus_d")
 public class Prescription implements java.io.Serializable {
 	private static final Logger _logger = LogManager.getLogger(Prescription.class.getName());
+	private static final long serialVersionUID = 1L;
 	
-	private Integer prescriptionId;
-	private Patient patient;
-	private Date issueDate;
-	private Set<PrescriptionEntry> prescriptionentries = new HashSet<PrescriptionEntry>(
-			0);
+	private Integer _prescriptionId;
+	private Patient _patient;
+	private Date _issueDate;
+	private Set<PrescriptionEntry> _prescriptionentries = new HashSet<PrescriptionEntry>(0);
 
 	public Prescription() {
 	}
 
 	public Prescription(Patient patient, Date issueDate,
 			Set<PrescriptionEntry> prescriptionentries) {
-		this.patient = patient;
-		this.issueDate = issueDate;
-		this.prescriptionentries = prescriptionentries;
+		_patient = patient;
+		_issueDate = issueDate;
+		_prescriptionentries = prescriptionentries;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "prescriptionId", unique = true, nullable = false)
 	public Integer getPrescriptionId() {
-		return this.prescriptionId;
+		return _prescriptionId;
 	}
 
 	public void setPrescriptionId(Integer prescriptionId) {
-		this.prescriptionId = prescriptionId;
+		_prescriptionId = prescriptionId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "patientId")
 	public Patient getPatient() {
-		return this.patient;
+		return _patient;
 	}
 
 	public void setPatient(Patient patient) {
-		this.patient = patient;
+		_patient = patient;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "issueDate", length = 19)
 	public Date getIssueDate() {
-		return this.issueDate;
+		return _issueDate;
 	}
 
 	public void setIssueDate(Date issueDate) {
-		this.issueDate = issueDate;
+		_issueDate = issueDate;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "prescription")
 	public Set<PrescriptionEntry> getPrescriptionentries() {
-		return this.prescriptionentries;
+		return _prescriptionentries;
 	}
 
 	public void setPrescriptionentries(
 			Set<PrescriptionEntry> prescriptionentries) {
-		this.prescriptionentries = prescriptionentries;
+		_prescriptionentries = prescriptionentries;
 	}
 
 }

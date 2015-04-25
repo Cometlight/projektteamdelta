@@ -29,89 +29,76 @@ import org.apache.logging.log4j.Logger;
  * @date 14.04.2015
  */
 @Entity
-@Table(name = "workinghours", catalog = "oculusdb", uniqueConstraints = @UniqueConstraint(columnNames = {
+@Table(name = "workinghours", catalog = "oculus_d", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"morningFrom", "morningTo", "afternoonFrom", "afternoonTo" }))
 public class WorkingHours implements java.io.Serializable {
 	private static final Logger _logger = LogManager.getLogger(WorkingHours.class.getName());
 	
-	private Integer workingHoursId;
-	private Date morningFrom;
-	private Date morningTo;
-	private Date afternoonFrom;
-	private Date afternoonTo;
-	private Set<CalendarWorkingHours> calendarworkinghours = new HashSet<CalendarWorkingHours>(0);
+	private Integer _workingHoursId;
+	private Date _morningFrom;
+	private Date _morningTo;
+	private Date _afternoonFrom;
+	private Date _afternoonTo;
 
 	public WorkingHours() {
 	}
 
 	public WorkingHours(Date morningFrom, Date morningTo, Date afternoonFrom,
 			Date afternoonTo, Set<CalendarWorkingHours> calendarworkinghourses) {
-		this.morningFrom = morningFrom;
-		this.morningTo = morningTo;
-		this.afternoonFrom = afternoonFrom;
-		this.afternoonTo = afternoonTo;
-		this.calendarworkinghours = calendarworkinghourses;
+		_morningFrom = morningFrom;
+		_morningTo = morningTo;
+		_afternoonFrom = afternoonFrom;
+		_afternoonTo = afternoonTo;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "workingHoursId", unique = true, nullable = false)
 	public Integer getWorkingHoursId() {
-		return this.workingHoursId;
+		return _workingHoursId;
 	}
 
 	public void setWorkingHoursId(Integer workingHoursId) {
-		this.workingHoursId = workingHoursId;
+		_workingHoursId = workingHoursId;
 	}
 
 	@Temporal(TemporalType.TIME)
 	@Column(name = "morningFrom", length = 8)
 	public Date getMorningFrom() {
-		return this.morningFrom;
+		return _morningFrom;
 	}
 
 	public void setMorningFrom(Date morningFrom) {
-		this.morningFrom = morningFrom;
+		_morningFrom = morningFrom;
 	}
 
 	@Temporal(TemporalType.TIME)
 	@Column(name = "morningTo", length = 8)
 	public Date getMorningTo() {
-		return this.morningTo;
+		return _morningTo;
 	}
 
 	public void setMorningTo(Date morningTo) {
-		this.morningTo = morningTo;
+		_morningTo = morningTo;
 	}
 
 	@Temporal(TemporalType.TIME)
 	@Column(name = "afternoonFrom", length = 8)
 	public Date getAfternoonFrom() {
-		return this.afternoonFrom;
+		return _afternoonFrom;
 	}
 
 	public void setAfternoonFrom(Date afternoonFrom) {
-		this.afternoonFrom = afternoonFrom;
+		_afternoonFrom = afternoonFrom;
 	}
 
 	@Temporal(TemporalType.TIME)
 	@Column(name = "afternoonTo", length = 8)
 	public Date getAfternoonTo() {
-		return this.afternoonTo;
+		return _afternoonTo;
 	}
 
 	public void setAfternoonTo(Date afternoonTo) {
-		this.afternoonTo = afternoonTo;
+		_afternoonTo = afternoonTo;
 	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "workinghours")
-	public Set<CalendarWorkingHours> getCalendarworkinghours() {
-		return this.calendarworkinghours;
-	}
-
-	public void setCalendarworkinghours(
-			Set<CalendarWorkingHours> calendarworkinghourses) {
-		this.calendarworkinghours = calendarworkinghourses;
-	}
-
 }

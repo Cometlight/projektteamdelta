@@ -37,7 +37,4 @@ public class DoctorDao extends GenericDao<Doctor> {
 	public static DoctorDao getInstance() {
 		return _doctorDao;
 	}
-	
-	
-	// TODO: Why does a doctor contain a list of "doctors"?
 }

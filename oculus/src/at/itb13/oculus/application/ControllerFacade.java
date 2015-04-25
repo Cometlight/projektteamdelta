@@ -1,5 +1,6 @@
 package at.itb13.oculus.application;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,17 +8,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.application.calendar.CalendarController;
-import at.itb13.oculus.application.doctor.DoctorRequest;
-import at.itb13.oculus.application.patient.PatientController;
-import at.itb13.oculus.application.patient.PatientCreation;
-import at.itb13.oculus.application.patient.PatientSearch;
+import at.itb13.oculus.application.doctor.WelcomePatient;
 import at.itb13.oculus.application.queue.QueueController;
-import at.itb13.oculus.domain.Doctor;
-import at.itb13.oculus.domain.Orthoptist;
+import at.itb13.oculus.application.receptionist.NewPatient;
+import at.itb13.oculus.application.receptionist.PatientSearch;
+import at.itb13.oculus.application.receptionist.WelcomeAtReception;
+import at.itb13.oculus.domain.Patient;
+import at.itb13.oculus.domain.User;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
+import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
 import at.itb13.oculus.technicalServices.dao.CalendarDao;
-import at.itb13.oculus.technicalServices.dao.PatientDao;
 import at.itb13.oculus.technicalServices.dao.QueueDao;
 
 /**
@@ -34,6 +35,8 @@ public class ControllerFacade {
 	private static List<QueueController> _listQueueController;
 	private static List<CalendarController> _listCalendarController;
 	
+	private static PatientRO _patientSelected;	// TODO work with this patient instead of _tempPatient of OculusMain ###############################################
+	
 	static {
 		init();
 	}
@@ -41,46 +44,85 @@ public class ControllerFacade {
 	private ControllerFacade() { }
 	
 	public static void init() {
+		_logger.info("Initializing ControllerFacade...");
+		
 		_instance = new ControllerFacade();
 		
+		reloadAllQueueController();
+		
+		reloadAllCalendarController();
+		
+		_logger.info("ControllerFacade has been initialized.");
+	}
+	
+	/**
+	 * Loads all queues from the database and assigns them to _listQueueController.
+	 */
+	private static void reloadAllQueueController() {
 		_listQueueController = new LinkedList<>();
 		QueueDao.getInstance().findAll().forEach(q -> {
 			QueueController qC = new QueueController(q);
 			_listQueueController.add(qC);
 		});
 		
+		_listQueueController.sort(new Comparator<QueueController>() {
+			@Override
+			public int compare(QueueController o1, QueueController o2) {
+				String o1Name = getNameOfQueueController(o1);
+				String o2Name = getNameOfQueueController(o2);
+				return o1Name.compareTo(o2Name);
+			}
+		});
+	}
+	
+	private static String getNameOfQueueController(QueueController queueController) {
+		if(queueController.getQueue().getDoctor() != null) {
+			User user = queueController.getQueue().getDoctor().getUser();
+			return "Dr " + user.getFirstName() + " " + user.getLastName();
+		} else if(queueController.getQueue().getOrthoptist() != null) {
+			User user = queueController.getQueue().getOrthoptist().getUser();
+			return "Orthoptist " + user.getFirstName() + " " + user.getLastName();
+		} else {
+			return "Orthoptists";	// general orthoptist queue
+		}
+	}
+	
+	/**
+	 * Loads all calendars from the database and assigns them to _listCalendarController.
+	 */
+	private static void reloadAllCalendarController() {
 		_listCalendarController = new LinkedList<>();
 		CalendarDao.getInstance().findAll().forEach(q -> {
 			CalendarController cC = new CalendarController(q);
 			_listCalendarController.add(cC);
 		});
-		
 	}
 	
 	public static ControllerFacade getInstance() {
 		return _instance;
 	}
 	
-//	/**
-//	 * 
-//	 * @return instantiated controller
-//	 */
-//	public PatientSearch getPatientSearch() {
-//		return new PatientSearch();
-//	}
-//	
-//	public PatientCreation getPatientCreation() {
-//		return new PatientCreation();
-//	}
-	
-	public PatientController getPatientController() {
-		return new PatientController();
+	/* -- PatientSearch -- */
+	public PatientSearch getPatientSearch() {
+		return new PatientSearch();
 	}
 	
-	public DoctorRequest getDoctorRequest() {
-		return new DoctorRequest();
+	/* -- NewPatient -- */
+	public NewPatient getNewPatient() {
+		return new NewPatient();
 	}
 	
+	/* -- WelcomeAtReception -- */
+	public WelcomeAtReception getWelcomeAtReception() {
+		return new WelcomeAtReception();
+	}
+	
+	/* -- WelcomePatient -- */
+	public WelcomePatient getWelcomePatient() {
+		return new WelcomePatient();
+	}
+	
+	/* -- QueueController -- */
 	public QueueController getQueueController(Integer doctorId, Integer orthoptistId) {
 		QueueController controller = null;
 		
@@ -97,6 +139,11 @@ public class ControllerFacade {
 		return controller;
 	}
 	
+	/**
+	 * Returns a queue Controller with the same doctorID and orthoptistID.
+	 * @param queueRO
+	 * @return
+	 */
 	public QueueController getQueueController(QueueRO queueRO) {
 		return getQueueController((queueRO.getDoctor() == null) ? null : queueRO.getDoctor().getDoctorId(), 
 				(queueRO.getOrthoptist() == null) ? null : queueRO.getOrthoptist().getOrthoptistId());
@@ -105,7 +152,12 @@ public class ControllerFacade {
 	public List<QueueController> getAllQueueController() {
 		return _listQueueController;
 	}
+	
+	public void refreshQueueController() {
+		reloadAllQueueController();
+	}
 
+	/* -- CalendarController -- */
 	public CalendarController getCalendarController(Integer doctorId, Integer orthoptistId) {
 		CalendarController controller = null;
 		
@@ -138,5 +190,25 @@ public class ControllerFacade {
 	public List<CalendarController> getAllCalendarController() {
 		return _listCalendarController;
 	}
+	
+	public void refreshCalendarController() {
+		reloadAllCalendarController();
+	}
+
+	/* -- Selected Domain Objects -- */
+	/**
+	 * @return the patientSelected
+	 */
+	public static PatientRO getPatientSelected() {
+		return _patientSelected;
+	}
+
+	/**
+	 * @param patientSelected the patientSelected to set
+	 */
+	public static void setPatientSelected(PatientRO patientSelected) {
+		_patientSelected = patientSelected;
+	}
+	
 }
 

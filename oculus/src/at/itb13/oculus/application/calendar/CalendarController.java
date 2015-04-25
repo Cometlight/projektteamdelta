@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
@@ -31,7 +30,7 @@ public class CalendarController {
 		_calendar = calendar;
 	}
 	
-	public CalendarRO getCalendar() {	// TODO: sichtbarkeit einschränken, wenn möglich
+	public CalendarRO getCalendar() {
 		return _calendar;
 	}
 	
@@ -52,17 +51,18 @@ public class CalendarController {
 	}
 	
 	/**
-	 * TODO: @Karin: Insert description! eg. mention that makePersitent is used. Author + Date not needed for methods.
 	 * 
-	 * @param c CalendarEvent, inserted to Patient p
-	 * @param p Patient, inserted to Set<CalendarEvents>
+	 * @param calendarEventRO inserted into patientRO
+	 * @param patientRO inserted into calendarEventRO
+	 * @return The updated CalendarEvent; may be null if it failed to save the changes to the database.
 	 */
-	public boolean connectCalendarEventWithPatient (CalendarEventRO calendarEventRO, PatientRO patientRO){
+	public CalendarEventRO connectCalendarEventWithPatient (CalendarEventRO calendarEventRO, PatientRO patientRO){
 		Patient patient = PatientDao.getInstance().findById(patientRO.getPatientId());
 		CalendarEventDao calEvDao = CalendarEventDao.getInstance();
 		CalendarEvent calEv = calEvDao.findById(calendarEventRO.getCalendarEventId());
 		calEv.setPatient(patient);
-		return calEvDao.makePersistent(calEv);
+		((Patient)patientRO).addCalendarEvent(calEv);
+		return calEvDao.makePersistent(calEv) ? calEv : null;
 	}
 	
 	/**

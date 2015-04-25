@@ -82,7 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>at</b></li><li class="navelem"><b>itb13</b></li><li class="navelem"><b>oculus</b></li><li class="navelem"><a class="el" href="namespaceat_1_1itb13_1_1oculus_1_1domain.html">domain</a></li><li class="navelem"><a class="el" href="namespaceat_1_1itb13_1_1oculus_1_1domain_1_1readonlyinterfaces.html">readonlyinterfaces</a></li><li class="navelem"><a class="el" href="interfaceat_1_1itb13_1_1oculus_1_1domain_1_1readonlyinterfaces_1_1_queue_r_o.html">QueueRO</a></li>  </ul>
+<li class="navelem"><b>at</b></li><li class="navelem"><b>itb13</b></li><li class="navelem"><b>oculus</b></li><li class="navelem"><a class="el" href="namespaceat_1_1itb13_1_1oculus_1_1domain.html">domain</a></li><li class="navelem"><b>readonlyinterfaces</b></li><li class="navelem"><a class="el" href="interfaceat_1_1itb13_1_1oculus_1_1domain_1_1readonlyinterfaces_1_1_queue_r_o.html">QueueRO</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -98,7 +98,7 @@ Inheritance diagram for at.itb13.oculus.domain.readonlyinterfaces.QueueRO:</div>
 <div class="dyncontent">
 <div class="center"><img src="interfaceat_1_1itb13_1_1oculus_1_1domain_1_1readonlyinterfaces_1_1_queue_r_o__inherit__graph.png" border="0" usemap="#at_8itb13_8oculus_8domain_8readonlyinterfaces_8_queue_r_o_inherit__map" alt="Inheritance graph"/></div>
 <map name="at_8itb13_8oculus_8domain_8readonlyinterfaces_8_queue_r_o_inherit__map" id="at_8itb13_8oculus_8domain_8readonlyinterfaces_8_queue_r_o_inherit__map">
-<area shape="rect" id="node2" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html" title="{at.itb13.oculus.domain.Queue\n||+ Queue()\l+ Queue()\l+ Queue()\l+ pushQueueEntry()\l+ peek()\l+ popQueueEntry()\l+ removeQueueEntry()\l+ contains()\l+ move()\l+ getDoctor()\l+ setDoctor()\l+ getOrthoptist()\l+ setOrthoptist()\l+ getQueueEntries()\l+ setQueueEntries()\l}" alt="" coords="41,175,229,457"/></map>
+<area shape="rect" id="node2" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html" title="{at.itb13.oculus.domain.Queue\n||+ Queue()\l+ Queue()\l+ Queue()\l+ pushQueueEntry()\l+ pushQueueEntry()\l+ pushQueueEntry()\l+ peek()\l+ popQueueEntry()\l+ removeQueueEntry()\l+ removeQueueEntry()\land 11 more...\l}" alt="" coords="41,219,229,443"/></map>
 </div>
 <div class="dynheader">
 Collaboration diagram for at.itb13.oculus.domain.readonlyinterfaces.QueueRO:</div>
@@ -119,6 +119,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a257c3134ec8b2e109fbe32df32a32be0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a257c3134ec8b2e109fbe32df32a32be0"></a>
 List&lt; <a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_entry.html">QueueEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getQueueEntries</b> ()</td></tr>
 <tr class="separator:a257c3134ec8b2e109fbe32df32a32be0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89ff6ab631ea3d3a13bc222b05b8a3ba"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a89ff6ab631ea3d3a13bc222b05b8a3ba"></a>
+boolean&#160;</td><td class="memItemRight" valign="bottom"><b>contains</b> (Integer queueEntryID)</td></tr>
+<tr class="separator:a89ff6ab631ea3d3a13bc222b05b8a3ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec51aaf34224915b50c1ac3a174ed958"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aec51aaf34224915b50c1ac3a174ed958"></a>
+boolean&#160;</td><td class="memItemRight" valign="bottom"><b>containsPatient</b> (Integer patientID)</td></tr>
+<tr class="separator:aec51aaf34224915b50c1ac3a174ed958"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42fb9f90ed4d5d43e67add001dd7f1b1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a42fb9f90ed4d5d43e67add001dd7f1b1"></a>
+<a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_entry.html">QueueEntry</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getQueueEntryById</b> (Integer queueEntryID)</td></tr>
+<tr class="separator:a42fb9f90ed4d5d43e67add001dd7f1b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>TODO: Insert description here.</p>
@@ -130,7 +139,7 @@ List&lt; <a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_entr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 20 2015 01:06:22 for Oculus by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Apr 25 2015 17:30:04 for Oculus by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

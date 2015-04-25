@@ -1,0 +1,4 @@
+<map id="at.itb13.oculus.application.queue.QueueController.isPatientInQueue" name="at.itb13.oculus.application.queue.QueueController.isPatientInQueue">
+<area shape="rect" id="node2" href="$classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#af427220cfb78c2118c0e002fea1d30f5" title="at.itb13.oculus.domain.Queue.contains\lPatient" alt="" coords="264,5,503,47"/>
+<area shape="rect" id="node3" href="$classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_entry.html#abb7078060c16c51cb1096f32a20d662e" title="at.itb13.oculus.domain.Queue\lEntry.getPatient" alt="" coords="551,5,739,47"/>
+</map>

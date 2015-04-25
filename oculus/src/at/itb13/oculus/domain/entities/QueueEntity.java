@@ -18,12 +18,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Orthoptist;
 import at.itb13.oculus.domain.Patient;
@@ -39,13 +41,14 @@ import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
  * @date 11.04.2015
  */
 @Entity
-@Table(name = "queue", catalog = "oculusdb", uniqueConstraints = @UniqueConstraint(columnNames = "patientId"))
+@Table(name = "queue", catalog = "oculus_d", uniqueConstraints = @UniqueConstraint(columnNames = "patientId"))
 public class QueueEntity implements java.io.Serializable {
 
 	private Integer queueId;
 	private Doctor doctor;
 	private Orthoptist orthoptist;
 	private Patient patient;
+	private CalendarEvent calendarEvent;
 	private LocalDateTime arrivalTime;
 	private Integer queueIdParent;
 
@@ -57,10 +60,11 @@ public class QueueEntity implements java.io.Serializable {
 	}
 
 	public QueueEntity(Doctor doctor, Orthoptist orthoptist, Patient patient,
-			LocalDateTime arrivalTime, Integer queueIdParent) {
+			CalendarEvent calendarEvent, LocalDateTime arrivalTime, Integer queueIdParent) {
 		this.doctor = doctor;
 		this.orthoptist = orthoptist;
 		this.patient = patient;
+		this.calendarEvent = calendarEvent;
 		this.arrivalTime = arrivalTime;
 		this.queueIdParent = queueIdParent;
 	}
@@ -123,5 +127,15 @@ public class QueueEntity implements java.io.Serializable {
 
 	public void setQueueIdParent(Integer queueIdParent) {
 		this.queueIdParent = queueIdParent;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "calendarEventId", unique = true)
+	public CalendarEvent getCalendarEvent() {
+		return calendarEvent;
+	}
+
+	public void setCalendarEvent(CalendarEvent calendarEvent) {
+		this.calendarEvent = calendarEvent;
 	}
 }

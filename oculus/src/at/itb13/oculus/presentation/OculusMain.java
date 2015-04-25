@@ -43,7 +43,7 @@ public class OculusMain extends Application {
 	private static final double MIN_WIDTH = 800d;
 	private static final double MIN_HEIGHT = 600d;
 	private static final String APPLICATION_ICON_PATH = "file:ApplicationResources/Images/eye.png";
-	private static final int ERROR_TIME_BEFORE_SHUTDOWN = 2000;
+	private static final int ERROR_TIME_BEFORE_SHUTDOWN = 4000;
 	
 	private Scene _primaryScene;
 	private Stage _primaryStage;

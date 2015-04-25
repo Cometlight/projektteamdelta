@@ -1516,3 +1516,58 @@ Caused by: java.net.ConnectException: Connection timed out: connect
 	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:325) ~[mysql-connector-java-5.1.35-bin.jar:5.1.35]
 	at org.hibernate.engine.jdbc.connections.internal.DriverConnectionCreator.makeConnection(DriverConnectionCreator.java:55) ~[hibernate-core-4.3.8.Final.jar:4.3.8.Final]
 	... 18 more
+2015-58-25 12:58:47.187 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-59-25 12:59:08.920 [Thread-5] FATAL at.itb13.oculus.technicalServices.HibernateUtil - Failed to connect to database
+2015-59-25 12:59:29.944 [Thread-5] FATAL at.itb13.oculus.technicalServices.HibernateUtil - Failed to connect to database
+2015-04-25 13:04:30.417 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-04-25 13:04:52.128 [Thread-5] FATAL at.itb13.oculus.technicalServices.HibernateUtil - Failed to connect to database
+2015-05-25 13:05:13.159 [Thread-5] FATAL at.itb13.oculus.technicalServices.HibernateUtil - Failed to connect to database
+2015-05-25 13:05:19.584 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-05-25 13:05:41.303 [Thread-5] FATAL at.itb13.oculus.technicalServices.HibernateUtil - Failed to connect to database
+2015-06-25 13:06:02.309 [Thread-5] FATAL at.itb13.oculus.technicalServices.HibernateUtil - Failed to connect to database
+2015-24-25 13:24:39.958 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-25-25 13:25:01.745 [Thread-5] FATAL at.itb13.oculus.technicalServices.HibernateUtil - Failed to connect to database
+2015-25-25 13:25:22.762 [Thread-5] FATAL at.itb13.oculus.technicalServices.HibernateUtil - Failed to connect to database
+2015-25-25 13:25:41.395 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-25-25 13:25:44.746 [Thread-5] INFO  at.itb13.oculus.technicalServices.HibernateUtil - _sessionFactory has been initialized successfully.
+2015-25-25 13:25:44.747 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-25-25 13:25:52.594 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-25-25 13:25:52.595 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-26-25 13:26:00.373 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-26-25 13:26:00.479 [Thread-5] INFO  at.itb13.oculus.presentation.OculusMain - initRootLayout() successful
+2015-26-25 13:26:03.732 [Thread-5] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-04-25T00:00 and 2015-04-25T23:59
+2015-26-25 13:26:03.968 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Finished starting OculusMain
+2015-26-25 13:26:18.459 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-04-27T00:00 and 2015-04-27T23:59
+2015-26-25 13:26:57.360 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-27-25 13:27:21.841 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-27-25 13:27:38.589 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-27-25 13:27:56.686 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-28-25 13:28:24.101 [JavaFX Application Thread] INFO  at.itb13.oculus.technicalServices.GenericDao - 'at.itb13.oculus.domain.Doctor' with ID '1' successfully retrieved from database.
+2015-28-25 13:28:24.288 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.view.TabQueueController - Queue (_queueBox) has been updated
+2015-28-25 13:28:29.559 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-29-25 13:29:10.727 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.view.TabQueueController - Queue (_queueBox) has been updated
+2015-29-25 13:29:13.019 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-29-25 13:29:21.527 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.view.TabQueueController - Queue (_queueBox) has been updated
+2015-29-25 13:29:22.290 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-33-25 13:33:25.196 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showNewPatientDialog successful
+2015-33-25 13:33:52.462 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-34-25 13:34:02.814 [JavaFX Application Thread] INFO  at.itb13.oculus.technicalServices.GenericDao - 'at.itb13.oculus.domain.Patient' with ID '15' successfully retrieved from database.
+2015-34-25 13:34:03.049 [JavaFX Application Thread] INFO  at.itb13.oculus.technicalServices.GenericDao - 'at.itb13.oculus.domain.Doctor' with ID '3' successfully retrieved from database.
+2015-34-25 13:34:03.452 [JavaFX Application Thread] INFO  at.itb13.oculus.application.receptionist.WelcomeAtReception - Patient (15) has been updated.
+2015-34-25 13:34:06.624 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showNewPatientDialog successful
+2015-34-25 13:34:34.584 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - editAnamnesisDialog successful
+2015-34-25 13:34:42.196 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.view.TabQueueController - Queue (_queueBox) has been updated
+2015-34-25 13:34:42.970 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-34-25 13:34:44.148 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Shutting down application...
+2015-40-25 13:40:50.523 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-40-25 13:40:54.272 [Thread-5] INFO  at.itb13.oculus.technicalServices.HibernateUtil - _sessionFactory has been initialized successfully.
+2015-40-25 13:40:54.274 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-41-25 13:41:02.211 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-41-25 13:41:02.211 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-41-25 13:41:09.962 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-41-25 13:41:10.041 [Thread-5] INFO  at.itb13.oculus.presentation.OculusMain - initRootLayout() successful
+2015-41-25 13:41:13.277 [Thread-5] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-04-25T00:00 and 2015-04-25T23:59
+2015-41-25 13:41:13.473 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Finished starting OculusMain
+2015-41-25 13:41:22.700 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-41-25 13:41:27.361 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showNewPatientDialog successful
+2015-41-25 13:41:29.609 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Shutting down application...

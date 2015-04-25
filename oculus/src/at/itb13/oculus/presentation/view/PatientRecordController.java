@@ -267,7 +267,9 @@ public class PatientRecordController {
 	@FXML
 	private void handleEditGeneral(){
 		_main.showNewPatientDialog(_patient);
-		_patient = ControllerFacade.getPatientSelected();
+		if(ControllerFacade.getPatientSelected() != null) {
+			_patient = ControllerFacade.getPatientSelected();
+		}
 		showPatientMasterData(_patient);
 	}
 }

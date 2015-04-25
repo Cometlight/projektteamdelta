@@ -84,12 +84,11 @@ public class Queue implements QueueRO {
 	}
 	
 	/**
-	 * TODO: needed?
 	 * @param queueEntry
 	 * @return
 	 */
 	public boolean removeQueueEntry(QueueEntry queueEntry) {
-		if(!_queueEntries.remove(_queueEntries)) {
+		if(!_queueEntries.remove(queueEntry)) {
 			_logger.warn("queueEntry not in list.");	
 			return false;
 		}

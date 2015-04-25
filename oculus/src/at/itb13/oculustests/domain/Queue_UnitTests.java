@@ -13,7 +13,6 @@ import at.itb13.oculus.domain.Orthoptist;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Queue;
 import at.itb13.oculus.domain.QueueEntry;
-import at.itb13.oculus.technicalServices.dao.PatientDao;
 
 /**
  * TODO: Insert description here.
@@ -56,8 +55,6 @@ public class Queue_UnitTests {
 
 	@Test(expected = NullPointerException.class)
 	public void ConstructorWithQueueEntriesNull() {
-		List<QueueEntry> list = null;
-
 		Queue q = new Queue(null, null, null);
 		assertEquals(true, q.getDoctor() == null);
 		assertEquals(true, q.getOrthoptist() == null);
@@ -84,7 +81,7 @@ public class Queue_UnitTests {
 		Queue q = new Queue(null, null, list);
 		assertEquals(true, q.getQueueEntries() != null);
 		Patient p = new Patient();
-		q.pushQueueEntry(p);
+		q.pushQueueEntry(p, null);
 
 		assertEquals(true, q.getQueueEntries().size() == 1);
 	}
@@ -96,7 +93,7 @@ public class Queue_UnitTests {
 		Queue q = new Queue(null, null, list);
 		assertEquals(true, q.getQueueEntries() != null);
 		Patient p = new Patient();
-		q.pushQueueEntry(p, LocalDateTime.now());
+		q.pushQueueEntry(p, null, LocalDateTime.now());
 
 		assertEquals(true, q.getQueueEntries().size() == 1);
 	}

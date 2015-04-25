@@ -2,8 +2,6 @@ package at.itb13.oculus.presentation.view;
 
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,9 +14,6 @@ import at.itb13.oculus.domain.Patient.Gender;
 import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.util.DoctorSringConverter;
-import at.itb13.oculus.technicalServices.GenericDao;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -113,9 +108,11 @@ public class NewPatientController {
 	public boolean isOkClicked() {
 		return okClicked;
 	}
+	
 	public PatientRO getPatient(){
 		return _patient;
 	}
+	
 	/**
 	 * sets the patient information to formular for editing a specific patient.
 	 * @param patient
@@ -165,7 +162,6 @@ public class NewPatientController {
 						alert.showAndWait();
 					} catch (InvalidInputException e) {
 						_logger.error(e);
-						e.printStackTrace();	// TODO no stacktrace
 					}
 				} else{
 					try {
@@ -178,7 +174,6 @@ public class NewPatientController {
 						alert.showAndWait();
 					} catch (InvalidInputException e) {
 						_logger.error(e);
-						e.printStackTrace();	// TODO no stacktrace
 					}
 				}
 				
@@ -188,8 +183,7 @@ public class NewPatientController {
 			    _dialogStage.close();
 			}
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_logger.error(e);
 		}
     }
 

@@ -9,14 +9,11 @@ import org.apache.logging.log4j.Logger;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.receptionist.PatientSearch;
-import at.itb13.oculus.domain.CalendarEvent;
-import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.OculusMain;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -110,7 +107,8 @@ public class TabPatientController {
 	  * It gets a List of Patients from the PatientSearch Class and creates new Patients with Property.
 	  * The Patient Data are shown in the GUI
 	  */
-	 @FXML
+	 @SuppressWarnings("unchecked")
+	@FXML
 	 private void searchByNameControl(){
 		 clearPatientTable();
 		 PatientSearch p = ControllerFacade.getInstance().getPatientSearch();
@@ -128,9 +126,8 @@ public class TabPatientController {
 		        alert.showAndWait();
 			}
 
-		} catch (InvalidInputException e) {			
-			// TODO (eg. _logger.error(e) + alerts
-			//e.printStackTrace();
+		} catch (InvalidInputException e) {		
+			_logger.warn(e);
 		}
 	 }
 	 
@@ -140,9 +137,5 @@ public class TabPatientController {
 	 @FXML
 	 private void newPatientControl(){
 		_main.showNewPatientDialog(null);
-//		if (okClicked) {
-//		    _main.getPersonData().add();
-//		}
-		    
 	 }
 }

@@ -1,8 +1,6 @@
 package at.itb13.oculus.presentation;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.prefs.Preferences;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,9 +22,7 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -129,6 +125,7 @@ public class OculusMain extends Application {
 		
 		showAppointmentsTab();
     }
+    
 	/**
 	 * is called when the "X" on the screen has been pushed
 	 */
@@ -136,7 +133,7 @@ public class OculusMain extends Application {
 	public void stop() throws Exception {
 		_logger.info("Shutting down application...");
 		super.stop();
-		System.exit(0);	// TODO: Find another way to stop the application. Currently Hibernate won't stop, even when closing any SessionFactory.
+		System.exit(0);	// TODO: Find another way to stop the application. Currently Hibernate won't stop, even when closing any exisiting SessionFactory.
 	}
 
 	/**
@@ -164,7 +161,6 @@ public class OculusMain extends Application {
 			_logger.error(ex);
 		}
 	}
-	
 	
 	/**
 	 * Loads the view/tabPatient.fxml-File and display it in the center of the root-Layout.
@@ -305,14 +301,6 @@ public class OculusMain extends Application {
 		}
 	}
 
-
-
-	/**
-	 * TODO: Insert Description
-	 * 
-	 * @param newValue
-	 * @return
-	 */
 	public Object showPatientRecord(BorderPane layout, PatientRO patient) {
 		try {
 			// Load person overview.
@@ -340,13 +328,6 @@ public class OculusMain extends Application {
 		return null;
 	}
 
-	
-	
-	/**
-	 * TODO
-	 * 
-	 * @param calendarEventRO
-	 */
 	public void showAppointment(CalendarEventRO calendarEventRO) {
 		_appointmentsController.showAppointmentInformation(calendarEventRO);
 		_appointmentsController.showPatientRecord(calendarEventRO.getPatient());
@@ -354,29 +335,15 @@ public class OculusMain extends Application {
 		showAppointmentsTab();
 		_rootLayoutController.setTab(0);
 	}
-
-	/**
-	 * TODO: Insert Description
-	 * 
-	 * @param args
-	 */
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
 
-	/**
-	 * TODO: Insert Description
-	 * 
-	 * @return
-	 */
 	public Window getPrimaryStage() {
 		return _primaryStage;
 	}
 
-	/**
-	 * @return 
-	 * 
-	 */
 	public boolean showEditAnamnesis(PatientRO patient) {
 		try {
 		
@@ -412,30 +379,16 @@ public class OculusMain extends Application {
 		
 	}
 	
-	/**
-	 * TODO: Insert Description
-	 * 
-	 * @return
-	 */
 	public ObservableList<PatientRO> getPatientData() {
 		return _patientData;
 	}
 
-	/**
-	 * TODO: Insert Description
-	 * 
-	 * @param p
-	 */
 	public void addPatientData(PatientRO p) {
 		_patientData.add(p);
 	}
 
-	/**
-	 * TODO: Insert Description
-	 */
 	public void clearPatientData() {
 		_patientData.clear();
-
 	}
 
 }

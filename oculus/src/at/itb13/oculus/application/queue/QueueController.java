@@ -2,8 +2,6 @@ package at.itb13.oculus.application.queue;
 
 import java.util.List;
 
-import org.omg.CORBA._PolicyStub;
-
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.Patient;
@@ -114,6 +112,11 @@ public class QueueController {
 		return _queue.containsPatient(patientRO.getPatientId());
 	}
 	
+	/**
+	 * 
+	 * @param queueRO
+	 * @return
+	 */
 	public boolean representsSameQueueByID(QueueRO queueRO) {
 		return _queue.representsSameQueueByID((Queue) queueRO);
 	}

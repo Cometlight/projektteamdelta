@@ -51,10 +51,9 @@ public class CalendarController {
 	}
 	
 	/**
-	 * TODO: @Karin: Insert description! eg. mention that makePersitent is used. Author + Date not needed for methods.
 	 * 
-	 * @param c CalendarEvent, inserted to Patient p
-	 * @param p Patient, inserted to Set<CalendarEvents>
+	 * @param calendarEventRO inserted into patientRO
+	 * @param patientRO inserted into calendarEventRO
 	 * @return The updated CalendarEvent; may be null if it failed to save the changes to the database.
 	 */
 	public CalendarEventRO connectCalendarEventWithPatient (CalendarEventRO calendarEventRO, PatientRO patientRO){

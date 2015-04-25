@@ -24,7 +24,7 @@ public class NewPatient {
 	private static final Logger _logger = LogManager.getLogger(NewPatient.class.getName());
 	
 	/**
-	 * A new patient is created and saved in the database. TODO
+	 * A new patient is created and saved in the database.
 	 * 
 	 * @param doctor
 	 * @param socialInsuranceNr

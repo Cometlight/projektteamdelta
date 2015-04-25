@@ -46,7 +46,6 @@ public class TabQueueController {
 	private ListView<QueueEntryRO> _queueEntrysListView;
 	@FXML
 	private ComboBox<QueueRO> _queueBox;
-//	private QueueRO _queueCurDisplayed;
 	
 	private ObservableList<QueueEntryRO> _queueEntryList = FXCollections.observableArrayList();
 	
@@ -78,8 +77,6 @@ public class TabQueueController {
 			 
 	@FXML
 	private void initialize() {
-		
-//		setItemsToQueueBox();
 		
 		_queueEntrysListView.setItems(_queueEntryList);
 		
@@ -138,12 +135,9 @@ public class TabQueueController {
 	}
 	
 	public void refreshQueueOnce() {
-		System.out.println("refreshing start");
-//		ControllerFacade.getInstance().refreshQueueController();
 		setItemsToQueueBox();
 		// setQueueEntriesInList(); is automatically called by setItemsToQueueBox, as that method selects one of the queues and 
 		// thus triggering the event that refreshes the EntriesList.
-		System.out.println("refreshing end");
 	}
 	
 	public void stopQueueReloader() {
@@ -192,8 +186,6 @@ public class TabQueueController {
 	
 	@FXML
 	private void handleQueueComboBox() {
-//		_queueCurDisplayed = _queueBox.getSelectionModel().getSelectedItem();
-		System.out.println("## handleQueueComboBox, : " + _queueBox.getSelectionModel().getSelectedItem().getDoctor().getUser().getFirstName());
 		setQueueEntriesInList();
 	}
 	
@@ -207,7 +199,6 @@ public class TabQueueController {
 		_queueEntryList.clear();	// delete old entries
 		if(queueSelected != null) {
 			at.itb13.oculus.application.queue.QueueController queueController = ControllerFacade.getInstance().getQueueController(queueSelected);
-//			queueSelected = queueController.getQueue();	// update queue 
 			queueController.reloadQueue();
 			@SuppressWarnings("unchecked")
 			List<QueueEntryRO> entries = (List<QueueEntryRO>) queueController.getQueueEntries();
@@ -229,7 +220,6 @@ public class TabQueueController {
 	
 	private void showAppointmentInfo(QueueEntryRO entry){
 		if (entry != null) {
-			System.out.println("entry not null");
 			_nextQueueBox.setVisible(true);
 			_nextQueueBox.getSelectionModel().clearSelection();
 			_insertButton.setVisible(true);
@@ -246,7 +236,6 @@ public class TabQueueController {
 				_reasonLabel.setText("");
 			}
 		} else {
-			System.out.println("entry is null !!!");
 			_nextQueueBox.setVisible(false);
 			_insertButton.setVisible(false);
 			_endExaminationButton.setVisible(false);

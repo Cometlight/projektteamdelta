@@ -96,33 +96,7 @@ public class TabAppointmentsController {
 
 	@FXML
 	private void initialize() {
-		
-		_appointmentTable.setItems(_appointmentsList);
-		_timeColumn.setSortType(SortType.ASCENDING);
-		_appointmentTable.getSortOrder().add(_timeColumn);
-
-//		_timeColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
-//			@Override
-//			public ObservableValue<String> call(TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
-//				return new SimpleStringProperty(
-//						event.getValue().getEventStart().getHour()
-//						+ ":"
-//						+ event.getValue().getEventStart().getMinute());
-//			}
-//		});
-		_timeColumn.setCellValueFactory(new Callback<CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
-			@Override
-			public ObservableValue<String> call(CellDataFeatures<CalendarEventRO, String> event) {
-				return new SimpleStringProperty(
-						event.getValue().getEventStart().format(DateTimeFormatter.ofPattern("HH:mm")));
-						
-//						event.getValue().getEventStart().getHour()	// TODO: Better formatting #hashtag
-//						+ ":"
-//						+ event.getValue().getEventStart().getMinute());
-			}
-		});
-		
-		
+		/* -- Table Columns -- */
 		_patientColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
@@ -144,6 +118,18 @@ public class TabAppointmentsController {
 			}
 		});
 		
+		/* -- TableView -- */
+		_appointmentTable.setItems(_appointmentsList);
+		_timeColumn.setSortType(SortType.ASCENDING);
+		_appointmentTable.getSortOrder().add(_timeColumn);
+
+		_timeColumn.setCellValueFactory(new Callback<CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<CalendarEventRO, String> event) {
+				return new SimpleStringProperty(
+						event.getValue().getEventStart().format(DateTimeFormatter.ofPattern("HH:mm")));
+			}
+		});
 		
 		// Color the rows depending on the state of the CalendarEvents
 		_appointmentTable.setRowFactory(new Callback<TableView<CalendarEventRO>, TableRow<CalendarEventRO>>() {
@@ -272,7 +258,6 @@ public class TabAppointmentsController {
 
 	public void clearAppointments() {
 		_appointmentsList.clear();
-
 	}
 	
 	public void showPatientRecord(PatientRO patient) {
@@ -380,7 +365,6 @@ public class TabAppointmentsController {
 	 * fills the combo box with all queues
 	 */
 	private void setItemsToQueueBox() {
-
 		_queueBox.setConverter(new QueueSringConverter());
 		List<QueueController> queController = ControllerFacade.getInstance().getAllQueueController();
 		for (QueueController controller : queController) {		

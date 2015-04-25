@@ -1,15 +1,12 @@
 package at.itb13.oculus.technicalServices;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
-import org.hibernate.LockOptions;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
@@ -280,50 +277,6 @@ public abstract class GenericDao<T> {
 		
 		return makeTransient(Arrays.asList(entities));
 	}
-
-	/**
-	 * Opens a new Hibernate session, reattaches the entity and loads the collection from the database into the entity.
-	 * No changes are made to the database.
-	 * <p>
-	 * Example: loadCollection(eventtype, eventtype.getCalendarevents());
-	 * 
-	 * @param entity The entity whose collection should be loaded.
-	 * @param collection The collection that should be loaded.
-	 * @throws Exception Most likely indicates that either the entity wasn't in a transient state or the collection couldn't be initialized.
-	 */
-//	protected void loadCollection(T entity, Collection<?> collection) throws Exception {
-//		if(Hibernate.isInitialized(collection)) {
-//			_logger.info("The supplied collection was already loaded. No need to load it again.");
-//			// There is no need to throw an exception. It's not harmful, only unnecessary.
-//		} else {
-//			Session session = null;
-//			Transaction tx = null;
-//			try {
-//				session = HibernateUtil.getSessionFactory().openSession();
-//				tx = session.beginTransaction();
-//				
-//				/* 
-//				 * It's not a good idea to use update(), merge() or something similar to reattach the entity to the session.
-//				 * Doing so would update the database. However, we only want to retrieve some data, as saving and updating to
-//				 * the database is done using the method saveOrUpdate().
-//				 */
-//				session.buildLockRequest(LockOptions.NONE).lock(entity);
-//				
-//				Hibernate.initialize(collection);
-//				
-//				tx.commit();
-//			} catch (Exception ex) {
-//				if(tx != null) {
-//					tx.rollback();
-//				}
-//				throw ex;
-//			} finally {
-//				if(session != null) {
-//					session.close();
-//				}
-//			}
-//		}
-//	}
 
 	/**
 	 * 

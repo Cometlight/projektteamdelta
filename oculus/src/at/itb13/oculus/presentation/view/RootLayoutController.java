@@ -1,18 +1,8 @@
 package at.itb13.oculus.presentation.view;
 
-import java.io.IOException;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
-import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.OculusMain;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 
 
 /**
@@ -22,8 +12,6 @@ import javafx.scene.layout.BorderPane;
  * @since 15.04.2015
  */
 public class RootLayoutController {
-	private static final Logger _logger = LogManager.getLogger(RootLayoutController.class.getName());
-	
 	@FXML
 	private TabPane _tabPaneRoot;
 	
@@ -68,59 +56,4 @@ public class RootLayoutController {
 	 public void setTab(int index) {
 		 _tabPaneRoot.getSelectionModel().select(index);
 	 }
-		 
-	/**
-	 * 
-	 * @param newValue
-	 * @return null
-	 */
-	private Object showPatientRecord(BorderPane layout, CalendarEventRO event) {	// TODO delete because it's not used???
-		 try {
-	 	        // Load person overview.
-	 	        FXMLLoader loader = new FXMLLoader();
-	 	        loader.setLocation(OculusMain.class.getResource("view/PatientRecord.fxml"));
-	 	        AnchorPane overview = (AnchorPane) loader.load();	
-
-	 	        // Set person overview into the center of root layout.
-	 	        layout.setCenter(overview);
-
-	 	        // Give the controller access to the main app.
-	 	        PatientRecordController controller = loader.getController();
-	 	        controller.setMain(_main);
-	 	        controller.showPatientMasterData(event.getPatient());
-	 	        controller.showAnamanesis(event.getPatient());
-
-	 	    } catch (IOException e) {
-	 	        e.printStackTrace();
-	 	    }
-		return null;
-	}
-	
-	/**
-	 *shows the patientRecord
-	 * 
-	 * @param newValue
-	 * @return nulll
-	 */
-	private Object showPatientRecord(BorderPane layout, PatientRO patient) {	// TODO delete because it's not used???
-		 try {
-	 	        // Load person overview.
-	 	        FXMLLoader loader = new FXMLLoader();
-	 	        loader.setLocation(OculusMain.class.getResource("view/PatientRecord.fxml"));
-	 	        AnchorPane overview = (AnchorPane) loader.load();	
-
-	 	        // Set person overview into the center of root layout.
-	 	        layout.setCenter(overview);
-
-	 	        // Give the controller access to the main app.
-	 	        PatientRecordController controller = loader.getController();
-	 	        controller.setMain(_main);
-	 	        controller.showPatientMasterData(patient);
-	 	        controller.showAnamanesis(patient);
-
-	 	    } catch (IOException e) {
-	 	        e.printStackTrace();
-	 	    }
-		return null;
-	}
 }

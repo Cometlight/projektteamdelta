@@ -19,7 +19,6 @@ import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import at.itb13.oculus.application.ControllerFacade;
-import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.OculusMain;

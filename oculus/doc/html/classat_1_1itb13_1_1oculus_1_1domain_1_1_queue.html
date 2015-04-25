@@ -98,14 +98,14 @@ Inheritance diagram for at.itb13.oculus.domain.Queue:</div>
 <div class="dyncontent">
 <div class="center"><img src="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue__inherit__graph.png" border="0" usemap="#at_8itb13_8oculus_8domain_8_queue_inherit__map" alt="Inheritance graph"/></div>
 <map name="at_8itb13_8oculus_8domain_8_queue_inherit__map" id="at_8itb13_8oculus_8domain_8_queue_inherit__map">
-<area shape="rect" id="node2" href="interfaceat_1_1itb13_1_1oculus_1_1domain_1_1readonlyinterfaces_1_1_queue_r_o.html" title="{at.itb13.oculus.domain.readonlyinterfaces.\lQueueRO\n||+ getDoctor()\l+ getOrthoptist()\l+ getQueueEntries()\l}" alt="" coords="5,5,265,127"/></map>
+<area shape="rect" id="node2" href="interfaceat_1_1itb13_1_1oculus_1_1domain_1_1readonlyinterfaces_1_1_queue_r_o.html" title="{at.itb13.oculus.domain.readonlyinterfaces.\lQueueRO\n||+ getDoctor()\l+ getOrthoptist()\l+ getQueueEntries()\l+ contains()\l+ containsPatient()\l+ getQueueEntryById()\l}" alt="" coords="5,5,265,171"/></map>
 </div>
 <div class="dynheader">
 Collaboration diagram for at.itb13.oculus.domain.Queue:</div>
 <div class="dyncontent">
 <div class="center"><img src="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue__coll__graph.png" border="0" usemap="#at_8itb13_8oculus_8domain_8_queue_coll__map" alt="Collaboration graph"/></div>
 <map name="at_8itb13_8oculus_8domain_8_queue_coll__map" id="at_8itb13_8oculus_8domain_8_queue_coll__map">
-<area shape="rect" id="node2" href="interfaceat_1_1itb13_1_1oculus_1_1domain_1_1readonlyinterfaces_1_1_queue_r_o.html" title="{at.itb13.oculus.domain.readonlyinterfaces.\lQueueRO\n||+ getDoctor()\l+ getOrthoptist()\l+ getQueueEntries()\l}" alt="" coords="5,5,265,127"/></map>
+<area shape="rect" id="node2" href="interfaceat_1_1itb13_1_1oculus_1_1domain_1_1readonlyinterfaces_1_1_queue_r_o.html" title="{at.itb13.oculus.domain.readonlyinterfaces.\lQueueRO\n||+ getDoctor()\l+ getOrthoptist()\l+ getQueueEntries()\l+ contains()\l+ containsPatient()\l+ getQueueEntryById()\l}" alt="" coords="5,5,265,171"/></map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -119,16 +119,30 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a79df6da00c017a9e692e771be8a138f0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a79df6da00c017a9e692e771be8a138f0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>pushQueueEntry</b> (<a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_entry.html">QueueEntry</a> queueEntry)</td></tr>
 <tr class="separator:a79df6da00c017a9e692e771be8a138f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a321ffbcf1301c4095a065d2dd2cf3f12"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a321ffbcf1301c4095a065d2dd2cf3f12"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>pushQueueEntry</b> (<a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_patient.html">Patient</a> patient, <a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_calendar_event.html">CalendarEvent</a> calendarEvent)</td></tr>
+<tr class="separator:a321ffbcf1301c4095a065d2dd2cf3f12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a405ccf9286a5105dbc051f3d064c33cb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#a405ccf9286a5105dbc051f3d064c33cb">pushQueueEntry</a> (<a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_patient.html">Patient</a> patient, <a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_calendar_event.html">CalendarEvent</a> calendarEvent, LocalDateTime arrivalTime)</td></tr>
+<tr class="separator:a405ccf9286a5105dbc051f3d064c33cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a181bde2a245658af2ca6be4f8b009157"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_entry.html">QueueEntry</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#a181bde2a245658af2ca6be4f8b009157">peek</a> ()</td></tr>
 <tr class="separator:a181bde2a245658af2ca6be4f8b009157"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fd56e32264501c02372121d6cb8a5fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_entry.html">QueueEntry</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#a2fd56e32264501c02372121d6cb8a5fd">popQueueEntry</a> ()</td></tr>
 <tr class="separator:a2fd56e32264501c02372121d6cb8a5fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a884dfb34e22c29908501b2d43e98be2b"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#a884dfb34e22c29908501b2d43e98be2b">removeQueueEntry</a> (<a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_entry.html">QueueEntry</a> queueEntry)</td></tr>
 <tr class="separator:a884dfb34e22c29908501b2d43e98be2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae01e039973d0be10bca530fb6ea46c2"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#aae01e039973d0be10bca530fb6ea46c2">contains</a> (Integer queueEntryID)</td></tr>
-<tr class="separator:aae01e039973d0be10bca530fb6ea46c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44d3cd7ab960772c084fcfe793be76fd"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#a44d3cd7ab960772c084fcfe793be76fd">removeQueueEntry</a> (<a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_patient.html">Patient</a> patient)</td></tr>
+<tr class="separator:a44d3cd7ab960772c084fcfe793be76fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2355c5d665b644170b4dc3b3c316bfda"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#a2355c5d665b644170b4dc3b3c316bfda">move</a> (Integer queueEntryID, boolean moveUp)</td></tr>
 <tr class="separator:a2355c5d665b644170b4dc3b3c316bfda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af427220cfb78c2118c0e002fea1d30f5"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#af427220cfb78c2118c0e002fea1d30f5">containsPatient</a> (Integer patientID)</td></tr>
+<tr class="separator:af427220cfb78c2118c0e002fea1d30f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae01e039973d0be10bca530fb6ea46c2"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#aae01e039973d0be10bca530fb6ea46c2">contains</a> (Integer queueEntryID)</td></tr>
+<tr class="separator:aae01e039973d0be10bca530fb6ea46c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22eb85e8f42de16fa8ff539209e1d9a7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a22eb85e8f42de16fa8ff539209e1d9a7"></a>
+<a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_entry.html">QueueEntry</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getQueueEntryById</b> (Integer queueEntryID)</td></tr>
+<tr class="separator:a22eb85e8f42de16fa8ff539209e1d9a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fbe35b2ec4ad1e85f09d50ed9d564e6"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#a1fbe35b2ec4ad1e85f09d50ed9d564e6">representsSameQueueByID</a> (<a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html">Queue</a> queue)</td></tr>
+<tr class="separator:a1fbe35b2ec4ad1e85f09d50ed9d564e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa359d0cf8e674b5494097476a9cf2db8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_doctor.html">Doctor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#aa359d0cf8e674b5494097476a9cf2db8">getDoctor</a> ()</td></tr>
 <tr class="separator:aa359d0cf8e674b5494097476a9cf2db8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ba422c4368106e24d8f08e37747f18d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#a0ba422c4368106e24d8f08e37747f18d">setDoctor</a> (<a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_doctor.html">Doctor</a> doctor)</td></tr>
@@ -143,7 +157,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>pushQueueEntry</b> (<
 <tr class="separator:a22bed2743941c186d810f7f987f6ddaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>TODO: Insert description here.</p>
+<div class="textblock"><p>TODO: Insert description here. If neither the doctor nor the orthoptist is set, it's the general orthoptist queue.</p>
 <dl class="section author"><dt>Author</dt><dd>Daniel Scheffknecht </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>11.04.2015 </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
@@ -167,6 +181,43 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>pushQueueEntry</b> (<
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+<p>Implements <a class="el" href="interfaceat_1_1itb13_1_1oculus_1_1domain_1_1readonlyinterfaces_1_1_queue_r_o.html">at.itb13.oculus.domain.readonlyinterfaces.QueueRO</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af427220cfb78c2118c0e002fea1d30f5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean at.itb13.oculus.domain.Queue.containsPatient </td>
+          <td>(</td>
+          <td class="paramtype">Integer&#160;</td>
+          <td class="paramname"><em>patientID</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>TODO</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">patient</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+<p>Implements <a class="el" href="interfaceat_1_1itb13_1_1oculus_1_1domain_1_1readonlyinterfaces_1_1_queue_r_o.html">at.itb13.oculus.domain.readonlyinterfaces.QueueRO</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_af427220cfb78c2118c0e002fea1d30f5_cgraph.png" border="0" usemap="#classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_af427220cfb78c2118c0e002fea1d30f5_cgraph" alt=""/></div>
+<map name="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_af427220cfb78c2118c0e002fea1d30f5_cgraph" id="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_af427220cfb78c2118c0e002fea1d30f5_cgraph">
+<area shape="rect" id="node2" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_entry.html#abb7078060c16c51cb1096f32a20d662e" title="at.itb13.oculus.domain.Queue\lEntry.getPatient" alt="" coords="292,5,480,47"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -291,6 +342,55 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>pushQueueEntry</b> (<
 
 </div>
 </div>
+<a class="anchor" id="a405ccf9286a5105dbc051f3d064c33cb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void at.itb13.oculus.domain.Queue.pushQueueEntry </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_patient.html">Patient</a>&#160;</td>
+          <td class="paramname"><em>patient</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_calendar_event.html">CalendarEvent</a>&#160;</td>
+          <td class="paramname"><em>calendarEvent</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LocalDateTime&#160;</td>
+          <td class="paramname"><em>arrivalTime</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">patient</td><td></td></tr>
+    <tr><td class="paramname">calendarEvent</td><td>may be null, if only the patient without reference to a calendarEvent should be inserted </td></tr>
+    <tr><td class="paramname">arrivalTime</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_a405ccf9286a5105dbc051f3d064c33cb_cgraph.png" border="0" usemap="#classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_a405ccf9286a5105dbc051f3d064c33cb_cgraph" alt=""/></div>
+<map name="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_a405ccf9286a5105dbc051f3d064c33cb_cgraph" id="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_a405ccf9286a5105dbc051f3d064c33cb_cgraph">
+<area shape="rect" id="node2" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_entry.html#a4f025aedc5970105df62fc5547acee4a" title="at.itb13.oculus.domain.Queue\lEntry.setPatient" alt="" coords="272,5,460,47"/><area shape="rect" id="node3" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_entry.html#a3de36ddc1ce36521564a044886ed9d58" title="at.itb13.oculus.domain.Queue\lEntry.setCalendarEvent" alt="" coords="272,71,460,112"/><area shape="rect" id="node4" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_entry.html#aed767ccb3fcfcd22200efe651a6b74c9" title="at.itb13.oculus.domain.Queue\lEntry.setArrivalTime" alt="" coords="272,136,460,177"/></map>
+</div>
+</p>
+
+</div>
+</div>
 <a class="anchor" id="a884dfb34e22c29908501b2d43e98be2b"></a>
 <div class="memitem">
 <div class="memproto">
@@ -304,13 +404,68 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>pushQueueEntry</b> (<
         </tr>
       </table>
 </div><div class="memdoc">
-<p>TODO: needed? </p><dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">queueEntry</td><td></td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a44d3cd7ab960772c084fcfe793be76fd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean at.itb13.oculus.domain.Queue.removeQueueEntry </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_patient.html">Patient</a>&#160;</td>
+          <td class="paramname"><em>patient</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">patient</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if removed; false if patient wasn't in the queue </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a1fbe35b2ec4ad1e85f09d50ed9d564e6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean at.itb13.oculus.domain.Queue.representsSameQueueByID </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html">Queue</a>&#160;</td>
+          <td class="paramname"><em>queue</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Not overriding equals() because this method only checks concerning the IDs. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">queue</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_a1fbe35b2ec4ad1e85f09d50ed9d564e6_cgraph.png" border="0" usemap="#classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_a1fbe35b2ec4ad1e85f09d50ed9d564e6_cgraph" alt=""/></div>
+<map name="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_a1fbe35b2ec4ad1e85f09d50ed9d564e6_cgraph" id="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue_a1fbe35b2ec4ad1e85f09d50ed9d564e6_cgraph">
+<area shape="rect" id="node2" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#aa359d0cf8e674b5494097476a9cf2db8" title="at.itb13.oculus.domain.Queue.get\lDoctor" alt="" coords="303,5,509,47"/><area shape="rect" id="node3" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#a8f284c954b3440aeb56e9eb7afaabddf" title="at.itb13.oculus.domain.Queue.get\lOrthoptist" alt="" coords="303,71,509,112"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -386,7 +541,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>pushQueueEntry</b> (<
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 20 2015 01:06:22 for Oculus by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Apr 25 2015 17:30:03 for Oculus by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

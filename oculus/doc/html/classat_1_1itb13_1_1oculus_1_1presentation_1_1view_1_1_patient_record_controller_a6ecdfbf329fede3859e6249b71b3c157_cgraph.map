@@ -1,0 +1,4 @@
+<map id="at.itb13.oculus.presentation.view.PatientRecordController.showAppointments" name="at.itb13.oculus.presentation.view.PatientRecordController.showAppointments">
+<area shape="rect" id="node2" href="$classat_1_1itb13_1_1oculus_1_1application_1_1receptionist_1_1_welcome_at_reception.html#a6b2c08d156cd7f9f7748d0083743391e" title="at.itb13.oculus.application.receptionist.\lWelcomeAtReception.getAllCalendarEventsSorted" alt="" coords="316,5,608,47"/>
+<area shape="rect" id="node3" href="$classat_1_1itb13_1_1oculus_1_1domain_1_1_calendar_event.html#adc85186ee48533c31258ffe1eec58560" title="at.itb13.oculus.domain.Calendar\lEvent.sortCalendarEventsByStartDate" alt="" coords="656,5,881,47"/>
+</map>

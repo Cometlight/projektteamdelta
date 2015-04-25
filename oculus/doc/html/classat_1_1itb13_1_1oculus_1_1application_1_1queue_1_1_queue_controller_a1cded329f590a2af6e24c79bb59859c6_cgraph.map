@@ -1,0 +1,6 @@
+<map id="at.itb13.oculus.application.queue.QueueController.removeQueueEntry" name="at.itb13.oculus.application.queue.QueueController.removeQueueEntry">
+<area shape="rect" id="node2" href="$classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html#a884dfb34e22c29908501b2d43e98be2b" title="at.itb13.oculus.domain.Queue.remove\lQueueEntry" alt="" coords="276,5,507,47"/>
+<area shape="rect" id="node3" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1dao_1_1_queue_dao.html#a0fc76a0352b510c7fd4c344fdc8ef922" title="at.itb13.oculus.technical\lServices.dao.QueueDao.getInstance" alt="" coords="283,71,500,112"/>
+<area shape="rect" id="node4" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1dao_1_1_queue_dao.html#a99860fe7691d1d4136cc86342dc65c58" title="at.itb13.oculus.technical\lServices.dao.QueueDao.makePersistent" alt="" coords="272,136,511,177"/>
+<area shape="rect" id="node5" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1_hibernate_util.html#aab43e3d72014b864f59099e662933539" title="at.itb13.oculus.technical\lServices.HibernateUtil.getSession\lFactory" alt="" coords="559,129,764,185"/>
+</map>

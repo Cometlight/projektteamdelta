@@ -105,8 +105,6 @@ Inheritance diagram for at.itb13.oculus.technicalServices.GenericDao&lt; T &gt;:
 Collaboration diagram for at.itb13.oculus.technicalServices.GenericDao&lt; T &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="classat_1_1itb13_1_1oculus_1_1technical_services_1_1_generic_dao__coll__graph.png" border="0" usemap="#at_8itb13_8oculus_8technical_services_8_generic_dao_3_01_t_01_4_coll__map" alt="Collaboration graph"/></div>
-<map name="at_8itb13_8oculus_8technical_services_8_generic_dao_3_01_t_01_4_coll__map" id="at_8itb13_8oculus_8technical_services_8_generic_dao_3_01_t_01_4_coll__map">
-</map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -136,7 +134,7 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:ae47b7616f2c3240bdc79f64d272594d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Offers common functionality for concrete <a class="el" href="interfaceat_1_1itb13_1_1oculus_1_1technical_services_1_1_d_a_o.html">DAO</a> classes, like <a class="el" href="classat_1_1itb13_1_1oculus_1_1technical_services_1_1_generic_dao.html#a8b05dc1201c03f43209c23a1fa4d0591">findById</a> or <a class="el" href="classat_1_1itb13_1_1oculus_1_1technical_services_1_1_generic_dao.html#ac3ef097879b2b66d002177c1e70f0d7a">makePersistent</a>.</p>
+<div class="textblock"><p>Offers common functionality for concrete DAO classes, like <a class="el" href="classat_1_1itb13_1_1oculus_1_1technical_services_1_1_generic_dao.html#a8b05dc1201c03f43209c23a1fa4d0591">findById</a> or <a class="el" href="classat_1_1itb13_1_1oculus_1_1technical_services_1_1_generic_dao.html#ac3ef097879b2b66d002177c1e70f0d7a">makePersistent</a>.</p>
 <dl class="section author"><dt>Author</dt><dd>Daniel Scheffknecht </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>06.04.2015 </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -261,21 +259,6 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Opens a new Hibernate session, reattaches the entity and loads the collection from the database into the entity. No changes are made to the database. </p>
-<p>Example: loadCollection(eventtype, eventtype.getCalendarevents());</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entity</td><td>The entity whose collection should be loaded. </td></tr>
-    <tr><td class="paramname">collection</td><td>The collection that should be loaded. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">Exception</td><td>Most likely indicates that either the entity wasn't in a transient state or the collection couldn't be initialized.</td></tr>
-  </table>
-  </dd>
-</dl>
 <dl class="section return"><dt>Returns</dt><dd>The domainClass that was passed into the constructor. </dd></dl>
 
 </div>
@@ -420,7 +403,7 @@ Protected Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 20 2015 01:06:23 for Oculus by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Apr 25 2015 17:30:05 for Oculus by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

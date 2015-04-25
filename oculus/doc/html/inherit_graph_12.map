@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node2" href="$classat_1_1itb13_1_1oculus_1_1presentation_1_1util_1_1_doctor_sring_converter.html" title="at.itb13.oculus.presentation.util.\lDoctorSringConverter" alt="" coords="160,5,363,47"/>
-<area shape="rect" id="node3" href="$classat_1_1itb13_1_1oculus_1_1presentation_1_1util_1_1_queue_sring_converter.html" title="at.itb13.oculus.presentation.util.\lQueueSringConverter" alt="" coords="160,71,363,112"/>
+<area shape="rect" id="node1" href="$interfaceat_1_1itb13_1_1oculus_1_1domain_1_1readonlyinterfaces_1_1_queue_r_o.html" title="at.itb13.oculus.domain.readonlyinterfaces.\lQueueRO" alt="" coords="5,5,265,47"/>
+<area shape="rect" id="node2" href="$classat_1_1itb13_1_1oculus_1_1domain_1_1_queue.html" title="at.itb13.oculus.domain.Queue" alt="" coords="313,13,501,39"/>
 </map>

@@ -1,4 +1,5 @@
 <map id="at.itb13.oculus.presentation.OculusMain.start" name="at.itb13.oculus.presentation.OculusMain.start">
-<area shape="rect" id="node2" href="$classat_1_1itb13_1_1oculus_1_1presentation_1_1_oculus_main.html#a34bb5b193ef6f5d30e28930ebd4400cd" title="at.itb13.oculus.presentation.\lOculusMain.initRootLayout" alt="" coords="269,5,450,47"/>
-<area shape="rect" id="node3" href="$classat_1_1itb13_1_1oculus_1_1presentation_1_1_oculus_main.html#aafade0956ba3f06f04737c010831663d" title="at.itb13.oculus.presentation.\lOculusMain.showAppointmentsOverview" alt="" coords="235,71,484,112"/>
+<area shape="rect" id="node2" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1_hibernate_util.html#ab088ffc8385bdcafb262d07d76354730" title="at.itb13.oculus.technical\lServices.HibernateUtil.init" alt="" coords="242,5,409,47"/>
+<area shape="rect" id="node3" href="$classat_1_1itb13_1_1oculus_1_1presentation_1_1_oculus_main.html#a34bb5b193ef6f5d30e28930ebd4400cd" title="at.itb13.oculus.presentation.\lOculusMain.initRootLayout" alt="" coords="235,71,416,112"/>
+<area shape="rect" id="node4" href="$classat_1_1itb13_1_1oculus_1_1presentation_1_1_splash_screen.html#a665622c8eddaa462344844ab71d1359c" title="at.itb13.oculus.presentation.\lSplashScreen.showSplash" alt="" coords="235,136,416,177"/>
 </map>

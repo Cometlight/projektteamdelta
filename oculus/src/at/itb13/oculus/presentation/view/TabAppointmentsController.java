@@ -36,6 +36,8 @@ import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.queue.QueueController;
 import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
+import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
+import at.itb13.oculus.domain.readonlyinterfaces.OrthoptistRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
 import at.itb13.oculus.presentation.OculusMain;
@@ -88,6 +90,8 @@ public class TabAppointmentsController {
 	private ObservableList<CalendarEventRO> _appointmentsList = FXCollections.observableArrayList();
 
 	private OculusMain _main;
+	
+	private CalendarEventRO _curCalendarEvent;
 
 	// general Methods
 	public void setMain(OculusMain main) {
@@ -268,6 +272,7 @@ public class TabAppointmentsController {
 	 * @param event
 	 */
 	public void showAppointmentInformation(CalendarEventRO event) {
+		_curCalendarEvent = event;
 		if (event != null) {
 			_descriptionLabel.setText(event.getDescription());
 			_dateTimeLabel.setText(event.getEventStart().toString());
@@ -382,9 +387,19 @@ public class TabAppointmentsController {
 		if (queue != null) {
 			QueueController controller = ControllerFacade.getInstance().getQueueController(queue);
 			if (controller != null) {
-				if(_appointmentTable.getSelectionModel().getSelectedItem().getCalendar().getDoctor().getDoctorId().equals(queue.getDoctor().getDoctorId())){	// check if the calendarEvent's doctor is equal to the queue's doctor
+				
+				DoctorRO calEvDoctor = _curCalendarEvent.getCalendar().getDoctor();
+				OrthoptistRO calEvOrthoptist = _curCalendarEvent.getCalendar().getOrthoptist();
+				DoctorRO queueDoctor = queue.getDoctor();
+				OrthoptistRO queueOrthoptist = queue.getOrthoptist();
+				
+				// check if the calendarEvent's doctor/orthoptist is equal to the queue's doctor/orthoptist
+				if( 		(queueDoctor != null && calEvDoctor != null && queueDoctor.getDoctorId().equals(calEvDoctor.getDoctorId()))
+						|| 	(queueOrthoptist != null && calEvOrthoptist != null && queueOrthoptist.getOrthoptistId().equals(calEvOrthoptist.getOrthoptistId()))
+						||	(queueDoctor == null && queueOrthoptist == null && calEvDoctor == null && queueOrthoptist == null)	// general orthoptist queue
+				  ) {
 					try {
-						controller.pushQueueEntry(_appointmentTable.getSelectionModel().getSelectedItem().getPatient());
+						controller.pushQueueEntry(_curCalendarEvent.getPatient(), _curCalendarEvent);
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setContentText("Patient is added to Queue");
 						alert.showAndWait();
@@ -393,7 +408,6 @@ public class TabAppointmentsController {
 						alert.setContentText("Patient was not added to the Queue, because the patient is already in a queue.");
 						alert.showAndWait();
 					}
-					
 				} else {
 					Alert alert = new Alert(AlertType.CONFIRMATION);
 					alert.setHeaderText("Waitinglist is not equate to the Doctor");
@@ -401,7 +415,7 @@ public class TabAppointmentsController {
 					Optional<ButtonType> result = alert.showAndWait();
 					if (result.get() == ButtonType.OK){
 						try {
-							controller.pushQueueEntry(_appointmentTable.getSelectionModel().getSelectedItem().getPatient());
+							controller.pushQueueEntry(_curCalendarEvent.getPatient(), _curCalendarEvent);
 							alert = new Alert(AlertType.INFORMATION);
 							alert.setContentText("Patient is added to Queue");
 							alert.showAndWait();
@@ -416,8 +430,7 @@ public class TabAppointmentsController {
 					}
 				}
 			} else {
-				_logger.error("Could not load QueueController for Queue with doctor '" + queue.getDoctor().getDoctorId()
-						+ "' and with orthoptist '" + queue.getOrthoptist().getOrthoptistId() + "'!");
+				_logger.error("Could not load QueueController for Queue");
 			}
 
 		} else {

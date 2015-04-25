@@ -7,7 +7,6 @@ import java.util.List;
 import org.junit.Test;
 
 import at.itb13.oculus.domain.Queue;
-import at.itb13.oculus.technicalServices.dao.PatientDao;
 import at.itb13.oculus.technicalServices.dao.QueueDao;
 
 /**

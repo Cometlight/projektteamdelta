@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.domain.readonlyinterfaces.OrthoptistRO;
+
 /**
  * 
  * TODO: Insert description here.
@@ -24,7 +26,7 @@ import org.apache.logging.log4j.Logger;
  */
 @Entity
 @Table(name = "orthoptist", catalog = "oculus_d")
-public class Orthoptist implements java.io.Serializable {
+public class Orthoptist implements java.io.Serializable, OrthoptistRO {
 	private static final Logger _logger = LogManager.getLogger(Orthoptist.class.getName());
 	private static final long serialVersionUID = 1L;
 	

@@ -1688,3 +1688,324 @@ java.lang.NullPointerException
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:?]
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:?]
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:?]
+2015-36-25 14:36:12.916 [main] INFO  at.itb13.oculus.technicalServices.HibernateUtil - _sessionFactory has been initialized successfully.
+2015-36-25 14:36:13.486 [main] INFO  at.itb13.oculus.technicalServices.GenericDao - 'at.itb13.oculus.domain.Doctor' with ID '7777777' successfully retrieved from database.
+2015-36-25 14:36:13.487 [main] WARN  at.itb13.oculus.technicalServices.dao.QueueDao - Failed to find doctor with doctorId '7777777"
+2015-36-25 14:36:13.724 [main] INFO  at.itb13.oculus.technicalServices.GenericDao - 'at.itb13.oculus.domain.Orthoptist' with ID '7777777' successfully retrieved from database.
+2015-36-25 14:36:13.725 [main] WARN  at.itb13.oculus.technicalServices.dao.QueueDao - Failed to find orthoptist with orthoptistId '7777777"
+2015-36-25 14:36:14.011 [main] INFO  at.itb13.oculus.technicalServices.GenericDao - 'at.itb13.oculus.domain.Doctor' with ID '1' successfully retrieved from database.
+2015-36-25 14:36:14.255 [main] ERROR at.itb13.oculus.technicalServices.dao.QueueDao - Error in makeTransient(List<Queue>)
+java.lang.NullPointerException
+	at at.itb13.oculus.technicalServices.dao.QueueDao.makeTransient(QueueDao.java:297) [bin/:?]
+	at at.itb13.oculus.technicalServices.dao.QueueDao.makeTransient(QueueDao.java:333) [bin/:?]
+	at at.itb13.oculustests.technicalServices.dao.QueueDao_UnitTests.makeTransient(QueueDao_UnitTests.java:103) [bin/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_40]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_40]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_40]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:1.8.0_40]
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47) [junit.jar:?]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit.jar:?]
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44) [junit.jar:?]
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17) [junit.jar:?]
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271) [junit.jar:?]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70) [junit.jar:?]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50) [junit.jar:?]
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238) [junit.jar:?]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63) [junit.jar:?]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236) [junit.jar:?]
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53) [junit.jar:?]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229) [junit.jar:?]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309) [junit.jar:?]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:?]
+2015-36-25 14:36:14.796 [main] INFO  at.itb13.oculus.technicalServices.GenericDao - 'at.itb13.oculus.domain.Orthoptist' with ID '1' successfully retrieved from database.
+2015-36-25 14:36:15.291 [main] ERROR at.itb13.oculus.technicalServices.dao.QueueDao - Error in makePersistent(List<Queue)
+java.lang.NullPointerException
+	at at.itb13.oculus.technicalServices.dao.QueueDao.makePersistent(QueueDao.java:203) [bin/:?]
+	at at.itb13.oculus.technicalServices.dao.QueueDao.makePersistent(QueueDao.java:277) [bin/:?]
+	at at.itb13.oculustests.technicalServices.dao.QueueDao_UnitTests.makePersistent(QueueDao_UnitTests.java:87) [bin/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_40]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_40]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_40]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:1.8.0_40]
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47) [junit.jar:?]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit.jar:?]
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44) [junit.jar:?]
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17) [junit.jar:?]
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271) [junit.jar:?]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70) [junit.jar:?]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50) [junit.jar:?]
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238) [junit.jar:?]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63) [junit.jar:?]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236) [junit.jar:?]
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53) [junit.jar:?]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229) [junit.jar:?]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309) [junit.jar:?]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:?]
+2015-36-25 14:36:15.369 [main] ERROR at.itb13.oculus.technicalServices.dao.QueueDao - Error in makeTransient(List<Queue>)
+java.lang.NullPointerException
+	at at.itb13.oculus.technicalServices.dao.QueueDao.makeTransient(QueueDao.java:295) [bin/:?]
+	at at.itb13.oculustests.technicalServices.dao.QueueDao_UnitTests.makeTransientList(QueueDao_UnitTests.java:110) [bin/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_40]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_40]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_40]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:1.8.0_40]
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47) [junit.jar:?]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit.jar:?]
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44) [junit.jar:?]
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17) [junit.jar:?]
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271) [junit.jar:?]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70) [junit.jar:?]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50) [junit.jar:?]
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238) [junit.jar:?]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63) [junit.jar:?]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236) [junit.jar:?]
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53) [junit.jar:?]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229) [junit.jar:?]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309) [junit.jar:?]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:?]
+2015-36-25 14:36:15.450 [main] ERROR at.itb13.oculus.technicalServices.dao.QueueDao - Error in makePersistent(List<Queue)
+java.lang.NullPointerException
+	at at.itb13.oculus.technicalServices.dao.QueueDao.makePersistent(QueueDao.java:202) [bin/:?]
+	at at.itb13.oculustests.technicalServices.dao.QueueDao_UnitTests.makePersistentList(QueueDao_UnitTests.java:95) [bin/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_40]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_40]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_40]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:1.8.0_40]
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47) [junit.jar:?]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit.jar:?]
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44) [junit.jar:?]
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17) [junit.jar:?]
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271) [junit.jar:?]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70) [junit.jar:?]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50) [junit.jar:?]
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238) [junit.jar:?]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63) [junit.jar:?]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236) [junit.jar:?]
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53) [junit.jar:?]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229) [junit.jar:?]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309) [junit.jar:?]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:?]
+2015-37-25 14:37:36.925 [main] INFO  at.itb13.oculus.technicalServices.HibernateUtil - _sessionFactory has been initialized successfully.
+2015-37-25 14:37:37.517 [main] INFO  at.itb13.oculus.technicalServices.GenericDao - 'at.itb13.oculus.domain.Doctor' with ID '7777777' successfully retrieved from database.
+2015-37-25 14:37:37.518 [main] WARN  at.itb13.oculus.technicalServices.dao.QueueDao - Failed to find doctor with doctorId '7777777"
+2015-37-25 14:37:37.758 [main] INFO  at.itb13.oculus.technicalServices.GenericDao - 'at.itb13.oculus.domain.Orthoptist' with ID '7777777' successfully retrieved from database.
+2015-37-25 14:37:37.758 [main] WARN  at.itb13.oculus.technicalServices.dao.QueueDao - Failed to find orthoptist with orthoptistId '7777777"
+2015-37-25 14:37:38.011 [main] INFO  at.itb13.oculus.technicalServices.GenericDao - 'at.itb13.oculus.domain.Doctor' with ID '1' successfully retrieved from database.
+2015-37-25 14:37:38.261 [main] ERROR at.itb13.oculus.technicalServices.dao.QueueDao - Error in makeTransient(List<Queue>)
+java.lang.NullPointerException
+	at at.itb13.oculus.technicalServices.dao.QueueDao.makeTransient(QueueDao.java:297) [bin/:?]
+	at at.itb13.oculus.technicalServices.dao.QueueDao.makeTransient(QueueDao.java:333) [bin/:?]
+	at at.itb13.oculustests.technicalServices.dao.QueueDao_UnitTests.makeTransient(QueueDao_UnitTests.java:103) [bin/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_40]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_40]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_40]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:1.8.0_40]
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47) [junit.jar:?]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit.jar:?]
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44) [junit.jar:?]
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17) [junit.jar:?]
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271) [junit.jar:?]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70) [junit.jar:?]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50) [junit.jar:?]
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238) [junit.jar:?]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63) [junit.jar:?]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236) [junit.jar:?]
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53) [junit.jar:?]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229) [junit.jar:?]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309) [junit.jar:?]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:?]
+2015-37-25 14:37:38.831 [main] INFO  at.itb13.oculus.technicalServices.GenericDao - 'at.itb13.oculus.domain.Orthoptist' with ID '1' successfully retrieved from database.
+2015-37-25 14:37:39.346 [main] ERROR at.itb13.oculus.technicalServices.dao.QueueDao - Error in makePersistent(List<Queue)
+java.lang.NullPointerException
+	at at.itb13.oculus.technicalServices.dao.QueueDao.makePersistent(QueueDao.java:203) [bin/:?]
+	at at.itb13.oculus.technicalServices.dao.QueueDao.makePersistent(QueueDao.java:277) [bin/:?]
+	at at.itb13.oculustests.technicalServices.dao.QueueDao_UnitTests.makePersistent(QueueDao_UnitTests.java:87) [bin/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_40]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_40]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_40]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:1.8.0_40]
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47) [junit.jar:?]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit.jar:?]
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44) [junit.jar:?]
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17) [junit.jar:?]
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271) [junit.jar:?]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70) [junit.jar:?]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50) [junit.jar:?]
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238) [junit.jar:?]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63) [junit.jar:?]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236) [junit.jar:?]
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53) [junit.jar:?]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229) [junit.jar:?]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309) [junit.jar:?]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:?]
+2015-37-25 14:37:39.426 [main] ERROR at.itb13.oculus.technicalServices.dao.QueueDao - Error in makeTransient(List<Queue>)
+java.lang.NullPointerException
+	at at.itb13.oculus.technicalServices.dao.QueueDao.makeTransient(QueueDao.java:295) [bin/:?]
+	at at.itb13.oculustests.technicalServices.dao.QueueDao_UnitTests.makeTransientList(QueueDao_UnitTests.java:110) [bin/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_40]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_40]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_40]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:1.8.0_40]
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47) [junit.jar:?]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit.jar:?]
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44) [junit.jar:?]
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17) [junit.jar:?]
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271) [junit.jar:?]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70) [junit.jar:?]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50) [junit.jar:?]
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238) [junit.jar:?]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63) [junit.jar:?]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236) [junit.jar:?]
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53) [junit.jar:?]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229) [junit.jar:?]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309) [junit.jar:?]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:?]
+2015-37-25 14:37:39.506 [main] ERROR at.itb13.oculus.technicalServices.dao.QueueDao - Error in makePersistent(List<Queue)
+java.lang.NullPointerException
+	at at.itb13.oculus.technicalServices.dao.QueueDao.makePersistent(QueueDao.java:202) [bin/:?]
+	at at.itb13.oculustests.technicalServices.dao.QueueDao_UnitTests.makePersistentList(QueueDao_UnitTests.java:95) [bin/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_40]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_40]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_40]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:1.8.0_40]
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47) [junit.jar:?]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit.jar:?]
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44) [junit.jar:?]
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17) [junit.jar:?]
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271) [junit.jar:?]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70) [junit.jar:?]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50) [junit.jar:?]
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238) [junit.jar:?]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63) [junit.jar:?]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236) [junit.jar:?]
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53) [junit.jar:?]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229) [junit.jar:?]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309) [junit.jar:?]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:?]
+2015-38-25 14:38:00.287 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-38-25 14:38:03.649 [Thread-5] INFO  at.itb13.oculus.technicalServices.HibernateUtil - _sessionFactory has been initialized successfully.
+2015-38-25 14:38:03.650 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-38-25 14:38:11.637 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-38-25 14:38:11.637 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-38-25 14:38:19.360 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-38-25 14:38:19.409 [Thread-5] INFO  at.itb13.oculus.presentation.OculusMain - initRootLayout() successful
+2015-38-25 14:38:22.589 [Thread-5] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-04-25T00:00 and 2015-04-25T23:59
+2015-38-25 14:38:22.849 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Finished starting OculusMain
+2015-38-25 14:38:33.134 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-45-25 14:45:52.178 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showNewPatientDialog successful
+2015-45-25 14:45:53.208 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Shutting down application...
+2015-23-25 16:23:24.849 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-23-25 16:23:28.355 [Thread-5] INFO  at.itb13.oculus.technicalServices.HibernateUtil - _sessionFactory has been initialized successfully.
+2015-23-25 16:23:28.356 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-23-25 16:23:36.322 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-23-25 16:23:36.323 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-23-25 16:23:44.888 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-23-25 16:23:44.952 [Thread-5] INFO  at.itb13.oculus.presentation.OculusMain - initRootLayout() successful
+2015-23-25 16:23:48.183 [Thread-5] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-04-25T00:00 and 2015-04-25T23:59
+2015-23-25 16:23:48.413 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Finished starting OculusMain
+2015-23-25 16:23:55.562 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-04-28T00:00 and 2015-04-28T23:59
+2015-24-25 16:24:00.951 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-24-25 16:24:05.625 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Shutting down application...
+2015-28-25 16:28:16.584 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-28-25 16:28:20.170 [Thread-5] INFO  at.itb13.oculus.technicalServices.HibernateUtil - _sessionFactory has been initialized successfully.
+2015-28-25 16:28:20.171 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-28-25 16:28:28.115 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-28-25 16:28:28.115 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-28-25 16:28:35.863 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-28-25 16:28:35.924 [Thread-5] INFO  at.itb13.oculus.presentation.OculusMain - initRootLayout() successful
+2015-28-25 16:28:40.248 [Thread-5] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-04-25T00:00 and 2015-04-25T23:59
+2015-28-25 16:28:40.603 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Finished starting OculusMain
+2015-31-25 16:31:53.743 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-04-28T00:00 and 2015-04-28T23:59
+2015-32-25 16:32:00.266 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-32-25 16:32:10.927 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Shutting down application...
+2015-33-25 16:33:07.434 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-33-25 16:33:10.878 [Thread-5] INFO  at.itb13.oculus.technicalServices.HibernateUtil - _sessionFactory has been initialized successfully.
+2015-33-25 16:33:10.880 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-33-25 16:33:19.389 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-33-25 16:33:19.389 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-33-25 16:33:27.099 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-33-25 16:33:27.171 [Thread-5] INFO  at.itb13.oculus.presentation.OculusMain - initRootLayout() successful
+2015-33-25 16:33:30.431 [Thread-5] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-04-25T00:00 and 2015-04-25T23:59
+2015-33-25 16:33:30.618 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Finished starting OculusMain
+2015-33-25 16:33:40.264 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-04-20T00:00 and 2015-04-20T23:59
+2015-34-25 16:34:02.277 [JavaFX Application Thread] INFO  at.itb13.oculus.technicalServices.GenericDao - 'at.itb13.oculus.domain.Doctor' with ID '2' successfully retrieved from database.
+2015-34-25 16:34:02.655 [JavaFX Application Thread] INFO  at.itb13.oculus.application.receptionist.NewPatient - A new patient with the ID '105' has been saved.
+2015-34-25 16:34:04.042 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showNewPatientDialog successful
+2015-34-25 16:34:04.294 [JavaFX Application Thread] INFO  at.itb13.oculus.technicalServices.GenericDao - 'at.itb13.oculus.domain.Patient' with ID '105' successfully retrieved from database.
+2015-34-25 16:34:04.542 [JavaFX Application Thread] INFO  at.itb13.oculus.technicalServices.GenericDao - 'at.itb13.oculus.domain.CalendarEvent' with ID '48' successfully retrieved from database.
+2015-34-25 16:34:06.237 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-34-25 16:34:14.611 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Shutting down application...
+2015-46-25 16:46:32.438 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-46-25 16:46:35.820 [Thread-5] INFO  at.itb13.oculus.technicalServices.HibernateUtil - _sessionFactory has been initialized successfully.
+2015-46-25 16:46:35.821 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-46-25 16:46:43.653 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-46-25 16:46:43.654 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-46-25 16:46:51.308 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-46-25 16:46:51.369 [Thread-5] INFO  at.itb13.oculus.presentation.OculusMain - initRootLayout() successful
+2015-46-25 16:46:54.539 [Thread-5] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-04-25T00:00 and 2015-04-25T23:59
+2015-46-25 16:46:54.727 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Finished starting OculusMain
+2015-50-25 16:50:04.005 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-04-28T00:00 and 2015-04-28T23:59
+2015-50-25 16:50:08.909 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-58-25 16:58:49.804 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Shutting down application...
+2015-16-25 17:16:49.549 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-16-25 17:16:52.869 [Thread-5] INFO  at.itb13.oculus.technicalServices.HibernateUtil - _sessionFactory has been initialized successfully.
+2015-16-25 17:16:52.871 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-17-25 17:17:00.682 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-17-25 17:17:00.683 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-17-25 17:17:08.337 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-17-25 17:17:08.375 [Thread-5] INFO  at.itb13.oculus.presentation.OculusMain - initRootLayout() successful
+2015-17-25 17:17:11.514 [Thread-5] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-04-25T00:00 and 2015-04-25T23:59
+2015-17-25 17:17:11.800 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Finished starting OculusMain
+2015-17-25 17:17:17.149 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-04-28T00:00 and 2015-04-28T23:59
+2015-17-25 17:17:22.223 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-17-25 17:17:35.566 [JavaFX Application Thread] INFO  at.itb13.oculus.technicalServices.GenericDao - 'at.itb13.oculus.domain.Doctor' with ID '101' successfully retrieved from database.
+2015-17-25 17:17:35.735 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.view.TabQueueController - Queue (_queueBox) has been updated
+2015-17-25 17:17:38.951 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-17-25 17:17:42.606 [JavaFX Application Thread] INFO  at.itb13.oculus.technicalServices.GenericDao - 'at.itb13.oculus.domain.Doctor' with ID '101' successfully retrieved from database.
+2015-17-25 17:17:43.269 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.view.TabQueueController - Queue (_queueBox) has been updated
+2015-17-25 17:17:47.215 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-21-25 17:21:13.888 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-23-25 17:23:25.913 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-23-25 17:23:29.331 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-23-25 17:23:32.310 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-23-25 17:23:35.006 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Shutting down application...

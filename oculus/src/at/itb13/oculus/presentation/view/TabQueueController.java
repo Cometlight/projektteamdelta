@@ -24,6 +24,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
+import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueEntryRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
@@ -67,6 +68,8 @@ public class TabQueueController {
 	private BorderPane _patientRecordBorderPane;
 	//general Attributes
 	private OculusMain _main;
+	
+	private CalendarEventRO _curCalendarEvent;
 	
 	private Timer _timer;
 			
@@ -220,6 +223,7 @@ public class TabQueueController {
 	
 	private void showAppointmentInfo(QueueEntryRO entry){
 		if (entry != null) {
+			_curCalendarEvent = entry.getCalendarEvent();
 			_nextQueueBox.setVisible(true);
 			_nextQueueBox.getSelectionModel().clearSelection();
 			_insertButton.setVisible(true);
@@ -236,6 +240,7 @@ public class TabQueueController {
 				_reasonLabel.setText("");
 			}
 		} else {
+			_curCalendarEvent = null;
 			_nextQueueBox.setVisible(false);
 			_insertButton.setVisible(false);
 			_endExaminationButton.setVisible(false);
@@ -258,7 +263,7 @@ public class TabQueueController {
 			if (controllerNext != null && controllerOld != null) {
 				if(controllerOld.removeQueueEntry(patient)) {
 					try {
-						if(controllerNext.pushQueueEntry(patient)) {
+						if(controllerNext.pushQueueEntry(patient, _curCalendarEvent)) {
 							refreshQueueOnce();
 							Alert alert = new Alert(AlertType.INFORMATION);
 							alert.setContentText("Patient was moved to the selected Queue.");

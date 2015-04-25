@@ -3,7 +3,6 @@ package at.itb13.oculus.domain;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -19,16 +18,14 @@ import javax.persistence.Convert;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
-import at.itb13.oculus.technicalServices.util.LocalDatePersistenceConverter;
 import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
 
 /**
@@ -130,7 +127,7 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
 		_calendarEventId = calendarEventId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "calendarId", nullable = false)
 	public Calendar getCalendar() {
 		return _calendar;

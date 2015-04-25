@@ -45,13 +45,20 @@ public class Queue implements QueueRO {
 		_queueEntries.add(queueEntry);
 	}
 	
-	public void pushQueueEntry(Patient patient) {
-		pushQueueEntry(patient, LocalDateTime.now());
+	public void pushQueueEntry(Patient patient, CalendarEvent calendarEvent) {
+		pushQueueEntry(patient, calendarEvent, LocalDateTime.now());
 	}
 	
-	public void pushQueueEntry(Patient patient, LocalDateTime arrivalTime) {
+	/**
+	 * 
+	 * @param patient
+	 * @param calendarEvent may be null, if only the patient without reference to a calendarEvent should be inserted
+	 * @param arrivalTime
+	 */
+	public void pushQueueEntry(Patient patient, CalendarEvent calendarEvent, LocalDateTime arrivalTime) {
 		QueueEntry entry = new QueueEntry();
 		entry.setPatient(patient);
+		entry.setCalendarEvent(calendarEvent);
 		entry.setArrivalTime(arrivalTime);
 		pushQueueEntry(entry);
 	}

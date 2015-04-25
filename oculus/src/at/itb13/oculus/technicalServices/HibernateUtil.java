@@ -7,7 +7,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-import at.itb13.oculus.application.exceptions.InvalidInputException;
+import at.itb13.oculus.technicalServices.exceptions.NoDatabaseConnectionException;
 
 /**
  * Singleton for org.hibernate.SessionFactory, which should be instantiated only once as it's expensive doing so.
@@ -24,24 +24,28 @@ public class HibernateUtil {
 	static {
 		try {
 			init();
-		} catch (InvalidInputException e) {
-			_logger.error(e);
+		} catch (NoDatabaseConnectionException e) {
 			_sessionFactory = null;
 		}
 	}
 	
-	public static void init() throws InvalidInputException {
+	public static void init() throws NoDatabaseConnectionException {
 		if(_sessionFactory == null) {
 			try {
+				System.out.println("1");
 				Configuration config = new Configuration();
+				System.out.println("2");
 				config.configure("hibernate.cfg.xml");
+				System.out.println("3");
 				StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 						.applySettings(config.getProperties()).build();
+				System.out.println("4");
 				_sessionFactory = config.buildSessionFactory(serviceRegistry);
+				System.out.println("5");
 				_logger.info("_sessionFactory has been initialized.");
 			} catch (Throwable t) {
-				_logger.fatal(t);
-				throw new InvalidInputException();
+				_logger.fatal("Failed to initialize SessionFactory", t);
+				throw new NoDatabaseConnectionException(t);
 			}
 		}
 	}

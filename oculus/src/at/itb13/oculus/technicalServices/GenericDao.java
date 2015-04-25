@@ -57,7 +57,7 @@ public abstract class GenericDao<T> {
 			if(tx != null) {
 				tx.rollback();
 			}
-			_logger.error(ex);
+			_logger.error("Error in findById(Integer)", ex);
 		} finally {
 			if(session != null) {
 				session.close();
@@ -91,7 +91,7 @@ public abstract class GenericDao<T> {
 			if(tx != null) {
 				tx.rollback();
 			}
-			_logger.error(ex);
+			_logger.error("Error in list()", ex);
 		} finally {
 			if(session != null) {
 				session.close();
@@ -149,7 +149,7 @@ public abstract class GenericDao<T> {
 				}
 				list = crit.list();
 			} catch (Exception ex) {
-				_logger.error(ex);
+				_logger.error("Error in findByCriteria(Criterion...)", ex);
 			} finally {
 				if(session != null) {
 					session.close();
@@ -191,7 +191,7 @@ public abstract class GenericDao<T> {
 			if(tx != null) {
 				tx.rollback();
 			}
-			_logger.error(ex);
+			_logger.error("Error in makePersistent(List<T>)", ex);
 			return false;
 		} finally {
 			if(session != null) {
@@ -247,7 +247,7 @@ public abstract class GenericDao<T> {
 			if(tx != null) {
 				tx.rollback();
 			}
-			_logger.error(ex);
+			_logger.error("Error in makeTransient(List<T>)", ex);
 			return false;
 		} finally {
 			if(session != null) {

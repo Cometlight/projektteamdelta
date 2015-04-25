@@ -151,7 +151,6 @@ public class TabAppointmentsController {
 	                    			setStyle("-fx-background-color: red");
 	                    		} else {	// it's ok; the patient still has time to come to the appointment sometime in the future
 	                    			setStyle(null);
-	                    			System.out.println("calev is after now");
 	                    		}
 		                    } else {
 		                    	setStyle("-fx-background-color: lightgrey");

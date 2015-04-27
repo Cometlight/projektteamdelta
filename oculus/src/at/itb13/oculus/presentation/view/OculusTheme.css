@@ -1,0 +1,60 @@
+
+.background-patient{
+	-fx-background-color: #BBE1EB;
+}
+
+.background-queue{
+	-fx-background-color: #C0EEAC;
+}
+
+.label{
+	-fx-font-size: 9pt;
+	-fx-font-color: #838B8B;
+}
+
+.label-header{
+	-fx-font-size: 12pt;
+	-fx-font-color: #2E2E2E;
+}
+
+.tab-pane{
+	
+	-fx-skin: "com.sun.javafx.scene.control.skin.TabPaneSkin";
+/* -fx-tab-min-width: 4.583em;  55 */
+/* -fx-tab-max-width: 4.583em; 55 */
+-fx-tab-min-height: 2em; /* 24 */
+-fx-tab-max-height: 2em; /* 24 */
+		
+}
+
+.tab-pane-patientrecord{
+		-fx-skin: "com.sun.javafx.scene.control.skin.TabPaneSkin";
+/* -fx-tab-min-width: 4.583em;  55 */
+/* -fx-tab-max-width: 4.583em; 55 */
+	-fx-tab-min-height: 2em; /* 24 */
+	-fx-tab-max-height: 2em; /* 24 */
+	
+
+}
+
+.PatientRecord .tab .tab-label{
+	-fx-skin: "com.sun.javafx.scene.control.skin.LabelSkin";
+   	-fx-background-color: transparent; 
+	-fx-alignment: CENTER;
+	-fx-text-fill: #2E2E2E;
+	
+	-fx-font-size: 9pt;
+}
+.tab{
+
+}
+.tab .tab-label{
+	-fx-skin: "com.sun.javafx.scene.control.skin.LabelSkin";
+   	-fx-background-color: transparent; 
+	-fx-alignment: CENTER;
+	-fx-text-fill: #2E2E2E;
+	
+	-fx-font-size: 12pt;
+}
+
+

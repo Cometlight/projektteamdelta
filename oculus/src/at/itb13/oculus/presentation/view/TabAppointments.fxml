@@ -9,22 +9,26 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.TabAppointmentsController">
    <children>
-      <SplitPane dividerPositions="0.3" layoutX="60.0" layoutY="93.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.25626043405676124" layoutX="60.0" layoutY="93.0" prefHeight="160.0" prefWidth="200.0" stylesheets="@OculusTheme.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
             <VBox>
                <children>
-                  <Pane prefHeight="55.0" prefWidth="356.0">
+                  <Pane prefHeight="122.0" prefWidth="304.0">
                      <children>
-                        <DatePicker fx:id="_datePicker" layoutX="14.0" layoutY="14.0" onAction="#changeDate" prefHeight="25.0" prefWidth="332.0" showWeekNumbers="true" />
+                        <DatePicker fx:id="_datePicker" layoutX="14.0" layoutY="24.0" onAction="#changeDate" prefHeight="25.0" prefWidth="277.0" showWeekNumbers="true" />
                      </children>
                   </Pane>
-                  <TableView fx:id="_appointmentTable" VBox.vgrow="ALWAYS">
-                    <columns>
-                      <TableColumn fx:id="_timeColumn" prefWidth="64.0" text="Time" />
-                      <TableColumn fx:id="_patientColumn" prefWidth="127.99996948242188" text="Patient" />
-                        <TableColumn fx:id="_typeColumn" prefWidth="162.00003051757812" text="Type" />
-                    </columns>
-                  </TableView>
+                  <AnchorPane prefHeight="651.0" prefWidth="333.0">
+                     <children>
+                        <TableView fx:id="_appointmentTable" layoutY="161.0" prefHeight="626.0" prefWidth="304.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn fx:id="_timeColumn" prefWidth="64.0" text="Time" />
+                            <TableColumn fx:id="_patientColumn" prefWidth="117.0" text="Patient" />
+                              <TableColumn fx:id="_typeColumn" prefWidth="123.0" text="Type" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
                </children>
             </VBox>
             <SplitPane dividerPositions="0.17385057471264367" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">

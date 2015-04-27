@@ -1,0 +1,29 @@
+
+.background{
+	-fx-background-color: #00BFFF;
+}
+
+.tab-pane{
+	
+	-fx-skin: "com.sun.javafx.scene.control.skin.TabPaneSkin";
+/* -fx-tab-min-width: 4.583em;  55 */
+/* -fx-tab-max-width: 4.583em; 55 */
+-fx-tab-min-height: 2em; /* 24 */
+-fx-tab-max-height: 2em; /* 24 */
+		
+}
+.tab{
+
+}
+.tab .tab-label{
+	-fx-skin: "com.sun.javafx.scene.control.skin.LabelSkin";
+   	-fx-background-color: transparent; 
+	-fx-alignment: CENTER;
+	-fx-text-fill: #887B6A;
+	
+	-fx-font-size: 12pt;
+}
+
+.split-pane:vertical{
+	-fx-width: 8em;
+}

@@ -124,7 +124,7 @@ public class NewPatientController {
 			_firstNameField.setText(_patient.getFirstName());
 			_lastNameField.setText(_patient.getLastName());
 			_SINField.setText(_patient.getSocialInsuranceNr());
-			_birthdayField.setText(_patient.getBirthDay().toString());
+			_birthdayField.setText(_patient.getBirthDay() == null ? "" : _patient.getBirthDay().toString());
 			if(_patient.getGender().equals("M")){
 				_maleRadioButton.setSelected(true);
 			}

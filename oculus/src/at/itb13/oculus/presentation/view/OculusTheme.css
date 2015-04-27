@@ -3,6 +3,10 @@
 	-fx-background-color: #BBE1EB;
 }
 
+.background-queue{
+	-fx-background-color: #C0EEAC;
+}
+
 .label{
 	-fx-font-size: 9pt;
 	-fx-font-color: #838B8B;

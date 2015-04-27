@@ -9,9 +9,9 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.PatientRecordController">
    <children>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="600.0" stylesheets="@OculusTheme.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TabPane layoutX="14.0" layoutY="88.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TabPane layoutX="14.0" layoutY="88.0" prefHeight="200.0" prefWidth="600.0" styleClass="tab-pane-patientrecord" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <tabs>
                   <Tab closable="false" text="General Information">
                      <content>
@@ -41,23 +41,23 @@
                                     <Label fx:id="_firstNameLabel" text="Label" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
-                              <Label layoutX="14.0" layoutY="6.0" nodeOrientation="LEFT_TO_RIGHT" text="Personal Information" AnchorPane.leftAnchor="10.0">
+                              <Label layoutX="14.0" layoutY="6.0" nodeOrientation="LEFT_TO_RIGHT" styleClass="label-header" text="Personal Information" AnchorPane.leftAnchor="10.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="10.0" layoutY="296.0" text="Address">
+                              <Label layoutX="10.0" layoutY="296.0" styleClass="label-header" text="Address">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="13.0" layoutY="207.0" nodeOrientation="LEFT_TO_RIGHT" text="Doctor">
+                              <Label layoutX="13.0" layoutY="207.0" nodeOrientation="LEFT_TO_RIGHT" styleClass="label-header" text="Doctor">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
                               <Label fx:id="_docLabel" layoutX="45.0" layoutY="235.0" text="Label" />
-                              <Label layoutX="-2.0" layoutY="433.0" text="Contact">
+                              <Label layoutX="-2.0" layoutY="433.0" styleClass="label-header" text="Contact">
                                  <padding>
                                     <Insets left="10.0" />
                                  </padding>
@@ -79,19 +79,19 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Label layoutX="16.0" layoutY="23.0" text="Allergies">
+                              <Label layoutX="16.0" layoutY="23.0" styleClass="label-header" text="Allergies">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
                               <Label fx:id="_alergiesLabel" layoutX="43.0" layoutY="55.0" text="Label" />
-                              <Label layoutX="10.0" layoutY="137.0" text="Childhood Illnesses">
+                              <Label layoutX="10.0" layoutY="137.0" styleClass="label-header" text="Childhood Illnesses">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
                               <Label fx:id="_childhoodAilmentsLabel" layoutX="43.0" layoutY="177.0" text="Label" />
-                              <Label layoutX="14.0" layoutY="242.0" text="Drug Intolerances">
+                              <Label layoutX="14.0" layoutY="242.0" styleClass="label-header" text="Drug Intolerances">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

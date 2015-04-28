@@ -13,10 +13,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
 import javafx.util.Callback;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
@@ -63,11 +67,11 @@ public class PatientRecordController {
 	@FXML
 	private Label _emailLabel;
 	@FXML
-	private Label _alergiesLabel;
+	private TextArea _allergiesArea;
 	@FXML
-	private Label _childhoodAilmentsLabel;
+	private TextArea _childhoodAilmentsLabel;
 	@FXML
-	private Label _medicineintolerranceLabel;
+	private TextArea _medicineintolerranceLabel;
 	@FXML
 	private Button _editGeneralButton;
 	@FXML
@@ -156,13 +160,14 @@ public class PatientRecordController {
         if (value != null) {
         	_patient = value;
             // Fill the labels with info from the person object.
-        	_alergiesLabel.setText(value.getAllergy());
+        	
+        	_allergiesArea.setText(value.getAllergy());
         	_childhoodAilmentsLabel.setText(value.getChildhoodAilments());
         	_medicineintolerranceLabel.setText(value.getMedicineIntolerance());
                       
         } else {
             // Person is null, remove all the text.
-        	_alergiesLabel.setText("");
+        	_allergiesArea.setText("");
         	_childhoodAilmentsLabel.setText("");
         	_medicineintolerranceLabel.setText("");	
         }

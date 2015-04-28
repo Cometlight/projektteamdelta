@@ -43,15 +43,9 @@ public class PatientRecordController {
 	private TextField _lastNameField;
 	
 	@FXML
-	private Label _firstNameLabel;
+	private Label _personalLabel;
 	@FXML
-	private Label _lastNameLabel;
-	@FXML
-	private Label _SSNLabel;
-	@FXML
-	private Label _birthdayLabel;
-	@FXML
-	private Label _genderLabel;
+	private Label _addressLabel;
 	@FXML
 	private Label _docLabel;
 	@FXML
@@ -123,30 +117,28 @@ public class PatientRecordController {
 			_editAnamnesisButton.setVisible(true);
 			_patient = value;
             // Fill the labels with info from the person object.
-        	_firstNameLabel.setText(value.getFirstName());
-        	_lastNameLabel.setText(value.getLastName());
-        	_SSNLabel.setText(value.getSocialInsuranceNr());
-        	_birthdayLabel.setText((value.getBirthDay() == null) ? "" : value.getBirthDay().toString());
-        	_docLabel.setText(value.getDoctor().getUser().getFirstName() + " " +value.getDoctor().getUser().getLastName());
-        	_genderLabel.setText(value.getGender().toString());	            
-        	_streetLabel.setText(value.getStreet());
-        	_postalCodeLabel.setText(value.getPostalCode());
-        	_cityLabel.setText(value.getCity());
-        	_countryISOLabel.setText(value.getCountryIsoCode());
+			String personal = new String();
+			personal = personal + ((value.getFirstName()== null) ? "" : value.getFirstName()+" ");
+			personal = personal +((value.getLastName()== null) ? "-\n" : value.getLastName()) + "\n";
+			personal = personal + ((value.getSocialInsuranceNr()== null) ? "-" : value.getSocialInsuranceNr()) +"\n";
+			personal = personal + ((value.getBirthDay()== null) ? "-\n" : value.getBirthDay().toString() + "\n");
+			personal = personal + value.getGender().name();
+			_personalLabel.setText(personal);
+        	_docLabel.setText(value.getDoctor().getUser().getFirstName() + " " +value.getDoctor().getUser().getLastName());           
+        	String address = new String();
+        	address = address + ((value.getStreet()== null)? "-\n" : value.getStreet()+"\n");
+        	address = address + ((value.getPostalCode()==null)?"": value.getPostalCode()+" ");
+        	address = address + ((value.getCity()== null)?"-\n": value.getCity()+"\n");
+        	address = address + ((value.getCountryIsoCode()==null)? "-\n" : value.getCountryIsoCode());
+        	_addressLabel.setText(address);
         	_phoneLabel.setText(value.getPhone());
         	_emailLabel.setText(value.getEmail());	           
         } else {
+        	
             // Person is null, remove all the text.
-            _firstNameLabel.setText("");
-            _lastNameLabel.setText("");
-            _SSNLabel.setText("");
-            _birthdayLabel.setText("");
-            _docLabel.setText("");
-            _genderLabel.setText("");	            
-            _streetLabel.setText("");
-            _postalCodeLabel.setText("");
-            _cityLabel.setText("");
-            _countryISOLabel.setText("");
+        	_personalLabel.setText("");
+            _docLabel.setText("");    
+            _addressLabel.setText("");
             _phoneLabel.setText("");
             _emailLabel.setText("");	
         }

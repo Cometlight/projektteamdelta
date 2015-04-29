@@ -35,7 +35,7 @@ public class EventType implements java.io.Serializable {
 	private String _eventTypeName;
 	private Integer _estimatedTime;
 	private String _description;
-	private Set<CalendarEvent> _calendarEvents = new HashSet<CalendarEvent>(0);
+	private Set<CalendarEvent> _calendarEvents = new HashSet<CalendarEvent>(0);	// TODO: -> delete?
 
 	public EventType() { }
 

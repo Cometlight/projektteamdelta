@@ -59,16 +59,14 @@ public class Calendar implements java.io.Serializable, CalendarRO {
 	}
 	
 	/**
-	 * Creates a list of Calendar Event in a chosen timespan.
+	 * Creates a list of Calendar Event for a chosen timespan.
 	 * 
-	 * @param startDate
-	 *            the start Date of the timespan. (inclusive)
-	 * @param endDate
-	 *            the end Date of the timespan. (inclusive)
+	 * @param startDate the start Date of the timespan. (inclusive)
+	 * @param endDate the end Date of the timespan. (inclusive)
 	 * @return A list of CalendarEvent.
 	 */
 	@Transient
-	public List<CalendarEvent> getCalendarEventsInTimespan(LocalDateTime startDate, LocalDateTime endDate) {
+	public List<CalendarEvent> getCalendarEventsForTimespan(LocalDateTime startDate, LocalDateTime endDate) {
 		List<CalendarEvent> listCalEv = new LinkedList<>();
 		for (CalendarEvent c : _calendarEvents) {
 			if (c.isInTimespan(startDate, endDate)) {

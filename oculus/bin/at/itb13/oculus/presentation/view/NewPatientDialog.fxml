@@ -43,7 +43,7 @@
                <GridPane.margin>
                   <Insets right="250.0" />
                </GridPane.margin></TextField>
-            <TextField fx:id="_birthdayField" promptText="Birthday (yyyy-MM-dd)" GridPane.rowIndex="3">
+            <TextField fx:id="_birthdayField" promptText="Date Of Birth (yyyy-MM-dd)" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets right="250.0" />
                </GridPane.margin></TextField>

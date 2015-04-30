@@ -158,7 +158,7 @@ public class NewPatientController {
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("New Patient has been saved");
 						alert.setHeaderText("New Patient saved");
-						alert.setContentText("The Patient has been saved succecfully!");
+						alert.setContentText("The Patient has been saved successfully!");
 						alert.showAndWait();
 					} catch (InvalidInputException e) {
 						_logger.error(e);

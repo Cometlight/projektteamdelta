@@ -23,7 +23,7 @@ public class QueueSringConverter extends StringConverter<QueueRO> {
 	public String toString(QueueRO queue) {
 		String name = "";
 		if (queue.getDoctor() != null) {
-			name = ("Dr. " + queue.getDoctor().getUser().getFirstName() + " " + queue
+			name = ("Dr " + queue.getDoctor().getUser().getFirstName() + " " + queue
 					.getDoctor().getUser().getLastName());
 		} else if (queue.getOrthoptist() != null) {
 			name = ("Orthoptist "

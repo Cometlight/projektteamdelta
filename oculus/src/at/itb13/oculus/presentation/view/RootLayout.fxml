@@ -11,7 +11,7 @@
         <tabs>
           <Tab onSelectionChanged="#tabAppointmentsControl" text="Appointments" />
           <Tab onSelectionChanged="#tabPatientControl" text="Patient" />
-            <Tab onSelectionChanged="#tabQueueControl" text="Waitinglist" />
+            <Tab onSelectionChanged="#tabQueueControl" text="Waiting List" />
         </tabs>
       </TabPane>
    </top>

@@ -35,7 +35,7 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
-                        <ComboBox fx:id="_queueBox" prefWidth="150.0" promptText="Select a Waitinglist" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0" />
+                        <ComboBox fx:id="_queueBox" prefWidth="150.0" promptText="Select a Waiting List" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0" />
                         <Button fx:id="_insertQueueButton" layoutX="770.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleInsertInQueueButton" text="Insert" AnchorPane.rightAnchor="5.0" />
                         <Label fx:id="_patientLabel" layoutX="448.0" layoutY="69.0" text="Label" />
                         <Label fx:id="_eventTypeLabel" layoutX="111.0" layoutY="42.0" text="Label" />

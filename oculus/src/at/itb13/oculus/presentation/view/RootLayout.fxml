@@ -10,6 +10,7 @@
       <TabPane prefHeight="58.0" prefWidth="1200.0" stylesheets="@OculusTheme.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab onSelectionChanged="#tabAppointmentsControl" text="Appointments" />
+            <Tab onSelectionChanged="#tabCalendarControl" text="Calendar" />
           <Tab onSelectionChanged="#tabPatientControl" text="Patient" />
             <Tab onSelectionChanged="#tabQueueControl" text="Waiting List" />
         </tabs>

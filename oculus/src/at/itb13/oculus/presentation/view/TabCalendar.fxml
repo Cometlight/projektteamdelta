@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.TabCalendarController">
+   <children>
+      <SplitPane dividerPositions="0.21285475792988315" layoutX="164.0" layoutY="224.0" prefHeight="700.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <VBox layoutX="14.0" layoutY="126.0" prefHeight="328.0" prefWidth="104.0">
+                     <children>
+                        <CheckBox mnemonicParsing="false" text="CheckBox" />
+                        <CheckBox mnemonicParsing="false" text="CheckBox" />
+                        <CheckBox mnemonicParsing="false" text="CheckBox" />
+                        <CheckBox mnemonicParsing="false" text="CheckBox" />
+                        <CheckBox mnemonicParsing="false" text="CheckBox" />
+                        <CheckBox mnemonicParsing="false" text="CheckBox" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <SplitPane dividerPositions="0.21695402298850575" layoutX="53.0" layoutY="84.0" orientation="VERTICAL" prefHeight="698.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

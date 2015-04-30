@@ -1,6 +1,8 @@
 package at.itb13.oculus.presentation.view;
 
 import javafx.fxml.FXML;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import at.itb13.oculus.presentation.OculusMain;
 
 /**
@@ -11,7 +13,8 @@ import at.itb13.oculus.presentation.OculusMain;
  */
 public class TabCalendarController {
 
-	
+	@FXML
+	private WebView _webView;
 	private OculusMain _main;
 	
 	//general Methods
@@ -20,6 +23,9 @@ public class TabCalendarController {
 	  }
 	 
 	 @FXML
-	 private void initialize() {}
+	 private void initialize() {
+		 final WebEngine engine = _webView.getEngine();
+		 engine.load("http://www.google.at/");
+	 }
 
 }

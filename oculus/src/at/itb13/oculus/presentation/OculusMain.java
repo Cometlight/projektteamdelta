@@ -107,7 +107,6 @@ public class OculusMain extends Application {
         		initAppointmentsTab();
         		initPatientTab();
         		initQueueTab();
-        		initCalendarTab();
         		
         		updateMessage("Finished.");
         		
@@ -120,6 +119,8 @@ public class OculusMain extends Application {
 	}
 	
     private void showMainStage() {
+    	initCalendarTab();	// TODO: another position?
+    	
     	_primaryStage.setScene(_primaryScene);
     	_primaryStage.setTitle("Oculus");
 		_primaryStage.setMinWidth(MIN_WIDTH);
@@ -241,7 +242,8 @@ public class OculusMain extends Application {
 			_logger.error("Fail: initQueueTab",ex);
 		}
 	}
-	public void initCalendarTab(){
+	
+	private void initCalendarTab(){
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(OculusMain.class

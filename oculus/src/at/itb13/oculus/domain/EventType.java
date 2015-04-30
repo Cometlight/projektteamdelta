@@ -18,6 +18,8 @@ import javax.persistence.UniqueConstraint;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.domain.interfaces.IEventType;
+
 /**
  * 
  * TODO: Insert description here.
@@ -27,7 +29,7 @@ import org.apache.logging.log4j.Logger;
  */
 @Entity
 @Table(name = "eventtype", catalog = "oculus_d", uniqueConstraints = @UniqueConstraint(columnNames = "eventTypeName"))
-public class EventType implements java.io.Serializable {
+public class EventType implements java.io.Serializable, IEventType {
 	private static final Logger _logger = LogManager.getLogger(EventType.class.getName());
 	private static final long serialVersionUID = 1L;
 	
@@ -63,6 +65,7 @@ public class EventType implements java.io.Serializable {
 	}
 
 	@Column(name = "eventTypeName", unique = true, nullable = false, length = 50)
+	@Override
 	public String getEventTypeName() {
 		return _eventTypeName;
 	}
@@ -72,6 +75,7 @@ public class EventType implements java.io.Serializable {
 	}
 
 	@Column(name = "estimatedTime")
+	@Override
 	public Integer getEstimatedTime() {
 		return _estimatedTime;
 	}
@@ -81,6 +85,7 @@ public class EventType implements java.io.Serializable {
 	}
 
 	@Column(name = "description", length = 65535)
+	@Override
 	public String getDescription() {
 		return _description;
 	}
@@ -89,7 +94,7 @@ public class EventType implements java.io.Serializable {
 		_description = description;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "eventtype")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "eventType")
 	public Set<CalendarEvent> getCalendarEvents() {
 		return _calendarEvents;
 	}

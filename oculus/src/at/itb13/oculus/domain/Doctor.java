@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.domain.interfaces.IDoctor;
 import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
 
 /**
@@ -30,7 +31,7 @@ import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
  */
 @Entity
 @Table(name = "doctor", catalog = "oculus_d")
-public class Doctor implements java.io.Serializable, DoctorRO {
+public class Doctor implements java.io.Serializable, DoctorRO, IDoctor {
 	private static final Logger _logger = LogManager.getLogger(Doctor.class.getName());
 	private static final long serialVersionUID = 1L;
 	

@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.domain.interfaces.IUser;
 import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
 
 /**
@@ -32,7 +33,7 @@ import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
  */
 @Entity
 @Table(name = "user", catalog = "oculus_d")
-public class User implements java.io.Serializable {
+public class User implements java.io.Serializable, IUser{
 	private static final Logger _logger = LogManager.getLogger(User.class.getName());
 	private static final long serialVersionUID = 1L;
 	

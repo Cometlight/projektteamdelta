@@ -22,7 +22,7 @@ public interface PatientRO {
 	String getSocialInsuranceNr();
 	String getFirstName();
 	String getLastName();
-	LocalDate getBirthDay();
+	LocalDate getDateOfBirth();
 	Gender getGender();
 	String getStreet();
 	String getPostalCode();

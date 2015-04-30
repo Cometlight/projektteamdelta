@@ -25,6 +25,9 @@ import javax.persistence.Transient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.domain.interfaces.ICalendarEvent;
+import at.itb13.oculus.domain.interfaces.IEventType;
+import at.itb13.oculus.domain.interfaces.IPatient;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
 
@@ -37,7 +40,7 @@ import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
  */
 @Entity
 @Table(name = "calendarevent", catalog = "oculus_d")
-public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
+public class CalendarEvent implements java.io.Serializable, CalendarEventRO, ICalendarEvent {
 	private static final Logger _logger = LogManager.getLogger(CalendarEvent.class.getName());
 	private static final long serialVersionUID = 1L;
 	
@@ -129,6 +132,7 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "calendarId", nullable = false)
+	@Override
 	public Calendar getCalendar() {
 		return _calendar;
 	}
@@ -139,16 +143,18 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "eventTypeId", nullable = false)
-	public EventType getEventtype() {
+	@Override
+	public EventType getEventType() {
 		return _eventtype;
 	}
 
-	public void setEventtype(EventType eventtype) {
+	public void setEventType(EventType eventtype) {
 		_eventtype = eventtype;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "patientId")
+	@Override
 	public Patient getPatient() {
 		return _patient;
 	}
@@ -159,6 +165,7 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
 
 	@Convert(converter = LocalDateTimePersistenceConverter.class)
 	@Column(name = "eventStart", nullable = false, length = 19)
+	@Override
 	public LocalDateTime getEventStart() {
 		return _eventStart;
 	}
@@ -169,6 +176,7 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
 
 	@Convert(converter = LocalDateTimePersistenceConverter.class)
 	@Column(name = "eventEnd", nullable = false, length = 19)
+	@Override
 	public LocalDateTime getEventEnd() {
 		return _eventEnd;
 	}
@@ -178,6 +186,7 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
 	}
 
 	@Column(name = "description", length = 65535)
+	@Override
 	public String getDescription() {
 		return _description;
 	}
@@ -187,6 +196,7 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
 	}
 
 	@Column(name = "patientName", length = 100)
+	@Override
 	public String getPatientName() {
 		return _patientName;
 	}
@@ -196,6 +206,7 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
 	}
 
 	@Column(name = "isOpen", nullable = false)
+	@Override
 	public boolean isOpen() {
 		return _isOpen;
 	}
@@ -203,5 +214,4 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO {
 	public void setOpen(boolean isOpen) {
 		_isOpen = isOpen;
 	}
-
 }

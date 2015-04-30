@@ -20,7 +20,7 @@ public interface ICalendar {
 	 * @param endDate the end Date of the timespan. (inclusive)
 	 * @return A list of CalendarEvent.
 	 */
-	public abstract List<ICalendarEvent> getCalendarEventsForTimespan(LocalDateTime start, 
+	public abstract List<? extends ICalendarEvent> getCalendarEventsForTimespan(LocalDateTime start, 
 																	 LocalDateTime end);
 	/**
 	 * Returns the Working Hours of a chosen day of the week.

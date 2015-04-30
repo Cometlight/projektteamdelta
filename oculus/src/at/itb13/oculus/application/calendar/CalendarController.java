@@ -44,7 +44,7 @@ public class CalendarController {
 	 */
 	public List<? extends CalendarEventRO> getCalendarEventsInTimespan(LocalDateTime startDate, LocalDateTime endDate) throws InvalidInputException {
 		if(startDate.isBefore(endDate)){
-			return _calendar.getCalendarEventsInTimespan(startDate, endDate);			
+			return _calendar.getCalendarEventsForTimespan(startDate, endDate);			
 		}else{
 			throw new InvalidInputException();
 		}

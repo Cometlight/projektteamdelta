@@ -10,7 +10,7 @@ public interface IEventType {
 
 	public abstract String getEventTypeName();
 	
-	public abstract int getEstimatedTime();
+	public abstract Integer getEstimatedTime();
 	
 	public abstract String getDescription();
 }

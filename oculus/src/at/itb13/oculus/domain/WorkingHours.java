@@ -1,18 +1,16 @@
 package at.itb13.oculus.domain;
 
-import java.util.Date;
-import java.util.HashSet;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import javax.persistence.Convert;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,6 +18,9 @@ import javax.persistence.UniqueConstraint;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import at.itb13.oculus.domain.interfaces.IWorkingHours;
+import at.itb13.oculus.domain.support.LocalTimeConverter;
 
 /**
  * 
@@ -31,26 +32,28 @@ import org.apache.logging.log4j.Logger;
 @Entity
 @Table(name = "workinghours", catalog = "oculus_d", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"morningFrom", "morningTo", "afternoonFrom", "afternoonTo" }))
-public class WorkingHours implements java.io.Serializable {
+public class WorkingHours implements java.io.Serializable, IWorkingHours {
+	private static final long serialVersionUID = 1L;
+
 	private static final Logger _logger = LogManager.getLogger(WorkingHours.class.getName());
 	
 	private Integer _workingHoursId;
-	private Date _morningFrom;
-	private Date _morningTo;
-	private Date _afternoonFrom;
-	private Date _afternoonTo;
+	private LocalDateTime _morningFrom;
+	private LocalDateTime _morningTo;
+	private LocalDateTime _afternoonFrom;
+	private LocalDateTime _afternoonTo;
 
 	public WorkingHours() {
 	}
 
-	public WorkingHours(Date morningFrom, Date morningTo, Date afternoonFrom,
-			Date afternoonTo, Set<CalendarWorkingHours> calendarworkinghourses) {
+	public WorkingHours(LocalDateTime morningFrom, LocalDateTime morningTo, LocalDateTime afternoonFrom,
+			LocalDateTime afternoonTo, Set<CalendarWorkingHours> calendarworkinghourses) {
 		_morningFrom = morningFrom;
 		_morningTo = morningTo;
 		_afternoonFrom = afternoonFrom;
 		_afternoonTo = afternoonTo;
 	}
-
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "workingHoursId", unique = true, nullable = false)
@@ -62,43 +65,47 @@ public class WorkingHours implements java.io.Serializable {
 		_workingHoursId = workingHoursId;
 	}
 
-	@Temporal(TemporalType.TIME)
+	@Convert(converter = LocalTimeConverter.class)
 	@Column(name = "morningFrom", length = 8)
-	public Date getMorningFrom() {
+	@Override
+	public LocalDateTime getMorningFrom() {
 		return _morningFrom;
 	}
 
-	public void setMorningFrom(Date morningFrom) {
+	public void setMorningFrom(LocalDateTime morningFrom) {
 		_morningFrom = morningFrom;
 	}
 
-	@Temporal(TemporalType.TIME)
+	@Convert(converter = LocalTimeConverter.class)
 	@Column(name = "morningTo", length = 8)
-	public Date getMorningTo() {
+	@Override
+	public LocalDateTime getMorningTo() {
 		return _morningTo;
 	}
 
-	public void setMorningTo(Date morningTo) {
+	public void setMorningTo(LocalDateTime morningTo) {
 		_morningTo = morningTo;
 	}
 
-	@Temporal(TemporalType.TIME)
+	@Convert(converter = LocalTimeConverter.class)
 	@Column(name = "afternoonFrom", length = 8)
-	public Date getAfternoonFrom() {
+	@Override
+	public LocalDateTime getAfternoonFrom() {
 		return _afternoonFrom;
 	}
 
-	public void setAfternoonFrom(Date afternoonFrom) {
+	public void setAfternoonFrom(LocalDateTime afternoonFrom) {
 		_afternoonFrom = afternoonFrom;
 	}
 
-	@Temporal(TemporalType.TIME)
+	@Convert(converter = LocalTimeConverter.class)
 	@Column(name = "afternoonTo", length = 8)
-	public Date getAfternoonTo() {
+	@Override
+	public LocalDateTime getAfternoonTo() {
 		return _afternoonTo;
 	}
 
-	public void setAfternoonTo(Date afternoonTo) {
+	public void setAfternoonTo(LocalDateTime afternoonTo) {
 		_afternoonTo = afternoonTo;
 	}
 }

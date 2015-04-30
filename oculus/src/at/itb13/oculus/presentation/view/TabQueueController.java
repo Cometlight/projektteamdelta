@@ -232,7 +232,7 @@ public class TabQueueController {
 			
 			if (entry.getCalendarEvent() != null) {
 				_dateTimeLabel.setText(entry.getCalendarEvent().getEventStart().toString());
-				_typeLabel.setText(entry.getCalendarEvent().getEventtype().getEventTypeName());
+				_typeLabel.setText(entry.getCalendarEvent().getEventType().getEventTypeName());
 				_reasonLabel.setText(entry.getCalendarEvent().getDescription());
 			} else {
 				_dateTimeLabel.setText("");

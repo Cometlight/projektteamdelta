@@ -93,5 +93,4 @@ public class CalendarWorkingHours implements java.io.Serializable {
 	public void setWeekDayKey(WeekDayKey weekDayKey) {
 		_weekDayKey = weekDayKey;
 	}
-
 }

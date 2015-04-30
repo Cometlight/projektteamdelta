@@ -124,7 +124,7 @@ public class NewPatientController {
 			_firstNameField.setText(_patient.getFirstName());
 			_lastNameField.setText(_patient.getLastName());
 			_SINField.setText(_patient.getSocialInsuranceNr());
-			_birthdayField.setText(_patient.getBirthDay() == null ? "" : _patient.getBirthDay().toString());
+			_birthdayField.setText(_patient.getDateOfBirth() == null ? "" : _patient.getDateOfBirth().toString());
 			if(_patient.getGender().equals("M")){
 				_maleRadioButton.setSelected(true);
 			}
@@ -297,7 +297,7 @@ public class NewPatientController {
 					alert.setContentText("Patient information: "
 							+ "first name: '" + patientRO.getFirstName()
 							+ "', last name: '" + patientRO.getLastName()
-							+ "', birthday: '" + patientRO.getBirthDay() + "'");
+							+ "', birthday: '" + patientRO.getDateOfBirth() + "'");
 	
 					alert.showAndWait();
 				}

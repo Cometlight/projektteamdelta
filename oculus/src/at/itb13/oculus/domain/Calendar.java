@@ -23,6 +23,9 @@ import javax.persistence.Table;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.domain.CalendarWorkingHours.WeekDayKey;
+import at.itb13.oculus.domain.interfaces.ICalendar;
+import at.itb13.oculus.domain.interfaces.IWorkingHours;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
 
 /**
@@ -34,7 +37,7 @@ import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
  */
 @Entity
 @Table(name = "calendar", catalog = "oculus_d")
-public class Calendar implements java.io.Serializable, CalendarRO {
+public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 	private static final Logger _logger = LogManager.getLogger(Calendar.class.getName());
 	private static final long serialVersionUID = 1L;
 	
@@ -59,16 +62,15 @@ public class Calendar implements java.io.Serializable, CalendarRO {
 	}
 	
 	/**
-	 * Creates a list of Calendar Event in a chosen timespan.
+	 * Creates a list of Calendar Event for a chosen timespan.
 	 * 
-	 * @param startDate
-	 *            the start Date of the timespan. (inclusive)
-	 * @param endDate
-	 *            the end Date of the timespan. (inclusive)
+	 * @param startDate the start Date of the timespan. (inclusive)
+	 * @param endDate the end Date of the timespan. (inclusive)
 	 * @return A list of CalendarEvent.
 	 */
 	@Transient
-	public List<CalendarEvent> getCalendarEventsInTimespan(LocalDateTime startDate, LocalDateTime endDate) {
+	@Override
+	public List<CalendarEvent> getCalendarEventsForTimespan(LocalDateTime startDate, LocalDateTime endDate) {
 		List<CalendarEvent> listCalEv = new LinkedList<>();
 		for (CalendarEvent c : _calendarEvents) {
 			if (c.isInTimespan(startDate, endDate)) {
@@ -76,6 +78,24 @@ public class Calendar implements java.io.Serializable, CalendarRO {
 			}
 		}
 		return listCalEv;
+	}
+	
+	/**
+	 * Returns the Working Hours of a chosen day of the week.
+	 * 
+	 * @param weekDay is an Enum of the days of the week.
+	 * @return A IWorkingHours.
+	 */
+	@Transient
+	@Override
+	public WorkingHours getWorkingHoursOfWeekDay(WeekDayKey weekDay) {
+		WorkingHours workingHours = new WorkingHours();
+		for(CalendarWorkingHours wh: _calendarWorkingHours) {
+			if(wh.getWeekDayKey() == weekDay){
+				workingHours = wh.getWorkinghours();
+			}
+		}
+		return workingHours;
 	}
 
 	@Id
@@ -134,5 +154,4 @@ public class Calendar implements java.io.Serializable, CalendarRO {
 			Set<CalendarWorkingHours> calendarWorkingHours) {
 		_calendarWorkingHours = calendarWorkingHours;
 	}
-
 }

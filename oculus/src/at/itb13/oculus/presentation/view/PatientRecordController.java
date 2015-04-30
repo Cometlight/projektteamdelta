@@ -121,7 +121,7 @@ public class PatientRecordController {
 			personal = personal + ((value.getFirstName()== null) ? "" : value.getFirstName()+" ");
 			personal = personal +((value.getLastName()== null) ? "-\n" : value.getLastName()) + "\n";
 			personal = personal + ((value.getSocialInsuranceNr()== null) ? "-" : value.getSocialInsuranceNr()) +"\n";
-			personal = personal + ((value.getBirthDay()== null) ? "-\n" : value.getBirthDay().toString() + "\n");
+			personal = personal + ((value.getDateOfBirth()== null) ? "-\n" : value.getDateOfBirth().toString() + "\n");
 			personal = personal + value.getGender().name();
 			_personalLabel.setText(personal);
         	_docLabel.setText(value.getDoctor().getUser().getFirstName() + " " +value.getDoctor().getUser().getLastName());           
@@ -243,7 +243,7 @@ public class PatientRecordController {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<CalendarEventRO, String> event) {
 				return new SimpleStringProperty(
-						event.getValue().getEventtype().getEventTypeName());
+						event.getValue().getEventType().getEventTypeName());
 			}
 		});
 		

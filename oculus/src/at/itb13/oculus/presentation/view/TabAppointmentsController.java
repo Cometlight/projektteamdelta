@@ -118,7 +118,7 @@ public class TabAppointmentsController {
 		_typeColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
-				return new SimpleStringProperty(event.getValue().getEventtype().getEventTypeName());
+				return new SimpleStringProperty(event.getValue().getEventType().getEventTypeName());
 			}
 		});
 		
@@ -276,7 +276,7 @@ public class TabAppointmentsController {
 		if (event != null) {
 			_descriptionLabel.setText(event.getDescription());
 			_dateTimeLabel.setText(event.getEventStart().toString());
-			EventType type = event.getEventtype();
+			EventType type = event.getEventType();
 			_eventTypeLabel.setText(type.getEventTypeName());
 			if(event.getCalendar().getDoctor() != null){
 				_doctorLabel.setText(event.getCalendar().getDoctor().getUser().getFirstName() + " " +event.getCalendar().getDoctor().getUser().getLastName());

@@ -64,7 +64,7 @@ public class WelcomeAtReception {
 			patient.setSocialInsuranceNr(socialInsuranceNr);
 			patient.setFirstName(firstName);
 			patient.setLastName(lastName);
-			patient.setBirthDay(birthday);
+			patient.setDateOfBirth(birthday);
 			patient.setGender(gender);
 			patient.setStreet(street);
 			patient.setPostalCode(postalCode);

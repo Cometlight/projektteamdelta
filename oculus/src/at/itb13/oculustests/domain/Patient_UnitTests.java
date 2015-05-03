@@ -43,11 +43,10 @@
 			String nr1 = "1234567890";
 			String nr2 = "123456789";
 			String nr3 = "abcdefghij";
-			Patient p = new Patient();
 			
-			assertEquals(true, p.isSocialInsuranceNrValid(nr1) );
-			assertEquals(false, p.isSocialInsuranceNrValid(nr2) );
-			assertEquals(false, p.isSocialInsuranceNrValid(nr3) );
+			assertEquals(true, Patient.isSocialInsuranceNrValid(nr1) );
+			assertEquals(false, Patient.isSocialInsuranceNrValid(nr2) );
+			assertEquals(false, Patient.isSocialInsuranceNrValid(nr3) );
 		}
 		
 		

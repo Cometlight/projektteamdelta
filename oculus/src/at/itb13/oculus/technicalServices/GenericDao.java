@@ -42,6 +42,10 @@ public abstract class GenericDao<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	public T findById(Integer id) {
+		if(id == null) {
+			throw new NullPointerException("ID may not be null! (" + _domainClass.getName() + ")");
+		}
+		
 		T domainClass = null;
 		Session session = null;
 		Transaction tx = null;

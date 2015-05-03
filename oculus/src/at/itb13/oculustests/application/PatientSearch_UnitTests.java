@@ -26,38 +26,27 @@ public class PatientSearch_UnitTests {
 	@Test
 	public void searchPatientByNameWithEmptyName() throws InvalidInputException{
 		thrown.expect(InvalidInputException.class);
-		String fn = "";
-		String ln ="";
+		String name = "";
 		PatientSearch ps = new PatientSearch();
-		ps.searchPatientByName(fn,ln);	
+		ps.searchPatient(name);	
 	}
 	@Test
 	public void searchPatientByNameWithFirstName() throws InvalidInputException{
 		List<? extends PatientRO> patientList = null;
-		String fn = "abc";
-		String ln = "";
+		String fname = "abc";
 		PatientSearch ps = new PatientSearch();
-		patientList = ps.searchPatientByName(fn, ln);
+		patientList = ps.searchPatient(fname);
 		assertEquals (true, patientList!=null);
 	}
 	@Test
 	public void searchPatientByNameWithLastName() throws InvalidInputException{
 		List<? extends PatientRO> patientList = null;
-		String fn = "";
-		String ln = "abc";
+		String lname = "abc";
 		PatientSearch ps = new PatientSearch();
-		patientList = ps.searchPatientByName(fn, ln);
+		patientList = ps.searchPatient(lname);
 		assertEquals (true, patientList!=null);
 	}
-	@Test
-	public void searchPatientByNameWithFullName() throws InvalidInputException{
-		List<? extends PatientRO> patientList = null;
-		String fn = "abc";
-		String ln = "xyz";
-		PatientSearch ps = new PatientSearch();
-		patientList = ps.searchPatientByName(fn, ln);
-		assertEquals (true, patientList!=null);
-	}
+	
 	@Rule
 	public ExpectedException thrown2 = ExpectedException.none();
 	@Test
@@ -65,6 +54,6 @@ public class PatientSearch_UnitTests {
 		thrown2.expect(InvalidInputException.class);
 		String sin = "123456789";
 		PatientSearch ps = new PatientSearch();
-		ps.searchPatientBySocialInsuranceNr(sin);	
+		ps.searchPatient(sin);	
 	}
 }

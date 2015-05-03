@@ -128,7 +128,7 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 			String phone, String email, String allergy,
 			String childhoodAilments, String medicineIntolerance,
 			Set<CalendarEvent> calendarevents, Set<Prescription> prescriptions,
-			Set<Queue> queues, Set<ReferralLetter> referralletters,
+			 Set<ReferralLetter> referralletters,
 			Set<ExaminationProtocol> examinationprotocols) {
 		_doctor = doctor;
 		_socialInsuranceNr = socialInsuranceNr;

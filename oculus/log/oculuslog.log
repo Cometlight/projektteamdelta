@@ -1,0 +1,130 @@
+2015-01-01 11:01:02.181 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-01-01 11:01:03.524 [Thread-5] FATAL at.itb13.oculus.technicalServices.HibernateUtil - Failed to connect to database
+2015-01-01 11:01:03.548 [Thread-5] FATAL at.itb13.oculus.technicalServices.HibernateUtil - Failed to connect to database
+2015-04-01 11:04:00.778 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-04-01 11:04:08.851 [Thread-5] INFO  at.itb13.oculus.technicalServices.HibernateUtil - _sessionFactory has been initialized successfully.
+2015-04-01 11:04:08.857 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-04-01 11:04:19.293 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-04-01 11:04:19.293 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-04-01 11:04:28.999 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-04-01 11:04:29.301 [Thread-5] INFO  at.itb13.oculus.presentation.OculusMain - initRootLayout() successful
+2015-04-01 11:04:33.479 [Thread-5] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-05-01T00:00 and 2015-05-01T23:59
+2015-04-01 11:04:34.007 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Finished starting OculusMain
+2015-04-01 11:04:39.835 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Shutting down application...
+2015-08-01 11:08:34.351 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-08-01 11:08:39.945 [Thread-5] INFO  at.itb13.oculus.technicalServices.HibernateUtil - _sessionFactory has been initialized successfully.
+2015-08-01 11:08:39.947 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-08-01 11:08:50.048 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-08-01 11:08:50.049 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-08-01 11:08:59.695 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-08-01 11:08:59.773 [Thread-5] INFO  at.itb13.oculus.presentation.OculusMain - initRootLayout() successful
+2015-09-01 11:09:03.906 [Thread-5] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-05-01T00:00 and 2015-05-01T23:59
+2015-09-01 11:09:04.366 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Finished starting OculusMain
+2015-09-01 11:09:24.044 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-09-01 11:09:30.424 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-09-01 11:09:31.559 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-09-01 11:09:32.162 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-09-01 11:09:32.853 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-09-01 11:09:34.549 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Shutting down application...
+2015-11-01 11:11:32.146 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-11-01 11:11:38.547 [Thread-5] INFO  at.itb13.oculus.technicalServices.HibernateUtil - _sessionFactory has been initialized successfully.
+2015-11-01 11:11:38.549 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-11-01 11:11:50.746 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-11-01 11:11:50.746 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-12-01 11:12:02.114 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-12-01 11:12:02.196 [Thread-5] INFO  at.itb13.oculus.presentation.OculusMain - initRootLayout() successful
+2015-12-01 11:12:08.715 [Thread-5] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-05-01T00:00 and 2015-05-01T23:59
+2015-12-01 11:12:09.180 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Finished starting OculusMain
+2015-12-01 11:12:21.839 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-12-01 11:12:37.730 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-04-27T00:00 and 2015-04-27T23:59
+2015-12-01 11:12:52.833 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-12-01 11:12:59.677 [JavaFX Application Thread] INFO  at.itb13.oculus.technicalServices.GenericDao - 'at.itb13.oculus.domain.Doctor' with ID '101' successfully retrieved from database.
+2015-12-01 11:12:59.908 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.view.TabQueueController - Queue (_queueBox) has been updated
+2015-13-01 11:13:01.408 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-13-01 11:13:05.956 [JavaFX Application Thread] INFO  at.itb13.oculus.technicalServices.GenericDao - 'at.itb13.oculus.domain.Doctor' with ID '100' successfully retrieved from database.
+2015-13-01 11:13:06.759 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.view.TabQueueController - Queue (_queueBox) has been updated
+2015-13-01 11:13:12.671 [JavaFX Application Thread] INFO  at.itb13.oculus.technicalServices.GenericDao - 'at.itb13.oculus.domain.Doctor' with ID '1' successfully retrieved from database.
+2015-13-01 11:13:13.981 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.view.TabQueueController - Queue (_queueBox) has been updated
+2015-13-01 11:13:18.834 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-13-01 11:13:19.654 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-13-01 11:13:20.204 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-13-01 11:13:23.088 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Shutting down application...
+2015-00-01 16:00:17.477 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-00-01 16:00:23.048 [Thread-5] INFO  at.itb13.oculus.technicalServices.HibernateUtil - _sessionFactory has been initialized successfully.
+2015-00-01 16:00:23.050 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-00-01 16:00:31.299 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-00-01 16:00:31.299 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-00-01 16:00:39.258 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-00-01 16:00:39.488 [Thread-5] INFO  at.itb13.oculus.presentation.OculusMain - initRootLayout() successful
+2015-00-01 16:00:42.917 [Thread-5] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-05-01T00:00 and 2015-05-01T23:59
+2015-00-01 16:00:43.482 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Finished starting OculusMain
+2015-00-01 16:00:56.652 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-00-01 16:00:59.752 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-01-01 16:01:01.095 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-01-01 16:01:01.645 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-01-01 16:01:02.177 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-03-01 16:03:37.512 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Shutting down application...
+2015-03-01 16:03:40.340 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-03-01 16:03:45.168 [Thread-5] INFO  at.itb13.oculus.technicalServices.HibernateUtil - _sessionFactory has been initialized successfully.
+2015-03-01 16:03:45.170 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-03-01 16:03:53.820 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-03-01 16:03:53.820 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-04-01 16:04:02.105 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-04-01 16:04:02.181 [Thread-5] INFO  at.itb13.oculus.presentation.OculusMain - initRootLayout() successful
+2015-04-01 16:04:05.597 [Thread-5] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-05-01T00:00 and 2015-05-01T23:59
+2015-04-01 16:04:06.010 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Finished starting OculusMain
+2015-04-01 16:04:12.476 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-04-01 16:04:13.668 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-04-01 16:04:14.079 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-04-01 16:04:15.772 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Shutting down application...
+2015-08-01 16:08:50.316 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-08-01 16:08:55.700 [Thread-5] INFO  at.itb13.oculus.technicalServices.HibernateUtil - _sessionFactory has been initialized successfully.
+2015-08-01 16:08:55.702 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-09-01 16:09:03.754 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-09-01 16:09:03.755 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-09-01 16:09:11.363 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-09-01 16:09:12.417 [Thread-5] INFO  at.itb13.oculus.presentation.OculusMain - initRootLayout() successful
+2015-09-01 16:09:17.834 [Thread-5] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-05-01T00:00 and 2015-05-01T23:59
+2015-09-01 16:09:19.970 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Finished starting OculusMain
+2015-10-01 16:10:47.515 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-10-01 16:10:48.903 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-11-01 16:11:58.887 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Shutting down application...
+2015-12-01 16:12:03.054 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-12-01 16:12:08.384 [Thread-5] INFO  at.itb13.oculus.technicalServices.HibernateUtil - _sessionFactory has been initialized successfully.
+2015-12-01 16:12:08.386 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-12-01 16:12:16.664 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-12-01 16:12:16.665 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-12-01 16:12:24.455 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-12-01 16:12:24.659 [Thread-5] INFO  at.itb13.oculus.presentation.OculusMain - initRootLayout() successful
+2015-12-01 16:12:29.009 [Thread-5] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-05-01T00:00 and 2015-05-01T23:59
+2015-12-01 16:12:29.688 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Finished starting OculusMain
+2015-13-01 16:13:26.969 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Shutting down application...
+2015-29-03 18:29:36.123 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-29-03 18:29:40.705 [Thread-5] INFO  at.itb13.oculus.technicalServices.HibernateUtil - _sessionFactory has been initialized successfully.
+2015-29-03 18:29:40.708 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-29-03 18:29:48.776 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-29-03 18:29:48.777 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-29-03 18:29:56.261 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-29-03 18:29:56.611 [Thread-5] INFO  at.itb13.oculus.presentation.OculusMain - initRootLayout() successful
+2015-30-03 18:30:00.222 [Thread-5] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-05-03T00:00 and 2015-05-03T23:59
+2015-30-03 18:30:00.918 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Finished starting OculusMain
+2015-37-03 18:37:08.770 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-37-03 18:37:17.044 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-37-03 18:37:24.496 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-37-03 18:37:26.311 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-37-03 18:37:28.641 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - showPatientRecord
+2015-37-03 18:37:42.157 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Shutting down application...
+2015-38-03 18:38:42.856 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-38-03 18:38:58.659 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Shutting down application...
+2015-38-03 18:38:42.856 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Starting OculusMain
+2015-39-03 18:39:00.421 [Thread-5] INFO  at.itb13.oculus.technicalServices.HibernateUtil - _sessionFactory has been initialized successfully.
+2015-39-03 18:39:00.430 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-39-03 18:39:09.093 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-39-03 18:39:09.093 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - Initializing ControllerFacade...
+2015-39-03 18:39:16.417 [Thread-5] INFO  at.itb13.oculus.application.ControllerFacade - ControllerFacade has been initialized.
+2015-39-03 18:39:17.165 [Thread-5] INFO  at.itb13.oculus.presentation.OculusMain - initRootLayout() successful
+2015-39-03 18:39:20.906 [Thread-5] INFO  at.itb13.oculus.presentation.view.TabAppointmentsController - Showing appointments between 2015-05-03T00:00 and 2015-05-03T23:59
+2015-39-03 18:39:22.006 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Finished starting OculusMain
+2015-39-03 18:39:56.559 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-40-03 18:40:00.714 [JavaFX Application Thread] WARN  at.itb13.oculus.presentation.view.TabPatientController - at.itb13.oculus.application.exceptions.InvalidInputException
+2015-40-03 18:40:05.323 [JavaFX Application Thread] INFO  at.itb13.oculus.presentation.OculusMain - Shutting down application...

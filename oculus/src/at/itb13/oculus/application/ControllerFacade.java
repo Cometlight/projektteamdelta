@@ -35,7 +35,7 @@ public class ControllerFacade {
 	private static List<QueueController> _listQueueController;
 	private static List<CalendarController> _listCalendarController;
 	
-	private static PatientRO _patientSelected;	// TODO work with this patient instead of _tempPatient of OculusMain ###############################################
+	private static PatientRO _patientSelected;
 	
 	static {
 		init();
@@ -44,21 +44,25 @@ public class ControllerFacade {
 	private ControllerFacade() { }
 	
 	public static void init() {
-		_logger.info("Initializing ControllerFacade...");
-		
-		_instance = new ControllerFacade();
-		
-		reloadAllQueueController();
-		
-		reloadAllCalendarController();
-		
-		_logger.info("ControllerFacade has been initialized.");
+		if(_instance == null) {
+			_logger.info("Initializing ControllerFacade...");
+			
+			_instance = new ControllerFacade();
+			
+			reloadAllQueueController();
+			
+			reloadAllCalendarController();
+			
+			_logger.info("ControllerFacade has been initialized.");
+		}
 	}
 	
 	/**
 	 * Loads all queues from the database and assigns them to _listQueueController.
 	 */
 	private static void reloadAllQueueController() {
+		_logger.info("Loading Queues from database...");
+		
 		_listQueueController = new LinkedList<>();
 		QueueDao.getInstance().findAll().forEach(q -> {
 			QueueController qC = new QueueController(q);
@@ -73,6 +77,8 @@ public class ControllerFacade {
 				return o1Name.compareTo(o2Name);
 			}
 		});
+		
+		_logger.info("Queues have been loaded from database.");
 	}
 	
 	private static String getNameOfQueueController(QueueController queueController) {
@@ -91,11 +97,15 @@ public class ControllerFacade {
 	 * Loads all calendars from the database and assigns them to _listCalendarController.
 	 */
 	private static void reloadAllCalendarController() {
+		_logger.info("Loading Calendars from database...");
+		
 		_listCalendarController = new LinkedList<>();
 		CalendarDao.getInstance().findAll().forEach(q -> {
 			CalendarController cC = new CalendarController(q);
 			_listCalendarController.add(cC);
 		});
+		
+		_logger.info("Calendars have been loaded from database.");
 	}
 	
 	public static ControllerFacade getInstance() {
@@ -158,14 +168,23 @@ public class ControllerFacade {
 	}
 
 	/* -- CalendarController -- */
+	/**
+	 * 
+	 * @param doctorId
+	 * @param orthoptistId
+	 * @return null if failed to find calendar with doctorId and orthoptistId
+	 */
 	public CalendarController getCalendarController(Integer doctorId, Integer orthoptistId) {
 		CalendarController controller = null;
 		
 		for(CalendarController cC : _listCalendarController) {
 			Integer calDocId = (cC.getCalendar().getDoctor() == null) ? null : cC.getCalendar().getDoctor().getDoctorId();
 			Integer calOrtId = (cC.getCalendar().getOrthoptist() == null) ? null : cC.getCalendar().getOrthoptist().getOrthoptistId();
-			if( ( (calDocId == null && doctorId == null) || calDocId.equals(doctorId) ) 	// careful: doctorId.equals(calDocId) might throw a NullPointerException
-					&& ( (calOrtId == null && orthoptistId == null) || calOrtId.equals(orthoptistId) ) ) {
+			
+			if(		   ( calDocId != null && doctorId != null && calDocId.equals(doctorId) )
+					|| ( calOrtId != null && orthoptistId != null && calOrtId.equals(orthoptistId) )
+					|| ( calDocId == null && calOrtId == null && doctorId == null && orthoptistId == null )
+					) {
 				controller = cC;
 				break;
 			}

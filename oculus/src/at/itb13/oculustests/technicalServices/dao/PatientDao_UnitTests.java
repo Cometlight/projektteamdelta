@@ -27,9 +27,9 @@ public class PatientDao_UnitTests {
 	public void findByFirstName() {
 		assertEquals(true, (PatientDao.getInstance().findByFirstName("Test").isEmpty()));
 	}
-	@Test
+	@Test (expected = NullPointerException.class)
 	public void findById() {
-		assertEquals(true, (PatientDao.getInstance().findById(null) == null));
+		PatientDao.getInstance().findById(null);
 	}
 	@Test
 	public void findByLastName() {

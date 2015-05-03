@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="200.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.CalendarEventController">
+   <children>
+      <Pane>
+         <children>
+            <Group>
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a0e8e5" height="200.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
+                  <Label fx:id="_patientLabel" layoutX="14.0" layoutY="21.0" text="Patient" />
+                  <Label fx:id="_timeLabel" layoutX="14.0" layoutY="48.0" text="Date - Time" />
+                  <Label fx:id="_typeLabel" layoutX="14.0" layoutY="77.0" text="Type" />
+                  <Label fx:id="_reasonLabel" layoutX="14.0" layoutY="107.0" text="Reason" />
+                  <Hyperlink layoutX="13.0" layoutY="163.0" text="More Details" />
+                  <Label layoutX="13.0" layoutY="134.0" text="Doctor" />
+               </children>
+            </Group>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

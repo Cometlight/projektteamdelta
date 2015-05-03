@@ -31,9 +31,9 @@ public class PatientSearch {
 		List<Patient> patients = null;
 		if(!firstName.isEmpty() && !lastName.isEmpty()){
 			patients = PatientDao.getInstance().findByFullName(firstName, lastName);
-		}else if(lastName.isEmpty()){
+		}else if(!firstName.isEmpty()){
 			patients = PatientDao.getInstance().findByFirstName(firstName);
-		}else if(firstName.isEmpty()){
+		}else if(!lastName.isEmpty()){
 			patients = PatientDao.getInstance().findByLastName(lastName);
 		}else{
 			throw new InvalidInputException();

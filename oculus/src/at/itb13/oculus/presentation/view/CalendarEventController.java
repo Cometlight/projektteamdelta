@@ -21,7 +21,7 @@ public class CalendarEventController {
 	private Label _typeLabel;
 	@FXML
 	private Label _reasonLabel;
-	
+	// TODO: Doctor label aus .fxml entfernen?
 	private CalendarEventRO _calEvent;
 	
 	private OculusMain _main;

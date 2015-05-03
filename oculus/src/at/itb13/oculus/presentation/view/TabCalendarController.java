@@ -160,7 +160,7 @@ public class TabCalendarController {
 		LocalDate dayEnd = dayStart.plusWeeks(1);
 		
 		try {	// TODO set ids according to filters
-			_calEvents = (List<CalendarEventRO>) ControllerFacade.getInstance().getCalendarController(   107   , null).getCalendarEventsInTimespan(LocalDateTime.of(dayStart, timeStart), LocalDateTime.of(dayEnd, timeEnd));
+			_calEvents = (List<CalendarEventRO>) ControllerFacade.getInstance().getCalendarController(   null   ,    2    ).getCalendarEventsInTimespan(LocalDateTime.of(dayStart, timeStart), LocalDateTime.of(dayEnd, timeEnd));
 		} catch (InvalidInputException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

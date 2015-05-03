@@ -158,14 +158,23 @@ public class ControllerFacade {
 	}
 
 	/* -- CalendarController -- */
+	/**
+	 * 
+	 * @param doctorId
+	 * @param orthoptistId
+	 * @return null if failed to find calendar with doctorId and orthoptistId
+	 */
 	public CalendarController getCalendarController(Integer doctorId, Integer orthoptistId) {
 		CalendarController controller = null;
 		
 		for(CalendarController cC : _listCalendarController) {
 			Integer calDocId = (cC.getCalendar().getDoctor() == null) ? null : cC.getCalendar().getDoctor().getDoctorId();
 			Integer calOrtId = (cC.getCalendar().getOrthoptist() == null) ? null : cC.getCalendar().getOrthoptist().getOrthoptistId();
-			if( ( (calDocId == null && doctorId == null) || calDocId.equals(doctorId) ) 	// careful: doctorId.equals(calDocId) might throw a NullPointerException
-					&& ( (calOrtId == null && orthoptistId == null) || calOrtId.equals(orthoptistId) ) ) {
+			
+			if(		   ( calDocId != null && doctorId != null && calDocId.equals(doctorId) )
+					|| ( calOrtId != null && orthoptistId != null && calOrtId.equals(orthoptistId) )
+					|| ( calDocId == null && calOrtId == null && doctorId == null && orthoptistId == null )
+					) {
 				controller = cC;
 				break;
 			}

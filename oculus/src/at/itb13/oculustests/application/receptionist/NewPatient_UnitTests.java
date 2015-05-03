@@ -1,5 +1,5 @@
 
-	package at.itb13.oculustests.application;
+	package at.itb13.oculustests.application.receptionist;
 
 	import org.junit.Rule;
 	import org.junit.Test;

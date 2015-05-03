@@ -1,4 +1,4 @@
-package at.itb13.oculustests.application;
+package at.itb13.oculustests.application.receptionist;
 
 import static org.junit.Assert.assertEquals;
 

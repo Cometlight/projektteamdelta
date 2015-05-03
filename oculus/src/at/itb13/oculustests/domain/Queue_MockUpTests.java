@@ -6,11 +6,9 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
 
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Orthoptist;
@@ -36,13 +34,13 @@ public class Queue_MockUpTests {
 	public ExpectedException thrown = ExpectedException.none();
 
 	@Test
-	public void ConstructorWithoutParameter() {
+	public void constructorWithoutParameter() {
 		Queue queue = Mockito.mock(Queue.class);
 		assertEquals(true, queue != null);
 	}
 
 	@Test
-	public void ConstructorWithNullParameters() {
+	public void constructorWithNullParameters() {
 		Queue q = Mockito.mock(Queue.class);
 
 		assertEquals(true, q != null);
@@ -51,7 +49,7 @@ public class Queue_MockUpTests {
 	}
 
 	@Test
-	public void ConstructorWithDoctorWithoutOrthoptist() {
+	public void constructorWithDoctorWithoutOrthoptist() {
 		Doctor doctor = Mockito.mock(Doctor.class);
 		Queue q = new Queue(doctor, null);
 
@@ -60,14 +58,14 @@ public class Queue_MockUpTests {
 	}
 
 	@Test
-	public void ConstructorWithoutDoctorWithOrthoptist() {
+	public void constructorWithoutDoctorWithOrthoptist() {
 		Orthoptist orthoptist = Mockito.mock(Orthoptist.class);
 		Queue q = new Queue(null, orthoptist);
 		assertEquals(true, q.getDoctor() == null);
 		assertEquals(true, q.getOrthoptist() != null);
 	}
 
-	public void ConstructorWithQueueEntriesNull() {
+	public void constructorWithQueueEntriesNull() {
 		Queue q = Mockito.mock(Queue.class);
 		assertEquals(true, q.getDoctor() == null);
 		assertEquals(true, q.getOrthoptist() == null);

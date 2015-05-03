@@ -1,5 +1,6 @@
 package at.itb13.oculus.application.receptionist;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -20,23 +21,38 @@ public class PatientSearch {
 	private static final Logger _logger = LogManager.getLogger(PatientSearch.class.getName());
 	
 	/**
+	 * Loads the patient with the provided social insurance number or name from the database.
+	 * 
+	 * @param searchValue The patient's social insurance number or name.
+	 * @return List<Patient> The patients with the supplied social insurance number or name. May be null, if no patient has been found.
+	 * @throws InvalidInputException thrown if the provided socialInsuranceNr or name is not in an appropriate format.
+	 */
+	public List<? extends PatientRO> searchPatient(String searchValue) throws InvalidInputException {
+		List<? extends PatientRO> patients = null;
+		if(!searchValue.isEmpty()){
+			if(Patient.isSocialInsuranceNrValid(searchValue)){
+				patients = searchPatientBySocialInsuranceNr(searchValue);
+			} else {		
+				patients = searchPatientByName(searchValue);
+			}
+		} else {
+			throw new InvalidInputException();
+		}
+		return patients;
+	}
+	
+	/**
 	 * Load the patient with the wanted name. It can search only the fistName, lastName or both.
 	 * 
 	 * @param firstName The patient's firstName.
 	 * @param lastName The patient's lastName.
 	 * @return List<Patient> The patient with the supplied name. Maybe null, if no patient has been found.
-	 * @throws InvalidInputException thrown if the provided name is not in an appropriate format.
 	 */
-	public List<? extends PatientRO> searchPatientByName(String firstName, String lastName) throws InvalidInputException {
+	private List<? extends PatientRO> searchPatientByName(String name) {
 		List<Patient> patients = null;
-		if(!firstName.isEmpty() && !lastName.isEmpty()){
-			patients = PatientDao.getInstance().findByFullName(firstName, lastName);
-		}else if(lastName.isEmpty()){
-			patients = PatientDao.getInstance().findByFirstName(firstName);
-		}else if(firstName.isEmpty()){
-			patients = PatientDao.getInstance().findByLastName(lastName);
-		}else{
-			throw new InvalidInputException();
+		patients = PatientDao.getInstance().findByFirstName(name);
+		if(patients.size() == 0){
+			patients = PatientDao.getInstance().findByLastName(name);
 		}
 		return patients;
 	}
@@ -46,16 +62,14 @@ public class PatientSearch {
 	 * 
 	 * @param socialInsuranceNr The patient's social insurance number.
 	 * @return The patient with the supplied social insurance number. May be null, if no patient has been found.
-	 * @throws InvalidInputException thrown if the provided socialInsuranceNr is not in an appropriate format.
 	 */
-	public PatientRO searchPatientBySocialInsuranceNr(String socialInsuranceNr) throws InvalidInputException {
+	private List<? extends PatientRO> searchPatientBySocialInsuranceNr(String socialInsuranceNr) {
+		List<Patient> patients = new ArrayList<Patient>();
 		Patient patient = null;
-		if(Patient.isSocialInsuranceNrValid(socialInsuranceNr)) {
-			patient = PatientDao.getInstance().findBySocialInsuranceNr(socialInsuranceNr);
-		} else {
-			throw new InvalidInputException();
+		patient = PatientDao.getInstance().findBySocialInsuranceNr(socialInsuranceNr);
+		if(patient != null){
+			patients.add(patient);
 		}
-		
-		return patient;
+		return patients;
 	}
 }

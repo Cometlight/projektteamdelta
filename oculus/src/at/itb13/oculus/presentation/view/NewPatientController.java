@@ -2,6 +2,7 @@ package at.itb13.oculus.presentation.view;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -287,8 +288,8 @@ public class NewPatientController {
 		String sin = _SINField.getText();
 		if(ControllerFacade.getInstance().getWelcomeAtReception().isSocialInsuranceNrValid(sin)) {
 			try {
-				PatientRO patientRO = ControllerFacade.getInstance().getPatientSearch().searchPatientBySocialInsuranceNr(sin);
-
+				List<? extends PatientRO> patients = ControllerFacade.getInstance().getPatientSearch().searchPatient(sin);
+				PatientRO patientRO = patients.get(0);
 				if(patientRO != null) {	// Patient with SIN already exists
 					Alert alert = new Alert(AlertType.WARNING);
 					alert.initOwner(_dialogStage);

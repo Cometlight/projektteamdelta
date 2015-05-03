@@ -16,19 +16,25 @@ public class CalendarEventController {
 	@FXML
 	private Label _patientLabel;
 	@FXML
-	private Label _timeLabel;
+	private Label _timeLabel;	// TODO: Man sieht im Calendar ja eh schon, wo sich ein Termin befindet, oder?
 	@FXML
 	private Label _typeLabel;
 	@FXML
 	private Label _reasonLabel;
+	
 	private CalendarEventRO _calEvent;
 	
 	private OculusMain _main;
 	
+	public CalendarEventController() { }
+	
+	public CalendarEventController(CalendarEventRO calendarEvent) {
+		setCalEvent(calendarEvent);
+	}
 	
 	@FXML
 	private void initialize(){
-		fillLabels();
+//		fillLabels();
 	}
 	
 	public void setMain(OculusMain main){
@@ -37,6 +43,7 @@ public class CalendarEventController {
 	
 	public void setCalEvent(CalendarEventRO calendarEvent){
 		_calEvent = calendarEvent;
+		fillLabels();
 	}
 	
 	private void fillLabels(){

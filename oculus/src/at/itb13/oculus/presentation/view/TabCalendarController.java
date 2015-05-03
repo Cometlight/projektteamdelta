@@ -1,5 +1,6 @@
 package at.itb13.oculus.presentation.view;
 
+import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -9,9 +10,11 @@ import java.util.List;
 import java.util.Locale;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import at.itb13.oculus.application.ControllerFacade;
@@ -149,25 +152,6 @@ public class TabCalendarController {
 		}
 	}
 	
-	// TODO: Create a "real" custom controller. Don't extend from Label; maybe from Node, or sth. else...
-	// with clickable links or so
-	private class CalendarEventNode extends Label {
-		private CalendarEventRO _calendarEventRO;
-		
-		public CalendarEventNode(CalendarEventRO calendarEventRO) {
-			super(calendarEventRO.getDescription());	// TODO ###
-			_calendarEventRO = calendarEventRO;
-		}
-
-		public CalendarEventRO getCalendarEventRO() {
-			return _calendarEventRO;
-		}
-
-		public void setCalendarEventRO(CalendarEventRO calendarEventRO) {
-			_calendarEventRO = calendarEventRO;
-		}
-	}
-	
 	@SuppressWarnings("unchecked")
 	private void loadCalendarEvents() {
 		LocalTime timeStart = LocalTime.of(6, 0);	// TODO: see initGridPane()
@@ -184,8 +168,24 @@ public class TabCalendarController {
 	}
 
 	private void displayCalendarEvents() {
-		CalendarEventNode calendarEventNode = new CalendarEventNode(_calEvents.get(0));
-		_gridPane.add(calendarEventNode, 3, 3);
+		
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CalendarEvent.fxml"));
+//		fxmlLoader.setRoot(_gridPane);
+//		fxmlLoader.setController(new CalendarEventController());
+		AnchorPane calEvPane = null;
+		CalendarEventController calEvCol = null;
+		try {
+			 calEvPane = fxmlLoader.load();
+			 calEvCol = fxmlLoader.getController();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+//		calEvCol.setMain(_main);	// TODO: needed?
+		calEvCol.setCalEvent(_calEvents.get(0));
+		_gridPane.add(calEvPane, 3, 3, 1, 3);
+		
 //		for(CalendarEventRO calEv : _calEvents) {
 //			
 //		}

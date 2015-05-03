@@ -80,33 +80,33 @@ public class QueueDao_UnitTests {
 		assertEquals(true, (q.findAll() != null));
 	}
 
-	@Test
+	@Test (expected = NullPointerException.class)
 	public void makePersistent() {
 		QueueDao q = QueueDao.getInstance();
 
-		assertEquals(false, q.makePersistent(null, null));
+		q.makePersistent(null, null);
 
 	}
 
-	@Test
+	@Test (expected = NullPointerException.class)
 	public void makePersistentList() {
 		QueueDao q = QueueDao.getInstance();
 		List<Queue> list = null;
-		assertEquals(false, q.makePersistent(list));
+		q.makePersistent(list);
 
 	}
 
-	@Test
+	@Test (expected = NullPointerException.class)
 	public void makeTransient() {
 		QueueDao q = QueueDao.getInstance();
 
-		assertEquals(false, q.makeTransient(null, null));
+		q.makeTransient(null, null);
 	}
 
-	@Test
+	@Test (expected = NullPointerException.class)
 	public void makeTransientList() {
 		QueueDao q = QueueDao.getInstance();
 		List<Queue> list = null;
-		assertEquals(false, q.makeTransient(list));
+		q.makeTransient(list);
 	}
 }

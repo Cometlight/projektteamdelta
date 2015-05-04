@@ -252,7 +252,6 @@ public class OculusMain extends Application {
 
 			// Give the controller access to the main app.
 			_calendarController = loader.getController();
-			_calendarController.setMain(this);
 
 		} catch (IOException ex) {
 			_logger.error("Fail: initCalendarTab",ex);

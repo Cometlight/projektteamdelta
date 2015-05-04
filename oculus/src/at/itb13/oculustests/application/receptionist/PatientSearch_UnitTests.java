@@ -14,7 +14,7 @@ import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 
 /**
- * TODO: Insert description here.
+ * Tests for the methodes of Class PatientSearch
  * 
  * @author Karin Trommelschläger
  * @date 03.05.2015
@@ -46,14 +46,29 @@ public class PatientSearch_UnitTests {
 		patientList = ps.searchPatient(lname);
 		assertEquals (true, patientList!=null);
 	}
-	
-	@Rule
-	public ExpectedException thrown2 = ExpectedException.none();
 	@Test
 	public void searchPatientBySocialInsuranceNrWithNotValidNr() throws InvalidInputException{
-		thrown2.expect(InvalidInputException.class);
+		List<? extends PatientRO> patientList = null;
 		String sin = "123456789";
 		PatientSearch ps = new PatientSearch();
-		ps.searchPatient(sin);	
+		patientList = ps.searchPatient(sin);
+		assertEquals(true,patientList.isEmpty());
+	}
+	@Test
+	public void searchPatientBySocialInsuranceNrWithExistingNr() throws InvalidInputException{
+		List<? extends PatientRO> patientList = null;
+		String sin = "3333333333";
+		PatientSearch ps = new PatientSearch();
+		patientList = ps.searchPatient(sin);
+		assertEquals(true,patientList.size()==1);
+	}
+	@Test
+	public void searchPatientBySocialInsuranceNrWithNotExistingNr() throws InvalidInputException{
+	List<? extends PatientRO> patientList = null;
+		Patient p = null;
+		String sin = "3333333332";
+		PatientSearch ps = new PatientSearch();
+		patientList = ps.searchPatient(sin);
+		assertEquals(true,patientList.size()==0);
 	}
 }

@@ -54,10 +54,10 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO, ICa
 	private String _patientName;
 	private boolean _isOpen;
 	
-	public CalendarEvent() {
+	CalendarEvent() {
 	}
 
-	public CalendarEvent(Calendar calendar, EventType eventtype, LocalDateTime eventStart, 
+	CalendarEvent(Calendar calendar, EventType eventtype, LocalDateTime eventStart, 
 						 LocalDateTime eventEnd, boolean isOpen, String patientName) {
 		_calendar = calendar;
 		_eventType = eventtype;
@@ -67,7 +67,7 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO, ICa
 		_patientName = patientName;
 	}
 
-	public CalendarEvent(Calendar calendar, EventType eventtype, Patient patient, LocalDateTime eventStart, 
+	CalendarEvent(Calendar calendar, EventType eventtype, Patient patient, LocalDateTime eventStart, 
 						 LocalDateTime eventEnd, String description, boolean isOpen) {
 		_calendar = calendar;
 		_eventType = eventtype;

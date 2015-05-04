@@ -44,7 +44,7 @@ public class TabCalendarController {
 
 	private static final Logger _logger = LogManager.getLogger(TabCalendarController.class.getName());
 	private static final String CALENDAR_EVENT_FXML = "CalendarEvent.fxml";
-
+	private static final int TIME_INTERVAL_MINUTES = 15;
 
 	@FXML
 	private ScrollPane _scrollPane;
@@ -52,8 +52,6 @@ public class TabCalendarController {
 	private DatePicker _datePicker;	// TODO: Paar Sachen könnten wohl vom "alten" Datepicker vom AppointmentsTab übernommen werden
 	@FXML
 	private Button _addAppointmentButton;
-
-	private OculusMain _main;
 
 	private GridPane _gridPane;	// TODO: Aktueller Tag + aktuelle Uhrzeit irgendwie markieren
 								// TODO: Automatisch runterscrollen zur aktuellen Uhrzeit
@@ -95,12 +93,12 @@ public class TabCalendarController {
 
 		// Row header
 		LocalTime timeStart = LocalTime.MIN;	// TODO nicht hier hin start + end zeit schreiben, sonst irgwo herholen oder so
-		LocalTime timeEnd = LocalTime.MAX.minusMinutes(15);		// also needed in "loadCalendarEvents"
+		LocalTime timeEnd = LocalTime.MAX.minusMinutes(TIME_INTERVAL_MINUTES);		// also needed in "loadCalendarEvents"
 												// vielleicht oben als private static final nochmal hin, damit später wenn nötig leicht austauschbar?
 		
-		long minutesToAdd = 15;	// TODO: In final static variable
+		long minutesToAdd = TIME_INTERVAL_MINUTES;
 		int row = 1;
-		for(LocalTime curTime = LocalTime.MIN; curTime.isBefore(timeEnd); curTime = curTime.plusMinutes(minutesToAdd)) {	// TODO: While-loop wär wohl übersichtlicher // TODO: nicht LocalTime.MIN sondern siehe wie 5 Zeilen oben
+		for(LocalTime curTime = LocalTime.MIN; curTime.isBefore(timeEnd); curTime = curTime.plusMinutes(TIME_INTERVAL_MINUTES)) {	// TODO: While-loop wär wohl übersichtlicher // TODO: nicht LocalTime.MIN sondern siehe wie 5 Zeilen oben
 			LocalTimeLabel timeLabel = new LocalTimeLabel(LocalTime.from(curTime));
 			_gridPane.add(timeLabel, 0, row);
 			++row;

@@ -244,7 +244,9 @@ public abstract class GenericDao<T> {
 			session = HibernateUtil.getSessionFactory().openSession();
 			tx = session.beginTransaction();
 			
-			session.delete(entities);
+			for(T entity : entities) {
+				session.delete(entity);
+			}
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -259,6 +261,7 @@ public abstract class GenericDao<T> {
 			}
 		}
 		
+		_logger.info("makeTransient is successful");
 		return true;
 	}
 	

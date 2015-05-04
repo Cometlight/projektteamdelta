@@ -81,6 +81,21 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 	}
 	
 	/**
+	 * searches for a CalendarEvent by the calendarEventId.
+	 * 
+	 * @param calendarEventId the ID of the CalendarEvent.
+	 * @return a CalendarEvent.
+	 */
+	public CalendarEvent getCalendarEventById(int calendarEventId){
+		for (CalendarEvent c : _calendarEvents) {
+			if (c.getCalendarEventId() == calendarEventId) {
+				return c;
+			}
+		}
+		return null;
+	}
+	
+	/**
 	 * Returns the Working Hours of a chosen day of the week.
 	 * 
 	 * @param weekDay is an Enum of the days of the week.

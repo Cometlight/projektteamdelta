@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -37,15 +38,15 @@ public class NewAppointmentController {
 	@FXML
 	private DatePicker _datePicker;
 	@FXML
-	private Spinner _startTimeSpinnerHour;
+	private Spinner<Integer> _startTimeSpinnerHour;
 	@FXML
-	private Spinner _startTimeSpinnerMin;
+	private Spinner<Integer> _startTimeSpinnerMin;
 	@FXML
-	private Spinner _endTimeSpinnerHour;
+	private Spinner<Integer> _endTimeSpinnerHour;
 	@FXML
-	private Spinner _endTimeSpinnerMin;
+	private Spinner<Integer> _endTimeSpinnerMin;
 	@FXML
-	private ComboBox _typeBox;
+	private ComboBox<IEventType> _typeBox;
 	@FXML
 	private ComboBox<ICalendar> _doctorBox;
 	@FXML
@@ -55,12 +56,10 @@ public class NewAppointmentController {
 	
 	private boolean okClicked = false;
 	
-	
-	
-	
 	@FXML
 	private void initialize(){
 		//setItemsToDoctorBox();
+		initSpinner();
 	}
 	
 	/**
@@ -77,6 +76,16 @@ public class NewAppointmentController {
 	private void setItemsToTypeBox(){
 		_typeBox.setConverter(new CalendarEventTypeSringConverter());
 	//	_typeBox.getItems().addAll(ControllerFacade.getInstance().getINewAppointmentController.getAllEventType());
+	}
+	
+	private void initSpinner(){
+		SpinnerValueFactory<Integer> hours = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23);
+		_startTimeSpinnerHour.setValueFactory(hours);
+		_endTimeSpinnerHour.setValueFactory(hours);
+		
+		SpinnerValueFactory<Integer> mins = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59);
+		_startTimeSpinnerMin.setValueFactory(mins);
+		_endTimeSpinnerMin.setValueFactory(mins);
 	}
 
 	/**

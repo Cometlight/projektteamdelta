@@ -84,6 +84,7 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO, ICa
 	 * 
 	 * @return an object of the CalendarEvent
 	 */
+	@Transient
 	public static CalendarEvent getInstance(){
 		CalendarEvent event = new CalendarEvent();
 		return event;
@@ -100,6 +101,7 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO, ICa
 	 * @param patientName the name of the patient 
 	 * @return an object of the CalendarEvent
 	 */
+	@Transient
 	public static CalendarEvent getInstance(Calendar calendar, EventType eventtype, LocalDateTime eventStart, 
 									LocalDateTime eventEnd, boolean isOpen, String patientName){
 		
@@ -119,6 +121,7 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO, ICa
 	 * @param isOpen true if the CalendarEvent is not checked as closed. 
 	 * @return an object of the CalendarEvent
 	 */
+	@Transient
 	public static CalendarEvent getInstance(Calendar calendar, EventType eventtype, Patient patient, 
 									LocalDateTime eventStart, LocalDateTime eventEnd,
 									String description, boolean isOpen){

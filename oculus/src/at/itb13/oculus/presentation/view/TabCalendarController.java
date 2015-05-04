@@ -9,14 +9,21 @@ import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
@@ -30,6 +37,7 @@ import at.itb13.oculus.presentation.OculusMain;
  * @date May 1, 2015
  */
 public class TabCalendarController {
+	private static final Logger _logger = LogManager.getLogger(NewAppointmentController.class.getName());
 
 	@FXML
 	private ScrollPane _scrollPane;
@@ -37,6 +45,9 @@ public class TabCalendarController {
 	private DatePicker _datePicker;	// TODO: Paar Sachen könnten wohl vom "alten" Datepicker vom AppointmentsTab übernommen werden
 
 	private GridPane _gridPane;
+	
+	@FXML
+	private Button _addAppointmentButton;
 
 	private OculusMain _main;
 	private List<CalendarEventRO> _calEvents;
@@ -196,5 +207,39 @@ public class TabCalendarController {
 //				
 //			}
 //		}
+	}
+	
+	@FXML
+	private Boolean handleNewAppointmentButton(){
+		try {
+		
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(OculusMain.class
+					.getResource("view/NewAppointmentDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("New Appointment");
+			dialogStage.setTitle("Edit Patient");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			//dialogStage.initOwner(_primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the person into the controller.
+			NewAppointmentController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			_logger.info("showNewAppointmentDialog successful");
+			return controller.isOkClicked();
+		} catch (IOException ex) {
+			_logger.error("showNewAppointmentDialog failed", ex);
+			return false;
+		}
 	}
 }

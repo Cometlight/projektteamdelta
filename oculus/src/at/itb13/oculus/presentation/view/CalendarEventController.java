@@ -15,13 +15,7 @@ public class CalendarEventController {
 
 	@FXML
 	private Label _patientLabel;
-	@FXML
-	private Label _timeLabel;	// TODO: Man sieht im Calendar ja eh schon, wo sich ein Termin befindet, oder?
-	@FXML
-	private Label _typeLabel;
-	@FXML
-	private Label _reasonLabel;
-	// TODO: Doctor label aus .fxml entfernen?
+	
 	private CalendarEventRO _calEvent;
 	
 	private OculusMain _main;
@@ -53,9 +47,8 @@ public class CalendarEventController {
 			}else{
 				_patientLabel.setText(_calEvent.getPatientName());
 			}
-			_timeLabel.setText(_calEvent.getEventStart().toString());
-			_reasonLabel.setText(_calEvent.getDescription());
-			_typeLabel.setText(_calEvent.getEventType().getEventTypeName());
+			
+			
 		}
 		
 	}

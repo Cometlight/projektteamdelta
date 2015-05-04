@@ -30,6 +30,7 @@ import javafx.stage.Stage;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
+import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.presentation.OculusMain;
 
@@ -255,6 +256,9 @@ public class TabCalendarController {
 	}
 	
 	private void initCheckBoxes() {
+		List<ICalendar> calendars = IControllerFacade.getInstance().getNewAppointmentController().getAllCalendars();
+		
+		
 		// create 1 checkbox for every filter
 		// + onClicked {
 		//  loadCalendarEvents()

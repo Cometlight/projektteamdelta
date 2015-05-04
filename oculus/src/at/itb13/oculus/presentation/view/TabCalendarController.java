@@ -95,7 +95,7 @@ public class TabCalendarController {
 
 		// Row header
 		LocalTime timeStart = LocalTime.MIN;	// TODO nicht hier hin start + end zeit schreiben, sonst irgwo herholen oder so
-		LocalTime timeEnd = LocalTime.MAX;		// also needed in "loadCalendarEvents"
+		LocalTime timeEnd = LocalTime.MAX.minusMinutes(15);		// also needed in "loadCalendarEvents"
 												// vielleicht oben als private static final nochmal hin, damit später wenn nötig leicht austauschbar?
 		
 		long minutesToAdd = 15;	// TODO: In final static variable

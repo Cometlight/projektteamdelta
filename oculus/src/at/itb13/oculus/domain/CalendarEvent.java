@@ -54,29 +54,78 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO, ICa
 	private String _patientName;
 	private boolean _isOpen;
 	
-	public CalendarEvent() {
+	private CalendarEvent() {
 	}
 
-	public CalendarEvent(Calendar calendar, EventType eventtype,
-			LocalDateTime eventStart, LocalDateTime eventEnd, boolean isOpen) {
+	private CalendarEvent(Calendar calendar, EventType eventtype, LocalDateTime eventStart, 
+						 LocalDateTime eventEnd, boolean isOpen, String patientName) {
 		_calendar = calendar;
 		_eventtype = eventtype;
 		_eventStart = eventStart;
 		_eventEnd = eventEnd;
 		_isOpen = isOpen;
+		_patientName = patientName;
 	}
 
-	public CalendarEvent(Calendar calendar, EventType eventtype,
-			Patient patient, LocalDateTime eventStart, LocalDateTime eventEnd,
-			String description, String patientName, boolean isOpen) {
+	private CalendarEvent(Calendar calendar, EventType eventtype, Patient patient, LocalDateTime eventStart, 
+						 LocalDateTime eventEnd, String description, boolean isOpen) {
 		_calendar = calendar;
 		_eventtype = eventtype;
 		_patient = patient;
 		_eventStart = eventStart;
 		_eventEnd = eventEnd;
 		_description = description;
-		_patientName = patientName;
+		
 		_isOpen = isOpen;
+	}
+	
+	/**
+	 * to create an object of the private CalendarEvent Constructor
+	 * 
+	 * @return an object of the CalendarEvent
+	 */
+	public static CalendarEvent getInstance(){
+		CalendarEvent event = new CalendarEvent();
+		return event;
+	}
+	
+	/**
+	 * to create an object of the private CalendarEvent Constructor
+	 * 
+	 * @param calendar for this calendar the CalendarEvent is made.
+	 * @param eventtype the type of the Calendar Event.
+	 * @param eventStart the start Date of the CalendarEvent. (inclusive)
+	 * @param eventEnd the end Date of the CalendarEvent. (inclusive)
+	 * @param isOpen true if the CalendarEvent is not checked as closed.
+	 * @param patientName the name of the patient 
+	 * @return an object of the CalendarEvent
+	 */
+	public static CalendarEvent getInstance(Calendar calendar, EventType eventtype, LocalDateTime eventStart, 
+									LocalDateTime eventEnd, boolean isOpen, String patientName){
+		
+		CalendarEvent event = new CalendarEvent(calendar, eventtype, eventStart, eventEnd, isOpen, patientName);
+		return event;
+	}
+	
+	/**
+	 * to create an object of the private CalendarEvent Constructor
+	 * 
+	 * @param calendar for this calendar the CalendarEvent is made.
+	 * @param eventtype the type of the Calendar Event.
+	 * @param patient an object of the Patient class which is referred to the CalendarEvent.
+	 * @param eventStart the start Date of the CalendarEvent. (inclusive)
+	 * @param eventEnd the end Date of the CalendarEvent. (inclusive)
+	 * @param description includes some special notes about the CalendarEvent.
+	 * @param isOpen true if the CalendarEvent is not checked as closed. 
+	 * @return an object of the CalendarEvent
+	 */
+	public static CalendarEvent getInstance(Calendar calendar, EventType eventtype, Patient patient, 
+									LocalDateTime eventStart, LocalDateTime eventEnd,
+									String description, boolean isOpen){
+		
+		CalendarEvent event = new CalendarEvent(calendar, eventtype, patient, eventStart, eventEnd, 
+												description, isOpen);
+		return event;
 	}
 	
 	/**

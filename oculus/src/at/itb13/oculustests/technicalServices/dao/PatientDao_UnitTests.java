@@ -102,7 +102,7 @@ public class PatientDao_UnitTests {
 	// private Set<Patient> _patients = new HashSet<Patient>(0);
 
 	@Test
-	public void makePersistent() {
+	public void makePersistent_findById_makeTransient() {
 		Patient patient = new Patient();
 //		TODO User erstellen???
 //		User user = new User();
@@ -145,13 +145,17 @@ public class PatientDao_UnitTests {
 //		patient2.setMedicineIntolerance("Drug intolerances");
 		
 		assertEquals(true, PatientDao.getInstance().makePersistent(patient));
+		
+		Patient patientTemp = PatientDao.getInstance().findBySocialInsuranceNr("1234567809");
+		assertEquals(true, patientTemp != null);
+		assertEquals(true, patientTemp.getFirstName().equals("Marc"));
+		assertEquals(true, PatientDao.getInstance().makeTransient(patient));
 	}
-	
-	@Test
-	public void makeTransient() {
-		Patient patient = PatientDao.getInstance().findBySocialInsuranceNr("1234567809");
-		assertEquals(true, patient != null);
-//		assertEquals(true, PatientDao.getInstance().makeTransient(patient));
-	}
+//	
+//	@Test
+//	public void makeTransient() {
+//
+//		
+//	}
 
 }

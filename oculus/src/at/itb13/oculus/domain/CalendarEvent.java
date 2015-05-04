@@ -46,7 +46,7 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO, ICa
 	
 	private Integer _calendarEventId;
 	private Calendar _calendar;
-	private EventType _eventtype;
+	private EventType _eventType;
 	private Patient _patient;
 	private LocalDateTime _eventStart;
 	private LocalDateTime _eventEnd;
@@ -54,23 +54,23 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO, ICa
 	private String _patientName;
 	private boolean _isOpen;
 	
-	private CalendarEvent() {
+	public CalendarEvent() {
 	}
 
-	private CalendarEvent(Calendar calendar, EventType eventtype, LocalDateTime eventStart, 
+	public CalendarEvent(Calendar calendar, EventType eventtype, LocalDateTime eventStart, 
 						 LocalDateTime eventEnd, boolean isOpen, String patientName) {
 		_calendar = calendar;
-		_eventtype = eventtype;
+		_eventType = eventtype;
 		_eventStart = eventStart;
 		_eventEnd = eventEnd;
 		_isOpen = isOpen;
 		_patientName = patientName;
 	}
 
-	private CalendarEvent(Calendar calendar, EventType eventtype, Patient patient, LocalDateTime eventStart, 
+	public CalendarEvent(Calendar calendar, EventType eventtype, Patient patient, LocalDateTime eventStart, 
 						 LocalDateTime eventEnd, String description, boolean isOpen) {
 		_calendar = calendar;
-		_eventtype = eventtype;
+		_eventType = eventtype;
 		_patient = patient;
 		_eventStart = eventStart;
 		_eventEnd = eventEnd;
@@ -197,11 +197,11 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO, ICa
 	@JoinColumn(name = "eventTypeId", nullable = false)
 	@Override
 	public EventType getEventType() {
-		return _eventtype;
+		return _eventType;
 	}
 
 	public void setEventType(EventType eventtype) {
-		_eventtype = eventtype;
+		_eventType = eventtype;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

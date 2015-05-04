@@ -86,6 +86,7 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 	 * @param calendarEventId the ID of the CalendarEvent.
 	 * @return a CalendarEvent.
 	 */
+	@Transient
 	public CalendarEvent getCalendarEventById(int calendarEventId){
 		for (CalendarEvent c : _calendarEvents) {
 			if (c.getCalendarEventId() == calendarEventId) {

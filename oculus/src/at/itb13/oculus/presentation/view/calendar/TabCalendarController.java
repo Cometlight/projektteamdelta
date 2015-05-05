@@ -1,4 +1,4 @@
-package at.itb13.oculus.presentation.view;
+package at.itb13.oculus.presentation.view.calendar;
 
 import java.io.IOException;
 import java.time.DayOfWeek;
@@ -34,6 +34,7 @@ import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.presentation.OculusMain;
+import at.itb13.oculus.presentation.view.NewAppointmentController;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package at.itb13.oculus.presentation.view;
+package at.itb13.oculus.presentation.view.calendar;
 
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.presentation.OculusMain;

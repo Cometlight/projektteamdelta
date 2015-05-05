@@ -15,8 +15,11 @@ import java.util.Locale;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -28,6 +31,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -53,9 +57,11 @@ public class TabCalendarController {
 	private static final Logger _logger = LogManager.getLogger(TabCalendarController.class.getName());
 	private static final String CALENDAR_EVENT_FXML = "CalendarEvent.fxml";
 	private static final int TIME_INTERVAL_MINUTES = 15;
+	private static final double TIME_COLUMN_WIDTH = 50d;
+	private static final int GRIDPANE_NUMBER_OF_COLUMNS = 8;	// Reason: javafx.GridPane does not have an appropriate method
 
 	@FXML
-	private ScrollPane _scrollPane;
+	private VBox _mainAreaVBox;
 	@FXML
 	private VBox _calendarCheckBoxesVBox;
 	@FXML
@@ -63,20 +69,26 @@ public class TabCalendarController {
 	@FXML
 	private Button _addAppointmentButton;
 
-	private GridPane _gridPane;	// TODO: Aktueller Tag + aktuelle Uhrzeit irgendwie markieren
-								// TODO: Automatisch runterscrollen zur aktuellen Uhrzeit
+	private GridPane _gridPaneHeader;
+	private ScrollPane _scrollPane;
+	private GridPane _gridPaneContent;	// TODO: Aktueller Tag + aktuelle Uhrzeit irgendwie markieren
+										// TODO: Automatisch runterscrollen zur aktuellen Uhrzeit
 	private List<CalendarCheckBox> _calendarCheckBoxes;
 
 	private List<CalendarEventRO> _calEvents;
 
 	@FXML
 	private void initialize() {
-		initCheckBoxes();
+		_logger.info("Initializing TabCalendarController ...");
+		
+		initCheckBoxes();	// Needs to be initialized first of all
 		initDatePicker();
-		initScrollPane();
-		initGridPane();
+		initMainArea();
+		
 		loadCalendarEvents(LocalDate.now());
 		displayAllCalendarEvents();
+		
+		_logger.info("TabCalendarController has been initialized.");
 	}
 	
 	private void initCheckBoxes() {
@@ -84,9 +96,23 @@ public class TabCalendarController {
 		_calendarCheckBoxes = new ArrayList<>(calendars.size());
 		for(ICalendar cal : calendars) {
 			CalendarCheckBox calCheckBox = new CalendarCheckBox(cal);
+			
+			calCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+				@Override
+				public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+					_logger.info("Selected calendars have changed. Updating content of calendar...");
+					initGridPaneContent();
+					loadCalendarEvents(LocalDate.now());	// TODO: nicht .now, sondern das, was eben wirklich angezeigt werden soll.
+					displayAllCalendarEvents();
+					_logger.info("Content of calendar has been updated.");
+				}
+			});
+			
 			_calendarCheckBoxes.add(calCheckBox);
 		}
 		_calendarCheckBoxesVBox.getChildren().setAll(_calendarCheckBoxes);
+		
+		
 		// TODO
 		// + onClicked {
 		//  loadCalendarEvents()
@@ -119,33 +145,44 @@ public class TabCalendarController {
 		
 		_datePicker.setValue(LocalDate.now());	// Show today's appointments by default
 	}
+	
+	private void initMainArea() {
+		_gridPaneHeader = new GridPane();
+		_gridPaneContent = new GridPane();
+		_scrollPane = new ScrollPane();
+		_scrollPane.setContent(_gridPaneContent);
+		
+		_mainAreaVBox.getChildren().setAll(_gridPaneHeader, _scrollPane);
+		
+		initGridPaneHeader();
+		initScrollPane();
+		initGridPaneContent();
+		resizeGridPanes();
+	}
 
 	private void initScrollPane() {
 		_scrollPane.setFitToWidth(true);	// TODO: wird des überhaupt gebraucht? --> evtl. löschen sonst
 		_scrollPane.setFitToHeight(true);
 	}
-
-	private void initGridPane() {
-		_gridPane = new GridPane();
-		_gridPane.setGridLinesVisible(true); 	// TODO: "for debug purposes only" --> Durch CSS ersetzen
+	
+	private void initGridPaneHeader() {
+		_gridPaneHeader.setGridLinesVisible(true); 	// TODO: "for debug purposes only" --> Durch CSS ersetzen
 		
+		_gridPaneHeader.add(new Text("Time"), 0, 0);
+		_gridPaneHeader.add(new WeekDayLabel(DayOfWeek.MONDAY), 1, 0);
+		_gridPaneHeader.add(new WeekDayLabel(DayOfWeek.TUESDAY), 2, 0);
+		_gridPaneHeader.add(new WeekDayLabel(DayOfWeek.WEDNESDAY), 3, 0);
+		_gridPaneHeader.add(new WeekDayLabel(DayOfWeek.THURSDAY), 4, 0);
+		_gridPaneHeader.add(new WeekDayLabel(DayOfWeek.FRIDAY), 5, 0);
+		_gridPaneHeader.add(new WeekDayLabel(DayOfWeek.SATURDAY), 6, 0);
+		_gridPaneHeader.add(new WeekDayLabel(DayOfWeek.SUNDAY), 7, 0);
+	}
 
-		// TODO: Row/Column Sizing ( https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html )
-		// 1. Spalte schmal, die andren gleich breit; und zwar entsprechend der Anzahl ausgewählter Filter
-		// Wichtig: muss später natürlich möglichst leicht wieder angepasst werden können, wenn
-		// Nutzer andere Checkboxes anwählt
+	private void initGridPaneContent() {
+		_gridPaneContent.getChildren().clear();
+		_gridPaneContent.setGridLinesVisible(true); 	// TODO: "for debug purposes only" --> Durch CSS ersetzen
 		
-		// Column header
-		_gridPane.add(new Text("Time"), 0, 0);
-		_gridPane.add(new WeekDayLabel(DayOfWeek.MONDAY), 1, 0);
-		_gridPane.add(new WeekDayLabel(DayOfWeek.TUESDAY), 2, 0);
-		_gridPane.add(new WeekDayLabel(DayOfWeek.WEDNESDAY), 3, 0);
-		_gridPane.add(new WeekDayLabel(DayOfWeek.THURSDAY), 4, 0);
-		_gridPane.add(new WeekDayLabel(DayOfWeek.FRIDAY), 5, 0);
-		_gridPane.add(new WeekDayLabel(DayOfWeek.SATURDAY), 6, 0);
-		_gridPane.add(new WeekDayLabel(DayOfWeek.SUNDAY), 7, 0);
-
-		// Row header
+		// 1st column: Display the time
 		LocalTime timeStart = LocalTime.MIN;	// TODO nicht hier hin start + end zeit schreiben, sonst irgwo herholen oder so
 		LocalTime timeEnd = LocalTime.MAX.minusMinutes(TIME_INTERVAL_MINUTES);		// also needed in "loadCalendarEvents"
 												// vielleicht oben als private static final nochmal hin, damit später wenn nötig leicht austauschbar?
@@ -154,21 +191,40 @@ public class TabCalendarController {
 		int row = 1;
 		for(LocalTime curTime = LocalTime.MIN; curTime.isBefore(timeEnd); curTime = curTime.plusMinutes(TIME_INTERVAL_MINUTES)) {	// TODO: While-loop wär wohl übersichtlicher // TODO: nicht LocalTime.MIN sondern siehe wie 5 Zeilen oben
 			LocalTimeLabel timeLabel = new LocalTimeLabel(LocalTime.from(curTime));
-			_gridPane.add(timeLabel, 0, row);
+			_gridPaneContent.add(timeLabel, 0, row);
 			++row;
 		}
 		
+		// Insert 1 GridPane into every cell. Each GridPane has so many Columns as CheckBoxes are ticked.
+		int rowCount = getRowCount(_gridPaneContent);
+		int calendarsToDisplay = getNumberOfSelectedCheckBoxes();
+		ColumnConstraints columnConstraints = new ColumnConstraints();
+		columnConstraints.setHgrow(Priority.ALWAYS);
+		for(int r = 0; r < rowCount; ++r) {
+			for(int c = 1; c < GRIDPANE_NUMBER_OF_COLUMNS; ++c) {	// "1" because we can ignore the first column
+				GridPane gridPane = new GridPane();
+				for(int i = 0; i < calendarsToDisplay; ++i) {
+					gridPane.add(new Text("empty"), i, 0);
+					gridPane.getColumnConstraints().add(columnConstraints);
+					gridPane.setGridLinesVisible(true);	// TODO: "for debug purposes only" --> Durch CSS ersetzen
+				}
+				_gridPaneContent.add(gridPane, c, r);
+			}
+		}
+	}
+	
+	private void resizeGridPanes() {	// TODO: Spalten von Header und Content sind nicht schön gleich breit. (Eventuell ist der Grund der Scrollbalken des Scrollpanes)
+										// siehe auch https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
+		ColumnConstraints firstColCC = new ColumnConstraints(TIME_COLUMN_WIDTH, TIME_COLUMN_WIDTH, TIME_COLUMN_WIDTH);
+		_gridPaneHeader.getColumnConstraints().add(firstColCC);
+		_gridPaneContent.getColumnConstraints().add(firstColCC);
 		
-		_scrollPane.setContent(_gridPane);
-		
-		// TODO Pseudo-Code:
-//		for(int row = 0; row < _gridPane.getNumberOfRows(); ++row) {
-//			for(int col = 0; col < _gridPane.getNumberOfColumns(); ++col) {
-//				HBox hBox = new HBox();
-//				hBox.setNumberOfCols(so viel wie Filter selektiert sind)
-//				_gridPane.getChildren(columnIndex, rowIndex, colSpan, rowSpan).add(hBox);
-//			}
-//		}
+		ColumnConstraints cC = new ColumnConstraints();
+		cC.setHgrow(Priority.ALWAYS);
+		for(int i = 0; i < GRIDPANE_NUMBER_OF_COLUMNS - 1; ++i) {	// -1 because we already have set the constraint for the first column just above
+			_gridPaneHeader.getColumnConstraints().add(cC);
+			_gridPaneContent.getColumnConstraints().add(cC);
+		}
 	}
 	
 	// TODO: Move these two classes to seperate files. --> Maybe new package "calendar"?
@@ -225,7 +281,7 @@ public class TabCalendarController {
 		LocalDate dayEnd = dayStart.plusWeeks(1);
 		
 		try {	// TODO set ids according to filters
-			_calEvents = (List<CalendarEventRO>) ControllerFacade.getInstance().getCalendarController(   106   ,    null    ).getCalendarEventsInTimespan(LocalDateTime.of(dayStart, timeStart), LocalDateTime.of(dayEnd, timeEnd));
+			_calEvents = (List<CalendarEventRO>) ControllerFacade.getInstance().getCalendarController(   null   ,    2    ).getCalendarEventsInTimespan(LocalDateTime.of(dayStart, timeStart), LocalDateTime.of(dayEnd, timeEnd));
 			// TODO: NewAppointmentControllerInterface verwenden statt den CalendarController!
 		} catch (InvalidInputException e) {
 			// TODO Auto-generated catch block
@@ -330,6 +386,17 @@ public class TabCalendarController {
 		}
 	}
 	
+	// TODO: Diese Methode der Übersichtlichkeit halber wo anders hinschieben?
+	private int getNumberOfSelectedCheckBoxes() {
+		int i = 0;
+		for(CalendarCheckBox calCheckBox : _calendarCheckBoxes) {
+			if(calCheckBox.isSelected()) {
+				++i;
+			}
+		}
+		return i;
+	}
+	
 	@FXML
 	private void onButtonNextWeekClick() {
 		// datepicker -> next week.... etc.
@@ -348,4 +415,18 @@ public class TabCalendarController {
 	 * }
 	 */
 
+	// TODO: besser machen? wo anders hin tun? zwischenspeichern stattdessen?
+	// siehe http://stackoverflow.com/a/20766735
+	private static int getRowCount(GridPane pane) {
+		int numRows = pane.getRowConstraints().size();
+        for (int i = 0; i < pane.getChildren().size(); i++) {
+            Node child = pane.getChildren().get(i);
+            if (child.isManaged()) {
+                int rowIndex = GridPane.getRowIndex(child);
+                int rowEnd = GridPane.getRowIndex(child);
+                numRows = Math.max(numRows, (rowEnd != GridPane.REMAINING? rowEnd : rowIndex) + 1);
+            }
+        }
+        return numRows;
+	}
 }

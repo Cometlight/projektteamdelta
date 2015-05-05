@@ -1,5 +1,6 @@
 package at.itb13.oculus.presentation.view.calendar;
 
+import at.itb13.oculus.domain.interfaces.ICalendarEvent;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.presentation.OculusMain;
 import javafx.fxml.FXML;
@@ -16,13 +17,13 @@ public class CalendarEventController {
 	@FXML
 	private Label _patientLabel;
 	
-	private CalendarEventRO _calEvent;
+	private ICalendarEvent _calEvent;
 	
 	private OculusMain _main;
 	
 	public CalendarEventController() { }
 	
-	public CalendarEventController(CalendarEventRO calendarEvent) {
+	public CalendarEventController(ICalendarEvent calendarEvent) {
 		setCalEvent(calendarEvent);
 	}
 	
@@ -35,7 +36,7 @@ public class CalendarEventController {
 		_main = main;
 	}
 	
-	public void setCalEvent(CalendarEventRO calendarEvent){
+	public void setCalEvent(ICalendarEvent calendarEvent){
 		_calEvent = calendarEvent;
 		fillLabels();
 	}

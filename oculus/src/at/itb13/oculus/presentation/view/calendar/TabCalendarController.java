@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -17,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -25,6 +28,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -32,6 +36,7 @@ import javafx.util.StringConverter;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
+import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.presentation.OculusMain;
 import at.itb13.oculus.presentation.view.NewAppointmentController;
@@ -52,22 +57,41 @@ public class TabCalendarController {
 	@FXML
 	private ScrollPane _scrollPane;
 	@FXML
+	private VBox _calendarCheckBoxesVBox;
+	@FXML
 	private DatePicker _datePicker;	// TODO: Paar Sachen könnten wohl vom "alten" Datepicker vom AppointmentsTab übernommen werden
 	@FXML
 	private Button _addAppointmentButton;
 
 	private GridPane _gridPane;	// TODO: Aktueller Tag + aktuelle Uhrzeit irgendwie markieren
 								// TODO: Automatisch runterscrollen zur aktuellen Uhrzeit
+	private List<CalendarCheckBox> _calendarCheckBoxes;
 
 	private List<CalendarEventRO> _calEvents;
 
 	@FXML
 	private void initialize() {
+		initCheckBoxes();
 		initDatePicker();
 		initScrollPane();
 		initGridPane();
 		loadCalendarEvents(LocalDate.now());
 		displayAllCalendarEvents();
+	}
+	
+	private void initCheckBoxes() {
+		List<ICalendar> calendars = ControllerFacade.getInstance().getNewAppointmentController().getAllCalendars();
+		_calendarCheckBoxes = new ArrayList<>(calendars.size());
+		for(ICalendar cal : calendars) {
+			CalendarCheckBox calCheckBox = new CalendarCheckBox(cal);
+			_calendarCheckBoxes.add(calCheckBox);
+		}
+		_calendarCheckBoxesVBox.getChildren().setAll(_calendarCheckBoxes);
+		// TODO
+		// + onClicked {
+		//  loadCalendarEvents()
+		//  displayAllCalendarEvents()
+		// }
 	}
 	
 	private void initDatePicker() {
@@ -239,8 +263,12 @@ public class TabCalendarController {
 	}
 	
 	@FXML
-
 	private Boolean handleNewAppointmentButton(){
+		/**
+		 * evtl. TODO:
+		 * - Neu erstellten Termin anzeigen lassen, sollte einer erstellt worden sein (man nicht auf Abbrechen geklickt hat)
+		 * - Cancel Button funktioniert noch nicht
+		 */
 		try {
 		
 			// Load the fxml file and create a new stage for the popup dialog.
@@ -278,18 +306,28 @@ public class TabCalendarController {
 		// displayAllCalendarEvents()
 	}
 	
-	@FXML
-	private void onButtonNewAppointmentClick() {
-		// open new window
-		// Neu erstellten Termin anzeigen lassen, sollte einer erstellt worden sein (man nicht auf Abbrechen geklickt hat)
-	}
-	
-	private void initCheckBoxes() {
-		// create 1 checkbox for every filter
-		// + onClicked {
-		//  loadCalendarEvents()
-		//  displayAllCalendarEvents()
-		// }
+	// TODO: In seperate Datei auslagern
+	private class CalendarCheckBox extends CheckBox {
+		private ICalendar _calendar;
+		
+		private CalendarCheckBox() { }
+		
+		public CalendarCheckBox(ICalendar calendar, String label) {
+			super(label);
+			_calendar = calendar;
+		}
+		
+		public CalendarCheckBox(ICalendar calendar) {
+			this(calendar, calendar.getTitle());
+		}
+
+		public ICalendar getCalendar() {
+			return _calendar;
+		}
+
+		public void setCalendar(ICalendar calendar) {
+			_calendar = calendar;
+		}
 	}
 	
 	@FXML

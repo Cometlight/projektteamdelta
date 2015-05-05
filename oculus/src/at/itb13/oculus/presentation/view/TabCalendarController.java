@@ -5,6 +5,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
@@ -27,6 +28,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
@@ -60,10 +62,37 @@ public class TabCalendarController {
 
 	@FXML
 	private void initialize() {
+		initDatePicker();
 		initScrollPane();
 		initGridPane();
 		loadCalendarEvents(LocalDate.now());
 		displayAllCalendarEvents();
+	}
+	
+	private void initDatePicker() {
+		_datePicker.setConverter(new StringConverter<LocalDate>() {
+			 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		     @Override 
+		     public String toString(LocalDate date) {
+		         if (date != null) {
+		             return dateFormatter.format(date);
+		         } else {
+		             return "";
+		         }
+		     }
+
+		     @Override 
+		     public LocalDate fromString(String string) {
+		         if (string != null && !string.isEmpty()) {
+		             return LocalDate.parse(string, dateFormatter);
+		         } else {
+		             return null;
+		         }
+		     }
+		});
+		
+		_datePicker.setValue(LocalDate.now());	// Show today's appointments by default
 	}
 
 	private void initScrollPane() {
@@ -171,7 +200,7 @@ public class TabCalendarController {
 		LocalDate dayEnd = dayStart.plusWeeks(1);
 		
 		try {	// TODO set ids according to filters
-			_calEvents = (List<CalendarEventRO>) ControllerFacade.getInstance().getCalendarController(   null   ,    2    ).getCalendarEventsInTimespan(LocalDateTime.of(dayStart, timeStart), LocalDateTime.of(dayEnd, timeEnd));
+			_calEvents = (List<CalendarEventRO>) ControllerFacade.getInstance().getCalendarController(   106   ,    null    ).getCalendarEventsInTimespan(LocalDateTime.of(dayStart, timeStart), LocalDateTime.of(dayEnd, timeEnd));
 			// TODO: NewAppointmentControllerInterface verwenden statt den CalendarController!
 		} catch (InvalidInputException e) {
 			// TODO Auto-generated catch block

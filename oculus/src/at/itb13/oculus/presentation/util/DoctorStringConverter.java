@@ -3,7 +3,6 @@ package at.itb13.oculus.presentation.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import at.itb13.oculus.domain.interfaces.IEventType;
 import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
 import javafx.util.StringConverter;
 
@@ -13,17 +12,17 @@ import javafx.util.StringConverter;
  * @author Caroline Meusburger
  * @since 13.04.2015
  */
-public class CalendarEventTypeSringConverter extends StringConverter<IEventType> {
+public class DoctorStringConverter extends StringConverter<DoctorRO> {
 	
-	private Map<String, IEventType> _mapEventType = new HashMap<String, IEventType>();
+	private Map<String, DoctorRO> _mapDoctors = new HashMap<String, DoctorRO>();
 
 	/*
 	 * @see javafx.util.StringConverter#toString(java.lang.Object)
 	 */
 	@Override
-	public String toString(IEventType eventtype) {
-		String name = (eventtype.getEventTypeName());
-		_mapEventType.put(name, eventtype);
+	public String toString(DoctorRO doctor) {
+		String name = (doctor.getUser().getFirstName()+" "+doctor.getUser().getLastName());
+		_mapDoctors.put(name, doctor);
 	    return name;
 	}
 
@@ -31,8 +30,8 @@ public class CalendarEventTypeSringConverter extends StringConverter<IEventType>
 	 * @see javafx.util.StringConverter#fromString(java.lang.String)
 	 */
 	@Override
-	public IEventType fromString(String name) {
-		 return _mapEventType.get(name);
+	public DoctorRO fromString(String name) {
+		 return _mapDoctors.get(name);
 	}
 
 }

@@ -7,6 +7,8 @@ package at.itb13.oculus.application.interfaces;
  * @date May 4, 2015
  */
 public interface IControllerFacade {
-	IControllerFacade getInstance();
+	static IControllerFacade getInstance() {
+		return null;
+	}
 	INewAppointmentController getNewAppointmentController();
 }

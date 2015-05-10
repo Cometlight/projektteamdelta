@@ -14,7 +14,7 @@ import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Patient.Gender;
 import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
-import at.itb13.oculus.presentation.util.DoctorSringConverter;
+import at.itb13.oculus.presentation.util.DoctorStringConverter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -213,7 +213,7 @@ public class NewPatientController {
 	 * fills the combobox doctor
 	 */
 	private void setItemsToDoctorBox() {
-		_doctorBox.setConverter(new DoctorSringConverter());
+		_doctorBox.setConverter(new DoctorStringConverter());
 		_doctorBox.getItems().addAll(ControllerFacade.getInstance().getWelcomeAtReception().getDoctorList());
 
 	}

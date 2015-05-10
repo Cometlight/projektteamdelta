@@ -3,6 +3,8 @@ package at.itb13.oculus.presentation.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import at.itb13.oculus.domain.interfaces.ICalendar;
+import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
 import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
 import javafx.util.StringConverter;
 
@@ -12,17 +14,17 @@ import javafx.util.StringConverter;
  * @author Caroline Meusburger
  * @since 13.04.2015
  */
-public class DoctorSringConverter extends StringConverter<DoctorRO> {
+public class CalendarStringConverter extends StringConverter<ICalendar> {
 	
-	private Map<String, DoctorRO> _mapDoctors = new HashMap<String, DoctorRO>();
+	private Map<String, ICalendar> _mapCalendar = new HashMap<String, ICalendar>();
 
 	/*
 	 * @see javafx.util.StringConverter#toString(java.lang.Object)
 	 */
 	@Override
-	public String toString(DoctorRO doctor) {
-		String name = (doctor.getUser().getFirstName()+" "+doctor.getUser().getLastName());
-		_mapDoctors.put(name, doctor);
+	public String toString(ICalendar calendar) {
+		String name = (calendar.getTitle());
+		_mapCalendar.put(name, calendar);
 	    return name;
 	}
 
@@ -30,8 +32,8 @@ public class DoctorSringConverter extends StringConverter<DoctorRO> {
 	 * @see javafx.util.StringConverter#fromString(java.lang.String)
 	 */
 	@Override
-	public DoctorRO fromString(String name) {
-		 return _mapDoctors.get(name);
+	public ICalendar fromString(String name) {
+		 return _mapCalendar.get(name);
 	}
 
 }

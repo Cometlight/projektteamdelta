@@ -41,7 +41,7 @@ import at.itb13.oculus.domain.readonlyinterfaces.OrthoptistRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
 import at.itb13.oculus.presentation.OculusMain;
-import at.itb13.oculus.presentation.util.QueueSringConverter;
+import at.itb13.oculus.presentation.util.QueueStringConverter;
 
 /**
  * TODO: Insert description here.
@@ -369,7 +369,7 @@ public class TabAppointmentsController {
 	 * fills the combo box with all queues
 	 */
 	private void setItemsToQueueBox() {
-		_queueBox.setConverter(new QueueSringConverter());
+		_queueBox.setConverter(new QueueStringConverter());
 		List<QueueController> queController = ControllerFacade.getInstance().getAllQueueController();
 		for (QueueController controller : queController) {		
 			_queueBox.getItems().add(controller.getQueue());

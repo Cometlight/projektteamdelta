@@ -12,7 +12,7 @@ import javafx.util.StringConverter;
  * @author Caroline Meusburger
  * @since 13.04.2015
  */
-public class QueueSringConverter extends StringConverter<QueueRO> {
+public class QueueStringConverter extends StringConverter<QueueRO> {
 
 	private Map<String, QueueRO> _mapQueue = new HashMap<String, QueueRO>();
 

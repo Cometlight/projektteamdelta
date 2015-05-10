@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -24,15 +25,18 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
+import at.itb13.oculus.application.interfaces.IControllerFacade;
 import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.presentation.OculusMain;
+import at.itb13.oculus.presentation.util.CalendarStringConverter;
 
 /**
  * 
@@ -53,6 +57,8 @@ public class TabCalendarController {
 	private DatePicker _datePicker;	// TODO: Paar Sachen könnten wohl vom "alten" Datepicker vom AppointmentsTab übernommen werden
 	@FXML
 	private Button _addAppointmentButton;
+	@FXML
+	private VBox _chVBox;
 
 	private GridPane _gridPane;	// TODO: Aktueller Tag + aktuelle Uhrzeit irgendwie markieren
 								// TODO: Automatisch runterscrollen zur aktuellen Uhrzeit
@@ -65,6 +71,7 @@ public class TabCalendarController {
 		initGridPane();
 		loadCalendarEvents(LocalDate.now());
 		displayAllCalendarEvents();
+		initCheckBoxes();
 	}
 
 	private void initScrollPane() {
@@ -210,7 +217,6 @@ public class TabCalendarController {
 	}
 	
 	@FXML
-
 	private Boolean handleNewAppointmentButton(){
 		try {
 		
@@ -249,14 +255,18 @@ public class TabCalendarController {
 		// displayAllCalendarEvents()
 	}
 	
-	@FXML
-	private void onButtonNewAppointmentClick() {
-		// open new window
-		// Neu erstellten Termin anzeigen lassen, sollte einer erstellt worden sein (man nicht auf Abbrechen geklickt hat)
-	}
+	
 	
 	private void initCheckBoxes() {
-		List<ICalendar> calendars = IControllerFacade.getInstance().getNewAppointmentController().getAllCalendars();
+//		VBox  _chVBox = new VBox();
+//		CalendarStringConverter converter = new CalendarStringConverter();
+//		List<ICalendar> calendars = ControllerFacade.getInstance().getNewAppointmentController().getAllCalendars();
+//		for(ICalendar c : calendars){
+//			CheckBox box = new CheckBox();
+//			box.setText(converter.toString(c));
+//			box.setVisible(true);
+//			_chVBox.getChildren().add(box);		
+		}
 		
 		
 		// create 1 checkbox for every filter
@@ -264,7 +274,7 @@ public class TabCalendarController {
 		//  loadCalendarEvents()
 		//  displayAllCalendarEvents()
 		// }
-	}
+//	}
 	
 	@FXML
 	private void onButtonNextWeekClick() {

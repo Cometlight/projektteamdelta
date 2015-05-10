@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Locale;
 
 import org.apache.logging.log4j.LogManager;
@@ -188,9 +189,8 @@ public class TabCalendarController {
 		_gridPaneContent.setGridLinesVisible(true); 	// TODO: "for debug purposes only" --> Durch CSS ersetzen
 		
 		// 1st column: Display the time
-		LocalTime timeStart = LocalTime.MIN;	// TODO nicht hier hin start + end zeit schreiben, sonst irgwo herholen oder so
-		LocalTime timeEnd = LocalTime.MAX.minusMinutes(TIME_INTERVAL_MINUTES);		// also needed in "loadCalendarEvents"
-												// vielleicht oben als private static final nochmal hin, damit später wenn nötig leicht austauschbar?
+		LocalTime timeStart = LocalTime.MIN;
+		LocalTime timeEnd = LocalTime.MAX.minusMinutes(TIME_INTERVAL_MINUTES);
 		
 		long minutesToAdd = TIME_INTERVAL_MINUTES;
 		int row = 1;
@@ -303,7 +303,7 @@ public class TabCalendarController {
 	
 	
 	private void loadCalendarEvents(LocalDate dayStart) {
-		LocalTime timeStart = LocalTime.MIN;	// TODO: see initGridPane()
+		LocalTime timeStart = LocalTime.MIN;
 		LocalTime timeEnd = LocalTime.MAX;
 		LocalDate dayEnd = dayStart.plusDays(6);	// dayStart.plusWeek(1) would result in the display of the appointments of two Mondays
 		
@@ -333,13 +333,11 @@ public class TabCalendarController {
 
 	private void displayAllCalendarEvents() {
 		clearCalEventsFromGridPaneContent();
-//		displayCalendarEvent(_calEvents.get(0), 3, 3, 3, 3);
 		for(ICalendarEvent calEv : _calEvents) {
-			// TODO: Werte wirklich berechnen (Runden ist nötig, da in minutesToAdd - Zeitblöcken (15 minuten, wenn nicht geändert) siehe: initGridPane()
 			int columnIndex = calEv.getEventStart().getDayOfWeek().getValue();
-			int rowIndex = calEv.getEventStart().getHour() * 4 + calEv.getEventStart().getMinute() / 15;
+			int rowIndex = calEv.getEventStart().getHour() * 4 + calEv.getEventStart().getMinute() / TIME_INTERVAL_MINUTES;
 			int colSpan = 1;
-			int rowSpan = ( (calEv.getEventEnd().getHour() * 60 + calEv.getEventEnd().getMinute()) - (calEv.getEventStart().getHour() * 60 + calEv.getEventStart().getMinute()) ) / 15;
+			int rowSpan = ( (calEv.getEventEnd().getHour() * 60 + calEv.getEventEnd().getMinute()) - (calEv.getEventStart().getHour() * 60 + calEv.getEventStart().getMinute()) ) / TIME_INTERVAL_MINUTES;
 			displayCalendarEvent(calEv, columnIndex, rowIndex, colSpan, rowSpan);
 		}
 	}
@@ -356,29 +354,52 @@ public class TabCalendarController {
 			e.printStackTrace();
 		}
 		
-		// TODO: wenn HBox bereits an der position drinnen ist, dann nicht einfach eine neue Erstellen und den rest löschen dadurch natürlich!
 		HBox hBox = getHBoxByRowColumnIndex(rowIndex, columnIndex, _gridPaneContent);
 		if(hBox == null) {
 			hBox = new HBox();
 			for(CalendarCheckBox calCheckBox : _calendarCheckBoxes) {
 				if(calCheckBox.isSelected()) {
-					if(calendarEvent.getCalendar().getTitle().equals(calCheckBox.getCalendar().getTitle())) {	// TODO: check auf ID statt auf Title wäre wohl sinnvoller
-						hBox.getChildren().add(calEvPane);
-					} else {
-						hBox.getChildren().add(new Text("#--------------------#"));	// TODO: besserer "Füller"-Node?
-					}
+					CalendarEventFillerNode fillerNode = new CalendarEventFillerNode(calCheckBox.getCalendar());
+					hBox.getChildren().add(fillerNode);
 				}
 			}
-			
-		} else {
-			// TODO alte werte beibehalten und neuen einfügen!
 		}
+		
+		ListIterator<Node> it = hBox.getChildren().listIterator();
+		while(it.hasNext()) {
+			Node node = it.next();
+			if(node instanceof CalendarEventFillerNode 
+					&& ((CalendarEventFillerNode)node).getCalendar().getTitle().equals(calendarEvent.getCalendar().getTitle())) {	// TODO: check auf ID statt auf Title wäre wohl sinnvoller?!?
+				it.remove();
+				it.add(calEvPane);
+			}
+		}
+		
+		
 		System.out.println(columnIndex + ", " + rowIndex + " | " + colSpan + ", " + rowSpan);	// TODO: zur Größe des CalendarEvent.fxml's: http://stackoverflow.com/questions/16242398/why-wont-the-children-in-my-javafx-hbox-grow-scenebuilder u.a.
 //		hBox.backgroundProperty().set(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
 //		calEvPane.backgroundProperty().set(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
 		_gridPaneContent.add(hBox, columnIndex, rowIndex, colSpan, rowSpan);
 		
 		calEvCol.setCalEvent(calendarEvent);
+	}
+	
+	// TODO: wo anders hin schieben vielleicht
+	// TODO: Von was sinnvollerem als Label erben!?!?!
+	private class CalendarEventFillerNode extends Label {
+		private ICalendar _calendar;
+		
+		public CalendarEventFillerNode(ICalendar calendar) {
+			_calendar = calendar;
+		}
+
+		public ICalendar getCalendar() {
+			return _calendar;
+		}
+		
+		public void setCalendar(ICalendar calendar) {
+			_calendar = calendar;
+		}
 	}
 	
 	public HBox getHBoxByRowColumnIndex(final int row, final int column, GridPane gridPane) {

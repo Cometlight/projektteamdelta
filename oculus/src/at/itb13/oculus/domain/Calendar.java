@@ -1,7 +1,6 @@
 package at.itb13.oculus.domain;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +24,6 @@ import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.domain.CalendarWorkingHours.WeekDayKey;
 import at.itb13.oculus.domain.interfaces.ICalendar;
-import at.itb13.oculus.domain.interfaces.IWorkingHours;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
 
 /**
@@ -49,16 +47,27 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 	private Set<CalendarWorkingHours> _calendarWorkingHours = new HashSet<CalendarWorkingHours>(
 			0);
 
-	public Calendar() {
+	Calendar() {
 	}
 
-	public Calendar(String title, Doctor doctor, Orthoptist orthoptist, Set<CalendarEvent> calendarevents,
+	Calendar(String title, Doctor doctor, Orthoptist orthoptist, Set<CalendarEvent> calendarevents,
 			Set<CalendarWorkingHours> calendarworkinghourses) {
 		_title = title;
 		_doctor = doctor;
 		_orthoptist = orthoptist;
 		_calendarEvents = calendarevents;
 		_calendarWorkingHours = calendarworkinghourses;
+	}
+	
+	public static Calendar getInstance(){
+		Calendar calendar = new Calendar();
+		return calendar;
+	}
+	
+	public static Calendar getInstance(String title, Doctor doctor, Orthoptist orthoptist, Set<CalendarEvent> calendarevents, 
+									  Set<CalendarWorkingHours> calendarworkinghours){
+		Calendar calendar = new Calendar(title, doctor, orthoptist, calendarevents, calendarworkinghours);
+		return calendar;
 	}
 	
 	/**
@@ -116,6 +125,7 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+	@Override
 	@Column(name = "calendarId", unique = true, nullable = false)
 	public Integer getCalendarId() {
 		return _calendarId;

@@ -8,8 +8,13 @@ import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.exceptions.SaveException;
 import at.itb13.oculus.application.interfaces.INewAppointmentController;
+import at.itb13.oculus.domain.Calendar;
+import at.itb13.oculus.domain.CalendarEventFactory;
+import at.itb13.oculus.domain.EventType;
+import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.interfaces.ICalendarEvent;
+import at.itb13.oculus.domain.interfaces.IEventType;
 import at.itb13.oculus.domain.interfaces.IPatient;
 
 /**
@@ -19,6 +24,8 @@ import at.itb13.oculus.domain.interfaces.IPatient;
  * @since 03.05.2015
  */
 public class NewAppointmentController implements INewAppointmentController {
+	
+	private CalendarEventFactory _factory = CalendarEventFactory.getInstance();
 
 	/**
 	 * Creates a new appointment in a chosen timespan for the wanted calendar and patient.
@@ -31,10 +38,10 @@ public class NewAppointmentController implements INewAppointmentController {
 	 * @throws SaveException is throwen when an error occured while saving the new appointment.
 	 */
 	@Override
-	public void newCalendarEvent(ICalendar calendar, LocalDateTime start,
+	public void newCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start,
 			LocalDateTime end, String description, IPatient patient)
 			throws SaveException {
-		// TODO Auto-generated method stub
+		_factory.createCalendarEvent((Calendar) calendar, (EventType) eventType, start, end, description, (Patient) patient);
 		
 	}
 
@@ -49,10 +56,10 @@ public class NewAppointmentController implements INewAppointmentController {
 	 * @throws SaveException is throwen when an error occured while saving the new appointment.
 	 */
 	@Override
-	public void newCalendarEvent(ICalendar calendar, LocalDateTime start,
+	public void newCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start,
 			LocalDateTime end, String description, String patient)
 			throws SaveException {
-		// TODO Auto-generated method stub
+		_factory.createCalendarEvent((Calendar) calendar, (EventType) eventType, start, end, description, patient);
 		
 	}
 

@@ -26,8 +26,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.domain.interfaces.ICalendarEvent;
-import at.itb13.oculus.domain.interfaces.IEventType;
-import at.itb13.oculus.domain.interfaces.IPatient;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
 
@@ -58,25 +56,25 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO, ICa
 	}
 
 	CalendarEvent(Calendar calendar, EventType eventtype, LocalDateTime eventStart, 
-						 LocalDateTime eventEnd, boolean isOpen, String patientName) {
+						 LocalDateTime eventEnd, String description, String patientName) {
 		_calendar = calendar;
 		_eventType = eventtype;
 		_eventStart = eventStart;
 		_eventEnd = eventEnd;
-		_isOpen = isOpen;
+		_description = description;
+		_isOpen = true;
 		_patientName = patientName;
 	}
 
-	CalendarEvent(Calendar calendar, EventType eventtype, Patient patient, LocalDateTime eventStart, 
-						 LocalDateTime eventEnd, String description, boolean isOpen) {
+	CalendarEvent(Calendar calendar, EventType eventtype, LocalDateTime eventStart, 
+						 LocalDateTime eventEnd, String description, Patient patient) {
 		_calendar = calendar;
 		_eventType = eventtype;
 		_patient = patient;
 		_eventStart = eventStart;
 		_eventEnd = eventEnd;
 		_description = description;
-		
-		_isOpen = isOpen;
+		_isOpen = true;
 	}
 	
 	/**
@@ -103,9 +101,9 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO, ICa
 	 */
 	@Transient
 	public static CalendarEvent getInstance(Calendar calendar, EventType eventtype, LocalDateTime eventStart, 
-									LocalDateTime eventEnd, boolean isOpen, String patientName){
+									LocalDateTime eventEnd, String description, String patientName){
 		
-		CalendarEvent event = new CalendarEvent(calendar, eventtype, eventStart, eventEnd, isOpen, patientName);
+		CalendarEvent event = new CalendarEvent(calendar, eventtype, eventStart, eventEnd, description, patientName);
 		return event;
 	}
 	
@@ -122,12 +120,12 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO, ICa
 	 * @return an object of the CalendarEvent
 	 */
 	@Transient
-	public static CalendarEvent getInstance(Calendar calendar, EventType eventtype, Patient patient, 
+	public static CalendarEvent getInstance(Calendar calendar, EventType eventtype, 
 									LocalDateTime eventStart, LocalDateTime eventEnd,
-									String description, boolean isOpen){
+									String description, Patient patient){
 		
-		CalendarEvent event = new CalendarEvent(calendar, eventtype, patient, eventStart, eventEnd, 
-												description, isOpen);
+		CalendarEvent event = new CalendarEvent(calendar, eventtype, eventStart, eventEnd, 
+												description, patient);
 		return event;
 	}
 	

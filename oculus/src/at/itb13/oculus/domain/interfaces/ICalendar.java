@@ -31,4 +31,6 @@ public interface ICalendar {
 	public abstract IWorkingHours getWorkingHoursOfWeekDay(WeekDayKey weekDay);
 	
 	public abstract String getTitle();
+	
+	public abstract Integer getCalendarId();
 }

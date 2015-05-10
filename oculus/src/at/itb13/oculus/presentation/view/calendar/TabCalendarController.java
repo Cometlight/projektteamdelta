@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -29,6 +30,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -76,6 +78,8 @@ public class TabCalendarController {
 	private DatePicker _datePicker;	// TODO: Paar Sachen könnten wohl vom "alten" Datepicker vom AppointmentsTab übernommen werden
 	@FXML
 	private Button _addAppointmentButton;
+	@FXML
+	private TextField _weekNumberTextField;
 
 	private GridPane _gridPaneHeader;
 	private ScrollPane _scrollPane;
@@ -91,6 +95,7 @@ public class TabCalendarController {
 		
 		initCheckBoxes();	// Needs to be initialized first of all
 		initDatePicker();
+		_weekNumberTextField.setText(getWeekNumber(_datePicker.getValue()).toString());
 		initMainArea();
 		
 		loadCalendarEvents(LocalDate.now().minusWeeks(1));
@@ -109,8 +114,7 @@ public class TabCalendarController {
 				@Override
 				public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 					_logger.info("Selected calendars have changed. Updating content of calendar...");
-//					initGridPaneContent();
-					loadCalendarEvents(LocalDate.now());	// TODO: nicht .now, sondern das, was eben wirklich angezeigt werden soll.
+					onDatePickerDateSelected();	// Do the same thing as if a date was selected in the datepicker.
 					displayAllCalendarEvents();
 					_logger.info("Content of calendar has been updated.");
 				}
@@ -298,14 +302,12 @@ public class TabCalendarController {
 	}
 	
 	
-	
-	@SuppressWarnings("unchecked")
 	private void loadCalendarEvents(LocalDate dayStart) {
 		LocalTime timeStart = LocalTime.MIN;	// TODO: see initGridPane()
 		LocalTime timeEnd = LocalTime.MAX;
-		// TODO: set dayStart to a Monday, if it's not a Monday already
-		dayStart = dayStart.minusWeeks(10);	// TODO delete this line
-		LocalDate dayEnd = dayStart.plusWeeks(11);	// TODO 1 instead of 11
+		LocalDate dayEnd = dayStart.plusDays(6);	// dayStart.plusWeek(1) would result in the display of the appointments of two Mondays
+		
+		_logger.info("Displaying appointments from " + dayStart + " (" + timeStart + ") to " + dayEnd + " (" + timeEnd + ")");
 		
 		try {	// TODO set ids according to filters
 			_calEvents = new LinkedList<>();
@@ -433,9 +435,25 @@ public class TabCalendarController {
 		}
 	}
 
+	@FXML
 	private void onDatePickerDateSelected() {
-		// loadCalendarEvents(_datePicker.date())
-		// displayAllCalendarEvents()
+		LocalDate date = _datePicker.getValue();
+		
+		_weekNumberTextField.setText(getWeekNumber(date).toString());
+		
+		// A monday should be provided to loadCalendareEvents() to display a full week
+		while(!date.getDayOfWeek().equals(DayOfWeek.MONDAY)) {
+			date = date.minusDays(1);
+		}
+		
+		loadCalendarEvents(date);
+		displayAllCalendarEvents();
+	}
+	
+	// TODO: So eine Util-Funktion in ne andere Datei tun?
+	private Integer getWeekNumber(LocalDate date) {
+		WeekFields weekFields = WeekFields.of(Locale.getDefault());
+		return date.get(weekFields.weekOfWeekBasedYear());
 	}
 	
 	// TODO: In seperate Datei auslagern
@@ -475,12 +493,34 @@ public class TabCalendarController {
 	
 	@FXML
 	private void onButtonNextWeekClick() {
-		// datepicker -> next week.... etc.
+		_datePicker.setValue(_datePicker.getValue().plusWeeks(1));
 	}
 	
 	@FXML
 	private void onButtonPreviousWeekClick() {
-		// datepicker -> previous week.... etc.
+		_datePicker.setValue(_datePicker.getValue().minusWeeks(1));
+	}
+	
+	@FXML
+	private void onTextFieldWeekNumberAction() {
+		String text = _weekNumberTextField.getText();
+		
+		if(text.matches("^\\d{1,2}$")) {
+			Integer weekNumber = Integer.valueOf(text);
+			if(weekNumber > 0 && weekNumber <= 52) {
+				
+				WeekFields weekFields = WeekFields.of(Locale.getDefault());
+				LocalDate date = LocalDate.now().withDayOfYear(1);	// 1st January, current year
+				date = date.plusWeeks(weekNumber-1);
+				
+				_datePicker.setValue(date);
+						
+			} else {
+				// TODO: not a valid week number
+			}
+		} else {
+			// TODO: not a valid number
+		}
 	}
 	
 	/* TODO irgendwann vielleicht...

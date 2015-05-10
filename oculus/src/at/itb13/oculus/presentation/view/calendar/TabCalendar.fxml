@@ -26,10 +26,11 @@
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <Label layoutX="228.0" layoutY="32.0" text="Week...." />
-                              <DatePicker fx:id="_datePicker" layoutX="821.0" layoutY="48.0" showWeekNumbers="true" />
-                              <Button layoutX="24.0" layoutY="28.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="73.0" text="&lt;" />
-                              <Button layoutX="109.0" layoutY="28.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="73.0" text="&gt;" />
+                              <Label layoutX="228.0" layoutY="32.0" text="Week" />
+                              <DatePicker fx:id="_datePicker" layoutX="821.0" layoutY="48.0" onAction="#onDatePickerDateSelected" showWeekNumbers="true" />
+                              <Button layoutX="24.0" layoutY="28.0" mnemonicParsing="false" onAction="#onButtonPreviousWeekClick" prefHeight="25.0" prefWidth="73.0" text="&lt;" />
+                              <Button layoutX="109.0" layoutY="28.0" mnemonicParsing="false" onAction="#onButtonNextWeekClick" prefHeight="25.0" prefWidth="73.0" text="&gt;" />
+                              <TextField fx:id="_weekNumberTextField" layoutX="267.0" layoutY="28.0" onAction="#onTextFieldWeekNumberAction" prefHeight="25.0" prefWidth="30.0" />
                            </children>
                         </AnchorPane>
                         <VBox fx:id="_mainAreaVBox" prefHeight="200.0" prefWidth="100.0" />

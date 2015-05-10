@@ -75,7 +75,7 @@ public class TabCalendarController {
 	@FXML
 	private VBox _calendarCheckBoxesVBox;
 	@FXML
-	private DatePicker _datePicker;	// TODO: Paar Sachen könnten wohl vom "alten" Datepicker vom AppointmentsTab übernommen werden
+	private DatePicker _datePicker;
 	@FXML
 	private Button _addAppointmentButton;
 	@FXML
@@ -114,7 +114,7 @@ public class TabCalendarController {
 				@Override
 				public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 					_logger.info("Selected calendars have changed. Updating content of calendar...");
-					onDatePickerDateSelected();	// Do the same thing as if a date was selected in the datepicker.
+					onDatePickerDateSelected();	// Do the same thing as if a date was selected in the DatePicker.
 					displayAllCalendarEvents();
 					_logger.info("Content of calendar has been updated.");
 				}
@@ -123,13 +123,6 @@ public class TabCalendarController {
 			_calendarCheckBoxes.add(calCheckBox);
 		}
 		_calendarCheckBoxesVBox.getChildren().setAll(_calendarCheckBoxes);
-		
-		
-		// TODO
-		// + onClicked {
-		//  loadCalendarEvents()
-		//  displayAllCalendarEvents()
-		// }
 	}
 	
 	private void initDatePicker() {
@@ -173,7 +166,7 @@ public class TabCalendarController {
 	}
 
 	private void initScrollPane() {
-		_scrollPane.setFitToWidth(true);	// TODO: wird des überhaupt gebraucht? --> evtl. löschen sonst
+		_scrollPane.setFitToWidth(true);
 		_scrollPane.setFitToHeight(true);
 	}
 	
@@ -189,7 +182,7 @@ public class TabCalendarController {
 		_gridPaneHeader.add(new WeekDayLabel(DayOfWeek.SATURDAY), 6, 0);
 		_gridPaneHeader.add(new WeekDayLabel(DayOfWeek.SUNDAY), 7, 0);
 	}
-
+	
 	private void initGridPaneContent() {
 		_gridPaneContent.getChildren().clear();
 		_gridPaneContent.setGridLinesVisible(true); 	// TODO: "for debug purposes only" --> Durch CSS ersetzen
@@ -208,7 +201,7 @@ public class TabCalendarController {
 			GridPane.setRowIndex(timeLabel, row);
 			++row;
 		}
-		
+
 		// Insert 1 GridPane into every cell. Each GridPane has so many Columns as CheckBoxes are ticked.
 //		int rowCount = getRowCount(_gridPaneContent);
 //		int calendarsToDisplay = getNumberOfSelectedCheckBoxes();
@@ -245,16 +238,23 @@ public class TabCalendarController {
 	
 	private void resizeGridPanes() {	// TODO: Spalten von Header und Content sind nicht schön gleich breit. (Eventuell ist der Grund der Scrollbalken des Scrollpanes)
 										// siehe auch https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
-		ColumnConstraints firstColCC = new ColumnConstraints(TIME_COLUMN_WIDTH, TIME_COLUMN_WIDTH, TIME_COLUMN_WIDTH);
-		_gridPaneHeader.getColumnConstraints().add(firstColCC);
-		_gridPaneContent.getColumnConstraints().add(firstColCC);
+//		ColumnConstraints firstColCC = new ColumnConstraints(TIME_COLUMN_WIDTH, TIME_COLUMN_WIDTH, TIME_COLUMN_WIDTH);	// TODO: Delete!?!
+//		_gridPaneHeader.getColumnConstraints().add(firstColCC);
+//		_gridPaneContent.getColumnConstraints().add(firstColCC);
 		
+//		double colWidth = ( 1000 - TIME_COLUMN_WIDTH ) / 7d;	// TODO: delete
 		ColumnConstraints cC = new ColumnConstraints();
-		cC.setHgrow(Priority.ALWAYS);
-		for(int i = 0; i < GRIDPANE_NUMBER_OF_COLUMNS - 1; ++i) {	// -1 because we already have set the constraint for the first column just above
+		cC.setPercentWidth(100.d / (double)(GRIDPANE_NUMBER_OF_COLUMNS));
+		for(int i = 0; i < GRIDPANE_NUMBER_OF_COLUMNS; ++i) {
 			_gridPaneHeader.getColumnConstraints().add(cC);
 			_gridPaneContent.getColumnConstraints().add(cC);
 		}
+//		ColumnConstraints cC = new ColumnConstraints();
+//		cC.setHgrow(Priority.ALWAYS);
+//		for(int i = 0; i < GRIDPANE_NUMBER_OF_COLUMNS - 1; ++i) {	// -1 because we already have set the constraint for the first column just above
+//			_gridPaneHeader.getColumnConstraints().add(cC);
+//			_gridPaneContent.getColumnConstraints().add(cC);
+//		}
 	}
 	
 	// TODO: Move these two classes to seperate files. --> Maybe new package "calendar"?
@@ -269,7 +269,7 @@ public class TabCalendarController {
 			super(text);
 			_dayOfWeek = dayOfWeek;
 		}
-
+		
 		public DayOfWeek getDayOfWeek() {
 			return _dayOfWeek;
 		}

@@ -361,6 +361,10 @@ public class TabCalendarController {
 				if(calCheckBox.isSelected()) {
 					CalendarEventFillerNode fillerNode = new CalendarEventFillerNode(calCheckBox.getCalendar());
 					hBox.getChildren().add(fillerNode);
+					HBox.setHgrow(fillerNode, Priority.ALWAYS);
+					fillerNode.setMinSize(20, 20);	// TODO: only for debugging -> delete
+					fillerNode.setMaxSize(1000, 1000);
+					fillerNode.setStyle("-fx-background-color: blue");	// TODO: only for debugging -> delete
 				}
 			}
 		}
@@ -376,7 +380,7 @@ public class TabCalendarController {
 		}
 		
 		
-		System.out.println(columnIndex + ", " + rowIndex + " | " + colSpan + ", " + rowSpan);	// TODO: zur Größe des CalendarEvent.fxml's: http://stackoverflow.com/questions/16242398/why-wont-the-children-in-my-javafx-hbox-grow-scenebuilder u.a.
+		System.out.println(rowIndex + ", " + columnIndex + " | " + rowSpan + ", " + colSpan);	// TODO: zur Größe des CalendarEvent.fxml's: http://stackoverflow.com/questions/16242398/why-wont-the-children-in-my-javafx-hbox-grow-scenebuilder u.a.
 //		hBox.backgroundProperty().set(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
 //		calEvPane.backgroundProperty().set(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
 		_gridPaneContent.add(hBox, columnIndex, rowIndex, colSpan, rowSpan);

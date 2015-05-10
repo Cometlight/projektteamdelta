@@ -11,11 +11,11 @@ import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.view.TabAppointmentsController;
 import at.itb13.oculus.presentation.view.EditAnamnesisController;
 import at.itb13.oculus.presentation.view.NewPatientController;
-import at.itb13.oculus.presentation.view.TabCalendarController;
 import at.itb13.oculus.presentation.view.TabPatientController;
 import at.itb13.oculus.presentation.view.PatientRecordController;
 import at.itb13.oculus.presentation.view.TabQueueController;
 import at.itb13.oculus.presentation.view.RootLayoutController;
+import at.itb13.oculus.presentation.view.calendar.TabCalendarController;
 import at.itb13.oculus.technicalServices.HibernateUtil;
 import at.itb13.oculus.technicalServices.exceptions.NoDatabaseConnectionException;
 import javafx.application.Application;
@@ -247,7 +247,7 @@ public class OculusMain extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(OculusMain.class
-					.getResource("view/TabCalendar.fxml"));
+					.getResource("view/calendar/TabCalendar.fxml"));
 			_calendarTab = (AnchorPane) loader.load();
 
 			// Give the controller access to the main app.

@@ -37,6 +37,7 @@ import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.presentation.OculusMain;
 import at.itb13.oculus.presentation.util.CalendarStringConverter;
+import at.itb13.oculus.presentation.view.calendar.CalendarEventController;
 
 /**
  * 

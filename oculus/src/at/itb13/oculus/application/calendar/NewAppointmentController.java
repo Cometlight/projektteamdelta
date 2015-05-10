@@ -85,7 +85,7 @@ public class NewAppointmentController implements INewAppointmentController {
 	public List<ICalendar> getAllCalendars() {
 		List<ICalendar> calendar = new ArrayList<>();
 		ControllerFacade facade = ControllerFacade.getInstance();
-		List<CalendarController> allController = facade.getAllCalendarController();
+		List<CalendarController> allController = facade.getAllCalendarController();	// TODO: Die andren haben ja gar nicht unseren "CalendarController"; können wir das vielleicht anders lösen?
 		for(CalendarController controller : allController ){
 			calendar.add((ICalendar) controller.getCalendar());
 		}

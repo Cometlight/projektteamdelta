@@ -8,7 +8,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.application.calendar.CalendarController;
+import at.itb13.oculus.application.calendar.NewAppointmentController;
 import at.itb13.oculus.application.doctor.WelcomePatient;
+import at.itb13.oculus.application.interfaces.INewAppointmentController;
 import at.itb13.oculus.application.queue.QueueController;
 import at.itb13.oculus.application.receptionist.NewPatient;
 import at.itb13.oculus.application.receptionist.PatientSearch;
@@ -110,6 +112,11 @@ public class ControllerFacade {
 	
 	public static ControllerFacade getInstance() {
 		return _instance;
+	}
+	
+	/* -- NewAppointmentController -- */
+	public INewAppointmentController getNewAppointmentController() {
+		return new NewAppointmentController();
 	}
 	
 	/* -- PatientSearch -- */

@@ -104,15 +104,8 @@ public class PatientDao_UnitTests {
 	@Test
 	public void makePersistent_findById_makeTransient() {
 		Patient patient = new Patient();
-//		TODO User erstellen???
-//		User user = new User();
-		Patient patient2 = new Patient();
 		Doctor doctor = DoctorDao.getInstance().findById(1);
 		
-		
-//		Doctor doctor = new Doctor();
-//		doctor.setDoctorId(1);
-//		patient.setPatientId(5000);
 		patient.setDoctor(doctor);
 		patient.setSocialInsuranceNr("1234567809");
 		patient.setFirstName("Marc");
@@ -128,21 +121,6 @@ public class PatientDao_UnitTests {
 		patient.setChildhoodAilments("Childhood illnesses");
 		patient.setMedicineIntolerance("Drug intolerances");
 		
-//		patient2.setPatientId(5001);
-//		patient2.setDoctor(doctor);
-//		patient2.setSocialInsuranceNr("1234567809");
-//		patient2.setFirstName("Marc");
-//		patient2.setLastName("Kletz");
-//		patient2.setDateOfBirth(LocalDate.now());
-//		patient2.setGender(Gender.M);
-//		patient2.setStreet("Street");
-//		patient2.setCity("City");
-//		patient2.setCountryIsoCode("AZ");
-//		patient2.setPhone("000-Phone");
-//		patient2.setEmail("this@email.com");
-//		patient2.setAllergy("Allergy");
-//		patient2.setChildhoodAilments("Childhood illnesses");
-//		patient2.setMedicineIntolerance("Drug intolerances");
 		
 		assertEquals(true, PatientDao.getInstance().makePersistent(patient));
 		
@@ -151,11 +129,4 @@ public class PatientDao_UnitTests {
 		assertEquals(true, patientTemp.getFirstName().equals("Marc"));
 		assertEquals(true, PatientDao.getInstance().makeTransient(patient));
 	}
-//	
-//	@Test
-//	public void makeTransient() {
-//
-//		
-//	}
-
 }

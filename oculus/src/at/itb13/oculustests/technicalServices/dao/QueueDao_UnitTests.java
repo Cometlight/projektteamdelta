@@ -2,11 +2,18 @@ package at.itb13.oculustests.technicalServices.dao;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 
+import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Queue;
+import at.itb13.oculus.domain.QueueEntry;
+import at.itb13.oculus.technicalServices.dao.CalendarDao;
+import at.itb13.oculus.technicalServices.dao.EventTypeDao;
 import at.itb13.oculus.technicalServices.dao.QueueDao;
 
 /**
@@ -80,7 +87,7 @@ public class QueueDao_UnitTests {
 		assertEquals(true, (q.findAll() != null));
 	}
 
-	@Test (expected = NullPointerException.class)
+	@Test(expected = NullPointerException.class)
 	public void makePersistent() {
 		QueueDao q = QueueDao.getInstance();
 
@@ -88,7 +95,7 @@ public class QueueDao_UnitTests {
 
 	}
 
-	@Test (expected = NullPointerException.class)
+	@Test(expected = NullPointerException.class)
 	public void makePersistentList() {
 		QueueDao q = QueueDao.getInstance();
 		List<Queue> list = null;
@@ -96,17 +103,40 @@ public class QueueDao_UnitTests {
 
 	}
 
-	@Test (expected = NullPointerException.class)
+	@Test(expected = NullPointerException.class)
 	public void makeTransient() {
 		QueueDao q = QueueDao.getInstance();
 
 		q.makeTransient(null, null);
 	}
 
-	@Test (expected = NullPointerException.class)
+	@Test(expected = NullPointerException.class)
 	public void makeTransientList() {
 		QueueDao q = QueueDao.getInstance();
 		List<Queue> list = null;
 		q.makeTransient(list);
 	}
+
+	@Test
+	 public void makePersistent_makeTransient() {
+	 QueueDao queueDao = QueueDao.getInstance();
+	 Queue queue = queueDao.findById(null, null);
+
+//	 QueueEntry entry = new QueueEntry();
+//	 CalendarEvent calEvent = CalendarEvent.getInstance();
+//	 calEvent.setCalendar(CalendarDao.getInstance().findById(1));
+//	 calEvent.setDescription("Test");
+//	 calEvent.setEventStart(LocalDateTime.now());
+//	 calEvent.setEventEnd(LocalDateTime.now());
+//	 calEvent.setEventType(EventTypeDao.getInstance().findById(1));
+//	 calEvent.setOpen(true);
+//	 cal
+//	 entry.setCalendarEvent(calEvent);
+//	 queue.pushQueueEntry(entry);
+	 assertEquals(true, QueueDao.getInstance().makePersistent(queue));
+	
+	 //FIXME Delete and PUSHHHHH PUSHHHH (Falco)
+//	 queue = queueDao.findById(null, null);
+//	 assertEquals(true, QueueDao.getInstance().makeTransient(queue));
+	 }
 }

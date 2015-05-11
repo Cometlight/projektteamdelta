@@ -22,7 +22,7 @@ import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 
 /**
- * TODO: Insert description here.
+ * TODO: provides methodes for the usecase "new appointment"
  *
  * @author Florin Metzler
  * @since 03.05.2015
@@ -39,7 +39,7 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 	 * @param end the end Date of the timespan. (inclusive)
 	 * @param description includes the reason for the appointment.
 	 * @param patient is the person who refers to the appointment.
-	 * @throws SaveException is throwen when an error occured while saving the new appointment.
+	 * @throws SaveException is thrown when an error occured while saving the new appointment.
 	 */
 	@Override
 	public void newCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start,

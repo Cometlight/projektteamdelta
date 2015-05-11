@@ -24,7 +24,7 @@ import at.itb13.oculus.technicalServices.exceptions.NoDatabaseConnectionExceptio
 import at.itb13.oculus.technicalServices.exceptions.PersistenceFacadeException;
 
 /**
- * 
+ * Enables access to the persistence layer 
  * TODO: other Interfaces have to be added
  * 
  * @author Andrew Sparr

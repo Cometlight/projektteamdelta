@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.calendar.EventInfromationController">
+   <children>
+      <SplitPane dividerPositions="0.19340974212034384" layoutX="74.0" layoutY="113.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Label fx:id="_patientLabel" layoutX="14.0" layoutY="12.0" styleClass="label-header" stylesheets="@../OculusTheme.css" text="Patient Name" />
+                  <Label fx:id="_dateTimeLabel" layoutX="14.0" layoutY="44.0" text="Date - Time" />
+                  <Label fx:id="_doctorLabel" layoutX="14.0" layoutY="73.0" text="Doctor" />
+                  <Label fx:id="_eventTypeLabel" layoutX="107.0" layoutY="43.0" text="Type" />
+                  <Label fx:id="_descriptionLabel" layoutX="14.0" layoutY="103.0" text="Reason" />
+                  <Button fx:id="_insertQueueButton" layoutX="634.0" layoutY="48.0" mnemonicParsing="false" text="Insert" />
+                  <ComboBox fx:id="_queueBox" layoutX="530.0" layoutY="12.0" prefWidth="150.0" promptText="Select a Waiting List" />
+                  <Button fx:id="_addPatientButton" layoutX="442.0" layoutY="12.0" mnemonicParsing="false" text="Add Patient" />
+                  <Label fx:id="_patientNotInDatabaseLabel" layoutX="349.0" layoutY="16.0" text="not in database" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <BorderPane fx:id="_patientRecordBorderPane" layoutX="84.0" layoutY="98.0" prefHeight="458.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

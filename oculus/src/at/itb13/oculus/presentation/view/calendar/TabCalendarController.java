@@ -301,7 +301,6 @@ public class TabCalendarController {
 		}
 	}
 	
-	
 	private void loadCalendarEvents(LocalDate dayStart) {
 		LocalTime timeStart = LocalTime.MIN;
 		LocalTime timeEnd = LocalTime.MAX;
@@ -354,22 +353,25 @@ public class TabCalendarController {
 			e.printStackTrace();
 		}
 		
-		HBox hBox = getHBoxByRowColumnIndex(rowIndex, columnIndex, _gridPaneContent);
-		if(hBox == null) {
-			hBox = new HBox();
+		GridPane gP = getGridPaneByRowColumnIndex(rowIndex, columnIndex, _gridPaneContent);
+		if(gP == null) {
+			gP = new GridPane();
+			ColumnConstraints columnConstraint = new ColumnConstraints();
+			columnConstraint.setPercentWidth(100d/getNumberOfSelectedCheckBoxes());
 			for(CalendarCheckBox calCheckBox : _calendarCheckBoxes) {
 				if(calCheckBox.isSelected()) {
 					CalendarEventFillerNode fillerNode = new CalendarEventFillerNode(calCheckBox.getCalendar());
-					hBox.getChildren().add(fillerNode);
-					HBox.setHgrow(fillerNode, Priority.ALWAYS);
+					gP.getChildren().add(fillerNode);
+					GridPane.setHgrow(fillerNode, Priority.ALWAYS);
 					fillerNode.setMinSize(20, 20);	// TODO: only for debugging -> delete
 					fillerNode.setMaxSize(1000, 1000);
 					fillerNode.setStyle("-fx-background-color: blue");	// TODO: only for debugging -> delete
+					gP.getColumnConstraints().add(columnConstraint);
 				}
 			}
 		}
 		
-		ListIterator<Node> it = hBox.getChildren().listIterator();
+		ListIterator<Node> it = gP.getChildren().listIterator();
 		while(it.hasNext()) {
 			Node node = it.next();
 			if(node instanceof CalendarEventFillerNode 
@@ -380,11 +382,36 @@ public class TabCalendarController {
 			}
 		}
 		
+//		HBox hBox = getHBoxByRowColumnIndex(rowIndex, columnIndex, _gridPaneContent);
+//		if(hBox == null) {
+//			hBox = new HBox();
+//			for(CalendarCheckBox calCheckBox : _calendarCheckBoxes) {
+//				if(calCheckBox.isSelected()) {
+//					CalendarEventFillerNode fillerNode = new CalendarEventFillerNode(calCheckBox.getCalendar());
+//					hBox.getChildren().add(fillerNode);
+//					HBox.setHgrow(fillerNode, Priority.ALWAYS);
+//					fillerNode.setMinSize(20, 20);	// TODO: only for debugging -> delete
+//					fillerNode.setMaxSize(1000, 1000);
+//					fillerNode.setStyle("-fx-background-color: blue");	// TODO: only for debugging -> delete
+//				}
+//			}
+//		}
+//		
+//		ListIterator<Node> it = hBox.getChildren().listIterator();
+//		while(it.hasNext()) {
+//			Node node = it.next();
+//			if(node instanceof CalendarEventFillerNode 
+//					&& ((CalendarEventFillerNode)node).getCalendar().getTitle().equals(calendarEvent.getCalendar().getTitle())) {	// TODO: check auf ID statt auf Title wäre wohl sinnvoller?!?
+//				it.remove();
+//				it.add(calEvPane);
+//			}
+//		}
+		
 		
 		System.out.println(rowIndex + ", " + columnIndex + " | " + rowSpan + ", " + colSpan);	// TODO: zur Größe des CalendarEvent.fxml's: http://stackoverflow.com/questions/16242398/why-wont-the-children-in-my-javafx-hbox-grow-scenebuilder u.a.
 //		hBox.backgroundProperty().set(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
 //		calEvPane.backgroundProperty().set(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-		_gridPaneContent.add(hBox, columnIndex, rowIndex, colSpan, rowSpan);
+		_gridPaneContent.add(gP, columnIndex, rowIndex, colSpan, rowSpan);
 		
 		calEvCol.setCalEvent(calendarEvent);
 	}
@@ -407,20 +434,36 @@ public class TabCalendarController {
 		}
 	}
 	
-	public HBox getHBoxByRowColumnIndex(final int row, final int column, GridPane gridPane) {
-        Node result = null;
-        ObservableList<Node> childrens = gridPane.getChildren();
+	public GridPane getGridPaneByRowColumnIndex(final int row, final int column, GridPane parentGridPane) {
+        GridPane result = null;
+        ObservableList<Node> childrens = parentGridPane.getChildren();
         for(Node node : childrens) {
-            if( GridPane.getRowIndex(node) != null 
+            if( node instanceof GridPane 
+            		&& GridPane.getRowIndex(node) != null 
             		&& GridPane.getRowIndex(node) == row 
             		&& GridPane.getColumnIndex(node) != null 
             		&& GridPane.getColumnIndex(node) == column) {
-                result = node;
+                result = (GridPane)node;
                 break;
             }
         }
-        return (HBox)result;
+        return null;
     }
+	
+//	public HBox getHBoxByRowColumnIndex(final int row, final int column, GridPane gridPane) {
+//        Node result = null;
+//        ObservableList<Node> childrens = gridPane.getChildren();
+//        for(Node node : childrens) {
+//            if( GridPane.getRowIndex(node) != null 
+//            		&& GridPane.getRowIndex(node) == row 
+//            		&& GridPane.getColumnIndex(node) != null 
+//            		&& GridPane.getColumnIndex(node) == column) {
+//                result = node;
+//                break;
+//            }
+//        }
+//        return (HBox)result;
+//    }
 	
 	@FXML
 	private Boolean handleNewAppointmentButton(){

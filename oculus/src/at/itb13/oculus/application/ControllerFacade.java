@@ -12,12 +12,10 @@ import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.calendar.NewAppointmentController;
 import at.itb13.oculus.application.doctor.WelcomePatient;
 import at.itb13.oculus.application.interfaces.INewAppointmentController;
-import at.itb13.oculus.application.interfaces.IPatientSearch;
 import at.itb13.oculus.application.queue.QueueController;
 import at.itb13.oculus.application.receptionist.NewPatient;
 import at.itb13.oculus.application.receptionist.PatientSearch;
 import at.itb13.oculus.application.receptionist.WelcomeAtReception;
-import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.domain.interfaces.IEventType;
 import at.itb13.oculus.domain.interfaces.IUser;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
@@ -119,6 +117,7 @@ public class ControllerFacade {
 	
 	@SuppressWarnings("unchecked")
 	public static <T> void loadEventTypes(){
+		_listEventTypes = new LinkedList<>();
 		List<T> eventTypes = new ArrayList<>();
 		eventTypes = (List<T>) EventTypeDao.getInstance().findAll();
 		for(T event : eventTypes){

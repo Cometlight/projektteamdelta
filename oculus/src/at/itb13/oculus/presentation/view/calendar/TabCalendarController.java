@@ -70,6 +70,7 @@ public class TabCalendarController {
 	private static final double TIME_COLUMN_WIDTH = 50d;
 	private static final int GRIDPANE_NUMBER_OF_COLUMNS = 8;	// Reason: javafx.GridPane does not have an appropriate method
 
+	private ICalendarViewState _state;
 	@FXML
 	private VBox _mainAreaVBox;
 	@FXML
@@ -93,12 +94,13 @@ public class TabCalendarController {
 	private void initialize() {
 		_logger.info("Initializing TabCalendarController ...");
 		
+		_state = new CalendarWeekView();
 		initCheckBoxes();	// Needs to be initialized first of all
 		initDatePicker();
 		_weekNumberTextField.setText(getWeekNumber(_datePicker.getValue()).toString());
 		initMainArea();
 		
-		loadCalendarEvents(LocalDate.now().minusWeeks(1));
+		loadCalendarEvents(LocalDate.now().minusWeeks(1), _state.getNumberOfDays());
 		displayAllCalendarEvents();
 		
 		_logger.info("TabCalendarController has been initialized.");
@@ -159,7 +161,7 @@ public class TabCalendarController {
 		
 		_mainAreaVBox.getChildren().setAll(_gridPaneHeader, _scrollPane);
 		
-		initGridPaneHeader();
+		_state.initGridPaneHeader(_gridPaneHeader);
 		initScrollPane();
 		initGridPaneContent();
 		resizeGridPanes();
@@ -170,18 +172,6 @@ public class TabCalendarController {
 		_scrollPane.setFitToHeight(true);
 	}
 	
-	private void initGridPaneHeader() {
-		_gridPaneHeader.setGridLinesVisible(true); 	// TODO: "for debug purposes only" --> Durch CSS ersetzen
-		
-		_gridPaneHeader.add(new Text("Time"), 0, 0);
-		_gridPaneHeader.add(new WeekDayLabel(DayOfWeek.MONDAY), 1, 0);
-		_gridPaneHeader.add(new WeekDayLabel(DayOfWeek.TUESDAY), 2, 0);
-		_gridPaneHeader.add(new WeekDayLabel(DayOfWeek.WEDNESDAY), 3, 0);
-		_gridPaneHeader.add(new WeekDayLabel(DayOfWeek.THURSDAY), 4, 0);
-		_gridPaneHeader.add(new WeekDayLabel(DayOfWeek.FRIDAY), 5, 0);
-		_gridPaneHeader.add(new WeekDayLabel(DayOfWeek.SATURDAY), 6, 0);
-		_gridPaneHeader.add(new WeekDayLabel(DayOfWeek.SUNDAY), 7, 0);
-	}
 	
 	private void initGridPaneContent() {
 		_gridPaneContent.getChildren().clear();
@@ -256,54 +246,10 @@ public class TabCalendarController {
 //		}
 	}
 	
-	// TODO: Move these two classes to seperate files. --> Maybe new package "calendar"?
-	private class WeekDayLabel extends Label {
-		private DayOfWeek _dayOfWeek;	// Instead use something like here: https://docs.google.com/document/d/1Qr0auVYovnh4gi_G8TS2V43unr2h46GmwfrjTYBwwzo/edit#
-										// and don't get it from the domain layer
-		public WeekDayLabel(DayOfWeek dayOfWeek) {
-			this(dayOfWeek, dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault()));
-		}
-		
-		public WeekDayLabel(DayOfWeek dayOfWeek, String text) {
-			super(text);
-			_dayOfWeek = dayOfWeek;
-		}
-		
-		public DayOfWeek getDayOfWeek() {
-			return _dayOfWeek;
-		}
-
-		public void setDayOfWeek(DayOfWeek dayOfWeek) {
-			_dayOfWeek = dayOfWeek;
-		}
-	}
-	
-	private class LocalTimeLabel extends Label {
-		private LocalTime _localTime;
-		
-		public LocalTimeLabel(LocalTime localTime) {
-			this(localTime, localTime.toString());
-		}
-		
-		public LocalTimeLabel(LocalTime localTime, String text) {
-			super(text);
-			_localTime = localTime;
-			this.getStyleClass().add("LocalTimeLabel");
-		}
-
-		public LocalTime getLocalTime() {
-			return _localTime;
-		}
-
-		public void setLocalTime(LocalTime localTime) {
-			_localTime = localTime;
-		}
-	}
-	
-	private void loadCalendarEvents(LocalDate dayStart) {
+	private void loadCalendarEvents(LocalDate dayStart, int numberOfDays) {
 		LocalTime timeStart = LocalTime.MIN;
 		LocalTime timeEnd = LocalTime.MAX;
-		LocalDate dayEnd = dayStart.plusDays(6);	// dayStart.plusWeek(1) would result in the display of the appointments of two Mondays
+		LocalDate dayEnd = dayStart.plusDays(numberOfDays -1);	// dayStart.plusWeek(1) would result in the display of the appointments of two Mondays
 		
 		_logger.info("Displaying appointments from " + dayStart + " (" + timeStart + ") to " + dayEnd + " (" + timeEnd + ")");
 		
@@ -418,25 +364,7 @@ public class TabCalendarController {
 		
 		calEvCol.setCalEvent(calendarEvent);
 	}
-	
-	// TODO: wo anders hin schieben vielleicht
-	// TODO: Von was sinnvollerem als Label erben!?!?!
-	private class CalendarEventFillerNode extends Label {
-		private ICalendar _calendar;
-		
-		public CalendarEventFillerNode(ICalendar calendar) {
-			_calendar = calendar;
-		}
 
-		public ICalendar getCalendar() {
-			return _calendar;
-		}
-		
-		public void setCalendar(ICalendar calendar) {
-			_calendar = calendar;
-		}
-	}
-	
 	public GridPane getGridPaneByRowColumnIndex(final int row, final int column, GridPane parentGridPane) {
         GridPane result = null;
         ObservableList<Node> childrens = parentGridPane.getChildren();
@@ -517,7 +445,7 @@ public class TabCalendarController {
 			date = date.minusDays(1);
 		}
 		
-		loadCalendarEvents(date);
+		loadCalendarEvents(date, _state.getNumberOfDays());
 		displayAllCalendarEvents();
 	}
 	
@@ -527,29 +455,6 @@ public class TabCalendarController {
 		return date.get(weekFields.weekOfWeekBasedYear());
 	}
 	
-	// TODO: In seperate Datei auslagern
-	private class CalendarCheckBox extends CheckBox {
-		private ICalendar _calendar;
-		
-		private CalendarCheckBox() { }
-		
-		public CalendarCheckBox(ICalendar calendar, String label) {
-			super(label);
-			_calendar = calendar;
-		}
-		
-		public CalendarCheckBox(ICalendar calendar) {
-			this(calendar, calendar.getTitle());
-		}
-
-		public ICalendar getCalendar() {
-			return _calendar;
-		}
-
-		public void setCalendar(ICalendar calendar) {
-			_calendar = calendar;
-		}
-	}
 	
 	// TODO: Diese Methode der Übersichtlichkeit halber wo anders hinschieben?
 	private int getNumberOfSelectedCheckBoxes() {
@@ -580,7 +485,6 @@ public class TabCalendarController {
 			Integer weekNumber = Integer.valueOf(text);
 			if(weekNumber > 0 && weekNumber <= 52) {
 				
-				WeekFields weekFields = WeekFields.of(Locale.getDefault());
 				LocalDate date = LocalDate.now().withDayOfYear(1);	// 1st January, current year
 				date = date.plusWeeks(weekNumber-1);
 				

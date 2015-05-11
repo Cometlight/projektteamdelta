@@ -358,10 +358,12 @@ public class TabCalendarController {
 			gP = new GridPane();
 			ColumnConstraints columnConstraint = new ColumnConstraints();
 			columnConstraint.setPercentWidth(100d/getNumberOfSelectedCheckBoxes());
+			int fillerNodeColumnNumber = 0;
 			for(CalendarCheckBox calCheckBox : _calendarCheckBoxes) {
 				if(calCheckBox.isSelected()) {
 					CalendarEventFillerNode fillerNode = new CalendarEventFillerNode(calCheckBox.getCalendar());
-					gP.getChildren().add(fillerNode);
+//					gP.getChildren().add(fillerNode);
+					gP.add(fillerNode, fillerNodeColumnNumber++, 0);
 					GridPane.setHgrow(fillerNode, Priority.ALWAYS);
 					fillerNode.setMinSize(20, 20);	// TODO: only for debugging -> delete
 					fillerNode.setMaxSize(1000, 1000);
@@ -370,15 +372,17 @@ public class TabCalendarController {
 				}
 			}
 		}
-		
+		calEvPane.setStyle("-fx-background-color: red");	// TODO: Generate color out of Calendar.getTitle()
 		ListIterator<Node> it = gP.getChildren().listIterator();
 		while(it.hasNext()) {
 			Node node = it.next();
 			if(node instanceof CalendarEventFillerNode 
 					&& ((CalendarEventFillerNode)node).getCalendar().getTitle().equals(calendarEvent.getCalendar().getTitle())) {	// TODO: check auf ID statt auf Title wäre wohl sinnvoller?!?
+				int indexColumn = GridPane.getColumnIndex(node);
+				int indexRow = GridPane.getRowIndex(node);
 				it.remove();
-				it.add(calEvPane);
-				
+				gP.add(calEvPane, indexColumn, indexRow);
+				break;
 			}
 		}
 		

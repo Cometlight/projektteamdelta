@@ -11,6 +11,17 @@ import java.util.Set;
  */
 public class CalendarEventFactory {
 	
+	private static CalendarEventFactory factory;
+	
+	private CalendarEventFactory(){	}
+	
+	public static CalendarEventFactory getInstance(){
+		if(factory == null){
+			factory = new CalendarEventFactory();
+		}
+		return factory;
+	}
+	
 	/**
 	 * to create an object of the private CalendarEvent Constructor
 	 * 
@@ -33,9 +44,9 @@ public class CalendarEventFactory {
 	 * @return an object of the CalendarEvent
 	 */
 	public CalendarEvent createCalendarEvent(Calendar calendar, EventType eventType, LocalDateTime start, 
-										LocalDateTime end, boolean isOpen, String patientName){
+										LocalDateTime end, String description, String patientName){
 		
-		CalendarEvent event = CalendarEvent.getInstance(calendar, eventType, start, end, isOpen, patientName);
+		CalendarEvent event = CalendarEvent.getInstance(calendar, eventType, start, end, description, patientName);
 		return event;
 	}
 	
@@ -51,12 +62,11 @@ public class CalendarEventFactory {
 	 * @param isOpen true if the CalendarEvent is not checked as closed. 
 	 * @return an object of the CalendarEvent
 	 */
-	public CalendarEvent createCalendarEvent(Calendar calendar, EventType eventType, Patient patient, 
-										LocalDateTime start, LocalDateTime end, String description, 
-										boolean isOpen){
+	public CalendarEvent createCalendarEvent(Calendar calendar, EventType eventType, 
+										LocalDateTime start, LocalDateTime end, String description, Patient patient){
 		
-		CalendarEvent event = CalendarEvent.getInstance(calendar, eventType, patient, start, end, 
-												description, isOpen);
+		CalendarEvent event = CalendarEvent.getInstance(calendar, eventType, start, end, 
+												description, patient);
 		return event;
 	}
 	

@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.application.exceptions.InvalidInputException;
+import at.itb13.oculus.application.interfaces.IPatientSearch;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
@@ -17,7 +18,7 @@ import at.itb13.oculus.technicalServices.dao.PatientDao;
  * @author Daniel Scheffknecht
  * @date 22.04.2015
  */
-public class PatientSearch {
+public class PatientSearch implements IPatientSearch {
 	private static final Logger _logger = LogManager.getLogger(PatientSearch.class.getName());
 	
 	/**
@@ -27,6 +28,7 @@ public class PatientSearch {
 	 * @return List<Patient> The patients with the supplied social insurance number or name. May be null, if no patient has been found.
 	 * @throws InvalidInputException thrown if the provided socialInsuranceNr or name is not in an appropriate format.
 	 */
+	@Override
 	public List<? extends PatientRO> searchPatient(String searchValue) throws InvalidInputException {
 		List<? extends PatientRO> patients = null;
 		if(!searchValue.isEmpty()){

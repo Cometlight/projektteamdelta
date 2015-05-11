@@ -7,6 +7,7 @@ import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.exceptions.SaveException;
 import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.interfaces.ICalendarEvent;
+import at.itb13.oculus.domain.interfaces.IEventType;
 import at.itb13.oculus.domain.interfaces.IPatient;
 
 /**
@@ -27,7 +28,7 @@ public interface INewAppointmentController {
 	 * @param patient is the person who refers to the appointment.
 	 * @throws SaveException is throwen when an error occured while saving the new appointment.
 	 */
-	public abstract void newCalendarEvent(ICalendar calendar, LocalDateTime start, 
+	public abstract void newCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start, 
 										 LocalDateTime end, String description, 
 										 IPatient patient) throws SaveException;
 	
@@ -41,7 +42,7 @@ public interface INewAppointmentController {
 	 * @param patient is the person who refers to the appointment.
 	 * @throws SaveException is throwen when an error occured while saving the new appointment.
 	 */
-	public abstract void newCalendarEvent(ICalendar calendar, LocalDateTime start, 
+	public abstract void newCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start, 
 			 							 LocalDateTime end, String description, 
 			 							 String patient) throws SaveException;
 	

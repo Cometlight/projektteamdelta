@@ -7,10 +7,12 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Locale;
 
 import org.apache.logging.log4j.LogManager;
@@ -29,6 +31,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -73,9 +76,11 @@ public class TabCalendarController {
 	@FXML
 	private VBox _calendarCheckBoxesVBox;
 	@FXML
-	private DatePicker _datePicker;	// TODO: Paar Sachen könnten wohl vom "alten" Datepicker vom AppointmentsTab übernommen werden
+	private DatePicker _datePicker;
 	@FXML
 	private Button _addAppointmentButton;
+	@FXML
+	private TextField _weekNumberTextField;
 
 	private GridPane _gridPaneHeader;
 	private ScrollPane _scrollPane;
@@ -91,6 +96,7 @@ public class TabCalendarController {
 		
 		initCheckBoxes();	// Needs to be initialized first of all
 		initDatePicker();
+		_weekNumberTextField.setText(getWeekNumber(_datePicker.getValue()).toString());
 		initMainArea();
 		
 		loadCalendarEvents(LocalDate.now().minusWeeks(1));
@@ -109,8 +115,7 @@ public class TabCalendarController {
 				@Override
 				public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 					_logger.info("Selected calendars have changed. Updating content of calendar...");
-//					initGridPaneContent();
-					loadCalendarEvents(LocalDate.now());	// TODO: nicht .now, sondern das, was eben wirklich angezeigt werden soll.
+					onDatePickerDateSelected();	// Do the same thing as if a date was selected in the DatePicker.
 					displayAllCalendarEvents();
 					_logger.info("Content of calendar has been updated.");
 				}
@@ -119,13 +124,6 @@ public class TabCalendarController {
 			_calendarCheckBoxes.add(calCheckBox);
 		}
 		_calendarCheckBoxesVBox.getChildren().setAll(_calendarCheckBoxes);
-		
-		
-		// TODO
-		// + onClicked {
-		//  loadCalendarEvents()
-		//  displayAllCalendarEvents()
-		// }
 	}
 	
 	private void initDatePicker() {
@@ -169,7 +167,7 @@ public class TabCalendarController {
 	}
 
 	private void initScrollPane() {
-		_scrollPane.setFitToWidth(true);	// TODO: wird des überhaupt gebraucht? --> evtl. löschen sonst
+		_scrollPane.setFitToWidth(true);
 		_scrollPane.setFitToHeight(true);
 	}
 	
@@ -185,15 +183,14 @@ public class TabCalendarController {
 		_gridPaneHeader.add(new WeekDayLabel(DayOfWeek.SATURDAY), 6, 0);
 		_gridPaneHeader.add(new WeekDayLabel(DayOfWeek.SUNDAY), 7, 0);
 	}
-
+	
 	private void initGridPaneContent() {
 		_gridPaneContent.getChildren().clear();
 		_gridPaneContent.setGridLinesVisible(true); 	// TODO: "for debug purposes only" --> Durch CSS ersetzen
 		
 		// 1st column: Display the time
-		LocalTime timeStart = LocalTime.MIN;	// TODO nicht hier hin start + end zeit schreiben, sonst irgwo herholen oder so
-		LocalTime timeEnd = LocalTime.MAX.minusMinutes(TIME_INTERVAL_MINUTES);		// also needed in "loadCalendarEvents"
-												// vielleicht oben als private static final nochmal hin, damit später wenn nötig leicht austauschbar?
+		LocalTime timeStart = LocalTime.MIN;
+		LocalTime timeEnd = LocalTime.MAX.minusMinutes(TIME_INTERVAL_MINUTES);
 		
 		long minutesToAdd = TIME_INTERVAL_MINUTES;
 		int row = 1;
@@ -204,7 +201,7 @@ public class TabCalendarController {
 			GridPane.setRowIndex(timeLabel, row);
 			++row;
 		}
-		
+
 		// Insert 1 GridPane into every cell. Each GridPane has so many Columns as CheckBoxes are ticked.
 //		int rowCount = getRowCount(_gridPaneContent);
 //		int calendarsToDisplay = getNumberOfSelectedCheckBoxes();
@@ -241,16 +238,23 @@ public class TabCalendarController {
 	
 	private void resizeGridPanes() {	// TODO: Spalten von Header und Content sind nicht schön gleich breit. (Eventuell ist der Grund der Scrollbalken des Scrollpanes)
 										// siehe auch https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
-		ColumnConstraints firstColCC = new ColumnConstraints(TIME_COLUMN_WIDTH, TIME_COLUMN_WIDTH, TIME_COLUMN_WIDTH);
-		_gridPaneHeader.getColumnConstraints().add(firstColCC);
-		_gridPaneContent.getColumnConstraints().add(firstColCC);
+//		ColumnConstraints firstColCC = new ColumnConstraints(TIME_COLUMN_WIDTH, TIME_COLUMN_WIDTH, TIME_COLUMN_WIDTH);	// TODO: Delete!?!
+//		_gridPaneHeader.getColumnConstraints().add(firstColCC);
+//		_gridPaneContent.getColumnConstraints().add(firstColCC);
 		
+//		double colWidth = ( 1000 - TIME_COLUMN_WIDTH ) / 7d;	// TODO: delete
 		ColumnConstraints cC = new ColumnConstraints();
-		cC.setHgrow(Priority.ALWAYS);
-		for(int i = 0; i < GRIDPANE_NUMBER_OF_COLUMNS - 1; ++i) {	// -1 because we already have set the constraint for the first column just above
+		cC.setPercentWidth(100.d / (double)(GRIDPANE_NUMBER_OF_COLUMNS));
+		for(int i = 0; i < GRIDPANE_NUMBER_OF_COLUMNS; ++i) {
 			_gridPaneHeader.getColumnConstraints().add(cC);
 			_gridPaneContent.getColumnConstraints().add(cC);
 		}
+//		ColumnConstraints cC = new ColumnConstraints();
+//		cC.setHgrow(Priority.ALWAYS);
+//		for(int i = 0; i < GRIDPANE_NUMBER_OF_COLUMNS - 1; ++i) {	// -1 because we already have set the constraint for the first column just above
+//			_gridPaneHeader.getColumnConstraints().add(cC);
+//			_gridPaneContent.getColumnConstraints().add(cC);
+//		}
 	}
 	
 	// TODO: Move these two classes to seperate files. --> Maybe new package "calendar"?
@@ -265,7 +269,7 @@ public class TabCalendarController {
 			super(text);
 			_dayOfWeek = dayOfWeek;
 		}
-
+		
 		public DayOfWeek getDayOfWeek() {
 			return _dayOfWeek;
 		}
@@ -298,14 +302,12 @@ public class TabCalendarController {
 	}
 	
 	
-	
-	@SuppressWarnings("unchecked")
 	private void loadCalendarEvents(LocalDate dayStart) {
-		LocalTime timeStart = LocalTime.MIN;	// TODO: see initGridPane()
+		LocalTime timeStart = LocalTime.MIN;
 		LocalTime timeEnd = LocalTime.MAX;
-		// TODO: set dayStart to a Monday, if it's not a Monday already
-		dayStart = dayStart.minusWeeks(10);	// TODO delete this line
-		LocalDate dayEnd = dayStart.plusWeeks(11);	// TODO 1 instead of 11
+		LocalDate dayEnd = dayStart.plusDays(6);	// dayStart.plusWeek(1) would result in the display of the appointments of two Mondays
+		
+		_logger.info("Displaying appointments from " + dayStart + " (" + timeStart + ") to " + dayEnd + " (" + timeEnd + ")");
 		
 		try {	// TODO set ids according to filters
 			_calEvents = new LinkedList<>();
@@ -331,13 +333,11 @@ public class TabCalendarController {
 
 	private void displayAllCalendarEvents() {
 		clearCalEventsFromGridPaneContent();
-//		displayCalendarEvent(_calEvents.get(0), 3, 3, 3, 3);
 		for(ICalendarEvent calEv : _calEvents) {
-			// TODO: Werte wirklich berechnen (Runden ist nötig, da in minutesToAdd - Zeitblöcken (15 minuten, wenn nicht geändert) siehe: initGridPane()
 			int columnIndex = calEv.getEventStart().getDayOfWeek().getValue();
-			int rowIndex = calEv.getEventStart().getHour() * 4 + calEv.getEventStart().getMinute() / 15;
+			int rowIndex = calEv.getEventStart().getHour() * 4 + calEv.getEventStart().getMinute() / TIME_INTERVAL_MINUTES;
 			int colSpan = 1;
-			int rowSpan = ( (calEv.getEventEnd().getHour() * 60 + calEv.getEventEnd().getMinute()) - (calEv.getEventStart().getHour() * 60 + calEv.getEventStart().getMinute()) ) / 15;
+			int rowSpan = ( (calEv.getEventEnd().getHour() * 60 + calEv.getEventEnd().getMinute()) - (calEv.getEventStart().getHour() * 60 + calEv.getEventStart().getMinute()) ) / TIME_INTERVAL_MINUTES;
 			displayCalendarEvent(calEv, columnIndex, rowIndex, colSpan, rowSpan);
 		}
 	}
@@ -354,29 +354,56 @@ public class TabCalendarController {
 			e.printStackTrace();
 		}
 		
-		// TODO: wenn HBox bereits an der position drinnen ist, dann nicht einfach eine neue Erstellen und den rest löschen dadurch natürlich!
 		HBox hBox = getHBoxByRowColumnIndex(rowIndex, columnIndex, _gridPaneContent);
 		if(hBox == null) {
 			hBox = new HBox();
 			for(CalendarCheckBox calCheckBox : _calendarCheckBoxes) {
 				if(calCheckBox.isSelected()) {
-					if(calendarEvent.getCalendar().getTitle().equals(calCheckBox.getCalendar().getTitle())) {	// TODO: check auf ID statt auf Title wäre wohl sinnvoller
-						hBox.getChildren().add(calEvPane);
-					} else {
-						hBox.getChildren().add(new Text("#--------------------#"));	// TODO: besserer "Füller"-Node?
-					}
+					CalendarEventFillerNode fillerNode = new CalendarEventFillerNode(calCheckBox.getCalendar());
+					hBox.getChildren().add(fillerNode);
+					HBox.setHgrow(fillerNode, Priority.ALWAYS);
+					fillerNode.setMinSize(20, 20);	// TODO: only for debugging -> delete
+					fillerNode.setMaxSize(1000, 1000);
+					fillerNode.setStyle("-fx-background-color: blue");	// TODO: only for debugging -> delete
 				}
 			}
-			
-		} else {
-			// TODO alte werte beibehalten und neuen einfügen!
 		}
-		System.out.println(columnIndex + ", " + rowIndex + " | " + colSpan + ", " + rowSpan);	// TODO: zur Größe des CalendarEvent.fxml's: http://stackoverflow.com/questions/16242398/why-wont-the-children-in-my-javafx-hbox-grow-scenebuilder u.a.
+		
+		ListIterator<Node> it = hBox.getChildren().listIterator();
+		while(it.hasNext()) {
+			Node node = it.next();
+			if(node instanceof CalendarEventFillerNode 
+					&& ((CalendarEventFillerNode)node).getCalendar().getTitle().equals(calendarEvent.getCalendar().getTitle())) {	// TODO: check auf ID statt auf Title wäre wohl sinnvoller?!?
+				it.remove();
+				it.add(calEvPane);
+			}
+		}
+		
+		
+		System.out.println(rowIndex + ", " + columnIndex + " | " + rowSpan + ", " + colSpan);	// TODO: zur Größe des CalendarEvent.fxml's: http://stackoverflow.com/questions/16242398/why-wont-the-children-in-my-javafx-hbox-grow-scenebuilder u.a.
 //		hBox.backgroundProperty().set(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
 //		calEvPane.backgroundProperty().set(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
 		_gridPaneContent.add(hBox, columnIndex, rowIndex, colSpan, rowSpan);
 		
 		calEvCol.setCalEvent(calendarEvent);
+	}
+	
+	// TODO: wo anders hin schieben vielleicht
+	// TODO: Von was sinnvollerem als Label erben!?!?!
+	private class CalendarEventFillerNode extends Label {
+		private ICalendar _calendar;
+		
+		public CalendarEventFillerNode(ICalendar calendar) {
+			_calendar = calendar;
+		}
+
+		public ICalendar getCalendar() {
+			return _calendar;
+		}
+		
+		public void setCalendar(ICalendar calendar) {
+			_calendar = calendar;
+		}
 	}
 	
 	public HBox getHBoxByRowColumnIndex(final int row, final int column, GridPane gridPane) {
@@ -432,9 +459,25 @@ public class TabCalendarController {
 		}
 	}
 
+	@FXML
 	private void onDatePickerDateSelected() {
-		// loadCalendarEvents(_datePicker.date())
-		// displayAllCalendarEvents()
+		LocalDate date = _datePicker.getValue();
+		
+		_weekNumberTextField.setText(getWeekNumber(date).toString());
+		
+		// A monday should be provided to loadCalendareEvents() to display a full week
+		while(!date.getDayOfWeek().equals(DayOfWeek.MONDAY)) {
+			date = date.minusDays(1);
+		}
+		
+		loadCalendarEvents(date);
+		displayAllCalendarEvents();
+	}
+	
+	// TODO: So eine Util-Funktion in ne andere Datei tun?
+	private Integer getWeekNumber(LocalDate date) {
+		WeekFields weekFields = WeekFields.of(Locale.getDefault());
+		return date.get(weekFields.weekOfWeekBasedYear());
 	}
 	
 	// TODO: In seperate Datei auslagern
@@ -474,12 +517,34 @@ public class TabCalendarController {
 	
 	@FXML
 	private void onButtonNextWeekClick() {
-		// datepicker -> next week.... etc.
+		_datePicker.setValue(_datePicker.getValue().plusWeeks(1));
 	}
 	
 	@FXML
 	private void onButtonPreviousWeekClick() {
-		// datepicker -> previous week.... etc.
+		_datePicker.setValue(_datePicker.getValue().minusWeeks(1));
+	}
+	
+	@FXML
+	private void onTextFieldWeekNumberAction() {
+		String text = _weekNumberTextField.getText();
+		
+		if(text.matches("^\\d{1,2}$")) {
+			Integer weekNumber = Integer.valueOf(text);
+			if(weekNumber > 0 && weekNumber <= 52) {
+				
+				WeekFields weekFields = WeekFields.of(Locale.getDefault());
+				LocalDate date = LocalDate.now().withDayOfYear(1);	// 1st January, current year
+				date = date.plusWeeks(weekNumber-1);
+				
+				_datePicker.setValue(date);
+						
+			} else {
+				// TODO: not a valid week number
+			}
+		} else {
+			// TODO: not a valid number
+		}
 	}
 	
 	/* TODO irgendwann vielleicht...

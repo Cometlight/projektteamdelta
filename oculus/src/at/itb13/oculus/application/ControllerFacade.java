@@ -15,7 +15,6 @@ import at.itb13.oculus.application.queue.QueueController;
 import at.itb13.oculus.application.receptionist.NewPatient;
 import at.itb13.oculus.application.receptionist.PatientSearch;
 import at.itb13.oculus.application.receptionist.WelcomeAtReception;
-import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.User;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;

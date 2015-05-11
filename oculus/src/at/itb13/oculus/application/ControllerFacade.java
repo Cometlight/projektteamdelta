@@ -12,12 +12,11 @@ import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.calendar.NewAppointmentController;
 import at.itb13.oculus.application.doctor.WelcomePatient;
 import at.itb13.oculus.application.interfaces.INewAppointmentController;
-import at.itb13.oculus.application.interfaces.IPatientSearch;
 import at.itb13.oculus.application.queue.QueueController;
 import at.itb13.oculus.application.receptionist.NewPatient;
 import at.itb13.oculus.application.receptionist.PatientSearch;
 import at.itb13.oculus.application.receptionist.WelcomeAtReception;
-import at.itb13.oculus.domain.EventType;
+import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.interfaces.IEventType;
 import at.itb13.oculus.domain.interfaces.IUser;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
@@ -41,6 +40,7 @@ public class ControllerFacade {
 	private static List<QueueController> _listQueueController;
 	private static List<CalendarController> _listCalendarController;
 	private static List<IEventType> _listEventTypes;
+	private static List<ICalendar> _listCalendar; //used for the getAllCalendar in the NewAppointmentController
 	
 	private static PatientRO _patientSelected;
 	
@@ -61,6 +61,8 @@ public class ControllerFacade {
 			reloadAllCalendarController();
 			
 			loadEventTypes();
+			
+			loadCalendar();
 			
 			_logger.info("ControllerFacade has been initialized.");
 		}
@@ -120,10 +122,20 @@ public class ControllerFacade {
 	@SuppressWarnings("unchecked")
 	public static <T> void loadEventTypes(){
 		_listEventTypes = new LinkedList<>();
-		List<T> eventTypes = new ArrayList<>();
+		List<T> eventTypes = new LinkedList<>();
 		eventTypes = (List<T>) EventTypeDao.getInstance().findAll();
 		for(T event : eventTypes){
 			_listEventTypes.add((IEventType) event);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T> void loadCalendar(){
+		_listCalendar = new LinkedList<>();
+		List<T> calendars = new LinkedList<>();
+		calendars = (List<T>) CalendarDao.getInstance().findAll();
+		for(T calendar : calendars){
+			_listCalendar.add((ICalendar) calendar);
 		}
 	}
 	
@@ -236,6 +248,10 @@ public class ControllerFacade {
 	
 	public List<IEventType> getAllEventTypes(){
 		return _listEventTypes; 
+	}
+	
+	public List<ICalendar> getAllCalendars(){
+		return _listCalendar; 
 	}
 	
 	public void refreshCalendarController() {

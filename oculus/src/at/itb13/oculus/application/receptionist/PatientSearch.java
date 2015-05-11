@@ -18,7 +18,7 @@ import at.itb13.oculus.technicalServices.dao.PatientDao;
  * @author Daniel Scheffknecht
  * @date 22.04.2015
  */
-public class PatientSearch implements IPatientSearch {
+public class PatientSearch{
 	private static final Logger _logger = LogManager.getLogger(PatientSearch.class.getName());
 	
 	/**
@@ -28,7 +28,6 @@ public class PatientSearch implements IPatientSearch {
 	 * @return List<Patient> The patients with the supplied social insurance number or name. May be null, if no patient has been found.
 	 * @throws InvalidInputException thrown if the provided socialInsuranceNr or name is not in an appropriate format.
 	 */
-	@Override
 	public List<? extends PatientRO> searchPatient(String searchValue) throws InvalidInputException {
 		List<? extends PatientRO> patients = null;
 		if(!searchValue.isEmpty()){

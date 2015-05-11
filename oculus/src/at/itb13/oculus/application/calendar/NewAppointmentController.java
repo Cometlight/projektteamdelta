@@ -8,14 +8,14 @@ import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.exceptions.SaveException;
 import at.itb13.oculus.application.interfaces.INewAppointmentController;
-import at.itb13.oculus.domain.Calendar;
+import at.itb13.oculus.application.interfaces.IPatientSearch;
 import at.itb13.oculus.domain.CalendarEventFactory;
-import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.interfaces.ICalendarEvent;
 import at.itb13.oculus.domain.interfaces.IEventType;
 import at.itb13.oculus.domain.interfaces.IPatient;
+import at.itb13.oculus.technicalServices.dao.PatientDao;
 
 /**
  * TODO: Insert description here.
@@ -23,7 +23,7 @@ import at.itb13.oculus.domain.interfaces.IPatient;
  * @author Florin Metzler
  * @since 03.05.2015
  */
-public class NewAppointmentController implements INewAppointmentController {
+public class NewAppointmentController implements INewAppointmentController, IPatientSearch{
 	
 	private CalendarEventFactory _factory = CalendarEventFactory.getInstance();
 
@@ -41,7 +41,7 @@ public class NewAppointmentController implements INewAppointmentController {
 	public void newCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start,
 			LocalDateTime end, String description, IPatient patient)
 			throws SaveException {
-		_factory.createCalendarEvent((Calendar) calendar, (EventType) eventType, start, end, description, (Patient) patient);
+		_factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, (IPatient) patient);
 		
 	}
 
@@ -59,7 +59,7 @@ public class NewAppointmentController implements INewAppointmentController {
 	public void newCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start,
 			LocalDateTime end, String description, String patient)
 			throws SaveException {
-		_factory.createCalendarEvent((Calendar) calendar, (EventType) eventType, start, end, description, patient);
+		_factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, patient);
 		
 	}
 
@@ -90,13 +90,55 @@ public class NewAppointmentController implements INewAppointmentController {
 	 */
 	@Override
 	public List<ICalendar> getAllCalendars() {
-		List<ICalendar> calendar = new ArrayList<>();
 		ControllerFacade facade = ControllerFacade.getInstance();
-		List<CalendarController> allController = facade.getAllCalendarController();	// TODO: Die andren haben ja gar nicht unseren "CalendarController"; können wir das vielleicht anders lösen?
-		for(CalendarController controller : allController ){
-			calendar.add((ICalendar) controller.getCalendar());
+		return facade.getAllCalendars();
+	}
+
+	/**
+	 * returns a list of all EventType.
+	 */
+	@Override
+	public List<IEventType> getAllEventTypes() {
+		ControllerFacade facade = ControllerFacade.getInstance();
+		return facade.getAllEventTypes();
+	}
+	
+	/**
+	 * Loads the patient with the provided social insurance number or name from the database.
+	 * 
+	 * @param searchValue The patient's social insurance number or name.
+	 * @return List<Patient> The patients with the supplied social insurance number or name. May be null, if no patient has been found.
+	 * @throws InvalidInputException thrown if the provided socialInsuranceNr or name is not in an appropriate format.
+	 */
+	@SuppressWarnings("unchecked")
+	public List<IPatient> searchPatient(String searchValue) throws InvalidInputException {
+		List<IPatient> patients = new ArrayList<>();
+		if(!searchValue.isEmpty()){
+			if(Patient.isSocialInsuranceNrValid(searchValue)){
+				IPatient patient = null;
+				patient = PatientDao.getInstance().findBySocialInsuranceNr(searchValue);				//TODO: change patientDao --> Persistence Fasade
+				if(patient != null){
+					patients.add(patient);
+				}
+			} else {		
+				patients = (List<IPatient>)(Object) PatientDao.getInstance().findByFirstName(searchValue);
+				if(patients.size() == 0){
+					patients = (List<IPatient>)(Object) PatientDao.getInstance().findByLastName(searchValue);
+				}
+			}
+		} else {
+			throw new InvalidInputException();
 		}
-		return calendar;
+		return patients;
+	}
+	
+	public boolean isInWorkingHours(LocalDateTime start, LocalDateTime end){
+		//Nach Ordinationszeit prüfen!
+		/**
+		 * TODO
+		 */
+		return true;
+		
 	}
 
 }

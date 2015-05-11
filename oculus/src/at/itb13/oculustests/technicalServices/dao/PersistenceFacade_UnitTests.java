@@ -26,7 +26,7 @@ public class PersistenceFacade_UnitTests {
 //	}
 	
 	@Test
-	public void test2() {
+	public void getByID() {
 		IPatient p = PersistenceFacade.getInstance().getById(1, IPatient.class);
 		((Patient)p).setFirstName("Ronald");
 		PersistenceFacade.getInstance().makePersistent(p);
@@ -36,7 +36,7 @@ public class PersistenceFacade_UnitTests {
 	}
 	
 	@Test
-	public void test3() {
+	public void makePersistent() {
 		IPatient p = PersistenceFacade.getInstance().getById(1, IPatient.class);
 		((Patient)p).setFirstName("Donald");
 		PersistenceFacade.getInstance().makePersistent(p);
@@ -45,10 +45,12 @@ public class PersistenceFacade_UnitTests {
 		assertEquals(p2.getFirstName(), "Donald");
 	}
 	@Test
-	public void test4() {
+	public void getAll() {
 		List<IPatient>pp = null;
 		pp = PersistenceFacade.getInstance().getAll(IPatient.class);
 		assertEquals(true, pp!=null);
+		assertEquals(true, !pp.isEmpty());
+		System.out.println(pp.size());
 	}
 	
 }

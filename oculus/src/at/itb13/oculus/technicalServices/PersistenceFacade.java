@@ -24,6 +24,7 @@ import at.itb13.oculus.technicalServices.exceptions.NoDatabaseConnectionExceptio
 import at.itb13.oculus.technicalServices.exceptions.PersistenceFacadeException;
 
 /**
+ * 
  * TODO: other Interfaces have to be added
  * 
  * @author Andrew Sparr
@@ -45,7 +46,13 @@ public class PersistenceFacade implements IPersistenceFacade {
 	public static PersistenceFacade getInstance() {
 		return _instance;
 	}
-
+/**
+ * 
+ * 
+ * @param id the ID of the Entity searched for
+ * @param clazz the class, esp. the Interface of the entity searched for
+ * @return an instance of the required class or null
+ */
 	@SuppressWarnings("unchecked")
 	public <T> T getById(Integer id, Class<T> clazz) {
 		if (IPatient.class.isAssignableFrom(clazz)) {
@@ -70,7 +77,12 @@ public class PersistenceFacade implements IPersistenceFacade {
 
 		return null;
 	}
-
+/**
+ * 
+ * 
+ * @param clazz the class, esp. the Interface of the entity searched for
+ * @return a List of all entities of the required class
+ */
 	@SuppressWarnings("unchecked")
 	public <T> List<T> getAll(Class<T> clazz) {
 		if (IPatient.class.isAssignableFrom(clazz)) {

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 import at.itb13.oculus.domain.interfaces.ICalendar;
+import at.itb13.oculus.domain.interfaces.ICalendarEvent;
 import at.itb13.oculus.domain.interfaces.IEventType;
 import at.itb13.oculus.domain.interfaces.IPatient;
 
@@ -31,8 +32,8 @@ public class CalendarEventFactory {
 	 * 
 	 * @return an object of the CalendarEvent
 	 */
-	public CalendarEvent createCalendarEvent(){
-		CalendarEvent event = CalendarEvent.getInstance();
+	public ICalendarEvent createCalendarEvent(){
+		ICalendarEvent event = CalendarEvent.getInstance();
 		return event;
 	}
 	
@@ -47,10 +48,10 @@ public class CalendarEventFactory {
 	 * @param patientName the name of the patient 
 	 * @return an object of the CalendarEvent
 	 */
-	public CalendarEvent createCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start, 
+	public ICalendarEvent createCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start, 
 										LocalDateTime end, String description, String patientName){
 		
-		CalendarEvent event = CalendarEvent.getInstance(calendar, eventType, start, end, description, patientName);
+		ICalendarEvent event = CalendarEvent.getInstance(calendar, eventType, start, end, description, patientName);
 		return event;
 	}
 	
@@ -66,10 +67,10 @@ public class CalendarEventFactory {
 	 * @param isOpen true if the CalendarEvent is not checked as closed. 
 	 * @return an object of the CalendarEvent
 	 */
-	public CalendarEvent createCalendarEvent(ICalendar calendar, IEventType eventType, 
+	public ICalendarEvent createCalendarEvent(ICalendar calendar, IEventType eventType, 
 										LocalDateTime start, LocalDateTime end, String description, IPatient patient){
 		
-		CalendarEvent event = CalendarEvent.getInstance(calendar, eventType, start, end, 
+		ICalendarEvent event = CalendarEvent.getInstance(calendar, eventType, start, end, 
 												description, patient);
 		return event;
 	}
@@ -91,7 +92,7 @@ public class CalendarEventFactory {
 	 * @param calendarEventId the ID of the wanted CalendarEvent.
 	 * @return a CallendarEvent
 	 */
-	public CalendarEvent getCalendarEvent(Calendar calendar, int calendarEventId){
+	public ICalendarEvent getCalendarEvent(Calendar calendar, int calendarEventId){
 		return calendar.getCalendarEventById(calendarEventId);
 	}
 	

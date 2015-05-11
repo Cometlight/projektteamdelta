@@ -119,6 +119,7 @@ public class ControllerFacade {
 	
 	@SuppressWarnings("unchecked")
 	public static <T> void loadEventTypes(){
+		_listEventTypes = new LinkedList<>();
 		List<T> eventTypes = new ArrayList<>();
 		eventTypes = (List<T>) EventTypeDao.getInstance().findAll();
 		for(T event : eventTypes){

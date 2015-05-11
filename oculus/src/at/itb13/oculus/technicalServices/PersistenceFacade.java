@@ -23,7 +23,7 @@ import at.itb13.oculus.technicalServices.dao.PatientDao;
 import at.itb13.oculus.technicalServices.exceptions.NoDatabaseConnectionException;
 
 /**
- * TODO: Insert description here.
+ * TODO: other Interfaces have to be added
  * 
  * @author Andrew Sparr
  * @date 9 May 2015
@@ -70,7 +70,27 @@ public class PersistenceFacade implements IPersistenceFacade {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T> List<T> getAll(Class<T> clazz) {
+		if (IPatient.class.isAssignableFrom(clazz)) {
+			return (List<T>) PatientDao.getInstance().findAll();
+		}else
+
+		if (IDoctor.class.isAssignableFrom(clazz)) {
+			return (List<T>) DoctorDao.getInstance().findAll();
+		}else
+
+		if (ICalendar.class.isAssignableFrom(clazz)) {
+			return (List<T>) CalendarDao.getInstance().findAll();
+		}else
+
+		if (IEventType.class.isAssignableFrom(clazz)) {
+			return (List<T>) EventTypeDao.getInstance().findAll();
+		}else
+		if (ICalendarEvent.class.isAssignableFrom(clazz)) {
+			return (List<T>) CalendarEventDao.getInstance().findAll();
+		}
+		
 		return null;
 	}
 

@@ -2,6 +2,8 @@ package at.itb13.oculustests.technicalServices.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import at.itb13.oculus.domain.Patient;
@@ -9,7 +11,7 @@ import at.itb13.oculus.domain.interfaces.IPatient;
 import at.itb13.oculus.technicalServices.PersistenceFacade;
 
 /**
- * TODO: Insert description here.
+ * JunitTests for PerstistenceFacade
  * 
  * @author Andrew Sparr
  * @date 11.05.2015
@@ -41,6 +43,12 @@ public class PersistenceFacade_UnitTests {
 		IPatient p2 = PersistenceFacade.getInstance().getById(1, IPatient.class);
 		System.out.println(p2.getFirstName());
 		assertEquals(p2.getFirstName(), "Donald");
+	}
+	@Test
+	public void test4() {
+		List<IPatient>pp = null;
+		pp = PersistenceFacade.getInstance().getAll(IPatient.class);
+		assertEquals(true, pp!=null);
 	}
 	
 }

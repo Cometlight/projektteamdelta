@@ -21,6 +21,7 @@ import at.itb13.oculus.technicalServices.dao.DoctorDao;
 import at.itb13.oculus.technicalServices.dao.EventTypeDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 import at.itb13.oculus.technicalServices.exceptions.NoDatabaseConnectionException;
+import at.itb13.oculus.technicalServices.exceptions.PersistenceFacadeException;
 
 /**
  * TODO: other Interfaces have to be added
@@ -135,16 +136,30 @@ public class PersistenceFacade implements IPersistenceFacade {
 		return false;
 	}
 	
-	public <T> Collection<T> searchFor(Class<T> clazz, String searchString){
-		if (IPatient.class.isAssignableFrom(clazz)) {
-			Collection<IPatient> col = new LinkedList<>();
-//			(T) PatientDao.getInstance().;
-			// wenn nichts gefunden, bleibt col eben leer
-			return null; //return col;
+	@SuppressWarnings("unchecked")
+	public <T> Collection<T> searchFor(Class<T> clazz, String searchString)
+			throws PersistenceFacadeException {
+
+		if (clazz == null) {
+			throw new PersistenceFacadeException();
 		}
 
-		
-		
+		if (IPatient.class.isAssignableFrom(clazz)) {
+			Collection<IPatient> collection = new LinkedList<>();
+			List<Patient> firstNameList = PatientDao.getInstance()
+					.findByFirstName(searchString);
+			collection.add((IPatient) firstNameList);
+			List<Patient> lastNameList = PatientDao.getInstance()
+					.findByLastName(searchString);
+			collection.add((IPatient) lastNameList);
+			Patient patient = PatientDao.getInstance().findBySocialInsuranceNr(
+					searchString);
+			collection.add((IPatient) patient);
+
+			// (T) PatientDao.getInstance().;
+			// wenn nichts gefunden, bleibt col eben leer
+			return (Collection<T>) collection;
+		}
 		return null;
 	}
 }

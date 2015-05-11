@@ -54,7 +54,6 @@ import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.interfaces.ICalendarEvent;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.presentation.OculusMain;
-import at.itb13.oculus.presentation.view.NewAppointmentController;
 
 /**
  * 
@@ -481,7 +480,7 @@ public class TabCalendarController {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(OculusMain.class
-					.getResource("view/NewAppointmentDialog.fxml"));
+					.getResource("view/calendar/NewAppointmentDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.

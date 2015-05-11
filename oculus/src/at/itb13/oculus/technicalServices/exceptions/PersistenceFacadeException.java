@@ -6,6 +6,20 @@ package at.itb13.oculus.technicalServices.exceptions;
  * @author Andrew Sparr
  * @date 11.05.2015
  */
-public class PersistenceFacadeException {
+public class PersistenceFacadeException extends Exception {
+	private static final long serialVersionUID = 1L;
 
+	public PersistenceFacadeException() { }
+	
+	public PersistenceFacadeException(String message) {
+		super(message);
+	}
+	
+	public PersistenceFacadeException(Throwable cause) {
+		super(cause);
+	}
+	
+	public PersistenceFacadeException(String message, Throwable cause) {
+		super(message, cause);
+	}
 }

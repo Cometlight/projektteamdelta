@@ -1,5 +1,6 @@
 package at.itb13.oculus.application;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,15 +12,19 @@ import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.calendar.NewAppointmentController;
 import at.itb13.oculus.application.doctor.WelcomePatient;
 import at.itb13.oculus.application.interfaces.INewAppointmentController;
+import at.itb13.oculus.application.interfaces.IPatientSearch;
 import at.itb13.oculus.application.queue.QueueController;
 import at.itb13.oculus.application.receptionist.NewPatient;
 import at.itb13.oculus.application.receptionist.PatientSearch;
 import at.itb13.oculus.application.receptionist.WelcomeAtReception;
-import at.itb13.oculus.domain.User;
+import at.itb13.oculus.domain.EventType;
+import at.itb13.oculus.domain.interfaces.IEventType;
+import at.itb13.oculus.domain.interfaces.IUser;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
 import at.itb13.oculus.technicalServices.dao.CalendarDao;
+import at.itb13.oculus.technicalServices.dao.EventTypeDao;
 import at.itb13.oculus.technicalServices.dao.QueueDao;
 
 /**
@@ -35,6 +40,7 @@ public class ControllerFacade {
 	
 	private static List<QueueController> _listQueueController;
 	private static List<CalendarController> _listCalendarController;
+	private static List<IEventType> _listEventTypes;
 	
 	private static PatientRO _patientSelected;
 	
@@ -53,6 +59,8 @@ public class ControllerFacade {
 			reloadAllQueueController();
 			
 			reloadAllCalendarController();
+			
+			loadEventTypes();
 			
 			_logger.info("ControllerFacade has been initialized.");
 		}
@@ -84,10 +92,10 @@ public class ControllerFacade {
 	
 	private static String getNameOfQueueController(QueueController queueController) {
 		if(queueController.getQueue().getDoctor() != null) {
-			User user = queueController.getQueue().getDoctor().getUser();
+			IUser user = queueController.getQueue().getDoctor().getUser();
 			return "Dr " + user.getFirstName() + " " + user.getLastName();
 		} else if(queueController.getQueue().getOrthoptist() != null) {
-			User user = queueController.getQueue().getOrthoptist().getUser();
+			IUser user = queueController.getQueue().getOrthoptist().getUser();
 			return "Orthoptist " + user.getFirstName() + " " + user.getLastName();
 		} else {
 			return "Orthoptists";	// general orthoptist queue
@@ -107,6 +115,15 @@ public class ControllerFacade {
 		});
 		
 		_logger.info("Calendars have been loaded from database.");
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T> void loadEventTypes(){
+		List<T> eventTypes = new ArrayList<>();
+		eventTypes = (List<T>) EventTypeDao.getInstance().findAll();
+		for(T event : eventTypes){
+			_listEventTypes.add((IEventType) event);
+		}
 	}
 	
 	public static ControllerFacade getInstance() {
@@ -214,6 +231,10 @@ public class ControllerFacade {
 
 	public List<CalendarController> getAllCalendarController() {
 		return _listCalendarController;
+	}
+	
+	public List<IEventType> getAllEventTypes(){
+		return _listEventTypes; 
 	}
 	
 	public void refreshCalendarController() {

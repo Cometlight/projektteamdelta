@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.shape.*?>
@@ -7,17 +8,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="90.0" prefWidth="130.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.calendar.CalendarEventController">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.calendar.CalendarEventController">
    <children>
-      <Pane prefHeight="90.0" prefWidth="130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane fx:id="_pane" prefHeight="23.0" prefWidth="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Group>
-               <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a0e8e5" height="90.0" stroke="BLACK" strokeType="INSIDE" width="130.0" />
-                  <Label fx:id="_patientLabel" layoutX="14.0" layoutY="14.0" text="Patient" wrapText="true" />
-                  <Hyperlink layoutX="14.0" layoutY="45.0" onAction="#moreInfoLinkControl" text="More" />
-               </children>
-            </Group>
+            <Hyperlink fx:id="_patientLabel" onAction="#moreInfoLinkControl" text="..." wrapText="true" />
          </children>
       </Pane>
    </children>

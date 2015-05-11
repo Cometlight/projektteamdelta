@@ -376,6 +376,7 @@ public class TabCalendarController {
 					&& ((CalendarEventFillerNode)node).getCalendar().getTitle().equals(calendarEvent.getCalendar().getTitle())) {	// TODO: check auf ID statt auf Title wäre wohl sinnvoller?!?
 				it.remove();
 				it.add(calEvPane);
+				
 			}
 		}
 		

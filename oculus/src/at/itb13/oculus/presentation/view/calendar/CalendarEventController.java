@@ -17,6 +17,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -30,8 +31,7 @@ public class CalendarEventController {
 	private static final Logger _logger = LogManager.getLogger(OculusMain.class.getName());
 
 	@FXML
-	private Label _patientLabel;
-	
+	private Hyperlink _patientLabel;
 	
 	private ICalendarEvent _calEvent;
 	
@@ -45,6 +45,7 @@ public class CalendarEventController {
 	
 	@FXML
 	private void initialize(){
+		
 //		fillLabels();
 	}
 	

@@ -9,7 +9,6 @@ import at.itb13.oculus.domain.interfaces.ICalendarEvent;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.presentation.OculusMain;
 import at.itb13.oculus.presentation.view.EditAnamnesisController;
-import at.itb13.oculus.presentation.view.NewAppointmentController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

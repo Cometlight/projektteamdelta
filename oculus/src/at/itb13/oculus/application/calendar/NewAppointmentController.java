@@ -90,13 +90,8 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 	 */
 	@Override
 	public List<ICalendar> getAllCalendars() {
-		List<ICalendar> calendar = new ArrayList<>();
 		ControllerFacade facade = ControllerFacade.getInstance();
-		List<CalendarController> allController = facade.getAllCalendarController();	// TODO: Die andren haben ja gar nicht unseren "CalendarController"; können wir das vielleicht anders lösen?
-		for(CalendarController controller : allController ){
-			calendar.add((ICalendar) controller.getCalendar());
-		}
-		return calendar;
+		return facade.getAllCalendars();
 	}
 
 	/**
@@ -121,7 +116,7 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 		if(!searchValue.isEmpty()){
 			if(Patient.isSocialInsuranceNrValid(searchValue)){
 				IPatient patient = null;
-				patient = PatientDao.getInstance().findBySocialInsuranceNr(searchValue);
+				patient = PatientDao.getInstance().findBySocialInsuranceNr(searchValue);				//TODO: change patientDao --> Persistence Fasade
 				if(patient != null){
 					patients.add(patient);
 				}
@@ -137,9 +132,13 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 		return patients;
 	}
 	
-	//Nach Ordinationszeit prüfen!
-	/**
-	 * TODO
-	 */
+	public boolean isInWorkingHours(LocalDateTime start, LocalDateTime end){
+		//Nach Ordinationszeit prüfen!
+		/**
+		 * TODO
+		 */
+		return true;
+		
+	}
 
 }

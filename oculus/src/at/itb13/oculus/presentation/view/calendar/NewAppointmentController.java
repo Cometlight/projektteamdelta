@@ -1,5 +1,7 @@
 package at.itb13.oculus.presentation.view.calendar;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -7,6 +9,7 @@ import java.util.Optional;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
+import at.itb13.oculus.application.exceptions.SaveException;
 import at.itb13.oculus.application.receptionist.PatientSearch;
 import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.interfaces.IEventType;
@@ -125,7 +128,7 @@ public class NewAppointmentController {
 	
 	private void setItemsToTypeBox(){
 		_typeBox.setConverter(new CalendarEventTypeStringConverter());
-		//_typeBox.getItems().addAll(ControllerFacade.getInstance().getNewAppointmentController().);
+		_typeBox.getItems().addAll(ControllerFacade.getInstance().getAllEventTypes());
 	}
 	
 	private void initSpinner(){
@@ -231,9 +234,34 @@ public class NewAppointmentController {
 	 
 	 @FXML
 	 private void saveButtonControl(){
-		 
+		 if(inputIsValid()){
+			 LocalTime startTime = LocalTime.of(_startTimeSpinnerHour.getValue(), _startTimeSpinnerMin.getValue());
+			 LocalDateTime start = LocalDateTime.of(_datePicker.getValue(), startTime);
+			 
+			 LocalTime endTime = LocalTime.of(_endTimeSpinnerHour.getValue(), _endTimeSpinnerMin.getValue());
+			 LocalDateTime end = LocalDateTime.of(_datePicker.getValue(), endTime);
+					
+			 try {
+				 if(_patientTableView.getSelectionModel().getSelectedItem() != null){
+					 ControllerFacade.getInstance().getNewAppointmentController().newCalendarEvent(_doctorBox.getSelectionModel().getSelectedItem(), _typeBox.getSelectionModel().getSelectedItem(), start, end, _resonText.getText(), _patientTableView.getSelectionModel().getSelectedItem());
+				 }else{
+					 ControllerFacade.getInstance().getNewAppointmentController().newCalendarEvent(_doctorBox.getSelectionModel().getSelectedItem(), _typeBox.getSelectionModel().getSelectedItem(), start, end, _resonText.getText(), _selectedpatient.getText());
+				 }
+			} catch (SaveException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 }
 	 }
-	 @FXML
+	 /**
+	 * @return
+	 */
+	private boolean inputIsValid() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@FXML
 	 private void cancelButtonControl(){
 		 _dialogStage.close();
 	 }

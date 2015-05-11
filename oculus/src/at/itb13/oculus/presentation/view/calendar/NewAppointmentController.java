@@ -1,5 +1,6 @@
 package at.itb13.oculus.presentation.view.calendar;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -101,6 +102,7 @@ public class NewAppointmentController {
 		
 		
 		setItemsToDoctorBox();
+		setItemsToTypeBox();
 		initSpinner();
 	}
 	
@@ -121,14 +123,18 @@ public class NewAppointmentController {
 	 */
 	private void setItemsToDoctorBox() {
 		_doctorBox.setConverter(new CalendarStringConverter());
-		List<ICalendar> calContrs = ControllerFacade.getInstance().getNewAppointmentController().getAllCalendars(); 		for(ICalendar c : calContrs){
-		_doctorBox.getItems().add(c);
+		List<ICalendar> calContrs = ControllerFacade.getInstance().getNewAppointmentController().getAllCalendars(); 		
+		for(ICalendar c : calContrs){
+			_doctorBox.getItems().add(c);
 		}
 	}
 	
 	private void setItemsToTypeBox(){
 		_typeBox.setConverter(new CalendarEventTypeStringConverter());
-		_typeBox.getItems().addAll(ControllerFacade.getInstance().getAllEventTypes());
+		List<IEventType> types = ControllerFacade.getInstance().getAllEventTypes();
+		for(IEventType t : types){
+			_typeBox.getItems().add(t);
+		}
 	}
 	
 	private void initSpinner(){
@@ -251,14 +257,45 @@ public class NewAppointmentController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			 _dialogStage.close();
 		 }
 	 }
 	 /**
 	 * @return
 	 */
 	private boolean inputIsValid() {
-		// TODO Auto-generated method stub
-		return false;
+		String errorMessage = "";
+
+		if (_patientTableView.getSelectionModel().getSelectedItem() == null
+				|| _selectedpatient.getText().length() < 1) {
+			errorMessage += "Please select a Patient or create a Appointment with a new Patient\n";
+		}
+		if(_datePicker.getValue()== null){
+				errorMessage += "Please select a Day\n";
+		}
+		//check start and end spinner and the hole start and end time 
+		if (_doctorBox.getSelectionModel().getSelectedItem() == null) {
+			errorMessage += "No doctor selected!\n";
+		}
+		if (_typeBox.getSelectionModel().getSelectedItem() == null) {
+			errorMessage += "No Event Type selected!\n";
+		}
+		
+
+		if (errorMessage.length() == 0) {
+			return true;
+		} else {
+			// Show the error message.
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.initOwner(_dialogStage);
+			alert.setTitle("Invalid Fields");
+			alert.setHeaderText("Please correct invalid fields");
+			alert.setContentText(errorMessage);
+
+			alert.showAndWait();
+
+			return false;
+		}
 	}
 
 	@FXML

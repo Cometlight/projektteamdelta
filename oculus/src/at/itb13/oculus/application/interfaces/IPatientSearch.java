@@ -3,7 +3,7 @@ package at.itb13.oculus.application.interfaces;
 import java.util.List;
 
 import at.itb13.oculus.application.exceptions.InvalidInputException;
-import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
+import at.itb13.oculus.domain.interfaces.IPatient;
 
 /**
  * TODO: Insert description here.
@@ -13,9 +13,6 @@ import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
  */
 public interface IPatientSearch {
 
-	public abstract List<? extends PatientRO> searchPatient(String searchValue) throws InvalidInputException;
-	
-	//private abstract List<? extends PatientRO> searchPatientByName(String name); --> geht leider nicht
-	
+	public abstract List<? extends IPatient> searchPatient(String searchValue) throws InvalidInputException;	
 	
 }

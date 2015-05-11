@@ -65,4 +65,5 @@ public interface INewAppointmentController {
 	 */
 	public abstract List<ICalendar> getAllCalendars();
 
+	public abstract List<IEventType> getAllEventTypes();
 }

@@ -1,17 +1,12 @@
 package at.itb13.oculus.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -37,7 +32,6 @@ public class EventType implements java.io.Serializable, IEventType {
 	private String _eventTypeName;
 	private Integer _estimatedTime;
 	private String _description;
-	private Set<CalendarEvent> _calendarEvents = new HashSet<CalendarEvent>(0);	// TODO: -> delete?
 
 	public EventType() { }
 
@@ -46,11 +40,10 @@ public class EventType implements java.io.Serializable, IEventType {
 	}
 
 	public EventType(String eventTypeName, Integer estimatedTime,
-			String description, Set<CalendarEvent> calendarevents) {
+			String description) {
 		_eventTypeName = eventTypeName;
 		_estimatedTime = estimatedTime;
 		_description = description;
-		_calendarEvents = calendarevents;
 	}
 
 	@Id
@@ -92,15 +85,6 @@ public class EventType implements java.io.Serializable, IEventType {
 
 	public void setDescription(String description) {
 		_description = description;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "eventType")
-	public Set<CalendarEvent> getCalendarEvents() {
-		return _calendarEvents;
-	}
-
-	public void setCalendarEvents(Set<CalendarEvent> calendarevents) {
-		_calendarEvents = calendarevents;
 	}
 
 }

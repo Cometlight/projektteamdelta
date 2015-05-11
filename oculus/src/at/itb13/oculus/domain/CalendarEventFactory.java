@@ -3,6 +3,10 @@ package at.itb13.oculus.domain;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import at.itb13.oculus.domain.interfaces.ICalendar;
+import at.itb13.oculus.domain.interfaces.IEventType;
+import at.itb13.oculus.domain.interfaces.IPatient;
+
 /**
  * Includes the methods to create or get an object from the CalendarEvent class.
  *
@@ -43,7 +47,7 @@ public class CalendarEventFactory {
 	 * @param patientName the name of the patient 
 	 * @return an object of the CalendarEvent
 	 */
-	public CalendarEvent createCalendarEvent(Calendar calendar, EventType eventType, LocalDateTime start, 
+	public CalendarEvent createCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start, 
 										LocalDateTime end, String description, String patientName){
 		
 		CalendarEvent event = CalendarEvent.getInstance(calendar, eventType, start, end, description, patientName);
@@ -62,8 +66,8 @@ public class CalendarEventFactory {
 	 * @param isOpen true if the CalendarEvent is not checked as closed. 
 	 * @return an object of the CalendarEvent
 	 */
-	public CalendarEvent createCalendarEvent(Calendar calendar, EventType eventType, 
-										LocalDateTime start, LocalDateTime end, String description, Patient patient){
+	public CalendarEvent createCalendarEvent(ICalendar calendar, IEventType eventType, 
+										LocalDateTime start, LocalDateTime end, String description, IPatient patient){
 		
 		CalendarEvent event = CalendarEvent.getInstance(calendar, eventType, start, end, 
 												description, patient);

@@ -9,12 +9,14 @@ import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.exceptions.SaveException;
 import at.itb13.oculus.application.interfaces.INewAppointmentController;
 import at.itb13.oculus.application.interfaces.IPatientSearch;
+import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.CalendarEventFactory;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.interfaces.ICalendarEvent;
 import at.itb13.oculus.domain.interfaces.IEventType;
 import at.itb13.oculus.domain.interfaces.IPatient;
+import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 
 /**
@@ -37,12 +39,14 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 	 * @param patient is the person who refers to the appointment.
 	 * @throws SaveException is throwen when an error occured while saving the new appointment.
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void newCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start,
 			LocalDateTime end, String description, IPatient patient)
 			throws SaveException {
-		_factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, (IPatient) patient);
-		
+		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, (IPatient) patient);
+		CalendarEventDao dao = CalendarEventDao.getInstance(); 
+		dao.makeTransient((List<CalendarEvent>) newEvent);
 	}
 
 	/**
@@ -55,12 +59,14 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 	 * @param patient is the person who refers to the appointment.
 	 * @throws SaveException is throwen when an error occured while saving the new appointment.
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void newCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start,
 			LocalDateTime end, String description, String patient)
 			throws SaveException {
-		_factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, patient);
-		
+		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, patient);
+		CalendarEventDao dao = CalendarEventDao.getInstance(); 
+		dao.makeTransient((List<CalendarEvent>) newEvent);
 	}
 
 	/**

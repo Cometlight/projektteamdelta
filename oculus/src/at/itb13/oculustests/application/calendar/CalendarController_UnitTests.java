@@ -18,7 +18,7 @@ import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 /**
  * Test for methods of CalendarController, except the methods, which have access to database
  * 
- * @author Andrew Sparr
+ * @author Karin Trommelschläger
  * @date 3 May 2015
  */
 public class CalendarController_UnitTests {
@@ -49,7 +49,6 @@ public class CalendarController_UnitTests {
 			LocalDateTime endDate = LocalDateTime.parse(strDate2, formatter);
 			LocalDateTime startDate = LocalDateTime.now();
 			calev = cc.getCalendarEventsInTimespan(startDate, endDate);
-			
 		}
 
 	

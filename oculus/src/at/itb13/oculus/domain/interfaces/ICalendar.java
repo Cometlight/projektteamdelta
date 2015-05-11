@@ -1,9 +1,8 @@
 package at.itb13.oculus.domain.interfaces;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import at.itb13.oculus.domain.CalendarWorkingHours.WeekDayKey;
 
 /**
  * This Interface defines the required methodes of the Calendar class.
@@ -25,10 +24,10 @@ public interface ICalendar {
 	/**
 	 * Returns the Working Hours of a chosen day of the week.
 	 * 
-	 * @param weekDay is an Enum of the days of the week.
+	 * @param dayOfWeek is an Enum of the days of the week.
 	 * @return A IWorkingHours.
 	 */
-	public abstract IWorkingHours getWorkingHoursOfWeekDay(WeekDayKey weekDay);
+	public abstract IWorkingHours getWorkingHoursOfWeekDay(DayOfWeek dayOfWeek);
 	
 	public abstract String getTitle();
 	

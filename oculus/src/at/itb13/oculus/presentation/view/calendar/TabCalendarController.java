@@ -412,7 +412,6 @@ public class TabCalendarController {
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("New Appointment");
-			dialogStage.setTitle("Edit Patient");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			//dialogStage.initOwner(_primaryStage);
 			Scene scene = new Scene(page);

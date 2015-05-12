@@ -1,5 +1,6 @@
 package at.itb13.oculus.domain;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -22,7 +23,6 @@ import javax.persistence.Table;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.domain.CalendarWorkingHours.WeekDayKey;
 import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
 
@@ -113,7 +113,7 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 	 */
 	@Transient
 	@Override
-	public WorkingHours getWorkingHoursOfWeekDay(WeekDayKey weekDay) {
+	public WorkingHours getWorkingHoursOfWeekDay(DayOfWeek weekDay) {
 		WorkingHours workingHours = new WorkingHours();
 		for(CalendarWorkingHours wh: _calendarWorkingHours) {
 			if(wh.getWeekDayKey() == weekDay){

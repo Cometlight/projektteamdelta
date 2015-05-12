@@ -11,6 +11,8 @@ import java.util.regex.Pattern;
  */
 public interface IPatient {
 	
+	public abstract Integer getPatientId();
+	
 	public abstract IDoctor getDoctor();
 	
 	public abstract String getSocialInsuranceNr();

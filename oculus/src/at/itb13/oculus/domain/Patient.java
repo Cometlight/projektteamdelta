@@ -171,6 +171,7 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "patientId", unique = true, nullable = false)
+	@Override
 	public Integer getPatientId() {
 		return _patientId;
 	}

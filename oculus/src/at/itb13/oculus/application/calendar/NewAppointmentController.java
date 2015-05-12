@@ -17,12 +17,13 @@ import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.interfaces.ICalendarEvent;
 import at.itb13.oculus.domain.interfaces.IEventType;
 import at.itb13.oculus.domain.interfaces.IPatient;
+import at.itb13.oculus.domain.interfaces.IWorkingHours;
 import at.itb13.oculus.technicalServices.PersistenceFacade;
 import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 
 /**
- * TODO: Insert description here.
+ * TODO: provides methodes for the usecase "new appointment"
  *
  * @author Florin Metzler
  * @since 03.05.2015
@@ -39,7 +40,7 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 	 * @param end the end Date of the timespan. (inclusive)
 	 * @param description includes the reason for the appointment.
 	 * @param patient is the person who refers to the appointment.
-	 * @throws SaveException is throwen when an error occured while saving the new appointment.
+	 * @throws SaveException is thrown when an error occured while saving the new appointment.
 	 */
 	@Override
 	public void newCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start,
@@ -147,13 +148,24 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 		return patients;
 	}
 	
-	public boolean isInWorkingHours(LocalDateTime start, LocalDateTime end){
-		//Nach Ordinationszeit prüfen!
-		/**
-		 * TODO
-		 */
-		return true;
-		
+	/**
+	 * calculates if the start and end date of an CalendarEvent is in the given WrokingHours for a specified day.
+	 * 
+	 * @param calendar the WorkinHours for the chosen calendar
+	 * @param start start date of the CalendarEvent
+	 * @param end end date of the CalendarEvent
+	 * @return true if the CalendarEvent is in the WorkinHours.
+	 */
+	public boolean isInWorkingHours(ICalendar calendar, LocalDateTime start, LocalDateTime end){		
+		IWorkingHours wh = calendar.getWorkingHoursOfWeekDay(start.getDayOfWeek());
+		if((start.getHour() >= wh.getMorningFrom().getHour()) && (start.getMinute() >= wh.getMorningFrom().getMinute()) &&
+		   (start.getHour() <= wh.getMorningTo().getHour()) && (start.getMinute() <= wh.getMorningTo().getMinute()) ||
+		   (end.getHour() >= wh.getMorningFrom().getHour()) && (end.getMinute() >= wh.getMorningFrom().getMinute()) &&
+		   (end.getHour() <= wh.getMorningTo().getHour()) && (end.getMinute() <= wh.getMorningTo().getMinute())){
+			return true;
+		} else {
+			return false;
+		}		
 	}
 
 }

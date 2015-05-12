@@ -6,7 +6,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import at.itb13.oculus.domain.Calendar;
+import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Doctor;
+import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.WorkingHours;
 import at.itb13.oculus.domain.interfaces.ICalendar;
@@ -14,6 +17,7 @@ import at.itb13.oculus.domain.interfaces.ICalendarEvent;
 import at.itb13.oculus.domain.interfaces.IDoctor;
 import at.itb13.oculus.domain.interfaces.IEventType;
 import at.itb13.oculus.domain.interfaces.IPatient;
+import at.itb13.oculus.domain.interfaces.IUser;
 import at.itb13.oculus.domain.interfaces.IWorkingHours;
 import at.itb13.oculus.technicalServices.dao.CalendarDao;
 import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
@@ -24,7 +28,7 @@ import at.itb13.oculus.technicalServices.exceptions.NoDatabaseConnectionExceptio
 import at.itb13.oculus.technicalServices.exceptions.PersistenceFacadeException;
 
 /**
- * 
+ * Enables access to the persistence layer 
  * TODO: other Interfaces have to be added
  * 
  * @author Andrew Sparr
@@ -112,38 +116,22 @@ public class PersistenceFacade implements IPersistenceFacade {
 		if (obj instanceof IPatient) {
 			return PatientDao.getInstance().makePersistent((Patient) obj);
 		}
-
-		// if(IPatient.class.isAssignableFrom(clazz)){
-		// return (T) PatientDao.getInstance().findById(id);
-		// }
-		//
-		// if(IDoctor.class.isAssignableFrom(clazz)){
-		// return (T) DoctorDao.getInstance().findById(id);
-		// }
-		//
-		// if(ICalendar.class.isAssignableFrom(clazz)){
-		// return (T) CalendarDao.getInstance().findById(id);
-		// }
-		//
-		// if(IEventType.class.isAssignableFrom(clazz)){
-		// return (T) EventTypeDao.getInstance().findById(id);
-		// }
-		//
-		// if(ICalendarEvent.class.isAssignableFrom(clazz)){
-		// return (T) CalendarEventDao.getInstance().findById(id);
-		// }
+		
+		if(obj instanceof IEventType){
+			return EventTypeDao.getInstance().makePersistent((EventType) obj);
+		}
 
 		if (obj instanceof IDoctor) {
 			return DoctorDao.getInstance().makePersistent((Doctor) obj);
 		}
 		
-//		if (obj instanceof ICalendar) {
-//			return CalendarDao.getInstance().makePersistent((CalendarEvent) obj);
-//		}
+		if (obj instanceof ICalendar) {
+			return CalendarDao.getInstance().makePersistent((Calendar) obj);
+		}
 		
-//		if (obj instanceof ICalendarEvent) {
-//			return CalendarEventDao.getInstance().makePersistent((CalendarEvent) obj);
-//		}
+		if (obj instanceof ICalendarEvent) {
+			return CalendarEventDao.getInstance().makePersistent((CalendarEvent) obj);
+		}
 
 		return false;
 	}
@@ -152,21 +140,44 @@ public class PersistenceFacade implements IPersistenceFacade {
 	public <T> Collection<T> searchFor(Class<T> clazz, String searchString)
 			throws PersistenceFacadeException {
 
+		//TODO Suchen nach mehreren Namen
+		
+		
 		if (clazz == null) {
 			throw new PersistenceFacadeException();
 		}
+		
+		String[] subStrings = searchString.split(" ");
+		
 
 		if (IPatient.class.isAssignableFrom(clazz)) {
 			Collection<IPatient> collection = new LinkedList<>();
-			List<Patient> firstNameList = PatientDao.getInstance()
-					.findByFirstName(searchString);
-			collection.add((IPatient) firstNameList);
-			List<Patient> lastNameList = PatientDao.getInstance()
-					.findByLastName(searchString);
-			collection.add((IPatient) lastNameList);
-			Patient patient = PatientDao.getInstance().findBySocialInsuranceNr(
-					searchString);
-			collection.add((IPatient) patient);
+			
+			for(int i = 0; i < subStrings.length; i++){
+				
+				
+				if(i != subStrings.length-1){
+					List<Patient> firstNameList = PatientDao.getInstance()
+							.findByFirstName(subStrings[i]);
+					collection.addAll(firstNameList);
+						
+				}
+				
+				if(i == subStrings.length-1){
+					List<Patient> lastNameList = PatientDao.getInstance()
+							.findByLastName(subStrings[i]);
+					collection.addAll(lastNameList);
+				}
+				
+				Patient patient = PatientDao.getInstance().findBySocialInsuranceNr(
+						subStrings[i]);
+				
+				if(patient != null){
+					collection.add((IPatient) patient);	
+				}
+			}
+
+			
 
 			// (T) PatientDao.getInstance().;
 			// wenn nichts gefunden, bleibt col eben leer

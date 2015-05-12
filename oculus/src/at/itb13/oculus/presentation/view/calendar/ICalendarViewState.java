@@ -1,5 +1,7 @@
 package at.itb13.oculus.presentation.view.calendar;
 
+import java.time.LocalDate;
+
 import javafx.scene.layout.GridPane;
 
 /**
@@ -12,4 +14,5 @@ public interface ICalendarViewState {
 
 	void initGridPaneHeader(GridPane header);
 	int getNumberOfDays();
+	void changeHeader(LocalDate date);
 }

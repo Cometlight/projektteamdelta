@@ -17,7 +17,7 @@ import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 
 /**
- * TODO
+ * provides methodes used for the Calendar, 
  *
  * @author Florin Metzler, Daniel Scheffknecht
  * @since 09.04.2015

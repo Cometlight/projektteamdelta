@@ -83,6 +83,10 @@ public class TabCalendarController {
 	private Button _addAppointmentButton;
 	@FXML
 	private TextField _weekNumberTextField;
+	@FXML
+	private Button _dayViewButton;
+	@FXML
+	private Button _weekViewButton;
 
 	private GridPane _gridPaneHeader;
 	private ScrollPane _scrollPane;
@@ -247,8 +251,8 @@ public class TabCalendarController {
 		
 //		double colWidth = ( 1000 - TIME_COLUMN_WIDTH ) / 7d;	// TODO: delete
 		ColumnConstraints cC = new ColumnConstraints();
-		cC.setPercentWidth(100.d / (double)(GRIDPANE_NUMBER_OF_COLUMNS));
-		for(int i = 0; i < GRIDPANE_NUMBER_OF_COLUMNS; ++i) {
+		cC.setPercentWidth(100.d / (double)(_state.getNumberOfDays()+1));
+		for(int i = 0; i < _state.getNumberOfDays()+1; ++i) {
 			_gridPaneHeader.getColumnConstraints().add(cC);
 			_gridPaneContent.getColumnConstraints().add(cC);
 		}
@@ -534,5 +538,21 @@ public class TabCalendarController {
             }
         }
         return numRows;
+	}
+	
+	@FXML
+	private void DayViewButtonControl(){
+		_state = new CalendarDayView();
+		_dayViewButton.setDisable(true);
+		_weekViewButton.setDisable(false);
+		initMainArea();
+		_state.changeHeader(_datePicker.getValue());
+	}
+	@FXML
+	private void WeekViewButtonControl(){
+		_state = new CalendarWeekView();
+		_dayViewButton.setDisable(false);
+		_weekViewButton.setDisable(true);
+		initMainArea();
 	}
 }

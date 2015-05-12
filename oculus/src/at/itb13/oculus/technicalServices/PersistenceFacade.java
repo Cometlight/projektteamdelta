@@ -140,21 +140,44 @@ public class PersistenceFacade implements IPersistenceFacade {
 	public <T> Collection<T> searchFor(Class<T> clazz, String searchString)
 			throws PersistenceFacadeException {
 
+		//TODO Suchen nach mehreren Namen
+		
+		
 		if (clazz == null) {
 			throw new PersistenceFacadeException();
 		}
+		
+		String[] subStrings = searchString.split(" ");
+		
 
 		if (IPatient.class.isAssignableFrom(clazz)) {
 			Collection<IPatient> collection = new LinkedList<>();
-			List<Patient> firstNameList = PatientDao.getInstance()
-					.findByFirstName(searchString);
-			collection.add((IPatient) firstNameList);
-			List<Patient> lastNameList = PatientDao.getInstance()
-					.findByLastName(searchString);
-			collection.add((IPatient) lastNameList);
-			Patient patient = PatientDao.getInstance().findBySocialInsuranceNr(
-					searchString);
-			collection.add((IPatient) patient);
+			
+			for(int i = 0; i < subStrings.length; i++){
+				
+				
+				if(i != subStrings.length-1){
+					List<Patient> firstNameList = PatientDao.getInstance()
+							.findByFirstName(subStrings[i]);
+					collection.addAll(firstNameList);
+						
+				}
+				
+				if(i == subStrings.length-1){
+					List<Patient> lastNameList = PatientDao.getInstance()
+							.findByLastName(subStrings[i]);
+					collection.addAll(lastNameList);
+				}
+				
+				Patient patient = PatientDao.getInstance().findBySocialInsuranceNr(
+						subStrings[i]);
+				
+				if(patient != null){
+					collection.add((IPatient) patient);	
+				}
+			}
+
+			
 
 			// (T) PatientDao.getInstance().;
 			// wenn nichts gefunden, bleibt col eben leer

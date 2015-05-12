@@ -9,11 +9,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -93,12 +95,20 @@ public class TabCalendarController {
 	private List<CalendarCheckBox> _calendarCheckBoxes;
 
 	private List<ICalendarEvent> _calEvents;
+	
+	private Map<Integer, Color> _calendarColorMap;	// Key = CalendarID
+	
+	private ColorGenerator _colorGenerator;
 
 	@FXML
 	private void initialize() {
 		_logger.info("Initializing TabCalendarController ...");
 		
 		_state = new CalendarWeekView();
+		
+		_colorGenerator = new ColorGenerator();
+		_calendarColorMap = new HashMap<>();
+		
 		initCheckBoxes();	// Needs to be initialized first of all
 		initDatePicker();
 		_weekNumberTextField.setText(getWeekNumber(_datePicker.getValue()).toString());
@@ -125,6 +135,10 @@ public class TabCalendarController {
 					_logger.info("Content of calendar has been updated.");
 				}
 			});
+			
+			Color color = _colorGenerator.getNextColor();
+			_calendarColorMap.put(cal.getCalendarId(), color);
+			calCheckBox.setStyle("-fx-background-color: " + ColorGenerator.colorToString(color));
 			
 			_calendarCheckBoxes.add(calCheckBox);
 		}
@@ -316,17 +330,18 @@ public class TabCalendarController {
 					GridPane.setHgrow(fillerNode, Priority.ALWAYS);
 					fillerNode.setMinSize(20, 20);	// TODO: only for debugging -> delete
 					fillerNode.setMaxSize(1000, 1000);
-					fillerNode.setStyle("-fx-background-color: blue");	// TODO: only for debugging -> delete
 					gP.getColumnConstraints().add(columnConstraint);
 				}
 			}
 		}
-		calEvPane.setStyle("-fx-background-color: red");	// TODO: Generate color out of Calendar.getTitle()
+//		calEvPane.setStyle("-fx-background-color: red");	// TODO: Generate color out of Calendar.getTitle()
+//		String color = String.format("#%X", calendarEvent.getCalendar().getTitle().hashCode());
+		calEvPane.setStyle("-fx-background-color: " + ColorGenerator.colorToString(_calendarColorMap.get(calendarEvent.getCalendar().getCalendarId())));
 		ListIterator<Node> it = gP.getChildren().listIterator();
 		while(it.hasNext()) {
 			Node node = it.next();
 			if(node instanceof CalendarEventFillerNode 
-					&& ((CalendarEventFillerNode)node).getCalendar().getTitle().equals(calendarEvent.getCalendar().getTitle())) {	// TODO: check auf ID statt auf Title wäre wohl sinnvoller?!?
+					&& ((CalendarEventFillerNode)node).getCalendar().getCalendarId().equals(calendarEvent.getCalendar().getCalendarId())) {
 				int indexColumn = GridPane.getColumnIndex(node);
 				int indexRow = GridPane.getRowIndex(node);
 				it.remove();

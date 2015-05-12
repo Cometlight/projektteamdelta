@@ -459,13 +459,16 @@ public class TabCalendarController {
 		
 		_weekNumberTextField.setText(getWeekNumber(date).toString());
 		
-		// A monday should be provided to loadCalendareEvents() to display a full week
-		while(!date.getDayOfWeek().equals(DayOfWeek.MONDAY)) {
-			date = date.minusDays(1);
-		}
+		date = _state.onDatePickerSelected(date);
+		_state.changeHeader(date);
 		
 		loadCalendarEvents(date, _state.getNumberOfDays());
 		displayAllCalendarEvents();
+	}
+	@FXML
+	private void todayButtonControl(){
+		_datePicker.setValue(LocalDate.now());
+		onDatePickerDateSelected();
 	}
 	
 	// TODO: So eine Util-Funktion in ne andere Datei tun?
@@ -546,6 +549,7 @@ public class TabCalendarController {
 		_dayViewButton.setDisable(true);
 		_weekViewButton.setDisable(false);
 		initMainArea();
+		displayAllCalendarEvents();
 		_state.changeHeader(_datePicker.getValue());
 	}
 	@FXML
@@ -554,5 +558,6 @@ public class TabCalendarController {
 		_dayViewButton.setDisable(false);
 		_weekViewButton.setDisable(true);
 		initMainArea();
+		displayAllCalendarEvents();
 	}
 }

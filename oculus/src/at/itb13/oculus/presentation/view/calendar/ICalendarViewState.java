@@ -15,4 +15,5 @@ public interface ICalendarViewState {
 	void initGridPaneHeader(GridPane header);
 	int getNumberOfDays();
 	void changeHeader(LocalDate date);
+	LocalDate onDatePickerSelected(LocalDate date);
 }

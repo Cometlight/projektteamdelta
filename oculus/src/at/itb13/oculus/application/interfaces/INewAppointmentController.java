@@ -66,4 +66,14 @@ public interface INewAppointmentController {
 	public abstract List<ICalendar> getAllCalendars();
 
 	public abstract List<IEventType> getAllEventTypes();
+	
+	/**
+	 * calculates if the start and end date of an CalendarEvent is in the given WrokingHours for a specified day.
+	 * 
+	 * @param calendar the WorkinHours for the chosen calendar
+	 * @param start start date of the CalendarEvent
+	 * @param end end date of the CalendarEvent
+	 * @return true if the CalendarEvent is in the WorkinHours.
+	 */
+	public abstract boolean isInWorkingHours(ICalendar calendar, LocalDateTime start, LocalDateTime end);		
 }

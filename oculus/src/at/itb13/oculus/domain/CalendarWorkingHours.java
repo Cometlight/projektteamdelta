@@ -1,5 +1,7 @@
 package at.itb13.oculus.domain;
 
+import java.time.DayOfWeek;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -33,21 +35,17 @@ public class CalendarWorkingHours implements java.io.Serializable {
 	private Integer _calendarWorkingHoursId;
 	private Calendar _calendar;
 	private WorkingHours _workingHours;
-	private WeekDayKey _weekDayKey;
-
-	public enum WeekDayKey {
-		MON, TUE, WED, THU, FRI, SAT, SUN
-	}
+	private DayOfWeek _weekDayKey;
 	
 	public CalendarWorkingHours() {
 	}
 
-	public CalendarWorkingHours(WeekDayKey weekDayKey) {
+	public CalendarWorkingHours(DayOfWeek weekDayKey) {
 		_weekDayKey = weekDayKey;
 	}
 
 	public CalendarWorkingHours(Calendar calendar, WorkingHours workinghours,
-			WeekDayKey weekDayKey) {
+			DayOfWeek weekDayKey) {
 		_calendar = calendar;
 		_workingHours = workinghours;
 		_weekDayKey = weekDayKey;
@@ -86,11 +84,11 @@ public class CalendarWorkingHours implements java.io.Serializable {
 
 	@Enumerated (EnumType.STRING)
 	@Column(name = "weekDayKey", nullable = false)
-	public WeekDayKey getWeekDayKey() {
+	public DayOfWeek getWeekDayKey() {
 		return _weekDayKey;
 	}
 
-	public void setWeekDayKey(WeekDayKey weekDayKey) {
+	public void setWeekDayKey(DayOfWeek weekDayKey) {
 		_weekDayKey = weekDayKey;
 	}
 }

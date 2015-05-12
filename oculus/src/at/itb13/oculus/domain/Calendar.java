@@ -90,6 +90,25 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 	}
 	
 	/**
+	 * Checks if a list of CalendarEvent is in a timespan but also if a CalendarEvent starts befor timespan as long the end date
+	 * is in timespan, or a CalendarEvent ends after timespan as long the start date is in timespan.
+	 * 
+	 * @param startDate the start Date of the timespan.
+	 * @param endDate the end Date of the timespan.
+	 * @return true when one CalendarEvent of the list is a part of the timespan.
+	 */
+	public boolean isOneCalendarEventInTimespan(LocalDateTime startDate, LocalDateTime endDate){
+		if(startDate.isBefore(endDate)){
+			for (CalendarEvent c : _calendarEvents) {
+				if (c.isPartInTimespan(startDate, endDate)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	/**
 	 * searches for a CalendarEvent by the calendarEventId.
 	 * 
 	 * @param calendarEventId the ID of the CalendarEvent.

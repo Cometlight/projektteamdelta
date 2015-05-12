@@ -1,6 +1,12 @@
-package at.itb13.oculus.domain;
+package at.itb13.oculus.domain.factories;
 
 import java.util.Set;
+
+import at.itb13.oculus.domain.Calendar;
+import at.itb13.oculus.domain.CalendarEvent;
+import at.itb13.oculus.domain.CalendarWorkingHours;
+import at.itb13.oculus.domain.Doctor;
+import at.itb13.oculus.domain.Orthoptist;
 
 /**
  * Factory, which provides a new calendar

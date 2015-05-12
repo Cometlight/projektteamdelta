@@ -141,9 +141,35 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO, ICa
 	 * @return true if the CalendarEvent is in the timespan and false if not.
 	 */
 	@Transient
+	@Override
 	public boolean isInTimespan(LocalDateTime startDate, LocalDateTime endDate){
 		return ( _eventStart.isAfter(startDate) || _eventStart.isEqual(startDate) )
 				&& ( _eventEnd.isBefore(endDate) || _eventEnd.isEqual(endDate) );
+	}
+	
+	/**
+	 * Checks if the CalendarEvent is in a timespan but also if the CalendarEvent starts befor timespan as long the end date
+	 * is in timespan, or the CalendarEvent ends after timespan as long the start date is in timespan.
+	 * 
+	 * @param startDate the strat Date of the timespan.
+	 * @param endDate the end Date of the timespan.
+	 * @return true if the CalendarEvent is in the timespan, starts befor timespan or ends after timespan and false if not.
+	 */
+	@Transient
+	@Override
+	public boolean isPartInTimespan(LocalDateTime startDate, LocalDateTime endDate){
+		if((_eventStart.isAfter(startDate) || _eventStart.isEqual(startDate))
+			&& (_eventEnd.isBefore(endDate) || _eventEnd.isEqual(endDate))){
+			return true;
+		} else if(_eventStart.isBefore(startDate) && _eventEnd.isBefore(endDate) 
+				 || _eventStart.isBefore(startDate) && _eventEnd.isEqual(endDate)){
+			return true;
+		} else if(_eventStart.isAfter(startDate) && _eventEnd.isAfter(endDate)
+				 || _eventStart.isEqual(startDate) && _eventEnd.isAfter(endDate)){
+			return true;
+		} else{
+			return false;
+		}
 	}
 	
 	/**

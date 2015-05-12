@@ -1,8 +1,10 @@
-package at.itb13.oculus.domain;
+package at.itb13.oculus.domain.factories;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import at.itb13.oculus.domain.Calendar;
+import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.interfaces.ICalendarEvent;
 import at.itb13.oculus.domain.interfaces.IEventType;

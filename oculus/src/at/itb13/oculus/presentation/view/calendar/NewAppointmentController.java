@@ -1,5 +1,6 @@
 package at.itb13.oculus.presentation.view.calendar;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -16,12 +17,17 @@ import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.interfaces.IEventType;
 import at.itb13.oculus.domain.interfaces.IPatient;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
+import at.itb13.oculus.presentation.OculusMain;
 import at.itb13.oculus.presentation.util.CalendarEventTypeStringConverter;
 import at.itb13.oculus.presentation.util.CalendarStringConverter;
 import at.itb13.oculus.presentation.util.DoctorStringConverter;
+import at.itb13.oculus.presentation.view.NewPatientController;
+import at.itb13.oculus.presentation.view.PatientRecordController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -37,6 +43,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -64,7 +72,7 @@ public class NewAppointmentController {
 	@FXML
 	private Label _selectedpatient;
 	@FXML
-	private Button _deletePatientButton;
+	private Button _patientRecordButton;
 	@FXML
 	private DatePicker _datePicker;
 	@FXML
@@ -98,8 +106,13 @@ public class NewAppointmentController {
 	 
         // Listen for selection changes and show the person details when changed.
         _patientTableView.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> _selectedpatient.setText(newValue.getFirstName() + " " + newValue.getLastName() + " " + newValue.getDateOfBirth()));
-		
+                (observable, oldValue, newValue) -> {
+                	if(_patientTableView.getSelectionModel().getSelectedItem() != null){
+                		_selectedpatient.setText(newValue.getFirstName() + " " + newValue.getLastName() + " " + newValue.getDateOfBirth());
+                	}
+                });
+        _patientTableView.getSelectionModel().selectedItemProperty().addListener(
+        		(observable, oldValue, newValue) -> _patientRecordButton.setDisable(false));
 		
 		setItemsToDoctorBox();
 		setItemsToTypeBox();
@@ -176,6 +189,22 @@ public class NewAppointmentController {
         endMinFactory.setValue(0);
         endMinFactory.setWrapAround(true);
         _endTimeSpinnerMin.setEditable(true);
+        
+        _startTimeSpinnerHour.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+        	if((newValue!= null)&&(!newValue.equals(""))){
+        		_startTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(newValue));
+        	}else{
+        		_startTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(oldValue));
+
+        	}
+        });
+                    
+        _startTimeSpinnerMin.getEditor().textProperty().addListener((observable, oldValue, newValue) ->           
+        	_startTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(newValue)));
+        _endTimeSpinnerHour.getEditor().textProperty().addListener((observable, oldValue, newValue) ->           
+        	_endTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(newValue)));
+        _endTimeSpinnerMin.getEditor().textProperty().addListener((observable, oldValue, newValue) ->           
+        	_endTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(newValue)));
 	}
 	
 	@FXML
@@ -187,7 +216,11 @@ public class NewAppointmentController {
 		Optional<String> result = dialog.showAndWait();
 		if (result.isPresent()){
 		    _selectedpatient.setText(result.get());
+		    _patientTableView.getSelectionModel().clearSelection();
+		    _patientRecordButton.setDisable(true);
+		   
 		}
+		
 	}
 
 	/**
@@ -236,6 +269,70 @@ public class NewAppointmentController {
 	        alert.setContentText("Please make sure you have entered the right name or Social Insurance Number.");
 	        alert.showAndWait();
 		}
+	 }
+	 @FXML
+	 private void patientRecordButtonControl(){
+		
+		 if(_patientTableView.getSelectionModel().getSelectedItem() != null){
+			 try {
+					// Load the fxml file and create a new stage for the popup dialog.
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(OculusMain.class
+							.getResource("view/PatientRecord.fxml"));
+					AnchorPane page = (AnchorPane) loader.load();
+	
+					// Create the dialog Stage.
+					Stage dialogStage = new Stage();
+					
+					dialogStage.setTitle("Patient Record" + " " +_patientTableView.getSelectionModel().getSelectedItem().getFirstName() + " " +_patientTableView.getSelectionModel().getSelectedItem().getLastName());
+					dialogStage.initModality(Modality.WINDOW_MODAL);
+					
+					Scene scene = new Scene(page);
+					dialogStage.setScene(scene);
+	
+					// Set the person into the controller.
+					PatientRecordController controller = loader.getController();
+					controller.setDialogStage(dialogStage);
+					controller.setPatientRO((PatientRO) _patientTableView.getSelectionModel().getSelectedItem());
+	
+					// Show the dialog and wait until the user closes it
+					dialogStage.showAndWait();
+	
+					//_logger.info("showNewPatientDialog successful");
+				
+				} catch (IOException ex) {
+					//_logger.error("showNewPatientDialog failed", ex);
+					
+				}
+		 }
+	 }
+	 @FXML
+	 private void calcEndTimeControl(){
+		 IEventType type = _typeBox.getValue();
+		 if(type != null){
+			 LocalTime startTime = LocalTime.of(_startTimeSpinnerHour.getValue(), _startTimeSpinnerMin.getValue());
+			
+			 int diffrence = type.getEstimatedTime();
+			 LocalTime endTime = startTime.plusMinutes(diffrence);
+			 
+			 SpinnerValueFactory<Integer> eHours = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23);
+			SpinnerValueFactory<Integer> eMin = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59);
+				
+			   //End Hour
+		        _endTimeSpinnerHour.setValueFactory(eHours);
+		        SpinnerValueFactory.IntegerSpinnerValueFactory endHourFactory =(IntegerSpinnerValueFactory) _endTimeSpinnerHour.getValueFactory();
+		        endHourFactory.setMax(23); 
+		        endHourFactory.setValue(endTime.getHour());
+		        endHourFactory.setWrapAround(true);
+		        _endTimeSpinnerHour.setEditable(true);
+			   //end minutes
+		        _endTimeSpinnerMin.setValueFactory(eMin);
+		        SpinnerValueFactory.IntegerSpinnerValueFactory endMinFactory = (IntegerSpinnerValueFactory) _endTimeSpinnerMin.getValueFactory();
+		        endMinFactory.setMax(59);
+		        endMinFactory.setValue(endTime.getMinute());
+		        endMinFactory.setWrapAround(true);
+		        _endTimeSpinnerMin.setEditable(true);
+		 }
 	 }
 	 
 	 @FXML

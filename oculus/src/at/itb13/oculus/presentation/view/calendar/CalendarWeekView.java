@@ -1,6 +1,7 @@
 package at.itb13.oculus.presentation.view.calendar;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -40,6 +41,16 @@ public class CalendarWeekView implements ICalendarViewState{
 	@Override
 	public int getNumberOfDays() {
 		return NUMBER_OF_DAYS;
+	}
+
+
+	/*
+	 * @see at.itb13.oculus.presentation.view.calendar.ICalendarViewState#changeHeader(java.time.LocalDate)
+	 */
+	@Override
+	public void changeHeader(LocalDate date) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

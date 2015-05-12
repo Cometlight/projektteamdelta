@@ -6,7 +6,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import at.itb13.oculus.domain.Calendar;
+import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Doctor;
+import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.WorkingHours;
 import at.itb13.oculus.domain.interfaces.ICalendar;
@@ -14,6 +17,7 @@ import at.itb13.oculus.domain.interfaces.ICalendarEvent;
 import at.itb13.oculus.domain.interfaces.IDoctor;
 import at.itb13.oculus.domain.interfaces.IEventType;
 import at.itb13.oculus.domain.interfaces.IPatient;
+import at.itb13.oculus.domain.interfaces.IUser;
 import at.itb13.oculus.domain.interfaces.IWorkingHours;
 import at.itb13.oculus.technicalServices.dao.CalendarDao;
 import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
@@ -112,38 +116,22 @@ public class PersistenceFacade implements IPersistenceFacade {
 		if (obj instanceof IPatient) {
 			return PatientDao.getInstance().makePersistent((Patient) obj);
 		}
-
-		// if(IPatient.class.isAssignableFrom(clazz)){
-		// return (T) PatientDao.getInstance().findById(id);
-		// }
-		//
-		// if(IDoctor.class.isAssignableFrom(clazz)){
-		// return (T) DoctorDao.getInstance().findById(id);
-		// }
-		//
-		// if(ICalendar.class.isAssignableFrom(clazz)){
-		// return (T) CalendarDao.getInstance().findById(id);
-		// }
-		//
-		// if(IEventType.class.isAssignableFrom(clazz)){
-		// return (T) EventTypeDao.getInstance().findById(id);
-		// }
-		//
-		// if(ICalendarEvent.class.isAssignableFrom(clazz)){
-		// return (T) CalendarEventDao.getInstance().findById(id);
-		// }
+		
+		if(obj instanceof IEventType){
+			return EventTypeDao.getInstance().makePersistent((EventType) obj);
+		}
 
 		if (obj instanceof IDoctor) {
 			return DoctorDao.getInstance().makePersistent((Doctor) obj);
 		}
 		
-//		if (obj instanceof ICalendar) {
-//			return CalendarDao.getInstance().makePersistent((CalendarEvent) obj);
-//		}
+		if (obj instanceof ICalendar) {
+			return CalendarDao.getInstance().makePersistent((Calendar) obj);
+		}
 		
-//		if (obj instanceof ICalendarEvent) {
-//			return CalendarEventDao.getInstance().makePersistent((CalendarEvent) obj);
-//		}
+		if (obj instanceof ICalendarEvent) {
+			return CalendarEventDao.getInstance().makePersistent((CalendarEvent) obj);
+		}
 
 		return false;
 	}

@@ -69,8 +69,8 @@ public class TabCalendarController {
 	private static final Logger _logger = LogManager.getLogger(TabCalendarController.class.getName());
 	private static final String CALENDAR_EVENT_FXML = "CalendarEvent.fxml";
 	private static final int TIME_INTERVAL_MINUTES = 15;
-	private static final double TIME_COLUMN_WIDTH = 50d;
-	private static final int GRIDPANE_NUMBER_OF_COLUMNS = 8;	// Reason: javafx.GridPane does not have an appropriate method
+	private static final double TIME_COLUMN_WIDTH = 5d;	// percentage
+	private static final double HEADER_MARGIN_RIGHT = 10d;
 
 	private ICalendarViewState _state;
 	@FXML
@@ -178,6 +178,7 @@ public class TabCalendarController {
 		_scrollPane.setContent(_gridPaneContent);
 		
 		_mainAreaVBox.getChildren().setAll(_gridPaneHeader, _scrollPane);
+		VBox.setMargin(_gridPaneHeader, new Insets(0d, HEADER_MARGIN_RIGHT, 0d, 0d));
 		
 		_state.initGridPaneHeader(_gridPaneHeader);
 		initScrollPane();
@@ -199,9 +200,8 @@ public class TabCalendarController {
 		LocalTime timeStart = LocalTime.MIN;
 		LocalTime timeEnd = LocalTime.MAX.minusMinutes(TIME_INTERVAL_MINUTES);
 		
-		long minutesToAdd = TIME_INTERVAL_MINUTES;
 		int row = 1;
-		for(LocalTime curTime = LocalTime.MIN; curTime.isBefore(timeEnd); curTime = curTime.plusMinutes(TIME_INTERVAL_MINUTES)) {	// TODO: While-loop wär wohl übersichtlicher // TODO: nicht LocalTime.MIN sondern siehe wie 5 Zeilen oben
+		for(LocalTime curTime = timeStart; curTime.isBefore(timeEnd); curTime = curTime.plusMinutes(TIME_INTERVAL_MINUTES)) {
 			LocalTimeLabel timeLabel = new LocalTimeLabel(LocalTime.from(curTime));
 			_gridPaneContent.add(timeLabel, 0, row);
 			GridPane.setColumnIndex(timeLabel, 0);
@@ -243,16 +243,16 @@ public class TabCalendarController {
 		}
 	}
 	
-	private void resizeGridPanes() {	// TODO: Spalten von Header und Content sind nicht schön gleich breit. (Eventuell ist der Grund der Scrollbalken des Scrollpanes)
-										// siehe auch https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
-//		ColumnConstraints firstColCC = new ColumnConstraints(TIME_COLUMN_WIDTH, TIME_COLUMN_WIDTH, TIME_COLUMN_WIDTH);	// TODO: Delete!?!
-//		_gridPaneHeader.getColumnConstraints().add(firstColCC);
-//		_gridPaneContent.getColumnConstraints().add(firstColCC);
+	private void resizeGridPanes() {
+		ColumnConstraints firstColCC = new ColumnConstraints();
+		firstColCC.setPercentWidth(TIME_COLUMN_WIDTH);
+		_gridPaneHeader.getColumnConstraints().add(firstColCC);
+		_gridPaneContent.getColumnConstraints().add(firstColCC);
 		
 //		double colWidth = ( 1000 - TIME_COLUMN_WIDTH ) / 7d;	// TODO: delete
 		ColumnConstraints cC = new ColumnConstraints();
-		cC.setPercentWidth(100.d / (double)(_state.getNumberOfDays()+1));
-		for(int i = 0; i < _state.getNumberOfDays()+1; ++i) {
+		cC.setPercentWidth( (100d - TIME_COLUMN_WIDTH) / (double)(_state.getNumberOfDays()));
+		for(int i = 0; i < _state.getNumberOfDays(); ++i) {
 			_gridPaneHeader.getColumnConstraints().add(cC);
 			_gridPaneContent.getColumnConstraints().add(cC);
 		}

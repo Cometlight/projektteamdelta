@@ -2,7 +2,6 @@ package at.itb13.oculus.application.calendar;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import at.itb13.oculus.application.ControllerFacade;
@@ -10,16 +9,13 @@ import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.exceptions.SaveException;
 import at.itb13.oculus.application.interfaces.INewAppointmentController;
 import at.itb13.oculus.application.interfaces.IPatientSearch;
-import at.itb13.oculus.domain.CalendarEvent;
-import at.itb13.oculus.domain.Patient;
-import at.itb13.oculus.domain.factories.CalendarEventFactory;
+import at.itb13.oculus.domain.factories.AppointmentFactory;
 import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.interfaces.ICalendarEvent;
 import at.itb13.oculus.domain.interfaces.IEventType;
 import at.itb13.oculus.domain.interfaces.IPatient;
 import at.itb13.oculus.domain.interfaces.IWorkingHours;
 import at.itb13.oculus.technicalServices.PersistenceFacade;
-import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 
 /**
@@ -30,7 +26,7 @@ import at.itb13.oculus.technicalServices.dao.PatientDao;
  */
 public class NewAppointmentController implements INewAppointmentController, IPatientSearch{
 	
-	private CalendarEventFactory _factory = CalendarEventFactory.getInstance();
+	private AppointmentFactory _factory = AppointmentFactory.getCalendarEventFactroy();
 
 	/**
 	 * Creates a new appointment in a chosen timespan for the wanted calendar and patient.
@@ -130,7 +126,7 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 	public List<IPatient> searchPatient(String searchValue) throws InvalidInputException {
 		List<IPatient> patients = new ArrayList<>();
 		if(!searchValue.isEmpty()){
-			if(Patient.isSocialInsuranceNrValid(searchValue)){
+			if(IPatient.isSocialInsuranceNrValid(searchValue)){
 				IPatient patient = null;
 				patient = PatientDao.getInstance().findBySocialInsuranceNr(searchValue);				//TODO: change patientDao --> Persistence Fasade
 				if(patient != null){

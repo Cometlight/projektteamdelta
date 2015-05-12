@@ -15,8 +15,9 @@ import at.itb13.oculus.domain.interfaces.ICalendarEvent;
 import at.itb13.oculus.domain.interfaces.IEventType;
 import at.itb13.oculus.domain.interfaces.IPatient;
 import at.itb13.oculus.domain.interfaces.IWorkingHours;
-import at.itb13.oculus.technicalServices.PersistenceFacade;
+import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
+import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacade;
 
 /**
  * TODO: provides methodes for the usecase "new appointment"

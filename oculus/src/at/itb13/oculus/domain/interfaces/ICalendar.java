@@ -32,4 +32,14 @@ public interface ICalendar {
 	public abstract String getTitle();
 	
 	public abstract Integer getCalendarId();
+	
+	/**
+	 * Checks if a list of CalendarEvent is in a timespan but also if a CalendarEvent starts befor timespan as long the end date
+	 * is in timespan, or a CalendarEvent ends after timespan as long the start date is in timespan.
+	 * 
+	 * @param startDate the start Date of the timespan.
+	 * @param endDate the end Date of the timespan.
+	 * @return true when one CalendarEvent of the list is a part of the timespan.
+	 */
+	public boolean isOneCalendarEventInTimespan(LocalDateTime startDate, LocalDateTime endDate);
 }

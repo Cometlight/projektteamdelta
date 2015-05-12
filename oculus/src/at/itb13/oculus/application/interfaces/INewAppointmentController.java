@@ -75,5 +75,17 @@ public interface INewAppointmentController {
 	 * @param end end date of the CalendarEvent
 	 * @return true if the CalendarEvent is in the WorkinHours.
 	 */
-	public abstract boolean isInWorkingHours(ICalendar calendar, LocalDateTime start, LocalDateTime end);		
+	public abstract boolean isInWorkingHours(ICalendar calendar, LocalDateTime start, LocalDateTime end);	
+	
+	/**
+	 * looks if the date is already taken by another CalendarEvent.
+	 * 
+	 * @param calendar in which should be searched.
+	 * @param start start date of the CalendarEvent.
+	 * @param end end date of the CalendarEvent.
+	 * @return true if a CalendarEvent is in the timespan.
+	 * @throws InvalidInputException
+	 */
+	public abstract boolean isDateAlreadyTaken(ICalendar calendar, LocalDateTime start, 
+											  LocalDateTime end) throws InvalidInputException;
 }

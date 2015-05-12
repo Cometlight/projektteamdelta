@@ -18,7 +18,8 @@ public abstract class ACalendarFactory {
 
 	protected static ACalendarFactory _factory;
 	
-	public static ACalendarFactory getCalendarFactroy() {
+	
+	public static ACalendarFactory getCalendarFactory() {
 		return _factory;
 	}
 	

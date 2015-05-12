@@ -16,7 +16,7 @@ import at.itb13.oculus.domain.interfaces.IPatient;
  * @author Florin Metzler
  * @since 04.05.2015
  */
-public class CalendarEventFactory extends AppointmentFactory{
+public class CalendarEventFactory extends ACalendarEventFactory{
 	
 	private CalendarEventFactory(){
 		_factory = this;

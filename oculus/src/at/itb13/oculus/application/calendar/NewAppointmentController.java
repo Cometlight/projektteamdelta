@@ -9,7 +9,7 @@ import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.exceptions.SaveException;
 import at.itb13.oculus.application.interfaces.INewAppointmentController;
 import at.itb13.oculus.application.interfaces.IPatientSearch;
-import at.itb13.oculus.domain.factories.AppointmentFactory;
+import at.itb13.oculus.domain.factories.ACalendarEventFactory;
 import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.interfaces.ICalendarEvent;
 import at.itb13.oculus.domain.interfaces.IEventType;
@@ -27,7 +27,7 @@ import at.itb13.oculus.technicalServices.persistencefacade.IPersistenceFacade;
  */
 public class NewAppointmentController implements INewAppointmentController, IPatientSearch{
 	
-	private AppointmentFactory _factory = AppointmentFactory.getCalendarEventFactroy();
+	private ACalendarEventFactory _factory = ACalendarEventFactory.getCalendarEventFactroy();
 
 	/**
 	 * Creates a new appointment in a chosen timespan for the wanted calendar and patient.

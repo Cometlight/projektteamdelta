@@ -1,5 +1,7 @@
 package at.itb13.oculus.domain;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -11,19 +13,18 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
-
-import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.domain.interfaces.ICalendar;
+import at.itb13.oculus.domain.interfaces.ICalendarEvent;
+import at.itb13.oculus.domain.interfaces.IDoctor;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
 
 /**
@@ -50,10 +51,10 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 	Calendar() {
 	}
 
-	Calendar(String title, Doctor doctor, Orthoptist orthoptist, Set<CalendarEvent> calendarevents,
+	Calendar(String title, IDoctor doctor, Orthoptist orthoptist, Set<CalendarEvent> calendarevents,
 			Set<CalendarWorkingHours> calendarworkinghourses) {
 		_title = title;
-		_doctor = doctor;
+		_doctor = (Doctor) doctor;
 		_orthoptist = orthoptist;
 		_calendarEvents = calendarevents;
 		_calendarWorkingHours = calendarworkinghourses;
@@ -64,7 +65,7 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 		return calendar;
 	}
 	
-	public static Calendar getInstance(String title, Doctor doctor, Orthoptist orthoptist, Set<CalendarEvent> calendarevents, 
+	public static ICalendar getInstance(String title, IDoctor doctor, Orthoptist orthoptist, Set<CalendarEvent> calendarevents, 
 									  Set<CalendarWorkingHours> calendarworkinghours){
 		Calendar calendar = new Calendar(title, doctor, orthoptist, calendarevents, calendarworkinghours);
 		return calendar;

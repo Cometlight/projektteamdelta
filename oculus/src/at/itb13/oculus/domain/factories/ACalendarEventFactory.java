@@ -16,11 +16,11 @@ import at.itb13.oculus.domain.interfaces.IPatient;
  * @author Florin Metzler
  * @since 12.05.2015
  */
-public abstract class AppointmentFactory {
+public abstract class ACalendarEventFactory {
 
-	protected static AppointmentFactory _factory;
+	protected static ACalendarEventFactory _factory;
 	
-	public static AppointmentFactory getCalendarEventFactroy() {
+	public static ACalendarEventFactory getCalendarEventFactroy() {
 		return _factory;
 	}
 	

@@ -11,8 +11,8 @@ import at.itb13.oculus.application.exceptions.SaveException;
 import at.itb13.oculus.application.interfaces.INewAppointmentController;
 import at.itb13.oculus.application.interfaces.IPatientSearch;
 import at.itb13.oculus.domain.CalendarEvent;
-import at.itb13.oculus.domain.CalendarEventFactory;
 import at.itb13.oculus.domain.Patient;
+import at.itb13.oculus.domain.factories.CalendarEventFactory;
 import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.interfaces.ICalendarEvent;
 import at.itb13.oculus.domain.interfaces.IEventType;
@@ -166,6 +166,24 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 		} else {
 			return false;
 		}		
+	}
+	
+	/**
+	 * looks if the date is already taken by another CalendarEvent.
+	 * 
+	 * @param calendar in which should be searched.
+	 * @param start start date of the CalendarEvent.
+	 * @param end end date of the CalendarEvent.
+	 * @return true if a CalendarEvent is in the timespan.
+	 * @throws InvalidInputException
+	 */
+	public boolean isDateAlreadyTaken(ICalendar calendar, LocalDateTime start, 
+									 LocalDateTime end) throws InvalidInputException {
+		if(start.isBefore(end)){
+			return calendar.isOneCalendarEventInTimespan(start, end);		
+		}else{
+			throw new InvalidInputException();
+		}
 	}
 
 }

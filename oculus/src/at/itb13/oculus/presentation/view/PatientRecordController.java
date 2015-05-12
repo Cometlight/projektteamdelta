@@ -21,8 +21,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import at.itb13.oculus.application.ControllerFacade;
+import at.itb13.oculus.domain.interfaces.IPatient;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.OculusMain;
@@ -86,7 +88,7 @@ public class PatientRecordController {
 	private TableColumn<CalendarEventRO, String> _eventTypeColumn;
 	@FXML
 	private TableColumn<CalendarEventRO, String> _descriptionColumn;
-	
+	private Stage _dialogStage;
 	private PatientRO _patient;
 	private ObservableList<CalendarEventRO> _appointmentsList = FXCollections.observableArrayList();
 	
@@ -106,6 +108,17 @@ public class PatientRecordController {
 		 _editAnamnesisButton.setVisible(false);
 		 initAppointmentsTab();
 	}
+	 
+	 public void setPatientRO(PatientRO patient){
+		 _patient = patient;
+	 }
+	 /**
+		 * @param dialogStage
+		 */
+		public void setDialogStage(Stage dialogStage) {
+			_dialogStage = dialogStage;
+			
+		}
 	
 	 /**
 	  * shows the patient general data of the specific patient

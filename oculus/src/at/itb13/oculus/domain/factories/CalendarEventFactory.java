@@ -1,8 +1,10 @@
-package at.itb13.oculus.domain;
+package at.itb13.oculus.domain.factories;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import at.itb13.oculus.domain.Calendar;
+import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.interfaces.ICalendarEvent;
 import at.itb13.oculus.domain.interfaces.IEventType;
@@ -14,17 +16,10 @@ import at.itb13.oculus.domain.interfaces.IPatient;
  * @author Florin Metzler
  * @since 04.05.2015
  */
-public class CalendarEventFactory {
+public class CalendarEventFactory extends AppointmentFactory{
 	
-	private static CalendarEventFactory factory;
-	
-	private CalendarEventFactory(){	}
-	
-	public static CalendarEventFactory getInstance(){
-		if(factory == null){
-			factory = new CalendarEventFactory();
-		}
-		return factory;
+	private CalendarEventFactory(){
+		_factory = this;
 	}
 	
 	/**

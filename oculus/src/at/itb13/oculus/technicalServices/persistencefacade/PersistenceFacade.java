@@ -1,4 +1,4 @@
-package at.itb13.oculus.technicalServices;
+package at.itb13.oculus.technicalServices.persistencefacade;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -28,35 +28,24 @@ import at.itb13.oculus.technicalServices.exceptions.NoDatabaseConnectionExceptio
 import at.itb13.oculus.technicalServices.exceptions.PersistenceFacadeException;
 
 /**
- * Enables access to the persistence layer 
- * TODO: other Interfaces have to be added
+ * Enables access to the persistence layer TODO: other Interfaces have to be
+ * added
  * 
  * @author Andrew Sparr
  * @date 9 May 2015
  */
 public class PersistenceFacade implements IPersistenceFacade {
 
-	private static PersistenceFacade _instance;
 
-	private PersistenceFacade() {
-	}
-
-	static {
-		if (_instance == null) {
-			_instance = new PersistenceFacade();
-		}
-	}
-
-	public static PersistenceFacade getInstance() {
-		return _instance;
-	}
-/**
- * 
- * 
- * @param id the ID of the Entity searched for
- * @param clazz the class, esp. the Interface of the entity searched for
- * @return an instance of the required class or null
- */
+	/**
+	 * 
+	 * 
+	 * @param id
+	 *            the ID of the Entity searched for
+	 * @param clazz
+	 *            the class, esp. the Interface of the entity searched for
+	 * @return an instance of the required class or null
+	 */
 	@SuppressWarnings("unchecked")
 	public <T> T getById(Integer id, Class<T> clazz) {
 		if (IPatient.class.isAssignableFrom(clazz)) {
@@ -81,33 +70,34 @@ public class PersistenceFacade implements IPersistenceFacade {
 
 		return null;
 	}
-/**
- * 
- * 
- * @param clazz the class, esp. the Interface of the entity searched for
- * @return a List of all entities of the required class
- */
+
+	/**
+	 * 
+	 * 
+	 * @param clazz
+	 *            the class, esp. the Interface of the entity searched for
+	 * @return a List of all entities of the required class
+	 */
 	@SuppressWarnings("unchecked")
 	public <T> List<T> getAll(Class<T> clazz) {
 		if (IPatient.class.isAssignableFrom(clazz)) {
 			return (List<T>) PatientDao.getInstance().findAll();
-		}else
+		} else
 
 		if (IDoctor.class.isAssignableFrom(clazz)) {
 			return (List<T>) DoctorDao.getInstance().findAll();
-		}else
+		} else
 
 		if (ICalendar.class.isAssignableFrom(clazz)) {
 			return (List<T>) CalendarDao.getInstance().findAll();
-		}else
+		} else
 
 		if (IEventType.class.isAssignableFrom(clazz)) {
 			return (List<T>) EventTypeDao.getInstance().findAll();
-		}else
-		if (ICalendarEvent.class.isAssignableFrom(clazz)) {
+		} else if (ICalendarEvent.class.isAssignableFrom(clazz)) {
 			return (List<T>) CalendarEventDao.getInstance().findAll();
 		}
-		
+
 		return null;
 	}
 
@@ -116,68 +106,63 @@ public class PersistenceFacade implements IPersistenceFacade {
 		if (obj instanceof IPatient) {
 			return PatientDao.getInstance().makePersistent((Patient) obj);
 		}
-		
-		if(obj instanceof IEventType){
+
+		if (obj instanceof IEventType) {
 			return EventTypeDao.getInstance().makePersistent((EventType) obj);
 		}
 
 		if (obj instanceof IDoctor) {
 			return DoctorDao.getInstance().makePersistent((Doctor) obj);
 		}
-		
+
 		if (obj instanceof ICalendar) {
 			return CalendarDao.getInstance().makePersistent((Calendar) obj);
 		}
-		
+
 		if (obj instanceof ICalendarEvent) {
-			return CalendarEventDao.getInstance().makePersistent((CalendarEvent) obj);
+			return CalendarEventDao.getInstance().makePersistent(
+					(CalendarEvent) obj);
 		}
 
 		return false;
 	}
-	
-	@SuppressWarnings("unchecked")
-	public <T> Collection<T> searchFor(Class<T> clazz, String searchString)
-			throws PersistenceFacadeException {
 
-		//TODO Suchen nach mehreren Namen
-		
-		
+	@SuppressWarnings("unchecked")
+	public <T> Collection<T> searchFor(Class<T> clazz, String searchString) throws PersistenceFacadeException {
+
+		// TODO Suchen nach mehreren Namen
+
 		if (clazz == null) {
 			throw new PersistenceFacadeException();
 		}
-		
+
 		String[] subStrings = searchString.split(" ");
-		
 
 		if (IPatient.class.isAssignableFrom(clazz)) {
 			Collection<IPatient> collection = new LinkedList<>();
-			
-			for(int i = 0; i < subStrings.length; i++){
-				
-				
-				if(i != subStrings.length-1){
+
+			for (int i = 0; i < subStrings.length; i++) {
+
+				if (i != subStrings.length - 1) {
 					List<Patient> firstNameList = PatientDao.getInstance()
 							.findByFirstName(subStrings[i]);
 					collection.addAll(firstNameList);
-						
+
 				}
-				
-				if(i == subStrings.length-1){
+
+				if (i == subStrings.length - 1) {
 					List<Patient> lastNameList = PatientDao.getInstance()
 							.findByLastName(subStrings[i]);
 					collection.addAll(lastNameList);
 				}
-				
-				Patient patient = PatientDao.getInstance().findBySocialInsuranceNr(
-						subStrings[i]);
-				
-				if(patient != null){
-					collection.add((IPatient) patient);	
+
+				Patient patient = PatientDao.getInstance()
+						.findBySocialInsuranceNr(subStrings[i]);
+
+				if (patient != null) {
+					collection.add((IPatient) patient);
 				}
 			}
-
-			
 
 			// (T) PatientDao.getInstance().;
 			// wenn nichts gefunden, bleibt col eben leer

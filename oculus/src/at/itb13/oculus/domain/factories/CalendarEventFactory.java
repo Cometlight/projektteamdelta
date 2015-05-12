@@ -16,17 +16,10 @@ import at.itb13.oculus.domain.interfaces.IPatient;
  * @author Florin Metzler
  * @since 04.05.2015
  */
-public class CalendarEventFactory {
+public class CalendarEventFactory extends AppointmentFactory{
 	
-	private static CalendarEventFactory factory;
-	
-	private CalendarEventFactory(){	}
-	
-	public static CalendarEventFactory getInstance(){
-		if(factory == null){
-			factory = new CalendarEventFactory();
-		}
-		return factory;
+	private CalendarEventFactory(){
+		_factory = this;
 	}
 	
 	/**

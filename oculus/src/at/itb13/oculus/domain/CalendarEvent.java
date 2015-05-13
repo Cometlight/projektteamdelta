@@ -161,11 +161,11 @@ public class CalendarEvent implements java.io.Serializable, CalendarEventRO, ICa
 		if((_eventStart.isAfter(startDate) || _eventStart.isEqual(startDate))
 			&& (_eventEnd.isBefore(endDate) || _eventEnd.isEqual(endDate))){
 			return true;
-		} else if(_eventStart.isBefore(startDate) && _eventEnd.isBefore(endDate) 
-				 || _eventStart.isBefore(startDate) && _eventEnd.isEqual(endDate)){
+		} else if(_eventStart.isBefore(startDate) && _eventEnd.isBefore(endDate) && _eventEnd.isAfter(startDate)
+				 || _eventStart.isBefore(startDate) && _eventEnd.isEqual(endDate) && _eventEnd.isAfter(startDate)){
 			return true;
-		} else if(_eventStart.isAfter(startDate) && _eventEnd.isAfter(endDate)
-				 || _eventStart.isEqual(startDate) && _eventEnd.isAfter(endDate)){
+		} else if(_eventStart.isAfter(startDate) && _eventEnd.isAfter(endDate) && _eventStart.isBefore(endDate)
+				 || _eventStart.isEqual(startDate) && _eventEnd.isAfter(endDate) && _eventStart.isBefore(endDate)){
 			return true;
 		} else{
 			return false;

@@ -3,6 +3,7 @@ package at.itb13.oculus.application.calendar;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
@@ -68,6 +69,9 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 			LocalDateTime end, String description, String patient)
 			throws SaveException {
 		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, patient);
+		Set<ICalendarEvent> set = calendar.getICalendarEvents();
+		set.add(newEvent);
+		calendar.setCalendarEvents(set);
 		IPersistenceFacade facade = PersistenceFacadeProvider.getPersistenceFacade();
 		facade.makePersistent(newEvent);
 		if(facade.makePersistent(newEvent)){

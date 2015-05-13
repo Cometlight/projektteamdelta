@@ -11,7 +11,6 @@ import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.interfaces.IPatient;
 import at.itb13.oculus.technicalServices.exceptions.PersistenceFacadeException;
 import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacade;
-import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeFactory;
 
 /**
  * JunitTests for PerstistenceFacade

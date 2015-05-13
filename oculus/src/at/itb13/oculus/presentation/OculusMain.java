@@ -18,6 +18,8 @@ import at.itb13.oculus.presentation.view.RootLayoutController;
 import at.itb13.oculus.presentation.view.calendar.TabCalendarController;
 import at.itb13.oculus.technicalServices.HibernateUtil;
 import at.itb13.oculus.technicalServices.exceptions.NoDatabaseConnectionException;
+import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacade;
+import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProvider;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -90,6 +92,8 @@ public class OculusMain extends Application {
         				new Image(APPLICATION_ICON_PATH));
         		
         		updateMessage("Connecting to database ...");
+        		//Set PersistenceFacade
+        		PersistenceFacadeProvider.setPersistenceFacade(new PersistenceFacade());
         		try {
         			HibernateUtil.init();
         		} catch (NoDatabaseConnectionException ex) {

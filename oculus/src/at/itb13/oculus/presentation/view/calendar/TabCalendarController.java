@@ -460,6 +460,7 @@ public class TabCalendarController {
 		_datePicker.setValue(LocalDate.now());
 		onDatePickerDateSelected();
 		scrollToCurrentTime();
+		markCurrentTime();
 	}
 	
 	private Integer getWeekNumber(LocalDate date) {
@@ -541,12 +542,12 @@ public class TabCalendarController {
 	}
 	
 	private void markCurrentTime() {
-		// im _gridPaneContent eine rote linie ziehen oder alternativ vllt. die erste spalte die richtige zelle einfärben
-		// je nach akt. uhrzeit
-		
-//		_gridPaneContent.getChildren().get(20).setStyle("-fx-background-color: red");
-//		_gridPaneContent.getChildren().get(21).setStyle("-fx-background-color: red");
-		System.out.println("Anzahl kinder: " + _gridPaneContent.getChildren().size());
+		for(Node node : _gridPaneContent.getChildren()) {
+			Integer colIndex = GridPane.getColumnIndex(node);
+			if(colIndex != null && colIndex.equals(0) && ((LocalTimeLabel)node).getLocalTime().getHour() == LocalTime.now().getHour()) {
+				node.setStyle("-fx-background-color: pink");
+			}
+		}
 	}
 	
 	@FXML
@@ -559,6 +560,7 @@ public class TabCalendarController {
 		displayAllCalendarEvents();
 		_state.changeHeader(_datePicker.getValue());
 		scrollToCurrentTime();
+		markCurrentTime();
 	}
 	
 	@FXML
@@ -570,5 +572,6 @@ public class TabCalendarController {
 		displayAllCalendarEvents();
 		_state.changeHeader(_datePicker.getValue());		//TODO: MONDAY
 		scrollToCurrentTime();
+		markCurrentTime();
 	}
 }

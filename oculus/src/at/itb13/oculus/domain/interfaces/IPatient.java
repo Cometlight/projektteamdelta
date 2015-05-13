@@ -3,6 +3,8 @@ package at.itb13.oculus.domain.interfaces;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 
+import at.itb13.oculus.domain.Patient.Gender;
+
 /**
  * This Interface defines the required methodes of the Patient class.
  *
@@ -27,4 +29,18 @@ public interface IPatient {
 		String pattern = "^\\d{" + 10 + "}$";
 		return socialInsuranceNr != null && Pattern.matches(pattern, socialInsuranceNr);
 	}
+	
+	public abstract Gender getGender();
+	
+	public abstract String getStreet();
+	
+	public abstract String getPostalCode();
+	
+	public abstract String getCity();
+	
+	public abstract String getCountryIsoCode();
+	
+	public abstract String getPhone();
+	
+	public abstract String getEmail();
 }

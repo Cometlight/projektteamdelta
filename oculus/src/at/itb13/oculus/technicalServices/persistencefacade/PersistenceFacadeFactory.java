@@ -6,14 +6,10 @@ package at.itb13.oculus.technicalServices.persistencefacade;
  * @author Andrew Sparr
  * @date 12.05.2015
  */
-public class PersistenceFacadeFactory extends APersistenceFacadeFactory {
+public class PersistenceFacadeFactory implements IPersistenceFacadeFactory {
 
 	private static IPersistenceFacade _facade;
 	
-	public PersistenceFacadeFactory() {
-		_factory = this;
-	}
-
 	@Override
 	public IPersistenceFacade getPersistenceFacade() {
 		if(_facade == null){

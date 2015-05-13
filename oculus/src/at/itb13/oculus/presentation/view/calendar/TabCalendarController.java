@@ -535,6 +535,10 @@ public class TabCalendarController {
 	private void markCurrentTime() {
 		// im _gridPaneContent eine rote linie ziehen oder alternativ vllt. die erste spalte die richtige zelle einfärben
 		// je nach akt. uhrzeit
+		
+//		_gridPaneContent.getChildren().get(20).setStyle("-fx-background-color: red");
+//		_gridPaneContent.getChildren().get(21).setStyle("-fx-background-color: red");
+		System.out.println("Anzahl kinder: " + _gridPaneContent.getChildren().size());
 	}
 	
 	@FXML
@@ -545,6 +549,7 @@ public class TabCalendarController {
 		initMainArea();
 		displayAllCalendarEvents();
 		_state.changeHeader(_datePicker.getValue());
+		scrollToCurrentTime();
 	}
 	
 	@FXML

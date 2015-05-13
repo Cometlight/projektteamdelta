@@ -90,7 +90,7 @@ public class CalendarEventController {
 			dialogStage.setScene(scene);
 
 			// Set the person into the controller.
-			EventInfromationController controller = loader.getController();
+			EventInformationController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			controller.setEvent(_calEvent);
 			controller.setPatient(_calEvent.getPatient());

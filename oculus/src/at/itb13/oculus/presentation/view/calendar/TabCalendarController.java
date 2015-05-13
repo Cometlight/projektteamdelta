@@ -117,6 +117,7 @@ public class TabCalendarController {
 		initCheckBoxes();	// Needs to be initialized first of all
 		initDatePicker();
 		_weekNumberTextField.setText(getWeekNumber(_datePicker.getValue()).toString());
+		
 		initMainArea();
 		
 		loadCalendarEvents(LocalDate.now().minusWeeks(1), _state.getNumberOfDays());
@@ -179,6 +180,7 @@ public class TabCalendarController {
 		_datePicker.setValue(LocalDate.now());	// Show today's appointments by default
 	}
 	
+	
 	private void initMainArea() {
 		_gridPaneHeader = new GridPane();
 		_gridPaneContent = new GridPane();
@@ -189,6 +191,7 @@ public class TabCalendarController {
 		VBox.setMargin(_gridPaneHeader, new Insets(0d, HEADER_MARGIN_RIGHT, 0d, 0d));
 		
 		_state.initGridPaneHeader(_gridPaneHeader);
+		_state.changeHeader(_datePicker.getValue());
 		initScrollPane();
 		initGridPaneContent();
 		resizeGridPanes();
@@ -351,13 +354,15 @@ public class TabCalendarController {
 					CalendarEventFillerNode fillerNode = new CalendarEventFillerNode(calCheckBox.getCalendar());
 					gP.add(fillerNode, fillerNodeColumnNumber++, 0);
 					GridPane.setHgrow(fillerNode, Priority.ALWAYS);
-//					fillerNode.setMinSize(20, 20);	// TODO: only for debugging -> delete
-//					fillerNode.setMaxSize(1000, 1000);
 					gP.getColumnConstraints().add(columnConstraint);
 				}
 			}
-			_gridPaneContent.add(gP, columnIndex, rowIndex, colSpan, rowSpan);	// FIXME: colSpan/rowSpan should be changeable
-			gP.setStyle("-fx-background-color: red");
+			_gridPaneContent.add(gP, columnIndex, rowIndex, colSpan, rowSpan);
+		}
+		
+		if(getRowCount(gP) < rowSpan) {
+			_gridPaneContent.getChildren().remove(gP);
+			_gridPaneContent.add(gP, columnIndex, rowIndex, colSpan, rowSpan);
 		}
 		
 		// Replace the CalendarEventFillerNode which represents the same calendar as calendarEvent's calendar by calEvPane.
@@ -375,7 +380,9 @@ public class TabCalendarController {
 		}
 		
 		// Set color of appointment according to its calendar
-		calEvPane.setStyle("-fx-background-color: " + ColorGenerator.colorToString(_calendarColorMap.get(calendarEvent.getCalendar().getCalendarId())));
+		calEvPane.setStyle("-fx-background-color: " + ColorGenerator.colorToString(_calendarColorMap.get(calendarEvent.getCalendar().getCalendarId())) + "; "
+				+ "-fx-border-color: black; "
+				+ "-fx-border-width: 1;");
 		
 		System.out.println(rowIndex + ", " + columnIndex + " | " + rowSpan + ", " + colSpan);	// TODO: zur Größe des CalendarEvent.fxml's: http://stackoverflow.com/questions/16242398/why-wont-the-children-in-my-javafx-hbox-grow-scenebuilder u.a.
 		
@@ -445,7 +452,7 @@ public class TabCalendarController {
 		date = _state.onDatePickerSelected(date);
 		_state.changeHeader(date);
 		
-		loadCalendarEvents(date, _state.getNumberOfDays());
+		loadCalendarEvents(_state.getStartDate(date), _state.getNumberOfDays());
 		displayAllCalendarEvents();
 	}
 	@FXML
@@ -548,6 +555,7 @@ public class TabCalendarController {
 		_dayViewButton.setDisable(true);
 		_weekViewButton.setDisable(false);
 		initMainArea();
+	//	loadCalendarEvents(, _state.getNumberOfDays());
 		displayAllCalendarEvents();
 		_state.changeHeader(_datePicker.getValue());
 		scrollToCurrentTime();
@@ -560,6 +568,7 @@ public class TabCalendarController {
 		_weekViewButton.setDisable(true);
 		initMainArea();
 		displayAllCalendarEvents();
+		_state.changeHeader(_datePicker.getValue());		//TODO: MONDAY
 		scrollToCurrentTime();
 	}
 }

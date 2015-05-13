@@ -2,6 +2,7 @@ package at.itb13.oculus.presentation.view.calendar;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.List;
 
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -15,22 +16,31 @@ import javafx.scene.text.Text;
 public class CalendarWeekView implements ICalendarViewState{
 	
 	private static final int NUMBER_OF_DAYS = 7;
+	private GridPane _gridPaneHeader;
+	private Text[] _gridHeaderTexts;
 
 	/*
 	 * @see at.itb13.oculus.presentation.view.calendar.ICalendarViewState#initGridPaneHeader()
 	 */
 	@Override
 	public void initGridPaneHeader(GridPane header) {
-		header.setGridLinesVisible(true); 	// TODO: "for debug purposes only" --> Durch CSS ersetzen
+		_gridPaneHeader = header;
+		_gridPaneHeader.setGridLinesVisible(true); 	// TODO: "for debug purposes only" --> Durch CSS ersetzen
+		_gridHeaderTexts = new Text[NUMBER_OF_DAYS];
+		for(int i = 0; i < _gridHeaderTexts.length; i++){
+			_gridHeaderTexts[i] = new Text("");
+		}
+		_gridPaneHeader.add(new Text("Time"), 0, 0);
+		for(int i = 0; i < _gridHeaderTexts.length; i++){
+			_gridPaneHeader.add(_gridHeaderTexts[i], i+1, 0);
+		}
 		
-		header.add(new Text("Time"), 0, 0);
-		header.add(new Text(DayOfWeek.MONDAY.name()), 1, 0);
-		header.add(new Text(DayOfWeek.TUESDAY.name()), 2, 0);
-		header.add(new Text(DayOfWeek.WEDNESDAY.name()), 3, 0);
-		header.add(new Text(DayOfWeek.THURSDAY.name()), 4, 0);
-		header.add(new Text(DayOfWeek.FRIDAY.name()), 5, 0);
-		header.add(new Text(DayOfWeek.SATURDAY.name()), 6, 0);
-		header.add(new Text(DayOfWeek.SUNDAY.name()), 7, 0);
+//		header.add(new Text(DayOfWeek.TUESDAY.name()), 2, 0);
+//		header.add(new Text(DayOfWeek.WEDNESDAY.name()), 3, 0);
+//		header.add(new Text(DayOfWeek.THURSDAY.name()), 4, 0);
+//		header.add(new Text(DayOfWeek.FRIDAY.name()), 5, 0);
+//		header.add(new Text(DayOfWeek.SATURDAY.name()), 6, 0);
+//		header.add(new Text(DayOfWeek.SUNDAY.name()), 7, 0);
 		
 	}
 
@@ -49,7 +59,15 @@ public class CalendarWeekView implements ICalendarViewState{
 	 */
 	@Override
 	public void changeHeader(LocalDate date) {
-		// TODO Auto-generated method stub
+		LocalDate startDate = getStartDate(date);
+		
+		for(int i = 0; i < _gridHeaderTexts.length; i++){
+			
+			_gridPaneHeader.getChildren().remove(_gridHeaderTexts[i]);
+			_gridHeaderTexts[i] = new Text(startDate.getDayOfWeek().name() + " "+ startDate);
+			startDate = startDate.plusDays(1);
+			_gridPaneHeader.add(_gridHeaderTexts[i], i+1, 0);
+		}
 		
 	}
 
@@ -64,6 +82,15 @@ public class CalendarWeekView implements ICalendarViewState{
 				date = date.minusDays(1);
 		}
 		return date;
+	}
+	
+	public LocalDate getStartDate(LocalDate date){
+		LocalDate monday = date;
+		//search for Monday in this Week
+		while(monday.getDayOfWeek() != DayOfWeek.MONDAY){
+			monday = monday.minusDays(1);
+		}
+		return monday;
 	}
 
 	

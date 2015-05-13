@@ -51,5 +51,12 @@ public class CalendarDayView implements ICalendarViewState {
 	public LocalDate onDatePickerSelected(LocalDate date) {
 		return date;
 	}
+	/*
+	 * @see at.itb13.oculus.presentation.view.calendar.ICalendarViewState#getStartDate(java.time.LocalDate)
+	 */
+	@Override
+	public LocalDate getStartDate(LocalDate date) {
+		return date;
+	}
 
 }

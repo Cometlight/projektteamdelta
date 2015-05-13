@@ -306,41 +306,75 @@ public class NewAppointmentController {
 	        alert.showAndWait();
 		}
 	 }
+//	 @FXML
+//	 private void patientRecordButtonControl(){
+//		
+//		 if(_patient != null){
+//			 try {
+//					// Load the fxml file and create a new stage for the popup dialog.
+//					FXMLLoader loader = new FXMLLoader();
+//					loader.setLocation(OculusMain.class
+//							.getResource("view/PatientRecord.fxml"));
+//					AnchorPane page = (AnchorPane) loader.load();
+//	
+//					// Create the dialog Stage.
+//					Stage dialogStage = new Stage();
+//					
+//					dialogStage.setTitle("Patient Record" + " " +_patient.getFirstName() + " " +_patient.getLastName());
+//					dialogStage.initModality(Modality.WINDOW_MODAL);
+//					
+//					Scene scene = new Scene(page);
+//					dialogStage.setScene(scene);
+//	
+//					// Set the person into the controller.
+//					PatientRecordController controller = loader.getController();
+//					controller.setDialogStage(dialogStage);
+//					controller.setPatientRO((PatientRO) _patient);
+//	
+//					// Show the dialog and wait until the user closes it
+//					dialogStage.showAndWait();
+//	
+//					//_logger.info("showNewPatientDialog successful");
+//				
+//				} catch (IOException ex) {
+//					//_logger.error("showNewPatientDialog failed", ex);
+//					
+//				}
+//		 }
+//	 }
+	 
 	 @FXML
 	 private void patientRecordButtonControl(){
-		
-		 if(_patient != null){
-			 try {
-					// Load the fxml file and create a new stage for the popup dialog.
-					FXMLLoader loader = new FXMLLoader();
-					loader.setLocation(OculusMain.class
-							.getResource("view/PatientRecord.fxml"));
-					AnchorPane page = (AnchorPane) loader.load();
-	
-					// Create the dialog Stage.
-					Stage dialogStage = new Stage();
-					
-					dialogStage.setTitle("Patient Record" + " " +_patient.getFirstName() + " " +_patient.getLastName());
-					dialogStage.initModality(Modality.WINDOW_MODAL);
-					
-					Scene scene = new Scene(page);
-					dialogStage.setScene(scene);
-	
-					// Set the person into the controller.
-					PatientRecordController controller = loader.getController();
-					controller.setDialogStage(dialogStage);
-					controller.setPatientRO((PatientRO) _patient);
-	
-					// Show the dialog and wait until the user closes it
-					dialogStage.showAndWait();
-	
-					//_logger.info("showNewPatientDialog successful");
-				
-				} catch (IOException ex) {
-					//_logger.error("showNewPatientDialog failed", ex);
-					
-				}
-		 }
+		try{
+		 FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(OculusMain.class
+					.getResource("view/calendar/SimplePatientRecord.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			
+			dialogStage.setTitle("Patient Record" + " " +_patient.getFirstName() + " " +_patient.getLastName());
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the person into the controller.
+			SimplePatientRecordController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setPatient(_patient);
+			controller.showPatientInfo();
+			
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+			
+			//_logger.info("showNewPatientDialog successful");
+						
+			} catch (IOException ex) {
+				//_logger.error("showNewPatientDialog failed", ex);
+							
+		}
 	 }
 	 @FXML
 	 private void calcEndTimeControl(){

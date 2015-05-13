@@ -69,23 +69,18 @@ public class CalendarEventController {
 		}
 		
 	}
-	
-	//Problem: controller do not know the calendar event at right time
 	@FXML
 	private void moreInfoLinkControl(){
+		
 		try {
-			
-			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(OculusMain.class
 					.getResource("view/calendar/EventInformation.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
-
-			// Create the dialog Stage.
+			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Appointment Informations");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
-			//dialogStage.initOwner(_primaryStage);
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
 
@@ -93,16 +88,51 @@ public class CalendarEventController {
 			EventInformationController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			controller.setEvent(_calEvent);
-			controller.setPatient(_calEvent.getPatient());
-
-			// Show the dialog and wait until the user closes it
+			controller.showAppointInfo();
 			dialogStage.showAndWait();
-
 			_logger.info("showNewAppointmentDialog successful");
-		
+					
 		} catch (IOException ex) {
 			_logger.error("showNewAppointmentDialog failed", ex);
-			
+						
 		}
-	}	
+	}
+	
+	//Problem: PatientRO 
+//	@FXML
+//	private void moreInfoLinkControl(){
+//		try {
+//			
+//			// Load the fxml file and create a new stage for the popup dialog.
+//			FXMLLoader loader = new FXMLLoader();
+//			loader.setLocation(OculusMain.class
+//					.getResource("view/calendar/EventInformation.fxml"));
+//			AnchorPane page = (AnchorPane) loader.load();
+//
+//			// Create the dialog Stage.
+//			Stage dialogStage = new Stage();
+//			dialogStage.setTitle("Appointment Informations");
+//			dialogStage.initModality(Modality.WINDOW_MODAL);
+//			//dialogStage.initOwner(_primaryStage);
+//			Scene scene = new Scene(page);
+//			dialogStage.setScene(scene);
+//
+//			// Set the person into the controller.
+//			EventInformationController controller = loader.getController();
+//			controller.setDialogStage(dialogStage);
+//			controller.setEvent(_calEvent);
+//			controller.setPatient(_calEvent.getPatient());
+//			controller.showPatientRecord();
+//			controller.showAppointmentInformation();
+//
+//			// Show the dialog and wait until the user closes it
+//			dialogStage.showAndWait();
+//
+//			_logger.info("showNewAppointmentDialog successful");
+//		
+//		} catch (IOException ex) {
+//			_logger.error("showNewAppointmentDialog failed", ex);
+//			
+//		}
+//	}	
 }

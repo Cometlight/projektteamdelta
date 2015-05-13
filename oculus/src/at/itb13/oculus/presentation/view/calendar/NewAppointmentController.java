@@ -424,7 +424,6 @@ public class NewAppointmentController {
 					e.printStackTrace();
 				}
 			}
-			 _dialogStage.close();
 		 }
 	 }
 	 /**
@@ -486,11 +485,11 @@ public class NewAppointmentController {
 			alert.setContentText("The new Appointment overlaps an other Appointment. Do you want to continue?");
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK){
-				alert.close();
+			//	alert.close();
 				return true;
 
 			} else {
-				alert.close();
+				//alert.close();
 				return false;    
 			}
 		}
@@ -515,11 +514,11 @@ public class NewAppointmentController {
 			alert.setContentText("The new Appointment is not in workinghour. Do you want to continue?");
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK){
-				alert.close();
+			//	alert.close();
 				return true;
 
 			} else {
-				alert.close();
+			//	alert.close();
 				return false;    
 			}
 		}

@@ -23,7 +23,7 @@ public class LocalDateLabel extends Label {
 	
 	public LocalDateLabel(LocalDate localDate, String text) {
 		super(text);
-		_localDate = localDate;
+		setLocalDate(localDate);
 		this.getStyleClass().add("LocalDateLabel");
 	}
 
@@ -33,5 +33,8 @@ public class LocalDateLabel extends Label {
 
 	public void setLocalDate(LocalDate localTime) {
 		_localDate = localTime;
+		if(_localDate.equals(LocalDate.now())) {
+			setStyle("-fx-background-color: pink");
+		}
 	}
 }

@@ -354,10 +354,13 @@ public class TabCalendarController {
 					gP.getColumnConstraints().add(columnConstraint);
 				}
 			}
-			_gridPaneContent.add(gP, columnIndex, rowIndex, 1, 20);	// FIXME: colSpan/rowSpan should be changeable
-//			gP.setStyle("-fx-background-color: red");	// TODO remove this line
+			_gridPaneContent.add(gP, columnIndex, rowIndex, colSpan, rowSpan);
 		}
-//		_gridPaneContent.add
+		
+		if(getRowCount(gP) < rowSpan) {
+			_gridPaneContent.getChildren().remove(gP);
+			_gridPaneContent.add(gP, columnIndex, rowIndex, colSpan, rowSpan);
+		}
 		
 		// Replace the CalendarEventFillerNode which represents the same calendar as calendarEvent's calendar by calEvPane.
 		ListIterator<Node> it = gP.getChildren().listIterator();

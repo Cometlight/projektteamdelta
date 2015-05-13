@@ -24,7 +24,8 @@ import at.itb13.oculus.domain.support.LocalTimeConverter;
 
 /**
  * 
- * TODO: Insert description here.
+ * WorkingHours are assigned to a doctor or an orthoptist and are the hours of one weekday, the doctor or the orthoptist is 
+ * usually available at the surgery and accept appointments
  * 
  * @author Daniel Scheffknecht
  * @date 14.04.2015

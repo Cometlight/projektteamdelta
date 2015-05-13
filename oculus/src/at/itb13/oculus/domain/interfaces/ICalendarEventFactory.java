@@ -1,28 +1,18 @@
-package at.itb13.oculus.domain.factories;
+package at.itb13.oculus.domain.interfaces;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
-import at.itb13.oculus.domain.interfaces.ICalendar;
-import at.itb13.oculus.domain.interfaces.ICalendarEvent;
-import at.itb13.oculus.domain.interfaces.IEventType;
-import at.itb13.oculus.domain.interfaces.IPatient;
 
 /**
  * TODO: Insert description here.
  *
  * @author Florin Metzler
- * @since 12.05.2015
+ * @since 13.05.2015
  */
-public abstract class ACalendarEventFactory {
-
-	protected static ACalendarEventFactory _factory;
-	
-	public static ACalendarEventFactory getCalendarEventFactroy() {
-		return _factory;
-	}
+public interface ICalendarEventFactory {
 	
 	/**
 	 * to create an object of the private CalendarEvent Constructor

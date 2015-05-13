@@ -7,6 +7,7 @@ import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.CalendarWorkingHours;
 import at.itb13.oculus.domain.Orthoptist;
 import at.itb13.oculus.domain.interfaces.ICalendar;
+import at.itb13.oculus.domain.interfaces.ICalendarFactory;
 import at.itb13.oculus.domain.interfaces.IDoctor;
 
 /**
@@ -15,15 +16,11 @@ import at.itb13.oculus.domain.interfaces.IDoctor;
  * @author Florin Metzler
  * @since 10.05.2015
  */
-public class CalendarFactory extends ACalendarFactory{
+public class CalendarFactory implements ICalendarFactory{
 	
-	private CalendarFactory(){
-		_factory = this;
-	}
 	
 	/**
-	 * 
-	 * 
+	 *  
 	 * @return Calendar without parameters
 	 */
 	public ICalendar createCalendar(){
@@ -31,8 +28,7 @@ public class CalendarFactory extends ACalendarFactory{
 		return calendar;
 	}
 	/**
-	 * 
-	 * 
+	 *  
 	 * @param title  name of the owner of the calendar
 	 * @param doctor doctor assigned to the calendar
 	 * @param orthoptist orthoptist assigned to the calendar
@@ -45,4 +41,8 @@ public class CalendarFactory extends ACalendarFactory{
 		ICalendar calendar = Calendar.getInstance(title, doctor, orthoptist, calendarEvents, calendarWorkingHours);
 		return calendar;
 	}
+	
+	/**
+	 * TODO: get
+	 */
 }

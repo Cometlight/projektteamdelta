@@ -443,13 +443,17 @@ public class TabCalendarController {
 		
 		_weekNumberTextField.setText(getWeekNumber(date).toString());
 		
-		// A monday should be provided to loadCalendareEvents() to display a full week
-		while(!date.getDayOfWeek().equals(DayOfWeek.MONDAY)) {
-			date = date.minusDays(1);
-		}
+		date = _state.onDatePickerSelected(date);
+		_state.changeHeader(date);
 		
 		loadCalendarEvents(date, _state.getNumberOfDays());
 		displayAllCalendarEvents();
+	}
+	@FXML
+	private void todayButtonControl(){
+		_datePicker.setValue(LocalDate.now());
+		onDatePickerDateSelected();
+		scrollToCurrentTime();
 	}
 	
 	private Integer getWeekNumber(LocalDate date) {
@@ -508,27 +512,35 @@ public class TabCalendarController {
 
 	// TODO: besser machen? wo anders hin tun? zwischenspeichern stattdessen?
 	// siehe http://stackoverflow.com/a/20766735
-//	private static int getRowCount(GridPane pane) {
-//		int numRows = pane.getRowConstraints().size();
-//        for (int i = 0; i < pane.getChildren().size(); i++) {
-//            Node child = pane.getChildren().get(i);
-//            if (child.isManaged()) {
-//                int rowIndex = GridPane.getRowIndex(child);
-//                int rowEnd = GridPane.getRowIndex(child);
-//                numRows = Math.max(numRows, (rowEnd != GridPane.REMAINING? rowEnd : rowIndex) + 1);
-//            }
-//        }
-//        return numRows;
-//	}
+	private static int getRowCount(GridPane pane) {
+		int numRows = pane.getRowConstraints().size();
+        for (int i = 0; i < pane.getChildren().size(); i++) {
+            Node child = pane.getChildren().get(i);
+            if (child.isManaged()) {
+                int rowIndex = GridPane.getRowIndex(child);
+                int rowEnd = GridPane.getRowIndex(child);
+                numRows = Math.max(numRows, (rowEnd != GridPane.REMAINING? rowEnd : rowIndex) + 1);
+            }
+        }
+        return numRows;
+	}
 	
 	private void scrollToCurrentTime() {
-		// _scrollPane richtig runter scrollen
-		// je nach akt. uhrzeit
+		int rowCount = getRowCount(_gridPaneContent);
+		rowCount = 100 / rowCount; // 100/96 => about 1.05
+		
+		double hourValue = LocalTime.now().getHour(); //if for example 5AM => hourValue = 5
+		double vertPos= ((hourValue * 4 * 1.5) * rowCount ) / 100; // multiplier 4 because hours are divided by four. 
+		_scrollPane.setVvalue(vertPos); //sets the value in percent! 
 	}
 	
 	private void markCurrentTime() {
 		// im _gridPaneContent eine rote linie ziehen oder alternativ vllt. die erste spalte die richtige zelle einfärben
 		// je nach akt. uhrzeit
+		
+//		_gridPaneContent.getChildren().get(20).setStyle("-fx-background-color: red");
+//		_gridPaneContent.getChildren().get(21).setStyle("-fx-background-color: red");
+		System.out.println("Anzahl kinder: " + _gridPaneContent.getChildren().size());
 	}
 	
 	@FXML
@@ -537,7 +549,9 @@ public class TabCalendarController {
 		_dayViewButton.setDisable(true);
 		_weekViewButton.setDisable(false);
 		initMainArea();
+		displayAllCalendarEvents();
 		_state.changeHeader(_datePicker.getValue());
+		scrollToCurrentTime();
 	}
 	
 	@FXML
@@ -546,5 +560,7 @@ public class TabCalendarController {
 		_dayViewButton.setDisable(false);
 		_weekViewButton.setDisable(true);
 		initMainArea();
+		displayAllCalendarEvents();
+		scrollToCurrentTime();
 	}
 }

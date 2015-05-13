@@ -1,37 +1,26 @@
-package at.itb13.oculus.domain.factories;
+package at.itb13.oculus.domain.interfaces;
 
 import java.util.Set;
 
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.CalendarWorkingHours;
 import at.itb13.oculus.domain.Orthoptist;
-import at.itb13.oculus.domain.interfaces.ICalendar;
-import at.itb13.oculus.domain.interfaces.IDoctor;
 
 /**
  * TODO: Insert description here.
  *
  * @author Florin Metzler
- * @since 12.05.2015
+ * @since 13.05.2015
  */
-public abstract class ACalendarFactory {
+public interface ICalendarFactory {
 
-	protected static ACalendarFactory _factory;
-	
-	
-	public static ACalendarFactory getCalendarFactory() {
-		return _factory;
-	}
-	
 	/**
-	 * 
 	 * 
 	 * @return Calendar without parameters
 	 */
 	public abstract ICalendar createCalendar();
 	
 	/**
-	 * 
 	 * 
 	 * @param title  name of the owner of the calendar
 	 * @param doctor doctor assigned to the calendar

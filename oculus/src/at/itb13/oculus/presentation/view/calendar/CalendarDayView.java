@@ -15,6 +15,7 @@ import javafx.scene.text.Text;
 public class CalendarDayView implements ICalendarViewState {
 	private static final int NUMBER_OF_DAYS = 1;
 	private GridPane _gridPaneHeader;
+	private Text _gridHeaderText;
 	/*
 	 * @see at.itb13.oculus.presentation.view.calendar.ICalendarViewState#initGridPaneHeader(javafx.scene.layout.GridPane)
 	 */
@@ -24,13 +25,16 @@ public class CalendarDayView implements ICalendarViewState {
 		_gridPaneHeader.setGridLinesVisible(true); 	// TODO: "for debug purposes only" --> Durch CSS ersetzen
 		
 		_gridPaneHeader.add(new Text("Time"), 0, 0);
-		_gridPaneHeader.add(new Text(""), 1, 0);
+		_gridHeaderText = new Text("");
+		_gridPaneHeader.add(_gridHeaderText, 1, 0);
 	}
 	@Override
 	public void changeHeader(LocalDate date){
 	
 		_gridPaneHeader.add(new Text("Time"), 0, 0);
-		_gridPaneHeader.add(new Text(date.getDayOfWeek().name() + " " + date.toString()), 1, 0);
+		_gridPaneHeader.getChildren().remove(_gridHeaderText);
+		_gridHeaderText = new Text(date.getDayOfWeek().name() + " " + date.toString());
+		_gridPaneHeader.add(_gridHeaderText, 1, 0);
 	}
 
 	/*
@@ -39,6 +43,13 @@ public class CalendarDayView implements ICalendarViewState {
 	@Override
 	public int getNumberOfDays() {
 		return NUMBER_OF_DAYS;
+	}
+	/*
+	 * @see at.itb13.oculus.presentation.view.calendar.ICalendarViewState#onDatePickerSelected(java.time.LocalDate)
+	 */
+	@Override
+	public LocalDate onDatePickerSelected(LocalDate date) {
+		return date;
 	}
 
 }

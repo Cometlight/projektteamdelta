@@ -183,13 +183,6 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 		LocalTime start = startDate.toLocalTime();
 		LocalTime end = endDate.toLocalTime();
 		
-		System.out.println("InMorning");
-		System.out.println("1:" + start.getHour());
-		System.out.println(end.getHour());
-		System.out.println("2:" +wh.getMorningFrom().getHour());
-		System.out.println(wh.getMorningTo().getHour());
-		System.out.println("3:" +wh.getAfternoonFrom().getHour());
-		System.out.println(wh.getAfternoonTo().getHour());
 		if(wh.getMorningFrom() != null && wh.getMorningTo() != null){
 			if((start.isAfter(wh.getMorningFrom()) || start.equals(wh.getMorningFrom()))
 				&& (end.isBefore(wh.getMorningTo()) || end.equals(wh.getMorningTo()))){

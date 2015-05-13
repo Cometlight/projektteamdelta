@@ -16,4 +16,5 @@ public interface ICalendarViewState {
 	int getNumberOfDays();
 	void changeHeader(LocalDate date);
 	LocalDate onDatePickerSelected(LocalDate date);
+	LocalDate getStartDate(LocalDate date);
 }

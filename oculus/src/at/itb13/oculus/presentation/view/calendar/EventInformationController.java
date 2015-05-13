@@ -31,7 +31,7 @@ import javafx.stage.Stage;
  * @author Caroline Meusburger
  * @since 10.05.2015
  */
-public class EventInfromationController {
+public class EventInformationController {
 	private static final Logger _logger = LogManager.getLogger(OculusMain.class.getName());
 
 	@FXML

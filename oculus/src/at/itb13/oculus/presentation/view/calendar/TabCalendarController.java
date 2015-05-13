@@ -220,11 +220,18 @@ public class TabCalendarController {
 
 		double colWidthTime = _gridPaneContent.getWidth() * TIME_COLUMN_WIDTH / 100d;
 		double colWidthDays = (_gridPaneContent.getWidth() - colWidthTime) / _state.getNumberOfDays();
-		int colIndex = (int) ((event.getX() - colWidthTime) / colWidthDays);	// TODO: tut so, als ob 1. und 2. spalte das gleiche wäre
+		double xMinusColWidthTime = event.getX() - colWidthTime;
+		
+		if(xMinusColWidthTime <= 0) {
+			return;	// do nothing, if not clicked in the column of a day
+		}
+		
+		int colIndex = ( (int) (xMinusColWidthTime / colWidthDays) ) + 1;	// +1 because the first column was already subtracted
+		
 		LocalDateLabel localDateLabel = (LocalDateLabel) getNodeByColumnIndex(colIndex, _gridPaneHeader);
 		date = localDateLabel.getLocalDate();
 		
-		System.out.println("Time: " + time + ", Date: " + date);
+		System.out.println("Time: " + time + ", Date: " + date);	// TODO: Methode aufrufen und date + time übergeben
 	}
 
 	private void initScrollPane() {

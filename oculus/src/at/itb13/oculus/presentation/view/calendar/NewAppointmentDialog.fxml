@@ -13,7 +13,7 @@
       <TextArea fx:id="_resonText" layoutX="31.0" layoutY="479.0" prefHeight="65.0" prefWidth="268.0" promptText="Reason" />
       <ComboBox fx:id="_typeBox" layoutX="28.0" layoutY="326.0" onAction="#calcEndTimeControl" prefHeight="25.0" prefWidth="172.0" promptText="Appointment Type" />
       <Button fx:id="_searchPatientButton" layoutX="210.0" layoutY="57.0" mnemonicParsing="false" onAction="#searchControl" text="Search" />
-      <TextField fx:id="_patientSearchField" layoutX="29.0" layoutY="57.0" prefHeight="25.0" prefWidth="172.0" promptText="Patient Name or Social Insurence Number" />
+      <TextField fx:id="_patientSearchField" layoutX="29.0" layoutY="57.0" onAction="#searchControl" prefHeight="25.0" prefWidth="172.0" promptText="Patient Name or Social Insurence Number" />
       <ComboBox fx:id="_doctorBox" layoutX="29.0" layoutY="284.0" onAction="#doctorBoxControl" prefHeight="25.0" prefWidth="172.0" promptText="Doctor" />
       <ButtonBar layoutX="341.0" layoutY="432.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
         <buttons>

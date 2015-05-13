@@ -226,7 +226,7 @@ public class TabCalendarController {
 		LocalTime timeEnd = LocalTime.MAX.minusMinutes(TIME_INTERVAL_MINUTES);
 		RowConstraints rowConstraint = new RowConstraints(CONTENT_ROW_HEIGHT);
 		
-		int row = 1;
+		int row = 0;
 		for(LocalTime curTime = timeStart; curTime.isBefore(timeEnd); curTime = curTime.plusMinutes(TIME_INTERVAL_MINUTES)) {
 			LocalTimeLabel timeLabel = new LocalTimeLabel(LocalTime.from(curTime));
 			_gridPaneContent.add(timeLabel, 0, row);
@@ -351,14 +351,13 @@ public class TabCalendarController {
 					CalendarEventFillerNode fillerNode = new CalendarEventFillerNode(calCheckBox.getCalendar());
 					gP.add(fillerNode, fillerNodeColumnNumber++, 0);
 					GridPane.setHgrow(fillerNode, Priority.ALWAYS);
-//					fillerNode.setMinSize(20, 20);	// TODO: only for debugging -> delete
-//					fillerNode.setMaxSize(1000, 1000);
 					gP.getColumnConstraints().add(columnConstraint);
 				}
 			}
-			_gridPaneContent.add(gP, columnIndex, rowIndex, colSpan, rowSpan);	// FIXME: colSpan/rowSpan should be changeable
-			gP.setStyle("-fx-background-color: red");
+			_gridPaneContent.add(gP, columnIndex, rowIndex, 1, 20);	// FIXME: colSpan/rowSpan should be changeable
+//			gP.setStyle("-fx-background-color: red");	// TODO remove this line
 		}
+//		_gridPaneContent.add
 		
 		// Replace the CalendarEventFillerNode which represents the same calendar as calendarEvent's calendar by calEvPane.
 		ListIterator<Node> it = gP.getChildren().listIterator();
@@ -375,7 +374,9 @@ public class TabCalendarController {
 		}
 		
 		// Set color of appointment according to its calendar
-		calEvPane.setStyle("-fx-background-color: " + ColorGenerator.colorToString(_calendarColorMap.get(calendarEvent.getCalendar().getCalendarId())));
+		calEvPane.setStyle("-fx-background-color: " + ColorGenerator.colorToString(_calendarColorMap.get(calendarEvent.getCalendar().getCalendarId())) + "; "
+				+ "-fx-border-color: black; "
+				+ "-fx-border-width: 1;");
 		
 		System.out.println(rowIndex + ", " + columnIndex + " | " + rowSpan + ", " + colSpan);	// TODO: zur Größe des CalendarEvent.fxml's: http://stackoverflow.com/questions/16242398/why-wont-the-children-in-my-javafx-hbox-grow-scenebuilder u.a.
 		

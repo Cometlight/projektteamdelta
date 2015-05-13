@@ -10,8 +10,7 @@ import at.itb13.oculus.application.calendar.NewAppointmentController;
 import at.itb13.oculus.application.interfaces.INewAppointmentController;
 import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.interfaces.IEventType;
-import at.itb13.oculus.technicalServices.dao.CalendarDao;
-import at.itb13.oculus.technicalServices.dao.EventTypeDao;
+import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProvider;
 
 /**
  * TODO: Insert description here.
@@ -51,7 +50,7 @@ public class ControllerFacade {
 	public static <T> void loadEventTypes(){
 		_listEventTypes = new LinkedList<>();
 		List<T> eventTypes = new LinkedList<>();
-		eventTypes = (List<T>) EventTypeDao.getInstance().findAll();
+		eventTypes = (List<T>) PersistenceFacadeProvider.getPersistenceFacade().getAll(IEventType.class);
 		for(T event : eventTypes){
 			_listEventTypes.add((IEventType) event);
 		}
@@ -61,7 +60,8 @@ public class ControllerFacade {
 	public static <T> void loadCalendar(){
 		_listCalendar = new LinkedList<>();
 		List<T> calendars = new LinkedList<>();
-		calendars = (List<T>) CalendarDao.getInstance().findAll();
+		
+		calendars = (List<T>) PersistenceFacadeProvider.getPersistenceFacade().getAll(ICalendar.class);
 		for(T calendar : calendars){
 			_listCalendar.add((ICalendar) calendar);
 		}

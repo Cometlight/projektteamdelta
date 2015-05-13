@@ -16,8 +16,9 @@ import at.itb13.oculus.domain.interfaces.IEventType;
 import at.itb13.oculus.domain.interfaces.IPatient;
 import at.itb13.oculus.domain.interfaces.IWorkingHours;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
-import at.itb13.oculus.technicalServices.persistencefacade.APersistenceFacadeFactory;
 import at.itb13.oculus.technicalServices.persistencefacade.IPersistenceFacade;
+import at.itb13.oculus.technicalServices.persistencefacade.IPersistenceFacadeFactory;
+import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeFactory;
 
 /**
  * TODO: provides methodes for the usecase "new appointment"
@@ -43,7 +44,8 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 			LocalDateTime end, String description, IPatient patient)
 			throws SaveException {
 		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, (IPatient) patient);
-		IPersistenceFacade facade = APersistenceFacadeFactory.getPersistenceFacadeFactory().getPersistenceFacade();
+		IPersistenceFacadeFactory pFactory = new PersistenceFacadeFactory();
+		IPersistenceFacade facade = pFactory.getPersistenceFacade();
 		facade.makePersistent(newEvent);
 		if(facade.makePersistent(newEvent)){
 			return;
@@ -67,7 +69,8 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 			LocalDateTime end, String description, String patient)
 			throws SaveException {
 		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, patient);
-		IPersistenceFacade facade = APersistenceFacadeFactory.getPersistenceFacadeFactory().getPersistenceFacade();
+		IPersistenceFacadeFactory pFactory = new PersistenceFacadeFactory();
+		IPersistenceFacade facade = pFactory.getPersistenceFacade();
 		facade.makePersistent(newEvent);
 		if(facade.makePersistent(newEvent)){
 			return;

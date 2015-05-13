@@ -226,7 +226,7 @@ public class TabCalendarController {
 		LocalTime timeEnd = LocalTime.MAX.minusMinutes(TIME_INTERVAL_MINUTES);
 		RowConstraints rowConstraint = new RowConstraints(CONTENT_ROW_HEIGHT);
 		
-		int row = 1;
+		int row = 0;
 		for(LocalTime curTime = timeStart; curTime.isBefore(timeEnd); curTime = curTime.plusMinutes(TIME_INTERVAL_MINUTES)) {
 			LocalTimeLabel timeLabel = new LocalTimeLabel(LocalTime.from(curTime));
 			_gridPaneContent.add(timeLabel, 0, row);
@@ -507,20 +507,36 @@ public class TabCalendarController {
 
 	// TODO: besser machen? wo anders hin tun? zwischenspeichern stattdessen?
 	// siehe http://stackoverflow.com/a/20766735
-//	private static int getRowCount(GridPane pane) {
-//		int numRows = pane.getRowConstraints().size();
-//        for (int i = 0; i < pane.getChildren().size(); i++) {
-//            Node child = pane.getChildren().get(i);
-//            if (child.isManaged()) {
-//                int rowIndex = GridPane.getRowIndex(child);
-//                int rowEnd = GridPane.getRowIndex(child);
-//                numRows = Math.max(numRows, (rowEnd != GridPane.REMAINING? rowEnd : rowIndex) + 1);
-//            }
-//        }
-//        return numRows;
-//	}
+	private static int getRowCount(GridPane pane) {
+		int numRows = pane.getRowConstraints().size();
+        for (int i = 0; i < pane.getChildren().size(); i++) {
+            Node child = pane.getChildren().get(i);
+            if (child.isManaged()) {
+                int rowIndex = GridPane.getRowIndex(child);
+                int rowEnd = GridPane.getRowIndex(child);
+                numRows = Math.max(numRows, (rowEnd != GridPane.REMAINING? rowEnd : rowIndex) + 1);
+            }
+        }
+        return numRows;
+	}
 	
 	private void scrollToCurrentTime() {
+		
+		System.out.println("Anzahl Zeilen: " + getRowCount(_gridPaneContent));
+		System.out.println("Vvalue: " + _scrollPane.getVvalue());
+		System.out.println("Vmin: " + _scrollPane.getVmin());
+		System.out.println("Vmax: " + _scrollPane.getVmax());
+
+		int rowCount = getRowCount(_gridPaneContent);
+		
+		double vertPos = LocalTime.now().getHour();
+		vertPos = ((vertPos / 4) * (rowCount / 100) ) / 100;
+		_scrollPane.setVvalue(0.5);
+		
+		System.out.println("Vvalue: " + _scrollPane.getVvalue());
+		System.out.println("Vmin: " + _scrollPane.getVmin());
+		System.out.println("Vmax: " + _scrollPane.getVmax());
+		
 		// _scrollPane richtig runter scrollen
 		// je nach akt. uhrzeit
 	}

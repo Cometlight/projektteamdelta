@@ -13,7 +13,9 @@ import org.junit.rules.ExpectedException;
 import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.Calendar;
+import at.itb13.oculus.domain.factories.ACalendarFactory;
 import at.itb13.oculus.domain.factories.CalendarFactory;
+import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 
 /**
@@ -28,8 +30,8 @@ public class CalendarController_UnitTests {
 		@Test
 		public void getCalendarEventsInTimespanWithValidDates() throws InvalidInputException {
 			List<? extends CalendarEventRO> calev = null;
-			CalendarFactory cf = CalendarFactory.getInstance();
-			Calendar calendar = cf.createCalendar();
+			
+			ICalendar calendar = ACalendarFactory.getCalendarFactory().createCalendar();
 			CalendarController cc = new CalendarController(calendar);
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 			String strDate2 = "2015-04-01 10:11";

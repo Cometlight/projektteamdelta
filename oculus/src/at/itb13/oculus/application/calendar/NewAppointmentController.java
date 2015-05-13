@@ -44,8 +44,6 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 			LocalDateTime end, String description, IPatient patient)
 			throws SaveException {
 		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, (IPatient) patient);
-//		IPersistenceFacadeFactory pFactory = new PersistenceFacadeFactory();
-//		IPersistenceFacade facade = pFactory.getPersistenceFacade();
 		IPersistenceFacade facade = PersistenceFacadeProvider.getPersistenceFacade();
 		facade.makePersistent(newEvent);
 		if(facade.makePersistent(newEvent)){
@@ -70,8 +68,6 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 			LocalDateTime end, String description, String patient)
 			throws SaveException {
 		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, patient);
-//		IPersistenceFacadeFactory pFactory = new PersistenceFacadeFactory();
-//		IPersistenceFacade facade = pFactory.getPersistenceFacade();
 		IPersistenceFacade facade = PersistenceFacadeProvider.getPersistenceFacade();
 		facade.makePersistent(newEvent);
 		if(facade.makePersistent(newEvent)){

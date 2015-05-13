@@ -3,6 +3,9 @@ package at.itb13.oculus.domain.interfaces;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
+
+import at.itb13.oculus.domain.CalendarEvent;
 
 /**
  * This Interface defines the required methodes of the Calendar class.
@@ -41,5 +44,9 @@ public interface ICalendar {
 	 * @param endDate the end Date of the timespan.
 	 * @return true when one CalendarEvent of the list is a part of the timespan.
 	 */
-	public boolean isOneCalendarEventInTimespan(LocalDateTime startDate, LocalDateTime endDate);
+	public abstract boolean isOneCalendarEventInTimespan(LocalDateTime startDate, LocalDateTime endDate);
+	
+	public abstract Set<ICalendarEvent> getICalendarEvents();
+	
+	public abstract void setCalendarEvents(Set<ICalendarEvent> calendarEvents);
 }

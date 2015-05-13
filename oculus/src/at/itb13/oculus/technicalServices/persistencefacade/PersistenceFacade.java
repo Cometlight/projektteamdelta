@@ -1,10 +1,14 @@
 package at.itb13.oculus.technicalServices.persistencefacade;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
@@ -143,18 +147,13 @@ public class PersistenceFacade implements IPersistenceFacade {
 
 			for (int i = 0; i < subStrings.length; i++) {
 
-				if (i != subStrings.length - 1) {
 					List<Patient> firstNameList = PatientDao.getInstance()
 							.findByFirstName(subStrings[i]);
 					collection.addAll(firstNameList);
 
-				}
-
-				if (i == subStrings.length - 1) {
 					List<Patient> lastNameList = PatientDao.getInstance()
 							.findByLastName(subStrings[i]);
 					collection.addAll(lastNameList);
-				}
 
 				Patient patient = PatientDao.getInstance()
 						.findBySocialInsuranceNr(subStrings[i]);
@@ -164,6 +163,39 @@ public class PersistenceFacade implements IPersistenceFacade {
 				}
 			}
 
+			// add elements to al, including duplicates
+			
+			//Converting to remove possible duplicates 
+//			Set<IPatient> hashSet = new HashSet<>();
+//			hashSet.addAll(collection);
+//			collection.clear();
+//			collection.addAll(hashSet);
+			
+			
+			//Remove duplicates
+			//Checks if duplicate by comparing social insurance number, if existent
+			
+			for (Iterator<IPatient> iterator = collection.iterator(); iterator.hasNext();) {
+		        IPatient patient = (IPatient) iterator.next();
+		        
+		        for(Iterator<IPatient> iterator2 = collection.iterator(); iterator.hasNext();){
+		        	IPatient patient2 = (IPatient) iterator.next();
+		        	
+		        	if(patient.getPatientId() != null && patient2.getPatientId() != null){
+		        		if(patient.getPatientId().equals(patient2.getPatientId())){
+			        		collection.remove(patient2);
+			        	}	
+		        	}
+		        	
+//		        	if(patient.getSocialInsuranceNr() != null && patient2.getSocialInsuranceNr() != null){
+//		        		if(patient.getSocialInsuranceNr().equals(patient2.getSocialInsuranceNr())){
+//			        		collection.remove(patient2);
+//			        	}	
+//		        	}
+		        }
+
+		    }
+			
 			// (T) PatientDao.getInstance().;
 			// wenn nichts gefunden, bleibt col eben leer
 			return (Collection<T>) collection;

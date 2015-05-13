@@ -354,13 +354,15 @@ public class TabCalendarController {
 					CalendarEventFillerNode fillerNode = new CalendarEventFillerNode(calCheckBox.getCalendar());
 					gP.add(fillerNode, fillerNodeColumnNumber++, 0);
 					GridPane.setHgrow(fillerNode, Priority.ALWAYS);
-//					fillerNode.setMinSize(20, 20);	// TODO: only for debugging -> delete
-//					fillerNode.setMaxSize(1000, 1000);
 					gP.getColumnConstraints().add(columnConstraint);
 				}
 			}
-			_gridPaneContent.add(gP, columnIndex, rowIndex, colSpan, rowSpan);	// FIXME: colSpan/rowSpan should be changeable
-			gP.setStyle("-fx-background-color: red");
+			_gridPaneContent.add(gP, columnIndex, rowIndex, colSpan, rowSpan);
+		}
+		
+		if(getRowCount(gP) < rowSpan) {
+			_gridPaneContent.getChildren().remove(gP);
+			_gridPaneContent.add(gP, columnIndex, rowIndex, colSpan, rowSpan);
 		}
 		
 		// Replace the CalendarEventFillerNode which represents the same calendar as calendarEvent's calendar by calEvPane.
@@ -378,7 +380,9 @@ public class TabCalendarController {
 		}
 		
 		// Set color of appointment according to its calendar
-		calEvPane.setStyle("-fx-background-color: " + ColorGenerator.colorToString(_calendarColorMap.get(calendarEvent.getCalendar().getCalendarId())));
+		calEvPane.setStyle("-fx-background-color: " + ColorGenerator.colorToString(_calendarColorMap.get(calendarEvent.getCalendar().getCalendarId())) + "; "
+				+ "-fx-border-color: black; "
+				+ "-fx-border-width: 1;");
 		
 		System.out.println(rowIndex + ", " + columnIndex + " | " + rowSpan + ", " + colSpan);	// TODO: zur Größe des CalendarEvent.fxml's: http://stackoverflow.com/questions/16242398/why-wont-the-children-in-my-javafx-hbox-grow-scenebuilder u.a.
 		
@@ -455,6 +459,7 @@ public class TabCalendarController {
 	private void todayButtonControl(){
 		_datePicker.setValue(LocalDate.now());
 		onDatePickerDateSelected();
+		scrollToCurrentTime();
 	}
 	
 	private Integer getWeekNumber(LocalDate date) {
@@ -538,6 +543,10 @@ public class TabCalendarController {
 	private void markCurrentTime() {
 		// im _gridPaneContent eine rote linie ziehen oder alternativ vllt. die erste spalte die richtige zelle einfärben
 		// je nach akt. uhrzeit
+		
+//		_gridPaneContent.getChildren().get(20).setStyle("-fx-background-color: red");
+//		_gridPaneContent.getChildren().get(21).setStyle("-fx-background-color: red");
+		System.out.println("Anzahl kinder: " + _gridPaneContent.getChildren().size());
 	}
 	
 	@FXML
@@ -549,6 +558,7 @@ public class TabCalendarController {
 	//	loadCalendarEvents(, _state.getNumberOfDays());
 		displayAllCalendarEvents();
 		_state.changeHeader(_datePicker.getValue());
+		scrollToCurrentTime();
 	}
 	
 	@FXML
@@ -559,5 +569,6 @@ public class TabCalendarController {
 		initMainArea();
 		displayAllCalendarEvents();
 		_state.changeHeader(_datePicker.getValue());		//TODO: MONDAY
+		scrollToCurrentTime();
 	}
 }

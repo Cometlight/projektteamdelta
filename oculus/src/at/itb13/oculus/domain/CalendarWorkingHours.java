@@ -3,6 +3,7 @@ package at.itb13.oculus.domain;
 import java.time.DayOfWeek;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -82,7 +83,7 @@ public class CalendarWorkingHours implements java.io.Serializable {
 		_workingHours = workinghours;
 	}
 
-	@Enumerated (EnumType.STRING)
+	@Convert(converter = WeekDayToDayOfWeekConverter.class)
 	@Column(name = "weekDayKey", nullable = false)
 	public DayOfWeek getWeekDayKey() {
 		return _weekDayKey;

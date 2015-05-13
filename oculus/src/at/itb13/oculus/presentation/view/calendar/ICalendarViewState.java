@@ -17,4 +17,6 @@ public interface ICalendarViewState {
 	void changeHeader(LocalDate date);
 	LocalDate onDatePickerSelected(LocalDate date);
 	LocalDate getStartDate(LocalDate date);
+	LocalDate nextButtonControl(LocalDate date);
+	LocalDate previosButtonControl(LocalDate date);
 }

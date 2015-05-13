@@ -26,18 +26,18 @@
                     <items>
                       <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0">
                            <children>
-                              <Label layoutX="636.0" layoutY="5.0" text="Week" AnchorPane.rightAnchor="374.0" />
+                              <Label layoutX="286.0" layoutY="33.0" text="Week" AnchorPane.rightAnchor="724.0" />
                               <DatePicker fx:id="_datePicker" layoutX="815.0" layoutY="28.0" onAction="#onDatePickerDateSelected" showWeekNumbers="true" AnchorPane.rightAnchor="50.0" />
-                              <Button layoutX="560.0" layoutY="28.0" mnemonicParsing="false" onAction="#onButtonPreviousWeekClick" prefHeight="25.0" prefWidth="73.0" text="&lt;" AnchorPane.rightAnchor="407.0" />
-                              <Button layoutX="676.0" layoutY="28.0" mnemonicParsing="false" onAction="#onButtonNextWeekClick" prefHeight="25.0" prefWidth="73.0" text="&gt;" AnchorPane.rightAnchor="291.0" />
-                              <TextField fx:id="_weekNumberTextField" layoutX="639.0" layoutY="28.0" onAction="#onTextFieldWeekNumberAction" prefHeight="25.0" prefWidth="30.0" AnchorPane.rightAnchor="371.0" />
+                              <Button layoutX="484.0" layoutY="29.0" mnemonicParsing="false" onAction="#onButtonPrevious" prefHeight="25.0" prefWidth="73.0" text="&lt;" AnchorPane.rightAnchor="483.0" />
+                              <Button layoutX="563.0" layoutY="29.0" mnemonicParsing="false" onAction="#onButtonNext" prefHeight="25.0" prefWidth="73.0" text="&gt;" AnchorPane.rightAnchor="404.0" />
+                              <TextField fx:id="_weekNumberTextField" layoutX="329.0" layoutY="28.0" onAction="#onTextFieldWeekNumberAction" prefHeight="25.0" prefWidth="30.0" AnchorPane.rightAnchor="681.0" />
                               <ButtonBar layoutX="14.0" layoutY="21.0" prefHeight="40.0" prefWidth="200.0">
                                 <buttons>
                                   <Button fx:id="_dayViewButton" mnemonicParsing="false" onAction="#DayViewButtonControl" text="Day View" />
                                     <Button fx:id="_weekViewButton" disable="true" mnemonicParsing="false" onAction="#WeekViewButtonControl" text="Week View" />
                                 </buttons>
                               </ButtonBar>
-                              <Button layoutX="480.0" layoutY="29.0" mnemonicParsing="false" onAction="#todayButtonControl" text="Today" />
+                              <Button layoutX="757.0" layoutY="29.0" mnemonicParsing="false" onAction="#todayButtonControl" text="Today" />
                            </children>
                         </AnchorPane>
                         <VBox fx:id="_mainAreaVBox" prefHeight="200.0" prefWidth="100.0" />

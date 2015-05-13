@@ -10,9 +10,8 @@ import org.junit.Test;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.interfaces.IPatient;
 import at.itb13.oculus.technicalServices.exceptions.PersistenceFacadeException;
-import at.itb13.oculus.technicalServices.persistencefacade.APersistenceFacadeFactory;
 import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacade;
-import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeFactory;
+import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProvider;
 
 /**
  * JunitTests for PerstistenceFacade
@@ -24,9 +23,10 @@ public class PersistenceFacade_UnitTests {
 
 	@Test
 	public void searchFor() throws PersistenceFacadeException {
-//		Collection<IPatient> patientList = PersistenceFacade.getInstance().searchFor(IPatient.class, "Donald");
-		new PersistenceFacadeFactory();
-		Collection<IPatient> patientList = APersistenceFacadeFactory.getPersistenceFacadeFactory().getPersistenceFacade().searchFor(IPatient.class,  "Donald");
+		PersistenceFacadeProvider.setPersistenceFacade(new PersistenceFacade());
+		Collection<IPatient> patientList = PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class, "Donald");
+//		new PersistenceFacadeFactory();
+//		Collection<IPatient> patientList = APersistenceFacadeFactory.getPersistenceFacadeFactory().getPersistenceFacade().searchFor(IPatient.class,  "Donald");
 		
 //		for(IPatient p : patientList){
 //			System.out.println(p.getFirstName());
@@ -38,14 +38,14 @@ public class PersistenceFacade_UnitTests {
 //		Collection<IPatient> patientList2 = PersistenceFacade.getInstance().searchFor(IPatient.class, "Donald Duck");
 		
 		//Zweiter Test
-		Collection<IPatient> patientList2 = APersistenceFacadeFactory.getPersistenceFacadeFactory().getPersistenceFacade().searchFor(IPatient.class,  "Donald Duck");
+		Collection<IPatient> patientList2 = PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class,  "Donald Duck");
 		assertEquals(1, patientList2.size());
 		
 		
-		Collection<IPatient> patientList3 = APersistenceFacadeFactory.getPersistenceFacadeFactory().getPersistenceFacade().searchFor(IPatient.class,  "Lara Mey");
+		Collection<IPatient> patientList3 = PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class,  "Lara Mey");
 		assertEquals(1, patientList3.size());
 		
-		Collection<IPatient> patientList4 = APersistenceFacadeFactory.getPersistenceFacadeFactory().getPersistenceFacade().searchFor(IPatient.class,  "John");
+		Collection<IPatient> patientList4 = PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class,  "John");
 		assertEquals(2, patientList4.size());
 		
 //		((Patient)p).setFirstName("Ronald");
@@ -57,15 +57,16 @@ public class PersistenceFacade_UnitTests {
 	
 	
 	
-//	@Test
-//	public void getByID() {
-//		IPatient p = PersistenceFacade.getInstance().getById(1, IPatient.class);
-//		((Patient)p).setFirstName("Ronald");
-//		PersistenceFacade.getInstance().makePersistent(p);
-//		IPatient p2 = PersistenceFacade.getInstance().getById(1, IPatient.class);
+	@Test
+	public void getByID() {
+	PersistenceFacadeProvider.setPersistenceFacade(new PersistenceFacade());
+		IPatient p = PersistenceFacadeProvider.getPersistenceFacade().getById(1, IPatient.class);
+		((Patient)p).setFirstName("Ronald");
+		PersistenceFacadeProvider.getPersistenceFacade().makePersistent(p);
+		IPatient p2 = PersistenceFacadeProvider.getPersistenceFacade().getById(1, IPatient.class);
 ////		System.out.println(p2.getFirstName());
-//		assertEquals(p2.getFirstName(), "Ronald");
-//	}
+		assertEquals(p2.getFirstName(), "Ronald");
+	}
 //	
 //	@Test
 //	public void makePersistent() {

@@ -3,21 +3,23 @@ package at.itb13.oculus.application.calendar;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.exceptions.SaveException;
 import at.itb13.oculus.application.interfaces.INewAppointmentController;
 import at.itb13.oculus.application.interfaces.IPatientSearch;
+import at.itb13.oculus.domain.factories.CalendarEventFactory;
 import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.interfaces.ICalendarEvent;
 import at.itb13.oculus.domain.interfaces.ICalendarEventFactory;
 import at.itb13.oculus.domain.interfaces.IEventType;
 import at.itb13.oculus.domain.interfaces.IPatient;
 import at.itb13.oculus.domain.interfaces.IWorkingHours;
-import at.itb13.oculus.technicalServices.dao.PatientDao;
-import at.itb13.oculus.technicalServices.persistencefacade.APersistenceFacadeFactory;
+import at.itb13.oculus.technicalServices.exceptions.PersistenceFacadeException;
 import at.itb13.oculus.technicalServices.persistencefacade.IPersistenceFacade;
+import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProvider;
 
 /**
  * TODO: provides methodes for the usecase "new appointment"
@@ -27,7 +29,8 @@ import at.itb13.oculus.technicalServices.persistencefacade.IPersistenceFacade;
  */
 public class NewAppointmentController implements INewAppointmentController, IPatientSearch{
 	
-	private ICalendarEventFactory _factory;
+	private ICalendarEventFactory _factory = new CalendarEventFactory();
+	
 	/**
 	 * Creates a new appointment in a chosen timespan for the wanted calendar and patient.
 	 * 
@@ -43,7 +46,7 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 			LocalDateTime end, String description, IPatient patient)
 			throws SaveException {
 		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, (IPatient) patient);
-		IPersistenceFacade facade = APersistenceFacadeFactory.getPersistenceFacadeFactory().getPersistenceFacade();
+		IPersistenceFacade facade = PersistenceFacadeProvider.getPersistenceFacade();
 		facade.makePersistent(newEvent);
 		if(facade.makePersistent(newEvent)){
 			return;
@@ -67,7 +70,10 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 			LocalDateTime end, String description, String patient)
 			throws SaveException {
 		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, patient);
-		IPersistenceFacade facade = APersistenceFacadeFactory.getPersistenceFacadeFactory().getPersistenceFacade();
+		Set<ICalendarEvent> set = calendar.getICalendarEvents();
+		set.add(newEvent);
+		calendar.setCalendarEvents(set);
+		IPersistenceFacade facade = PersistenceFacadeProvider.getPersistenceFacade();
 		facade.makePersistent(newEvent);
 		if(facade.makePersistent(newEvent)){
 			return;
@@ -122,6 +128,7 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 	 * @param searchValue The patient's social insurance number or name.
 	 * @return List<Patient> The patients with the supplied social insurance number or name. May be null, if no patient has been found.
 	 * @throws InvalidInputException thrown if the provided socialInsuranceNr or name is not in an appropriate format.
+	 * @throws PersistenceFacadeException 
 	 */
 	@SuppressWarnings("unchecked")
 	public List<IPatient> searchPatient(String searchValue) throws InvalidInputException {
@@ -129,14 +136,31 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 		if(!searchValue.isEmpty()){
 			if(IPatient.isSocialInsuranceNrValid(searchValue)){
 				IPatient patient = null;
-				patient = PatientDao.getInstance().findBySocialInsuranceNr(searchValue);				//TODO: change patientDao --> Persistence Fasade
+				try {
+					patient = (IPatient) PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class, searchValue);
+				} catch (PersistenceFacadeException e) {
+					// TODO Auto-generated catch block
+					//TODO Logger
+					e.printStackTrace();
+					
+				}
 				if(patient != null){
 					patients.add(patient);
 				}
 			} else {		
-				patients = (List<IPatient>)(Object) PatientDao.getInstance().findByFirstName(searchValue);
+				try {
+					patients = (List<IPatient>) PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class, searchValue);
+				} catch (PersistenceFacadeException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				if(patients.size() == 0){
-					patients = (List<IPatient>)(Object) PatientDao.getInstance().findByLastName(searchValue);
+					try {
+						patients = (List<IPatient>)PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class, searchValue);
+					} catch (PersistenceFacadeException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		} else {
@@ -155,14 +179,19 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 	 */
 	public boolean isInWorkingHours(ICalendar calendar, LocalDateTime start, LocalDateTime end){		
 		IWorkingHours wh = calendar.getWorkingHoursOfWeekDay(start.getDayOfWeek());
-		if((start.getHour() >= wh.getMorningFrom().getHour()) && (start.getMinute() >= wh.getMorningFrom().getMinute()) &&
-		   (start.getHour() <= wh.getMorningTo().getHour()) && (start.getMinute() <= wh.getMorningTo().getMinute()) ||
-		   (end.getHour() >= wh.getMorningFrom().getHour()) && (end.getMinute() >= wh.getMorningFrom().getMinute()) &&
-		   (end.getHour() <= wh.getMorningTo().getHour()) && (end.getMinute() <= wh.getMorningTo().getMinute())){
-			return true;
-		} else {
-			return false;
-		}		
+		if(wh.getMorningFrom() != null && wh.getMorningTo() != null){
+			if((start.getHour() >= wh.getMorningFrom().getHour()) && (start.getMinute() >= wh.getMorningFrom().getMinute()) &&
+			   (end.getHour() <= wh.getMorningTo().getHour()) && (end.getMinute() <= wh.getMorningTo().getMinute())){
+				return true;
+			}
+		}
+		if(wh.getAfternoonFrom() != null && wh.getAfternoonTo() != null){
+			if((start.getHour() >= wh.getAfternoonFrom().getHour()) && (end.getMinute() >= wh.getAfternoonFrom().getMinute()) &&
+			   (end.getHour() <= wh.getAfternoonTo().getHour()) && (end.getMinute() <= wh.getAfternoonTo().getMinute())){
+				return true;
+			}
+		}
+		return false;		
 	}
 	
 	/**

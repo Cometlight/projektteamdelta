@@ -138,6 +138,8 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 		for(CalendarWorkingHours wh: _calendarWorkingHours) {
 			if(wh.getWeekDayKey() == weekDay){
 				workingHours = wh.getWorkinghours();
+				System.out.println(weekDay);
+				System.out.println(wh.getWeekDayKey());
 			}
 		}
 		return workingHours;
@@ -186,9 +188,22 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 	public Set<CalendarEvent> getCalendarEvents() {
 		return _calendarEvents;
 	}
+	
+	@Transient
+	public Set<ICalendarEvent> getICalendarEvents() {
+		Set<ICalendarEvent> newEvents = new HashSet<>();
+		for(CalendarEvent event : _calendarEvents){
+			newEvents.add((ICalendarEvent) event);
+		}
+		return newEvents;
+	}
 
-	public void setCalendarEvents(Set<CalendarEvent> calendarEvents) {
-		_calendarEvents = calendarEvents;
+	public void setCalendarEvents(Set<ICalendarEvent> calendarEvents) {
+		Set<CalendarEvent> newEvents = new HashSet<>();
+		for(ICalendarEvent event : calendarEvents){
+			newEvents.add((CalendarEvent) event);
+		}
+		_calendarEvents = newEvents;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "calendar")

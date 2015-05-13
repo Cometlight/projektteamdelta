@@ -7,6 +7,7 @@ import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.interfaces.ICalendarEvent;
+import at.itb13.oculus.domain.interfaces.ICalendarEventFactory;
 import at.itb13.oculus.domain.interfaces.IEventType;
 import at.itb13.oculus.domain.interfaces.IPatient;
 
@@ -16,11 +17,7 @@ import at.itb13.oculus.domain.interfaces.IPatient;
  * @author Florin Metzler
  * @since 04.05.2015
  */
-public class CalendarEventFactory extends ACalendarEventFactory{
-	
-	private CalendarEventFactory(){
-		_factory = this;
-	}
+public class CalendarEventFactory implements ICalendarEventFactory{
 	
 	/**
 	 * to create an object of the private CalendarEvent Constructor

@@ -56,7 +56,6 @@ public class CalendarWeekView implements ICalendarViewState{
 			
 			_gridPaneHeader.getChildren().remove(_gridHeaderDateLabel[i]);
 			_gridHeaderDateLabel[i] = new LocalDateLabel(startDate, startDate.getDayOfWeek().name() + " " + startDate);
-//			_gridHeaderDateLabel[i] = new Text(startDate.getDayOfWeek().name() + " "+ startDate);
 			startDate = startDate.plusDays(1);
 			_gridPaneHeader.add(_gridHeaderDateLabel[i], i+1, 0);
 		}

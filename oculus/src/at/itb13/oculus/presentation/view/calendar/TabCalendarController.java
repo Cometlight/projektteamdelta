@@ -38,6 +38,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -465,6 +466,7 @@ public class TabCalendarController {
 		loadCalendarEvents(_state.getStartDate(date), _state.getNumberOfDays());
 		displayAllCalendarEvents();
 	}
+	
 	@FXML
 	private void todayButtonControl(){
 		_datePicker.setValue(LocalDate.now());

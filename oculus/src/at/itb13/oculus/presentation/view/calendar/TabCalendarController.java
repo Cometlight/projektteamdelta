@@ -36,6 +36,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -92,6 +94,7 @@ public class TabCalendarController {
 	private Button _dayViewButton;
 	@FXML
 	private Button _weekViewButton;
+	
 
 	private GridPane _gridPaneHeader;
 	private ScrollPane _scrollPane;
@@ -479,13 +482,13 @@ public class TabCalendarController {
 	}
 	
 	@FXML
-	private void onButtonNextWeekClick() {
-		_datePicker.setValue(_datePicker.getValue().plusWeeks(1));
+	private void onButtonNext() {
+		_datePicker.setValue(_state.nextButtonControl(_datePicker.getValue()));
 	}
 	
 	@FXML
-	private void onButtonPreviousWeekClick() {
-		_datePicker.setValue(_datePicker.getValue().minusWeeks(1));
+	private void onButtonPrevious() {
+		_datePicker.setValue(_state.previosButtonControl(_datePicker.getValue()));
 	}
 	
 	@FXML

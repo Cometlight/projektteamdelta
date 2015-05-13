@@ -117,6 +117,7 @@ public class TabCalendarController {
 		initCheckBoxes();	// Needs to be initialized first of all
 		initDatePicker();
 		_weekNumberTextField.setText(getWeekNumber(_datePicker.getValue()).toString());
+		
 		initMainArea();
 		
 		loadCalendarEvents(LocalDate.now().minusWeeks(1), _state.getNumberOfDays());
@@ -179,6 +180,7 @@ public class TabCalendarController {
 		_datePicker.setValue(LocalDate.now());	// Show today's appointments by default
 	}
 	
+	
 	private void initMainArea() {
 		_gridPaneHeader = new GridPane();
 		_gridPaneContent = new GridPane();
@@ -189,6 +191,7 @@ public class TabCalendarController {
 		VBox.setMargin(_gridPaneHeader, new Insets(0d, HEADER_MARGIN_RIGHT, 0d, 0d));
 		
 		_state.initGridPaneHeader(_gridPaneHeader);
+		_state.changeHeader(_datePicker.getValue());
 		initScrollPane();
 		initGridPaneContent();
 		resizeGridPanes();
@@ -445,7 +448,7 @@ public class TabCalendarController {
 		date = _state.onDatePickerSelected(date);
 		_state.changeHeader(date);
 		
-		loadCalendarEvents(date, _state.getNumberOfDays());
+		loadCalendarEvents(_state.getStartDate(date), _state.getNumberOfDays());
 		displayAllCalendarEvents();
 	}
 	@FXML
@@ -543,6 +546,7 @@ public class TabCalendarController {
 		_dayViewButton.setDisable(true);
 		_weekViewButton.setDisable(false);
 		initMainArea();
+	//	loadCalendarEvents(, _state.getNumberOfDays());
 		displayAllCalendarEvents();
 		_state.changeHeader(_datePicker.getValue());
 	}
@@ -554,5 +558,6 @@ public class TabCalendarController {
 		_weekViewButton.setDisable(true);
 		initMainArea();
 		displayAllCalendarEvents();
+		_state.changeHeader(_datePicker.getValue());		//TODO: MONDAY
 	}
 }

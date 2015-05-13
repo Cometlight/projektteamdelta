@@ -1,6 +1,7 @@
 package at.itb13.oculus.application.calendar;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -177,19 +178,29 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 	 * @param end end date of the CalendarEvent
 	 * @return true if the CalendarEvent is in the WorkinHours.
 	 */
-	public boolean isInWorkingHours(ICalendar calendar, LocalDateTime start, LocalDateTime end){		
-		IWorkingHours wh = calendar.getWorkingHoursOfWeekDay(start.getDayOfWeek());
+	public boolean isInWorkingHours(ICalendar calendar, LocalDateTime startDate, LocalDateTime endDate){		
+		IWorkingHours wh = calendar.getWorkingHoursOfWeekDay(startDate.getDayOfWeek());
+		LocalTime start = startDate.toLocalTime();
+		LocalTime end = endDate.toLocalTime();
+		
+		System.out.println("InMorning");
+		System.out.println("1:" + start.getHour());
+		System.out.println(end.getHour());
+		System.out.println("2:" +wh.getMorningFrom().getHour());
+		System.out.println(wh.getMorningTo().getHour());
+		System.out.println("3:" +wh.getAfternoonFrom().getHour());
+		System.out.println(wh.getAfternoonTo().getHour());
 		if(wh.getMorningFrom() != null && wh.getMorningTo() != null){
-			if((start.getHour() >= wh.getMorningFrom().getHour()) && (start.getMinute() >= wh.getMorningFrom().getMinute()) &&
-			   (end.getHour() <= wh.getMorningTo().getHour()) && (end.getMinute() <= wh.getMorningTo().getMinute())){
+			if((start.isAfter(wh.getMorningFrom()) || start.equals(wh.getMorningFrom()))
+				&& (end.isBefore(wh.getMorningTo()) || end.equals(wh.getMorningTo()))){
 				return true;
-			}
+			} 	
 		}
 		if(wh.getAfternoonFrom() != null && wh.getAfternoonTo() != null){
-			if((start.getHour() >= wh.getAfternoonFrom().getHour()) && (end.getMinute() >= wh.getAfternoonFrom().getMinute()) &&
-			   (end.getHour() <= wh.getAfternoonTo().getHour()) && (end.getMinute() <= wh.getAfternoonTo().getMinute())){
+			if((start.isAfter(wh.getAfternoonFrom()) || start.equals(wh.getAfternoonFrom()))
+				&& (end.isBefore(wh.getAfternoonTo()) || end.equals(wh.getAfternoonTo()))){
 				return true;
-			}
+			} 	
 		}
 		return false;		
 	}

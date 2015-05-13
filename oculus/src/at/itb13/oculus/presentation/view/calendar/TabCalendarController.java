@@ -210,8 +210,18 @@ public class TabCalendarController {
 		
 		System.out.println(event.getX() + " - " + event.getY());	// TODO: delete
 		
+		int rowIndex = (int) (event.getY() / CONTENT_ROW_HEIGHT);
+		System.out.println(rowIndex);
+		LocalTimeLabel localTimeLabel = (LocalTimeLabel) getNodeByRowColumnIndex(rowIndex, 0, _gridPaneContent);
+		time = localTimeLabel.getLocalTime();
+
+		double colWidthTime = _gridPaneContent.getWidth() * TIME_COLUMN_WIDTH / 100d;
+		double colWidthDays = (_gridPaneContent.getWidth() - colWidthTime) / _state.getNumberOfDays();
+		int colIndex = (int) ((event.getX() - colWidthTime) / colWidthDays);	// TODO: tut so, als ob 1. und 2. spalte das gleiche wäre
+		LocalDateLabel localDateLabel = (LocalDateLabel) getNodeByColumnIndex(colIndex, _gridPaneHeader);
+		date = localDateLabel.getLocalDate();
 		
-//		_gridPaneContent.getCol
+		System.out.println("Time: " + time + ", Date: " + date);
 	}
 
 	private void initScrollPane() {
@@ -238,28 +248,6 @@ public class TabCalendarController {
 			_gridPaneContent.getRowConstraints().add(rowConstraint);
 			++row;
 		}
-		
-		
-		
-
-		// Insert 1 GridPane into every cell. Each GridPane has so many Columns as CheckBoxes are ticked.
-//		int rowCount = getRowCount(_gridPaneContent);
-//		int calendarsToDisplay = getNumberOfSelectedCheckBoxes();
-//		ColumnConstraints columnConstraints = new ColumnConstraints();
-//		columnConstraints.setHgrow(Priority.ALWAYS);
-//		for(int r = 0; r < rowCount; ++r) {
-//			for(int c = 1; c < GRIDPANE_NUMBER_OF_COLUMNS; ++c) {	// "1" because we can ignore the first column
-//				GridPane gridPane = new GridPane();
-//				for(int i = 0; i < calendarsToDisplay; ++i) {
-//					gridPane.add(new Text("-"), i, 0);
-//					gridPane.getColumnConstraints().add(columnConstraints);
-//					gridPane.setGridLinesVisible(true);	// TODO: "for debug purposes only" --> Durch CSS ersetzen
-//				}
-//				GridPane.setRowIndex(gridPane, r);
-//				GridPane.setColumnIndex(gridPane, c);
-//				_gridPaneContent.add(gridPane, c, r);
-//			}
-//		}
 	}
 	
 	private void clearCalEventsFromGridPaneContent() {
@@ -342,7 +330,7 @@ public class TabCalendarController {
 		calEvPane.setPrefHeight(height);
 		calEvPane.setMaxHeight(height);
 		
-		GridPane gP = getGridPaneByRowColumnIndex(rowIndex, columnIndex, _gridPaneContent);
+		GridPane gP = (GridPane) getNodeByRowColumnIndex(rowIndex, columnIndex, _gridPaneContent);
 		if(gP == null) {
 			// Add a new GridPane filled with CalendarEventFillerNodes, which will be replaced by actual CalendarEvents
 			gP = new GridPane();
@@ -389,16 +377,28 @@ public class TabCalendarController {
 		calEvCol.setCalEvent(calendarEvent);
 	}
 
-	public GridPane getGridPaneByRowColumnIndex(final int row, final int column, GridPane parentGridPane) {
-        GridPane result = null;
+	public Node getNodeByRowColumnIndex(final int row, final int column, GridPane parentGridPane) {
+        Node result = null;
         ObservableList<Node> childrens = parentGridPane.getChildren();
         for(Node node : childrens) {
-            if( node instanceof GridPane 
-            		&& GridPane.getRowIndex(node) != null 
+            if( GridPane.getRowIndex(node) != null 
             		&& GridPane.getRowIndex(node) == row 
             		&& GridPane.getColumnIndex(node) != null 
             		&& GridPane.getColumnIndex(node) == column) {
-                result = (GridPane)node;
+                result = node;
+                break;
+            }
+        }
+        return result;
+    }
+	
+	public Node getNodeByColumnIndex(final int column, GridPane parentGridPane) {
+        Node result = null;
+        ObservableList<Node> childrens = parentGridPane.getChildren();
+        for(Node node : childrens) {
+            if(GridPane.getColumnIndex(node) != null 
+            		&& GridPane.getColumnIndex(node) == column) {
+                result = node;
                 break;
             }
         }

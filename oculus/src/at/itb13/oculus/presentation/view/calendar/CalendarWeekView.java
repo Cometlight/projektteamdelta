@@ -2,7 +2,6 @@ package at.itb13.oculus.presentation.view.calendar;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.List;
 
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -17,7 +16,7 @@ public class CalendarWeekView implements ICalendarViewState{
 	
 	private static final int NUMBER_OF_DAYS = 7;
 	private GridPane _gridPaneHeader;
-	private Text[] _gridHeaderTexts;
+	private LocalDateLabel[] _gridHeaderDateLabel;
 
 	/*
 	 * @see at.itb13.oculus.presentation.view.calendar.ICalendarViewState#initGridPaneHeader()
@@ -26,22 +25,14 @@ public class CalendarWeekView implements ICalendarViewState{
 	public void initGridPaneHeader(GridPane header) {
 		_gridPaneHeader = header;
 		_gridPaneHeader.setGridLinesVisible(true); 	// TODO: "for debug purposes only" --> Durch CSS ersetzen
-		_gridHeaderTexts = new Text[NUMBER_OF_DAYS];
-		for(int i = 0; i < _gridHeaderTexts.length; i++){
-			_gridHeaderTexts[i] = new Text("");
+		_gridHeaderDateLabel = new LocalDateLabel[NUMBER_OF_DAYS];
+		for(int i = 0; i < _gridHeaderDateLabel.length; i++){
+			_gridHeaderDateLabel[i] = new LocalDateLabel();
 		}
 		_gridPaneHeader.add(new Text("Time"), 0, 0);
-		for(int i = 0; i < _gridHeaderTexts.length; i++){
-			_gridPaneHeader.add(_gridHeaderTexts[i], i+1, 0);
+		for(int i = 0; i < _gridHeaderDateLabel.length; i++){
+			_gridPaneHeader.add(_gridHeaderDateLabel[i], i+1, 0);
 		}
-		
-//		header.add(new Text(DayOfWeek.TUESDAY.name()), 2, 0);
-//		header.add(new Text(DayOfWeek.WEDNESDAY.name()), 3, 0);
-//		header.add(new Text(DayOfWeek.THURSDAY.name()), 4, 0);
-//		header.add(new Text(DayOfWeek.FRIDAY.name()), 5, 0);
-//		header.add(new Text(DayOfWeek.SATURDAY.name()), 6, 0);
-//		header.add(new Text(DayOfWeek.SUNDAY.name()), 7, 0);
-		
 	}
 
 
@@ -61,12 +52,13 @@ public class CalendarWeekView implements ICalendarViewState{
 	public void changeHeader(LocalDate date) {
 		LocalDate startDate = getStartDate(date);
 		
-		for(int i = 0; i < _gridHeaderTexts.length; i++){
+		for(int i = 0; i < _gridHeaderDateLabel.length; i++){
 			
-			_gridPaneHeader.getChildren().remove(_gridHeaderTexts[i]);
-			_gridHeaderTexts[i] = new Text(startDate.getDayOfWeek().name() + " "+ startDate);
+			_gridPaneHeader.getChildren().remove(_gridHeaderDateLabel[i]);
+			_gridHeaderDateLabel[i] = new LocalDateLabel(startDate, startDate.getDayOfWeek().name() + " " + startDate);
+//			_gridHeaderDateLabel[i] = new Text(startDate.getDayOfWeek().name() + " "+ startDate);
 			startDate = startDate.plusDays(1);
-			_gridPaneHeader.add(_gridHeaderTexts[i], i+1, 0);
+			_gridPaneHeader.add(_gridHeaderDateLabel[i], i+1, 0);
 		}
 		
 	}

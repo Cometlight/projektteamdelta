@@ -38,6 +38,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -94,6 +95,7 @@ public class TabCalendarController {
 	private Button _dayViewButton;
 	@FXML
 	private Button _weekViewButton;
+	
 	
 
 	private GridPane _gridPaneHeader;
@@ -156,6 +158,7 @@ public class TabCalendarController {
 		}
 		_calendarCheckBoxesVBox.getChildren().setAll(_calendarCheckBoxes);
 	}
+	
 	
 	private void initDatePicker() {
 		_datePicker.setConverter(new StringConverter<LocalDate>() {

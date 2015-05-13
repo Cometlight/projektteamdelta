@@ -416,6 +416,7 @@ public class NewAppointmentController {
 					 }else if (_patientName.length() > 0){
 						 ControllerFacade.getInstance().getNewAppointmentController().newCalendarEvent(_calendar, _typeBox.getSelectionModel().getSelectedItem(), _startDate, _endDate, _resonText.getText(), _patientName);
 					 }
+					 _dialogStage.close();
 				} catch (SaveException e) {
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("Save Error");

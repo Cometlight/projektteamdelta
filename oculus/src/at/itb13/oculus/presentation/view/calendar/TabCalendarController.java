@@ -524,24 +524,12 @@ public class TabCalendarController {
 	}
 	
 	private void scrollToCurrentTime() {
-		
-		System.out.println("Anzahl Zeilen: " + getRowCount(_gridPaneContent));
-		System.out.println("Vvalue: " + _scrollPane.getVvalue());
-		System.out.println("Vmin: " + _scrollPane.getVmin());
-		System.out.println("Vmax: " + _scrollPane.getVmax());
-
 		int rowCount = getRowCount(_gridPaneContent);
+		rowCount = 100 / rowCount; // 100/96 => about 1.05
 		
-		double vertPos = LocalTime.now().getHour();
-		vertPos = ((vertPos / 4) * (rowCount / 100) ) / 100;
-		_scrollPane.setVvalue(0.5);
-		
-		System.out.println("Vvalue: " + _scrollPane.getVvalue());
-		System.out.println("Vmin: " + _scrollPane.getVmin());
-		System.out.println("Vmax: " + _scrollPane.getVmax());
-		
-		// _scrollPane richtig runter scrollen
-		// je nach akt. uhrzeit
+		double hourValue = LocalTime.now().getHour(); //if for example 5AM => hourValue = 5
+		double vertPos= ((hourValue * 4 * 1.5) * rowCount ) / 100; // multiplier 4 because hours are divided by four. 
+		_scrollPane.setVvalue(vertPos); //sets the value in percent! 
 	}
 	
 	private void markCurrentTime() {

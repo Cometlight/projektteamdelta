@@ -25,6 +25,7 @@ import javax.persistence.Transient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.domain.interfaces.IPatient;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.technicalServices.util.LocalDatePersistenceConverter;
 
@@ -37,7 +38,7 @@ import at.itb13.oculus.technicalServices.util.LocalDatePersistenceConverter;
  */
 @Entity
 @Table(name = "patient", catalog = "oculus_d")
-public class Patient implements java.io.Serializable, PatientRO {
+public class Patient implements java.io.Serializable, PatientRO, IPatient {
 	public static final Integer SOCIAL_INSURANCE_NR_LENGTH = 10;
 	
 	private static final long serialVersionUID = 1L;
@@ -127,7 +128,7 @@ public class Patient implements java.io.Serializable, PatientRO {
 			String phone, String email, String allergy,
 			String childhoodAilments, String medicineIntolerance,
 			Set<CalendarEvent> calendarevents, Set<Prescription> prescriptions,
-			Set<Queue> queues, Set<ReferralLetter> referralletters,
+			 Set<ReferralLetter> referralletters,
 			Set<ExaminationProtocol> examinationprotocols) {
 		_doctor = doctor;
 		_socialInsuranceNr = socialInsuranceNr;
@@ -170,6 +171,7 @@ public class Patient implements java.io.Serializable, PatientRO {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "patientId", unique = true, nullable = false)
+	@Override
 	public Integer getPatientId() {
 		return _patientId;
 	}
@@ -180,6 +182,7 @@ public class Patient implements java.io.Serializable, PatientRO {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctorId")
+	@Override
 	public Doctor getDoctor() {
 		return _doctor;
 	}
@@ -189,6 +192,7 @@ public class Patient implements java.io.Serializable, PatientRO {
 	}
 
 	@Column(name = "socialInsuranceNr", length = 10)
+	@Override
 	public String getSocialInsuranceNr() {
 		return _socialInsuranceNr;
 	}
@@ -198,6 +202,7 @@ public class Patient implements java.io.Serializable, PatientRO {
 	}
 
 	@Column(name = "firstName", nullable = false, length = 30)
+	@Override
 	public String getFirstName() {
 		return _firstName;
 	}
@@ -207,6 +212,7 @@ public class Patient implements java.io.Serializable, PatientRO {
 	}
 
 	@Column(name = "lastName", nullable = false, length = 30)
+	@Override
 	public String getLastName() {
 		return _lastName;
 	}
@@ -217,11 +223,12 @@ public class Patient implements java.io.Serializable, PatientRO {
 
 	@Convert(converter = LocalDatePersistenceConverter.class)
 	@Column(name = "birthDay", length = 10)
-	public LocalDate getBirthDay() {
+	@Override
+	public LocalDate getDateOfBirth() {
 		return _birthDay;
 	}
 
-	public void setBirthDay(LocalDate birthDay) {
+	public void setDateOfBirth(LocalDate birthDay) {
 		_birthDay = birthDay;
 	}
 

@@ -12,7 +12,7 @@ import javafx.util.StringConverter;
  * @author Caroline Meusburger
  * @since 13.04.2015
  */
-public class QueueSringConverter extends StringConverter<QueueRO> {
+public class QueueStringConverter extends StringConverter<QueueRO> {
 
 	private Map<String, QueueRO> _mapQueue = new HashMap<String, QueueRO>();
 
@@ -23,7 +23,7 @@ public class QueueSringConverter extends StringConverter<QueueRO> {
 	public String toString(QueueRO queue) {
 		String name = "";
 		if (queue.getDoctor() != null) {
-			name = ("Dr. " + queue.getDoctor().getUser().getFirstName() + " " + queue
+			name = ("Dr " + queue.getDoctor().getUser().getFirstName() + " " + queue
 					.getDoctor().getUser().getLastName());
 		} else if (queue.getOrthoptist() != null) {
 			name = ("Orthoptist "

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.calendar.EventInformationController">
+   <children>
+      <Label styleClass="label-header" stylesheets="@../OculusTheme.css" text="Appointment:" />
+      <Label fx:id="_dateTimeLabel" layoutX="7.0" layoutY="33.0" text="Date - Time" AnchorPane.leftAnchor="10.0" />
+      <Label fx:id="_doctorLabel" layoutX="7.0" layoutY="59.0" text="Doctor" AnchorPane.leftAnchor="10.0" />
+      <Label fx:id="_eventTypeLabel" layoutX="8.0" layoutY="84.0" text="Type" AnchorPane.leftAnchor="10.0" />
+      <Label fx:id="_descriptionLabel" layoutX="10.0" layoutY="111.0" text="Reason" AnchorPane.leftAnchor="10.0" />
+      <Label layoutX="2.0" layoutY="150.0" styleClass="label-header" stylesheets="@../OculusTheme.css" text="Patient:" />
+      <Label fx:id="_patientLabel" layoutX="15.0" layoutY="179.0" text="patien Name" AnchorPane.leftAnchor="10.0" />
+      <Label fx:id="_sinLabel" layoutX="15.0" layoutY="205.0" text="SIN" AnchorPane.leftAnchor="10.0" />
+      <Label fx:id="_dateOfBirthLabel" layoutX="15.0" layoutY="233.0" text="date of birth" AnchorPane.leftAnchor="10.0" />
+   </children>
+</AnchorPane>

@@ -1,18 +1,17 @@
 package at.itb13.oculus.domain;
 
-import java.util.Date;
-import java.util.HashSet;
+import java.time.LocalTime;
+import java.time.LocalTime;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import javax.persistence.Convert;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,9 +20,13 @@ import javax.persistence.UniqueConstraint;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.domain.interfaces.IWorkingHours;
+import at.itb13.oculus.domain.support.LocalTimeConverter;
+
 /**
  * 
- * TODO: Insert description here.
+ * WorkingHours are assigned to a doctor or an orthoptist and are the hours of one weekday, the doctor or the orthoptist is 
+ * usually available at the surgery and accept appointments
  * 
  * @author Daniel Scheffknecht
  * @date 14.04.2015
@@ -31,26 +34,28 @@ import org.apache.logging.log4j.Logger;
 @Entity
 @Table(name = "workinghours", catalog = "oculus_d", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"morningFrom", "morningTo", "afternoonFrom", "afternoonTo" }))
-public class WorkingHours implements java.io.Serializable {
+public class WorkingHours implements java.io.Serializable, IWorkingHours {
+	private static final long serialVersionUID = 1L;
+
 	private static final Logger _logger = LogManager.getLogger(WorkingHours.class.getName());
 	
 	private Integer _workingHoursId;
-	private Date _morningFrom;
-	private Date _morningTo;
-	private Date _afternoonFrom;
-	private Date _afternoonTo;
+	private LocalTime _morningFrom;
+	private LocalTime _morningTo;
+	private LocalTime _afternoonFrom;
+	private LocalTime _afternoonTo;
 
 	public WorkingHours() {
 	}
 
-	public WorkingHours(Date morningFrom, Date morningTo, Date afternoonFrom,
-			Date afternoonTo, Set<CalendarWorkingHours> calendarworkinghourses) {
+	public WorkingHours(LocalTime morningFrom, LocalTime morningTo, LocalTime afternoonFrom,
+			LocalTime afternoonTo, Set<CalendarWorkingHours> calendarworkinghourses) {
 		_morningFrom = morningFrom;
 		_morningTo = morningTo;
 		_afternoonFrom = afternoonFrom;
 		_afternoonTo = afternoonTo;
 	}
-
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "workingHoursId", unique = true, nullable = false)
@@ -62,43 +67,47 @@ public class WorkingHours implements java.io.Serializable {
 		_workingHoursId = workingHoursId;
 	}
 
-	@Temporal(TemporalType.TIME)
+	@Convert(converter = LocalTimeConverter.class)
 	@Column(name = "morningFrom", length = 8)
-	public Date getMorningFrom() {
+	@Override
+	public LocalTime getMorningFrom() {
 		return _morningFrom;
 	}
 
-	public void setMorningFrom(Date morningFrom) {
+	public void setMorningFrom(LocalTime morningFrom) {
 		_morningFrom = morningFrom;
 	}
 
-	@Temporal(TemporalType.TIME)
+	@Convert(converter = LocalTimeConverter.class)
 	@Column(name = "morningTo", length = 8)
-	public Date getMorningTo() {
+	@Override
+	public LocalTime getMorningTo() {
 		return _morningTo;
 	}
 
-	public void setMorningTo(Date morningTo) {
+	public void setMorningTo(LocalTime morningTo) {
 		_morningTo = morningTo;
 	}
 
-	@Temporal(TemporalType.TIME)
+	@Convert(converter = LocalTimeConverter.class)
 	@Column(name = "afternoonFrom", length = 8)
-	public Date getAfternoonFrom() {
+	@Override
+	public LocalTime getAfternoonFrom() {
 		return _afternoonFrom;
 	}
 
-	public void setAfternoonFrom(Date afternoonFrom) {
+	public void setAfternoonFrom(LocalTime afternoonFrom) {
 		_afternoonFrom = afternoonFrom;
 	}
 
-	@Temporal(TemporalType.TIME)
+	@Convert(converter = LocalTimeConverter.class)
 	@Column(name = "afternoonTo", length = 8)
-	public Date getAfternoonTo() {
+	@Override
+	public LocalTime getAfternoonTo() {
 		return _afternoonTo;
 	}
 
-	public void setAfternoonTo(Date afternoonTo) {
+	public void setAfternoonTo(LocalTime afternoonTo) {
 		_afternoonTo = afternoonTo;
 	}
 }

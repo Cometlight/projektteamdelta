@@ -193,6 +193,9 @@ public class QueueDao {
 	 * @see #makePersistent(Queue... entities)
 	 */
 	public boolean makePersistent(List<Queue> entities) {
+		if(entities == null) {
+			throw new NullPointerException("entities : List<Queue> may not be null!");
+		}
 		Session session = null;
 		Transaction tx = null;
 		try {
@@ -269,9 +272,10 @@ public class QueueDao {
 	 * @see #makePersistent(List<Queue> entities);
 	 */
 	public boolean makePersistent(Queue... entities) {
-		if (entities == null) {
-			_logger.error("No entities supplied. At least 1 entity has to be supplied!");
-			return false;
+		for(Queue q : entities) {
+			if(q == null) {
+				throw new NullPointerException("No valid entities supplied. At least 1 entity has to be supplied!");
+			}
 		}
 
 		return makePersistent(Arrays.asList(entities));
@@ -286,6 +290,9 @@ public class QueueDao {
 	 * @see #makeTransient(Queue... entities)
 	 */
 	public boolean makeTransient(List<Queue> entities) {
+		if(entities == null) {
+			throw new NullPointerException("entities : List<Queue> may not be null!");
+		}
 		Session session = null;
 		Transaction tx = null;
 		try {
@@ -325,9 +332,10 @@ public class QueueDao {
 	 * @see #makeTransient(List<Queue> entities)
 	 */
 	public boolean makeTransient(Queue... entities) {
-		if(entities == null) {
-			_logger.error("No entities supplied. At least 1 entity has to be supplied!");
-			return false;
+		for(Queue q : entities) {
+			if(q == null) {
+				throw new NullPointerException("No valid entities supplied. At least 1 entity has to be supplied!");
+			}
 		}
 		
 		return makeTransient(Arrays.asList(entities));

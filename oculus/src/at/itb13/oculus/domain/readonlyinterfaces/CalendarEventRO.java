@@ -15,7 +15,7 @@ import at.itb13.oculus.domain.Patient;
 public interface CalendarEventRO {
 	Integer getCalendarEventId();
 	Calendar getCalendar();
-	EventType getEventtype();
+	EventType getEventType();
 	Patient getPatient();
 	LocalDateTime getEventStart();
 	LocalDateTime getEventEnd();

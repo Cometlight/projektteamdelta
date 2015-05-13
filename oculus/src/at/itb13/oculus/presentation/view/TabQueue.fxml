@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.effect.*?>
@@ -8,45 +9,56 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.TabQueueController">
+<AnchorPane prefHeight="700.0" prefWidth="1200.0" stylesheets="@OculusTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.TabQueueController">
    <children>
-      <SplitPane dividerPositions="0.24123539232053423" layoutX="93.0" layoutY="252.0" prefHeight="700.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.25626043405676124" layoutX="93.0" layoutY="252.0" prefHeight="700.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minWidth="210.0" prefWidth="330.0" styleClass="background-queue">
                <children>
-                  <ListView fx:id="_queueEntrysListView" fixedCellSize="100.0" layoutX="21.0" layoutY="55.0" prefHeight="624.0" prefWidth="245.0" />
-                  <ComboBox fx:id="_queueBox" layoutX="18.0" layoutY="21.0" onAction="#handleQueueComboBox" prefHeight="25.0" prefWidth="245.0" promptText="Select a Waitinglist" />
+                  <ListView fx:id="_queueEntrysListView" fixedCellSize="100.0" layoutX="25.0" layoutY="60.0" prefHeight="624.0" prefWidth="251.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="28.0" />
+                  <ComboBox fx:id="_queueBox" layoutX="25.0" layoutY="22.0" onAction="#handleQueueComboBox" prefHeight="25.0" prefWidth="251.0" promptText="Select a Waiting List" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="28.0" />
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minWidth="650.0" prefWidth="890.0">
                <children>
-                  <SplitPane dividerPositions="0.16522988505747127" layoutX="81.0" layoutY="231.0" orientation="VERTICAL" prefHeight="698.0" prefWidth="906.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane dividerPositions="0.16522988505747127" layoutX="81.0" layoutY="231.0" minWidth="650.0" orientation="VERTICAL" prefWidth="890.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="904.0">
+                      <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="120.0">
                            <children>
-                              <Label layoutX="20.0" layoutY="14.0" text="Time">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font></Label>
-                              <Label layoutX="20.0" layoutY="46.0" text="Type">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font></Label>
-                              <Label layoutX="20.0" layoutY="80.0" text="Reason">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font></Label>
-                              <Label fx:id="_dateTimeLabel" layoutX="122.0" layoutY="14.0" text="-" />
-                              <Label fx:id="_typeLabel" layoutX="122.0" layoutY="46.0" text="-" />
-                              <Label fx:id="_reasonLabel" layoutX="122.0" layoutY="80.0" text="-" />
-                              <Button fx:id="_endExaminationButton" layoutX="758.0" layoutY="12.0" mnemonicParsing="false" onAction="#handleEndExamination" text="Close Examination" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0" />
-                              <Label fx:id="_orLabel" layoutX="751.0" layoutY="10.0" text="or" AnchorPane.topAnchor="10.0" />
-                              <ComboBox fx:id="_nextQueueBox" layoutX="586.0" layoutY="10.0" prefWidth="150.0" promptText="Select a Waitinglist" AnchorPane.topAnchor="10.0" />
-                              <Button fx:id="_insertButton" layoutX="689.0" layoutY="44.0" mnemonicParsing="false" onAction="#handleRelocateQueueButton" text="Insert" />
+                              <Group AnchorPane.leftAnchor="20.0">
+                                 <children>
+                                    <Label fx:id="_dateTimeLabel" layoutX="122.0" layoutY="14.0" text="-" />
+                                    <Label layoutX="20.0" layoutY="14.0" text="Time">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="_reasonLabel" layoutX="122.0" layoutY="80.0" text="-" />
+                                    <Label layoutX="20.0" layoutY="46.0" text="Type">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="20.0" layoutY="80.0" text="Reason">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="_typeLabel" layoutX="122.0" layoutY="46.0" text="-" />
+                                 </children>
+                              </Group>
+                              <Group AnchorPane.rightAnchor="15.0">
+                                 <children>
+                                    <Button fx:id="_insertButton" layoutX="671.0" layoutY="45.0" mnemonicParsing="false" onAction="#handleRelocateQueueButton" text="Insert" />
+                                    <Label fx:id="_orLabel" layoutX="730.0" layoutY="16.0" text="or" AnchorPane.topAnchor="16.0" />
+                                    <ComboBox fx:id="_nextQueueBox" layoutX="568.0" layoutY="11.0" prefWidth="150.0" promptText="Select a Waiting List" AnchorPane.topAnchor="11.0" />
+                                    <Button fx:id="_endExaminationButton" layoutX="758.0" layoutY="12.0" mnemonicParsing="false" onAction="#handleEndExamination" text="Close Examination" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0" />
+                                 </children>
+                              </Group>
                            </children></AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                      <AnchorPane>
                            <children>
-                              <BorderPane fx:id="_patientRecordBorderPane" layoutX="124.0" layoutY="-35.0" prefHeight="580.0" prefWidth="904.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <BorderPane fx:id="_patientRecordBorderPane" layoutX="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                     </items>

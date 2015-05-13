@@ -1,22 +1,19 @@
 package at.itb13.oculus.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import at.itb13.oculus.domain.interfaces.IEventType;
 
 /**
  * 
@@ -27,7 +24,7 @@ import org.apache.logging.log4j.Logger;
  */
 @Entity
 @Table(name = "eventtype", catalog = "oculus_d", uniqueConstraints = @UniqueConstraint(columnNames = "eventTypeName"))
-public class EventType implements java.io.Serializable {
+public class EventType implements java.io.Serializable, IEventType {
 	private static final Logger _logger = LogManager.getLogger(EventType.class.getName());
 	private static final long serialVersionUID = 1L;
 	
@@ -35,7 +32,6 @@ public class EventType implements java.io.Serializable {
 	private String _eventTypeName;
 	private Integer _estimatedTime;
 	private String _description;
-	private Set<CalendarEvent> _calendarEvents = new HashSet<CalendarEvent>(0);
 
 	public EventType() { }
 
@@ -44,11 +40,10 @@ public class EventType implements java.io.Serializable {
 	}
 
 	public EventType(String eventTypeName, Integer estimatedTime,
-			String description, Set<CalendarEvent> calendarevents) {
+			String description) {
 		_eventTypeName = eventTypeName;
 		_estimatedTime = estimatedTime;
 		_description = description;
-		_calendarEvents = calendarevents;
 	}
 
 	@Id
@@ -63,6 +58,7 @@ public class EventType implements java.io.Serializable {
 	}
 
 	@Column(name = "eventTypeName", unique = true, nullable = false, length = 50)
+	@Override
 	public String getEventTypeName() {
 		return _eventTypeName;
 	}
@@ -72,6 +68,7 @@ public class EventType implements java.io.Serializable {
 	}
 
 	@Column(name = "estimatedTime")
+	@Override
 	public Integer getEstimatedTime() {
 		return _estimatedTime;
 	}
@@ -81,21 +78,13 @@ public class EventType implements java.io.Serializable {
 	}
 
 	@Column(name = "description", length = 65535)
+	@Override
 	public String getDescription() {
 		return _description;
 	}
 
 	public void setDescription(String description) {
 		_description = description;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "eventtype")
-	public Set<CalendarEvent> getCalendarEvents() {
-		return _calendarEvents;
-	}
-
-	public void setCalendarEvents(Set<CalendarEvent> calendarevents) {
-		_calendarEvents = calendarevents;
 	}
 
 }

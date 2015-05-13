@@ -41,13 +41,8 @@ public class TabPatientController {
 	
 	@FXML
 	private BorderPane _patientRecord;
-	
 	@FXML
-	private TextField _sinField;
-	@FXML
-	private TextField _firstnameSearch;
-	@FXML
-	private TextField _lastnameSearch;
+	private TextField _searchValue;
 	
 	//general Attributs
 	private OculusMain _main;
@@ -76,45 +71,20 @@ public class TabPatientController {
 		 	_main.clearPatientData();
 
 	 }
-	 
-	 /**
-	  * Controls the "search" Button, for searching by Social Insurancel Number.
-	  * It gets a Patient from the PatientSearch Class and creates a new Patient with Property.
-	  * The Patient Data are shown in the GUI
-	  */
-	 @FXML
-	 private void searchByNumberControl(){
-		 clearPatientTable();
-		 PatientSearch p = ControllerFacade.getInstance().getPatientSearch();
-		 try {			
-			PatientRO pa = p.searchPatientBySocialInsuranceNr(_sinField.getText());
-			_main.addPatientData(pa);	// TODO: Why must a patient be stored in _main?
-			_patientTable.setItems(_main.getPatientData());	
-			_main.showPatientRecord(_patientRecord, pa);
 
-		} catch (InvalidInputException e) {
-			_logger.info(e);
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("No Patient found");
-			alert.setHeaderText("Sorry, the Patient could not be found.");
-	        alert.setContentText("Please make sure you have entered the right Social Insurance Number!");
-	        alert.showAndWait();
-		}
-	 }
-	 
 	 /**
-	  * Controls the "search" Button, for searching by Name.
+	  * Controls the "search" Button, for searching by Name and Social Insurance Number.
 	  * It gets a List of Patients from the PatientSearch Class and creates new Patients with Property.
 	  * The Patient Data are shown in the GUI
 	  */
 	 @SuppressWarnings("unchecked")
 	@FXML
-	 private void searchByNameControl(){
+	 private void searchControl(){
 		 clearPatientTable();
 		 PatientSearch p = ControllerFacade.getInstance().getPatientSearch();
 		 List<PatientRO> patients = new ArrayList<>();
 		 try {			
-			patients =  (List<PatientRO>) p.searchPatientByName(_firstnameSearch.getText(), _lastnameSearch.getText());
+			patients =  (List<PatientRO>) p.searchPatient(_searchValue.getText());
 			if(patients.size() > 0){
 				patients.forEach(_main::addPatientData);
 				 _patientTable.setItems(_main.getPatientData());
@@ -122,12 +92,17 @@ public class TabPatientController {
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("No Patient found");
 				alert.setHeaderText("Sorry, the Patient could not be found.");
-		        alert.setContentText("Please make sure you have entered the right name");
+		        alert.setContentText("Please make sure you have entered the right name or Social Insurance Number.");
 		        alert.showAndWait();
 			}
 
 		} catch (InvalidInputException e) {		
 			_logger.warn(e);
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("No Patient found");
+			alert.setHeaderText("Sorry, the Patient could not be found.");
+	        alert.setContentText("Please make sure you have entered the right name or Social Insurance Number.");
+	        alert.showAndWait();
 		}
 	 }
 	 

@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.EditAnamnesisController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@OculusTheme.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.EditAnamnesisController">
    <children>
-      <Label layoutY="6.0" text="Anamnesis" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+      <Label layoutY="6.0" styleClass="label-header" text="Anamnesis" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
          <font>
             <Font size="14.0" />
          </font></Label>
@@ -18,8 +18,8 @@
           <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
         </buttons>
       </ButtonBar>
-      <TextArea fx:id="_allergiesText" layoutX="26.0" layoutY="41.0" prefHeight="81.0" prefWidth="540.0" promptText="Allergies" />
-      <TextArea fx:id="_childhoodAilmentsText" layoutX="26.0" layoutY="144.0" prefHeight="81.0" prefWidth="540.0" promptText="Childhood Illnesses" />
-      <TextArea fx:id="_medicineIntoleranceText" layoutX="26.0" layoutY="250.0" prefHeight="81.0" prefWidth="540.0" promptText="Drug Intolerances" />
+      <TextArea fx:id="_allergiesText" layoutX="26.0" layoutY="41.0" prefHeight="81.0" prefWidth="540.0" promptText="Allergies" wrapText="true" />
+      <TextArea fx:id="_childhoodAilmentsText" layoutX="26.0" layoutY="144.0" prefHeight="81.0" prefWidth="540.0" promptText="Childhood Illnesses" wrapText="true" />
+      <TextArea fx:id="_medicineIntoleranceText" layoutX="26.0" layoutY="250.0" prefHeight="81.0" prefWidth="540.0" promptText="Drug Intolerances" wrapText="true" />
    </children>
 </AnchorPane>

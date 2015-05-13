@@ -15,7 +15,7 @@ import at.itb13.oculus.domain.Queue;
 import at.itb13.oculus.domain.QueueEntry;
 
 /**
- * TODO: Insert description here.
+ * Unittests for the domainclass 'Queue'
  * 
  * @author Andrew Sparr
  * @date 25 Apr 2015

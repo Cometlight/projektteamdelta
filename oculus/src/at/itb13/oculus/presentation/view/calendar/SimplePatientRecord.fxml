@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.calendar.SimplePatientRecordController">
+   <children>
+      <Label layoutX="24.0" layoutY="16.0" nodeOrientation="LEFT_TO_RIGHT" styleClass="label-header" text="Personal Information" AnchorPane.leftAnchor="5.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="5.0" layoutY="249.0" styleClass="label-header" text="Address" AnchorPane.leftAnchor="5.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="5.0" layoutY="160.0" nodeOrientation="LEFT_TO_RIGHT" styleClass="label-header" text="Doctor" AnchorPane.leftAnchor="5.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="_docLabel" layoutX="20.0" layoutY="185.0" text="Label" AnchorPane.leftAnchor="20.0" />
+      <Label layoutX="5.0" layoutY="386.0" styleClass="label-header" text="Contact" AnchorPane.leftAnchor="5.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="_phoneLabel" layoutX="20.0" layoutY="414.0" text="Label" AnchorPane.leftAnchor="20.0" />
+      <Label fx:id="_emailLabel" layoutX="20.0" layoutY="442.0" text="Label" AnchorPane.leftAnchor="20.0" />
+      <Label fx:id="_personalLabel" layoutX="41.0" layoutY="49.0" text="Label" AnchorPane.leftAnchor="20.0" />
+      <Label fx:id="_addressLabel" layoutX="20.0" layoutY="278.0" text="Label" AnchorPane.leftAnchor="20.0" />
+   </children>
+</AnchorPane>

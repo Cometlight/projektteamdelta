@@ -41,7 +41,7 @@ import at.itb13.oculus.domain.readonlyinterfaces.OrthoptistRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
 import at.itb13.oculus.presentation.OculusMain;
-import at.itb13.oculus.presentation.util.QueueSringConverter;
+import at.itb13.oculus.presentation.util.QueueStringConverter;
 
 /**
  * TODO: Insert description here.
@@ -118,7 +118,7 @@ public class TabAppointmentsController {
 		_typeColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<CalendarEventRO, String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(TableColumn.CellDataFeatures<CalendarEventRO, String> event) {
-				return new SimpleStringProperty(event.getValue().getEventtype().getEventTypeName());
+				return new SimpleStringProperty(event.getValue().getEventType().getEventTypeName());
 			}
 		});
 		
@@ -276,7 +276,7 @@ public class TabAppointmentsController {
 		if (event != null) {
 			_descriptionLabel.setText(event.getDescription());
 			_dateTimeLabel.setText(event.getEventStart().toString());
-			EventType type = event.getEventtype();
+			EventType type = event.getEventType();
 			_eventTypeLabel.setText(type.getEventTypeName());
 			if(event.getCalendar().getDoctor() != null){
 				_doctorLabel.setText(event.getCalendar().getDoctor().getUser().getFirstName() + " " +event.getCalendar().getDoctor().getUser().getLastName());
@@ -369,7 +369,7 @@ public class TabAppointmentsController {
 	 * fills the combo box with all queues
 	 */
 	private void setItemsToQueueBox() {
-		_queueBox.setConverter(new QueueSringConverter());
+		_queueBox.setConverter(new QueueStringConverter());
 		List<QueueController> queController = ControllerFacade.getInstance().getAllQueueController();
 		for (QueueController controller : queController) {		
 			_queueBox.getItems().add(controller.getQueue());
@@ -401,27 +401,27 @@ public class TabAppointmentsController {
 					try {
 						controller.pushQueueEntry(_curCalendarEvent.getPatient(), _curCalendarEvent);
 						Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setContentText("Patient is added to Queue");
+						alert.setContentText("Patient is added to Waiting List");
 						alert.showAndWait();
 					} catch (InvalidInputException e) {
 						Alert alert = new Alert(AlertType.WARNING);
-						alert.setContentText("Patient was not added to the Queue, because the patient is already in a queue.");
+						alert.setContentText("Patient was not added to the Waiting List, because the patient is already in a Waiting List.");
 						alert.showAndWait();
 					}
 				} else {
 					Alert alert = new Alert(AlertType.CONFIRMATION);
-					alert.setHeaderText("Waitinglist is not equate to the Doctor");
-					alert.setContentText("Selected Waitinglist is not equate to the Doctor of the Appointment. Are you sure you want to continue?");
+					alert.setHeaderText("selected Doctor not Doctor assigned");
+					alert.setContentText("The selected Doctor is not the Doctor assigned");
 					Optional<ButtonType> result = alert.showAndWait();
 					if (result.get() == ButtonType.OK){
 						try {
 							controller.pushQueueEntry(_curCalendarEvent.getPatient(), _curCalendarEvent);
 							alert = new Alert(AlertType.INFORMATION);
-							alert.setContentText("Patient is added to Queue");
+							alert.setContentText("Patient is added to Waiting List");
 							alert.showAndWait();
 						} catch (InvalidInputException e) {
 							alert = new Alert(AlertType.WARNING);
-							alert.setContentText("Patient was not added to the Queue, because the patient is already in a queue.");
+							alert.setContentText("Patient was not added to the Waiting List, because the patient is already in a Waiting List.");
 							alert.showAndWait();
 						}
 
@@ -435,9 +435,9 @@ public class TabAppointmentsController {
 
 		} else {
 			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setHeaderText("No queue selected");
-			alert.setContentText("Please choose a Queue before insert.");
-			alert.setTitle("No queue selected");
+			alert.setHeaderText("No Waiting List selected");
+			alert.setContentText("Please choose a Waiting List before insert.");
+			alert.setTitle("No Waiting List selected");
 			alert.showAndWait();
 		}
 	}

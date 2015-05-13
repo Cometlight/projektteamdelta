@@ -42,6 +42,10 @@ public abstract class GenericDao<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	public T findById(Integer id) {
+		if(id == null) {
+			throw new NullPointerException("ID may not be null! (" + _domainClass.getName() + ")");
+		}
+		
 		T domainClass = null;
 		Session session = null;
 		Transaction tx = null;
@@ -240,7 +244,9 @@ public abstract class GenericDao<T> {
 			session = HibernateUtil.getSessionFactory().openSession();
 			tx = session.beginTransaction();
 			
-			session.delete(entities);
+			for(T entity : entities) {
+				session.delete(entity);
+			}
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -255,6 +261,7 @@ public abstract class GenericDao<T> {
 			}
 		}
 		
+		_logger.info("makeTransient is successful");
 		return true;
 	}
 	

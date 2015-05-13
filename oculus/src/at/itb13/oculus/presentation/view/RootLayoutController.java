@@ -52,6 +52,10 @@ public class RootLayoutController {
 	 private void tabQueueControl(){					
 		 _main.showQueueTab();
 	 }
+	 @FXML
+	 private void tabCalendarControl(){
+		 _main.showCalendarTab();
+	 }
 	 
 	 public void setTab(int index) {
 		 _tabPaneRoot.getSelectionModel().select(index);

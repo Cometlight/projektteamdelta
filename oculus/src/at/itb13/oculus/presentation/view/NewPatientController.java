@@ -2,6 +2,7 @@ package at.itb13.oculus.presentation.view;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,7 +14,7 @@ import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Patient.Gender;
 import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
-import at.itb13.oculus.presentation.util.DoctorSringConverter;
+import at.itb13.oculus.presentation.util.DoctorStringConverter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -124,7 +125,7 @@ public class NewPatientController {
 			_firstNameField.setText(_patient.getFirstName());
 			_lastNameField.setText(_patient.getLastName());
 			_SINField.setText(_patient.getSocialInsuranceNr());
-			_birthdayField.setText(_patient.getBirthDay().toString());
+			_birthdayField.setText(_patient.getDateOfBirth() == null ? "" : _patient.getDateOfBirth().toString());
 			if(_patient.getGender().equals("M")){
 				_maleRadioButton.setSelected(true);
 			}
@@ -158,7 +159,7 @@ public class NewPatientController {
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("New Patient has been saved");
 						alert.setHeaderText("New Patient saved");
-						alert.setContentText("The Patient has been saved succecfully!");
+						alert.setContentText("The Patient has been saved successfully!");
 						alert.showAndWait();
 					} catch (InvalidInputException e) {
 						_logger.error(e);
@@ -212,7 +213,7 @@ public class NewPatientController {
 	 * fills the combobox doctor
 	 */
 	private void setItemsToDoctorBox() {
-		_doctorBox.setConverter(new DoctorSringConverter());
+		_doctorBox.setConverter(new DoctorStringConverter());
 		_doctorBox.getItems().addAll(ControllerFacade.getInstance().getWelcomeAtReception().getDoctorList());
 
 	}
@@ -287,8 +288,8 @@ public class NewPatientController {
 		String sin = _SINField.getText();
 		if(ControllerFacade.getInstance().getWelcomeAtReception().isSocialInsuranceNrValid(sin)) {
 			try {
-				PatientRO patientRO = ControllerFacade.getInstance().getPatientSearch().searchPatientBySocialInsuranceNr(sin);
-
+				List<? extends PatientRO> patients = ControllerFacade.getInstance().getPatientSearch().searchPatient(sin);
+				PatientRO patientRO = patients.get(0);
 				if(patientRO != null) {	// Patient with SIN already exists
 					Alert alert = new Alert(AlertType.WARNING);
 					alert.initOwner(_dialogStage);
@@ -297,7 +298,7 @@ public class NewPatientController {
 					alert.setContentText("Patient information: "
 							+ "first name: '" + patientRO.getFirstName()
 							+ "', last name: '" + patientRO.getLastName()
-							+ "', birthday: '" + patientRO.getBirthDay() + "'");
+							+ "', birthday: '" + patientRO.getDateOfBirth() + "'");
 	
 					alert.showAndWait();
 				}

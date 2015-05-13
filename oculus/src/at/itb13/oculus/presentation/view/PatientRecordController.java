@@ -13,12 +13,18 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import at.itb13.oculus.application.ControllerFacade;
+import at.itb13.oculus.domain.interfaces.IPatient;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.OculusMain;
@@ -39,15 +45,9 @@ public class PatientRecordController {
 	private TextField _lastNameField;
 	
 	@FXML
-	private Label _firstNameLabel;
+	private Label _personalLabel;
 	@FXML
-	private Label _lastNameLabel;
-	@FXML
-	private Label _SSNLabel;
-	@FXML
-	private Label _birthdayLabel;
-	@FXML
-	private Label _genderLabel;
+	private Label _addressLabel;
 	@FXML
 	private Label _docLabel;
 	@FXML
@@ -63,11 +63,11 @@ public class PatientRecordController {
 	@FXML
 	private Label _emailLabel;
 	@FXML
-	private Label _alergiesLabel;
+	private TextArea _allergiesArea;
 	@FXML
-	private Label _childhoodAilmentsLabel;
+	private TextArea _childhoodAilmentsLabel;
 	@FXML
-	private Label _medicineintolerranceLabel;
+	private TextArea _medicineintolerranceLabel;
 	@FXML
 	private Button _editGeneralButton;
 	@FXML
@@ -88,7 +88,7 @@ public class PatientRecordController {
 	private TableColumn<CalendarEventRO, String> _eventTypeColumn;
 	@FXML
 	private TableColumn<CalendarEventRO, String> _descriptionColumn;
-	
+	private Stage _dialogStage;
 	private PatientRO _patient;
 	private ObservableList<CalendarEventRO> _appointmentsList = FXCollections.observableArrayList();
 	
@@ -108,6 +108,17 @@ public class PatientRecordController {
 		 _editAnamnesisButton.setVisible(false);
 		 initAppointmentsTab();
 	}
+	 
+	 public void setPatientRO(PatientRO patient){
+		 _patient = patient;
+	 }
+	 /**
+		 * @param dialogStage
+		 */
+		public void setDialogStage(Stage dialogStage) {
+			_dialogStage = dialogStage;
+			
+		}
 	
 	 /**
 	  * shows the patient general data of the specific patient
@@ -119,30 +130,28 @@ public class PatientRecordController {
 			_editAnamnesisButton.setVisible(true);
 			_patient = value;
             // Fill the labels with info from the person object.
-        	_firstNameLabel.setText(value.getFirstName());
-        	_lastNameLabel.setText(value.getLastName());
-        	_SSNLabel.setText(value.getSocialInsuranceNr());
-        	_birthdayLabel.setText((value.getBirthDay() == null) ? "" : value.getBirthDay().toString());
-        	_docLabel.setText(value.getDoctor().getUser().getFirstName() + " " +value.getDoctor().getUser().getLastName());
-        	_genderLabel.setText(value.getGender().toString());	            
-        	_streetLabel.setText(value.getStreet());
-        	_postalCodeLabel.setText(value.getPostalCode());
-        	_cityLabel.setText(value.getCity());
-        	_countryISOLabel.setText(value.getCountryIsoCode());
+			String personal = new String();
+			personal = personal + ((value.getFirstName()== null) ? "" : value.getFirstName()+" ");
+			personal = personal +((value.getLastName()== null) ? "-\n" : value.getLastName()) + "\n";
+			personal = personal + ((value.getSocialInsuranceNr()== null) ? "-" : value.getSocialInsuranceNr()) +"\n";
+			personal = personal + ((value.getDateOfBirth()== null) ? "-\n" : value.getDateOfBirth().toString() + "\n");
+			personal = personal + value.getGender().name();
+			_personalLabel.setText(personal);
+        	_docLabel.setText(value.getDoctor().getUser().getFirstName() + " " +value.getDoctor().getUser().getLastName());           
+        	String address = new String();
+        	address = address + ((value.getStreet()== null)? "-\n" : value.getStreet()+"\n");
+        	address = address + ((value.getPostalCode()==null)?"": value.getPostalCode()+" ");
+        	address = address + ((value.getCity()== null)?"-\n": value.getCity()+"\n");
+        	address = address + ((value.getCountryIsoCode()==null)? "-\n" : value.getCountryIsoCode());
+        	_addressLabel.setText(address);
         	_phoneLabel.setText(value.getPhone());
         	_emailLabel.setText(value.getEmail());	           
         } else {
+        	
             // Person is null, remove all the text.
-            _firstNameLabel.setText("");
-            _lastNameLabel.setText("");
-            _SSNLabel.setText("");
-            _birthdayLabel.setText("");
-            _docLabel.setText("");
-            _genderLabel.setText("");	            
-            _streetLabel.setText("");
-            _postalCodeLabel.setText("");
-            _cityLabel.setText("");
-            _countryISOLabel.setText("");
+        	_personalLabel.setText("");
+            _docLabel.setText("");    
+            _addressLabel.setText("");
             _phoneLabel.setText("");
             _emailLabel.setText("");	
         }
@@ -156,13 +165,14 @@ public class PatientRecordController {
         if (value != null) {
         	_patient = value;
             // Fill the labels with info from the person object.
-        	_alergiesLabel.setText(value.getAllergy());
+        	
+        	_allergiesArea.setText(value.getAllergy());
         	_childhoodAilmentsLabel.setText(value.getChildhoodAilments());
         	_medicineintolerranceLabel.setText(value.getMedicineIntolerance());
                       
         } else {
             // Person is null, remove all the text.
-        	_alergiesLabel.setText("");
+        	_allergiesArea.setText("");
         	_childhoodAilmentsLabel.setText("");
         	_medicineintolerranceLabel.setText("");	
         }
@@ -246,7 +256,7 @@ public class PatientRecordController {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<CalendarEventRO, String> event) {
 				return new SimpleStringProperty(
-						event.getValue().getEventtype().getEventTypeName());
+						event.getValue().getEventType().getEventTypeName());
 			}
 		});
 		

@@ -29,7 +29,7 @@ import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueEntryRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
 import at.itb13.oculus.presentation.OculusMain;
-import at.itb13.oculus.presentation.util.QueueSringConverter;
+import at.itb13.oculus.presentation.util.QueueStringConverter;
 
 /**
  * TODO: Insert description here.
@@ -158,8 +158,8 @@ public class TabQueueController {
 		QueueRO curQueueNextQueueBox = _nextQueueBox.getSelectionModel().getSelectedItem();
 		
 		// Clear HashMaps of StringConverter
-		_queueBox.setConverter(new QueueSringConverter());
-		_nextQueueBox.setConverter(new QueueSringConverter());
+		_queueBox.setConverter(new QueueStringConverter());
+		_nextQueueBox.setConverter(new QueueStringConverter());
 		
 		// update _queueBox and _nextQueueBox
 		List<QueueRO> queues = new LinkedList<>();
@@ -232,7 +232,7 @@ public class TabQueueController {
 			
 			if (entry.getCalendarEvent() != null) {
 				_dateTimeLabel.setText(entry.getCalendarEvent().getEventStart().toString());
-				_typeLabel.setText(entry.getCalendarEvent().getEventtype().getEventTypeName());
+				_typeLabel.setText(entry.getCalendarEvent().getEventType().getEventTypeName());
 				_reasonLabel.setText(entry.getCalendarEvent().getDescription());
 			} else {
 				_dateTimeLabel.setText("");

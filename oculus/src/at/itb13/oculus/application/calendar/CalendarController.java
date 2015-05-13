@@ -17,7 +17,7 @@ import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 
 /**
- * TODO
+ * provides methodes used for the Calendar, 
  *
  * @author Florin Metzler, Daniel Scheffknecht
  * @since 09.04.2015
@@ -44,7 +44,7 @@ public class CalendarController {
 	 */
 	public List<? extends CalendarEventRO> getCalendarEventsInTimespan(LocalDateTime startDate, LocalDateTime endDate) throws InvalidInputException {
 		if(startDate.isBefore(endDate)){
-			return _calendar.getCalendarEventsInTimespan(startDate, endDate);			
+			return _calendar.getCalendarEventsForTimespan(startDate, endDate);			
 		}else{
 			throw new InvalidInputException();
 		}

@@ -452,6 +452,7 @@ public class TabCalendarController {
 	private void todayButtonControl(){
 		_datePicker.setValue(LocalDate.now());
 		onDatePickerDateSelected();
+		scrollToCurrentTime();
 	}
 	
 	private Integer getWeekNumber(LocalDate date) {
@@ -559,5 +560,6 @@ public class TabCalendarController {
 		_weekViewButton.setDisable(true);
 		initMainArea();
 		displayAllCalendarEvents();
+		scrollToCurrentTime();
 	}
 }

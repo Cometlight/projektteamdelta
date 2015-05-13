@@ -58,5 +58,19 @@ public class CalendarDayView implements ICalendarViewState {
 	public LocalDate getStartDate(LocalDate date) {
 		return date;
 	}
+	/*
+	 * @see at.itb13.oculus.presentation.view.calendar.ICalendarViewState#nextButtonControl(java.time.LocalDate)
+	 */
+	@Override
+	public LocalDate nextButtonControl(LocalDate date) {
+		return date.plusDays(1);
+	}
+	/*
+	 * @see at.itb13.oculus.presentation.view.calendar.ICalendarViewState#previosButtonControl(java.time.LocalDate)
+	 */
+	@Override
+	public LocalDate previosButtonControl(LocalDate date) {
+		return date.minusDays(1);
+	}
 
 }

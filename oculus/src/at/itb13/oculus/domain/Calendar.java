@@ -138,6 +138,8 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 		for(CalendarWorkingHours wh: _calendarWorkingHours) {
 			if(wh.getWeekDayKey() == weekDay){
 				workingHours = wh.getWorkinghours();
+				System.out.println(weekDay);
+				System.out.println(wh.getWeekDayKey());
 			}
 		}
 		return workingHours;

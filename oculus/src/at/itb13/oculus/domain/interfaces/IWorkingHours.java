@@ -1,6 +1,6 @@
 package at.itb13.oculus.domain.interfaces;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  * This Interface defines the required methodes of the WorkingHours class.
@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
  */
 public interface IWorkingHours {
 	
-	public abstract LocalDateTime getMorningFrom();
+	public abstract LocalTime getMorningFrom();
 	
-	public abstract LocalDateTime getMorningTo();
+	public abstract LocalTime getMorningTo();
 	
-	public abstract LocalDateTime getAfternoonFrom();
+	public abstract LocalTime getAfternoonFrom();
 	
-	public abstract LocalDateTime getAfternoonTo();
+	public abstract LocalTime getAfternoonTo();
 }

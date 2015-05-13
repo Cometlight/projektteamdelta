@@ -9,6 +9,7 @@ import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.exceptions.SaveException;
 import at.itb13.oculus.application.interfaces.INewAppointmentController;
 import at.itb13.oculus.application.interfaces.IPatientSearch;
+import at.itb13.oculus.domain.factories.CalendarEventFactory;
 import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.interfaces.ICalendarEvent;
 import at.itb13.oculus.domain.interfaces.ICalendarEventFactory;
@@ -27,7 +28,7 @@ import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProv
  */
 public class NewAppointmentController implements INewAppointmentController, IPatientSearch{
 	
-	private ICalendarEventFactory _factory;
+	private ICalendarEventFactory _factory = new CalendarEventFactory();
 	/**
 	 * Creates a new appointment in a chosen timespan for the wanted calendar and patient.
 	 * 
@@ -43,8 +44,6 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 			LocalDateTime end, String description, IPatient patient)
 			throws SaveException {
 		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, (IPatient) patient);
-//		IPersistenceFacadeFactory pFactory = new PersistenceFacadeFactory();
-//		IPersistenceFacade facade = pFactory.getPersistenceFacade();
 		IPersistenceFacade facade = PersistenceFacadeProvider.getPersistenceFacade();
 		facade.makePersistent(newEvent);
 		if(facade.makePersistent(newEvent)){
@@ -69,8 +68,6 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 			LocalDateTime end, String description, String patient)
 			throws SaveException {
 		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, patient);
-//		IPersistenceFacadeFactory pFactory = new PersistenceFacadeFactory();
-//		IPersistenceFacade facade = pFactory.getPersistenceFacade();
 		IPersistenceFacade facade = PersistenceFacadeProvider.getPersistenceFacade();
 		facade.makePersistent(newEvent);
 		if(facade.makePersistent(newEvent)){
@@ -159,14 +156,19 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 	 */
 	public boolean isInWorkingHours(ICalendar calendar, LocalDateTime start, LocalDateTime end){		
 		IWorkingHours wh = calendar.getWorkingHoursOfWeekDay(start.getDayOfWeek());
-		if((start.getHour() >= wh.getMorningFrom().getHour()) && (start.getMinute() >= wh.getMorningFrom().getMinute()) &&
-		   (start.getHour() <= wh.getMorningTo().getHour()) && (start.getMinute() <= wh.getMorningTo().getMinute()) ||
-		   (end.getHour() >= wh.getMorningFrom().getHour()) && (end.getMinute() >= wh.getMorningFrom().getMinute()) &&
-		   (end.getHour() <= wh.getMorningTo().getHour()) && (end.getMinute() <= wh.getMorningTo().getMinute())){
-			return true;
-		} else {
-			return false;
-		}		
+		if(wh.getMorningFrom() != null && wh.getMorningTo() != null){
+			if((start.getHour() >= wh.getMorningFrom().getHour()) && (start.getMinute() >= wh.getMorningFrom().getMinute()) &&
+			   (end.getHour() <= wh.getMorningTo().getHour()) && (end.getMinute() <= wh.getMorningTo().getMinute())){
+				return true;
+			}
+		}
+		if(wh.getAfternoonFrom() != null && wh.getAfternoonTo() != null){
+			if((start.getHour() >= wh.getAfternoonFrom().getHour()) && (end.getMinute() >= wh.getAfternoonFrom().getMinute()) &&
+			   (end.getHour() <= wh.getAfternoonTo().getHour()) && (end.getMinute() <= wh.getAfternoonTo().getMinute())){
+				return true;
+			}
+		}
+		return false;		
 	}
 	
 	/**

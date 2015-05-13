@@ -17,7 +17,7 @@ import at.itb13.oculus.domain.interfaces.ICalendarEventFactory;
 import at.itb13.oculus.domain.interfaces.IEventType;
 import at.itb13.oculus.domain.interfaces.IPatient;
 import at.itb13.oculus.domain.interfaces.IWorkingHours;
-import at.itb13.oculus.technicalServices.dao.PatientDao;
+import at.itb13.oculus.technicalServices.exceptions.PersistenceFacadeException;
 import at.itb13.oculus.technicalServices.persistencefacade.IPersistenceFacade;
 import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProvider;
 
@@ -30,6 +30,7 @@ import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProv
 public class NewAppointmentController implements INewAppointmentController, IPatientSearch{
 	
 	private ICalendarEventFactory _factory = new CalendarEventFactory();
+	
 	/**
 	 * Creates a new appointment in a chosen timespan for the wanted calendar and patient.
 	 * 
@@ -127,6 +128,7 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 	 * @param searchValue The patient's social insurance number or name.
 	 * @return List<Patient> The patients with the supplied social insurance number or name. May be null, if no patient has been found.
 	 * @throws InvalidInputException thrown if the provided socialInsuranceNr or name is not in an appropriate format.
+	 * @throws PersistenceFacadeException 
 	 */
 	@SuppressWarnings("unchecked")
 	public List<IPatient> searchPatient(String searchValue) throws InvalidInputException {
@@ -134,14 +136,31 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 		if(!searchValue.isEmpty()){
 			if(IPatient.isSocialInsuranceNrValid(searchValue)){
 				IPatient patient = null;
-				patient = PatientDao.getInstance().findBySocialInsuranceNr(searchValue);				//TODO: change patientDao --> Persistence Fasade
+				try {
+					patient = (IPatient) PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class, searchValue);
+				} catch (PersistenceFacadeException e) {
+					// TODO Auto-generated catch block
+					//TODO Logger
+					e.printStackTrace();
+					
+				}
 				if(patient != null){
 					patients.add(patient);
 				}
 			} else {		
-				patients = (List<IPatient>)(Object) PatientDao.getInstance().findByFirstName(searchValue);
+				try {
+					patients = (List<IPatient>) PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class, searchValue);
+				} catch (PersistenceFacadeException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				if(patients.size() == 0){
-					patients = (List<IPatient>)(Object) PatientDao.getInstance().findByLastName(searchValue);
+					try {
+						patients = (List<IPatient>)PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class, searchValue);
+					} catch (PersistenceFacadeException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		} else {

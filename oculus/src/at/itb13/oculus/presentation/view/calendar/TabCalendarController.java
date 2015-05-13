@@ -23,6 +23,8 @@ import org.apache.logging.log4j.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -34,6 +36,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -54,6 +57,7 @@ import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.interfaces.ICalendarEvent;
+import at.itb13.oculus.domain.interfaces.IPatient;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.presentation.OculusMain;
 
@@ -71,6 +75,7 @@ public class TabCalendarController {
 	private static final int TIME_INTERVAL_MINUTES = 15;
 	private static final double TIME_COLUMN_WIDTH = 5d;	// percentage
 	private static final double HEADER_MARGIN_RIGHT = 10d;
+	private static final double CONTENT_ROW_HEIGHT = 20d;
 
 	private ICalendarViewState _state;
 	@FXML
@@ -116,6 +121,9 @@ public class TabCalendarController {
 		
 		loadCalendarEvents(LocalDate.now().minusWeeks(1), _state.getNumberOfDays());
 		displayAllCalendarEvents();
+		
+		scrollToCurrentTime();	// TODO: Wo anders hinschieben?
+		markCurrentTime();	// TODO: alle ~15 Minuten oder so autom. aufrufen
 		
 		_logger.info("TabCalendarController has been initialized.");
 	}
@@ -184,6 +192,23 @@ public class TabCalendarController {
 		initScrollPane();
 		initGridPaneContent();
 		resizeGridPanes();
+		
+		_gridPaneContent.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				onGridPaneContentMouseClick(event);
+			}
+		});
+	}
+	
+	private void onGridPaneContentMouseClick(MouseEvent event) {
+		LocalTime time;
+		LocalDate date;
+		
+		System.out.println(event.getX() + " - " + event.getY());	// TODO: delete
+		
+		
+//		_gridPaneContent.getCol
 	}
 
 	private void initScrollPane() {
@@ -199,15 +224,20 @@ public class TabCalendarController {
 		// 1st column: Display the time
 		LocalTime timeStart = LocalTime.MIN;
 		LocalTime timeEnd = LocalTime.MAX.minusMinutes(TIME_INTERVAL_MINUTES);
+		RowConstraints rowConstraint = new RowConstraints(CONTENT_ROW_HEIGHT);
 		
-		int row = 1;
+		int row = 0;
 		for(LocalTime curTime = timeStart; curTime.isBefore(timeEnd); curTime = curTime.plusMinutes(TIME_INTERVAL_MINUTES)) {
 			LocalTimeLabel timeLabel = new LocalTimeLabel(LocalTime.from(curTime));
 			_gridPaneContent.add(timeLabel, 0, row);
 			GridPane.setColumnIndex(timeLabel, 0);
 			GridPane.setRowIndex(timeLabel, row);
+			_gridPaneContent.getRowConstraints().add(rowConstraint);
 			++row;
 		}
+		
+		
+		
 
 		// Insert 1 GridPane into every cell. Each GridPane has so many Columns as CheckBoxes are ticked.
 //		int rowCount = getRowCount(_gridPaneContent);
@@ -229,7 +259,6 @@ public class TabCalendarController {
 //		}
 	}
 	
-	// TODO: Solch eine Hilfsfunktion wo anders hin tun? Diese Klasse wird sooo groß^^
 	private void clearCalEventsFromGridPaneContent() {
 		if(_gridPaneContent != null && _gridPaneContent.getChildren() != null) {
 			Iterator<Node> it = _gridPaneContent.getChildren().iterator();
@@ -249,29 +278,22 @@ public class TabCalendarController {
 		_gridPaneHeader.getColumnConstraints().add(firstColCC);
 		_gridPaneContent.getColumnConstraints().add(firstColCC);
 		
-//		double colWidth = ( 1000 - TIME_COLUMN_WIDTH ) / 7d;	// TODO: delete
 		ColumnConstraints cC = new ColumnConstraints();
 		cC.setPercentWidth( (100d - TIME_COLUMN_WIDTH) / (double)(_state.getNumberOfDays()));
 		for(int i = 0; i < _state.getNumberOfDays(); ++i) {
 			_gridPaneHeader.getColumnConstraints().add(cC);
 			_gridPaneContent.getColumnConstraints().add(cC);
 		}
-//		ColumnConstraints cC = new ColumnConstraints();
-//		cC.setHgrow(Priority.ALWAYS);
-//		for(int i = 0; i < GRIDPANE_NUMBER_OF_COLUMNS - 1; ++i) {	// -1 because we already have set the constraint for the first column just above
-//			_gridPaneHeader.getColumnConstraints().add(cC);
-//			_gridPaneContent.getColumnConstraints().add(cC);
-//		}
 	}
 	
 	private void loadCalendarEvents(LocalDate dayStart, int numberOfDays) {
 		LocalTime timeStart = LocalTime.MIN;
 		LocalTime timeEnd = LocalTime.MAX;
-		LocalDate dayEnd = dayStart.plusDays(numberOfDays -1);	// dayStart.plusWeek(1) would result in the display of the appointments of two Mondays
+		LocalDate dayEnd = dayStart.plusDays(numberOfDays - 1);	// Not using -1 would result in the display of the appointments of for example two Mondays
 		
 		_logger.info("Displaying appointments from " + dayStart + " (" + timeStart + ") to " + dayEnd + " (" + timeEnd + ")");
 		
-		try {	// TODO set ids according to filters
+		try {
 			_calEvents = new LinkedList<>();
 			for(CalendarCheckBox calCheckBox : _calendarCheckBoxes) {
 				if(calCheckBox.isSelected()) {
@@ -282,13 +304,9 @@ public class TabCalendarController {
 					_calEvents.addAll(list);
 				}
 			}
-//			_calEvents = (List<CalendarEventRO>) ControllerFacade.getInstance().getCalendarController(   107   ,    null    ).getCalendarEventsInTimespan(LocalDateTime.of(dayStart, timeStart), LocalDateTime.of(dayEnd, timeEnd));
-			System.out.println(_calEvents.size());
-			// TODO: NewAppointmentControllerInterface verwenden statt den CalendarController!
+			_logger.info(_calEvents.size() + " appointments have been found.");
 		} catch (InvalidInputException e) {
 			// TODO Auto-generated catch block
-			// Fehlerbehandlung
-			// unter anderem: zB hat der User gar keine checkboxes angewählt
 			e.printStackTrace();
 		}
 	}
@@ -316,8 +334,14 @@ public class TabCalendarController {
 			e.printStackTrace();
 		}
 		
+		double height = rowSpan * CONTENT_ROW_HEIGHT;
+		calEvPane.setMinHeight(height);
+		calEvPane.setPrefHeight(height);
+		calEvPane.setMaxHeight(height);
+		
 		GridPane gP = getGridPaneByRowColumnIndex(rowIndex, columnIndex, _gridPaneContent);
 		if(gP == null) {
+			// Add a new GridPane filled with CalendarEventFillerNodes, which will be replaced by actual CalendarEvents
 			gP = new GridPane();
 			ColumnConstraints columnConstraint = new ColumnConstraints();
 			columnConstraint.setPercentWidth(100d/getNumberOfSelectedCheckBoxes());
@@ -325,18 +349,18 @@ public class TabCalendarController {
 			for(CalendarCheckBox calCheckBox : _calendarCheckBoxes) {
 				if(calCheckBox.isSelected()) {
 					CalendarEventFillerNode fillerNode = new CalendarEventFillerNode(calCheckBox.getCalendar());
-//					gP.getChildren().add(fillerNode);
 					gP.add(fillerNode, fillerNodeColumnNumber++, 0);
 					GridPane.setHgrow(fillerNode, Priority.ALWAYS);
-					fillerNode.setMinSize(20, 20);	// TODO: only for debugging -> delete
-					fillerNode.setMaxSize(1000, 1000);
+//					fillerNode.setMinSize(20, 20);	// TODO: only for debugging -> delete
+//					fillerNode.setMaxSize(1000, 1000);
 					gP.getColumnConstraints().add(columnConstraint);
 				}
 			}
+			_gridPaneContent.add(gP, columnIndex, rowIndex, colSpan, rowSpan);	// FIXME: colSpan/rowSpan should be changeable
+			gP.setStyle("-fx-background-color: red");
 		}
-//		calEvPane.setStyle("-fx-background-color: red");	// TODO: Generate color out of Calendar.getTitle()
-//		String color = String.format("#%X", calendarEvent.getCalendar().getTitle().hashCode());
-		calEvPane.setStyle("-fx-background-color: " + ColorGenerator.colorToString(_calendarColorMap.get(calendarEvent.getCalendar().getCalendarId())));
+		
+		// Replace the CalendarEventFillerNode which represents the same calendar as calendarEvent's calendar by calEvPane.
 		ListIterator<Node> it = gP.getChildren().listIterator();
 		while(it.hasNext()) {
 			Node node = it.next();
@@ -350,36 +374,10 @@ public class TabCalendarController {
 			}
 		}
 		
-//		HBox hBox = getHBoxByRowColumnIndex(rowIndex, columnIndex, _gridPaneContent);
-//		if(hBox == null) {
-//			hBox = new HBox();
-//			for(CalendarCheckBox calCheckBox : _calendarCheckBoxes) {
-//				if(calCheckBox.isSelected()) {
-//					CalendarEventFillerNode fillerNode = new CalendarEventFillerNode(calCheckBox.getCalendar());
-//					hBox.getChildren().add(fillerNode);
-//					HBox.setHgrow(fillerNode, Priority.ALWAYS);
-//					fillerNode.setMinSize(20, 20);	// TODO: only for debugging -> delete
-//					fillerNode.setMaxSize(1000, 1000);
-//					fillerNode.setStyle("-fx-background-color: blue");	// TODO: only for debugging -> delete
-//				}
-//			}
-//		}
-//		
-//		ListIterator<Node> it = hBox.getChildren().listIterator();
-//		while(it.hasNext()) {
-//			Node node = it.next();
-//			if(node instanceof CalendarEventFillerNode 
-//					&& ((CalendarEventFillerNode)node).getCalendar().getTitle().equals(calendarEvent.getCalendar().getTitle())) {	// TODO: check auf ID statt auf Title wäre wohl sinnvoller?!?
-//				it.remove();
-//				it.add(calEvPane);
-//			}
-//		}
-		
+		// Set color of appointment according to its calendar
+		calEvPane.setStyle("-fx-background-color: " + ColorGenerator.colorToString(_calendarColorMap.get(calendarEvent.getCalendar().getCalendarId())));
 		
 		System.out.println(rowIndex + ", " + columnIndex + " | " + rowSpan + ", " + colSpan);	// TODO: zur Größe des CalendarEvent.fxml's: http://stackoverflow.com/questions/16242398/why-wont-the-children-in-my-javafx-hbox-grow-scenebuilder u.a.
-//		hBox.backgroundProperty().set(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-//		calEvPane.backgroundProperty().set(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-		_gridPaneContent.add(gP, columnIndex, rowIndex, colSpan, rowSpan);
 		
 		calEvCol.setCalEvent(calendarEvent);
 	}
@@ -397,23 +395,8 @@ public class TabCalendarController {
                 break;
             }
         }
-        return null;
+        return result;
     }
-	
-//	public HBox getHBoxByRowColumnIndex(final int row, final int column, GridPane gridPane) {
-//        Node result = null;
-//        ObservableList<Node> childrens = gridPane.getChildren();
-//        for(Node node : childrens) {
-//            if( GridPane.getRowIndex(node) != null 
-//            		&& GridPane.getRowIndex(node) == row 
-//            		&& GridPane.getColumnIndex(node) != null 
-//            		&& GridPane.getColumnIndex(node) == column) {
-//                result = node;
-//                break;
-//            }
-//        }
-//        return (HBox)result;
-//    }
 	
 	@FXML
 	private Boolean handleNewAppointmentButton(){
@@ -459,23 +442,24 @@ public class TabCalendarController {
 		
 		_weekNumberTextField.setText(getWeekNumber(date).toString());
 		
-		// A monday should be provided to loadCalendareEvents() to display a full week
-		while(!date.getDayOfWeek().equals(DayOfWeek.MONDAY)) {
-			date = date.minusDays(1);
-		}
+		date = _state.onDatePickerSelected(date);
+		_state.changeHeader(date);
 		
 		loadCalendarEvents(date, _state.getNumberOfDays());
 		displayAllCalendarEvents();
 	}
+	@FXML
+	private void todayButtonControl(){
+		_datePicker.setValue(LocalDate.now());
+		onDatePickerDateSelected();
+		scrollToCurrentTime();
+	}
 	
-	// TODO: So eine Util-Funktion in ne andere Datei tun?
 	private Integer getWeekNumber(LocalDate date) {
 		WeekFields weekFields = WeekFields.of(Locale.getDefault());
 		return date.get(weekFields.weekOfWeekBasedYear());
 	}
 	
-	
-	// TODO: Diese Methode der Übersichtlichkeit halber wo anders hinschieben?
 	private int getNumberOfSelectedCheckBoxes() {
 		int i = 0;
 		for(CalendarCheckBox calCheckBox : _calendarCheckBoxes) {
@@ -540,19 +524,42 @@ public class TabCalendarController {
         return numRows;
 	}
 	
+	private void scrollToCurrentTime() {
+		int rowCount = getRowCount(_gridPaneContent);
+		rowCount = 100 / rowCount; // 100/96 => about 1.05
+		
+		double hourValue = LocalTime.now().getHour(); //if for example 5AM => hourValue = 5
+		double vertPos= ((hourValue * 4 * 1.5) * rowCount ) / 100; // multiplier 4 because hours are divided by four. 
+		_scrollPane.setVvalue(vertPos); //sets the value in percent! 
+	}
+	
+	private void markCurrentTime() {
+		// im _gridPaneContent eine rote linie ziehen oder alternativ vllt. die erste spalte die richtige zelle einfärben
+		// je nach akt. uhrzeit
+		
+//		_gridPaneContent.getChildren().get(20).setStyle("-fx-background-color: red");
+//		_gridPaneContent.getChildren().get(21).setStyle("-fx-background-color: red");
+		System.out.println("Anzahl kinder: " + _gridPaneContent.getChildren().size());
+	}
+	
 	@FXML
 	private void DayViewButtonControl(){
 		_state = new CalendarDayView();
 		_dayViewButton.setDisable(true);
 		_weekViewButton.setDisable(false);
 		initMainArea();
+		displayAllCalendarEvents();
 		_state.changeHeader(_datePicker.getValue());
+		scrollToCurrentTime();
 	}
+	
 	@FXML
 	private void WeekViewButtonControl(){
 		_state = new CalendarWeekView();
 		_dayViewButton.setDisable(false);
 		_weekViewButton.setDisable(true);
 		initMainArea();
+		displayAllCalendarEvents();
+		scrollToCurrentTime();
 	}
 }

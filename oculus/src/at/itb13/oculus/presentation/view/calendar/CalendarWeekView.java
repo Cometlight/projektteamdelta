@@ -53,6 +53,19 @@ public class CalendarWeekView implements ICalendarViewState{
 		
 	}
 
+
+	/*
+	 * @see at.itb13.oculus.presentation.view.calendar.ICalendarViewState#onDatePickerSelected(java.time.LocalDate)
+	 */
+	@Override
+	public LocalDate onDatePickerSelected(LocalDate date) {
+		// A monday should be provided to loadCalendareEvents() to display a full week
+		while(!date.getDayOfWeek().equals(DayOfWeek.MONDAY)) {
+				date = date.minusDays(1);
+		}
+		return date;
+	}
+
 	
 
 }

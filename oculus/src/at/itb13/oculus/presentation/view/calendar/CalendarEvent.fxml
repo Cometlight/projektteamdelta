@@ -11,6 +11,6 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.calendar.CalendarEventController">
    <children>
-      <Hyperlink fx:id="_patientLabel" onAction="#moreInfoLinkControl" text="patientName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <Hyperlink fx:id="_patientLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#moreInfoLinkControl" text="patientName" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

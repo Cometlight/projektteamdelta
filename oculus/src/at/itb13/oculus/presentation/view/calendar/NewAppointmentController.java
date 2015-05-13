@@ -30,6 +30,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -91,6 +92,11 @@ public class NewAppointmentController {
 	private TextArea _resonText;
 	
 	private Stage _dialogStage;
+	private LocalDateTime _startDate;
+	private LocalDateTime _endDate;
+	private IPatient _patient;
+	private String _patientName;
+	private ICalendar _calendar;
 	
 	private boolean okClicked = false;
 	private ObservableList<IPatient> _patientData = FXCollections.observableArrayList();
@@ -109,10 +115,11 @@ public class NewAppointmentController {
                 (observable, oldValue, newValue) -> {
                 	if(_patientTableView.getSelectionModel().getSelectedItem() != null){
                 		_selectedpatient.setText(newValue.getFirstName() + " " + newValue.getLastName() + " " + newValue.getDateOfBirth());
+                		_patientRecordButton.setDisable(false);
+        				_patient = _patientTableView.getSelectionModel().getSelectedItem();
+        				_patientName = "";
                 	}
                 });
-        _patientTableView.getSelectionModel().selectedItemProperty().addListener(
-        		(observable, oldValue, newValue) -> _patientRecordButton.setDisable(false));
 		
 		setItemsToDoctorBox();
 		setItemsToTypeBox();
@@ -199,12 +206,33 @@ public class NewAppointmentController {
         	}
         });
                     
-        _startTimeSpinnerMin.getEditor().textProperty().addListener((observable, oldValue, newValue) ->           
-        	_startTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(newValue)));
-        _endTimeSpinnerHour.getEditor().textProperty().addListener((observable, oldValue, newValue) ->           
-        	_endTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(newValue)));
-        _endTimeSpinnerMin.getEditor().textProperty().addListener((observable, oldValue, newValue) ->           
-        	_endTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(newValue)));
+        _startTimeSpinnerMin.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+        	if((newValue!= null)&&(!newValue.equals(""))){
+        		_startTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(newValue));
+        	}else{
+        		_startTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(oldValue));
+
+        	}
+        });
+        	
+        _endTimeSpinnerHour.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+        	if((newValue!= null)&&(!newValue.equals(""))){
+        		_endTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(newValue));
+        	}else{
+        		_endTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(oldValue));
+
+        	}
+        });
+        	
+        _endTimeSpinnerMin.getEditor().textProperty().addListener((observable, oldValue, newValue) ->   {
+        	if((newValue!= null)&&(!newValue.equals(""))){
+        		_endTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(newValue));
+        	}else{
+        		_endTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(oldValue));
+
+        	}
+        });
+        	
 	}
 	
 	@FXML
@@ -218,6 +246,8 @@ public class NewAppointmentController {
 		    _selectedpatient.setText(result.get());
 		    _patientTableView.getSelectionModel().clearSelection();
 		    _patientRecordButton.setDisable(true);
+		    _patient = null;
+		    _patientName = _selectedpatient.getText();
 		   
 		}
 		
@@ -233,6 +263,12 @@ public class NewAppointmentController {
 	
 	public boolean isOkClicked() {
 		return okClicked;
+	}
+	private void calcDate(){
+		LocalTime startTime = LocalTime.of(_startTimeSpinnerHour.getValue(), _startTimeSpinnerMin.getValue());
+		_startDate = LocalDateTime.of(_datePicker.getValue(), startTime);
+		LocalTime endTime = LocalTime.of(_endTimeSpinnerHour.getValue(), _endTimeSpinnerMin.getValue());
+		_endDate = LocalDateTime.of(_datePicker.getValue(), endTime);
 	}
 	 /**
 	  * Controls the "search" Button, for searching by Name and Social Insurance Number.
@@ -273,7 +309,7 @@ public class NewAppointmentController {
 	 @FXML
 	 private void patientRecordButtonControl(){
 		
-		 if(_patientTableView.getSelectionModel().getSelectedItem() != null){
+		 if(_patient != null){
 			 try {
 					// Load the fxml file and create a new stage for the popup dialog.
 					FXMLLoader loader = new FXMLLoader();
@@ -284,7 +320,7 @@ public class NewAppointmentController {
 					// Create the dialog Stage.
 					Stage dialogStage = new Stage();
 					
-					dialogStage.setTitle("Patient Record" + " " +_patientTableView.getSelectionModel().getSelectedItem().getFirstName() + " " +_patientTableView.getSelectionModel().getSelectedItem().getLastName());
+					dialogStage.setTitle("Patient Record" + " " +_patient.getFirstName() + " " +_patient.getLastName());
 					dialogStage.initModality(Modality.WINDOW_MODAL);
 					
 					Scene scene = new Scene(page);
@@ -293,7 +329,7 @@ public class NewAppointmentController {
 					// Set the person into the controller.
 					PatientRecordController controller = loader.getController();
 					controller.setDialogStage(dialogStage);
-					controller.setPatientRO((PatientRO) _patientTableView.getSelectionModel().getSelectedItem());
+					controller.setPatientRO((PatientRO) _patient);
 	
 					// Show the dialog and wait until the user closes it
 					dialogStage.showAndWait();
@@ -338,21 +374,21 @@ public class NewAppointmentController {
 	 @FXML
 	 private void saveButtonControl(){
 		 if(inputIsValid()){
-			 LocalTime startTime = LocalTime.of(_startTimeSpinnerHour.getValue(), _startTimeSpinnerMin.getValue());
-			 LocalDateTime start = LocalDateTime.of(_datePicker.getValue(), startTime);
-			 
-			 LocalTime endTime = LocalTime.of(_endTimeSpinnerHour.getValue(), _endTimeSpinnerMin.getValue());
-			 LocalDateTime end = LocalDateTime.of(_datePicker.getValue(), endTime);
-					
-			 try {
-				 if(_patientTableView.getSelectionModel().getSelectedItem() != null){
-					 ControllerFacade.getInstance().getNewAppointmentController().newCalendarEvent(_doctorBox.getSelectionModel().getSelectedItem(), _typeBox.getSelectionModel().getSelectedItem(), start, end, _resonText.getText(), _patientTableView.getSelectionModel().getSelectedItem());
-				 }else{
-					 ControllerFacade.getInstance().getNewAppointmentController().newCalendarEvent(_doctorBox.getSelectionModel().getSelectedItem(), _typeBox.getSelectionModel().getSelectedItem(), start, end, _resonText.getText(), _selectedpatient.getText());
-				 }
-			} catch (SaveException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			calcDate();
+			if((continueWhenNotInWorkingHour())&&(continueWithOverlaping())){
+				 try {
+					 if(_patient != null){
+						 ControllerFacade.getInstance().getNewAppointmentController().newCalendarEvent(_calendar, _typeBox.getSelectionModel().getSelectedItem(), _startDate, _endDate, _resonText.getText(), _patient);
+					 }else if (_patientName.length() > 0){
+						 ControllerFacade.getInstance().getNewAppointmentController().newCalendarEvent(_calendar, _typeBox.getSelectionModel().getSelectedItem(), _startDate, _endDate, _resonText.getText(), _patientName);
+					 }
+				} catch (SaveException e) {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Save Error");
+					alert.setHeaderText("Save Error");
+					alert.setContentText("A problem has occured. Appoint has not been saved.");
+					e.printStackTrace();
+				}
 			}
 			 _dialogStage.close();
 		 }
@@ -363,22 +399,20 @@ public class NewAppointmentController {
 	private boolean inputIsValid() {
 		String errorMessage = "";
 
-		if (_patientTableView.getSelectionModel().getSelectedItem() == null
-				|| _selectedpatient.getText().length() < 1) {
-			errorMessage += "Please select a Patient or create a Appointment with a new Patient\n";
+		if (_patient == null
+				&& _patientName.length() < 1) {
+			errorMessage += "No Patient selected\n";
 		}
 		if(_datePicker.getValue()== null){
-				errorMessage += "Please select a Day\n";
+				errorMessage += "No Day selected\n";
 		}
-		//check start and end spinner and the hole start and end time 
-		if (_doctorBox.getSelectionModel().getSelectedItem() == null) {
+		if (_calendar == null) {
 			errorMessage += "No doctor selected!\n";
 		}
 		if (_typeBox.getSelectionModel().getSelectedItem() == null) {
 			errorMessage += "No Event Type selected!\n";
 		}
 		
-
 		if (errorMessage.length() == 0) {
 			return true;
 		} else {
@@ -393,6 +427,73 @@ public class NewAppointmentController {
 
 			return false;
 		}
+	}
+	private boolean isEventAlreadyTaken(){
+		calcDate();
+		try {
+			if(ControllerFacade.getInstance().getNewAppointmentController().isDateAlreadyTaken(_calendar,_startDate , _endDate)){
+				return true;
+			}
+		} catch (InvalidInputException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	return false;
+	}
+	/**
+	 * returns true if the user want to create the appointment, although there is an overlaping
+	 * also returns true if there is no problem (no overlaping)
+	 * @return
+	 */
+	private boolean continueWithOverlaping(){
+		if(isEventAlreadyTaken()){
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setHeaderText("Overlapping Appointment");
+			alert.setContentText("The new Appointment overlaps an other Appointment. Do you want to continue?");
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				alert.close();
+				return true;
+
+			} else {
+				alert.close();
+				return false;    
+			}
+		}
+		return true;
+	}
+	private boolean isEventInWorkingHour(){
+		calcDate();
+		if(ControllerFacade.getInstance().getNewAppointmentController().isInWorkingHours(_calendar, _startDate, _endDate)){
+			return true;
+		}
+		return false;
+	}
+	/**
+	 * returns true if the user wants to create an CalenderEvent, although the appointment is not in workinghour
+	 * return also true if there is no problem (Appointment is in workinghour)
+	 * @return
+	 */
+	private boolean continueWhenNotInWorkingHour(){
+		if(!isEventInWorkingHour()){
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setHeaderText("Appointment not in workinghour");
+			alert.setContentText("The new Appointment is not in workinghour. Do you want to continue?");
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				alert.close();
+				return true;
+
+			} else {
+				alert.close();
+				return false;    
+			}
+		}
+		return true;
+	}
+	@FXML
+	private void doctorBoxControl(){
+		_calendar = _doctorBox.getSelectionModel().getSelectedItem();
 	}
 
 	@FXML

@@ -1,6 +1,5 @@
 package at.itb13.oculus.presentation.view.calendar;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 import javafx.scene.layout.GridPane;
@@ -15,7 +14,8 @@ import javafx.scene.text.Text;
 public class CalendarDayView implements ICalendarViewState {
 	private static final int NUMBER_OF_DAYS = 1;
 	private GridPane _gridPaneHeader;
-	private Text _gridHeaderText;
+	private LocalDateLabel _gridHeaderDateLabel;
+	
 	/*
 	 * @see at.itb13.oculus.presentation.view.calendar.ICalendarViewState#initGridPaneHeader(javafx.scene.layout.GridPane)
 	 */
@@ -25,16 +25,17 @@ public class CalendarDayView implements ICalendarViewState {
 		_gridPaneHeader.setGridLinesVisible(true); 	// TODO: "for debug purposes only" --> Durch CSS ersetzen
 		
 		_gridPaneHeader.add(new Text("Time"), 0, 0);
-		_gridHeaderText = new Text("");
-		_gridPaneHeader.add(_gridHeaderText, 1, 0);
+		_gridHeaderDateLabel = new LocalDateLabel();
+		_gridPaneHeader.add(_gridHeaderDateLabel, 1, 0);
 	}
+	
 	@Override
 	public void changeHeader(LocalDate date){
 	
 		_gridPaneHeader.add(new Text("Time"), 0, 0);
-		_gridPaneHeader.getChildren().remove(_gridHeaderText);
-		_gridHeaderText = new Text(date.getDayOfWeek().name() + " " + date.toString());
-		_gridPaneHeader.add(_gridHeaderText, 1, 0);
+		_gridPaneHeader.getChildren().remove(_gridHeaderDateLabel);
+		_gridHeaderDateLabel = new LocalDateLabel(date, date.getDayOfWeek().name() + " " + date.toString());
+		_gridPaneHeader.add(_gridHeaderDateLabel, 1, 0);
 	}
 
 	/*
@@ -44,6 +45,7 @@ public class CalendarDayView implements ICalendarViewState {
 	public int getNumberOfDays() {
 		return NUMBER_OF_DAYS;
 	}
+	
 	/*
 	 * @see at.itb13.oculus.presentation.view.calendar.ICalendarViewState#onDatePickerSelected(java.time.LocalDate)
 	 */
@@ -51,6 +53,7 @@ public class CalendarDayView implements ICalendarViewState {
 	public LocalDate onDatePickerSelected(LocalDate date) {
 		return date;
 	}
+	
 	/*
 	 * @see at.itb13.oculus.presentation.view.calendar.ICalendarViewState#getStartDate(java.time.LocalDate)
 	 */

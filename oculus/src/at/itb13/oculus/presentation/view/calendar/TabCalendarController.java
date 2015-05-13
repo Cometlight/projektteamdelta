@@ -460,6 +460,7 @@ public class TabCalendarController {
 		_datePicker.setValue(LocalDate.now());
 		onDatePickerDateSelected();
 		scrollToCurrentTime();
+		markCurrentTime();
 	}
 	
 	private Integer getWeekNumber(LocalDate date) {
@@ -559,6 +560,7 @@ public class TabCalendarController {
 		displayAllCalendarEvents();
 		_state.changeHeader(_datePicker.getValue());
 		scrollToCurrentTime();
+		markCurrentTime();
 	}
 	
 	@FXML
@@ -570,5 +572,6 @@ public class TabCalendarController {
 		displayAllCalendarEvents();
 		_state.changeHeader(_datePicker.getValue());		//TODO: MONDAY
 		scrollToCurrentTime();
+		markCurrentTime();
 	}
 }

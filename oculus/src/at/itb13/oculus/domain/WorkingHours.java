@@ -1,6 +1,7 @@
 package at.itb13.oculus.domain;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.LocalTime;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -38,16 +39,16 @@ public class WorkingHours implements java.io.Serializable, IWorkingHours {
 	private static final Logger _logger = LogManager.getLogger(WorkingHours.class.getName());
 	
 	private Integer _workingHoursId;
-	private LocalDateTime _morningFrom;
-	private LocalDateTime _morningTo;
-	private LocalDateTime _afternoonFrom;
-	private LocalDateTime _afternoonTo;
+	private LocalTime _morningFrom;
+	private LocalTime _morningTo;
+	private LocalTime _afternoonFrom;
+	private LocalTime _afternoonTo;
 
 	public WorkingHours() {
 	}
 
-	public WorkingHours(LocalDateTime morningFrom, LocalDateTime morningTo, LocalDateTime afternoonFrom,
-			LocalDateTime afternoonTo, Set<CalendarWorkingHours> calendarworkinghourses) {
+	public WorkingHours(LocalTime morningFrom, LocalTime morningTo, LocalTime afternoonFrom,
+			LocalTime afternoonTo, Set<CalendarWorkingHours> calendarworkinghourses) {
 		_morningFrom = morningFrom;
 		_morningTo = morningTo;
 		_afternoonFrom = afternoonFrom;
@@ -68,44 +69,44 @@ public class WorkingHours implements java.io.Serializable, IWorkingHours {
 	@Convert(converter = LocalTimeConverter.class)
 	@Column(name = "morningFrom", length = 8)
 	@Override
-	public LocalDateTime getMorningFrom() {
+	public LocalTime getMorningFrom() {
 		return _morningFrom;
 	}
 
-	public void setMorningFrom(LocalDateTime morningFrom) {
+	public void setMorningFrom(LocalTime morningFrom) {
 		_morningFrom = morningFrom;
 	}
 
 	@Convert(converter = LocalTimeConverter.class)
 	@Column(name = "morningTo", length = 8)
 	@Override
-	public LocalDateTime getMorningTo() {
+	public LocalTime getMorningTo() {
 		return _morningTo;
 	}
 
-	public void setMorningTo(LocalDateTime morningTo) {
+	public void setMorningTo(LocalTime morningTo) {
 		_morningTo = morningTo;
 	}
 
 	@Convert(converter = LocalTimeConverter.class)
 	@Column(name = "afternoonFrom", length = 8)
 	@Override
-	public LocalDateTime getAfternoonFrom() {
+	public LocalTime getAfternoonFrom() {
 		return _afternoonFrom;
 	}
 
-	public void setAfternoonFrom(LocalDateTime afternoonFrom) {
+	public void setAfternoonFrom(LocalTime afternoonFrom) {
 		_afternoonFrom = afternoonFrom;
 	}
 
 	@Convert(converter = LocalTimeConverter.class)
 	@Column(name = "afternoonTo", length = 8)
 	@Override
-	public LocalDateTime getAfternoonTo() {
+	public LocalTime getAfternoonTo() {
 		return _afternoonTo;
 	}
 
-	public void setAfternoonTo(LocalDateTime afternoonTo) {
+	public void setAfternoonTo(LocalTime afternoonTo) {
 		_afternoonTo = afternoonTo;
 	}
 }

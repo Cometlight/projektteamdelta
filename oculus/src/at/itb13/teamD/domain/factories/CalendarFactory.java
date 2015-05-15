@@ -42,8 +42,4 @@ public class CalendarFactory implements ICalendarFactory{
 		ICalendar calendar = Calendar.getInstance(title, doctor, orthoptist, calendarEvents, calendarWorkingHours);
 		return calendar;
 	}
-	
-	/**
-	 * TODO: get() if necessary
-	 */
 }

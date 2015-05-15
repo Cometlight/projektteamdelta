@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "prescriptionentry", catalog = "oculus_d")
 public class PrescriptionEntry implements java.io.Serializable {
-
+	private static final long serialVersionUID = 1L;
 	private Integer _prescriptionEntryId;
 	private Medicine _medicine;
 	private Prescription _prescription;

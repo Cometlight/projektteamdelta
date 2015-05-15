@@ -3,7 +3,7 @@ package at.itb13.teamD.domain.interfaces;
 import java.time.LocalDateTime;
 
 /**
- * This Interface defines the required methodes of the CalendarEvent class.
+ * This Interface defines the required methods of the CalendarEvent class.
  *
  * @author Florin Metzler
  * @since 30.04.2015

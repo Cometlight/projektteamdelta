@@ -1,11 +1,10 @@
 package at.itb13.oculus.domain;
+import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-
-import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,6 +23,7 @@ import org.apache.logging.log4j.Logger;
 @Entity
 @Table(name = "visualaid", catalog = "oculus_d")
 public class VisualAid implements java.io.Serializable {
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(VisualAid.class.getName());
 	private static final long serialVersionUID = 1L;
 	

@@ -7,7 +7,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.application.exceptions.InvalidInputException;
-import at.itb13.oculus.application.interfaces.IPatientSearch;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
@@ -19,6 +18,7 @@ import at.itb13.oculus.technicalServices.dao.PatientDao;
  * @date 22.04.2015
  */
 public class PatientSearch{
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(PatientSearch.class.getName());
 	
 	/**

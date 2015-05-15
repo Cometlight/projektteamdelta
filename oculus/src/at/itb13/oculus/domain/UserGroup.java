@@ -27,6 +27,7 @@ import org.apache.logging.log4j.Logger;
 @Entity
 @Table(name = "usergroup", catalog = "oculus_d", uniqueConstraints = @UniqueConstraint(columnNames = "userGroupName"))
 public class UserGroup implements java.io.Serializable {
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(UserGroup.class.getName());
 	private static final long serialVersionUID = 1L;
 	

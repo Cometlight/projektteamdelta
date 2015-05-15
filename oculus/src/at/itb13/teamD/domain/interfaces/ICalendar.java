@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * This Interface defines the required methodes of the Calendar class.
+ * This Interface defines the required methods of the Calendar class.
  *
  * @author Florin Metzler
  * @since 30.04.2015

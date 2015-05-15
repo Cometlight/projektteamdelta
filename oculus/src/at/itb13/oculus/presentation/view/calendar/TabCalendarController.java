@@ -25,7 +25,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -56,7 +55,7 @@ import at.itb13.teamD.domain.interfaces.ICalendarEvent;
 
 /**
  * 
- * TODO: Insert description here.
+ * The controller that is used for managing the whole calendar.
  * 
  * @author Caroline Meusburger, Daniel Scheffknecht
  * @date May 1, 2015
@@ -100,6 +99,9 @@ public class TabCalendarController {
 	
 	private Timer _timer;	// used for refreshing
 
+	/**
+	 * Initializes all dynamic elements of the calendar and goes to LocalDate.now()
+	 */
 	@FXML
 	private void initialize() {
 		_logger.info("Initializing TabCalendarController ...");
@@ -126,6 +128,10 @@ public class TabCalendarController {
 		_logger.info("TabCalendarController has been initialized.");
 	}
 	
+	/**
+	 * Initializes the checkboxes. There exists 1 CalendarCheckBox for every calendar.
+	 * Furthermore, a distinct color is saved in _calendarColorMap for every calendar.
+	 */
 	private void initCheckBoxes() {
 		List<ICalendar> calendars = ControllerFacade.getInstance().getNewAppointmentController().getAllCalendars();
 		_calendarCheckBoxes = new ArrayList<>(calendars.size());
@@ -151,7 +157,9 @@ public class TabCalendarController {
 		_calendarCheckBoxesVBox.getChildren().setAll(_calendarCheckBoxes);
 	}
 	
-	
+	/**
+	 * Initializes the datepicker, i.e. setting the date to LocalDate.now() and adjusting the formatting.
+	 */
 	private void initDatePicker() {
 		_datePicker.setConverter(new StringConverter<LocalDate>() {
 			 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -178,7 +186,10 @@ public class TabCalendarController {
 		_datePicker.setValue(LocalDate.now());	// Show today's appointments by default
 	}
 	
-	
+	/**
+	 * Initializes the main area, which consists of the grid and scroll panes with their child nodes.
+	 * Additionally sets a mouse handler for GridPaneContent, which handles the click for creating new appointments.
+	 */
 	private void initMainArea() {
 		_gridPaneHeader = new GridPane();
 		_gridPaneContent = new GridPane();
@@ -234,7 +245,7 @@ public class TabCalendarController {
 	
 	private void initGridPaneContent() {
 		_gridPaneContent.getChildren().clear();
-		_gridPaneContent.setGridLinesVisible(true); 	// TODO: "for debug purposes only" --> Durch CSS ersetzen
+		_gridPaneContent.setGridLinesVisible(true);
 		
 		// 1st column: Display the time
 		LocalTime timeStart = LocalTime.MIN;
@@ -299,8 +310,7 @@ public class TabCalendarController {
 			}
 			_logger.info(_calEvents.size() + " appointments have been found.");
 		} catch (InvalidInputException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_logger.error("Input not valid", e);
 		}
 	}
 
@@ -325,8 +335,8 @@ public class TabCalendarController {
 			 calEvPane = fxmlLoader.load();
 			 calEvCol = fxmlLoader.getController();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_logger.error("Failed to load " + CALENDAR_EVENT_FXML, e);
+			return;
 		}
 		
 		double height = rowSpan * CONTENT_ROW_HEIGHT;

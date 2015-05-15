@@ -1,6 +1,6 @@
-package at.itb13.oculus.presentation.view.calendar;
+package at.itb13.teamD.presentation;
 
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import at.itb13.teamD.domain.interfaces.ICalendar;
 
 /**
@@ -9,25 +9,18 @@ import at.itb13.teamD.domain.interfaces.ICalendar;
  * @author Caroline Meusburger
  * @since 11.05.2015
  */
-public class CalendarCheckBox extends CheckBox {
+public class CalendarEventFillerNode extends Label {
 	private ICalendar _calendar;
 	
-	
-	public CalendarCheckBox(ICalendar calendar, String label) {
-		super(label);
+	public CalendarEventFillerNode(ICalendar calendar) {
 		_calendar = calendar;
-	}
-	
-	public CalendarCheckBox(ICalendar calendar) {
-		this(calendar, calendar.getTitle());
 	}
 
 	public ICalendar getCalendar() {
 		return _calendar;
 	}
-
+	
 	public void setCalendar(ICalendar calendar) {
 		_calendar = calendar;
 	}
 }
-

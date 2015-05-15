@@ -30,12 +30,12 @@ import at.itb13.oculus.presentation.view.RootLayoutController;
 import at.itb13.oculus.presentation.view.TabAppointmentsController;
 import at.itb13.oculus.presentation.view.TabPatientController;
 import at.itb13.oculus.presentation.view.TabQueueController;
-import at.itb13.oculus.presentation.view.calendar.TabCalendarController;
 import at.itb13.oculus.technicalServices.HibernateUtil;
 import at.itb13.oculus.technicalServices.exceptions.NoDatabaseConnectionException;
 import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacade;
 import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProvider;
 import at.itb13.teamD.application.CalendarEventFactoryProvider;
+import at.itb13.teamD.presentation.controller.TabCalendarController;
 
 /**
  * 

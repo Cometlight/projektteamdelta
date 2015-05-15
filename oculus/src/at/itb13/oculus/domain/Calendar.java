@@ -233,4 +233,9 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 	    coll.addAll((Collection<? extends CalendarWorkingHours>) calendarworkinghourses);
 	    return coll;
 	}
+	
+	@Override
+	public void addCalendarEventToList(ICalendarEvent newEvent){
+		_calendarEvents.add((CalendarEvent) newEvent);
+	}
 }

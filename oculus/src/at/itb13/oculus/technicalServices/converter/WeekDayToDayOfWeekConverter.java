@@ -1,4 +1,4 @@
-package at.itb13.oculus.domain.support;
+package at.itb13.oculus.technicalServices.converter;
 
 import java.time.DayOfWeek;
 

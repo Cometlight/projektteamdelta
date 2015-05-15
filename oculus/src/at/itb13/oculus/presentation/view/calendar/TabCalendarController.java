@@ -452,6 +452,10 @@ public class TabCalendarController {
 			dialogStage.showAndWait();
 
 			_logger.info("showNewAppointmentDialog successful");
+			if(controller.isOkClicked()){
+				System.out.println("ok Clicked = true");
+				refresh();
+			}
 			return controller.isOkClicked();
 		} catch (IOException ex) {
 			_logger.error("showNewAppointmentDialog failed", ex);
@@ -587,12 +591,13 @@ public class TabCalendarController {
 		_state = new CalendarDayView();
 		_dayViewButton.setDisable(true);
 		_weekViewButton.setDisable(false);
-		initMainArea();
-		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
-		displayAllCalendarEvents();
-		_state.changeHeader(_datePicker.getValue());
-		scrollToCurrentTime();
-		markCurrentTime();
+		refresh();
+//		initMainArea();
+//		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
+//		displayAllCalendarEvents();
+//		_state.changeHeader(_datePicker.getValue());
+//		scrollToCurrentTime();
+//		markCurrentTime();
 	}
 	
 	@FXML
@@ -600,6 +605,16 @@ public class TabCalendarController {
 		_state = new CalendarWeekView();
 		_dayViewButton.setDisable(false);
 		_weekViewButton.setDisable(true);
+		refresh();
+//		initMainArea();
+//		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
+//		displayAllCalendarEvents();
+//		_state.changeHeader(_datePicker.getValue());		//TODO: MONDAY
+//		scrollToCurrentTime();
+//		markCurrentTime();
+	}
+	
+	private void refresh(){
 		initMainArea();
 		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
 		displayAllCalendarEvents();

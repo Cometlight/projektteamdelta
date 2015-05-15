@@ -1,4 +1,4 @@
-package at.itb13.teamD.application;
+package at.itb13.teamD.application.interfaces;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,7 +11,7 @@ import at.itb13.teamD.domain.interfaces.IEventType;
 import at.itb13.teamD.domain.interfaces.IPatient;
 
 /**
- * This Interface defines the used methodes of the NewAppointmentController.
+ * This Interface defines the used methods of the NewAppointmentController.
  *
  * @author Florin Metzler
  * @since 30.04.2015

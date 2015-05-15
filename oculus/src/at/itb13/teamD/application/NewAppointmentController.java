@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import at.itb13.teamD.application.interfaces.INewAppointmentController;
 import at.itb13.teamD.domain.factories.CalendarEventFactory;
 import at.itb13.teamD.domain.interfaces.ICalendar;
 import at.itb13.teamD.domain.interfaces.ICalendarEvent;
@@ -21,14 +22,14 @@ import at.itb13.oculus.technicalServices.persistencefacade.IPersistenceFacade;
 import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProvider;
 
 /**
- * provides methodes for the usecase "new appointment"
+ * provides methods for the usecase "new appointment"
  *
  * @author Florin Metzler
  * @since 03.05.2015
  */
 public class NewAppointmentController implements INewAppointmentController, IPatientSearch{
 	
-	private ICalendarEventFactory _factory = new CalendarEventFactory();
+	private ICalendarEventFactory _factory = new CalendarEventFactory();	/** TODO **/
 	
 	/**
 	 * Creates a new appointment in a chosen timespan for the wanted calendar and patient.
@@ -45,6 +46,9 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 			LocalDateTime end, String description, IPatient patient)
 			throws SaveException {
 		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, (IPatient) patient);
+		Set<ICalendarEvent> set = calendar.getICalendarEvents();
+		set.add(newEvent);
+		calendar.setCalendarEvents(set);		
 		IPersistenceFacade facade = PersistenceFacadeProvider.getPersistenceFacade();
 		facade.makePersistent(newEvent);
 		if(facade.makePersistent(newEvent)){

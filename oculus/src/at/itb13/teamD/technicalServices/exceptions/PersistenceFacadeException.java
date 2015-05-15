@@ -1,4 +1,4 @@
-package at.itb13.oculus.technicalServices.exceptions;
+package at.itb13.teamD.technicalServices.exceptions;
 
 /**
  * TODO: Insert description here.

@@ -33,9 +33,9 @@ import at.itb13.oculus.presentation.view.TabQueueController;
 import at.itb13.oculus.technicalServices.HibernateUtil;
 import at.itb13.oculus.technicalServices.exceptions.NoDatabaseConnectionException;
 import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacade;
-import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProvider;
 import at.itb13.teamD.application.CalendarEventFactoryProvider;
 import at.itb13.teamD.presentation.controller.TabCalendarController;
+import at.itb13.teamD.technicalServices.persistenceFacade.PersistenceFacadeProvider;
 
 /**
  * 

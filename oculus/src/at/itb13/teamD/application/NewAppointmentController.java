@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import at.itb13.oculus.application.interfaces.IPatientSearch;
-import at.itb13.oculus.technicalServices.exceptions.PersistenceFacadeException;
-import at.itb13.oculus.technicalServices.persistencefacade.IPersistenceFacade;
-import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProvider;
 import at.itb13.teamD.application.exceptions.InvalidInputException;
 import at.itb13.teamD.application.exceptions.SaveException;
 import at.itb13.teamD.application.interfaces.INewAppointmentController;
@@ -18,6 +15,9 @@ import at.itb13.teamD.domain.interfaces.ICalendarEventFactory;
 import at.itb13.teamD.domain.interfaces.IEventType;
 import at.itb13.teamD.domain.interfaces.IPatient;
 import at.itb13.teamD.domain.interfaces.IWorkingHours;
+import at.itb13.teamD.technicalServices.exceptions.PersistenceFacadeException;
+import at.itb13.teamD.technicalServices.persistenceFacade.IPersistenceFacade;
+import at.itb13.teamD.technicalServices.persistenceFacade.PersistenceFacadeProvider;
 
 /**
  * provides methods for the usecase "new appointment"

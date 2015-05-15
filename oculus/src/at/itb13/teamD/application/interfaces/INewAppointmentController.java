@@ -3,8 +3,8 @@ package at.itb13.teamD.application.interfaces;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import at.itb13.oculus.application.exceptions.InvalidInputException;
-import at.itb13.oculus.application.exceptions.SaveException;
+import at.itb13.teamD.application.exceptions.InvalidInputException;
+import at.itb13.teamD.application.exceptions.SaveException;
 import at.itb13.teamD.domain.interfaces.ICalendar;
 import at.itb13.teamD.domain.interfaces.ICalendarEvent;
 import at.itb13.teamD.domain.interfaces.IEventType;

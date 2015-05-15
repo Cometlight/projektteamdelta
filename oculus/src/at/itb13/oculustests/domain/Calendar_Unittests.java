@@ -13,7 +13,7 @@ import org.junit.Test;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.WorkingHours;
-import at.itb13.teamD.domain.factories.CalendarFactory;
+import at.itb13.oculus.domain.factories.CalendarFactory;
 
 import java.time.DayOfWeek;
 

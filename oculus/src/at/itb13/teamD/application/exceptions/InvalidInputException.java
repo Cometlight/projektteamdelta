@@ -1,4 +1,4 @@
-package at.itb13.oculus.application.exceptions;
+package at.itb13.teamD.application.exceptions;
 
 /**
  * The input parameter is null or has another wrong value.

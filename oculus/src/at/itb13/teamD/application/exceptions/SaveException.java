@@ -1,4 +1,4 @@
-package at.itb13.oculus.application.exceptions;
+package at.itb13.teamD.application.exceptions;
 
 /**
  * There was a problem to save the object in the database.

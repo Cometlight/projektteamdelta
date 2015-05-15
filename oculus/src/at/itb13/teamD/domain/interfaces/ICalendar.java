@@ -48,6 +48,11 @@ public interface ICalendar {
 	
 	public abstract void setCalendarEvents(Set<ICalendarEvent> calendarEvents);
 	
+	/**
+	 * if a new CalendarEvent is created this method adds it to the list of all CalendarEvents for a specific calendar.
+	 * 
+	 * @param newEvent which is to add.
+	 */
 	public abstract void addCalendarEventToList(ICalendarEvent newEvent);
 	
 	public abstract ICalendarEvent getCalendarEventById(int calendarEventId);

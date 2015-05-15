@@ -234,6 +234,11 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 	    return coll;
 	}
 	
+	/**
+	 * if a new CalendarEvent is created this method adds it to the list of all CalendarEvents for a specific calendar.
+	 * 
+	 * @param newEvent which is to add.
+	 */
 	@Override
 	public void addCalendarEventToList(ICalendarEvent newEvent){
 		_calendarEvents.add((CalendarEvent) newEvent);

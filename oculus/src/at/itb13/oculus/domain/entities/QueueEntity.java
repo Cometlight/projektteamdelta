@@ -1,36 +1,25 @@
 package at.itb13.oculus.domain.entities;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-
-import static javax.persistence.GenerationType.IDENTITY;
-
-import javax.persistence.Convert;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Orthoptist;
 import at.itb13.oculus.domain.Patient;
-import at.itb13.oculus.domain.Queue;
-import at.itb13.oculus.domain.QueueEntry;
 import at.itb13.oculus.technicalServices.converter.LocalDateTimePersistenceConverter;
 
 /**
@@ -43,7 +32,7 @@ import at.itb13.oculus.technicalServices.converter.LocalDateTimePersistenceConve
 @Entity
 @Table(name = "queue", catalog = "oculus_d", uniqueConstraints = @UniqueConstraint(columnNames = "patientId"))
 public class QueueEntity implements java.io.Serializable {
-
+	private static final long serialVersionUID = 1L;
 	private Integer queueId;
 	private Doctor doctor;
 	private Orthoptist orthoptist;

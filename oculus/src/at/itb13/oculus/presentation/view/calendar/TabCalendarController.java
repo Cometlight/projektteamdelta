@@ -606,7 +606,7 @@ public class TabCalendarController {
 		_dayViewButton.setDisable(true);
 		_weekViewButton.setDisable(false);
 		initMainArea();
-	//	loadCalendarEvents(, _state.getNumberOfDays());
+		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
 		displayAllCalendarEvents();
 		_state.changeHeader(_datePicker.getValue());
 		scrollToCurrentTime();
@@ -619,6 +619,7 @@ public class TabCalendarController {
 		_dayViewButton.setDisable(false);
 		_weekViewButton.setDisable(true);
 		initMainArea();
+		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
 		displayAllCalendarEvents();
 		_state.changeHeader(_datePicker.getValue());		//TODO: MONDAY
 		scrollToCurrentTime();

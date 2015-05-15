@@ -1,12 +1,10 @@
 package at.itb13.oculus.presentation.view.calendar;
 
 import java.io.IOException;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.TextStyle;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,13 +15,9 @@ import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,37 +25,29 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import at.itb13.oculus.application.ControllerFacade;
-import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
-import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.presentation.OculusMain;
 import at.itb13.teamD.domain.interfaces.ICalendar;
 import at.itb13.teamD.domain.interfaces.ICalendarEvent;
-import at.itb13.teamD.domain.interfaces.IPatient;
 
 /**
  * 
@@ -314,7 +300,7 @@ public class TabCalendarController {
 	private void displayAllCalendarEvents() {
 		clearCalEventsFromGridPaneContent();
 		for(ICalendarEvent calEv : _calEvents) {
-			int columnIndex = calEv.getEventStart().getDayOfWeek().getValue();
+			int columnIndex = _state.getColumnForDate(calEv.getEventStart().toLocalDate());
 			int rowIndex = calEv.getEventStart().getHour() * 4 + calEv.getEventStart().getMinute() / TIME_INTERVAL_MINUTES;
 			int colSpan = 1;
 			int rowSpan = ( (calEv.getEventEnd().getHour() * 60 + calEv.getEventEnd().getMinute()) - (calEv.getEventStart().getHour() * 60 + calEv.getEventStart().getMinute()) ) / TIME_INTERVAL_MINUTES;
@@ -323,6 +309,8 @@ public class TabCalendarController {
 	}
 	
 	private void displayCalendarEvent(ICalendarEvent calendarEvent, int columnIndex, int rowIndex, int colSpan, int rowSpan) {
+		_logger.trace("Displaying appointment: " + calendarEvent);
+		
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(CALENDAR_EVENT_FXML));
 		AnchorPane calEvPane = null;
 		CalendarEventController calEvCol = null;
@@ -382,6 +370,8 @@ public class TabCalendarController {
 				+ "-fx-border-width: 1;");
 		
 		calEvCol.setCalEvent(calendarEvent);
+		
+		_logger.trace("Successfully displaying appointment (" + calendarEvent + ")");
 	}
 
 	public Node getNodeByRowColumnIndex(final int row, final int column, GridPane parentGridPane) {
@@ -413,36 +403,8 @@ public class TabCalendarController {
     }
 	
 	@FXML
-	private Boolean handleNewAppointmentButton(){
-		try {
-		
-			// Load the fxml file and create a new stage for the popup dialog.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(OculusMain.class
-					.getResource("view/calendar/NewAppointmentDialog.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
-
-			// Create the dialog Stage.
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle("New Appointment");
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			//dialogStage.initOwner(_primaryStage);
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
-
-			// Set the person into the controller.
-			NewAppointmentController controller = loader.getController();
-			controller.setDialogStage(dialogStage);
-
-			// Show the dialog and wait until the user closes it
-			dialogStage.showAndWait();
-
-			_logger.info("showNewAppointmentDialog successful");
-			return controller.isOkClicked();
-		} catch (IOException ex) {
-			_logger.error("showNewAppointmentDialog failed", ex);
-			return false;
-		}
+	private boolean handleNewAppointmentButton(){
+		return showNewAppointmentDialog();
 	}
 	
 	private boolean showNewAppointmentDialog() {
@@ -535,7 +497,7 @@ public class TabCalendarController {
 	
 	@FXML
 	private void onButtonPrevious() {
-		_datePicker.setValue(_state.previosButtonControl(_datePicker.getValue()));
+		_datePicker.setValue(_state.previousButtonControl(_datePicker.getValue()));
 	}
 	
 	@FXML

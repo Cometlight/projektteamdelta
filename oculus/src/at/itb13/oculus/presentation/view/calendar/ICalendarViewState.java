@@ -18,5 +18,6 @@ public interface ICalendarViewState {
 	LocalDate onDatePickerSelected(LocalDate date);
 	LocalDate getStartDate(LocalDate date);
 	LocalDate nextButtonControl(LocalDate date);
-	LocalDate previosButtonControl(LocalDate date);
+	LocalDate previousButtonControl(LocalDate date);
+	int getColumnForDate(LocalDate date);
 }

@@ -98,8 +98,17 @@ public class CalendarWeekView implements ICalendarViewState{
 	 * @see at.itb13.oculus.presentation.view.calendar.ICalendarViewState#previosButtonControl(java.time.LocalDate)
 	 */
 	@Override
-	public LocalDate previosButtonControl(LocalDate date) {
+	public LocalDate previousButtonControl(LocalDate date) {
 		return date.minusWeeks(1);
+	}
+
+
+	/*
+	 * @see at.itb13.oculus.presentation.view.calendar.ICalendarViewState#getColumnForDate(java.time.LocalDate)
+	 */
+	@Override
+	public int getColumnForDate(LocalDate date) {
+		return date.getDayOfWeek().getValue();
 	}
 
 	

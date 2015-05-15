@@ -458,8 +458,8 @@ public class TabCalendarController {
 
 			_logger.info("showNewAppointmentDialog successful");
 			if(controller.isOkClicked()){
-				System.out.println("ok Clicked = true");
-				refresh();
+				
+				refreshCalendar();
 			}
 			return controller.isOkClicked();
 		} catch (IOException ex) {
@@ -520,18 +520,20 @@ public class TabCalendarController {
 		
 		if(text.matches("^\\d{1,2}$")) {
 			Integer weekNumber = Integer.valueOf(text);
-			if(weekNumber > 0 && weekNumber <= 52) {
-				
-				LocalDate date = LocalDate.now().withDayOfYear(1);	// 1st January, current year
-				date = date.plusWeeks(weekNumber-1);
-				
-				_datePicker.setValue(date);
-						
-			} else {
-				// TODO: not a valid week number
+			// change to a valid number if necessary
+			if(weekNumber <= 0) {
+				weekNumber = 0;
+			} else if(weekNumber > 52) {
+				weekNumber = 52;
 			}
+				
+			LocalDate date = LocalDate.now().withDayOfYear(1);	// 1st January, current year
+			date = date.plusWeeks(weekNumber-1);
+			
+			_datePicker.setValue(date);
+						
 		} else {
-			// TODO: not a valid number
+			_weekNumberTextField.setText(getWeekNumber(_datePicker.getValue()).toString());	// set to a valid number
 		}
 	}
 	
@@ -545,6 +547,7 @@ public class TabCalendarController {
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
+							ControllerFacade.loadCalendar();
 							refreshCalendar();
 						}
 					});
@@ -554,9 +557,7 @@ public class TabCalendarController {
 	}
 	
 	private void refreshCalendar() {
-		at.itb13.teamD.application.ControllerFacade.loadCalendar();
-		
-		List<ICalendar> newCalList = at.itb13.teamD.application.ControllerFacade.getInstance().getNewAppointmentController().getAllCalendars();
+		List<ICalendar> newCalList = ControllerFacade.getInstance().getNewAppointmentController().getAllCalendars();
 		for(CalendarCheckBox calCheckBox :_calendarCheckBoxes) {
 			for(ICalendar cal : newCalList) {
 				if(calCheckBox.getCalendar().getTitle().equals(cal.getTitle())) {
@@ -568,8 +569,6 @@ public class TabCalendarController {
 		
 		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
 		displayAllCalendarEvents();
-		_state.changeHeader(_datePicker.getValue());
-		markCurrentTime();
 	}
 
 	private static int getRowCount(GridPane pane) {
@@ -604,39 +603,18 @@ public class TabCalendarController {
 	}
 	
 	@FXML
-	private void DayViewButtonControl(){
+	private void DayViewButtonControl() {
 		_state = new CalendarDayView();
 		_dayViewButton.setDisable(true);
 		_weekViewButton.setDisable(false);
-		refresh();
-//		initMainArea();
-//		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
-//		displayAllCalendarEvents();
-//		_state.changeHeader(_datePicker.getValue());
-//		scrollToCurrentTime();
-//		markCurrentTime();
+		refreshCalendar();
 	}
 	
 	@FXML
-	private void WeekViewButtonControl(){
+	private void WeekViewButtonControl() {
 		_state = new CalendarWeekView();
 		_dayViewButton.setDisable(false);
 		_weekViewButton.setDisable(true);
-		refresh();
-//		initMainArea();
-//		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
-//		displayAllCalendarEvents();
-//		_state.changeHeader(_datePicker.getValue());		//TODO: MONDAY
-//		scrollToCurrentTime();
-//		markCurrentTime();
-	}
-	
-	private void refresh(){
-		initMainArea();
-		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
-		displayAllCalendarEvents();
-		_state.changeHeader(_datePicker.getValue());
-		scrollToCurrentTime();
-		markCurrentTime();
+		refreshCalendar();
 	}
 }

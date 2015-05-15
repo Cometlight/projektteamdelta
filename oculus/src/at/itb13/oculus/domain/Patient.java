@@ -25,9 +25,9 @@ import javax.persistence.Transient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.domain.interfaces.IPatient;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
-import at.itb13.oculus.technicalServices.util.LocalDatePersistenceConverter;
+import at.itb13.oculus.technicalServices.converter.LocalDatePersistenceConverter;
+import at.itb13.teamD.domain.interfaces.IPatient;
 
 /**
  * 
@@ -42,6 +42,7 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 	public static final Integer SOCIAL_INSURANCE_NR_LENGTH = 10;
 	
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(Patient.class.getName());
 
 	private Integer _patientId;
@@ -64,10 +65,6 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 	private Set<Prescription> _prescriptions = new HashSet<Prescription>(0);
 	private Set<ReferralLetter> _referralletters = new HashSet<ReferralLetter>(0);
 	private Set<ExaminationProtocol> _examinationprotocols = new HashSet<ExaminationProtocol>(0);
-	
-	public enum Gender {
-		M, F
-	}
 
 	public Patient() { }
 
@@ -149,6 +146,19 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 		_prescriptions = prescriptions;
 		_referralletters = referralletters;
 		_examinationprotocols = examinationprotocols;
+	}
+	
+	public enum Gender {
+		M, F;
+		public String toString(){
+	        switch(this){
+	        case M :
+	            return "M";
+	        case F :
+	            return "F";
+	        }
+			return null;
+		}
 	}
 	
 	/**
@@ -236,6 +246,21 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 	@Column(name = "gender", nullable = false)
 	public Gender getGender() {
 		return _gender;
+	}
+	
+	@Transient
+	@Override
+	public IGender getIGender() {
+		IGender gender = null;
+		String male = "M";
+		String female = "F";
+		if(male.equalsIgnoreCase(_gender.toString())){
+			gender = IGender.M;
+		}
+		if(female.equalsIgnoreCase(_gender.toString())){
+			gender = IGender.F;
+		}
+		return gender;
 	}
 
 	public void setGender(Gender gender) {

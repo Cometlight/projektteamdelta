@@ -24,10 +24,10 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import at.itb13.oculus.application.ControllerFacade;
-import at.itb13.oculus.domain.interfaces.IPatient;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.OculusMain;
+import at.itb13.teamD.domain.interfaces.IPatient;
 
 /**
  * TODO: Insert description here.

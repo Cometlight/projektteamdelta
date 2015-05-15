@@ -32,7 +32,6 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.calendar.CalendarController;
-import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.queue.QueueController;
 import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
@@ -42,6 +41,7 @@ import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
 import at.itb13.oculus.presentation.OculusMain;
 import at.itb13.oculus.presentation.util.QueueStringConverter;
+import at.itb13.teamD.application.exceptions.InvalidInputException;
 
 /**
  * TODO: Insert description here.

@@ -11,11 +11,11 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import at.itb13.oculus.application.calendar.CalendarController;
-import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.factories.CalendarFactory;
-import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
+import at.itb13.teamD.application.exceptions.InvalidInputException;
+import at.itb13.teamD.domain.interfaces.ICalendar;
 
 /**
  * Test for methods of CalendarController, except the methods, which have access to database

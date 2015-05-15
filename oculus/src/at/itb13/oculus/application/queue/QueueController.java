@@ -3,7 +3,6 @@ package at.itb13.oculus.application.queue;
 import java.util.List;
 
 import at.itb13.oculus.application.ControllerFacade;
-import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Queue;
@@ -12,6 +11,7 @@ import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueEntryRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
 import at.itb13.oculus.technicalServices.dao.QueueDao;
+import at.itb13.teamD.application.exceptions.InvalidInputException;
 
 /**
  * TODO: Insert description here.

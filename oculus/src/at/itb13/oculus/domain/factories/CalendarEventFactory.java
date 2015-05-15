@@ -3,13 +3,12 @@ package at.itb13.oculus.domain.factories;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
-import at.itb13.oculus.domain.interfaces.ICalendar;
-import at.itb13.oculus.domain.interfaces.ICalendarEvent;
-import at.itb13.oculus.domain.interfaces.ICalendarEventFactory;
-import at.itb13.oculus.domain.interfaces.IEventType;
-import at.itb13.oculus.domain.interfaces.IPatient;
+import at.itb13.teamD.domain.interfaces.ICalendar;
+import at.itb13.teamD.domain.interfaces.ICalendarEvent;
+import at.itb13.teamD.domain.interfaces.ICalendarEventFactory;
+import at.itb13.teamD.domain.interfaces.IEventType;
+import at.itb13.teamD.domain.interfaces.IPatient;
 
 /**
  * Includes the methods to create or get an object from the CalendarEvent class.
@@ -24,6 +23,7 @@ public class CalendarEventFactory implements ICalendarEventFactory{
 	 * 
 	 * @return an object of the CalendarEvent
 	 */
+	@Override
 	public ICalendarEvent createCalendarEvent(){
 		ICalendarEvent event = CalendarEvent.getInstance();
 		return event;
@@ -40,6 +40,7 @@ public class CalendarEventFactory implements ICalendarEventFactory{
 	 * @param patientName the name of the patient 
 	 * @return an object of the CalendarEvent
 	 */
+	@Override
 	public ICalendarEvent createCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start, 
 										LocalDateTime end, String description, String patientName){
 		
@@ -59,6 +60,7 @@ public class CalendarEventFactory implements ICalendarEventFactory{
 	 * @param isOpen true if the CalendarEvent is not checked as closed. 
 	 * @return an object of the CalendarEvent
 	 */
+	@Override
 	public ICalendarEvent createCalendarEvent(ICalendar calendar, IEventType eventType, 
 										LocalDateTime start, LocalDateTime end, String description, IPatient patient){
 		
@@ -73,8 +75,9 @@ public class CalendarEventFactory implements ICalendarEventFactory{
 	 * @param calendar is the chosen calendar.
 	 * @return a set of CallendarEvents.
 	 */
-	public Set<CalendarEvent> getAllCalendarEvent(Calendar calendar){
-		return calendar.getCalendarEvents();
+	@Override
+	public Set<ICalendarEvent> getAllCalendarEvent(ICalendar calendar){
+		return calendar.getICalendarEvents();
 	}
 	
 	/**
@@ -84,9 +87,9 @@ public class CalendarEventFactory implements ICalendarEventFactory{
 	 * @param calendarEventId the ID of the wanted CalendarEvent.
 	 * @return a CallendarEvent
 	 */
-	public ICalendarEvent getCalendarEvent(Calendar calendar, int calendarEventId){
+	@Override
+	public ICalendarEvent getCalendarEvent(ICalendar calendar, int calendarEventId){
 		return calendar.getCalendarEventById(calendarEventId);
-	}
-	
+	}	
 	
 }

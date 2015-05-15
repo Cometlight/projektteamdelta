@@ -1,27 +1,23 @@
 package at.itb13.oculus.domain;
 
-import java.time.LocalTime;
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.time.LocalTime;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-
-import static javax.persistence.GenerationType.IDENTITY;
-
-import javax.persistence.Convert;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.domain.interfaces.IWorkingHours;
-import at.itb13.oculus.domain.support.LocalTimeConverter;
+import at.itb13.oculus.technicalServices.converter.LocalTimeConverter;
+import at.itb13.teamD.domain.interfaces.IWorkingHours;
 
 /**
  * 
@@ -37,6 +33,7 @@ import at.itb13.oculus.domain.support.LocalTimeConverter;
 public class WorkingHours implements java.io.Serializable, IWorkingHours {
 	private static final long serialVersionUID = 1L;
 
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(WorkingHours.class.getName());
 	
 	private Integer _workingHoursId;
@@ -54,6 +51,30 @@ public class WorkingHours implements java.io.Serializable, IWorkingHours {
 		_morningTo = morningTo;
 		_afternoonFrom = afternoonFrom;
 		_afternoonTo = afternoonTo;
+	}
+	
+	/**
+	 * checks if the date(start, end) is in the WorkingHours.
+	 * 
+	 * @param start of the date.
+	 * @param end of the date.
+	 * @return
+	 */
+	@Override
+	public boolean isDateInWorkingHours(LocalTime start, LocalTime end){
+		if(getMorningFrom() != null && getMorningTo() != null){
+			if((start.isAfter(getMorningFrom()) || start.equals(getMorningFrom()))
+				&& (end.isBefore(getMorningTo()) || end.equals(getMorningTo()))){
+				return true;
+			} 	
+		}
+		if(getAfternoonFrom() != null && getAfternoonTo() != null){
+			if((start.isAfter(getAfternoonFrom()) || start.equals(getAfternoonFrom()))
+				&& (end.isBefore(getAfternoonTo()) || end.equals(getAfternoonTo()))){
+				return true;
+			} 	
+		}
+		return false;		
 	}
 	
 	@Id

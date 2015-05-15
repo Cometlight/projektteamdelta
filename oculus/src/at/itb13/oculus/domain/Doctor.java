@@ -15,12 +15,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.domain.interfaces.IDoctor;
 import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
+import at.itb13.teamD.domain.interfaces.ICalendar;
+import at.itb13.teamD.domain.interfaces.IDoctor;
 
 /**
  * 
@@ -32,6 +34,7 @@ import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
 @Entity
 @Table(name = "doctor", catalog = "oculus_d")
 public class Doctor implements java.io.Serializable, DoctorRO, IDoctor {
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(Doctor.class.getName());
 	private static final long serialVersionUID = 1L;
 	
@@ -72,6 +75,12 @@ public class Doctor implements java.io.Serializable, DoctorRO, IDoctor {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "calendarId", nullable = false)
 	public Calendar getCalendar() {
+		return _calendar;
+	}
+	
+	@Override
+	@Transient
+	public ICalendar getICalendar() {
 		return _calendar;
 	}
 

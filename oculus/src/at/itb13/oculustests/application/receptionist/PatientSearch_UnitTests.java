@@ -8,10 +8,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.receptionist.PatientSearch;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
+import at.itb13.teamD.application.exceptions.InvalidInputException;
 
 /**
  * Tests for the methodes of Class PatientSearch

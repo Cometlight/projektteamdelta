@@ -17,6 +17,7 @@ import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
  * @date 22.04.2015
  */
 public class WelcomePatient {
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(WelcomePatient.class.getName());
 	
 	/**

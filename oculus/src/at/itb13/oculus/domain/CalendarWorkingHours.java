@@ -5,8 +5,6 @@ import java.time.DayOfWeek;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 
@@ -20,6 +18,9 @@ import javax.persistence.Table;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.technicalServices.converter.WeekDayToDayOfWeekConverter;
+import at.itb13.teamD.domain.interfaces.ICalendarWorkingHours;
+
 /**
  * 
  * TODO: Insert description here.
@@ -29,7 +30,8 @@ import org.apache.logging.log4j.Logger;
  */
 @Entity
 @Table(name = "calendarworkinghours", catalog = "oculus_d")
-public class CalendarWorkingHours implements java.io.Serializable {
+public class CalendarWorkingHours implements java.io.Serializable, ICalendarWorkingHours{
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(CalendarWorkingHours.class.getName());
 	private static final long serialVersionUID = 1L;
 	

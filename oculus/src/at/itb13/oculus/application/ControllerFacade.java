@@ -8,22 +8,22 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.application.calendar.CalendarController;
-import at.itb13.oculus.application.calendar.NewAppointmentController;
 import at.itb13.oculus.application.doctor.WelcomePatient;
-import at.itb13.oculus.application.interfaces.INewAppointmentController;
 import at.itb13.oculus.application.queue.QueueController;
 import at.itb13.oculus.application.receptionist.NewPatient;
 import at.itb13.oculus.application.receptionist.PatientSearch;
 import at.itb13.oculus.application.receptionist.WelcomeAtReception;
-import at.itb13.oculus.domain.interfaces.ICalendar;
-import at.itb13.oculus.domain.interfaces.IEventType;
-import at.itb13.oculus.domain.interfaces.IUser;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
 import at.itb13.oculus.technicalServices.dao.CalendarDao;
 import at.itb13.oculus.technicalServices.dao.EventTypeDao;
 import at.itb13.oculus.technicalServices.dao.QueueDao;
+import at.itb13.teamD.application.NewAppointmentController;
+import at.itb13.teamD.application.interfaces.INewAppointmentController;
+import at.itb13.teamD.domain.interfaces.ICalendar;
+import at.itb13.teamD.domain.interfaces.IEventType;
+import at.itb13.teamD.domain.interfaces.IUser;
 
 /**
  * This class is responsible for delivering usecase-controller to the application layer. There is only one instance available (Singleton).

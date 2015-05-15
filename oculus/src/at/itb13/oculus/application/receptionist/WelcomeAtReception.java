@@ -7,7 +7,6 @@ import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Patient;
@@ -17,6 +16,7 @@ import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.technicalServices.dao.DoctorDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
+import at.itb13.teamD.application.exceptions.InvalidInputException;
 
 /**
  * TODO: Insert description here.

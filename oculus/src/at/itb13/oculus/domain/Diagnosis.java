@@ -29,6 +29,7 @@ import org.apache.logging.log4j.Logger;
 @Entity
 @Table(name = "diagnosis", catalog = "oculus_d")
 public class Diagnosis implements java.io.Serializable {
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(Diagnosis.class.getName());
 	private static final long serialVersionUID = 1L;
 	

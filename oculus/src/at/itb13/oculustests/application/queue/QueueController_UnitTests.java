@@ -7,12 +7,12 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
-import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.queue.QueueController;
 import at.itb13.oculus.domain.Queue;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
+import at.itb13.teamD.application.exceptions.InvalidInputException;
 
 /**
  * TODO: Insert description here.

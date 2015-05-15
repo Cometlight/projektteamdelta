@@ -3,12 +3,12 @@ package at.itb13.oculus.domain.factories;
 import java.util.Set;
 
 import at.itb13.oculus.domain.Calendar;
-import at.itb13.oculus.domain.CalendarEvent;
-import at.itb13.oculus.domain.CalendarWorkingHours;
-import at.itb13.oculus.domain.Orthoptist;
-import at.itb13.oculus.domain.interfaces.ICalendar;
-import at.itb13.oculus.domain.interfaces.ICalendarFactory;
-import at.itb13.oculus.domain.interfaces.IDoctor;
+import at.itb13.teamD.domain.interfaces.ICalendar;
+import at.itb13.teamD.domain.interfaces.ICalendarEvent;
+import at.itb13.teamD.domain.interfaces.ICalendarFactory;
+import at.itb13.teamD.domain.interfaces.ICalendarWorkingHours;
+import at.itb13.teamD.domain.interfaces.IDoctor;
+import at.itb13.teamD.domain.interfaces.IOrthoptist;
 
 /**
  * Factory, which provides a new calendar
@@ -36,13 +36,10 @@ public class CalendarFactory implements ICalendarFactory{
 	 * @param calendarWorkingHours Set of CalendarWorkingHours
 	 * @return Calendar with the specified parameters
 	 */
-	public ICalendar createCalendar(String title, IDoctor doctor, Orthoptist orthoptist, Set<CalendarEvent> calendarEvents, 
-			  Set<CalendarWorkingHours> calendarWorkingHours){
+	@Override
+	public ICalendar createCalendar(String title, IDoctor doctor, IOrthoptist orthoptist, Set<ICalendarEvent> calendarEvents, 
+			  Set<ICalendarWorkingHours> calendarWorkingHours){
 		ICalendar calendar = Calendar.getInstance(title, doctor, orthoptist, calendarEvents, calendarWorkingHours);
 		return calendar;
 	}
-	
-	/**
-	 * TODO: get
-	 */
 }

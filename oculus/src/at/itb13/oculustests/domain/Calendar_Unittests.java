@@ -27,34 +27,41 @@ import java.time.DayOfWeek;
 public class Calendar_Unittests {
 	@Test
 	public void getCalendarEventsForTimespan_Test(){
-//		List<CalendarEvent> ce = null;
-//		CalendarFactory cf = CalendarFactory.getInstance();
-//		Calendar cal = cf.createCalendar();
-//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-//		String strDate2 = "2015-04-01 10:11";
-//		LocalDateTime endDate = LocalDateTime.parse(strDate2, formatter);
-//		LocalDateTime startDate = LocalDateTime.now();
-//		ce = cal.getCalendarEventsForTimespan(startDate, endDate);
-//		assertEquals(true, ce!=null);
+		List<CalendarEvent> ce = null;
+		Calendar cal = Calendar.getInstance();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		String strDate2 = "2015-04-01 10:11";
+		LocalDateTime endDate = LocalDateTime.parse(strDate2, formatter);
+		LocalDateTime startDate = LocalDateTime.now();
+		ce = cal.getCalendarEventsForTimespan(startDate, endDate);
+		assertEquals(true, ce!=null);
 	}
+	
 	@Test
 	public void isOneCalendarEventinTimespan_Test(){
-//		CalendarFactory cf = CalendarFactory.getInstance();
-//		Calendar cal = cf.createCalendar();
-//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-//		String strDate2 = "2015-04-01 10:11";
-//		LocalDateTime endDate = LocalDateTime.parse(strDate2, formatter);
-//		LocalDateTime startDate = LocalDateTime.now();
-//		assertEquals(false, cal.isOneCalendarEventInTimespan(startDate, endDate));
+		Calendar cal = Calendar.getInstance();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		String strDate2 = "2015-04-01 10:11";
+		LocalDateTime endDate = LocalDateTime.parse(strDate2, formatter);
+		LocalDateTime startDate = LocalDateTime.now();
+		assertEquals(false, cal.isOneCalendarEventInTimespan(startDate, endDate));
 	}
+	
+	@Test
+	public void getCalendarEventById(){
+		Calendar cal = Calendar.getInstance();
+		CalendarEvent ce;
+		ce = (CalendarEvent) cal.getCalendarEventById(1);
+		assertEquals(true, ce==null);
+	}
+	
 	@Test
 	public void getWorkingHoursOfWeekDay_Test(){
-//		DayOfWeek day = DayOfWeek.MONDAY;
-//		WorkingHours wh = null;
-//		CalendarFactory cf = CalendarFactory.getInstance();
-//		Calendar cal = cf.createCalendar();
-//		wh = cal.getWorkingHoursOfWeekDay(day);
-//		assertEquals(true, wh!=null);
+		DayOfWeek day = DayOfWeek.MONDAY;
+		WorkingHours wh = null;
+		Calendar cal = Calendar.getInstance();
+		wh = cal.getWorkingHoursOfWeekDay(day);
+		assertEquals(true, wh!=null);
 	}
 
 }

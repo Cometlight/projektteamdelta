@@ -1,26 +1,22 @@
 package at.itb13.oculus.domain;
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-
-import static javax.persistence.GenerationType.IDENTITY;
-
-import javax.persistence.Convert;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.technicalServices.util.LocalDatePersistenceConverter;
+import at.itb13.oculus.technicalServices.converter.LocalDatePersistenceConverter;
 
 /**
  * 
@@ -32,6 +28,7 @@ import at.itb13.oculus.technicalServices.util.LocalDatePersistenceConverter;
 @Entity
 @Table(name = "workdisability", catalog = "oculus_d")
 public class WorkDisability implements java.io.Serializable {
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(WorkDisability.class.getName());
 	private static final long serialVersionUID = 1L;
 	

@@ -3,8 +3,8 @@ package at.itb13.oculus.presentation.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import at.itb13.oculus.domain.interfaces.IEventType;
 import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
+import at.itb13.teamD.domain.interfaces.IEventType;
 import javafx.util.StringConverter;
 
 /**

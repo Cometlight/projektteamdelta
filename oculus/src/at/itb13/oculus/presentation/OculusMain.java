@@ -2,24 +2,6 @@ package at.itb13.oculus.presentation;
 
 import java.io.IOException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import at.itb13.oculus.application.ControllerFacade;
-import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
-import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
-import at.itb13.oculus.presentation.view.TabAppointmentsController;
-import at.itb13.oculus.presentation.view.EditAnamnesisController;
-import at.itb13.oculus.presentation.view.NewPatientController;
-import at.itb13.oculus.presentation.view.TabPatientController;
-import at.itb13.oculus.presentation.view.PatientRecordController;
-import at.itb13.oculus.presentation.view.TabQueueController;
-import at.itb13.oculus.presentation.view.RootLayoutController;
-import at.itb13.oculus.presentation.view.calendar.TabCalendarController;
-import at.itb13.oculus.technicalServices.HibernateUtil;
-import at.itb13.oculus.technicalServices.exceptions.NoDatabaseConnectionException;
-import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacade;
-import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProvider;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,6 +15,27 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import at.itb13.oculus.application.ControllerFacade;
+import at.itb13.oculus.domain.factories.CalendarEventFactory;
+import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
+import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
+import at.itb13.oculus.presentation.view.EditAnamnesisController;
+import at.itb13.oculus.presentation.view.NewPatientController;
+import at.itb13.oculus.presentation.view.PatientRecordController;
+import at.itb13.oculus.presentation.view.RootLayoutController;
+import at.itb13.oculus.presentation.view.TabAppointmentsController;
+import at.itb13.oculus.presentation.view.TabPatientController;
+import at.itb13.oculus.presentation.view.TabQueueController;
+import at.itb13.oculus.technicalServices.HibernateUtil;
+import at.itb13.oculus.technicalServices.exceptions.NoDatabaseConnectionException;
+import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacade;
+import at.itb13.teamD.application.CalendarEventFactoryProvider;
+import at.itb13.teamD.presentation.controller.TabCalendarController;
+import at.itb13.teamD.technicalServices.persistenceFacade.PersistenceFacadeProvider;
 
 /**
  * 
@@ -94,6 +97,7 @@ public class OculusMain extends Application {
         		updateMessage("Connecting to database ...");
         		//Set PersistenceFacade
         		PersistenceFacadeProvider.setPersistenceFacade(new PersistenceFacade());
+        		
         		try {
         			HibernateUtil.init();
         		} catch (NoDatabaseConnectionException ex) {
@@ -106,11 +110,13 @@ public class OculusMain extends Application {
         		ControllerFacade.init();	// Load early, so the user does not have to wait when using the application
 
         		updateMessage("Loading Main Tabs ...");
+        		CalendarEventFactoryProvider.setCalendarEventFactory(new CalendarEventFactory());
         		initRootLayout();
         		
         		initAppointmentsTab();
         		initPatientTab();
         		initQueueTab();
+        		initCalendarTab();
         		
         		updateMessage("Finished.");
         		
@@ -251,7 +257,7 @@ public class OculusMain extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(OculusMain.class
-					.getResource("view/calendar/TabCalendar.fxml"));
+					.getResource("../../teamD/presentation/view/TabCalendar.fxml"));
 			_calendarTab = (AnchorPane) loader.load();
 
 			// Give the controller access to the main app.

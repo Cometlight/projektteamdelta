@@ -6,14 +6,13 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.application.calendar.NewAppointmentController;
-import at.itb13.oculus.application.interfaces.INewAppointmentController;
-import at.itb13.oculus.domain.interfaces.ICalendar;
-import at.itb13.oculus.domain.interfaces.IEventType;
-import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProvider;
+import at.itb13.teamD.application.interfaces.INewAppointmentController;
+import at.itb13.teamD.domain.interfaces.ICalendar;
+import at.itb13.teamD.domain.interfaces.IEventType;
+import at.itb13.teamD.technicalServices.persistenceFacade.PersistenceFacadeProvider;
 
 /**
- * TODO: Insert description here.
+ * This class is responsible for delivering usecase-controller to the application layer. There is only one instance available (Singleton).
  *
  * @author Florin Metzler
  * @since 13.05.2015
@@ -46,6 +45,9 @@ public class ControllerFacade {
 		}
 	}
 	
+	/**
+	 * to load all EventTypes
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T> void loadEventTypes(){
 		_listEventTypes = new LinkedList<>();
@@ -56,6 +58,9 @@ public class ControllerFacade {
 		}
 	}
 	
+	/**
+	 * to load all Calendar.
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T> void loadCalendar(){
 		_listCalendar = new LinkedList<>();

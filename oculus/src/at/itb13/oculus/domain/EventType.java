@@ -13,7 +13,7 @@ import javax.persistence.UniqueConstraint;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.domain.interfaces.IEventType;
+import at.itb13.teamD.domain.interfaces.IEventType;
 
 /**
  * 
@@ -25,6 +25,7 @@ import at.itb13.oculus.domain.interfaces.IEventType;
 @Entity
 @Table(name = "eventtype", catalog = "oculus_d", uniqueConstraints = @UniqueConstraint(columnNames = "eventTypeName"))
 public class EventType implements java.io.Serializable, IEventType {
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(EventType.class.getName());
 	private static final long serialVersionUID = 1L;
 	

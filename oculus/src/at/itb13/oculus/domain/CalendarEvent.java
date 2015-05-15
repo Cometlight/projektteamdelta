@@ -1,7 +1,8 @@
 package at.itb13.oculus.domain;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -9,13 +10,10 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-
-import static javax.persistence.GenerationType.IDENTITY;
-
-import javax.persistence.Convert;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,12 +24,12 @@ import javax.persistence.Transient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.domain.interfaces.ICalendar;
-import at.itb13.oculus.domain.interfaces.ICalendarEvent;
-import at.itb13.oculus.domain.interfaces.IEventType;
-import at.itb13.oculus.domain.interfaces.IPatient;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
-import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
+import at.itb13.oculus.technicalServices.converter.LocalDateTimePersistenceConverter;
+import at.itb13.teamD.domain.interfaces.ICalendar;
+import at.itb13.teamD.domain.interfaces.ICalendarEvent;
+import at.itb13.teamD.domain.interfaces.IEventType;
+import at.itb13.teamD.domain.interfaces.IPatient;
 
 /**
  * 
@@ -43,6 +41,7 @@ import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
 @Entity
 @Table(name = "calendarevent", catalog = "oculus_d")
 public class CalendarEvent implements java.io.Serializable, CalendarEventRO, ICalendarEvent {
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(CalendarEvent.class.getName());
 	private static final long serialVersionUID = 1L;
 	

@@ -24,6 +24,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
@@ -32,6 +33,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -68,6 +70,7 @@ public class TabCalendarController {
 	private static final double TIME_COLUMN_WIDTH = 5d;	// percentage
 	private static final double HEADER_MARGIN_RIGHT = 10d;
 	private static final double CONTENT_ROW_HEIGHT = 20d;
+	private static final double CHECK_BOX_WIDTH = 120d;
 	private static final int REFRESH_INTERVAL = 60000;	// in milliseconds
 
 	private ICalendarViewState _state;
@@ -150,7 +153,13 @@ public class TabCalendarController {
 			
 			Color color = _colorGenerator.getNextColor();
 			_calendarColorMap.put(cal.getCalendarId(), color);
-			calCheckBox.setStyle("-fx-background-color: " + ColorGenerator.colorToString(color));
+			calCheckBox.setStyle("-fx-background-color: " + ColorGenerator.colorToString(color) + "; "
+					+ "-fx-font-size: 12pt; ");
+			calCheckBox.setTextFill(Color.WHITE);
+			
+			calCheckBox.setMinWidth(CHECK_BOX_WIDTH);
+			calCheckBox.setPrefWidth(CHECK_BOX_WIDTH);
+			calCheckBox.setMaxWidth(CHECK_BOX_WIDTH);
 			
 			_calendarCheckBoxes.add(calCheckBox);
 		}
@@ -201,6 +210,7 @@ public class TabCalendarController {
 		
 		_state.initGridPaneHeader(_gridPaneHeader);
 		_state.changeHeader(_datePicker.getValue());
+		
 		initScrollPane();
 		initGridPaneContent();
 		resizeGridPanes();
@@ -213,6 +223,9 @@ public class TabCalendarController {
 		});
 	}
 	
+	/**
+	 * This method calculates the cell where the mouse was clicked and shows the NewAppointmentDialog depending on the dateTime of the cell.
+	 */
 	private void onGridPaneContentMouseClick(MouseEvent event) {
 		LocalTime time;
 		LocalDate date;
@@ -241,8 +254,10 @@ public class TabCalendarController {
 		_scrollPane.setFitToWidth(true);
 		_scrollPane.setFitToHeight(true);
 	}
-	
-	
+
+	/**
+	 * Initializes the gridPaneContent, i.e. changing the first column to a time bar.
+	 */
 	private void initGridPaneContent() {
 		_gridPaneContent.getChildren().clear();
 		_gridPaneContent.setGridLinesVisible(true);
@@ -261,8 +276,12 @@ public class TabCalendarController {
 			_gridPaneContent.getRowConstraints().add(rowConstraint);
 			++row;
 		}
+		
 	}
 	
+	/**
+	 * Removes all calendar events from the calendar view (gridPaneContent)
+	 */
 	private void clearCalEventsFromGridPaneContent() {
 		if(_gridPaneContent != null && _gridPaneContent.getChildren() != null) {
 			Iterator<Node> it = _gridPaneContent.getChildren().iterator();
@@ -276,20 +295,32 @@ public class TabCalendarController {
 		}
 	}
 	
+	/**
+	 * Changes the width of the columns of the calendar, depending on the number of days displayed.
+	 */
 	private void resizeGridPanes() {
 		ColumnConstraints firstColCC = new ColumnConstraints();
 		firstColCC.setPercentWidth(TIME_COLUMN_WIDTH);
+		firstColCC.setHalignment(HPos.CENTER);
 		_gridPaneHeader.getColumnConstraints().add(firstColCC);
 		_gridPaneContent.getColumnConstraints().add(firstColCC);
 		
 		ColumnConstraints cC = new ColumnConstraints();
 		cC.setPercentWidth( (100d - TIME_COLUMN_WIDTH) / (double)(_state.getNumberOfDays()));
+		cC.setHalignment(HPos.CENTER);
 		for(int i = 0; i < _state.getNumberOfDays(); ++i) {
 			_gridPaneHeader.getColumnConstraints().add(cC);
 			_gridPaneContent.getColumnConstraints().add(cC);
 		}
 	}
 	
+	/**
+	 * Loads the calendar events and saves them into _calEvents.
+	 * Starts at 00:00 and ends at 23:59
+	 * 
+	 * @param dayStart The start day of the events to be loaded.
+	 * @param numberOfDays How many days should be loaded, starting from dayStart.
+	 */
 	private void loadCalendarEvents(LocalDate dayStart, int numberOfDays) {
 		LocalTime timeStart = LocalTime.MIN;
 		LocalTime timeEnd = LocalTime.MAX;
@@ -314,6 +345,10 @@ public class TabCalendarController {
 		}
 	}
 
+	/**
+	 * Calculates the position of all calendar events from _calEvents and calls {@link #displayCalendarEvent(ICalendarEvent, int, int, int, int)} for each one.
+	 * @see loadCalendarEvents(LocalDate, int)
+	 */
 	private void displayAllCalendarEvents() {
 		clearCalEventsFromGridPaneContent();
 		for(ICalendarEvent calEv : _calEvents) {
@@ -325,6 +360,10 @@ public class TabCalendarController {
 		}
 	}
 	
+	/**
+	 * Displays the calendar event in the calendar (_gridPaneContent), and makes sure that they have the same color as defined for their calendar in _calendarColorMap.
+	 * Furthermore, it makes sure that each calendar has each own "mini" column.
+	 */
 	private void displayCalendarEvent(ICalendarEvent calendarEvent, int columnIndex, int rowIndex, int colSpan, int rowSpan) {
 		_logger.trace("Displaying appointment: " + calendarEvent);
 		
@@ -394,6 +433,9 @@ public class TabCalendarController {
 		_logger.trace("Successfully displaying appointment (" + calendarEvent + ")");
 	}
 
+	/**
+	 * @return the Node in parentGridPane, which is placed at row and column
+	 */
 	public Node getNodeByRowColumnIndex(final int row, final int column, GridPane parentGridPane) {
         Node result = null;
         ObservableList<Node> childrens = parentGridPane.getChildren();
@@ -409,6 +451,9 @@ public class TabCalendarController {
         return result;
     }
 	
+	/**
+	 * @return the Node in parentGridPane, which is placed in the "column"
+	 */
 	public Node getNodeByColumnIndex(final int column, GridPane parentGridPane) {
         Node result = null;
         ObservableList<Node> childrens = parentGridPane.getChildren();
@@ -426,7 +471,11 @@ public class TabCalendarController {
 	private boolean handleNewAppointmentButton(){
 		return showNewAppointmentDialog();
 	}
-	
+
+	/**
+	 * Shows the new appointment dialog without reference to a dateTime.
+	 * @return true, if the user clicked on the OK button
+	 */
 	private boolean showNewAppointmentDialog() {
 		return showNewAppointmentDialog(null);
 	}
@@ -499,11 +548,19 @@ public class TabCalendarController {
 		markCurrentTime();
 	}
 	
+	/**
+	 * 
+	 * @return the week number of a certain date in reference to its year.
+	 */
 	private Integer getWeekNumber(LocalDate date) {
 		WeekFields weekFields = WeekFields.of(Locale.getDefault());
 		return date.get(weekFields.weekOfWeekBasedYear());
 	}
 	
+	/**
+	 * 
+	 * @return how many check boxes are currently selected
+	 */
 	private int getNumberOfSelectedCheckBoxes() {
 		int i = 0;
 		for(CalendarCheckBox calCheckBox : _calendarCheckBoxes) {
@@ -514,16 +571,25 @@ public class TabCalendarController {
 		return i;
 	}
 	
+	/**
+	 * Jumps forwards a certain time span, depending on the current state.
+	 */
 	@FXML
 	private void onButtonNext() {
 		_datePicker.setValue(_state.nextButtonControl(_datePicker.getValue()));
 	}
 	
+	/**
+	 * Jump backwards a certain time span, depending on the current state.
+	 */
 	@FXML
 	private void onButtonPrevious() {
 		_datePicker.setValue(_state.previousButtonControl(_datePicker.getValue()));
 	}
 	
+	/**
+	 * Makes sure that only valid numbers are entered and jupdates the datePicker accordingly.
+	 */
 	@FXML
 	private void onTextFieldWeekNumberAction() {
 		String text = _weekNumberTextField.getText();
@@ -547,6 +613,10 @@ public class TabCalendarController {
 		}
 	}
 	
+	/**
+	 * Starts the calendarReloader, which is called every {@link #REFRESH_INTERVAL} milliseconds and calls 
+	 * {@link #refreshCalendar()} after updating the calendars from the database.
+	 */
 	private void startCalendarReloader() {
 		if(_timer == null) {
 			_timer = new Timer("CalendarReloader");
@@ -566,6 +636,9 @@ public class TabCalendarController {
 		}
 	}
 	
+	/**
+	 * Updates the calendar references in the checkboxes, and loads and displays all (new and old) calendarEvents.
+	 */
 	private void refreshCalendar() {
 		List<ICalendar> newCalList = ControllerFacade.getInstance().getNewAppointmentController().getAllCalendars();
 		for(CalendarCheckBox calCheckBox :_calendarCheckBoxes) {
@@ -581,6 +654,9 @@ public class TabCalendarController {
 		displayAllCalendarEvents();
 	}
 
+	/**
+	 * @return the number of rows of the pane
+	 */
 	private static int getRowCount(GridPane pane) {
 		int numRows = pane.getRowConstraints().size();
         for (int i = 0; i < pane.getChildren().size(); i++) {
@@ -603,6 +679,9 @@ public class TabCalendarController {
 		_scrollPane.setVvalue(vertPos); //sets the value in percent! 
 	}
 	
+	/**
+	 * Colorizes the hour of the current time in the timebar of the _gridPaneContent.
+	 */
 	private void markCurrentTime() {
 		for(Node node : _gridPaneContent.getChildren()) {
 			Integer colIndex = GridPane.getColumnIndex(node);
@@ -625,19 +704,6 @@ public class TabCalendarController {
 		_state = new CalendarWeekView();
 		_dayViewButton.setDisable(false);
 		_weekViewButton.setDisable(true);
-
-		refresh();
-	}
-	
-	private void refresh(){
-		initMainArea();
-		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
-		displayAllCalendarEvents();
-		_state.changeHeader(_datePicker.getValue());		
-		scrollToCurrentTime();
-		markCurrentTime();
-
 		refreshCalendar();
-
 	}
 }

@@ -1,4 +1,4 @@
-package at.itb13.teamD.application;
+package at.itb13.teamD.application.interfaces;
 
 import java.time.LocalDateTime;
 import java.util.List;

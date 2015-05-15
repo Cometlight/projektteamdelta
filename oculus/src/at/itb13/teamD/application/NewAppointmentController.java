@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import at.itb13.teamD.application.interfaces.INewAppointmentController;
 import at.itb13.teamD.domain.factories.CalendarEventFactory;
 import at.itb13.teamD.domain.interfaces.ICalendar;
 import at.itb13.teamD.domain.interfaces.ICalendarEvent;
@@ -45,6 +46,9 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 			LocalDateTime end, String description, IPatient patient)
 			throws SaveException {
 		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, (IPatient) patient);
+		Set<ICalendarEvent> set = calendar.getICalendarEvents();
+		set.add(newEvent);
+		calendar.setCalendarEvents(set);		
 		IPersistenceFacade facade = PersistenceFacadeProvider.getPersistenceFacade();
 		facade.makePersistent(newEvent);
 		if(facade.makePersistent(newEvent)){

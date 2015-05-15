@@ -14,7 +14,10 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -57,13 +60,14 @@ import at.itb13.teamD.domain.interfaces.ICalendarEvent;
  * @date May 1, 2015
  */
 public class TabCalendarController {
-
 	private static final Logger _logger = LogManager.getLogger(TabCalendarController.class.getName());
+	
 	private static final String CALENDAR_EVENT_FXML = "CalendarEvent.fxml";
 	private static final int TIME_INTERVAL_MINUTES = 15;
 	private static final double TIME_COLUMN_WIDTH = 5d;	// percentage
 	private static final double HEADER_MARGIN_RIGHT = 10d;
 	private static final double CONTENT_ROW_HEIGHT = 20d;
+	private static final int REFRESH_INTERVAL = 30000;	// in milliseconds
 
 	private ICalendarViewState _state;
 	@FXML
@@ -81,8 +85,6 @@ public class TabCalendarController {
 	@FXML
 	private Button _weekViewButton;
 	
-	
-
 	private GridPane _gridPaneHeader;
 	private ScrollPane _scrollPane;
 	private GridPane _gridPaneContent;
@@ -93,6 +95,8 @@ public class TabCalendarController {
 	private Map<Integer, Color> _calendarColorMap;	// Key = CalendarID
 	
 	private ColorGenerator _colorGenerator;
+	
+	private Timer _timer;	// used for refreshing
 
 	@FXML
 	private void initialize() {
@@ -114,6 +118,8 @@ public class TabCalendarController {
 		
 		scrollToCurrentTime();
 		markCurrentTime();	// TODO: alle ~15 Minuten oder so autom. aufrufen
+		
+		startCalendarReloader();
 		
 		_logger.info("TabCalendarController has been initialized.");
 	}
@@ -520,13 +526,30 @@ public class TabCalendarController {
 		}
 	}
 	
-	/* TODO irgendwann vielleicht...
-	 * private void reload() {
-	 *  all 60 seconds {
-	 *   onDatePickerDateSelected();
-	 *  }
-	 * }
-	 */
+	private void startCalendarReloader() {
+		if(_timer == null) {
+			_timer = new Timer("CalendarReloader");
+			_timer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					_logger.trace("Refreshing Calendar");
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							refreshCalendar();
+						}
+					});
+				}
+			}, REFRESH_INTERVAL, REFRESH_INTERVAL);
+		}
+	}
+	
+	private void refreshCalendar() {
+		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
+		displayAllCalendarEvents();
+		_state.changeHeader(_datePicker.getValue());
+		markCurrentTime();
+	}
 
 	private static int getRowCount(GridPane pane) {
 		int numRows = pane.getRowConstraints().size();

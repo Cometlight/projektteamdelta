@@ -12,7 +12,7 @@ import at.itb13.teamD.domain.interfaces.ICalendar;
 import at.itb13.teamD.domain.interfaces.IEventType;
 
 /**
- * TODO: Insert description here.
+ * This class is responsible for delivering usecase-controller to the application layer. There is only one instance available (Singleton).
  *
  * @author Florin Metzler
  * @since 13.05.2015

@@ -43,6 +43,6 @@ public interface IPatient {
 	public abstract String getEmail();
 	
 	public enum IGender {
-		M, F
+		M, F;
 	}
 }

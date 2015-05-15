@@ -149,7 +149,16 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 	}
 	
 	public enum Gender {
-		M, F
+		M, F;
+		public String toString(){
+	        switch(this){
+	        case M :
+	            return "M";
+	        case F :
+	            return "F";
+	        }
+			return null;
+		}
 	}
 	
 	/**
@@ -243,10 +252,12 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 	@Override
 	public IGender getIGender() {
 		IGender gender = null;
-		if(_gender.equals("M")){
+		String male = "M";
+		String female = "F";
+		if(male.equalsIgnoreCase(_gender.toString())){
 			gender = IGender.M;
 		}
-		if(_gender.equals("W")){
+		if(female.equalsIgnoreCase(_gender.toString())){
 			gender = IGender.F;
 		}
 		return gender;

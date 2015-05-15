@@ -44,6 +44,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -104,6 +105,7 @@ public class NewAppointmentController {
 	@FXML
 	private void initialize(){
 		
+
 		   // Initialize the person table with the three columns.
         _firstNameColumn.setCellValueFactory(new PropertyValueFactory<IPatient, String>("firstName"));
         _lastNameColumn.setCellValueFactory(new PropertyValueFactory<IPatient, String>("lastName"));
@@ -258,7 +260,7 @@ public class NewAppointmentController {
 	 */
 	public void setDialogStage(Stage dialogStage) {
 		_dialogStage = dialogStage;
-		
+		_dialogStage.getIcons().add(new Image("file:ApplicationResources/Images/Auge.png"));
 	}
 	
 	public boolean isOkClicked() {

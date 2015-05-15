@@ -213,10 +213,7 @@ public class TabCalendarController {
 		LocalTime time;
 		LocalDate date;
 		
-		System.out.println(event.getX() + " - " + event.getY());	// TODO: delete
-		
 		int rowIndex = (int) (event.getY() / CONTENT_ROW_HEIGHT);
-		System.out.println(rowIndex);
 		LocalTimeLabel localTimeLabel = (LocalTimeLabel) getNodeByRowColumnIndex(rowIndex, 0, _gridPaneContent);
 		time = localTimeLabel.getLocalTime();
 
@@ -233,7 +230,7 @@ public class TabCalendarController {
 		LocalDateLabel localDateLabel = (LocalDateLabel) getNodeByColumnIndex(colIndex, _gridPaneHeader);
 		date = localDateLabel.getLocalDate();
 		
-		System.out.println("Time: " + time + ", Date: " + date);	// TODO: Methode aufrufen und date + time übergeben
+		showNewAppointmentDialog(LocalDateTime.of(date, time));
 	}
 
 	private void initScrollPane() {
@@ -384,8 +381,6 @@ public class TabCalendarController {
 				+ "-fx-border-color: black; "
 				+ "-fx-border-width: 1;");
 		
-		System.out.println(rowIndex + ", " + columnIndex + " | " + rowSpan + ", " + colSpan);	// TODO: zur Größe des CalendarEvent.fxml's: http://stackoverflow.com/questions/16242398/why-wont-the-children-in-my-javafx-hbox-grow-scenebuilder u.a.
-		
 		calEvCol.setCalEvent(calendarEvent);
 	}
 
@@ -419,11 +414,6 @@ public class TabCalendarController {
 	
 	@FXML
 	private Boolean handleNewAppointmentButton(){
-		/**
-		 * evtl. TODO:
-		 * - Neu erstellten Termin anzeigen lassen, sollte einer erstellt worden sein (man nicht auf Abbrechen geklickt hat)
-		 * - Cancel Button funktioniert noch nicht
-		 */
 		try {
 		
 			// Load the fxml file and create a new stage for the popup dialog.
@@ -443,6 +433,53 @@ public class TabCalendarController {
 			// Set the person into the controller.
 			NewAppointmentController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			_logger.info("showNewAppointmentDialog successful");
+			return controller.isOkClicked();
+		} catch (IOException ex) {
+			_logger.error("showNewAppointmentDialog failed", ex);
+			return false;
+		}
+	}
+	
+	private boolean showNewAppointmentDialog() {
+		return showNewAppointmentDialog(null);
+	}
+	
+	/**
+	 * Loads NewAppointmentDialog.fxml and displays it in a new window.
+	 * 
+	 * @param dateTime The LocalDateTime that should be initially displayed in the NewAppointmentDialog. May be null.
+	 * @return true if OK was clicked in NewAppointmentDialog
+	 */
+	private boolean showNewAppointmentDialog(LocalDateTime dateTime) {
+		try {
+			
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(OculusMain.class
+					.getResource("view/calendar/NewAppointmentDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("New Appointment");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			//dialogStage.initOwner(_primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the person into the controller.
+			NewAppointmentController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			
+			// Set LocalDateTime, if not null
+			if(dateTime != null) {
+				controller.setDateTime(dateTime);
+			}
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();

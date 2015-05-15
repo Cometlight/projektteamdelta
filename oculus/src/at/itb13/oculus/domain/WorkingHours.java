@@ -1,20 +1,16 @@
 package at.itb13.oculus.domain;
 
-import java.time.LocalTime;
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.time.LocalTime;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-
-import static javax.persistence.GenerationType.IDENTITY;
-
-import javax.persistence.Convert;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import org.apache.logging.log4j.LogManager;
@@ -37,6 +33,7 @@ import at.itb13.teamD.domain.interfaces.IWorkingHours;
 public class WorkingHours implements java.io.Serializable, IWorkingHours {
 	private static final long serialVersionUID = 1L;
 
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(WorkingHours.class.getName());
 	
 	private Integer _workingHoursId;

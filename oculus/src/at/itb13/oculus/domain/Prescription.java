@@ -32,6 +32,7 @@ import org.apache.logging.log4j.Logger;
 @Entity
 @Table(name = "prescription", catalog = "oculus_d")
 public class Prescription implements java.io.Serializable {
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(Prescription.class.getName());
 	private static final long serialVersionUID = 1L;
 	

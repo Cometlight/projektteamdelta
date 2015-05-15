@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 /**
- * This Interface defines the required methodes of the Patient class.
+ * This Interface defines the required methods of the Patient class.
  *
  * @author Florin Metzler
  * @since 30.04.2015

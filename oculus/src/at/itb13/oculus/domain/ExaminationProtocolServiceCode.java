@@ -25,6 +25,9 @@ import org.apache.logging.log4j.Logger;
 @Entity
 @Table(name = "examinationprotocolservicecode", catalog = "oculus_d")
 public class ExaminationProtocolServiceCode implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(ExaminationProtocolServiceCode.class.getName());
 	
 	private Integer examinationProtocolServiceCodeId;

@@ -26,6 +26,7 @@ import org.apache.logging.log4j.Logger;
 @Table(name = "administrator", catalog = "oculus_d")
 public class Administrator implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(Administrator.class.getName());
 	
 	private Integer _administratorId;

@@ -37,6 +37,7 @@ import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
 @Entity
 @Table(name = "examinationprotocol", catalog = "oculus_d")
 public class ExaminationProtocol implements java.io.Serializable, ExaminationProtocolRO {
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(ExaminationProtocol.class.getName());
 	private static final long serialVersionUID = 1L;
 	

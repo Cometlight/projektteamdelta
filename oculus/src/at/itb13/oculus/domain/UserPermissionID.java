@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
  */
 @Embeddable
 public class UserPermissionID implements java.io.Serializable {
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(UserPermissionID.class.getName());
 	private static final long serialVersionUID = 1L;
 	

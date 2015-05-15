@@ -14,6 +14,7 @@ import at.itb13.oculus.domain.readonlyinterfaces.QueueEntryRO;
  * @date 11.04.2015
  */
 public class QueueEntry implements QueueEntryRO {
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(QueueEntry.class.getName());
 	
 	private Integer _queueEntryId;

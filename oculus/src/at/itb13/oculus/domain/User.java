@@ -34,6 +34,7 @@ import at.itb13.teamD.domain.interfaces.IUser;
 @Entity
 @Table(name = "user", catalog = "oculus_d")
 public class User implements java.io.Serializable, IUser{
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(User.class.getName());
 	private static final long serialVersionUID = 1L;
 	

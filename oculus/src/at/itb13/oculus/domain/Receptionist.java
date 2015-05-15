@@ -1,15 +1,13 @@
 package at.itb13.oculus.domain;
+import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.OneToOne;
-
-import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.apache.logging.log4j.LogManager;
@@ -25,6 +23,7 @@ import org.apache.logging.log4j.Logger;
 @Entity
 @Table(name = "receptionist", catalog = "oculus_d")
 public class Receptionist implements java.io.Serializable {
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(Receptionist.class.getName());
 	private static final long serialVersionUID = 1L;
 	

@@ -9,4 +9,6 @@ package at.itb13.teamD.domain.interfaces;
 public interface IDoctor {
 	
 	public abstract IUser getUser();
+	
+	public abstract ICalendar getICalendar();
 }

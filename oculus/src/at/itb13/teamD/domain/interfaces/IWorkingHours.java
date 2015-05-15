@@ -17,4 +17,13 @@ public interface IWorkingHours {
 	public abstract LocalTime getAfternoonFrom();
 	
 	public abstract LocalTime getAfternoonTo();
+
+	/**
+	 * checks if the date(start, end) is in the WorkingHours.
+	 * 
+	 * @param start of the date.
+	 * @param end of the date.
+	 * @return
+	 */
+	public abstract boolean isDateInWorkingHours(LocalTime start, LocalTime end);
 }

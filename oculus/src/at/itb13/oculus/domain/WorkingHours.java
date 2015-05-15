@@ -53,6 +53,30 @@ public class WorkingHours implements java.io.Serializable, IWorkingHours {
 		_afternoonTo = afternoonTo;
 	}
 	
+	/**
+	 * checks if the date(start, end) is in the WorkingHours.
+	 * 
+	 * @param start of the date.
+	 * @param end of the date.
+	 * @return
+	 */
+	@Override
+	public boolean isDateInWorkingHours(LocalTime start, LocalTime end){
+		if(getMorningFrom() != null && getMorningTo() != null){
+			if((start.isAfter(getMorningFrom()) || start.equals(getMorningFrom()))
+				&& (end.isBefore(getMorningTo()) || end.equals(getMorningTo()))){
+				return true;
+			} 	
+		}
+		if(getAfternoonFrom() != null && getAfternoonTo() != null){
+			if((start.isAfter(getAfternoonFrom()) || start.equals(getAfternoonFrom()))
+				&& (end.isBefore(getAfternoonTo()) || end.equals(getAfternoonTo()))){
+				return true;
+			} 	
+		}
+		return false;		
+	}
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "workingHoursId", unique = true, nullable = false)

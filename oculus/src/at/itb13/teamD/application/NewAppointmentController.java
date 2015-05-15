@@ -141,7 +141,7 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 				try {
 					patient = (IPatient) PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class, searchValue);
 				} catch (PersistenceFacadeException e) {
-					//TODO Logger
+					//TODO Logger if wanted
 					e.printStackTrace();
 					
 				}
@@ -152,14 +152,14 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 				try {
 					patients = (List<IPatient>) PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class, searchValue);
 				} catch (PersistenceFacadeException e) {
-					// TODO Logger
+					// TODO Logger if wanted
 					e.printStackTrace();
 				}
 				if(patients.size() == 0){
 					try {
 						patients = (List<IPatient>)PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class, searchValue);
 					} catch (PersistenceFacadeException e) {
-						// TODO Logger
+						// TODO Logger if wanted
 						e.printStackTrace();
 					}
 				}
@@ -183,19 +183,7 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 		LocalTime start = startDate.toLocalTime();
 		LocalTime end = endDate.toLocalTime();
 		
-		if(wh.getMorningFrom() != null && wh.getMorningTo() != null){
-			if((start.isAfter(wh.getMorningFrom()) || start.equals(wh.getMorningFrom()))
-				&& (end.isBefore(wh.getMorningTo()) || end.equals(wh.getMorningTo()))){
-				return true;
-			} 	
-		}
-		if(wh.getAfternoonFrom() != null && wh.getAfternoonTo() != null){
-			if((start.isAfter(wh.getAfternoonFrom()) || start.equals(wh.getAfternoonFrom()))
-				&& (end.isBefore(wh.getAfternoonTo()) || end.equals(wh.getAfternoonTo()))){
-				return true;
-			} 	
-		}
-		return false;		
+		return wh.isDateInWorkingHours(start, end);
 	}
 	
 	/**

@@ -111,6 +111,7 @@ public class OculusMain extends Application {
         		initAppointmentsTab();
         		initPatientTab();
         		initQueueTab();
+        		initCalendarTab();
         		
         		updateMessage("Finished.");
         		

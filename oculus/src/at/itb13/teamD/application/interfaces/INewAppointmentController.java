@@ -26,9 +26,10 @@ public interface INewAppointmentController {
 	 * @param end the end Date of the timespan. (inclusive)
 	 * @param description includes the reason for the appointment.
 	 * @param patient is the person who refers to the appointment.
+	 * @return ICalendarEvent
 	 * @throws SaveException is throwen when an error occured while saving the new appointment.
 	 */
-	public abstract void newCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start, 
+	public abstract ICalendarEvent newCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start, 
 										 LocalDateTime end, String description, 
 										 IPatient patient) throws SaveException;
 	
@@ -40,9 +41,10 @@ public interface INewAppointmentController {
 	 * @param end the end Date of the timespan. (inclusive)
 	 * @param description includes the reason for the appointment.
 	 * @param patient is the person who refers to the appointment.
+	 * @return ICalendarEvent
 	 * @throws SaveException is throwen when an error occured while saving the new appointment.
 	 */
-	public abstract void newCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start, 
+	public abstract ICalendarEvent newCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start, 
 			 							 LocalDateTime end, String description, 
 			 							 String patient) throws SaveException;
 	

@@ -39,20 +39,22 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 	 * @param end the end Date of the timespan. (inclusive)
 	 * @param description includes the reason for the appointment.
 	 * @param patient is the person who refers to the appointment.
+	 * @return 
 	 * @throws SaveException is thrown when an error occured while saving the new appointment.
 	 */
 	@Override
-	public void newCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start,
-			LocalDateTime end, String description, IPatient patient)
-			throws SaveException {
-		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, (IPatient) patient);
+	public ICalendarEvent newCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start,
+		LocalDateTime end, String description, IPatient patient)
+		throws SaveException {
+		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, 
+																start, end, description, (IPatient) patient);
 		Set<ICalendarEvent> set = calendar.getICalendarEvents();
 		set.add(newEvent);
 		calendar.setCalendarEvents(set);		
 		IPersistenceFacade facade = PersistenceFacadeProvider.getPersistenceFacade();
 		facade.makePersistent(newEvent);
 		if(facade.makePersistent(newEvent)){
-			return;
+			return newEvent;
 		} else {
 			throw new SaveException();
 		}
@@ -66,20 +68,22 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 	 * @param end the end Date of the timespan. (inclusive)
 	 * @param description includes the reason for the appointment.
 	 * @param patient is the person who refers to the appointment.
+	 * @return ICalendarEvent
 	 * @throws SaveException is throwen when an error occured while saving the new appointment.
 	 */
 	@Override
-	public void newCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start,
+	public ICalendarEvent newCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start,
 			LocalDateTime end, String description, String patient)
 			throws SaveException {
-		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, patient);
+		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, 
+																start, end, description, patient);
 		Set<ICalendarEvent> set = calendar.getICalendarEvents();
 		set.add(newEvent);
 		calendar.setCalendarEvents(set);
 		IPersistenceFacade facade = PersistenceFacadeProvider.getPersistenceFacade();
 		facade.makePersistent(newEvent);
 		if(facade.makePersistent(newEvent)){
-			return;
+			return newEvent;
 		} else {
 			throw new SaveException();
 		}

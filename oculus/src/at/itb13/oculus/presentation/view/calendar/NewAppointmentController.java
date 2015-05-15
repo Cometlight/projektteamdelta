@@ -118,7 +118,7 @@ public class NewAppointmentController {
         _patientTableView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
                 	if(_patientTableView.getSelectionModel().getSelectedItem() != null){
-                		_selectedpatient.setText(newValue.getFirstName() + " " + newValue.getLastName() + " " + newValue.getDateOfBirth());
+                		_selectedpatient.setText(((newValue.getFirstName() == null) ? "" : newValue.getFirstName()) + " " + ((newValue.getLastName() == null) ? "" :  newValue.getLastName()) + " " + ((newValue.getDateOfBirth() == null) ? "" :newValue.getDateOfBirth()));
                 		_patientRecordButton.setDisable(false);
         				_patient = _patientTableView.getSelectionModel().getSelectedItem();
         				_patientName = "";

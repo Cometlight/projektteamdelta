@@ -33,7 +33,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -49,7 +48,6 @@ import javafx.util.StringConverter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.presentation.OculusMain;
 import at.itb13.teamD.application.ControllerFacade;
 import at.itb13.teamD.application.exceptions.InvalidInputException;
 import at.itb13.teamD.domain.interfaces.ICalendar;
@@ -73,7 +71,8 @@ import at.itb13.teamD.presentation.LocalTimeLabel;
 public class TabCalendarController {
 	private static final Logger _logger = LogManager.getLogger(TabCalendarController.class.getName());
 	
-	private static final String CALENDAR_EVENT_FXML = "CalendarEvent.fxml";
+	private static final String CALENDAR_EVENT_FXML = "../view/CalendarEvent.fxml";
+	private static final String NEW_APPOINTMENT_DIALOG_FXML = "../view/NewAppointmentDialog.fxml";
 	private static final int TIME_INTERVAL_MINUTES = 15;
 	private static final double TIME_COLUMN_WIDTH = 5d;	// percentage
 	private static final double HEADER_MARGIN_RIGHT = 10d;
@@ -498,9 +497,7 @@ public class TabCalendarController {
 		try {
 			
 			// Load the fxml file and create a new stage for the popup dialog.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(OculusMain.class
-					.getResource("view/calendar/NewAppointmentDialog.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(NEW_APPOINTMENT_DIALOG_FXML));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.

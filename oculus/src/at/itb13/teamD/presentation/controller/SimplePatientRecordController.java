@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
- * TODO: Insert description here.
+ * A simple controller for the patient record.
  * 
  * @author Caroline Meusburger
  * @since 13.05.2015

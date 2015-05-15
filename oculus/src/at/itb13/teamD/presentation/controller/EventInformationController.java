@@ -1,30 +1,16 @@
 package at.itb13.teamD.presentation.controller;
 
-import java.io.IOException;
-import java.util.List;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.application.ControllerFacade;
-import at.itb13.oculus.application.queue.QueueController;
-import at.itb13.oculus.domain.EventType;
-import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
-import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
-import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
 import at.itb13.oculus.presentation.OculusMain;
-import at.itb13.oculus.presentation.view.PatientRecordController;
 import at.itb13.teamD.domain.interfaces.ICalendarEvent;
 import at.itb13.teamD.domain.interfaces.IPatient;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
 /**
  * TODO: Insert description here.
@@ -33,6 +19,7 @@ import javafx.stage.Stage;
  * @since 10.05.2015
  */
 public class EventInformationController {
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(OculusMain.class.getName());
 
 	@FXML

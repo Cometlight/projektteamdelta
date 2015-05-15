@@ -41,7 +41,6 @@ import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.receptionist.PatientSearch;
-import at.itb13.oculus.presentation.OculusMain;
 import at.itb13.oculus.presentation.util.CalendarEventTypeStringConverter;
 import at.itb13.oculus.presentation.util.CalendarStringConverter;
 import at.itb13.teamD.application.exceptions.InvalidInputException;
@@ -51,14 +50,13 @@ import at.itb13.teamD.domain.interfaces.IEventType;
 import at.itb13.teamD.domain.interfaces.IPatient;
 
 /**
- * TODO: Insert description here.
- * 
  * @author Caroline Meusburger
  * @since 04.05.2015
  */
 public class NewAppointmentController {
 	private static final Logger _logger = LogManager.getLogger(NewAppointmentController.class.getName());
 	
+	private static final String SIMPLE_PATIENT_RECORD_FXML = "../view/SimplePatientRecord.fxml";
 	@FXML
 	private TextField _patientSearchField;
 	@FXML
@@ -93,7 +91,6 @@ public class NewAppointmentController {
 	private ComboBox<ICalendar> _doctorBox;
 	@FXML
 	private TextArea _resonText;
-	private List<ICalendar> _calendars;
 	private Stage _dialogStage;
 	private LocalDateTime _startDate;
 	private LocalDateTime _endDate;
@@ -386,9 +383,8 @@ public class NewAppointmentController {
 	 @FXML
 	 private void patientRecordButtonControl(){
 		try{
-		 FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(OculusMain.class
-					.getResource("view/calendar/SimplePatientRecord.fxml"));
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource(SIMPLE_PATIENT_RECORD_FXML));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.
@@ -524,7 +520,7 @@ public class NewAppointmentController {
 		if(isEventAlreadyTaken()){
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setHeaderText("Overlapping Appointment");
-			alert.setContentText("The new Appointment overlaps an other Appointment. Do you want to continue?");
+			alert.setContentText("The new appointment overlaps with another appointment. Do you want to continue?");
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK){
 			//	alert.close();
@@ -552,8 +548,8 @@ public class NewAppointmentController {
 	private boolean continueWhenNotInWorkingHour(){
 		if(!isEventInWorkingHour()){
 			Alert alert = new Alert(AlertType.CONFIRMATION);
-			alert.setHeaderText("Appointment not in workinghour");
-			alert.setContentText("The new Appointment is not in workinghour. Do you want to continue?");
+			alert.setHeaderText("Appointment outside of workinghours");
+			alert.setContentText("The new appointment is outside of workinghours. Do you want to continue?");
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK){
 			//	alert.close();

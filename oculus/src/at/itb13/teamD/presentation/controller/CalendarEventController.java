@@ -17,14 +17,13 @@ import at.itb13.oculus.presentation.OculusMain;
 import at.itb13.teamD.domain.interfaces.ICalendarEvent;
 
 /**
- * TODO: Insert description here.
- * 
  * @author Caroline Meusburger
  * @since 01.05.2015
  */
 public class CalendarEventController {
 	private static final Logger _logger = LogManager.getLogger(OculusMain.class.getName());
 
+	private static final String EVENT_INFORMATION_FXML = "../view/EventInformation.fxml";
 	@FXML
 	private Hyperlink _patientLabel;
 	
@@ -61,8 +60,7 @@ public class CalendarEventController {
 		
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(OculusMain.class
-					.getResource("view/calendar/EventInformation.fxml"));
+			loader.setLocation(getClass().getResource(EVENT_INFORMATION_FXML));
 			AnchorPane page = (AnchorPane) loader.load();
 			
 			Stage dialogStage = new Stage();

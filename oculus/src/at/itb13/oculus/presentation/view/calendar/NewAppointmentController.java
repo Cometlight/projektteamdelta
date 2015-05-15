@@ -168,7 +168,7 @@ public class NewAppointmentController {
 	}
 	
 	private void setAssignedDoctor(){
-		//_doctorBox.getSelectionModel().select(_patient.getDoctor().getCalendar());
+		_doctorBox.getSelectionModel().select(_patient.getDoctor().getICalendar());
 	}
 	
 	private void setItemsToTypeBox(){

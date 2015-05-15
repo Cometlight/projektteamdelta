@@ -704,7 +704,6 @@ public class TabCalendarController {
 		_state = new CalendarWeekView();
 		_dayViewButton.setDisable(false);
 		_weekViewButton.setDisable(true);
-
 		refreshCalendar();
 	}
 }

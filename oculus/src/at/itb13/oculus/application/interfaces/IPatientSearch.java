@@ -3,7 +3,7 @@ package at.itb13.oculus.application.interfaces;
 import java.util.List;
 
 import at.itb13.oculus.application.exceptions.InvalidInputException;
-import at.itb13.oculus.domain.interfaces.IPatient;
+import at.itb13.teamD.domain.interfaces.IPatient;
 
 /**
  * TODO: Insert description here.

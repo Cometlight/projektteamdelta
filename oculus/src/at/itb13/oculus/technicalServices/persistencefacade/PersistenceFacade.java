@@ -16,13 +16,6 @@ import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.WorkingHours;
-import at.itb13.oculus.domain.interfaces.ICalendar;
-import at.itb13.oculus.domain.interfaces.ICalendarEvent;
-import at.itb13.oculus.domain.interfaces.IDoctor;
-import at.itb13.oculus.domain.interfaces.IEventType;
-import at.itb13.oculus.domain.interfaces.IPatient;
-import at.itb13.oculus.domain.interfaces.IUser;
-import at.itb13.oculus.domain.interfaces.IWorkingHours;
 import at.itb13.oculus.technicalServices.dao.CalendarDao;
 import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
 import at.itb13.oculus.technicalServices.dao.DoctorDao;
@@ -30,6 +23,13 @@ import at.itb13.oculus.technicalServices.dao.EventTypeDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 import at.itb13.oculus.technicalServices.exceptions.NoDatabaseConnectionException;
 import at.itb13.oculus.technicalServices.exceptions.PersistenceFacadeException;
+import at.itb13.teamD.domain.interfaces.ICalendar;
+import at.itb13.teamD.domain.interfaces.ICalendarEvent;
+import at.itb13.teamD.domain.interfaces.IDoctor;
+import at.itb13.teamD.domain.interfaces.IEventType;
+import at.itb13.teamD.domain.interfaces.IPatient;
+import at.itb13.teamD.domain.interfaces.IUser;
+import at.itb13.teamD.domain.interfaces.IWorkingHours;
 
 /**
  * Enables access to the persistence layer TODO: other Interfaces have to be

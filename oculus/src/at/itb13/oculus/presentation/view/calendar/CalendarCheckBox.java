@@ -1,7 +1,7 @@
 package at.itb13.oculus.presentation.view.calendar;
 
 import javafx.scene.control.CheckBox;
-import at.itb13.oculus.domain.interfaces.ICalendar;
+import at.itb13.teamD.domain.interfaces.ICalendar;
 
 /**
  * TODO: Insert description here.

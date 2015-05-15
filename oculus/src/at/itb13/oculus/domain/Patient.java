@@ -25,9 +25,9 @@ import javax.persistence.Transient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.domain.interfaces.IPatient;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.technicalServices.util.LocalDatePersistenceConverter;
+import at.itb13.teamD.domain.interfaces.IPatient;
 
 /**
  * 

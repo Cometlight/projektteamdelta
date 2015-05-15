@@ -1,15 +1,15 @@
-package at.itb13.oculus.domain.factories;
+package at.itb13.teamD.domain.factories;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
-import at.itb13.oculus.domain.interfaces.ICalendar;
-import at.itb13.oculus.domain.interfaces.ICalendarEvent;
-import at.itb13.oculus.domain.interfaces.ICalendarEventFactory;
-import at.itb13.oculus.domain.interfaces.IEventType;
-import at.itb13.oculus.domain.interfaces.IPatient;
+import at.itb13.teamD.domain.interfaces.ICalendar;
+import at.itb13.teamD.domain.interfaces.ICalendarEvent;
+import at.itb13.teamD.domain.interfaces.ICalendarEventFactory;
+import at.itb13.teamD.domain.interfaces.IEventType;
+import at.itb13.teamD.domain.interfaces.IPatient;
 
 /**
  * Includes the methods to create or get an object from the CalendarEvent class.

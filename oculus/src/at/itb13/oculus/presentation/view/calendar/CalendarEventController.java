@@ -5,10 +5,10 @@ import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.domain.interfaces.ICalendarEvent;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.presentation.OculusMain;
 import at.itb13.oculus.presentation.view.EditAnamnesisController;
+import at.itb13.teamD.domain.interfaces.ICalendarEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

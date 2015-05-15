@@ -21,6 +21,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -67,6 +68,7 @@ public class EventInformationController {
 	}
 	public void setDialogStage(Stage dialogStage) {
 		_dialogStage = dialogStage;
+		_dialogStage.getIcons().add(new Image("file:ApplicationResources/Images/Auge.png"));
 		
 	}
 	public void setEvent(ICalendarEvent event){

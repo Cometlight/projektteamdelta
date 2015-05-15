@@ -103,7 +103,7 @@ public class NewPatientController {
 		_dialogStage = dialogStage;
 
 		// Set the application icon.
-		_dialogStage.getIcons().add(new Image("file:resources/images/eye.png"));
+		_dialogStage.getIcons().add(new Image("file:ApplicationResources/Images/Auge.png"));
 	}
 
 	public boolean isOkClicked() {

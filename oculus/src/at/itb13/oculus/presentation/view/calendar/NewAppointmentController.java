@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
@@ -44,6 +47,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -55,6 +59,7 @@ import javafx.stage.Stage;
  * @since 04.05.2015
  */
 public class NewAppointmentController {
+	private static final Logger _logger = LogManager.getLogger(NewAppointmentController.class.getName());
 	
 	@FXML
 	private TextField _patientSearchField;
@@ -104,6 +109,7 @@ public class NewAppointmentController {
 	@FXML
 	private void initialize(){
 		
+
 		   // Initialize the person table with the three columns.
         _firstNameColumn.setCellValueFactory(new PropertyValueFactory<IPatient, String>("firstName"));
         _lastNameColumn.setCellValueFactory(new PropertyValueFactory<IPatient, String>("lastName"));
@@ -136,6 +142,17 @@ public class NewAppointmentController {
 
 	public void clearPatientData() {
 		_patientData.clear();
+	}
+	
+	/**
+	 * Sets the datePicker and the start time spinner to dateTime
+	 * @param dateTime The LocalDateTime to be set
+	 */
+	public void setDateTime(LocalDateTime dateTime) {
+		_logger.info("Setting datePicker and startTimeSpinner to " + dateTime);
+		_datePicker.setValue(dateTime.toLocalDate());
+		_startTimeSpinnerHour.getValueFactory().setValue(dateTime.getHour());
+		_startTimeSpinnerMin.getValueFactory().setValue(dateTime.getMinute());
 	}
 	
 	/**
@@ -258,7 +275,7 @@ public class NewAppointmentController {
 	 */
 	public void setDialogStage(Stage dialogStage) {
 		_dialogStage = dialogStage;
-		
+		_dialogStage.getIcons().add(new Image("file:ApplicationResources/Images/Auge.png"));
 	}
 	
 	public boolean isOkClicked() {

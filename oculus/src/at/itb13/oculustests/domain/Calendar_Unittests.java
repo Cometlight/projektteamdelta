@@ -51,7 +51,7 @@ public class Calendar_Unittests {
 	public void getCalendarEventById(){
 		Calendar cal = Calendar.getInstance();
 		CalendarEvent ce;
-		ce = cal.getCalendarEventById(1);
+		ce = (CalendarEvent) cal.getCalendarEventById(1);
 		assertEquals(true, ce==null);
 	}
 	

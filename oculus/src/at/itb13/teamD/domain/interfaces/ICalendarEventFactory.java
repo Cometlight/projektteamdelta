@@ -47,21 +47,4 @@ public interface ICalendarEventFactory {
 	public abstract ICalendarEvent createCalendarEvent(ICalendar calendar, IEventType eventType, 
 										LocalDateTime start, LocalDateTime end, String description, IPatient patient);
 	
-	/**
-	 * get a set of all CallendarEvent for a chosen calendar.
-	 * 
-	 * @param calendar is the chosen calendar.
-	 * @return a set of CallendarEvents.
-	 */
-	public abstract Set<ICalendarEvent> getAllCalendarEvent(ICalendar calendar);
-	
-	/**
-	 * get a CallendarEvent by ID.
-	 * 
-	 * @param calendar is the chosen calendar.
-	 * @param calendarEventId the ID of the wanted CalendarEvent.
-	 * @return a CallendarEvent
-	 */
-	public abstract ICalendarEvent getCalendarEvent(ICalendar calendar, int calendarEventId);
-	
 }

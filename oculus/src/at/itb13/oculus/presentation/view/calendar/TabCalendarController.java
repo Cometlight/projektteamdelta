@@ -25,6 +25,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -117,7 +119,7 @@ public class TabCalendarController {
 		displayAllCalendarEvents();
 		
 		scrollToCurrentTime();
-		markCurrentTime();	// TODO: alle ~15 Minuten oder so autom. aufrufen
+		markCurrentTime();
 		
 		startCalendarReloader();
 		
@@ -336,6 +338,8 @@ public class TabCalendarController {
 		if(gP == null) {
 			// Add a new GridPane filled with CalendarEventFillerNodes, which will be replaced by actual CalendarEvents
 			gP = new GridPane();
+			RowConstraints rowConstraint = new RowConstraints();
+			rowConstraint.setValignment(VPos.TOP);
 			ColumnConstraints columnConstraint = new ColumnConstraints();
 			columnConstraint.setPercentWidth(100d/getNumberOfSelectedCheckBoxes());
 			int fillerNodeColumnNumber = 0;
@@ -345,6 +349,7 @@ public class TabCalendarController {
 					gP.add(fillerNode, fillerNodeColumnNumber++, 0);
 					GridPane.setHgrow(fillerNode, Priority.ALWAYS);
 					gP.getColumnConstraints().add(columnConstraint);
+					gP.getRowConstraints().add(rowConstraint);
 				}
 			}
 			_gridPaneContent.add(gP, columnIndex, rowIndex, colSpan, rowSpan);

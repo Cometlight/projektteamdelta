@@ -5,8 +5,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-import at.itb13.oculus.domain.CalendarEvent;
-
 /**
  * This Interface defines the required methodes of the Calendar class.
  *
@@ -49,4 +47,6 @@ public interface ICalendar {
 	public abstract Set<ICalendarEvent> getICalendarEvents();
 	
 	public abstract void setCalendarEvents(Set<ICalendarEvent> calendarEvents);
+	
+	public abstract ICalendarEvent getCalendarEventById(int calendarEventId);
 }

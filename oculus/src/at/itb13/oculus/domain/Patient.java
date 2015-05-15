@@ -42,6 +42,7 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 	public static final Integer SOCIAL_INSURANCE_NR_LENGTH = 10;
 	
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(Patient.class.getName());
 
 	private Integer _patientId;
@@ -64,10 +65,6 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 	private Set<Prescription> _prescriptions = new HashSet<Prescription>(0);
 	private Set<ReferralLetter> _referralletters = new HashSet<ReferralLetter>(0);
 	private Set<ExaminationProtocol> _examinationprotocols = new HashSet<ExaminationProtocol>(0);
-	
-	public enum Gender {
-		M, F
-	}
 
 	public Patient() { }
 
@@ -149,6 +146,10 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 		_prescriptions = prescriptions;
 		_referralletters = referralletters;
 		_examinationprotocols = examinationprotocols;
+	}
+	
+	public enum Gender {
+		M, F
 	}
 	
 	/**
@@ -236,6 +237,19 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 	@Column(name = "gender", nullable = false)
 	public Gender getGender() {
 		return _gender;
+	}
+	
+	@Transient
+	@Override
+	public IGender getIGender() {
+		IGender gender = null;
+		if(_gender.equals("M")){
+			gender = IGender.M;
+		}
+		if(_gender.equals("W")){
+			gender = IGender.F;
+		}
+		return gender;
 	}
 
 	public void setGender(Gender gender) {

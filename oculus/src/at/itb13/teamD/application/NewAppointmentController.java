@@ -22,14 +22,14 @@ import at.itb13.oculus.technicalServices.persistencefacade.IPersistenceFacade;
 import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProvider;
 
 /**
- * provides methodes for the usecase "new appointment"
+ * provides methods for the usecase "new appointment"
  *
  * @author Florin Metzler
  * @since 03.05.2015
  */
 public class NewAppointmentController implements INewAppointmentController, IPatientSearch{
 	
-	private ICalendarEventFactory _factory = new CalendarEventFactory();
+	private ICalendarEventFactory _factory = new CalendarEventFactory();	/** TODO **/
 	
 	/**
 	 * Creates a new appointment in a chosen timespan for the wanted calendar and patient.

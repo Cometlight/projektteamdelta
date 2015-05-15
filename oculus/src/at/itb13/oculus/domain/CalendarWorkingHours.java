@@ -18,7 +18,7 @@ import javax.persistence.Table;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.domain.support.WeekDayToDayOfWeekConverter;
+import at.itb13.oculus.technicalServices.converter.WeekDayToDayOfWeekConverter;
 import at.itb13.teamD.domain.interfaces.ICalendarWorkingHours;
 
 /**

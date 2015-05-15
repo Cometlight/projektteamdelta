@@ -1,5 +1,6 @@
 package at.itb13.oculus.domain;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +12,7 @@ import javax.persistence.GeneratedValue;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import javax.persistence.Convert;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,6 +23,8 @@ import javax.persistence.TemporalType;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import at.itb13.oculus.technicalServices.converter.LocalDatePersistenceConverter;
 
 /**
  * 
@@ -38,13 +42,14 @@ public class Prescription implements java.io.Serializable {
 	
 	private Integer _prescriptionId;
 	private Patient _patient;
-	private Date _issueDate;
+	private LocalDateTime _issueDate;
+	private LocalDateTime _lastPrintDate;
 	private Set<PrescriptionEntry> _prescriptionentries = new HashSet<PrescriptionEntry>(0);
 
 	public Prescription() {
 	}
 
-	public Prescription(Patient patient, Date issueDate,
+	public Prescription(Patient patient, LocalDateTime issueDate,
 			Set<PrescriptionEntry> prescriptionentries) {
 		_patient = patient;
 		_issueDate = issueDate;
@@ -72,14 +77,26 @@ public class Prescription implements java.io.Serializable {
 		_patient = patient;
 	}
 
+	@Convert(converter = LocalDatePersistenceConverter.class)
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "issueDate", length = 19)
-	public Date getIssueDate() {
+	public LocalDateTime getIssueDate() {
 		return _issueDate;
 	}
 
-	public void setIssueDate(Date issueDate) {
+	public void setIssueDate(LocalDateTime issueDate) {
 		_issueDate = issueDate;
+	}
+
+	@Convert(converter = LocalDatePersistenceConverter.class)
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "lastPrint", length = 19)
+	public LocalDateTime getLastPrintDate() {
+		return _lastPrintDate;
+	}
+
+	public void setLastPrintDate(LocalDateTime lastPrintDate) {
+		_lastPrintDate = lastPrintDate;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "prescription")
@@ -91,5 +108,4 @@ public class Prescription implements java.io.Serializable {
 			Set<PrescriptionEntry> prescriptionentries) {
 		_prescriptionentries = prescriptionentries;
 	}
-
 }

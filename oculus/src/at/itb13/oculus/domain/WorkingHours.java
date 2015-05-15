@@ -16,7 +16,7 @@ import javax.persistence.UniqueConstraint;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.domain.support.LocalTimeConverter;
+import at.itb13.oculus.technicalServices.converter.LocalTimeConverter;
 import at.itb13.teamD.domain.interfaces.IWorkingHours;
 
 /**
@@ -51,6 +51,30 @@ public class WorkingHours implements java.io.Serializable, IWorkingHours {
 		_morningTo = morningTo;
 		_afternoonFrom = afternoonFrom;
 		_afternoonTo = afternoonTo;
+	}
+	
+	/**
+	 * checks if the date(start, end) is in the WorkingHours.
+	 * 
+	 * @param start of the date.
+	 * @param end of the date.
+	 * @return
+	 */
+	@Override
+	public boolean isDateInWorkingHours(LocalTime start, LocalTime end){
+		if(getMorningFrom() != null && getMorningTo() != null){
+			if((start.isAfter(getMorningFrom()) || start.equals(getMorningFrom()))
+				&& (end.isBefore(getMorningTo()) || end.equals(getMorningTo()))){
+				return true;
+			} 	
+		}
+		if(getAfternoonFrom() != null && getAfternoonTo() != null){
+			if((start.isAfter(getAfternoonFrom()) || start.equals(getAfternoonFrom()))
+				&& (end.isBefore(getAfternoonTo()) || end.equals(getAfternoonTo()))){
+				return true;
+			} 	
+		}
+		return false;		
 	}
 	
 	@Id

@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import at.itb13.teamD.application.interfaces.INewAppointmentController;
 import at.itb13.teamD.domain.factories.CalendarEventFactory;
@@ -43,14 +42,12 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 	 */
 	@Override
 	public void newCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start,
-			LocalDateTime end, String description, IPatient patient)
-			throws SaveException {
-		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, (IPatient) patient);
-		Set<ICalendarEvent> set = calendar.getICalendarEvents();
-		set.add(newEvent);
-		calendar.setCalendarEvents(set);		
+		LocalDateTime end, String description, IPatient patient)
+		throws SaveException {
+		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, 
+																start, end, description, (IPatient) patient);
+		calendar.addCalendarEventToList(newEvent);	
 		IPersistenceFacade facade = PersistenceFacadeProvider.getPersistenceFacade();
-		facade.makePersistent(newEvent);
 		if(facade.makePersistent(newEvent)){
 			return;
 		} else {
@@ -72,12 +69,10 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 	public void newCalendarEvent(ICalendar calendar, IEventType eventType, LocalDateTime start,
 			LocalDateTime end, String description, String patient)
 			throws SaveException {
-		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, start, end, description, patient);
-		Set<ICalendarEvent> set = calendar.getICalendarEvents();
-		set.add(newEvent);
-		calendar.setCalendarEvents(set);
+		ICalendarEvent newEvent = _factory.createCalendarEvent((ICalendar) calendar, (IEventType) eventType, 
+																start, end, description, patient);
+		calendar.addCalendarEventToList(newEvent);
 		IPersistenceFacade facade = PersistenceFacadeProvider.getPersistenceFacade();
-		facade.makePersistent(newEvent);
 		if(facade.makePersistent(newEvent)){
 			return;
 		} else {
@@ -141,7 +136,7 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 				try {
 					patient = (IPatient) PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class, searchValue);
 				} catch (PersistenceFacadeException e) {
-					//TODO Logger
+					//TODO Logger if wanted
 					e.printStackTrace();
 					
 				}
@@ -152,14 +147,14 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 				try {
 					patients = (List<IPatient>) PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class, searchValue);
 				} catch (PersistenceFacadeException e) {
-					// TODO Logger
+					// TODO Logger if wanted
 					e.printStackTrace();
 				}
 				if(patients.size() == 0){
 					try {
 						patients = (List<IPatient>)PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class, searchValue);
 					} catch (PersistenceFacadeException e) {
-						// TODO Logger
+						// TODO Logger if wanted
 						e.printStackTrace();
 					}
 				}
@@ -183,19 +178,7 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 		LocalTime start = startDate.toLocalTime();
 		LocalTime end = endDate.toLocalTime();
 		
-		if(wh.getMorningFrom() != null && wh.getMorningTo() != null){
-			if((start.isAfter(wh.getMorningFrom()) || start.equals(wh.getMorningFrom()))
-				&& (end.isBefore(wh.getMorningTo()) || end.equals(wh.getMorningTo()))){
-				return true;
-			} 	
-		}
-		if(wh.getAfternoonFrom() != null && wh.getAfternoonTo() != null){
-			if((start.isAfter(wh.getAfternoonFrom()) || start.equals(wh.getAfternoonFrom()))
-				&& (end.isBefore(wh.getAfternoonTo()) || end.equals(wh.getAfternoonTo()))){
-				return true;
-			} 	
-		}
-		return false;		
+		return wh.isDateInWorkingHours(start, end);
 	}
 	
 	/**

@@ -14,7 +14,10 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -22,6 +25,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -43,9 +48,9 @@ import javafx.util.StringConverter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.presentation.OculusMain;
+import at.itb13.teamD.application.ControllerFacade;
 import at.itb13.teamD.domain.interfaces.ICalendar;
 import at.itb13.teamD.domain.interfaces.ICalendarEvent;
 
@@ -57,13 +62,14 @@ import at.itb13.teamD.domain.interfaces.ICalendarEvent;
  * @date May 1, 2015
  */
 public class TabCalendarController {
-
 	private static final Logger _logger = LogManager.getLogger(TabCalendarController.class.getName());
+	
 	private static final String CALENDAR_EVENT_FXML = "CalendarEvent.fxml";
 	private static final int TIME_INTERVAL_MINUTES = 15;
 	private static final double TIME_COLUMN_WIDTH = 5d;	// percentage
 	private static final double HEADER_MARGIN_RIGHT = 10d;
 	private static final double CONTENT_ROW_HEIGHT = 20d;
+	private static final int REFRESH_INTERVAL = 60000;	// in milliseconds
 
 	private ICalendarViewState _state;
 	@FXML
@@ -81,12 +87,9 @@ public class TabCalendarController {
 	@FXML
 	private Button _weekViewButton;
 	
-	
-
 	private GridPane _gridPaneHeader;
 	private ScrollPane _scrollPane;
-	private GridPane _gridPaneContent;	// TODO: Aktueller Tag + aktuelle Uhrzeit irgendwie markieren
-										// TODO: Automatisch runterscrollen zur aktuellen Uhrzeit
+	private GridPane _gridPaneContent;
 	private List<CalendarCheckBox> _calendarCheckBoxes;
 
 	private List<ICalendarEvent> _calEvents;
@@ -94,6 +97,8 @@ public class TabCalendarController {
 	private Map<Integer, Color> _calendarColorMap;	// Key = CalendarID
 	
 	private ColorGenerator _colorGenerator;
+	
+	private Timer _timer;	// used for refreshing
 
 	@FXML
 	private void initialize() {
@@ -113,8 +118,10 @@ public class TabCalendarController {
 		loadCalendarEvents(LocalDate.now().minusWeeks(1), _state.getNumberOfDays());
 		displayAllCalendarEvents();
 		
-		scrollToCurrentTime();	// TODO: Wo anders hinschieben?
-		markCurrentTime();	// TODO: alle ~15 Minuten oder so autom. aufrufen
+		scrollToCurrentTime();
+		markCurrentTime();
+		
+		startCalendarReloader();
 		
 		_logger.info("TabCalendarController has been initialized.");
 	}
@@ -331,6 +338,8 @@ public class TabCalendarController {
 		if(gP == null) {
 			// Add a new GridPane filled with CalendarEventFillerNodes, which will be replaced by actual CalendarEvents
 			gP = new GridPane();
+			RowConstraints rowConstraint = new RowConstraints();
+			rowConstraint.setValignment(VPos.TOP);
 			ColumnConstraints columnConstraint = new ColumnConstraints();
 			columnConstraint.setPercentWidth(100d/getNumberOfSelectedCheckBoxes());
 			int fillerNodeColumnNumber = 0;
@@ -340,6 +349,7 @@ public class TabCalendarController {
 					gP.add(fillerNode, fillerNodeColumnNumber++, 0);
 					GridPane.setHgrow(fillerNode, Priority.ALWAYS);
 					gP.getColumnConstraints().add(columnConstraint);
+					gP.getRowConstraints().add(rowConstraint);
 				}
 			}
 			_gridPaneContent.add(gP, columnIndex, rowIndex, colSpan, rowSpan);
@@ -448,8 +458,8 @@ public class TabCalendarController {
 
 			_logger.info("showNewAppointmentDialog successful");
 			if(controller.isOkClicked()){
-				System.out.println("ok Clicked = true");
-				refresh();
+				
+				refreshCalendar();
 			}
 			return controller.isOkClicked();
 		} catch (IOException ex) {
@@ -510,31 +520,57 @@ public class TabCalendarController {
 		
 		if(text.matches("^\\d{1,2}$")) {
 			Integer weekNumber = Integer.valueOf(text);
-			if(weekNumber > 0 && weekNumber <= 52) {
-				
-				LocalDate date = LocalDate.now().withDayOfYear(1);	// 1st January, current year
-				date = date.plusWeeks(weekNumber-1);
-				
-				_datePicker.setValue(date);
-						
-			} else {
-				// TODO: not a valid week number
+			// change to a valid number if necessary
+			if(weekNumber <= 0) {
+				weekNumber = 0;
+			} else if(weekNumber > 52) {
+				weekNumber = 52;
 			}
+				
+			LocalDate date = LocalDate.now().withDayOfYear(1);	// 1st January, current year
+			date = date.plusWeeks(weekNumber-1);
+			
+			_datePicker.setValue(date);
+						
 		} else {
-			// TODO: not a valid number
+			_weekNumberTextField.setText(getWeekNumber(_datePicker.getValue()).toString());	// set to a valid number
 		}
 	}
 	
-	/* TODO irgendwann vielleicht...
-	 * private void reload() {
-	 *  all 60 seconds {
-	 *   onDatePickerDateSelected();
-	 *  }
-	 * }
-	 */
+	private void startCalendarReloader() {
+		if(_timer == null) {
+			_timer = new Timer("CalendarReloader");
+			_timer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					_logger.trace("Refreshing Calendar");
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							ControllerFacade.loadCalendar();
+							refreshCalendar();
+						}
+					});
+				}
+			}, REFRESH_INTERVAL, REFRESH_INTERVAL);
+		}
+	}
+	
+	private void refreshCalendar() {
+		List<ICalendar> newCalList = ControllerFacade.getInstance().getNewAppointmentController().getAllCalendars();
+		for(CalendarCheckBox calCheckBox :_calendarCheckBoxes) {
+			for(ICalendar cal : newCalList) {
+				if(calCheckBox.getCalendar().getTitle().equals(cal.getTitle())) {
+					calCheckBox.setCalendar(cal);
+					break;
+				}
+			}
+		}
+		
+		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
+		displayAllCalendarEvents();
+	}
 
-	// TODO: besser machen? wo anders hin tun? zwischenspeichern stattdessen?
-	// siehe http://stackoverflow.com/a/20766735
 	private static int getRowCount(GridPane pane) {
 		int numRows = pane.getRowConstraints().size();
         for (int i = 0; i < pane.getChildren().size(); i++) {
@@ -567,18 +603,23 @@ public class TabCalendarController {
 	}
 	
 	@FXML
-	private void DayViewButtonControl(){
+	private void DayViewButtonControl() {
 		_state = new CalendarDayView();
 		_dayViewButton.setDisable(true);
 		_weekViewButton.setDisable(false);
+<<<<<<< HEAD
 		refresh();
+=======
+		refreshCalendar();
+>>>>>>> branch 'develop' of https://github.com/Cometlight/projektteamdelta.git
 	}
 	
 	@FXML
-	private void WeekViewButtonControl(){
+	private void WeekViewButtonControl() {
 		_state = new CalendarWeekView();
 		_dayViewButton.setDisable(false);
 		_weekViewButton.setDisable(true);
+
 		refresh();
 	}
 	
@@ -589,5 +630,8 @@ public class TabCalendarController {
 		_state.changeHeader(_datePicker.getValue());		
 		scrollToCurrentTime();
 		markCurrentTime();
+
+		refreshCalendar();
+
 	}
 }

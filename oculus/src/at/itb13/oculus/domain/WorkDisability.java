@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.technicalServices.util.LocalDatePersistenceConverter;
+import at.itb13.oculus.technicalServices.converter.LocalDatePersistenceConverter;
 
 /**
  * 

@@ -25,6 +25,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.technicalServices.converter.LocalDatePersistenceConverter;
+import at.itb13.oculus.technicalServices.converter.LocalDateTimePersistenceConverter;
 
 /**
  * 
@@ -77,8 +78,7 @@ public class Prescription implements java.io.Serializable {
 		_patient = patient;
 	}
 
-	@Convert(converter = LocalDatePersistenceConverter.class)
-	@Temporal(TemporalType.TIMESTAMP)
+	@Convert(converter = LocalDateTimePersistenceConverter.class)
 	@Column(name = "issueDate", length = 19)
 	public LocalDateTime getIssueDate() {
 		return _issueDate;
@@ -88,8 +88,7 @@ public class Prescription implements java.io.Serializable {
 		_issueDate = issueDate;
 	}
 
-	@Convert(converter = LocalDatePersistenceConverter.class)
-	@Temporal(TemporalType.TIMESTAMP)
+	@Convert(converter = LocalDateTimePersistenceConverter.class)
 	@Column(name = "lastPrint", length = 19)
 	public LocalDateTime getLastPrintDate() {
 		return _lastPrintDate;

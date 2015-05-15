@@ -32,6 +32,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -68,6 +69,7 @@ public class TabCalendarController {
 	private static final double TIME_COLUMN_WIDTH = 5d;	// percentage
 	private static final double HEADER_MARGIN_RIGHT = 10d;
 	private static final double CONTENT_ROW_HEIGHT = 20d;
+	private static final double CHECK_BOX_WIDTH = 120d;
 	private static final int REFRESH_INTERVAL = 60000;	// in milliseconds
 
 	private ICalendarViewState _state;
@@ -150,7 +152,13 @@ public class TabCalendarController {
 			
 			Color color = _colorGenerator.getNextColor();
 			_calendarColorMap.put(cal.getCalendarId(), color);
-			calCheckBox.setStyle("-fx-background-color: " + ColorGenerator.colorToString(color));
+			calCheckBox.setStyle("-fx-background-color: " + ColorGenerator.colorToString(color) + "; "
+					+ "-fx-font-size: 12pt; ");
+			calCheckBox.setTextFill(Color.WHITE);
+			
+			calCheckBox.setMinWidth(CHECK_BOX_WIDTH);
+			calCheckBox.setPrefWidth(CHECK_BOX_WIDTH);
+			calCheckBox.setMaxWidth(CHECK_BOX_WIDTH);
 			
 			_calendarCheckBoxes.add(calCheckBox);
 		}

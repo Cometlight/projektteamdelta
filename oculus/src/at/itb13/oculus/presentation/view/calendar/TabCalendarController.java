@@ -71,7 +71,7 @@ public class TabCalendarController {
 	private static final double HEADER_MARGIN_RIGHT = 10d;
 	private static final double CONTENT_ROW_HEIGHT = 20d;
 	private static final double CHECK_BOX_WIDTH = 120d;
-	private static final int REFRESH_INTERVAL = 60000;	// in milliseconds
+	private static final int REFRESH_INTERVAL = 120000;	// in milliseconds
 
 	private ICalendarViewState _state;
 	@FXML
@@ -511,6 +511,10 @@ public class TabCalendarController {
 			if(dateTime != null) {
 				controller.setDateTime(dateTime);
 			}
+			
+			List<ICalendar> calendars = new LinkedList<>();
+			_calendarCheckBoxes.forEach(calCheckBox -> calendars.add(calCheckBox.getCalendar()));
+			controller.init(calendars);
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();

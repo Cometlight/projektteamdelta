@@ -101,7 +101,7 @@ public class NewAppointmentController {
 	private String _patientName;
 	private ICalendar _calendar;
 	
-	private boolean okClicked = false;
+	private boolean _okClicked = false;
 	private ObservableList<IPatient> _patientData = FXCollections.observableArrayList();
 	
 	@FXML
@@ -125,11 +125,15 @@ public class NewAppointmentController {
         				setAssignedDoctor();
                 	}
                 });
-		
-		setItemsToDoctorBox();
-		setItemsToTypeBox();
+        
+        _doctorBox.setConverter(new CalendarStringConverter());
 		initSpinner();
 		initDatePicker();
+	}
+	
+	public void init(List<ICalendar> calendars) {
+		_doctorBox.getItems().setAll(calendars);
+		setItemsToTypeBox();
 	}
 	
 	private void initDatePicker() {
@@ -177,17 +181,6 @@ public class NewAppointmentController {
 		_datePicker.setValue(dateTime.toLocalDate());
 		_startTimeSpinnerHour.getValueFactory().setValue(dateTime.getHour());
 		_startTimeSpinnerMin.getValueFactory().setValue(dateTime.getMinute());
-	}
-	
-	/**
-	 * fills the combobox doctor with calendars
-	 */
-	private void setItemsToDoctorBox() {
-		_doctorBox.setConverter(new CalendarStringConverter());
-		_calendars = ControllerFacade.getInstance().getNewAppointmentController().getAllCalendars(); 		
-		for(ICalendar c : _calendars){
-			_doctorBox.getItems().add(c);
-		}
 	}
 	
 	private void setAssignedDoctor(){
@@ -309,7 +302,7 @@ public class NewAppointmentController {
 	}
 	
 	public boolean isOkClicked() {
-		return okClicked;
+		return _okClicked;
 	}
 	private void calcDate(){
 		LocalTime startTime = LocalTime.of(_startTimeSpinnerHour.getValue(), _startTimeSpinnerMin.getValue());
@@ -463,7 +456,7 @@ public class NewAppointmentController {
 					 }else if (_patientName.length() > 0){
 						 ControllerFacade.getInstance().getNewAppointmentController().newCalendarEvent(_calendar, _typeBox.getSelectionModel().getSelectedItem(), _startDate, _endDate, _resonText.getText(), _patientName);
 					 }
-					 okClicked = true;
+					 _okClicked = true;
 					 _dialogStage.close();
 				} catch (SaveException e) {
 					Alert alert = new Alert(AlertType.ERROR);

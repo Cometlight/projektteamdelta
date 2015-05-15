@@ -39,7 +39,7 @@
             <TableColumn fx:id="_birthdayColumn" minWidth="0.0" prefWidth="127.0" text="Date of Birth" />
         </columns>
       </TableView>
-      <Label layoutX="31.0" layoutY="211.0" text="Colud not found Patient?" />
+      <Label layoutX="31.0" layoutY="211.0" text="Could not find Patient?" />
       <Button layoutX="200.0" layoutY="207.0" mnemonicParsing="false" onAction="#withoutPatientButtonControl" text="Appointment for new Patient" />
       <Button fx:id="_patientRecordButton" disable="true" layoutX="201.0" layoutY="244.0" mnemonicParsing="false" onAction="#patientRecordButtonControl" text="Patient Record" />
    </children>

@@ -95,7 +95,7 @@ public class NewAppointmentController {
 	private ComboBox<ICalendar> _doctorBox;
 	@FXML
 	private TextArea _resonText;
-	
+	private List<ICalendar> _calendars;
 	private Stage _dialogStage;
 	private LocalDateTime _startDate;
 	private LocalDateTime _endDate;
@@ -124,6 +124,7 @@ public class NewAppointmentController {
                 		_patientRecordButton.setDisable(false);
         				_patient = _patientTableView.getSelectionModel().getSelectedItem();
         				_patientName = "";
+        				setAssignedDoctor();
                 	}
                 });
 		
@@ -160,10 +161,14 @@ public class NewAppointmentController {
 	 */
 	private void setItemsToDoctorBox() {
 		_doctorBox.setConverter(new CalendarStringConverter());
-		List<ICalendar> calContrs = ControllerFacade.getInstance().getNewAppointmentController().getAllCalendars(); 		
-		for(ICalendar c : calContrs){
+		_calendars = ControllerFacade.getInstance().getNewAppointmentController().getAllCalendars(); 		
+		for(ICalendar c : _calendars){
 			_doctorBox.getItems().add(c);
 		}
+	}
+	
+	private void setAssignedDoctor(){
+		//_doctorBox.getSelectionModel().select(_patient.getDoctor().getCalendar());
 	}
 	
 	private void setItemsToTypeBox(){

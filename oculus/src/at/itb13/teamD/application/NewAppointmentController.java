@@ -5,6 +5,10 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import at.itb13.oculus.application.interfaces.IPatientSearch;
+import at.itb13.oculus.technicalServices.exceptions.PersistenceFacadeException;
+import at.itb13.oculus.technicalServices.persistencefacade.IPersistenceFacade;
+import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProvider;
 import at.itb13.teamD.application.exceptions.InvalidInputException;
 import at.itb13.teamD.application.exceptions.SaveException;
 import at.itb13.teamD.application.interfaces.INewAppointmentController;
@@ -14,11 +18,6 @@ import at.itb13.teamD.domain.interfaces.ICalendarEventFactory;
 import at.itb13.teamD.domain.interfaces.IEventType;
 import at.itb13.teamD.domain.interfaces.IPatient;
 import at.itb13.teamD.domain.interfaces.IWorkingHours;
-import at.itb13.oculus.application.interfaces.IPatientSearch;
-import at.itb13.oculus.domain.factories.CalendarEventFactory;
-import at.itb13.oculus.technicalServices.exceptions.PersistenceFacadeException;
-import at.itb13.oculus.technicalServices.persistencefacade.IPersistenceFacade;
-import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProvider;
 
 /**
  * provides methods for the usecase "new appointment"
@@ -28,7 +27,7 @@ import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProv
  */
 public class NewAppointmentController implements INewAppointmentController, IPatientSearch{
 	
-	private ICalendarEventFactory _factory = new CalendarEventFactory();	/** TODO **/
+	private ICalendarEventFactory _factory = CalendarEventFactoryProvider.getCalendarEventFactory();
 	
 	/**
 	 * Creates a new appointment in a chosen timespan for the wanted calendar and patient.

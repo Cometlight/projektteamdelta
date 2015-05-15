@@ -3,9 +3,9 @@ package at.itb13.oculus.presentation.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import at.itb13.oculus.domain.interfaces.ICalendar;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
 import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
+import at.itb13.teamD.domain.interfaces.ICalendar;
 import javafx.util.StringConverter;
 
 /**

@@ -6,11 +6,9 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.application.calendar.NewAppointmentController;
-import at.itb13.oculus.application.interfaces.INewAppointmentController;
-import at.itb13.oculus.domain.interfaces.ICalendar;
-import at.itb13.oculus.domain.interfaces.IEventType;
 import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProvider;
+import at.itb13.teamD.domain.interfaces.ICalendar;
+import at.itb13.teamD.domain.interfaces.IEventType;
 
 /**
  * TODO: Insert description here.

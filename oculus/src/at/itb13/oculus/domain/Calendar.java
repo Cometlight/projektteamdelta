@@ -22,10 +22,10 @@ import javax.persistence.Transient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.domain.interfaces.ICalendar;
-import at.itb13.oculus.domain.interfaces.ICalendarEvent;
-import at.itb13.oculus.domain.interfaces.IDoctor;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
+import at.itb13.teamD.domain.interfaces.ICalendar;
+import at.itb13.teamD.domain.interfaces.ICalendarEvent;
+import at.itb13.teamD.domain.interfaces.IDoctor;
 
 /**
  * 

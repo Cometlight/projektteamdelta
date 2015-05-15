@@ -8,10 +8,10 @@ import java.util.List;
 import org.junit.Test;
 
 import at.itb13.oculus.domain.Patient;
-import at.itb13.oculus.domain.interfaces.IPatient;
 import at.itb13.oculus.technicalServices.exceptions.PersistenceFacadeException;
 import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacade;
 import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProvider;
+import at.itb13.teamD.domain.interfaces.IPatient;
 
 /**
  * JunitTests for PerstistenceFacade

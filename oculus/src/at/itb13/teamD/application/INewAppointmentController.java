@@ -1,14 +1,14 @@
-package at.itb13.oculus.application.interfaces;
+package at.itb13.teamD.application;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.exceptions.SaveException;
-import at.itb13.oculus.domain.interfaces.ICalendar;
-import at.itb13.oculus.domain.interfaces.ICalendarEvent;
-import at.itb13.oculus.domain.interfaces.IEventType;
-import at.itb13.oculus.domain.interfaces.IPatient;
+import at.itb13.teamD.domain.interfaces.ICalendar;
+import at.itb13.teamD.domain.interfaces.ICalendarEvent;
+import at.itb13.teamD.domain.interfaces.IEventType;
+import at.itb13.teamD.domain.interfaces.IPatient;
 
 /**
  * This Interface defines the used methodes of the NewAppointmentController.

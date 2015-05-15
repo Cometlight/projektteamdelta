@@ -1,4 +1,4 @@
-package at.itb13.oculus.application.calendar;
+package at.itb13.teamD.application;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -6,18 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import at.itb13.teamD.application.ControllerFacade;
+import at.itb13.teamD.domain.factories.CalendarEventFactory;
+import at.itb13.teamD.domain.interfaces.ICalendar;
+import at.itb13.teamD.domain.interfaces.ICalendarEvent;
+import at.itb13.teamD.domain.interfaces.ICalendarEventFactory;
+import at.itb13.teamD.domain.interfaces.IEventType;
+import at.itb13.teamD.domain.interfaces.IPatient;
+import at.itb13.teamD.domain.interfaces.IWorkingHours;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.application.exceptions.SaveException;
-import at.itb13.oculus.application.interfaces.INewAppointmentController;
 import at.itb13.oculus.application.interfaces.IPatientSearch;
-import at.itb13.oculus.domain.factories.CalendarEventFactory;
-import at.itb13.oculus.domain.interfaces.ICalendar;
-import at.itb13.oculus.domain.interfaces.ICalendarEvent;
-import at.itb13.oculus.domain.interfaces.ICalendarEventFactory;
-import at.itb13.oculus.domain.interfaces.IEventType;
-import at.itb13.oculus.domain.interfaces.IPatient;
-import at.itb13.oculus.domain.interfaces.IWorkingHours;
 import at.itb13.oculus.technicalServices.exceptions.PersistenceFacadeException;
 import at.itb13.oculus.technicalServices.persistencefacade.IPersistenceFacade;
 import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProvider;
@@ -131,7 +129,6 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 	 * @throws InvalidInputException thrown if the provided socialInsuranceNr or name is not in an appropriate format.
 	 * @throws PersistenceFacadeException 
 	 */
-	@SuppressWarnings("unchecked")
 	public List<IPatient> searchPatient(String searchValue) throws InvalidInputException {
 		List<IPatient> patients = new ArrayList<>();
 		if(!searchValue.isEmpty()){
@@ -140,7 +137,6 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 				try {
 					patient = (IPatient) PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class, searchValue);
 				} catch (PersistenceFacadeException e) {
-					// TODO Auto-generated catch block
 					//TODO Logger
 					e.printStackTrace();
 					
@@ -152,14 +148,14 @@ public class NewAppointmentController implements INewAppointmentController, IPat
 				try {
 					patients = (List<IPatient>) PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class, searchValue);
 				} catch (PersistenceFacadeException e) {
-					// TODO Auto-generated catch block
+					// TODO Logger
 					e.printStackTrace();
 				}
 				if(patients.size() == 0){
 					try {
 						patients = (List<IPatient>)PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class, searchValue);
 					} catch (PersistenceFacadeException e) {
-						// TODO Auto-generated catch block
+						// TODO Logger
 						e.printStackTrace();
 					}
 				}

@@ -1,6 +1,6 @@
 package at.itb13.oculus.presentation.view.calendar;
 
-import at.itb13.oculus.domain.interfaces.IPatient;
+import at.itb13.teamD.domain.interfaces.IPatient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

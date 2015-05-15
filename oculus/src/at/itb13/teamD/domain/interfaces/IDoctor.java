@@ -1,4 +1,4 @@
-package at.itb13.oculus.domain.interfaces;
+package at.itb13.teamD.domain.interfaces;
 
 /**
  * TODO: This Interface defines the required methodes of the Doctor class.

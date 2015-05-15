@@ -46,9 +46,9 @@ import javafx.util.StringConverter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.exceptions.InvalidInputException;
 import at.itb13.oculus.presentation.OculusMain;
+import at.itb13.teamD.application.ControllerFacade;
 import at.itb13.teamD.domain.interfaces.ICalendar;
 import at.itb13.teamD.domain.interfaces.ICalendarEvent;
 
@@ -67,7 +67,7 @@ public class TabCalendarController {
 	private static final double TIME_COLUMN_WIDTH = 5d;	// percentage
 	private static final double HEADER_MARGIN_RIGHT = 10d;
 	private static final double CONTENT_ROW_HEIGHT = 20d;
-	private static final int REFRESH_INTERVAL = 30000;	// in milliseconds
+	private static final int REFRESH_INTERVAL = 60000;	// in milliseconds
 
 	private ICalendarViewState _state;
 	@FXML
@@ -549,6 +549,18 @@ public class TabCalendarController {
 	}
 	
 	private void refreshCalendar() {
+		at.itb13.teamD.application.ControllerFacade.loadCalendar();
+		
+		List<ICalendar> newCalList = at.itb13.teamD.application.ControllerFacade.getInstance().getNewAppointmentController().getAllCalendars();
+		for(CalendarCheckBox calCheckBox :_calendarCheckBoxes) {
+			for(ICalendar cal : newCalList) {
+				if(calCheckBox.getCalendar().getTitle().equals(cal.getTitle())) {
+					calCheckBox.setCalendar(cal);
+					break;
+				}
+			}
+		}
+		
 		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
 		displayAllCalendarEvents();
 		_state.changeHeader(_datePicker.getValue());

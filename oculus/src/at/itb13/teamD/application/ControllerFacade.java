@@ -45,6 +45,9 @@ public class ControllerFacade {
 		}
 	}
 	
+	/**
+	 * to load all EventTypes
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T> void loadEventTypes(){
 		_listEventTypes = new LinkedList<>();
@@ -55,6 +58,9 @@ public class ControllerFacade {
 		}
 	}
 	
+	/**
+	 * to load all Calendar.
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T> void loadCalendar(){
 		_listCalendar = new LinkedList<>();

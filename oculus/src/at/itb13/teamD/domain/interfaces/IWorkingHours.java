@@ -3,7 +3,7 @@ package at.itb13.teamD.domain.interfaces;
 import java.time.LocalTime;
 
 /**
- * This Interface defines the required methodes of the WorkingHours class.
+ * This Interface defines the required methods of the WorkingHours class.
  *
  * @author Florin Metzler
  * @since 30.04.2015

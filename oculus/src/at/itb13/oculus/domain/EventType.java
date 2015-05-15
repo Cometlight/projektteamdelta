@@ -25,6 +25,7 @@ import at.itb13.teamD.domain.interfaces.IEventType;
 @Entity
 @Table(name = "eventtype", catalog = "oculus_d", uniqueConstraints = @UniqueConstraint(columnNames = "eventTypeName"))
 public class EventType implements java.io.Serializable, IEventType {
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(EventType.class.getName());
 	private static final long serialVersionUID = 1L;
 	

@@ -1,7 +1,7 @@
 package at.itb13.teamD.domain.interfaces;
 
 /**
- * TODO: This Interface defines the required methodes of the User class.
+ * TODO: This Interface defines the required methods of the User class.
  *
  * @author Florin Metzler
  * @since 30.04.2015

@@ -27,6 +27,7 @@ import org.apache.logging.log4j.Logger;
 @Entity
 @Table(name = "servicecode", catalog = "oculus_d", uniqueConstraints = @UniqueConstraint(columnNames = "serviceCode"))
 public class ServiceCode implements java.io.Serializable {
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(ServiceCode.class.getName());
 	private static final long serialVersionUID = 1L;
 	

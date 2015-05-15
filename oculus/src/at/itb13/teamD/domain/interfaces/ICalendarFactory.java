@@ -3,7 +3,7 @@ package at.itb13.teamD.domain.interfaces;
 import java.util.Set;
 
 /**
- * TODO: Insert description here.
+ * This Interface defines the required methods of the CalendarFactory class.
  *
  * @author Florin Metzler
  * @since 13.05.2015

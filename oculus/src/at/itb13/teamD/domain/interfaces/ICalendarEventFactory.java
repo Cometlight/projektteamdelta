@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
- * TODO: Insert description here.
+ * This Interface defines the required methods of the CalendarEventFactory class.
  *
  * @author Florin Metzler
  * @since 13.05.2015

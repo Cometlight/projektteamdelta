@@ -24,6 +24,7 @@ import org.apache.logging.log4j.Logger;
 @Entity
 @Table(name = "referralletter", catalog = "oculus_d")
 public class ReferralLetter implements java.io.Serializable {
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(ReferralLetter.class.getName());
 	private static final long serialVersionUID = 1L;
 	

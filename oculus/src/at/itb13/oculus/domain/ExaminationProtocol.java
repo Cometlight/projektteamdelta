@@ -25,7 +25,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.domain.readonlyinterfaces.ExaminationProtocolRO;
-import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
+import at.itb13.oculus.technicalServices.converter.LocalDateTimePersistenceConverter;
 
 /**
  * 

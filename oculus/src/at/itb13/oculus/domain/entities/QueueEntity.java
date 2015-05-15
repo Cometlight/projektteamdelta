@@ -31,7 +31,7 @@ import at.itb13.oculus.domain.Orthoptist;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Queue;
 import at.itb13.oculus.domain.QueueEntry;
-import at.itb13.oculus.technicalServices.util.LocalDateTimePersistenceConverter;
+import at.itb13.oculus.technicalServices.converter.LocalDateTimePersistenceConverter;
 
 /**
  * 

@@ -48,5 +48,7 @@ public interface ICalendar {
 	
 	public abstract void setCalendarEvents(Set<ICalendarEvent> calendarEvents);
 	
+	public abstract void addCalendarEventToList(ICalendarEvent newEvent);
+	
 	public abstract ICalendarEvent getCalendarEventById(int calendarEventId);
 }

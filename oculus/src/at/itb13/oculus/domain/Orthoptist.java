@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.domain.readonlyinterfaces.OrthoptistRO;
+import at.itb13.teamD.domain.interfaces.IOrthoptist;
 
 /**
  * 
@@ -26,7 +27,8 @@ import at.itb13.oculus.domain.readonlyinterfaces.OrthoptistRO;
  */
 @Entity
 @Table(name = "orthoptist", catalog = "oculus_d")
-public class Orthoptist implements java.io.Serializable, OrthoptistRO {
+public class Orthoptist implements java.io.Serializable, OrthoptistRO, IOrthoptist {
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(Orthoptist.class.getName());
 	private static final long serialVersionUID = 1L;
 	
@@ -34,7 +36,7 @@ public class Orthoptist implements java.io.Serializable, OrthoptistRO {
 	private Calendar _calendar;
 	private User _user;
 
-	public Orthoptist() {
+	public Orthoptist(){
 	}
 
 	public Orthoptist(Calendar calendar) {

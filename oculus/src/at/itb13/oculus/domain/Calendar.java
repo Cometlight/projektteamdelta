@@ -4,6 +4,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +26,9 @@ import org.apache.logging.log4j.Logger;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
 import at.itb13.teamD.domain.interfaces.ICalendar;
 import at.itb13.teamD.domain.interfaces.ICalendarEvent;
+import at.itb13.teamD.domain.interfaces.ICalendarWorkingHours;
 import at.itb13.teamD.domain.interfaces.IDoctor;
+import at.itb13.teamD.domain.interfaces.IOrthoptist;
 
 /**
  * 
@@ -37,6 +40,7 @@ import at.itb13.teamD.domain.interfaces.IDoctor;
 @Entity
 @Table(name = "calendar", catalog = "oculus_d")
 public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(Calendar.class.getName());
 	private static final long serialVersionUID = 1L;
 	
@@ -51,13 +55,13 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 	Calendar() {
 	}
 
-	Calendar(String title, IDoctor doctor, Orthoptist orthoptist, Set<CalendarEvent> calendarevents,
-			Set<CalendarWorkingHours> calendarworkinghourses) {
+	Calendar(String title, IDoctor doctor, IOrthoptist orthoptist, Set<ICalendarEvent> calendarevents,
+			Set<ICalendarWorkingHours> calendarworkinghourses) {
 		_title = title;
 		_doctor = (Doctor) doctor;
-		_orthoptist = orthoptist;
-		_calendarEvents = calendarevents;
-		_calendarWorkingHours = calendarworkinghourses;
+		_orthoptist = (Orthoptist) orthoptist;
+		_calendarEvents = (Set<CalendarEvent>) getListWithCalendarEvent(calendarevents);
+		_calendarWorkingHours = (Set<CalendarWorkingHours>) getListWithCalendarWorkingHours(calendarworkinghourses);
 	}
 	
 	public static Calendar getInstance(){
@@ -65,8 +69,8 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 		return calendar;
 	}
 	
-	public static ICalendar getInstance(String title, IDoctor doctor, Orthoptist orthoptist, Set<CalendarEvent> calendarevents, 
-									  Set<CalendarWorkingHours> calendarworkinghours){
+	public static ICalendar getInstance(String title, IDoctor doctor, IOrthoptist orthoptist, Set<ICalendarEvent> calendarevents, 
+									  Set<ICalendarWorkingHours> calendarworkinghours){
 		Calendar calendar = new Calendar(title, doctor, orthoptist, calendarevents, calendarworkinghours);
 		return calendar;
 	}
@@ -116,7 +120,7 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 	 * @return a CalendarEvent.
 	 */
 	@Transient
-	public CalendarEvent getCalendarEventById(int calendarEventId){
+	public ICalendarEvent getCalendarEventById(int calendarEventId){
 		for (CalendarEvent c : _calendarEvents) {
 			if (c.getCalendarEventId() == calendarEventId) {
 				return c;
@@ -212,5 +216,21 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 	public void setCalendarWorkingHours (
 			Set<CalendarWorkingHours> calendarWorkingHours) {
 		_calendarWorkingHours = calendarWorkingHours;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transient
+	public Collection<CalendarEvent> getListWithCalendarEvent(Set<ICalendarEvent> calendarevents) {
+	    Collection<CalendarEvent> coll = new HashSet<>();
+	    coll.addAll((Collection<? extends CalendarEvent>) calendarevents);
+	    return coll;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transient
+	public Collection<CalendarWorkingHours> getListWithCalendarWorkingHours(Set<ICalendarWorkingHours> calendarworkinghourses) {
+	    Collection<CalendarWorkingHours> coll = new HashSet<>();
+	    coll.addAll((Collection<? extends CalendarWorkingHours>) calendarworkinghourses);
+	    return coll;
 	}
 }

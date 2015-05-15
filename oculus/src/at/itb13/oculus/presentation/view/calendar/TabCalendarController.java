@@ -617,11 +617,7 @@ public class TabCalendarController {
 		_state = new CalendarDayView();
 		_dayViewButton.setDisable(true);
 		_weekViewButton.setDisable(false);
-<<<<<<< HEAD
-		refresh();
-=======
 		refreshCalendar();
->>>>>>> branch 'develop' of https://github.com/Cometlight/projektteamdelta.git
 	}
 	
 	@FXML

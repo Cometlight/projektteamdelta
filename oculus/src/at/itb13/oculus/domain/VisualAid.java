@@ -40,7 +40,9 @@ public class VisualAid implements java.io.Serializable {
 	private LocalDateTime _issueDate;
 	private LocalDateTime _lastPrintDate;
 	private String _description;
-
+	private Double _dioptreLeft;
+	private Double _dioptreRight;
+	
 	public VisualAid() {
 	}
 
@@ -97,4 +99,24 @@ public class VisualAid implements java.io.Serializable {
 	public void setDescription(String description) {
 		_description = description;
 	}
+
+	@Column(name = "dioptreLeft", precision=4, scale=2)
+	public Double getDioptreLeft() {
+		return _dioptreLeft;
+	}
+
+	public void setDioptreLeft(Double dioptreLeft) {
+		_dioptreLeft = dioptreLeft;
+	}
+
+	@Column(name = "dioptreRight", precision=4, scale=2)
+	public Double getDioptreRight() {
+		return _dioptreRight;
+	}
+
+	public void setDioptreRight(Double dioptreRight) {
+		_dioptreRight = dioptreRight;
+	}
+	
+	
 }

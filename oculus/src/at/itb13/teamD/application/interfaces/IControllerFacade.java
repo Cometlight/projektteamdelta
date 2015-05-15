@@ -1,4 +1,4 @@
-package at.itb13.teamD.application;
+package at.itb13.teamD.application.interfaces;
 
 /**
  * TODO: Insert description here.

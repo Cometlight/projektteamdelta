@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProvider;
+import at.itb13.teamD.application.interfaces.INewAppointmentController;
 import at.itb13.teamD.domain.interfaces.ICalendar;
 import at.itb13.teamD.domain.interfaces.IEventType;
 

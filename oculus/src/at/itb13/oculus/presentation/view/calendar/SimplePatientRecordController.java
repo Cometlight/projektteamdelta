@@ -54,7 +54,7 @@ public class SimplePatientRecordController {
 			personal = personal +((_patient.getLastName()== null) ? "-\n" : _patient.getLastName()) + "\n";
 			personal = personal + ((_patient.getSocialInsuranceNr()== null) ? "-" : _patient.getSocialInsuranceNr()) +"\n";
 			personal = personal + ((_patient.getDateOfBirth()== null) ? "-\n" : _patient.getDateOfBirth().toString() + "\n");
-			personal = personal + _patient.getGender().name();
+			personal = personal + _patient.getIGender().name();
 			_personalLabel.setText(personal);
 	    	_docLabel.setText(_patient.getDoctor().getUser().getFirstName() + " " +_patient.getDoctor().getUser().getLastName());           
 	    	String address = new String();

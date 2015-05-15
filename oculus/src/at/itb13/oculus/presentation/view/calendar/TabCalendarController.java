@@ -572,12 +572,6 @@ public class TabCalendarController {
 		_dayViewButton.setDisable(true);
 		_weekViewButton.setDisable(false);
 		refresh();
-//		initMainArea();
-//		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
-//		displayAllCalendarEvents();
-//		_state.changeHeader(_datePicker.getValue());
-//		scrollToCurrentTime();
-//		markCurrentTime();
 	}
 	
 	@FXML
@@ -586,19 +580,13 @@ public class TabCalendarController {
 		_dayViewButton.setDisable(false);
 		_weekViewButton.setDisable(true);
 		refresh();
-//		initMainArea();
-//		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
-//		displayAllCalendarEvents();
-//		_state.changeHeader(_datePicker.getValue());		//TODO: MONDAY
-//		scrollToCurrentTime();
-//		markCurrentTime();
 	}
 	
 	private void refresh(){
 		initMainArea();
 		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
 		displayAllCalendarEvents();
-		_state.changeHeader(_datePicker.getValue());		//TODO: MONDAY
+		_state.changeHeader(_datePicker.getValue());		
 		scrollToCurrentTime();
 		markCurrentTime();
 	}

@@ -24,6 +24,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
@@ -209,6 +210,7 @@ public class TabCalendarController {
 		
 		_state.initGridPaneHeader(_gridPaneHeader);
 		_state.changeHeader(_datePicker.getValue());
+		
 		initScrollPane();
 		initGridPaneContent();
 		resizeGridPanes();
@@ -274,6 +276,7 @@ public class TabCalendarController {
 			_gridPaneContent.getRowConstraints().add(rowConstraint);
 			++row;
 		}
+		
 	}
 	
 	/**
@@ -293,16 +296,18 @@ public class TabCalendarController {
 	}
 	
 	/**
-	 * Changes teh width of the columns of the calendar, depending on the number of days displayed.
+	 * Changes the width of the columns of the calendar, depending on the number of days displayed.
 	 */
 	private void resizeGridPanes() {
 		ColumnConstraints firstColCC = new ColumnConstraints();
 		firstColCC.setPercentWidth(TIME_COLUMN_WIDTH);
+		firstColCC.setHalignment(HPos.CENTER);
 		_gridPaneHeader.getColumnConstraints().add(firstColCC);
 		_gridPaneContent.getColumnConstraints().add(firstColCC);
 		
 		ColumnConstraints cC = new ColumnConstraints();
 		cC.setPercentWidth( (100d - TIME_COLUMN_WIDTH) / (double)(_state.getNumberOfDays()));
+		cC.setHalignment(HPos.CENTER);
 		for(int i = 0; i < _state.getNumberOfDays(); ++i) {
 			_gridPaneHeader.getColumnConstraints().add(cC);
 			_gridPaneContent.getColumnConstraints().add(cC);

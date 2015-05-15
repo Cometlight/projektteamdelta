@@ -21,7 +21,7 @@ import at.itb13.oculus.technicalServices.persistencefacade.IPersistenceFacade;
 import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacadeProvider;
 
 /**
- * TODO: provides methodes for the usecase "new appointment"
+ * provides methodes for the usecase "new appointment"
  *
  * @author Florin Metzler
  * @since 03.05.2015

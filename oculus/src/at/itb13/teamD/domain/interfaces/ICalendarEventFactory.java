@@ -3,9 +3,6 @@ package at.itb13.teamD.domain.interfaces;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-import at.itb13.oculus.domain.Calendar;
-import at.itb13.oculus.domain.CalendarEvent;
-
 /**
  * TODO: Insert description here.
  *
@@ -56,7 +53,7 @@ public interface ICalendarEventFactory {
 	 * @param calendar is the chosen calendar.
 	 * @return a set of CallendarEvents.
 	 */
-	public abstract Set<CalendarEvent> getAllCalendarEvent(Calendar calendar);
+	public abstract Set<ICalendarEvent> getAllCalendarEvent(ICalendar calendar);
 	
 	/**
 	 * get a CallendarEvent by ID.
@@ -65,6 +62,6 @@ public interface ICalendarEventFactory {
 	 * @param calendarEventId the ID of the wanted CalendarEvent.
 	 * @return a CallendarEvent
 	 */
-	public abstract ICalendarEvent getCalendarEvent(Calendar calendar, int calendarEventId);
+	public abstract ICalendarEvent getCalendarEvent(ICalendar calendar, int calendarEventId);
 	
 }

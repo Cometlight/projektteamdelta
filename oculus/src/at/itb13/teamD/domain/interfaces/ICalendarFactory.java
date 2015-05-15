@@ -2,10 +2,6 @@ package at.itb13.teamD.domain.interfaces;
 
 import java.util.Set;
 
-import at.itb13.oculus.domain.CalendarEvent;
-import at.itb13.oculus.domain.CalendarWorkingHours;
-import at.itb13.oculus.domain.Orthoptist;
-
 /**
  * TODO: Insert description here.
  *
@@ -29,6 +25,6 @@ public interface ICalendarFactory {
 	 * @param calendarWorkingHours Set of CalendarWorkingHours
 	 * @return Calendar with the specified parameters
 	 */
-	public abstract ICalendar createCalendar(String title, IDoctor doctor, Orthoptist orthoptist, Set<CalendarEvent> calendarEvents, 
-			  Set<CalendarWorkingHours> calendarWorkingHours);
+	public abstract ICalendar createCalendar(String title, IDoctor doctor, IOrthoptist orthoptist, Set<ICalendarEvent> calendarEvents, 
+			  Set<ICalendarWorkingHours> calendarWorkingHours);
 }

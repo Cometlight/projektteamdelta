@@ -164,19 +164,28 @@ public class EventInformationController {
 	public void showAppointInfo(){
 		if(_event != null){
 			_patient = _event.getPatient();
-			_patientLabel.setText(_patient.getFirstName() + " "+ _patient.getLastName());
-			_dateTimeLabel.setText(_event.getEventStart() + " - "+ _event.getEventEnd());
-			_descriptionLabel.setText(_event.getDescription());
-			_eventTypeLabel.setText(_event.getEventType().getEventTypeName());
-			_doctorLabel.setText(_event.getCalendar().getTitle());
-			_sinLabel.setText(_patient.getSocialInsuranceNr());
-			_dateOfBirthLabel.setText(_patient.getDateOfBirth().toString());
+			if(_patient != null){
+				
+				_patientLabel.setText(((_patient.getFirstName() == null) ? "" : _patient.getFirstName()) + " " + ((_patient.getLastName() == null) ? "" : _patient.getLastName()));
+				_sinLabel.setText((_patient.getSocialInsuranceNr() == null) ? "" : _patient.getSocialInsuranceNr());
+				_dateOfBirthLabel.setText((_patient.getDateOfBirth() == null) ? "" : _patient.getDateOfBirth().toString());
+			}
+			else{
+				_patientLabel.setText((_event.getPatientName() == null) ? "" : _event.getPatientName());
+				_sinLabel.setText("");
+				_dateOfBirthLabel.setText("");
+			
+			}
+			_dateTimeLabel.setText(((_event.getEventStart()== null) ? "" :_event.getEventStart()) + " - "+ ((_event.getEventEnd() == null) ? "" :_event.getEventEnd()));
+			_descriptionLabel.setText((_event.getDescription() == null) ? "" : _event.getDescription());
+			_eventTypeLabel.setText((_event.getEventType() == null) ? "" :_event.getEventType().getEventTypeName());
+			_doctorLabel.setText((_event.getCalendar() == null) ? "" :_event.getCalendar().getTitle());
 		}else{
 			_patientLabel.setText("");
 			_dateTimeLabel.setText("");
 			_descriptionLabel.setText("");
 			_eventTypeLabel.setText("");
-			_doctorLabel.setText("");
+			_doctorLabel.setText(""); 
 			_sinLabel.setText("");
 			_dateOfBirthLabel.setText("");	
 		}

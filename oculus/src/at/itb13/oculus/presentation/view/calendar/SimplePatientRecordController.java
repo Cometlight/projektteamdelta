@@ -54,7 +54,7 @@ public class SimplePatientRecordController {
 			personal = personal +((_patient.getLastName()== null) ? "-\n" : _patient.getLastName()) + "\n";
 			personal = personal + ((_patient.getSocialInsuranceNr()== null) ? "-" : _patient.getSocialInsuranceNr()) +"\n";
 			personal = personal + ((_patient.getDateOfBirth()== null) ? "-\n" : _patient.getDateOfBirth().toString() + "\n");
-			personal = personal + _patient.getIGender().name();
+			personal = personal + ((_patient.getIGender() == null) ? "" : _patient.getIGender().name());
 			_personalLabel.setText(personal);
 	    	_docLabel.setText(_patient.getDoctor().getUser().getFirstName() + " " +_patient.getDoctor().getUser().getLastName());           
 	    	String address = new String();
@@ -63,8 +63,8 @@ public class SimplePatientRecordController {
 	    	address = address + ((_patient.getCity()== null)?"-\n": _patient.getCity()+"\n");
 	    	address = address + ((_patient.getCountryIsoCode()==null)? "-\n" : _patient.getCountryIsoCode());
 	    	_addressLabel.setText(address);
-	    	_phoneLabel.setText(_patient.getPhone());
-	    	_emailLabel.setText(_patient.getEmail());	
+	    	_phoneLabel.setText((_patient.getPhone() == null) ? "" : _patient.getPhone());
+	    	_emailLabel.setText((_patient.getEmail() == null) ? "" : _patient.getEmail());	
 		
 	}
 }

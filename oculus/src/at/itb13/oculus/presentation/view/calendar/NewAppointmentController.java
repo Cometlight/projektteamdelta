@@ -4,34 +4,18 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import at.itb13.oculus.application.ControllerFacade;
-import at.itb13.oculus.application.calendar.CalendarController;
-import at.itb13.oculus.application.exceptions.InvalidInputException;
-import at.itb13.oculus.application.exceptions.SaveException;
-import at.itb13.oculus.application.receptionist.PatientSearch;
-import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
-import at.itb13.oculus.presentation.OculusMain;
-import at.itb13.oculus.presentation.util.CalendarEventTypeStringConverter;
-import at.itb13.oculus.presentation.util.CalendarStringConverter;
-import at.itb13.oculus.presentation.util.DoctorStringConverter;
-import at.itb13.oculus.presentation.view.NewPatientController;
-import at.itb13.oculus.presentation.view.PatientRecordController;
-import at.itb13.teamD.domain.interfaces.ICalendar;
-import at.itb13.teamD.domain.interfaces.IEventType;
-import at.itb13.teamD.domain.interfaces.IPatient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -39,18 +23,32 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import at.itb13.oculus.application.ControllerFacade;
+import at.itb13.oculus.application.exceptions.InvalidInputException;
+import at.itb13.oculus.application.exceptions.SaveException;
+import at.itb13.oculus.application.receptionist.PatientSearch;
+import at.itb13.oculus.presentation.OculusMain;
+import at.itb13.oculus.presentation.util.CalendarEventTypeStringConverter;
+import at.itb13.oculus.presentation.util.CalendarStringConverter;
+import at.itb13.teamD.domain.interfaces.ICalendar;
+import at.itb13.teamD.domain.interfaces.IEventType;
+import at.itb13.teamD.domain.interfaces.IPatient;
 
 /**
  * TODO: Insert description here.
@@ -130,6 +128,31 @@ public class NewAppointmentController {
 		setItemsToDoctorBox();
 		setItemsToTypeBox();
 		initSpinner();
+		initDatePicker();
+	}
+	
+	private void initDatePicker() {
+		_datePicker.setConverter(new StringConverter<LocalDate>() {
+			 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		     @Override 
+		     public String toString(LocalDate date) {
+		         if (date != null) {
+		             return dateFormatter.format(date);
+		         } else {
+		             return "";
+		         }
+		     }
+
+		     @Override 
+		     public LocalDate fromString(String string) {
+		         if (string != null && !string.isEmpty()) {
+		             return LocalDate.parse(string, dateFormatter);
+		         } else {
+		             return null;
+		         }
+		     }
+		});
 	}
 	
 	public ObservableList<IPatient> getPatientData() {

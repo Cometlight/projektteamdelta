@@ -85,8 +85,7 @@ public class TabCalendarController {
 
 	private GridPane _gridPaneHeader;
 	private ScrollPane _scrollPane;
-	private GridPane _gridPaneContent;	// TODO: Aktueller Tag + aktuelle Uhrzeit irgendwie markieren
-										// TODO: Automatisch runterscrollen zur aktuellen Uhrzeit
+	private GridPane _gridPaneContent;
 	private List<CalendarCheckBox> _calendarCheckBoxes;
 
 	private List<ICalendarEvent> _calEvents;
@@ -113,7 +112,7 @@ public class TabCalendarController {
 		loadCalendarEvents(LocalDate.now().minusWeeks(1), _state.getNumberOfDays());
 		displayAllCalendarEvents();
 		
-		scrollToCurrentTime();	// TODO: Wo anders hinschieben?
+		scrollToCurrentTime();
 		markCurrentTime();	// TODO: alle ~15 Minuten oder so autom. aufrufen
 		
 		_logger.info("TabCalendarController has been initialized.");
@@ -529,8 +528,6 @@ public class TabCalendarController {
 	 * }
 	 */
 
-	// TODO: besser machen? wo anders hin tun? zwischenspeichern stattdessen?
-	// siehe http://stackoverflow.com/a/20766735
 	private static int getRowCount(GridPane pane) {
 		int numRows = pane.getRowConstraints().size();
         for (int i = 0; i < pane.getChildren().size(); i++) {
@@ -583,7 +580,7 @@ public class TabCalendarController {
 		initMainArea();
 		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
 		displayAllCalendarEvents();
-		_state.changeHeader(_datePicker.getValue());		//TODO: MONDAY
+		_state.changeHeader(_datePicker.getValue());
 		scrollToCurrentTime();
 		markCurrentTime();
 	}

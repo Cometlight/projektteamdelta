@@ -2,23 +2,19 @@ package at.itb13.oculus.presentation.view.calendar;
 
 import java.io.IOException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
-import at.itb13.oculus.presentation.OculusMain;
-import at.itb13.oculus.presentation.view.EditAnamnesisController;
-import at.itb13.teamD.domain.interfaces.ICalendarEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import at.itb13.oculus.presentation.OculusMain;
+import at.itb13.teamD.domain.interfaces.ICalendarEvent;
 
 /**
  * TODO: Insert description here.
@@ -34,8 +30,6 @@ public class CalendarEventController {
 	
 	private ICalendarEvent _calEvent;
 	
-	private OculusMain _main;
-	
 	public CalendarEventController() { }
 	
 	public CalendarEventController(ICalendarEvent calendarEvent) {
@@ -43,14 +37,7 @@ public class CalendarEventController {
 	}
 	
 	@FXML
-	private void initialize(){
-		
-//		fillLabels();
-	}
-	
-	public void setMain(OculusMain main){
-		_main = main;
-	}
+	private void initialize() { }
 	
 	public void setCalEvent(ICalendarEvent calendarEvent){
 		_calEvent = calendarEvent;
@@ -79,7 +66,7 @@ public class CalendarEventController {
 			AnchorPane page = (AnchorPane) loader.load();
 			
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Appointment Informations");
+			dialogStage.setTitle("Appointment Information");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);

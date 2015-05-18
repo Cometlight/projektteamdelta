@@ -1,7 +1,6 @@
 package at.itb13.teamF.adapter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Date;
@@ -13,7 +12,7 @@ import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.ExaminationProtocol;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Patient.Gender;
-import at.itb13.teamD.domain.interfaces.IPatient.IGender;
+import at.itb13.oculus.domain.Prescription;
 import at.itb13.teamF.interfaces.IAdapter;
 import at.oculus.teamf.domain.entity.exception.CouldNotAddExaminationProtocol;
 import at.oculus.teamf.domain.entity.exception.CouldNotGetCalendarEventsException;
@@ -381,8 +380,8 @@ public class PatientAdapter implements IPatient, IAdapter {
 	@Override
 	public void addExaminationProtocol(IExaminationProtocol examinationProtocol)
 			throws CouldNotAddExaminationProtocol {
-		// TODO Auto-generated method stub
-
+		Collection<ExaminationProtocol> coll = _patient.getExaminationprotocols();
+		coll.add((ExaminationProtocol) examinationProtocol);
 	}
 
 	/*
@@ -391,8 +390,12 @@ public class PatientAdapter implements IPatient, IAdapter {
 	@Override
 	public Collection<IDiagnosis> getDiagnoses()
 			throws CouldNotGetDiagnoseException {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<IDiagnosis> results = new HashSet<>();
+		Collection<ExaminationProtocol> coll = _patient.getExaminationprotocols();
+		for(ExaminationProtocol entry : coll){
+			results.add((IDiagnosis) entry.getDiagnosis());
+		}
+		return results;
 	}
 
 	/*
@@ -401,8 +404,16 @@ public class PatientAdapter implements IPatient, IAdapter {
 	@Override
 	public Collection<IMedicine> getMedicine()
 			throws CouldNotGetMedicineException {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<IMedicine> results = new HashSet<>();
+		Collection<IDiagnosis> diagnosis = new HashSet<>();
+		Collection<ExaminationProtocol> coll = _patient.getExaminationprotocols();
+		for(ExaminationProtocol entry : coll){
+			diagnosis.add((IDiagnosis) entry.getDiagnosis());
+		}
+		for(IDiagnosis entry : diagnosis){
+			results = entry.getMedicine();
+		}
+		return results;
 	}
 
 	/*
@@ -411,18 +422,25 @@ public class PatientAdapter implements IPatient, IAdapter {
 	@Override
 	public Collection<IExaminationResult> getExaminationResults()
 			throws CouldNotGetExaminationResultException {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<IExaminationResult> results = new HashSet<>();
+		Collection<ExaminationProtocol> coll = _patient.getExaminationprotocols();
+		for(ExaminationProtocol entry : coll){
+			results.add((IExaminationResult) entry.getExaminationResults());
+		}
+		return results;
 	}
 
 	/*
 	 * @see at.oculus.teamf.domain.entity.interfaces.IPatient#getPrescriptions()
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<IPrescription> getPrescriptions()
 			throws CouldNotGetPrescriptionException {
-		// TODO Auto-generated method stub
-		return null;
+		Set<Prescription> set = _patient.getPrescriptions();
+		Collection<IPrescription> coll = new HashSet<>();
+		coll.addAll((Collection<? extends IPrescription>) set);
+		return coll;
 	}
 
 	/*
@@ -431,8 +449,16 @@ public class PatientAdapter implements IPatient, IAdapter {
 	@Override
 	public Collection<IVisualAid> getVisualAid()
 			throws CouldNotGetVisualAidException {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<IVisualAid> results = new HashSet<>();
+		Collection<IDiagnosis> diagnosis = new HashSet<>();
+		Collection<ExaminationProtocol> coll = _patient.getExaminationprotocols();
+		for(ExaminationProtocol entry : coll){
+			diagnosis.add((IDiagnosis) entry.getDiagnosis());
+		}
+		for(IDiagnosis entry : diagnosis){
+			results = entry.getVisualAid();
+		}
+		return results;
 	}
 
 }

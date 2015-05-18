@@ -1,11 +1,18 @@
 package at.itb13.teamF.adapter;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Collection;
 import java.util.Date;
 
+import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.teamF.interfaces.IAdapter;
+import at.oculus.teamf.domain.entity.exception.CantLoadPatientsException;
 import at.oculus.teamf.domain.entity.interfaces.ICalendar;
+import at.oculus.teamf.domain.entity.interfaces.IDoctor;
 import at.oculus.teamf.domain.entity.interfaces.IOrthoptist;
+import at.oculus.teamf.domain.entity.interfaces.IPatient;
 import at.oculus.teamf.domain.entity.interfaces.IPatientQueue;
 import at.oculus.teamf.persistence.exception.BadConnectionException;
 import at.oculus.teamf.persistence.exception.NoBrokerMappedException;
@@ -17,7 +24,7 @@ import at.oculus.teamf.persistence.exception.NoBrokerMappedException;
  * @date 18.05.2015
  * 
  */
-public class DoctorAdapter implements IAdapter, IOrthoptist{
+public class DoctorAdapter implements IAdapter, IDoctor{
 	Doctor _doctor;
 	
 	
@@ -169,8 +176,10 @@ public class DoctorAdapter implements IAdapter, IOrthoptist{
 	 */
 	@Override
 	public Date getCreateDate() {
-		// TODO Auto-generated method stub
-		return null;
+		LocalDateTime localDateTime = _doctor.getUser().getCreateDate();
+		Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());		
+		return date;
+		
 	}
 
 	/*
@@ -178,7 +187,8 @@ public class DoctorAdapter implements IAdapter, IOrthoptist{
 	 */
 	@Override
 	public void setCreateDate(Date createDate) {
-		// TODO Auto-generated method stub
+		LocalDateTime localDateTime = createDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+		_doctor.getUser().setCreateDate(localDateTime);
 		
 	}
 
@@ -187,8 +197,10 @@ public class DoctorAdapter implements IAdapter, IOrthoptist{
 	 */
 	@Override
 	public Date getIdleDate() {
-		// TODO Auto-generated method stub
-		return null;
+		LocalDateTime localDateTime = _doctor.getUser().getIdleDate();
+		Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());		
+		return date;
+		
 	}
 
 	/*
@@ -196,7 +208,8 @@ public class DoctorAdapter implements IAdapter, IOrthoptist{
 	 */
 	@Override
 	public void setIdleDate(Date idleDate) {
-		// TODO Auto-generated method stub
+		LocalDateTime localDateTime = idleDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+		_doctor.getUser().setCreateDate(localDateTime);
 		
 	}
 
@@ -205,8 +218,7 @@ public class DoctorAdapter implements IAdapter, IOrthoptist{
 	 */
 	@Override
 	public int getId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return _doctor.getDoctorId();
 	}
 
 	/*
@@ -214,7 +226,7 @@ public class DoctorAdapter implements IAdapter, IOrthoptist{
 	 */
 	@Override
 	public void setId(int id) {
-		// TODO Auto-generated method stub
+		_doctor.setDoctorId(id);
 		
 	}
 
@@ -223,8 +235,9 @@ public class DoctorAdapter implements IAdapter, IOrthoptist{
 	 */
 	@Override
 	public ICalendar getCalendar() {
-		// TODO Auto-generated method stub
-		return null;
+		Calendar calendar = _doctor.getCalendar();
+		return new CalendarAdapter(calendar);
+		
 	}
 
 	/*
@@ -232,25 +245,19 @@ public class DoctorAdapter implements IAdapter, IOrthoptist{
 	 */
 	@Override
 	public void setCalendar(ICalendar calendar) {
-		// TODO Auto-generated method stub
+		CalendarAdapter calendarAdapter = (CalendarAdapter)calendar;
+		Calendar cal = (Calendar)calendarAdapter.getDomainObject();
+		_doctor.setCalendar(cal);
 		
 	}
 
-	/*
-	 * @see at.oculus.teamf.domain.entity.interfaces.IOrthoptist#getQueue()
-	 */
-	@Override
-	public IPatientQueue getQueue() throws NoBrokerMappedException,
-			BadConnectionException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	/*
 	 * @see at.oculus.teamf.domain.entity.interfaces.IOrthoptist#setQueue(at.oculus.teamf.domain.entity.interfaces.IPatientQueue)
 	 */
 	@Override
 	public void setQueue(IPatientQueue queue) {
+		
 		// TODO Auto-generated method stub
 		
 	}
@@ -274,5 +281,55 @@ public class DoctorAdapter implements IAdapter, IOrthoptist{
 	 */
 	public void set_doctor(Doctor _doctor) {
 		this._doctor = _doctor;
+	}
+	/*
+	 * @see at.oculus.teamf.domain.entity.interfaces.IDoctor#getDoctorSubstitude()
+	 */
+	@Override
+	public IDoctor getDoctorSubstitude() {
+		return new DoctorAdapter(_doctor.getDoctorSubstitute());
+		
+	}
+	/*
+	 * @see at.oculus.teamf.domain.entity.interfaces.IDoctor#setDoctorSubstitude(at.oculus.teamf.domain.entity.interfaces.IDoctor)
+	 */
+	@Override
+	public void setDoctorSubstitude(IDoctor doctorSubstitude) {
+		DoctorAdapter doctorAdapter = (DoctorAdapter)doctorSubstitude;
+		Doctor doc = (Doctor)doctorAdapter.getDomainObject();
+		_doctor.setDoctorSubstitute(doc);
+		
+	}
+	/*
+	 * @see at.oculus.teamf.domain.entity.interfaces.IDoctor#addPatient(at.oculus.teamf.domain.entity.interfaces.IPatient)
+	 */
+	@Override
+	public void addPatient(IPatient patient) {
+		// TODO Auto-generated method stub
+		
+	}
+	/*
+	 * @see at.oculus.teamf.domain.entity.interfaces.IDoctor#getPatients()
+	 */
+	@Override
+	public Collection<IPatient> getPatients() throws CantLoadPatientsException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	/*
+	 * @see at.oculus.teamf.domain.entity.interfaces.IDoctor#setPatients(java.util.Collection)
+	 */
+	@Override
+	public void setPatients(Collection<IPatient> patients) {
+		// TODO Auto-generated method stub
+		
+	}
+	/*
+	 * @see at.oculus.teamf.domain.entity.interfaces.IDoctor#getQueue()
+	 */
+	@Override
+	public IPatientQueue getQueue() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -8,7 +8,13 @@ import at.itb13.teamD.technicalServices.persistenceFacade.*;
  */
 
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacade;
+import at.itb13.teamD.technicalServices.exceptions.PersistenceFacadeException;
+import at.itb13.teamD.technicalServices.persistenceFacade.PersistenceFacadeProvider;
 import at.oculus.teamf.databaseconnection.session.exception.ClassNotMappedException;
 import at.oculus.teamf.domain.entity.interfaces.IDomain;
 import at.oculus.teamf.persistence.IFacade;
@@ -57,14 +63,14 @@ public class PersistenceFacadeTeamF implements IFacade{
 	@Override
 	public boolean delete(IDomain obj) throws BadConnectionException,
 			NoBrokerMappedException, InvalidSearchParameterException,
-			DatabaseOperationException {
+			DatabaseOperationException, NotImplementedException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean deleteAll(Collection<IDomain> obj) throws FacadeException,
-			ClassNotMappedException {
+			ClassNotMappedException, NotImplementedException{
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -74,8 +80,19 @@ public class PersistenceFacadeTeamF implements IFacade{
 			throws SearchInterfaceNotImplementedException,
 			BadConnectionException, NoBrokerMappedException,
 			InvalidSearchParameterException, DatabaseOperationException {
-		// TODO Auto-generated method stub
-		return null;
+			Collection<T> searchResults = new LinkedList<T>();
+			String string = "";
+			
+			for (String str:search){
+				string = string +" "+str;
+			}
+			try {
+				searchResults.addAll(PersistenceFacadeProvider.getPersistenceFacade().searchFor(clazz, string));
+			} catch (PersistenceFacadeException e) {
+				
+				e.printStackTrace();
+			}
+		return searchResults;
 	}
 
 }

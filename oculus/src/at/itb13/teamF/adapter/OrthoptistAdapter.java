@@ -255,8 +255,7 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public Object getDomainObject() {
-		// TODO Auto-generated method stub
-		return null;
+		return _orthoptist;
 	}
 
 	/**

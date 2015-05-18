@@ -4,22 +4,22 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.teamF.interfaces.IAdapter;
 import at.oculus.teamf.domain.entity.exception.CantLoadPatientsException;
 import at.oculus.teamf.domain.entity.interfaces.ICalendar;
 import at.oculus.teamf.domain.entity.interfaces.IDoctor;
-import at.oculus.teamf.domain.entity.interfaces.IOrthoptist;
 import at.oculus.teamf.domain.entity.interfaces.IPatient;
 import at.oculus.teamf.domain.entity.interfaces.IPatientQueue;
-import at.oculus.teamf.persistence.exception.BadConnectionException;
-import at.oculus.teamf.persistence.exception.NoBrokerMappedException;
 
 /**
  * Adapter Doctor - TeamD --> Doctor TeamF
- * TODO getQueue setQueue getDomainObject addPatient
+ * TODO getQueue setQueue addPatient
  * 
  * @author Karin Trommelschläger
  * @date 18.05.2015
@@ -276,8 +276,8 @@ public class DoctorAdapter implements IAdapter, IDoctor{
 	 */
 	@Override
 	public Object getDomainObject() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return _doctor;
 	}
 	/**
 	 * @return the _doctor
@@ -322,17 +322,27 @@ public class DoctorAdapter implements IAdapter, IDoctor{
 	 */
 	@Override
 	public Collection<IPatient> getPatients() throws CantLoadPatientsException {
-		Set<Patient> patients = _doctor.getCalendar();
-		return new CalendarAdapter(calendar);
-		return null;
+		Set<Patient> patients = _doctor.getPatients();
+		Set<IPatient>ipatients = null;
+		for (Patient p:patients){
+			ipatients.add(new PatientAdapter(p));
+		}
+		return ipatients;
 	}
 	/*
 	 * @see at.oculus.teamf.domain.entity.interfaces.IDoctor#setPatients(java.util.Collection)
 	 */
 	@Override
-	public void setPatients(Collection<IPatient> patients) {
-		// TODO Auto-generated method stub
-		
+	public void setPatients(Collection<IPatient> ipatients) {
+		Set<Patient> patients = new HashSet<Patient>(0);
+		PatientAdapter patientAdapter = null;
+		Patient p = null;
+		for (IPatient ip:ipatients){
+			patientAdapter = (PatientAdapter)ip;
+			p = (Patient)patientAdapter.getDomainObject();
+			patients.add(p);
+		}
+		_doctor.setPatients(patients);
 	}
 	
 }

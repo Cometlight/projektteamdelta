@@ -40,14 +40,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.teamD.application.ControllerFacade;
-import at.itb13.oculus.presentation.util.CalendarEventTypeStringConverter;
-import at.itb13.oculus.presentation.util.CalendarStringConverter;
 import at.itb13.teamD.application.exceptions.InvalidInputException;
 import at.itb13.teamD.application.exceptions.SaveException;
 import at.itb13.teamD.application.interfaces.INewAppointmentController;
 import at.itb13.teamD.domain.interfaces.ICalendar;
 import at.itb13.teamD.domain.interfaces.IEventType;
 import at.itb13.teamD.domain.interfaces.IPatient;
+import at.itb13.teamD.presentation.converter.CalendarEventTypeStringConverter;
+import at.itb13.teamD.presentation.converter.CalendarStringConverter;
 
 /**
  * @author Caroline Meusburger

@@ -164,10 +164,8 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	@Override
 	public Date getCreateDate() {
 		LocalDateTime localDateTime = _orthoptist.getUser().getCreateDate();
-		Date date = Date.from(localDateTime.at)	// FIXME: Florin
-		
-		
-			
+		Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());		
+		return date;
 	}
 
 	/*

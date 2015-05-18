@@ -3,6 +3,7 @@ package at.itb13.teamF.adapter;
 import java.sql.Timestamp;
 import java.util.Collection;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import at.itb13.teamF.interfaces.IAdapter;
 import at.oculus.teamf.domain.entity.exception.patientqueue.CouldNotAddPatientToQueueException;
 import at.oculus.teamf.domain.entity.exception.patientqueue.CouldNotRemovePatientFromQueueException;
@@ -24,8 +25,7 @@ public class QueueAdapter implements IAdapter, IPatientQueue{
 	 */
 	@Override
 	public Collection<IQueueEntry> getEntries() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new NotImplementedException();
 	}
 
 	/*
@@ -34,8 +34,7 @@ public class QueueAdapter implements IAdapter, IPatientQueue{
 	@Override
 	public void addPatient(IPatient patient, Timestamp arrivaltime)
 			throws CouldNotAddPatientToQueueException {
-		// TODO Auto-generated method stub
-		
+		throw new NotImplementedException();
 	}
 
 	/*
@@ -44,8 +43,7 @@ public class QueueAdapter implements IAdapter, IPatientQueue{
 	@Override
 	public void removePatient(IPatient patient)
 			throws CouldNotRemovePatientFromQueueException {
-		// TODO Auto-generated method stub
-		
+		throw new NotImplementedException();
 	}
 
 	/*
@@ -53,8 +51,7 @@ public class QueueAdapter implements IAdapter, IPatientQueue{
 	 */
 	@Override
 	public Object getDomainObject() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new NotImplementedException();
 	}
 
 }

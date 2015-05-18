@@ -9,6 +9,7 @@ import at.itb13.teamD.domain.interfaces.ICalendar;
 import at.itb13.teamD.domain.interfaces.ICalendarEvent;
 import at.itb13.teamD.domain.interfaces.IEventType;
 import at.itb13.teamD.domain.interfaces.IPatient;
+import at.itb13.teamD.technicalServices.exceptions.PersistenceFacadeException;
 
 /**
  * This Interface defines the used methods of the NewAppointmentController.
@@ -88,4 +89,14 @@ public interface INewAppointmentController {
 	 */
 	public abstract boolean isDateAlreadyTaken(ICalendar calendar, LocalDateTime start, 
 											  LocalDateTime end) throws InvalidInputException;
+	
+	/**
+	 * Loads the patient with the provided social insurance number or name from the database.
+	 * 
+	 * @param searchValue The patient's social insurance number or name.
+	 * @return List<Patient> The patients with the supplied social insurance number or name. May be null, if no patient has been found.
+	 * @throws InvalidInputException thrown if the provided socialInsuranceNr or name is not in an appropriate format.
+	 * @throws PersistenceFacadeException 
+	 */
+	public abstract List<IPatient> searchPatient(String searchValue) throws InvalidInputException;
 }

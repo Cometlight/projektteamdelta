@@ -39,12 +39,12 @@ import javafx.util.StringConverter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.application.ControllerFacade;
-import at.itb13.oculus.application.receptionist.PatientSearch;
+import at.itb13.teamD.application.ControllerFacade;
 import at.itb13.oculus.presentation.util.CalendarEventTypeStringConverter;
 import at.itb13.oculus.presentation.util.CalendarStringConverter;
 import at.itb13.teamD.application.exceptions.InvalidInputException;
 import at.itb13.teamD.application.exceptions.SaveException;
+import at.itb13.teamD.application.interfaces.INewAppointmentController;
 import at.itb13.teamD.domain.interfaces.ICalendar;
 import at.itb13.teamD.domain.interfaces.IEventType;
 import at.itb13.teamD.domain.interfaces.IPatient;
@@ -312,14 +312,13 @@ public class NewAppointmentController {
 	  * It gets a List of Patients from the PatientSearch Class and creates new Patients with Property.
 	  * The Patient Data are shown in the GUI
 	  */
-	 @SuppressWarnings("unchecked")
 	@FXML
 	 private void searchControl(){
 		 clearPatientData();
-		 PatientSearch p = ControllerFacade.getInstance().getPatientSearch();
+		 INewAppointmentController controller = ControllerFacade.getInstance().getNewAppointmentController();
 		 List<IPatient> patients = new ArrayList<>();
 		 try {			
-			patients =  (List<IPatient>) p.searchPatient(_patientSearchField.getText());
+			patients =  (List<IPatient>) controller.searchPatient(_patientSearchField.getText());
 			if(patients.size() > 0){
 				for(IPatient pa : patients){
 					addPatientData(pa);

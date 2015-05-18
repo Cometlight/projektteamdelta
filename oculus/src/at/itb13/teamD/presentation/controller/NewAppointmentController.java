@@ -519,6 +519,7 @@ public class NewAppointmentController {
 	private boolean continueWithOverlaping(){
 		if(isEventAlreadyTaken()){
 			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Overlaping Appointment");
 			alert.setHeaderText("Overlapping Appointment");
 			alert.setContentText("The new appointment overlaps with another appointment. Do you want to continue?");
 			Optional<ButtonType> result = alert.showAndWait();
@@ -548,6 +549,7 @@ public class NewAppointmentController {
 	private boolean continueWhenNotInWorkingHour(){
 		if(!isEventInWorkingHour()){
 			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Outside of workinghours");
 			alert.setHeaderText("Appointment outside of workinghours");
 			alert.setContentText("The new appointment is outside of workinghours. Do you want to continue?");
 			Optional<ButtonType> result = alert.showAndWait();

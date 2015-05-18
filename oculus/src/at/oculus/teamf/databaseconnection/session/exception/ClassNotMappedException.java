@@ -7,21 +7,25 @@
  * You should have received a copy of the GNU General Public License along with Oculus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package at.oculus.teamf.domain.entity.interfaces;
-
-import at.oculus.teamf.domain.entity.exception.patientqueue.CouldNotAddPatientToQueueException;
-import at.oculus.teamf.domain.entity.exception.patientqueue.CouldNotRemovePatientFromQueueException;
-import java.sql.Timestamp;
-import java.util.Collection;
+package at.oculus.teamf.databaseconnection.session.exception;
 
 /**
- * interface patient queue for presentation layer
+ * Is thrown when a class was not mapped.
+ *
+ * @author Simon Angerer
+ * @date 30.03.2015
+ * @version 1.0
  */
-public interface IPatientQueue {
+public class ClassNotMappedException extends SessionException {
 
-    Collection<IQueueEntry> getEntries();
+    private String _clazz;
 
-    void addPatient(IPatient patient, Timestamp arrivaltime) throws CouldNotAddPatientToQueueException;
+    public ClassNotMappedException(String clazz) {
+        _clazz = clazz;
+    }
 
-    void removePatient(IPatient patient) throws CouldNotRemovePatientFromQueueException;
+    @Override
+    public String getMessage() {
+        return "Class was not mapped: " + _clazz;
+    }
 }

@@ -7,21 +7,13 @@
  * You should have received a copy of the GNU General Public License along with Oculus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package at.oculus.teamf.domain.entity.interfaces;
-
-import at.oculus.teamf.domain.entity.exception.patientqueue.CouldNotAddPatientToQueueException;
-import at.oculus.teamf.domain.entity.exception.patientqueue.CouldNotRemovePatientFromQueueException;
-import java.sql.Timestamp;
-import java.util.Collection;
+package at.oculus.teamf.databaseconnection.session.exception;
 
 /**
- * interface patient queue for presentation layer
+ * AlreadyInTransactionException is thrown when the session is already in an transaction state.
+ *
+ * @author Simon Angerer
+ * @date 30.03.2015
  */
-public interface IPatientQueue {
-
-    Collection<IQueueEntry> getEntries();
-
-    void addPatient(IPatient patient, Timestamp arrivaltime) throws CouldNotAddPatientToQueueException;
-
-    void removePatient(IPatient patient) throws CouldNotRemovePatientFromQueueException;
+public class AlreadyInTransactionException extends Exception{
 }

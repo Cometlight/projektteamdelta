@@ -7,21 +7,10 @@
  * You should have received a copy of the GNU General Public License along with Oculus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package at.oculus.teamf.domain.entity.interfaces;
-
-import at.oculus.teamf.domain.entity.exception.patientqueue.CouldNotAddPatientToQueueException;
-import at.oculus.teamf.domain.entity.exception.patientqueue.CouldNotRemovePatientFromQueueException;
-import java.sql.Timestamp;
-import java.util.Collection;
+package at.oculus.teamf.databaseconnection.session.exception;
 
 /**
- * interface patient queue for presentation layer
+ * Created by Simon Angerer on 02.05.2015.
  */
-public interface IPatientQueue {
-
-    Collection<IQueueEntry> getEntries();
-
-    void addPatient(IPatient patient, Timestamp arrivaltime) throws CouldNotAddPatientToQueueException;
-
-    void removePatient(IPatient patient) throws CouldNotRemovePatientFromQueueException;
+public class CanNotStartTransactionException extends SessionException  {
 }

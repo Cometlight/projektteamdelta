@@ -12,38 +12,48 @@ package at.oculus.teamf.domain.entity.interfaces;
 import java.util.Date;
 
 /**
- * Created by oculus on 04.05.15.
+ * Created by oculus on 16.04.15.
  */
-public interface IExaminationResult extends IDomain {
-    @Override
-    int getId();
+public interface IUser {
+    //<editor-fold desc="Getter/Setter">
+    int getUserId();
 
-    @Override
-    void setId(int id);
+    void setUserId(int id);
 
-    IExaminationProtocol getExaminationProtocol();
+    Integer getUserGroupId();
 
-    void setExaminationProtocol(IExaminationProtocol examinationProtocolEntity);
+    void setUserGroupId(Integer userGroupId);
 
-    IUser getUser();
+    String getUserName();
 
-    void setUser(IUser user);
+    void setUserName(String userName);
 
-    Integer getUserId();
+    String getPassword();
 
-    void setUserId(Integer userId);
+    void setPassword(String password);
 
-    String getResult();
+    String getTitle();
 
-    void setResult(String result);
+    void setTitle(String title);
+
+    String getFirstName();
+
+    void setFirstName(String firstName);
+
+    String getLastName();
+
+    void setLastName(String lastName);
+
+    String getEmail();
+
+    void setEmail(String email);
 
     Date getCreateDate();
 
-    String getDevice();
+    void setCreateDate(Date createDate);
 
-    byte[] getDeviceData();
+    Date getIdleDate();
 
-    IDoctor getDoctor();
+    void setIdleDate(Date idleDate);
 
-    IOrthoptist getOrthoptist();
 }

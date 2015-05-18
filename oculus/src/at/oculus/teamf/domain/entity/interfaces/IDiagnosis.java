@@ -9,6 +9,7 @@
 
 package at.oculus.teamf.domain.entity.interfaces;
 
+import at.oculus.teamf.domain.entity.exception.CouldNotAddMedicineException;
 import at.oculus.teamf.domain.entity.exception.CouldNotAddVisualAidException;
 import at.oculus.teamf.domain.entity.exception.CouldNotGetMedicineException;
 import at.oculus.teamf.domain.entity.exception.CouldNotGetVisualAidException;
@@ -44,7 +45,7 @@ public interface IDiagnosis extends IDomain {
     Collection<IMedicine> getMedicine() throws CouldNotGetMedicineException;
 
     void addMedicine(IMedicine medicine)
-            throws at.oculus.teamf.domain.entity.CouldNotAddMedicineException;
+            throws CouldNotAddMedicineException;
 
     void addVisualAid(IVisualAid visualAid)
             throws CouldNotAddVisualAidException;

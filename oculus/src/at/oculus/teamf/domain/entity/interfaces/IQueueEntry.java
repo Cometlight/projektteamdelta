@@ -9,48 +9,41 @@
 
 package at.oculus.teamf.domain.entity.interfaces;
 
-import at.oculus.teamf.domain.entity.exception.CouldNotGetExaminationResultException;
+import at.oculus.teamf.domain.entity.Doctor;
+import at.oculus.teamf.domain.entity.Orthoptist;
+import at.oculus.teamf.domain.entity.Patient;
+import at.oculus.teamf.technical.loggin.ILogger;
 
-import java.util.Collection;
-import java.util.Date;
+import java.sql.Timestamp;
 
 /**
  * Created by oculus on 20.04.15.
  */
-public interface IExaminationProtocol extends IDomain {
-    @Override
+public interface IQueueEntry extends IDomain, ILogger {
     int getId();
 
-    @Override
     void setId(int id);
 
-    Date getStartTime();
+    Doctor getDoctor();
 
-    void setStartTime(Date startTime);
+    void setDoctor(Doctor doctor);
 
-    Date getEndTime();
+    Orthoptist getOrthoptist();
 
-    void setEndTime(Date endTime);
+    void setOrthoptist(Orthoptist orthoptist);
 
-    String getDescription();
+    Patient getPatient();
 
-    void setDescription(String description);
+    void setPatient(Patient patient);
 
-    IDoctor getDoctor();
+    Integer getQueueIdParent();
 
-    void setDoctor(IDoctor doctor);
+    void setQueueIdParent(Integer queueIdParent);
 
-    IOrthoptist getOrthoptist();
+    Timestamp getArrivalTime();
 
-    void setOrthoptist(IOrthoptist orthoptist);
+    void setArrivalTime(Timestamp arrivalTime);
 
-    IDiagnosis getDiagnosis();
-
-    void setDiagnosis(IDiagnosis diagnosis);
-
-    IPatient getPatient();
-
-    void setPatient(IPatient patient);
-
-    Collection<IExaminationResult> getExaminationResults() throws CouldNotGetExaminationResultException;
+    @Override
+    String toString();
 }

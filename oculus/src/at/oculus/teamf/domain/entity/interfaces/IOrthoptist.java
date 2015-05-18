@@ -9,19 +9,24 @@
 
 package at.oculus.teamf.domain.entity.interfaces;
 
-import at.oculus.teamf.domain.entity.exception.patientqueue.CouldNotAddPatientToQueueException;
-import at.oculus.teamf.domain.entity.exception.patientqueue.CouldNotRemovePatientFromQueueException;
-import java.sql.Timestamp;
-import java.util.Collection;
+import at.oculus.teamf.databaseconnection.session.exception.BadSessionException;
+import at.oculus.teamf.persistence.exception.BadConnectionException;
+import at.oculus.teamf.persistence.exception.NoBrokerMappedException;
 
 /**
- * interface patient queue for presentation layer
+ * orthoptist interface for presentation layer
  */
-public interface IPatientQueue {
+public interface IOrthoptist extends IUser {
 
-    Collection<IQueueEntry> getEntries();
+    int getId();
 
-    void addPatient(IPatient patient, Timestamp arrivaltime) throws CouldNotAddPatientToQueueException;
+    void setId(int id);
 
-    void removePatient(IPatient patient) throws CouldNotRemovePatientFromQueueException;
+    ICalendar getCalendar();
+
+    void setCalendar(ICalendar calendar);
+
+    IPatientQueue getQueue() throws NoBrokerMappedException, BadConnectionException;
+
+    void setQueue(IPatientQueue queue);
 }

@@ -9,15 +9,7 @@
 
 package at.oculus.teamf.domain.entity.interfaces;
 
-import at.oculus.teamf.domain.entity.CalendarEvent;
-import at.oculus.teamf.domain.entity.Gender;
-import at.oculus.teamf.domain.entity.Patient;
 import at.oculus.teamf.domain.entity.exception.*;
-import at.oculus.teamf.persistence.exception.BadConnectionException;
-import at.oculus.teamf.persistence.exception.NoBrokerMappedException;
-import at.oculus.teamf.persistence.exception.reload.InvalidReloadClassException;
-import at.oculus.teamf.persistence.exception.reload.ReloadInterfaceNotImplementedException;
-
 import java.util.Collection;
 import java.util.Date;
 
@@ -35,7 +27,7 @@ public interface IPatient extends IDomain {
     String getLastName();
     IPatient setLastName(String lastName);
 
-    Gender getGender();
+    String getGender();
     void setGender(String gender);
 
     String getSocialInsuranceNr();

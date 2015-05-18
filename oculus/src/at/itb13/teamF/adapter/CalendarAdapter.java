@@ -5,7 +5,7 @@ import at.itb13.teamF.interfaces.IAdapter;
 import at.oculus.teamf.domain.entity.interfaces.ICalendar;
 
 /**
- * TODO: Insert description here.
+ * Adapter for the ICalendar interface from TeamF.
  *
  * @author Florin Metzler
  * @since 18.05.2015
@@ -32,8 +32,7 @@ private Calendar _calendar;
 	 */
 	@Override
 	public Object getDomainObject() {
-		// TODO Auto-generated method stub
-		return null;
+		return _calendar;
 	}
 
 	/*

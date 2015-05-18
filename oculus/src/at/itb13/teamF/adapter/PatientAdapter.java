@@ -34,7 +34,7 @@ import at.oculus.teamf.domain.entity.interfaces.IPrescription;
 import at.oculus.teamf.domain.entity.interfaces.IVisualAid;
 
 /**
- * TODO: Insert description here.
+ * Adapter for the IPatient interface from TeamF.
  *
  * @author Florin Metzler
  * @since 18.05.2015
@@ -53,8 +53,7 @@ public class PatientAdapter implements IPatient, IAdapter {
 	 */
 	@Override
 	public Object getDomainObject() {
-		// TODO Auto-generated method stub
-		return null;
+		return _patient;
 	}
 
 	/*

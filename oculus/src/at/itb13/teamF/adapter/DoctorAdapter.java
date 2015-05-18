@@ -19,6 +19,7 @@ import at.oculus.teamf.persistence.exception.NoBrokerMappedException;
 
 /**
  * Adapter Doctor - TeamD --> Doctor TeamF
+ * TODO getQueue setQueue getDomainObject addPatient
  * 
  * @author Karin Trommelschläger
  * @date 18.05.2015
@@ -261,6 +262,14 @@ public class DoctorAdapter implements IAdapter, IDoctor{
 		// TODO Auto-generated method stub
 		
 	}
+	/*
+	 * @see at.oculus.teamf.domain.entity.interfaces.IDoctor#getQueue()
+	 */
+	@Override
+	public IPatientQueue getQueue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	/*
 	 * @see at.itb13.teamF.interfaces.IAdapter#getDomainObject()
@@ -324,12 +333,5 @@ public class DoctorAdapter implements IAdapter, IDoctor{
 		// TODO Auto-generated method stub
 		
 	}
-	/*
-	 * @see at.oculus.teamf.domain.entity.interfaces.IDoctor#getQueue()
-	 */
-	@Override
-	public IPatientQueue getQueue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }

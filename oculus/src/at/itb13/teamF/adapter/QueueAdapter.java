@@ -1,0 +1,60 @@
+package at.itb13.teamF.adapter;
+
+import java.sql.Timestamp;
+import java.util.Collection;
+
+import at.itb13.teamF.interfaces.IAdapter;
+import at.oculus.teamf.domain.entity.exception.patientqueue.CouldNotAddPatientToQueueException;
+import at.oculus.teamf.domain.entity.exception.patientqueue.CouldNotRemovePatientFromQueueException;
+import at.oculus.teamf.domain.entity.interfaces.IPatient;
+import at.oculus.teamf.domain.entity.interfaces.IPatientQueue;
+import at.oculus.teamf.domain.entity.interfaces.IQueueEntry;
+
+/**
+ * TODO: Insert description here.
+ * 
+ * @author Karin Trommelschläger
+ * @date 18.05.2015
+ * 
+ */
+public class QueueAdapter implements IAdapter, IPatientQueue{
+
+	/*
+	 * @see at.oculus.teamf.domain.entity.interfaces.IPatientQueue#getEntries()
+	 */
+	@Override
+	public Collection<IQueueEntry> getEntries() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/*
+	 * @see at.oculus.teamf.domain.entity.interfaces.IPatientQueue#addPatient(at.oculus.teamf.domain.entity.interfaces.IPatient, java.sql.Timestamp)
+	 */
+	@Override
+	public void addPatient(IPatient patient, Timestamp arrivaltime)
+			throws CouldNotAddPatientToQueueException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/*
+	 * @see at.oculus.teamf.domain.entity.interfaces.IPatientQueue#removePatient(at.oculus.teamf.domain.entity.interfaces.IPatient)
+	 */
+	@Override
+	public void removePatient(IPatient patient)
+			throws CouldNotRemovePatientFromQueueException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/*
+	 * @see at.itb13.teamF.interfaces.IAdapter#getDomainObject()
+	 */
+	@Override
+	public Object getDomainObject() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

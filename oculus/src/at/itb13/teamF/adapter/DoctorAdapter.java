@@ -2,38 +2,45 @@ package at.itb13.teamF.adapter;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Collection;
 import java.util.Date;
 
 import at.itb13.oculus.domain.Calendar;
-import at.itb13.oculus.domain.Orthoptist;
+import at.itb13.oculus.domain.Doctor;
 import at.itb13.teamF.interfaces.IAdapter;
+import at.oculus.teamf.domain.entity.exception.CantLoadPatientsException;
 import at.oculus.teamf.domain.entity.interfaces.ICalendar;
+import at.oculus.teamf.domain.entity.interfaces.IDoctor;
 import at.oculus.teamf.domain.entity.interfaces.IOrthoptist;
+import at.oculus.teamf.domain.entity.interfaces.IPatient;
 import at.oculus.teamf.domain.entity.interfaces.IPatientQueue;
 import at.oculus.teamf.persistence.exception.BadConnectionException;
 import at.oculus.teamf.persistence.exception.NoBrokerMappedException;
 
 /**
- * TODO: Insert description here.
+ * Adapter Doctor - TeamD --> Doctor TeamF
  * 
- * @author Daniel Scheffknecht
- * @date May 18, 2015
+ * @author Karin Trommelschläger
+ * @date 18.05.2015
+ * 
  */
-public class OrthoptistAdapter implements IAdapter, IOrthoptist {
-	private Orthoptist _orthoptist;
+public class DoctorAdapter implements IAdapter, IDoctor{
+	Doctor _doctor;
 	
-	public OrthoptistAdapter() { }
 	
-	public OrthoptistAdapter(Orthoptist orthoptist) {
-		_orthoptist = orthoptist;
+	public DoctorAdapter() {
+		
 	}
-	
+	public DoctorAdapter(Doctor doctor){
+		
+	}
+
 	/*
 	 * @see at.oculus.teamf.domain.entity.interfaces.IUser#getUserId()
 	 */
 	@Override
 	public int getUserId() {
-		return _orthoptist.getUser().getUserId();
+		return _doctor.getUser().getUserId();
 	}
 
 	/*
@@ -41,7 +48,8 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public void setUserId(int id) {
-		_orthoptist.getUser().setUserId(id);
+		_doctor.getUser().setUserId(id);
+		
 	}
 
 	/*
@@ -49,7 +57,7 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public Integer getUserGroupId() {
-		return _orthoptist.getUser().getUsergroup().getUserGroupId();
+		return _doctor.getUser().getUsergroup().getUserGroupId();
 	}
 
 	/*
@@ -57,7 +65,8 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public void setUserGroupId(Integer userGroupId) {
-		_orthoptist.getUser().getUsergroup().setUserGroupId(userGroupId);
+		_doctor.getUser().getUsergroup().setUserGroupId(userGroupId);
+		
 	}
 
 	/*
@@ -65,7 +74,7 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public String getUserName() {
-		return _orthoptist.getUser().getUserName();
+		return _doctor.getUser().getUserName();
 	}
 
 	/*
@@ -73,7 +82,8 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public void setUserName(String userName) {
-		_orthoptist.getUser().setUserName(userName);
+		_doctor.getUser().setUserName(userName);
+		
 	}
 
 	/*
@@ -81,7 +91,7 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public String getPassword() {
-		return _orthoptist.getUser().getPassword();
+		return _doctor.getUser().getPassword();
 	}
 
 	/*
@@ -89,7 +99,7 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public void setPassword(String password) {
-		_orthoptist.getUser().setPassword(password);
+		_doctor.getUser().setPassword(password);
 	}
 
 	/*
@@ -97,7 +107,7 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public String getTitle() {
-		return _orthoptist.getUser().getTitle();
+		return _doctor.getUser().getTitle();
 	}
 
 	/*
@@ -105,7 +115,8 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public void setTitle(String title) {
-		_orthoptist.getUser().setTitle(title);
+		_doctor.getUser().setTitle(title);
+		
 	}
 
 	/*
@@ -113,7 +124,7 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public String getFirstName() {
-		return _orthoptist.getUser().getFirstName();
+		return _doctor.getUser().getFirstName();
 	}
 
 	/*
@@ -121,7 +132,8 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public void setFirstName(String firstName) {
-		_orthoptist.getUser().setFirstName(firstName);
+		_doctor.getUser().setFirstName(firstName);
+		
 	}
 
 	/*
@@ -129,7 +141,7 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public String getLastName() {
-		return _orthoptist.getUser().getLastName();
+		return _doctor.getUser().getLastName();
 	}
 
 	/*
@@ -137,7 +149,8 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public void setLastName(String lastName) {
-		_orthoptist.getUser().setLastName(lastName);
+		_doctor.getUser().setLastName(lastName);
+		
 	}
 
 	/*
@@ -145,7 +158,8 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public String getEmail() {
-		return _orthoptist.getUser().getEmail();
+		return _doctor.getUser().getEmail();
+		
 	}
 
 	/*
@@ -153,7 +167,8 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public void setEmail(String email) {
-		_orthoptist.getUser().setEmail(email);
+		_doctor.getUser().setEmail(email);
+		
 	}
 
 	/*
@@ -161,9 +176,10 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public Date getCreateDate() {
-		LocalDateTime localDateTime = _orthoptist.getUser().getCreateDate();
+		LocalDateTime localDateTime = _doctor.getUser().getCreateDate();
 		Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());		
 		return date;
+		
 	}
 
 	/*
@@ -172,7 +188,8 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	@Override
 	public void setCreateDate(Date createDate) {
 		LocalDateTime localDateTime = createDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-		_orthoptist.getUser().setCreateDate(localDateTime);
+		_doctor.getUser().setCreateDate(localDateTime);
+		
 	}
 
 	/*
@@ -180,9 +197,10 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public Date getIdleDate() {
-		LocalDateTime localDateTime = _orthoptist.getUser().getIdleDate();
+		LocalDateTime localDateTime = _doctor.getUser().getIdleDate();
 		Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());		
 		return date;
+		
 	}
 
 	/*
@@ -191,7 +209,8 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	@Override
 	public void setIdleDate(Date idleDate) {
 		LocalDateTime localDateTime = idleDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-		_orthoptist.getUser().setCreateDate(localDateTime);
+		_doctor.getUser().setCreateDate(localDateTime);
+		
 	}
 
 	/*
@@ -199,7 +218,7 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public int getId() {
-		return _orthoptist.getOrthoptistId();
+		return _doctor.getDoctorId();
 	}
 
 	/*
@@ -207,7 +226,8 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public void setId(int id) {
-		_orthoptist.setOrthoptistId(id);
+		_doctor.setDoctorId(id);
+		
 	}
 
 	/*
@@ -215,8 +235,9 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public ICalendar getCalendar() {
-		Calendar calendar = _orthoptist.getCalendar();
+		Calendar calendar = _doctor.getCalendar();
 		return new CalendarAdapter(calendar);
+		
 	}
 
 	/*
@@ -226,26 +247,19 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	public void setCalendar(ICalendar calendar) {
 		CalendarAdapter calendarAdapter = (CalendarAdapter)calendar;
 		Calendar cal = (Calendar)calendarAdapter.getDomainObject();
-		_orthoptist.setCalendar(cal);
+		_doctor.setCalendar(cal);
+		
 	}
 
-	/*
-	 * @see at.oculus.teamf.domain.entity.interfaces.IOrthoptist#getQueue()
-	 */
-	@Override
-	public IPatientQueue getQueue() throws NoBrokerMappedException,
-			BadConnectionException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	/*
 	 * @see at.oculus.teamf.domain.entity.interfaces.IOrthoptist#setQueue(at.oculus.teamf.domain.entity.interfaces.IPatientQueue)
 	 */
 	@Override
 	public void setQueue(IPatientQueue queue) {
+		
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	/*
@@ -253,20 +267,69 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public Object getDomainObject() {
-		return _orthoptist;
+		// TODO Auto-generated method stub
+		return null;
 	}
-
 	/**
-	 * @return the orthoptist
+	 * @return the _doctor
 	 */
-	public Orthoptist getOrthoptist() {
-		return _orthoptist;
+	public Doctor get_doctor() {
+		return _doctor;
 	}
-
 	/**
-	 * @param orthoptist the orthoptist to set
+	 * @param _doctor the _doctor to set
 	 */
-	public void setOrthoptist(Orthoptist orthoptist) {
-		_orthoptist = orthoptist;
+	public void set_doctor(Doctor _doctor) {
+		this._doctor = _doctor;
+	}
+	/*
+	 * @see at.oculus.teamf.domain.entity.interfaces.IDoctor#getDoctorSubstitude()
+	 */
+	@Override
+	public IDoctor getDoctorSubstitude() {
+		return new DoctorAdapter(_doctor.getDoctorSubstitute());
+		
+	}
+	/*
+	 * @see at.oculus.teamf.domain.entity.interfaces.IDoctor#setDoctorSubstitude(at.oculus.teamf.domain.entity.interfaces.IDoctor)
+	 */
+	@Override
+	public void setDoctorSubstitude(IDoctor doctorSubstitude) {
+		DoctorAdapter doctorAdapter = (DoctorAdapter)doctorSubstitude;
+		Doctor doc = (Doctor)doctorAdapter.getDomainObject();
+		_doctor.setDoctorSubstitute(doc);
+		
+	}
+	/*
+	 * @see at.oculus.teamf.domain.entity.interfaces.IDoctor#addPatient(at.oculus.teamf.domain.entity.interfaces.IPatient)
+	 */
+	@Override
+	public void addPatient(IPatient patient) {
+		// TODO Auto-generated method stub
+		
+	}
+	/*
+	 * @see at.oculus.teamf.domain.entity.interfaces.IDoctor#getPatients()
+	 */
+	@Override
+	public Collection<IPatient> getPatients() throws CantLoadPatientsException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	/*
+	 * @see at.oculus.teamf.domain.entity.interfaces.IDoctor#setPatients(java.util.Collection)
+	 */
+	@Override
+	public void setPatients(Collection<IPatient> patients) {
+		// TODO Auto-generated method stub
+		
+	}
+	/*
+	 * @see at.oculus.teamf.domain.entity.interfaces.IDoctor#getQueue()
+	 */
+	@Override
+	public IPatientQueue getQueue() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

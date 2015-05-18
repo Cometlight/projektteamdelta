@@ -1,9 +1,20 @@
 package at.itb13.teamF.adapter;
 
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import at.itb13.oculus.domain.CalendarEvent;
+import at.itb13.oculus.domain.Doctor;
+import at.itb13.oculus.domain.ExaminationProtocol;
 import at.itb13.oculus.domain.Patient;
+import at.itb13.oculus.domain.Patient.Gender;
+import at.itb13.teamD.domain.interfaces.IPatient.IGender;
 import at.itb13.teamF.interfaces.IAdapter;
 import at.oculus.teamf.domain.entity.exception.CouldNotAddExaminationProtocol;
 import at.oculus.teamf.domain.entity.exception.CouldNotGetCalendarEventsException;
@@ -25,21 +36,34 @@ import at.oculus.teamf.domain.entity.interfaces.IVisualAid;
 
 /**
  * TODO: Insert description here.
- * 
- * @author Karin Trommelschläger
- * @date 18.05.2015
- * 
+ *
+ * @author Florin Metzler
+ * @since 18.05.2015
  */
-public class PatientAdapter implements IAdapter, IPatient{
-	Patient _patient;
+public class PatientAdapter implements IPatient, IAdapter {
+	private Patient _patient;
+	
+	public PatientAdapter() { }
+	
+	public PatientAdapter(Patient patient) {
+		_patient =  patient;
+	}
+	
+	/*
+	 * @see at.itb13.teamF.interfaces.IAdapter#getDomainObject()
+	 */
+	@Override
+	public Object getDomainObject() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	/*
 	 * @see at.oculus.teamf.domain.entity.interfaces.IPatient#getId()
 	 */
 	@Override
 	public int getId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return _patient.getPatientId();
 	}
 
 	/*
@@ -47,8 +71,8 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public void setId(int patientID) {
-		// TODO Auto-generated method stub
-		
+		_patient.setPatientId(patientID);
+
 	}
 
 	/*
@@ -56,8 +80,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public String getFirstName() {
-		// TODO Auto-generated method stub
-		return null;
+		return _patient.getFirstName();
 	}
 
 	/*
@@ -65,8 +88,8 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public void setFirstName(String firstName) {
-		// TODO Auto-generated method stub
-		
+		_patient.setFirstName(firstName);
+
 	}
 
 	/*
@@ -74,8 +97,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public String getLastName() {
-		// TODO Auto-generated method stub
-		return null;
+		return _patient.getLastName();
 	}
 
 	/*
@@ -83,8 +105,8 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public IPatient setLastName(String lastName) {
-		// TODO Auto-generated method stub
-		return null;
+		_patient.setLastName(lastName);
+		return this;
 	}
 
 	/*
@@ -92,8 +114,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public String getGender() {
-		// TODO Auto-generated method stub
-		return null;
+		return _patient.getGender().toString();
 	}
 
 	/*
@@ -101,8 +122,14 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public void setGender(String gender) {
-		// TODO Auto-generated method stub
-		
+		String male = "M";
+		String female = "F";
+		if(male.equalsIgnoreCase(gender.toString())){
+			_patient.setGender(Gender.M);
+		}
+		if(female.equalsIgnoreCase(gender.toString())){
+			_patient.setGender(Gender.F);
+		}
 	}
 
 	/*
@@ -110,8 +137,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public String getSocialInsuranceNr() {
-		// TODO Auto-generated method stub
-		return null;
+		return _patient.getSocialInsuranceNr();
 	}
 
 	/*
@@ -119,8 +145,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public void setSocialInsuranceNr(String svn) {
-		// TODO Auto-generated method stub
-		
+		_patient.setSocialInsuranceNr(svn);
 	}
 
 	/*
@@ -128,8 +153,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public IDoctor getIDoctor() {
-		// TODO Auto-generated method stub
-		return null;
+		return (IDoctor) _patient.getDoctor();
 	}
 
 	/*
@@ -137,27 +161,31 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public void setIDoctor(IDoctor idoctor) {
-		// TODO Auto-generated method stub
-		
+		_patient.setDoctor((Doctor) idoctor);
 	}
 
 	/*
 	 * @see at.oculus.teamf.domain.entity.interfaces.IPatient#getCalendarEvents()
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<ICalendarEvent> getCalendarEvents()
 			throws CouldNotGetCalendarEventsException {
-		// TODO Auto-generated method stub
-		return null;
+		Set<CalendarEvent> set = _patient.getCalendarevents();
+		Collection<ICalendarEvent> coll = new HashSet<>();
+		coll.addAll((Collection<? extends ICalendarEvent>) set);
+		return coll;
 	}
 
 	/*
 	 * @see at.oculus.teamf.domain.entity.interfaces.IPatient#setCalendarEvents(java.util.Collection)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void setCalendarEvents(Collection<ICalendarEvent> calendarEvents) {
-		// TODO Auto-generated method stub
-		
+		Set<CalendarEvent> events = new HashSet<>((Set<? extends CalendarEvent>) calendarEvents);
+		_patient.setCalendarevents(events);
+
 	}
 
 	/*
@@ -165,8 +193,9 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public Date getBirthDay() {
-		// TODO Auto-generated method stub
-		return null;
+		LocalDate localDate = _patient.getDateOfBirth();
+		Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		return date;
 	}
 
 	/*
@@ -174,8 +203,9 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public void setBirthDay(Date birthDay) {
-		// TODO Auto-generated method stub
-		
+		LocalDate date = birthDay.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		_patient.setDateOfBirth(date);
+
 	}
 
 	/*
@@ -183,8 +213,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public String getStreet() {
-		// TODO Auto-generated method stub
-		return null;
+		return _patient.getStreet();
 	}
 
 	/*
@@ -192,8 +221,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public void setStreet(String street) {
-		// TODO Auto-generated method stub
-		
+		_patient.setStreet(street);
 	}
 
 	/*
@@ -201,8 +229,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public String getPostalCode() {
-		// TODO Auto-generated method stub
-		return null;
+		return _patient.getPostalCode();
 	}
 
 	/*
@@ -210,8 +237,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public void setPostalCode(String postalCode) {
-		// TODO Auto-generated method stub
-		
+		_patient.setPostalCode(postalCode);
 	}
 
 	/*
@@ -219,8 +245,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public String getCity() {
-		// TODO Auto-generated method stub
-		return null;
+		return _patient.getCity();
 	}
 
 	/*
@@ -228,8 +253,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public void setCity(String city) {
-		// TODO Auto-generated method stub
-		
+		_patient.setCity(city);
 	}
 
 	/*
@@ -237,8 +261,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public String getCountryIsoCode() {
-		// TODO Auto-generated method stub
-		return null;
+		return _patient.getCountryIsoCode();
 	}
 
 	/*
@@ -246,8 +269,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public void setCountryIsoCode(String countryIsoCode) {
-		// TODO Auto-generated method stub
-		
+		_patient.setCountryIsoCode(countryIsoCode);
 	}
 
 	/*
@@ -255,8 +277,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public String getPhone() {
-		// TODO Auto-generated method stub
-		return null;
+		return _patient.getPhone();
 	}
 
 	/*
@@ -264,8 +285,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public void setPhone(String phone) {
-		// TODO Auto-generated method stub
-		
+		_patient.setPhone(phone);
 	}
 
 	/*
@@ -273,8 +293,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public String getEmail() {
-		// TODO Auto-generated method stub
-		return null;
+		return _patient.getEmail();
 	}
 
 	/*
@@ -282,8 +301,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public void setEmail(String email) {
-		// TODO Auto-generated method stub
-		
+		_patient.setEmail(email);
 	}
 
 	/*
@@ -291,8 +309,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public String getAllergy() {
-		// TODO Auto-generated method stub
-		return null;
+		return _patient.getAllergy();
 	}
 
 	/*
@@ -300,8 +317,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public void setAllergy(String allergy) {
-		// TODO Auto-generated method stub
-		
+		_patient.setAllergy(allergy);
 	}
 
 	/*
@@ -309,8 +325,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public String getChildhoodAilments() {
-		// TODO Auto-generated method stub
-		return null;
+		return _patient.getChildhoodAilments();
 	}
 
 	/*
@@ -318,8 +333,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public void setChildhoodAilments(String childhoodAilments) {
-		// TODO Auto-generated method stub
-		
+		_patient.setChildhoodAilments(childhoodAilments);
 	}
 
 	/*
@@ -327,8 +341,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public String getMedicineIntolerance() {
-		// TODO Auto-generated method stub
-		return null;
+		return _patient.getMedicineIntolerance();
 	}
 
 	/*
@@ -336,28 +349,31 @@ public class PatientAdapter implements IAdapter, IPatient{
 	 */
 	@Override
 	public void setMedicineIntolerance(String medicineIntolerance) {
-		// TODO Auto-generated method stub
-		
+		_patient.setMedicineIntolerance(medicineIntolerance);
 	}
 
 	/*
 	 * @see at.oculus.teamf.domain.entity.interfaces.IPatient#getExaminationProtocol()
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<IExaminationProtocol> getExaminationProtocol()
 			throws CouldNotGetExaminationProtolException {
-		// TODO Auto-generated method stub
-		return null;
+		Set<ExaminationProtocol> set = _patient.getExaminationprotocols();
+		Collection<IExaminationProtocol> coll = new HashSet<>();
+		coll.addAll((Collection<? extends IExaminationProtocol>) set);
+		return coll;
 	}
 
 	/*
 	 * @see at.oculus.teamf.domain.entity.interfaces.IPatient#setExaminationProtocol(java.util.Collection)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void setExaminationProtocol(
 			Collection<IExaminationProtocol> protocols) {
-		// TODO Auto-generated method stub
-		
+		Set<ExaminationProtocol> examinationProtocols = new HashSet<>((Set<? extends ExaminationProtocol>) protocols);
+		_patient.setExaminationprotocols(examinationProtocols);
 	}
 
 	/*
@@ -367,7 +383,7 @@ public class PatientAdapter implements IAdapter, IPatient{
 	public void addExaminationProtocol(IExaminationProtocol examinationProtocol)
 			throws CouldNotAddExaminationProtocol {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	/*
@@ -420,27 +436,5 @@ public class PatientAdapter implements IAdapter, IPatient{
 		return null;
 	}
 
-	/*
-	 * @see at.itb13.teamF.interfaces.IAdapter#getDomainObject()
-	 */
-	@Override
-	public Object getDomainObject() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	/**
-	 * @return the _patient
-	 */
-	public Patient get_patient() {
-		return _patient;
-	}
-
-	/**
-	 * @param _patient the _patient to set
-	 */
-	public void set_patient(Patient _patient) {
-		this._patient = _patient;
-	}
-	
 }

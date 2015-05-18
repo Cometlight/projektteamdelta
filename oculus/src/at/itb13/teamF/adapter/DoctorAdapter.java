@@ -322,7 +322,8 @@ public class DoctorAdapter implements IAdapter, IDoctor{
 	 */
 	@Override
 	public Collection<IPatient> getPatients() throws CantLoadPatientsException {
-		// TODO Auto-generated method stub
+		Set<Patient> patients = _doctor.getCalendar();
+		return new CalendarAdapter(calendar);
 		return null;
 	}
 	/*

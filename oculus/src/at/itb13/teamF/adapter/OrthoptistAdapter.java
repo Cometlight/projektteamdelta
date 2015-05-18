@@ -1,7 +1,5 @@
 package at.itb13.teamF.adapter;
 
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -255,8 +253,7 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public Object getDomainObject() {
-		// TODO Auto-generated method stub
-		return null;
+		return _orthoptist;
 	}
 
 	/**

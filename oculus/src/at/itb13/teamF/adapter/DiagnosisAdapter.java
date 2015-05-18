@@ -68,7 +68,6 @@ public class DiagnosisAdapter implements IAdapter, IDiagnosis{
 
 	@Override
 	public void setDoctorId(Integer doctorId) {
-		// TODO Auto-generated method stub
 		_diagnosis.getDoctor().setDoctorId(doctorId);
 	}
 
@@ -80,14 +79,15 @@ public class DiagnosisAdapter implements IAdapter, IDiagnosis{
 
 	@Override
 	public void setDoctor(IDoctor doctor) {
-		// TODO Auto-generated method stub
-		
+		DoctorAdapter doctorAdapter = (DoctorAdapter) doctor;
+		Doctor doc = (Doctor) doctorAdapter.getDomainObject();
+		_diagnosis.setDoctor(doc);
 	}
 
 	@Override
 	public Collection<IMedicine> getMedicine()
 			throws CouldNotGetMedicineException {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stubhock 
 		return null;
 	}
 

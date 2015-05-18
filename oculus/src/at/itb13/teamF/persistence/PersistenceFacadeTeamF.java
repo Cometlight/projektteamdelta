@@ -1,5 +1,5 @@
 package at.itb13.teamF.persistence;
-
+import at.itb13.teamD.technicalServices.persistenceFacade.*;
 /**
  * TODO: Insert description here.
  * 
@@ -24,30 +24,34 @@ public class PersistenceFacadeTeamF implements IFacade{
 	@Override
 	public <T> T getById(Class clazz, int id) throws BadConnectionException,
 			NoBrokerMappedException, DatabaseOperationException {
-		// TODO Auto-generated method stub
-		return null;
+		return (T) PersistenceFacadeProvider.getPersistenceFacade().getById(id, clazz);
+		
 	}
 
 	@Override
 	public <T> Collection<T> getAll(Class clazz) throws BadConnectionException,
 			NoBrokerMappedException, DatabaseOperationException {
-		// TODO Auto-generated method stub
-		return null;
+		return (Collection<T>) PersistenceFacadeProvider.getPersistenceFacade().getAll(clazz);
 	}
 
 	@Override
 	public boolean save(IDomain obj) throws BadConnectionException,
 			NoBrokerMappedException, DatabaseOperationException {
-		// TODO Auto-generated method stub
-		return false;
+		return PersistenceFacadeProvider.getPersistenceFacade().makePersistent(obj);
 	}
 
 	@Override
 	public boolean saveAll(Collection<IDomain> obj)
 			throws BadConnectionException, NoBrokerMappedException,
 			DatabaseOperationException {
-		// TODO Auto-generated method stub
-		return false;
+		
+		boolean isSuccessful = true;
+		for(IDomain dom : obj){
+			if(!PersistenceFacadeProvider.getPersistenceFacade().makePersistent(dom)){
+				isSuccessful = false;
+			}
+		}
+		return isSuccessful;
 	}
 
 	@Override

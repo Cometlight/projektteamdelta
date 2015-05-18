@@ -20,7 +20,6 @@ import at.oculus.teamf.domain.entity.interfaces.IMedicine;
 import at.oculus.teamf.domain.entity.interfaces.IPatient;
 import at.oculus.teamf.domain.entity.interfaces.IPrescription;
 import at.oculus.teamf.domain.entity.interfaces.IPrescriptionEntry;
-import at.oculus.teamf.persistence.Facade;
 import at.oculus.teamf.persistence.IFacade;
 import at.oculus.teamf.persistence.exception.BadConnectionException;
 import at.oculus.teamf.persistence.exception.DatabaseOperationException;
@@ -139,7 +138,7 @@ public class PrescriptionController implements ILogger, IPrinter {
         //IPrinter only has to be implemented in class head and then can be used with printer.METHOD
         try {
 	        if(iPrescription.getId()==0){
-		        Facade.getInstance().save(iPrescription);
+                DependenceResolverTB2.getInstance().getFacade().save(iPrescription);
 	        }
             DependenceResolverTB2.getInstance().getFacade().save(iPrescription);
             printer.printPrescription(iPrescription, _iPatient.getIDoctor());
@@ -172,15 +171,6 @@ public class PrescriptionController implements ILogger, IPrinter {
                 iter.remove();
             }
         }
-
-/*
-        if (notPrinted != null) {
-            for (IPrescription prescription : notPrinted) {
-                if (prescription.getLastPrint() == null) {
-                    notPrinted.remove(prescription);
-                }
-            }
-        }*/
 
         return notPrinted;
     }

@@ -182,8 +182,9 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public Date getIdleDate() {
-		// TODO Auto-generated method stub
-		return null;
+		LocalDateTime localDateTime = _orthoptist.getUser().getIdleDate();
+		Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());		
+		return date;
 	}
 
 	/*
@@ -191,8 +192,8 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public void setIdleDate(Date idleDate) {
-		// TODO Auto-generated method stub
-
+		LocalDateTime localDateTime = idleDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+		_orthoptist.getUser().setCreateDate(localDateTime);
 	}
 
 	/*

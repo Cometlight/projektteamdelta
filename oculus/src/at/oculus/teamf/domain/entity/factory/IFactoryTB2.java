@@ -12,6 +12,8 @@ package at.oculus.teamf.domain.entity.factory;
 
 import at.oculus.teamf.domain.entity.interfaces.*;
 
+import java.util.Date;
+
 /**
  * Created by Simon Angerer on 13.05.2015.
  */
@@ -24,4 +26,7 @@ public interface IFactoryTB2 {
     IPrescription createPrescription();
 
     IPrescriptionEntry createPrescriptionEntry();
+
+    IExaminationProtocol createExaminationProtocol(int id, Date startTime, Date endTime, String description, IPatient patient, IDoctor doctor,
+                                                   IOrthoptist orthoptist, IDiagnosis diagnosis);
 }

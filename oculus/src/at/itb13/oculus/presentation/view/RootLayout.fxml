@@ -13,6 +13,12 @@
             <Tab onSelectionChanged="#tabCalendarControl" text="Calendar" />
           <Tab onSelectionChanged="#tabPatientControl" text="Patient" />
             <Tab onSelectionChanged="#tabQueueControl" text="Waiting List" />
+            <Tab onSelectionChanged="#tabTeamFControl" text="Diagnosis" />
+            <Tab onSelectionChanged="#tabPrescriptionsControl" text="Prescriptions">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
    </top>

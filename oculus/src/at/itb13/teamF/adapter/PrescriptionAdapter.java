@@ -1,5 +1,7 @@
 package at.itb13.teamF.adapter;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Date;
 
@@ -71,8 +73,8 @@ public class PrescriptionAdapter implements IAdapter, IPrescription {
 	 */
 	@Override
 	public void setLastPrint(Date lastPrint) {
-		// TODO Auto-generated method stub
-
+		LocalDateTime localDateTime = lastPrint.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+		_prescription.setLastPrintDate(localDateTime);
 	}
 
 	/*
@@ -80,10 +82,11 @@ public class PrescriptionAdapter implements IAdapter, IPrescription {
 	 */
 	@Override
 	public Date getLastPrint() {
-		// TODO Auto-generated method stub
-		return null;
+		LocalDateTime localDateTime = _prescription.getLastPrintDate();
+		Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+		return date;
 	}
-
+	
 	/*
 	 * @see at.oculus.teamf.domain.entity.interfaces.IPrescription#getPrescriptionEntries()
 	 */
@@ -100,14 +103,12 @@ public class PrescriptionAdapter implements IAdapter, IPrescription {
 	@Override
 	public void addPrescriptionEntry(IPrescriptionEntry prescriptionEntry)
 			throws CouldNotAddPrescriptionEntryException {
-		// TODO Auto-generated method stub
-
+		//TODO
 	}
 
 	@Override
 	public Object getDomainObject() {
-		// TODO Auto-generated method stub
-		return null;
+		return _prescription;
 	}
 
 }

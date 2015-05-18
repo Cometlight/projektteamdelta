@@ -474,7 +474,6 @@ public class NewAppointmentController {
 			if((_patientName == null)||(_patientName.length() < 1)){
 				errorMessage += "No Patient selected\n";
 			}
-			
 		}
 		if(_datePicker.getValue()== null){
 				errorMessage += "No Day selected\n";

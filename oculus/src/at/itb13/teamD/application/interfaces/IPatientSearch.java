@@ -1,4 +1,4 @@
-package at.itb13.oculus.application.interfaces;
+package at.itb13.teamD.application.interfaces;
 
 import java.util.List;
 

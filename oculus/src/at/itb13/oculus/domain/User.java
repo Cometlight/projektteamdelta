@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.apache.logging.log4j.LogManager;
@@ -48,6 +49,11 @@ public class User implements java.io.Serializable, IUser{
 	private String _email;
 	private LocalDateTime _createDate;
 	private LocalDateTime _idleDate;
+	
+	private Doctor _doctor;
+	private Orthoptist _orthoptist;
+	private Receptionist _receptionist;
+	private Administrator _administrator;
 	
 	private Set<UserPermission> _userPermissions = new HashSet<UserPermission>(0);
 	private Set<ExaminationResult> _examinationResults = new HashSet<ExaminationResult>(0);
@@ -209,4 +215,44 @@ public class User implements java.io.Serializable, IUser{
 		_examinationProtocols = examinationprotocols;
 	}
 
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "userId")
+	public Doctor getDoctor() {
+		return _doctor;
+	}
+
+	public void setDoctor(Doctor doctor) {
+		_doctor = doctor;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "userId")
+	public Orthoptist getOrthoptist() {
+		return _orthoptist;
+	}
+
+	public void setOrthoptist(Orthoptist orthoptist) {
+		_orthoptist = orthoptist;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "userId")
+	public Receptionist getReceptionist() {
+		return _receptionist;
+	}
+
+	public void setReceptionist(Receptionist receptionist) {
+		_receptionist = receptionist;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "userId")
+	public Administrator getAdministrator() {
+		return _administrator;
+	}
+
+	public void setAdministrator(Administrator administrator) {
+		_administrator = administrator;
+	}
 }

@@ -9,7 +9,7 @@ import at.itb13.teamF.interfaces.IAdapter;
 import at.oculus.teamf.domain.entity.interfaces.ICalendarEvent;
 
 /**
- * TODO: Insert description here.
+ * Adapter for the ICalendarEvent interface from TeamF.
  *
  * @author Florin Metzler
  * @since 18.05.2015
@@ -28,8 +28,7 @@ public class CalendarEventAdapter implements ICalendarEvent, IAdapter {
 	 */
 	@Override
 	public Object getDomainObject() {
-		// TODO Auto-generated method stub
-		return null;
+		return _calendarEvent;
 	}
 
 	/*

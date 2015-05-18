@@ -65,55 +65,55 @@ public class PatientRecordModel {
 
     /**
      * saves a updated Patient object
-     */
-    public void savePatient(IPatient patient){
-        _model = Model.getInstance();
-        try {
-            _model.getCreatePatientController().saveIPatient(patient);
-        } catch (RequirementsNotMetException e) {
-            e.printStackTrace();
-            DialogBoxController.getInstance().showExceptionDialog(e, "RequrementsNotMetException - Please contact support");
-        } catch (PatientCouldNotBeSavedException e) {
-            e.printStackTrace();
-            DialogBoxController.getInstance().showExceptionDialog(e, "PatientCouldNotBeSavedException - Please contact support");
-        } catch (BadConnectionException e) {
-            e.printStackTrace();
-            DialogBoxController.getInstance().showExceptionDialog(e, "BadConnectionException - Please contact support");
-        } catch (CriticalDatabaseException e) {
-            e.printStackTrace();
-            DialogBoxController.getInstance().showExceptionDialog(e, "CriticalDatabaseException - Please contact support");
-        } catch (CriticalClassException e) {
-            e.printStackTrace();
-            DialogBoxController.getInstance().showExceptionDialog(e, "CriticalClassException - Please contact support");
-        }
-    }
+//     */
+//    public void savePatient(IPatient patient){
+//        _model = Model.getInstance();
+//        try {
+//            _model.getCreatePatientController().saveIPatient(patient);
+//        } catch (RequirementsNotMetException e) {
+//            e.printStackTrace();
+//            DialogBoxController.getInstance().showExceptionDialog(e, "RequrementsNotMetException - Please contact support");
+//        } catch (PatientCouldNotBeSavedException e) {
+//            e.printStackTrace();
+//            DialogBoxController.getInstance().showExceptionDialog(e, "PatientCouldNotBeSavedException - Please contact support");
+//        } catch (BadConnectionException e) {
+//            e.printStackTrace();
+//            DialogBoxController.getInstance().showExceptionDialog(e, "BadConnectionException - Please contact support");
+//        } catch (CriticalDatabaseException e) {
+//            e.printStackTrace();
+//            DialogBoxController.getInstance().showExceptionDialog(e, "CriticalDatabaseException - Please contact support");
+//        } catch (CriticalClassException e) {
+//            e.printStackTrace();
+//            DialogBoxController.getInstance().showExceptionDialog(e, "CriticalClassException - Please contact support");
+//        }
+//    }
 
     /**
      * creates & saves a new Patient object
      */
-    public boolean saveNewPatient(String gender, String lastname, String firstname, String svn, Date bday, String street, String postalcode, String city, String phone, String email, IDoctor doctor, String countryIsoCode){
-        _model = Model.getInstance();
-        try {
-            _model.getCreatePatientController().createPatient(gender, lastname, firstname, svn, bday, street, postalcode, city, phone, email, doctor, countryIsoCode);
-            return true;
-        } catch (RequirementsNotMetException e) {
-            e.printStackTrace();
-            DialogBoxController.getInstance().showExceptionDialog(e, "RequirementsNotMetException - Please contact support.");
-        } catch (PatientCouldNotBeSavedException e) {
-            e.printStackTrace();
-            DialogBoxController.getInstance().showExceptionDialog(e, "PatientCouldNotBeSavedException - Please contact support");
-        } catch (BadConnectionException e) {
-            e.printStackTrace();
-            DialogBoxController.getInstance().showExceptionDialog(e, "BadConnectionException - Please contact support");
-        } catch (CriticalDatabaseException e) {
-            e.printStackTrace();
-            DialogBoxController.getInstance().showExceptionDialog(e, "CriticalDatabaseException - Please contact support");
-        } catch (CriticalClassException e) {
-            e.printStackTrace();
-            DialogBoxController.getInstance().showExceptionDialog(e, "CriticalClassException - Please contact support");
-        }
-        return false;
-    }
+//    public boolean saveNewPatient(String gender, String lastname, String firstname, String svn, Date bday, String street, String postalcode, String city, String phone, String email, IDoctor doctor, String countryIsoCode){
+//        _model = Model.getInstance();
+//        try {
+//            _model.getCreatePatientController().createPatient(gender, lastname, firstname, svn, bday, street, postalcode, city, phone, email, doctor, countryIsoCode);
+//            return true;
+//        } catch (RequirementsNotMetException e) {
+//            e.printStackTrace();
+//            DialogBoxController.getInstance().showExceptionDialog(e, "RequirementsNotMetException - Please contact support.");
+//        } catch (PatientCouldNotBeSavedException e) {
+//            e.printStackTrace();
+//            DialogBoxController.getInstance().showExceptionDialog(e, "PatientCouldNotBeSavedException - Please contact support");
+//        } catch (BadConnectionException e) {
+//            e.printStackTrace();
+//            DialogBoxController.getInstance().showExceptionDialog(e, "BadConnectionException - Please contact support");
+//        } catch (CriticalDatabaseException e) {
+//            e.printStackTrace();
+//            DialogBoxController.getInstance().showExceptionDialog(e, "CriticalDatabaseException - Please contact support");
+//        } catch (CriticalClassException e) {
+//            e.printStackTrace();
+//            DialogBoxController.getInstance().showExceptionDialog(e, "CriticalClassException - Please contact support");
+//        }
+//        return false;
+//    }
 
 
     /**

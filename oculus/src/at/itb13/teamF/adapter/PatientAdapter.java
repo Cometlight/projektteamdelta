@@ -1,5 +1,6 @@
 package at.itb13.teamF.adapter;
 
+
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Collection;
@@ -460,5 +461,6 @@ public class PatientAdapter implements IPatient, IAdapter {
 		}
 		return results;
 	}
+
 
 }

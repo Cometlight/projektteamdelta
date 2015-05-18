@@ -45,7 +45,7 @@ public class DiagnosisController implements Initializable,ILogger {
     public void initialize(URL location, ResourceBundle resources) {
         // get examination object
         currexam = _model.getExaminationModel().getCurrentExaminationProtocol();
-        log.debug("ADD Diagnosis to Examination: " + currexam.getPatient().getLastName());
+//        log.debug("ADD Diagnosis to Examination: " + currexam.getPatient().getLastName());
 
         // load image resources for buttons
         Image imageSaveIcon = new Image(getClass().getResourceAsStream("/res/icon_save.png"));

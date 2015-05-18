@@ -194,8 +194,7 @@ public class UserAdapter implements IAdapter, IUser{
 	 */
 	@Override
 	public Object getDomainObject() {
-		// TODO Auto-generated method stub
-		return null;
+		return _user;
 	}
 
 }

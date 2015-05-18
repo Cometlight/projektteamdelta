@@ -44,7 +44,7 @@ public class MedicineAdapter implements IAdapter, IMedicine {
 		DiagnosisAdapter diagnosisAdapter = (DiagnosisAdapter) diagnosis;
 		Diagnosis diag = (Diagnosis) diagnosisAdapter.getDomainObject();
 		_medicine.setDiagnosis(diag);
-		;
+		
 	}
 
 	@Override

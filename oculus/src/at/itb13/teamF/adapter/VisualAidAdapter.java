@@ -46,8 +46,7 @@ public class VisualAidAdapter implements IVisualAid, IAdapter {
 	 */
 	@Override
 	public Object getDomainObject() {
-		// TODO Auto-generated method stub
-		return null;
+		return _visualAid;
 	}
 
 	/*

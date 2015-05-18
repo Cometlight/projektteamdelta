@@ -31,6 +31,8 @@ import at.itb13.teamD.domain.interfaces.IUser;
 import at.itb13.teamD.domain.interfaces.IWorkingHours;
 import at.itb13.teamD.technicalServices.exceptions.PersistenceFacadeException;
 import at.itb13.teamD.technicalServices.persistenceFacade.IPersistenceFacade;
+import at.oculus.teamf.domain.entity.interfaces.*;
+import at.itb13.oculus.technicalServices.dao.*;;
 
 /**
  * Enables access to the persistence layer TODO: other Interfaces have to be
@@ -70,6 +72,26 @@ public class PersistenceFacade implements IPersistenceFacade {
 		}
 
 		if (ICalendarEvent.class.isAssignableFrom(clazz)) {
+			return (T) CalendarEventDao.getInstance().findById(id);
+		}
+		
+		if (IDiagnosis.class.isAssignableFrom(clazz)) {
+			return (T) DiagnosisDao.getInstance().findById(id);
+		}
+
+		if (IExaminationProtocol.class.isAssignableFrom(clazz)) {
+			return (T) ExaminationProtocolDao.getInstance().findById(id);
+		}
+
+		if (IPrescription.class.isAssignableFrom(clazz)) {
+			return (T) CalendarDao.getInstance().findById(id);
+		}
+
+		if (IPrescriptionEntry.class.isAssignableFrom(clazz)) {
+			return (T) EventTypeDao.getInstance().findById(id);
+		}
+
+		if (IVisualAid.class.isAssignableFrom(clazz)) {
 			return (T) CalendarEventDao.getInstance().findById(id);
 		}
 

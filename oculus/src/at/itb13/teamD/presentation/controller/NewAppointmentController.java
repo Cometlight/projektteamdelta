@@ -235,43 +235,85 @@ public class NewAppointmentController {
         _endTimeSpinnerMin.setEditable(true);
         
         _startTimeSpinnerHour.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-        	if((newValue!= null)&&(!newValue.equals(""))){
-        		_startTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(newValue));
-        	}else{
-        		_startTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(oldValue));
-
+        	
+        	String old = String.valueOf(_startTimeSpinnerHour.getValueFactory().getValue());
+        	try{
+	        	if((newValue!= null)&&(!newValue.equals("")&&(isNumber(newValue)))){
+	        		_startTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(newValue));
+	        	}else{
+	        		
+            		_startTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(old));
+            		_startTimeSpinnerHour.getEditor().setText(old);
+            		return;
+	        	}
+        	}catch (NumberFormatException e){
         	}
         });
                     
         _startTimeSpinnerMin.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-        	if((newValue!= null)&&(!newValue.equals(""))){
-        		_startTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(newValue));
-        	}else{
-        		_startTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(oldValue));
-
+        	String old = String.valueOf(_startTimeSpinnerMin.getValueFactory().getValue());
+        	try{
+	        	if((newValue!= null)&&(!newValue.equals("")&&(isNumber(newValue)))){
+	        		_startTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(newValue));
+	        	}else{
+	        		
+            		_startTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(old));
+            		_startTimeSpinnerMin.getEditor().setText(old);
+            		return;
+	        	}
+        	}catch (NumberFormatException e){
         	}
+        	
         });
         	
         _endTimeSpinnerHour.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-        	if((newValue!= null)&&(!newValue.equals(""))){
-        		_endTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(newValue));
-        	}else{
-        		_endTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(oldValue));
-
+        	String old = String.valueOf(_endTimeSpinnerHour.getValueFactory().getValue());
+        	try{
+	        	if((newValue!= null)&&(!newValue.equals("")&&(isNumber(newValue)))){
+	        		_endTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(newValue));
+	        	}else{
+	        		
+            		_endTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(old));
+            		_endTimeSpinnerHour.getEditor().setText(old);
+            		return;
+	        	}
+        	}catch (NumberFormatException e){
         	}
         });
         	
         _endTimeSpinnerMin.getEditor().textProperty().addListener((observable, oldValue, newValue) ->   {
-        	if((newValue!= null)&&(!newValue.equals(""))){
-        		_endTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(newValue));
-        	}else{
-        		_endTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(oldValue));
-
+        	String old = String.valueOf(_endTimeSpinnerMin.getValueFactory().getValue());
+        	try{
+	        	if((newValue!= null)&&(!newValue.equals("")&&(isNumber(newValue)))){
+	        		_endTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(newValue));
+	        	}else{
+	        		
+            		_endTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(old));
+            		_endTimeSpinnerMin.getEditor().setText(old);
+            		return;
+	        	}
+        	}catch (NumberFormatException e){
         	}
         });
         	
 	}
 	
+	/**
+	 * @param newValue
+	 * @return
+	 */
+	private boolean isNumber(String value) {
+		   if ((value == null)||(value.equals(""))) {
+	            return false;
+	        }
+	        try {
+	            new Integer(value);
+	            return true;
+	        } catch (NumberFormatException e) {
+	            return false;
+	        }		
+	}
+
 	@FXML
 	private void withoutPatientButtonControl(){
 		TextInputDialog dialog = new TextInputDialog();

@@ -1,5 +1,6 @@
 package at.itb13.teamF.adapter;
 
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -434,5 +435,6 @@ public class PatientAdapter implements IPatient, IAdapter {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }

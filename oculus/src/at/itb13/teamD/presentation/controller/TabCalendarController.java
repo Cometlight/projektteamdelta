@@ -661,6 +661,8 @@ public class TabCalendarController {
 		
 		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
 		displayAllCalendarEvents();
+		scrollToCurrentTime();
+		markCurrentTime();
 	}
 
 	/**

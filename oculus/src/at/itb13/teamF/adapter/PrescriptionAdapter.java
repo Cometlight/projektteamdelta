@@ -4,11 +4,13 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 
 import at.itb13.oculus.domain.Diagnosis;
 import at.itb13.oculus.domain.Medicine;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Prescription;
+import at.itb13.oculus.domain.PrescriptionEntry;
 import at.itb13.teamF.interfaces.IAdapter;
 import at.oculus.teamf.domain.entity.exception.CantGetPresciptionEntriesException;
 import at.oculus.teamf.domain.entity.exception.CouldNotAddPrescriptionEntryException;
@@ -93,8 +95,13 @@ public class PrescriptionAdapter implements IAdapter, IPrescription {
 	@Override
 	public Collection<IPrescriptionEntry> getPrescriptionEntries()
 			throws CantGetPresciptionEntriesException {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<IPrescriptionEntry> iEntries = new HashSet<>();
+		Collection<PrescriptionEntry> entries = _prescription.getPrescriptionentries();
+		for(PrescriptionEntry entry : entries){
+			iEntries.add((IPrescriptionEntry) entry);
+		}
+		
+		return iEntries;
 	}
 
 	/*
@@ -103,7 +110,10 @@ public class PrescriptionAdapter implements IAdapter, IPrescription {
 	@Override
 	public void addPrescriptionEntry(IPrescriptionEntry prescriptionEntry)
 			throws CouldNotAddPrescriptionEntryException {
-		//TODO
+		//FIXME not sure if this works
+		PrescriptionEntryAdapter entryAdapter = (PrescriptionEntryAdapter) prescriptionEntry;
+		PrescriptionEntry entry = (PrescriptionEntry) entryAdapter.getDomainObject();
+		_prescription.getPrescriptionentries().add(entry);
 	}
 
 	@Override

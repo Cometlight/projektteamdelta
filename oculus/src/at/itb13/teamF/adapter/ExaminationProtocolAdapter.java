@@ -154,7 +154,6 @@ public class ExaminationProtocolAdapter implements IAdapter,
 	@Override
 	public Collection<IExaminationResult> getExaminationResults()
 			throws CouldNotGetExaminationResultException {
-		// FIXME
 		Set<ExaminationResult> examinationResults = _examinationProtocol
 				.getExaminationResults();
 		Set<IExaminationResult> iExaminationResults = new HashSet<>(0);

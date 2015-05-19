@@ -15,8 +15,8 @@ private Calendar _calendar;
 	
 	public CalendarAdapter() { }
 	
-	public CalendarAdapter(Calendar calendarEvent){
-		_calendar = calendarEvent;
+	public CalendarAdapter(Calendar calendar){
+		_calendar = calendar;
 	}
 		
 	/*

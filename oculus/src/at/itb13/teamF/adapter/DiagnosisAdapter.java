@@ -1,6 +1,7 @@
 package at.itb13.teamF.adapter;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import at.itb13.oculus.domain.Diagnosis;
 import at.itb13.oculus.domain.Doctor;
@@ -88,27 +89,31 @@ public class DiagnosisAdapter implements IAdapter, IDiagnosis{
 	public Collection<IMedicine> getMedicine()
 			throws CouldNotGetMedicineException {
 		// TODO Auto-generated method stubhock 
-		return null;
+		Collection<IMedicine> iMedicineCollection = new HashSet<>();
+		Collection<Medicine> medicineCollection = _diagnosis.getMedicines();
+		for(Medicine med : medicineCollection){
+			iMedicineCollection.add((IMedicine) med);
+		}
+		
+		return iMedicineCollection;
 	}
 
 	@Override
 	public void addMedicine(IMedicine medicine)
 			throws CouldNotAddMedicineException {
-		// TODO Auto-generated method stub
-		
+		//FIXME
 	}
 
 	@Override
 	public void addVisualAid(IVisualAid visualAid)
 			throws CouldNotAddVisualAidException {
-		// TODO Auto-generated method stub
-		
+		//FIXME
 	}
 
 	@Override
 	public Collection<IVisualAid> getVisualAid()
 			throws CouldNotGetVisualAidException {
-		// TODO Auto-generated method stub
+		//FIXME
 		return null;
 	}
 

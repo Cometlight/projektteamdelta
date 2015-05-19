@@ -64,7 +64,6 @@ public class MedicineAdapter implements IAdapter, IMedicine {
 
 	@Override
 	public void setDose(String dose) {
-		// TODO Auto-generated method stub
 		_medicine.setDose(dose);
 	}
 

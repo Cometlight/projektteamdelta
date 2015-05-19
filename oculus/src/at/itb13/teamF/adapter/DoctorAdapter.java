@@ -314,8 +314,7 @@ public class DoctorAdapter implements IAdapter, IDoctor{
 	 */
 	@Override
 	public void addPatient(IPatient patient) {
-		// TODO Auto-generated method stub
-		
+		//FIXME not to sure if adding is an good idea...
 	}
 	/*
 	 * @see at.oculus.teamf.domain.entity.interfaces.IDoctor#getPatients()

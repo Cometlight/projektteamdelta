@@ -83,7 +83,6 @@ public class VisualAidAdapter implements IVisualAid, IAdapter {
 	public void setIssueDate(Date issueDate) {
 		LocalDateTime localDateTime = issueDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 		_visualAid.setIssueDate(localDateTime);
-
 	}
 
 	/*

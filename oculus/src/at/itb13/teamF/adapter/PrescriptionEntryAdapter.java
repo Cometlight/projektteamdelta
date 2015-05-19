@@ -55,8 +55,6 @@ public class PrescriptionEntryAdapter implements IAdapter, IPrescriptionEntry {
 
 	@Override
 	public Object getDomainObject() {
-		
-		//FIXME not to sure about this method
 		return _prescriptionEntry;
 	}
 

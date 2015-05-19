@@ -18,18 +18,21 @@ import at.oculus.teamf.domain.entity.interfaces.IQueueEntry;
  * @since 18.05.2015
  */
 public class QueueEntryAdapter implements IQueueEntry, IAdapter {
-	private QueueEntry _entry;
-	
-	private QueueEntryAdapter(){}
-	private QueueEntryAdapter(QueueEntry entry){
-		_entry = entry;
+	private QueueEntry _queueEntry;
+
+	private QueueEntryAdapter() {
 	}
+
+	private QueueEntryAdapter(QueueEntry entry) {
+		_queueEntry = entry;
+	}
+
 	/*
 	 * @see at.itb13.teamF.interfaces.IAdapter#getDomainObject()
 	 */
 	@Override
 	public Object getDomainObject() {
-		return _entry;
+		return _queueEntry;
 	}
 
 	/*
@@ -37,7 +40,7 @@ public class QueueEntryAdapter implements IQueueEntry, IAdapter {
 	 */
 	@Override
 	public int getId() {
-		return _entry.getQueueEntryId();
+		return _queueEntry.getQueueEntryId();
 	}
 
 	/*
@@ -45,7 +48,7 @@ public class QueueEntryAdapter implements IQueueEntry, IAdapter {
 	 */
 	@Override
 	public void setId(int id) {
-		_entry.setQueueEntryId(id);
+		_queueEntry.setQueueEntryId(id);
 	}
 
 	/*
@@ -53,15 +56,19 @@ public class QueueEntryAdapter implements IQueueEntry, IAdapter {
 	 */
 	@Override
 	public IDoctor getDoctor() {
-		return null;	//TODO
+
+		// FIXME no getDoctor in QueueEntry
+		return null;
 	}
 
 	/*
-	 * @see at.oculus.teamf.domain.entity.interfaces.IQueueEntry#setDoctor(at.oculus.teamf.domain.entity.interfaces.IDoctor)
+	 * @see
+	 * at.oculus.teamf.domain.entity.interfaces.IQueueEntry#setDoctor(at.oculus
+	 * .teamf.domain.entity.interfaces.IDoctor)
 	 */
 	@Override
 	public void setDoctor(IDoctor doctor) {
-		//TODO
+		// FIXME no setDoctor in QueueEntry
 	}
 
 	/*
@@ -74,7 +81,9 @@ public class QueueEntryAdapter implements IQueueEntry, IAdapter {
 	}
 
 	/*
-	 * @see at.oculus.teamf.domain.entity.interfaces.IQueueEntry#setOrthoptist(at.oculus.teamf.domain.entity.interfaces.IOrthoptist)
+	 * @see
+	 * at.oculus.teamf.domain.entity.interfaces.IQueueEntry#setOrthoptist(at
+	 * .oculus.teamf.domain.entity.interfaces.IOrthoptist)
 	 */
 	@Override
 	public void setOrthoptist(IOrthoptist orthoptist) {
@@ -87,22 +96,25 @@ public class QueueEntryAdapter implements IQueueEntry, IAdapter {
 	 */
 	@Override
 	public IPatient getPatient() {
-		Patient patient = _entry.getPatient();
+		Patient patient = _queueEntry.getPatient();
 		return new PatientAdapter(patient);
 	}
 
 	/*
-	 * @see at.oculus.teamf.domain.entity.interfaces.IQueueEntry#setPatient(at.oculus.teamf.domain.entity.interfaces.IPatient)
+	 * @see
+	 * at.oculus.teamf.domain.entity.interfaces.IQueueEntry#setPatient(at.oculus
+	 * .teamf.domain.entity.interfaces.IPatient)
 	 */
 	@Override
 	public void setPatient(IPatient patient) {
-		PatientAdapter patientAdapter = (PatientAdapter)patient;
-		Patient pa = (Patient)patientAdapter.getDomainObject();
-		_entry.setPatient(pa);
+		PatientAdapter patientAdapter = (PatientAdapter) patient;
+		Patient pa = (Patient) patientAdapter.getDomainObject();
+		_queueEntry.setPatient(pa);
 	}
 
 	/*
-	 * @see at.oculus.teamf.domain.entity.interfaces.IQueueEntry#getQueueIdParent()
+	 * @see
+	 * at.oculus.teamf.domain.entity.interfaces.IQueueEntry#getQueueIdParent()
 	 */
 	@Override
 	public Integer getQueueIdParent() {
@@ -111,7 +123,9 @@ public class QueueEntryAdapter implements IQueueEntry, IAdapter {
 	}
 
 	/*
-	 * @see at.oculus.teamf.domain.entity.interfaces.IQueueEntry#setQueueIdParent(java.lang.Integer)
+	 * @see
+	 * at.oculus.teamf.domain.entity.interfaces.IQueueEntry#setQueueIdParent
+	 * (java.lang.Integer)
 	 */
 	@Override
 	public void setQueueIdParent(Integer queueIdParent) {
@@ -120,11 +134,12 @@ public class QueueEntryAdapter implements IQueueEntry, IAdapter {
 	}
 
 	/*
-	 * @see at.oculus.teamf.domain.entity.interfaces.IQueueEntry#getArrivalTime()
+	 * @see
+	 * at.oculus.teamf.domain.entity.interfaces.IQueueEntry#getArrivalTime()
 	 */
 	@Override
 	public Timestamp getArrivalTime() {
-		return Timestamp.valueOf(_entry.getArrivalTime());
+		return Timestamp.valueOf(_queueEntry.getArrivalTime());
 	}
 
 }

@@ -628,7 +628,7 @@ public class TabCalendarController {
 	 */
 	private void startCalendarReloader() {
 		if(_timer == null) {
-			_timer = new Timer("CalendarReloader");
+			_timer = new Timer("CalendarReloader", true);
 			_timer.schedule(new TimerTask() {
 				@Override
 				public void run() {

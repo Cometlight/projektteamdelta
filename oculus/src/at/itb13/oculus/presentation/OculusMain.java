@@ -36,7 +36,10 @@ import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacade;
 import at.itb13.teamD.application.CalendarEventFactoryProvider;
 import at.itb13.teamD.presentation.controller.TabCalendarController;
 import at.itb13.teamD.technicalServices.persistenceFacade.PersistenceFacadeProvider;
+import at.itb13.teamF.factories.FactoryTeamF;
+import at.itb13.teamF.persistence.PersistenceFacadeTeamF;
 import at.oculus.teamf.application.facade.PrescriptionController;
+import at.oculus.teamf.application.facade.dependenceResolverTB2.DependenceResolverTB2;
 import at.oculus.teamf.presentation.view.DiagnosisController;
 import at.oculus.teamf.presentation.view.models.Model;
 
@@ -125,6 +128,9 @@ public class OculusMain extends Application {
         		initPatientTab();
         		initQueueTab();
         		initCalendarTab();
+        		
+        		DependenceResolverTB2.init(new PersistenceFacadeTeamF(), new FactoryTeamF());
+        		
         		initTeamFTab();	// FIXME
         		
         		
@@ -139,7 +145,7 @@ public class OculusMain extends Application {
 	}
 	
     private void showMainStage() {
-    	initCalendarTab();	// TODO: another position?
+//    	initCalendarTab();	// TODO: another position?
     	initPrescriptionsTab();// FIXME another position?
     	
     	_primaryStage.setScene(_primaryScene);

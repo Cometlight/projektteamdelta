@@ -10,12 +10,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.WorkingHours;
+import at.itb13.oculus.technicalServices.GenericDao;
 import at.itb13.oculus.technicalServices.dao.CalendarDao;
 import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
 import at.itb13.oculus.technicalServices.dao.DoctorDao;
@@ -49,6 +53,9 @@ import at.itb13.oculus.domain.*;
  */
 public class PersistenceFacade implements IPersistenceFacade {
 
+	private static final Logger _logger = LogManager
+			.getLogger(PersistenceFacade.class.getName());
+
 	/**
 	 * 
 	 * 
@@ -60,6 +67,10 @@ public class PersistenceFacade implements IPersistenceFacade {
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> T getById(Integer id, Class<T> clazz) {
+
+		_logger.info("' Trying to retrieve from database " + clazz.getName()
+				+ "' with ID '" + id + "'");
+
 		if (IPatient.class.isAssignableFrom(clazz)) {
 			return (T) PatientDao.getInstance().findById(id);
 		}
@@ -114,6 +125,10 @@ public class PersistenceFacade implements IPersistenceFacade {
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> List<T> getAll(Class<T> clazz) {
+
+		_logger.info("' Trying to retrieve all from database "
+				+ clazz.getName() + "'");
+
 		if (IPatient.class.isAssignableFrom(clazz)) {
 			return (List<T>) PatientDao.getInstance().findAll();
 		} else
@@ -134,23 +149,23 @@ public class PersistenceFacade implements IPersistenceFacade {
 
 		// Checks if Interface class of Team F
 
-		if (IDiagnosis.class.isAssignableFrom(clazz)) {
+		else if (IDiagnosis.class.isAssignableFrom(clazz)) {
 			return (List<T>) DiagnosisDao.getInstance().findAll();
 		}
 
-		if (IExaminationProtocol.class.isAssignableFrom(clazz)) {
+		else if (IExaminationProtocol.class.isAssignableFrom(clazz)) {
 			return (List<T>) ExaminationProtocolDao.getInstance().findAll();
 		}
 
-		if (IPrescription.class.isAssignableFrom(clazz)) {
+		else if (IPrescription.class.isAssignableFrom(clazz)) {
 			return (List<T>) CalendarDao.getInstance().findAll();
 		}
 
-		if (IPrescriptionEntry.class.isAssignableFrom(clazz)) {
+		else if (IPrescriptionEntry.class.isAssignableFrom(clazz)) {
 			return (List<T>) EventTypeDao.getInstance().findAll();
 		}
 
-		if (IVisualAid.class.isAssignableFrom(clazz)) {
+		else if (IVisualAid.class.isAssignableFrom(clazz)) {
 			return (List<T>) CalendarEventDao.getInstance().findAll();
 		}
 
@@ -159,6 +174,9 @@ public class PersistenceFacade implements IPersistenceFacade {
 
 	public boolean makePersistent(Object obj) {
 
+		_logger.info("' Trying to make persistent "
+				+ obj.getClass().getName() + "'");
+		
 		if (obj instanceof IPatient) {
 			return PatientDao.getInstance().makePersistent((Patient) obj);
 		}
@@ -220,10 +238,13 @@ public class PersistenceFacade implements IPersistenceFacade {
 			throws PersistenceFacadeException {
 
 		// TODO Suchen nach mehreren Namen
-
+		
 		if (clazz == null) {
 			throw new PersistenceFacadeException();
 		}
+		
+		_logger.info("' Trying to searchFor persistent "
+				+ clazz.getName() + "'");
 
 		String[] subStrings = searchString.split(" ");
 

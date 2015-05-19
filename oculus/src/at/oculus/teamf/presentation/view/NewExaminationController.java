@@ -126,7 +126,8 @@ public class NewExaminationController implements Initializable {
     @FXML
     public void saveExaminationButtonHandler(ActionEvent actionEvent) {
         if (examinationDocumentation.getText().length() != 0) {
-            IPatient selectedPatient = _model.getTabModel().getPatientFromSelectedTab(_model.getTabModel().getSelectedTab());
+//            IPatient selectedPatient = _model.getTabModel().getPatientFromSelectedTab(_model.getTabModel().getSelectedTab());
+        	IPatient selectedPatient = _model.getPatient();
             _timeline.stop();
             examinationCurrTime.setText("TIMECOUNTER: " + convertSecondToHHMMString(_timeSeconds) + " [Examination done]");
             Date enddate = new Date();

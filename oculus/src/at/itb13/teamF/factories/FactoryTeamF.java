@@ -102,7 +102,9 @@ public class FactoryTeamF implements IFactoryTB2 {
 		
 		examinationProtocol.setDescription(description);
 		
-		Patient patient = (Patient)((PatientAdapter)ipatient).getDomainObject();
+		PatientAdapter patAda = (PatientAdapter) ipatient;
+		
+		Patient patient = (Patient)patAda.getDomainObject();
 		examinationProtocol.setPatient(patient);
 		
 		User user = null;

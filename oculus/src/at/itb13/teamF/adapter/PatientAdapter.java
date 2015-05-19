@@ -381,7 +381,8 @@ public class PatientAdapter implements IPatient, IAdapter {
 	public void addExaminationProtocol(IExaminationProtocol examinationProtocol)
 			throws CouldNotAddExaminationProtocol {
 		Collection<ExaminationProtocol> coll = _patient.getExaminationprotocols();
-		coll.add((ExaminationProtocol) examinationProtocol);
+		ExaminationProtocolAdapter exProtAda = (ExaminationProtocolAdapter)examinationProtocol;
+		coll.add((ExaminationProtocol)exProtAda.getDomainObject());
 	}
 
 	/*

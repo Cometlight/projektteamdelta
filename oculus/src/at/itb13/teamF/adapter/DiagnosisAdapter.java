@@ -5,7 +5,9 @@ import java.util.HashSet;
 
 import at.itb13.oculus.domain.Diagnosis;
 import at.itb13.oculus.domain.Doctor;
+import at.itb13.oculus.domain.ExaminationProtocol;
 import at.itb13.oculus.domain.Medicine;
+import at.itb13.oculus.domain.VisualAid;
 import at.itb13.teamF.interfaces.IAdapter;
 import at.oculus.teamf.domain.entity.exception.CouldNotAddMedicineException;
 import at.oculus.teamf.domain.entity.exception.CouldNotAddVisualAidException;
@@ -88,7 +90,6 @@ public class DiagnosisAdapter implements IAdapter, IDiagnosis{
 	@Override
 	public Collection<IMedicine> getMedicine()
 			throws CouldNotGetMedicineException {
-		// TODO Auto-generated method stubhock 
 		Collection<IMedicine> iMedicineCollection = new HashSet<>();
 		Collection<Medicine> medicineCollection = _diagnosis.getMedicines();
 		for(Medicine med : medicineCollection){
@@ -101,20 +102,28 @@ public class DiagnosisAdapter implements IAdapter, IDiagnosis{
 	@Override
 	public void addMedicine(IMedicine medicine)
 			throws CouldNotAddMedicineException {
-		//FIXME
+		Collection<Medicine> coll = _diagnosis.getMedicines();
+		MedicineAdapter medAda = (MedicineAdapter) medicine;
+		coll.add((Medicine) medAda.getDomainObject());
 	}
 
 	@Override
 	public void addVisualAid(IVisualAid visualAid)
 			throws CouldNotAddVisualAidException {
-		//FIXME
+		Collection<VisualAid> coll = _diagnosis.getVisualaids();
+		VisualAidAdapter visAda = (VisualAidAdapter) visualAid;
+		coll.add((VisualAid) visAda.getDomainObject());
 	}
 
 	@Override
 	public Collection<IVisualAid> getVisualAid()
 			throws CouldNotGetVisualAidException {
-		//FIXME
-		return null;
+		Collection<IVisualAid> visualAids = new HashSet<>();
+		Collection<VisualAid> coll = _diagnosis.getVisualaids();
+		for(VisualAid entry : coll){
+			visualAids.add((IVisualAid) entry.getDiagnosis());
+		}
+		return visualAids;
 	}
 
 	@Override

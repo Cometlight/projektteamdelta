@@ -314,7 +314,9 @@ public class DoctorAdapter implements IAdapter, IDoctor{
 	 */
 	@Override
 	public void addPatient(IPatient patient) {
-		//FIXME not to sure if adding is an good idea...
+		Collection<Patient> coll = _doctor.getPatients();
+		PatientAdapter patAda = (PatientAdapter) patient;
+		coll.add((Patient) patAda.getDomainObject());
 	}
 	/*
 	 * @see at.oculus.teamf.domain.entity.interfaces.IDoctor#getPatients()

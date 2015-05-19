@@ -2,6 +2,7 @@ package at.itb13.teamF.adapter;
 
 import java.sql.Timestamp;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.QueueEntry;
@@ -56,9 +57,7 @@ public class QueueEntryAdapter implements IQueueEntry, IAdapter {
 	 */
 	@Override
 	public IDoctor getDoctor() {
-
-		// FIXME no getDoctor in QueueEntry
-		return null;
+		throw new NotImplementedException();
 	}
 
 	/*
@@ -68,7 +67,7 @@ public class QueueEntryAdapter implements IQueueEntry, IAdapter {
 	 */
 	@Override
 	public void setDoctor(IDoctor doctor) {
-		// FIXME no setDoctor in QueueEntry
+		throw new NotImplementedException();
 	}
 
 	/*
@@ -76,8 +75,7 @@ public class QueueEntryAdapter implements IQueueEntry, IAdapter {
 	 */
 	@Override
 	public IOrthoptist getOrthoptist() {
-		// TODO
-		return null;
+		throw new NotImplementedException();
 	}
 
 	/*
@@ -87,8 +85,7 @@ public class QueueEntryAdapter implements IQueueEntry, IAdapter {
 	 */
 	@Override
 	public void setOrthoptist(IOrthoptist orthoptist) {
-		// TODO
-
+		throw new NotImplementedException();
 	}
 
 	/*
@@ -118,8 +115,7 @@ public class QueueEntryAdapter implements IQueueEntry, IAdapter {
 	 */
 	@Override
 	public Integer getQueueIdParent() {
-		// TODO
-		return null;
+		throw new NotImplementedException();
 	}
 
 	/*
@@ -129,8 +125,7 @@ public class QueueEntryAdapter implements IQueueEntry, IAdapter {
 	 */
 	@Override
 	public void setQueueIdParent(Integer queueIdParent) {
-		// TODO Auto-generated method stub
-
+		throw new NotImplementedException();
 	}
 
 	/*

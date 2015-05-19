@@ -110,10 +110,9 @@ public class PrescriptionAdapter implements IAdapter, IPrescription {
 	@Override
 	public void addPrescriptionEntry(IPrescriptionEntry prescriptionEntry)
 			throws CouldNotAddPrescriptionEntryException {
-		//FIXME not sure if this works
+		Collection<PrescriptionEntry> coll = _prescription.getPrescriptionentries();
 		PrescriptionEntryAdapter entryAdapter = (PrescriptionEntryAdapter) prescriptionEntry;
-		PrescriptionEntry entry = (PrescriptionEntry) entryAdapter.getDomainObject();
-		_prescription.getPrescriptionentries().add(entry);
+		coll.add((PrescriptionEntry) entryAdapter.getDomainObject());
 	}
 
 	@Override

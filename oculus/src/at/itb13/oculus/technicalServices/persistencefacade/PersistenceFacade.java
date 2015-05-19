@@ -26,13 +26,14 @@ import at.itb13.teamD.domain.interfaces.ICalendar;
 import at.itb13.teamD.domain.interfaces.ICalendarEvent;
 import at.itb13.teamD.domain.interfaces.IDoctor;
 import at.itb13.teamD.domain.interfaces.IEventType;
-import at.itb13.teamD.domain.interfaces.IPatient;
+import at.itb13.teamD.domain.interfaces.IPatient;	
 import at.itb13.teamD.domain.interfaces.IUser;
 import at.itb13.teamD.domain.interfaces.IWorkingHours;
 import at.itb13.teamD.technicalServices.exceptions.PersistenceFacadeException;
 import at.itb13.teamD.technicalServices.persistenceFacade.IPersistenceFacade;
 import at.oculus.teamf.domain.entity.interfaces.*;
-import at.itb13.oculus.technicalServices.dao.*;;
+import at.itb13.oculus.technicalServices.dao.*;
+import at.itb13.oculus.domain.*;
 
 /**
  * Enables access to the persistence layer TODO: other Interfaces have to be
@@ -74,6 +75,8 @@ public class PersistenceFacade implements IPersistenceFacade {
 		if (ICalendarEvent.class.isAssignableFrom(clazz)) {
 			return (T) CalendarEventDao.getInstance().findById(id);
 		}
+		
+		//Checks if Interface class of Team F
 		
 		if (IDiagnosis.class.isAssignableFrom(clazz)) {
 			return (T) DiagnosisDao.getInstance().findById(id);
@@ -124,6 +127,28 @@ public class PersistenceFacade implements IPersistenceFacade {
 		} else if (ICalendarEvent.class.isAssignableFrom(clazz)) {
 			return (List<T>) CalendarEventDao.getInstance().findAll();
 		}
+		
+		//Checks if Interface class of Team F
+		
+		if (IDiagnosis.class.isAssignableFrom(clazz)) {
+			return (List<T>) DiagnosisDao.getInstance().findAll();
+		}
+
+		if (IExaminationProtocol.class.isAssignableFrom(clazz)) {
+			return (List<T>) ExaminationProtocolDao.getInstance().findAll();
+		}
+
+		if (IPrescription.class.isAssignableFrom(clazz)) {
+			return (List<T>) CalendarDao.getInstance().findAll();
+		}
+
+		if (IPrescriptionEntry.class.isAssignableFrom(clazz)) {
+			return (List<T>) EventTypeDao.getInstance().findAll();
+		}
+
+		if (IVisualAid.class.isAssignableFrom(clazz)) {
+			return (List<T>) CalendarEventDao.getInstance().findAll();
+		}
 
 		return null;
 	}
@@ -149,6 +174,29 @@ public class PersistenceFacade implements IPersistenceFacade {
 		if (obj instanceof ICalendarEvent) {
 			return CalendarEventDao.getInstance().makePersistent(
 					(CalendarEvent) obj);
+		}
+		
+		//Checks if Interface class of Team F
+		
+		if (obj instanceof IDiagnosis) {
+			return DiagnosisDao.getInstance().makePersistent((Diagnosis) obj);
+		}
+
+		if (obj instanceof IExaminationProtocol) {
+			return ExaminationProtocolDao.getInstance().makePersistent((ExaminationProtocol) obj);
+		}
+
+		if (obj instanceof IPrescription) {
+			return PrescriptionDao.getInstance().makePersistent((Prescription) obj);
+		}
+
+		if (obj instanceof IPrescriptionEntry) {
+			return PrescriptionEntryDao.getInstance().makePersistent((PrescriptionEntry) obj);
+		}
+
+		if (obj instanceof IVisualAid) {
+			return VisualAidDao.getInstance().makePersistent(
+					(VisualAid) obj);
 		}
 
 		return false;

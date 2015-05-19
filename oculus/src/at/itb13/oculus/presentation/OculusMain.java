@@ -70,11 +70,6 @@ public class OculusMain extends Application {
 	private TabQueueController _queueController;
 	private AnchorPane _calendarTab;
 	private TabCalendarController _calendarController;
-	private AnchorPane _prescriptionsTab;
-	private PrescriptionController _prescriptionController;
-	
-	private AnchorPane _diagnosisTab;	// FIXME name
-	private DiagnosisController _diagnosisController;
 	
 	private ObservableList<PatientRO> _patientData = FXCollections.observableArrayList();
 	
@@ -108,6 +103,7 @@ public class OculusMain extends Application {
         		updateMessage("Connecting to database ...");
         		//Set PersistenceFacade
         		PersistenceFacadeProvider.setPersistenceFacade(new PersistenceFacade());
+        		DependenceResolverTB2.init(new PersistenceFacadeTeamF(), new FactoryTeamF());
         		
         		try {
         			HibernateUtil.init();
@@ -129,11 +125,6 @@ public class OculusMain extends Application {
         		initQueueTab();
         		initCalendarTab();
         		
-        		DependenceResolverTB2.init(new PersistenceFacadeTeamF(), new FactoryTeamF());
-        		
-        		initTeamFTab();	// FIXME
-        		
-        		
         		updateMessage("Finished.");
         		
 				return null;
@@ -145,8 +136,6 @@ public class OculusMain extends Application {
 	}
 	
     private void showMainStage() {
-//    	initCalendarTab();	// TODO: another position?
-    	initPrescriptionsTab();// FIXME another position?
     	
     	_primaryStage.setScene(_primaryScene);
     	_primaryStage.setTitle("Oculus");
@@ -285,40 +274,6 @@ public class OculusMain extends Application {
 		}
 	}
 	
-	private void initTeamFTab() {
-		try {// set logged in user in model
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(OculusMain.class
-					.getResource("../../../oculus/teamf/presentation/view/fxml/DiagnosisTab.fxml"));
-			Model.getInstance().setLoggedInUser(null); 	// FIXME: statt null einen user übergeben; anderes team hat schon ein simples "login" system..
-			Model.getInstance().setPatient(null); 		// FIXME
-			_diagnosisTab = (AnchorPane) loader.load();
-
-			// Give the controller access to the main app.
-			_diagnosisController = loader.getController();
-
-		} catch (IOException ex) {
-			_logger.error("Fail: initCalendarTab",ex);	// FIXME
-		}
-	}
-	
-	private void initPrescriptionsTab() {
-		try {// set logged in user in model
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(OculusMain.class
-					.getResource("../../../oculus/teamf/presentation/view/fxml/PrescriptionTab.fxml"));
-			Model.getInstance().setLoggedInUser(null); 	// FIXME: statt null einen user übergeben; anderes team hat schon ein simples "login" system..
-			Model.getInstance().setPatient(null); 		// FIXME
-			_prescriptionsTab = (AnchorPane) loader.load();
-
-			// Give the controller access to the main app.
-			_prescriptionController = loader.getController();
-
-		} catch (IOException ex) {
-			_logger.error("Fail: initCalendarTab",ex);	// FIXME
-		}
-	}
-
 	public void showAppointmentsTab() {
 		if(_appointmentsTab != null) {
 			_rootLayout.setCenter(_appointmentsTab);
@@ -346,21 +301,6 @@ public class OculusMain extends Application {
 			_queueController.stopQueueReloader();
 		}
 	}
-	
-	public void showTeamFTab() {	// FIXME
-		if(_diagnosisTab != null){
-			_rootLayout.setCenter(_diagnosisTab);
-			_queueController.stopQueueReloader();
-		}
-	}
-	
-	public void showPrescriptionsTab() {
-		if(_prescriptionsTab != null){
-			_rootLayout.setCenter(_prescriptionsTab);
-			_queueController.stopQueueReloader();
-		}
-	}
-	
 	
 	/**
 	 * is called when the button "edit" or "new patient" has been pushed
@@ -423,6 +363,7 @@ public class OculusMain extends Application {
 				controller.showPatientMasterData(patient);
 				controller.showAnamanesis(patient);
 				controller.showAppointments(patient);
+				controller.showExaminationProtocols(patient);
 				_logger.info("showPatientRecord");
 			}
 		} catch (IOException ex) {

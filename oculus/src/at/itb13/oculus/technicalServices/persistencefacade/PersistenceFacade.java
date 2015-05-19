@@ -32,6 +32,7 @@ import at.itb13.teamD.domain.interfaces.IWorkingHours;
 import at.itb13.teamD.technicalServices.exceptions.PersistenceFacadeException;
 import at.itb13.teamD.technicalServices.persistenceFacade.IPersistenceFacade;
 import at.itb13.teamF.adapter.DiagnosisAdapter;
+import at.itb13.teamF.adapter.ExaminationProtocolAdapter;
 import at.oculus.teamf.domain.entity.interfaces.*;
 import at.itb13.oculus.technicalServices.dao.*;
 import at.itb13.oculus.domain.*;
@@ -185,7 +186,8 @@ public class PersistenceFacade implements IPersistenceFacade {
 		}
 
 		if (obj instanceof IExaminationProtocol) {
-			return ExaminationProtocolDao.getInstance().makePersistent((ExaminationProtocol) obj);
+			ExaminationProtocolAdapter exaAda = (ExaminationProtocolAdapter) obj;
+			return ExaminationProtocolDao.getInstance().makePersistent((ExaminationProtocol) exaAda.getDomainObject());
 		}
 
 		if (obj instanceof IPrescription) {

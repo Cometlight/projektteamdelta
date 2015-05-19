@@ -4,10 +4,13 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import at.itb13.oculus.domain.Diagnosis;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.ExaminationProtocol;
+import at.itb13.oculus.domain.ExaminationResult;
 import at.itb13.oculus.domain.Medicine;
 import at.itb13.oculus.domain.Orthoptist;
 import at.itb13.oculus.domain.Patient;
@@ -91,10 +94,9 @@ public class ExaminationProtocolAdapter implements IAdapter,
 	@Override
 	public IDoctor getDoctor() {
 		Doctor doctor = _examinationProtocol.getUser().getDoctor();
-		if(doctor != null){
+		if (doctor != null) {
 			return new DoctorAdapter(doctor);
-		}
-		else{
+		} else {
 			return null;
 		}
 	}
@@ -102,17 +104,16 @@ public class ExaminationProtocolAdapter implements IAdapter,
 	@Override
 	public void setDoctor(IDoctor doctor) {
 		DoctorAdapter doctorAdapter = (DoctorAdapter) doctor;
-		Doctor doc= (Doctor) doctorAdapter.getDomainObject();
+		Doctor doc = (Doctor) doctorAdapter.getDomainObject();
 		_examinationProtocol.getUser().setDoctor(doc);
 	}
 
 	@Override
 	public IOrthoptist getOrthoptist() {
 		Orthoptist orthoptist = _examinationProtocol.getUser().getOrthoptist();
-		if(orthoptist != null){
+		if (orthoptist != null) {
 			return new OrthoptistAdapter(orthoptist);
-		}
-		else{
+		} else {
 			return null;
 		}
 	}
@@ -120,8 +121,8 @@ public class ExaminationProtocolAdapter implements IAdapter,
 	@Override
 	public void setOrthoptist(IOrthoptist orthoptist) {
 		OrthoptistAdapter orthoptistAdapter = (OrthoptistAdapter) orthoptist;
-		Orthoptist ort= (Orthoptist) orthoptistAdapter.getDomainObject();
-		_examinationProtocol.getUser().setOrthoptist(ort);		
+		Orthoptist ort = (Orthoptist) orthoptistAdapter.getDomainObject();
+		_examinationProtocol.getUser().setOrthoptist(ort);
 	}
 
 	@Override
@@ -153,9 +154,16 @@ public class ExaminationProtocolAdapter implements IAdapter,
 	@Override
 	public Collection<IExaminationResult> getExaminationResults()
 			throws CouldNotGetExaminationResultException {
-		//FIXME
+		// FIXME
+		Set<ExaminationResult> examinationResults = _examinationProtocol
+				.getExaminationResults();
+		Set<IExaminationResult> iExaminationResults = new HashSet<>(0);
+
+		for (ExaminationResult ex : examinationResults) {
+			iExaminationResults.add(new ExaminationResultAdapter(ex));
+		}
 		
-		return null;
+		return iExaminationResults;
 	}
 
 	@Override

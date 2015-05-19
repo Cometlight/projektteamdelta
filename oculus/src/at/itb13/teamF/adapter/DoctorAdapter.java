@@ -33,7 +33,7 @@ public class DoctorAdapter implements IAdapter, IDoctor{
 		
 	}
 	public DoctorAdapter(Doctor doctor){
-		
+		_doctor = doctor;
 	}
 
 	/*
@@ -323,7 +323,7 @@ public class DoctorAdapter implements IAdapter, IDoctor{
 	@Override
 	public Collection<IPatient> getPatients() throws CantLoadPatientsException {
 		Set<Patient> patients = _doctor.getPatients();
-		Set<IPatient>ipatients = null;
+		Set<IPatient>ipatients = new HashSet<>(0);
 		for (Patient p:patients){
 			ipatients.add(new PatientAdapter(p));
 		}

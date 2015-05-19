@@ -26,6 +26,7 @@ import at.oculus.teamf.domain.entity.exception.CouldNotAddExaminationProtocol;
 import at.oculus.teamf.domain.entity.exception.CouldNotGetExaminationProtolException;
 import at.oculus.teamf.domain.entity.interfaces.*;
 import at.oculus.teamf.persistence.exception.BadConnectionException;
+import at.oculus.teamf.persistence.exception.DatabaseOperationException;
 import at.oculus.teamf.persistence.exception.NoBrokerMappedException;
 import at.oculus.teamf.persistence.exception.reload.InvalidReloadClassException;
 import at.oculus.teamf.persistence.exception.reload.ReloadInterfaceNotImplementedException;
@@ -64,7 +65,7 @@ public class ReceivePatientController implements ILogger {
 
         IExaminationProtocol examinationProtocol = null;
 		try {
-			examinationProtocol = DependenceResolverTB2.getInstance().getFactory().createExaminationProtocol(0, starttime, endtime, description,iPatient,  iDoctor,  iOrthoptist, null);
+			examinationProtocol = DependenceResolverTB2.getInstance().getFactory().createExaminationProtocol(null, starttime, endtime, description,iPatient,  iDoctor,  iOrthoptist, null);
 		} catch (NotInitatedExceptions e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,6 +73,11 @@ public class ReceivePatientController implements ILogger {
        IPatient patient =  iPatient;
         try {
 			patient.addExaminationProtocol(examinationProtocol);
+			try {
+				DependenceResolverTB2.getInstance().getFacade().save(examinationProtocol);
+			} catch (DatabaseOperationException | NotInitatedExceptions e) {
+				log.error("Failed to save examinationProtocol", e);
+			}
 		} catch (CouldNotAddExaminationProtocol e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

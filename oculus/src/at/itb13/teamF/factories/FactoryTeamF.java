@@ -87,7 +87,7 @@ public class FactoryTeamF implements IFactoryTB2 {
 	 * @see at.oculus.teamf.domain.entity.factory.IFactoryTB2#createExaminationProtocol(int, java.util.Date, java.util.Date, java.lang.String, at.oculus.teamf.domain.entity.interfaces.IPatient, at.oculus.teamf.domain.entity.interfaces.IDoctor, at.oculus.teamf.domain.entity.interfaces.IOrthoptist, at.oculus.teamf.domain.entity.interfaces.IDiagnosis)
 	 */
 	@Override
-	public IExaminationProtocol createExaminationProtocol(int id,
+	public IExaminationProtocol createExaminationProtocol(Integer id,
 			Date startTime, Date endTime, String description, IPatient ipatient,
 			IDoctor idoctor, IOrthoptist iorthoptist, IDiagnosis idiagnosis) {
 		

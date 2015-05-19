@@ -36,7 +36,10 @@ import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.OculusMain;
 import at.itb13.teamD.domain.interfaces.IPatient;
+import at.itb13.teamF.adapter.DoctorAdapter;
 import at.itb13.teamF.adapter.PatientAdapter;
+import at.itb13.teamF.adapter.UserAdapter;
+import at.oculus.teamf.domain.entity.interfaces.IUser;
 import at.oculus.teamf.presentation.view.ExaminationController;
 import at.oculus.teamf.presentation.view.models.Model;
 
@@ -214,11 +217,13 @@ public class PatientRecordController {
 	}
 	
 	public void showExaminationProtocols(PatientRO value) {
-//		Model.getInstance().setLoggedInUser(null); 	// FIXME: statt null einen user übergeben; anderes team hat schon ein simples "login" system..
+		DoctorAdapter userAdapter = new DoctorAdapter(value.getDoctor());
+		Model.getInstance().setLoggedInUser((IUser)userAdapter);
+		
 		PatientAdapter patientAdapter = new PatientAdapter((Patient)value);
-//		Model.getInstance()._patient = patientAdapter;
-		Model.getInstance().setPatient(patientAdapter); 		// FIXME
+		Model.getInstance().setPatient(patientAdapter);
 		Model.getInstance().getTabModel().setTabinitpatient(patientAdapter);
+		
 		initExaminationProtocolsTab();
 	}
 	

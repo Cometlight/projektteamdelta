@@ -67,9 +67,9 @@ public class DiagnosisController implements Initializable,ILogger {
                 //Todo
                 notInitatedExceptions.printStackTrace();
             }
-            IPatient currpatient  = _model.getTabModel().getPatientFromSelectedTab(_model.getTabModel().getSelectedTab());
-            Tab origintab = _model.getTabModel().getTabFromPatientAndID("newexamination", currpatient);
-            _model.getTabModel().closeSelectedAndSwitchTab(origintab);
+//            IPatient currpatient  = _model.getTabModel().getPatientFromSelectedTab(_model.getTabModel().getSelectedTab());
+//            Tab origintab = _model.getTabModel().getTabFromPatientAndID("newexamination", currpatient);
+//            _model.getTabModel().closeSelectedAndSwitchTab(origintab);
         } else {
             DialogBoxController.getInstance().showInformationDialog("Data needed", "Please add diagnosis title and/or description");
         }

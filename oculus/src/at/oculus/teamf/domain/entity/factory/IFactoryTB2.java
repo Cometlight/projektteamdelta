@@ -27,6 +27,6 @@ public interface IFactoryTB2 {
 
     IPrescriptionEntry createPrescriptionEntry();
 
-    IExaminationProtocol createExaminationProtocol(int id, Date startTime, Date endTime, String description, IPatient patient, IDoctor doctor,
+    IExaminationProtocol createExaminationProtocol(Integer id, Date startTime, Date endTime, String description, IPatient patient, IDoctor doctor,
                                                    IOrthoptist orthoptist, IDiagnosis diagnosis);
 }

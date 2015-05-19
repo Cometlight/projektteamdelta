@@ -142,7 +142,8 @@ public class TabModel implements ILogger {
         for (Tab key : _tabmap.keySet()) {
             System.out.println("TABKEYS AVAILABLE: " + key.getId());
         }*/
-        IPatient pat = _tabmap.get(tab);
+//        IPatient pat = _tabmap.get(tab);
+    	IPatient pat = Model.getInstance().getPatient();
         return pat;
     }
 
@@ -171,7 +172,7 @@ public class TabModel implements ILogger {
     public void setTabMapEntry(Tab tab, IPatient pat){  _tabmap.put(tab,pat); }
     public void removeTabMapEntry(Tab tab){
         _tabmap.remove(tab);
-        System.out.println("REMOVE TAB ENTRY: " + tab.getId());
+//        System.out.println("REMOVE TAB ENTRY: " + tab.getId());
     }
     public Tab getSelectedTab(){ return  _selectedTab; }
 

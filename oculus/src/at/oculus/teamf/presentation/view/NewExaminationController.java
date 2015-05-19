@@ -12,19 +12,26 @@ package at.oculus.teamf.presentation.view;
 import at.oculus.teamf.domain.entity.exception.CouldNotAddExaminationProtocol;
 import at.oculus.teamf.domain.entity.interfaces.*;
 import at.oculus.teamf.presentation.view.models.Model;
+import at.oculus.teamf.technical.loggin.ILogger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,7 +41,7 @@ import java.util.TimeZone;
 /**
  * Created by Fabian on 01.05.2015.
  */
-public class NewExaminationController implements Initializable {
+public class NewExaminationController implements Initializable, ILogger {
 
     @FXML
     private Button prescriptionButton;
@@ -132,6 +139,7 @@ public class NewExaminationController implements Initializable {
             examinationCurrTime.setText("TIMECOUNTER: " + convertSecondToHHMMString(_timeSeconds) + " [Examination done]");
             Date enddate = new Date();
 
+//            if (_model.getLoggedInUser() instanceof Doctor) {
             if (_model.getLoggedInUser() instanceof IDoctor) {
 
 			    newexam = _model.getExaminationModel().newExaminationProtocol(_startDate, enddate, examinationDocumentation.getText(), selectedPatient, (IDoctor) _model.getLoggedInUser(), null);
@@ -151,8 +159,32 @@ public class NewExaminationController implements Initializable {
         _model.getExaminationModel().setCurrentExaminationProtocol(newexam);
         IPatient selectedPatient = _model.getTabModel().getPatientFromSelectedTab(_model.getTabModel().getSelectedTab());
 //        _model.getTabModel().addDiagnosisTab(selectedPatient);	TODO: Popup
+        showNewDiagnosis();
         addDiagnosisButton.setDisable(true);
         prescriptionButton.setDisable(false);
+    }
+    
+    private void showNewDiagnosis() {
+    	try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("fxml/DiagnosisTab.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Add new Diagnosis");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			log.info("showNewDiagnosis successful");
+		} catch (IOException ex) {
+			log.error("showNewDiagnosis failed", ex);
+		}
     }
 
     @FXML

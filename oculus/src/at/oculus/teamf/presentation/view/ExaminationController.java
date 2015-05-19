@@ -212,9 +212,9 @@ public class ExaminationController implements Initializable, ILogger {
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
 
-			log.info("showNewPatientDialog successful");
+			log.info("showNewExaminationProtocol successful");
 		} catch (IOException ex) {
-			log.error("showNewPatientDialog failed", ex);
+			log.error("showNewExaminationProtocol failed", ex);
 		}
     }
 

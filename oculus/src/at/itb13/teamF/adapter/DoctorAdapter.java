@@ -26,7 +26,7 @@ import at.oculus.teamf.domain.entity.interfaces.IPatientQueue;
  * 
  */
 public class DoctorAdapter implements IAdapter, IDoctor{
-	Doctor _doctor;
+	private Doctor _doctor;
 	
 	
 	public DoctorAdapter() {

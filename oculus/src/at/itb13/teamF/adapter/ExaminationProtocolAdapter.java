@@ -126,7 +126,7 @@ public class ExaminationProtocolAdapter implements IAdapter,
 	}
 
 	@Override
-	public IDiagnosis getDiagnosis() {
+	public IDiagnosis getTeamFDiagnosis() {
 		Diagnosis diagnosis = _examinationProtocol.getDiagnosis();
 		return new DiagnosisAdapter(diagnosis);
 	}

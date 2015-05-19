@@ -56,52 +56,52 @@ public class TabModel implements ILogger {
     // LOAD AND ADD NEW TABS
     //
     // *****************************************************************************************************************
-    public void loadTab(String tabTitle, String tabFXML, String ID){
-        _model = Model.getInstance();
-
-        // check if tab is already opened
-        Tab checktab = checkIfTabIsAlreadyOpened(ID);
-
-        if (checktab == null) {
-            try {
-                // add new tab
-                Tab tab = new Tab(tabTitle);
-
-                // tab management
-                _selectedTab = tab;
-                tab.setId(ID);
-
-                // load tab fxml
-                String pathTabFXML = "../" + tabFXML;
-                AnchorPane ap = FXMLLoader.load(this.getClass().getResource(pathTabFXML));
-                tab.setContent(ap);
-
-
-                // setup tab tab close event
-                tab.setOnCloseRequest(new EventHandler<Event>() {
-                    @Override
-                    public void handle(Event t) {
-                        if (DialogBoxController.getInstance().showYesNoDialog("Close tab ?", "Do you want to cancel the current progress ?") == false) {
-                            t.consume();
-                        } else {
-                            removeTabMapEntry(_selectedTab);
-                        }
-                    }
-                });
-
-                setTabMapEntry(tab, _tabinitpatient);
-                _tabPanel.getTabs().add(tab);               // add tab to pane
-                _tabPanel.getSelectionModel().select(tab);  // switch to new tab
-                log.debug("New Tab added: " + getSelectedTab().getText() + " to TabPanel " + _tabPanel.getId());
-            } catch (IOException e) {
-                e.printStackTrace();
-                DialogBoxController.getInstance().showExceptionDialog(e, "IOException - (Tab loading error) Please contact support");
-            }
-        } else {
-            // switch to already opened tab
-            switchToTab(checktab);
-        }
-    }
+//    public void loadTab(String tabTitle, String tabFXML, String ID){
+//        _model = Model.getInstance();
+//
+//        // check if tab is already opened
+//        Tab checktab = checkIfTabIsAlreadyOpened(ID);
+//
+//        if (checktab == null) {
+//            try {
+//                // add new tab
+//                Tab tab = new Tab(tabTitle);
+//
+//                // tab management
+//                _selectedTab = tab;
+//                tab.setId(ID);
+//
+//                // load tab fxml
+//                String pathTabFXML = "../" + tabFXML;
+//                AnchorPane ap = FXMLLoader.load(this.getClass().getResource(pathTabFXML));
+//                tab.setContent(ap);
+//
+//
+//                // setup tab tab close event
+//                tab.setOnCloseRequest(new EventHandler<Event>() {
+//                    @Override
+//                    public void handle(Event t) {
+//                        if (DialogBoxController.getInstance().showYesNoDialog("Close tab ?", "Do you want to cancel the current progress ?") == false) {
+//                            t.consume();
+//                        } else {
+//                            removeTabMapEntry(_selectedTab);
+//                        }
+//                    }
+//                });
+//
+//                setTabMapEntry(tab, _tabinitpatient);
+//                _tabPanel.getTabs().add(tab);               // add tab to pane
+//                _tabPanel.getSelectionModel().select(tab);  // switch to new tab
+//                log.debug("New Tab added: " + getSelectedTab().getText() + " to TabPanel " + _tabPanel.getId());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                DialogBoxController.getInstance().showExceptionDialog(e, "IOException - (Tab loading error) Please contact support");
+//            }
+//        } else {
+//            // switch to already opened tab
+//            switchToTab(checktab);
+//        }
+//    }
 
     public IPatient getInitPatient(){ return _tabinitpatient; }
 
@@ -175,6 +175,10 @@ public class TabModel implements ILogger {
     }
     public Tab getSelectedTab(){ return  _selectedTab; }
 
+	public void setTabinitpatient(IPatient tabinitpatient) {
+		_tabinitpatient = tabinitpatient;
+	}
+
     // *****************************************************************************************************************
     //
     // ADD NEW TABS METHODS
@@ -189,50 +193,52 @@ public class TabModel implements ILogger {
     //
     // *****************************************************************************************************************
 
-    public void addPatientRecordTab(IPatient patient){
-        _model = Model.getInstance();
-        _model._patient = patient;
-        _tabinitpatient = patient;
-        String tabid = "patientrecord" + patient.getSocialInsuranceNr();
-        loadTab("RECORD: " + patient.getLastName(), "fxml/PatientRecordTab.fxml", tabid);
-    }
-
-    public void addDiagnosisTab(IPatient patient){
-        _model = Model.getInstance();
-        _model._patient = patient;
-        _tabinitpatient = patient;
-        loadTab("DIAGNOSIS: " + patient.getFirstName() + " " + patient.getLastName() ,"fxml/DiagnosisTab.fxml", "diagnosis" + patient.getSocialInsuranceNr());
-    }
-
-    public void addExaminationTab(IPatient patient){
-        _model = Model.getInstance();
-        _model._patient = patient;
-        _tabinitpatient = patient;
-        String tabid = "protocols" + patient.getSocialInsuranceNr();
-        loadTab("PROTOCOLS: " +  patient.getLastName(), "fxml/ExaminationTab.fxml", tabid);
-    }
-
-    public void addPrescriptionTab(IPatient patient){
-        _model = Model.getInstance();
-        _model._patient = patient;
-        _tabinitpatient = patient;
-        String tabid = "prescription" + patient.getSocialInsuranceNr();
-        loadTab("PRESCRIPTIONS: " +  patient.getLastName(), "fxml/PrescriptionTab.fxml", tabid);
-    }
-
-    public void addNewExaminationTab(IPatient patient){
-        _model = Model.getInstance();
-        _model._patient = patient;
-        _tabinitpatient = patient;
-        String tabid = "newexamination" + patient.getSocialInsuranceNr();
-        loadTab("EXAMINATION: " + patient.getLastName(), "fxml/NewExaminationTab.fxml", tabid);
-    }
-
-    public void addSearchTab(){
-        loadTab("Search patient", "fxml/SearchPatientTab.fxml", "search");
-    }
-
-    public void addNewPatientTab(){
-        loadTab("Add new patient", "fxml/NewPatientTab.fxml", "newpatient");
-    }
+//    public void addPatientRecordTab(IPatient patient){
+//        _model = Model.getInstance();
+//        _model._patient = patient;
+//        _tabinitpatient = patient;
+//        String tabid = "patientrecord" + patient.getSocialInsuranceNr();
+//        loadTab("RECORD: " + patient.getLastName(), "fxml/PatientRecordTab.fxml", tabid);
+//    }
+//
+//    public void addDiagnosisTab(IPatient patient){
+//        _model = Model.getInstance();
+//        _model._patient = patient;
+//        _tabinitpatient = patient;
+//        loadTab("DIAGNOSIS: " + patient.getFirstName() + " " + patient.getLastName() ,"fxml/DiagnosisTab.fxml", "diagnosis" + patient.getSocialInsuranceNr());
+//    }
+//
+//    public void addExaminationTab(IPatient patient){
+//        _model = Model.getInstance();
+//        _model._patient = patient;
+//        _tabinitpatient = patient;
+//        String tabid = "protocols" + patient.getSocialInsuranceNr();
+//        loadTab("PROTOCOLS: " +  patient.getLastName(), "fxml/ExaminationTab.fxml", tabid);
+//    }
+//
+//    public void addPrescriptionTab(IPatient patient){
+//        _model = Model.getInstance();
+//        _model._patient = patient;
+//        _tabinitpatient = patient;
+//        String tabid = "prescription" + patient.getSocialInsuranceNr();
+//        loadTab("PRESCRIPTIONS: " +  patient.getLastName(), "fxml/PrescriptionTab.fxml", tabid);
+//    }
+//
+//    public void addNewExaminationTab(IPatient patient){
+//        _model = Model.getInstance();
+//        _model._patient = patient;
+//        _tabinitpatient = patient;
+//        String tabid = "newexamination" + patient.getSocialInsuranceNr();
+//        loadTab("EXAMINATION: " + patient.getLastName(), "fxml/NewExaminationTab.fxml", tabid);
+//    }
+//
+//    public void addSearchTab(){
+//        loadTab("Search patient", "fxml/SearchPatientTab.fxml", "search");
+//    }
+//
+//    public void addNewPatientTab(){
+//        loadTab("Add new patient", "fxml/NewPatientTab.fxml", "newpatient");
+//    }
+    
+    
 }

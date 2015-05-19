@@ -44,7 +44,7 @@ public interface IExaminationProtocol extends IDomain {
 
     void setOrthoptist(IOrthoptist orthoptist);
 
-    IDiagnosis getDiagnosis();
+    IDiagnosis getTeamFDiagnosis();
 
     void setDiagnosis(IDiagnosis diagnosis);
 

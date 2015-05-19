@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright (c) 2015 Team F
+  ~
+  ~ This file is part of Oculus.
+  ~ Oculus is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+  ~ Oculus is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+  ~ You should have received a copy of the GNU General Public License along with Oculus.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<?import javafx.scene.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="examinationPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.oculus.teamf.presentation.view.ExaminationController">
+   <children>
+      <GridPane prefHeight="612.0" prefWidth="906.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="324.0" minWidth="324.0" prefWidth="324.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="116.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="195.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="230.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="35.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="16.0" minHeight="16.0" prefHeight="16.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="143.0" minHeight="10.0" prefHeight="110.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="131.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="111.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="84.0" minHeight="10.0" prefHeight="84.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="7.0" prefHeight="7.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Pane fx:id="colorPane6" maxHeight="1.7976931348623157E308" prefHeight="20.0" prefWidth="324.0" GridPane.columnSpan="5" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </GridPane.margin>
+            </Pane>
+            <Pane fx:id="colorPane3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets top="15.0" />
+               </GridPane.margin></Pane>
+            <Pane fx:id="colorPane2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets top="15.0" />
+               </GridPane.margin></Pane>
+            <Pane fx:id="colorPane1" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets top="15.0" />
+               </GridPane.margin></Pane>
+            <ToolBar prefHeight="40.0" prefWidth="200.0" GridPane.columnSpan="6">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <items>
+                  <Button fx:id="newExaminationButton" mnemonicParsing="false" onAction="#addNewExaminationProtocol" prefHeight="31.0" prefWidth="155.0" text="New Examination" textAlignment="CENTER" />
+                  <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshTab" prefHeight="31.0" prefWidth="155.0" text="Refresh" />
+               </items></ToolBar>
+            <Text fx:id="examinationLnameFnameSvn" strokeType="OUTSIDE" strokeWidth="0.0" text="Lastname, Firstname, svn" GridPane.rowIndex="1" />
+            <Text fx:id="examinationCurrDate" strokeType="OUTSIDE" strokeWidth="0.0" text="curr Date" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextArea fx:id="examinationDocumentation" editable="false" prefHeight="2.0" prefWidth="302.0" wrapText="true" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="7" GridPane.rowSpan="2">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor></TextArea>
+            <Label text=" EXAMINATION PROTOCOLS: " GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets top="15.0" />
+               </GridPane.margin></Label>
+            <ListView fx:id="examinationList" prefHeight="45.0" prefWidth="302.0" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2" />
+            <Label text=" PROTOCOL DETAILS:" GridPane.columnIndex="3" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets top="15.0" />
+               </GridPane.margin></Label>
+            <TextArea fx:id="textExaminationDetails" editable="false" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor></TextArea>
+            <ListView fx:id="examinationResults" prefHeight="45.0" prefWidth="302.0" GridPane.columnSpan="2" GridPane.rowIndex="7" GridPane.rowSpan="2" />
+            <Pane fx:id="colorPane21" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets top="15.0" />
+               </GridPane.margin>
+            </Pane>
+            <Label text=" EXAMINATION RESULTS:" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets top="15.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text=" PROTOCOL DESCRIPTION:" GridPane.columnIndex="3" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets top="15.0" />
+               </GridPane.margin>
+            </Label>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

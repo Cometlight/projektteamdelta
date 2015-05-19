@@ -60,14 +60,4 @@ public class RootLayoutController {
 	 public void setTab(int index) {
 		 _tabPaneRoot.getSelectionModel().select(index);
 	 }
-	 
-	 @FXML
-	 private void tabTeamFControl() {
-		 _main.showTeamFTab();
-	 }
-	 
-	 @FXML
-	 private void tabPrescriptionsControl() {
-		 _main.showPrescriptionsTab();
-	 }
 }

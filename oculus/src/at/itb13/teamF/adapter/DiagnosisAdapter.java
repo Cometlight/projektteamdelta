@@ -2,6 +2,7 @@ package at.itb13.teamF.adapter;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 import at.itb13.oculus.domain.Diagnosis;
 import at.itb13.oculus.domain.Doctor;
@@ -15,6 +16,7 @@ import at.oculus.teamf.domain.entity.exception.CouldNotGetMedicineException;
 import at.oculus.teamf.domain.entity.exception.CouldNotGetVisualAidException;
 import at.oculus.teamf.domain.entity.interfaces.IDiagnosis;
 import at.oculus.teamf.domain.entity.interfaces.IDoctor;
+import at.oculus.teamf.domain.entity.interfaces.IExaminationProtocol;
 import at.oculus.teamf.domain.entity.interfaces.IMedicine;
 import at.oculus.teamf.domain.entity.interfaces.IVisualAid;
 
@@ -77,26 +79,44 @@ public class DiagnosisAdapter implements IAdapter, IDiagnosis{
 	@Override
 	public IDoctor getDoctor() {
 		Doctor doctor =_diagnosis.getDoctor();
-		return new DoctorAdapter(doctor);
+		if(doctor != null){
+			return new DoctorAdapter(doctor);
+		}
+		return null;
 	}
 
 	@Override
 	public void setDoctor(IDoctor doctor) {
-		DoctorAdapter doctorAdapter = (DoctorAdapter) doctor;
-		Doctor doc = (Doctor) doctorAdapter.getDomainObject();
-		_diagnosis.setDoctor(doc);
+		if(doctor != null){
+			DoctorAdapter doctorAdapter = (DoctorAdapter) doctor;
+			Doctor doc = (Doctor) doctorAdapter.getDomainObject();
+			_diagnosis.setDoctor(doc);
+		}
 	}
 
 	@Override
 	public Collection<IMedicine> getMedicine()
 			throws CouldNotGetMedicineException {
-		Collection<IMedicine> iMedicineCollection = new HashSet<>();
-		Collection<Medicine> medicineCollection = _diagnosis.getMedicines();
-		for(Medicine med : medicineCollection){
-			iMedicineCollection.add((IMedicine) med);
-		}
+//		Collection<IMedicine> iMedicineCollection = new HashSet<>();
+//		Collection<Medicine> medicineCollection = _diagnosis.getMedicines();
+//		for(Medicine med : medicineCollection){
+//			iMedicineCollection.add((IMedicine) med);
+//		}
+//		
+//		return iMedicineCollection;
 		
-		return iMedicineCollection;
+		if(_diagnosis.getMedicines() != null){
+		
+		Set<Medicine> set = _diagnosis.getMedicines();
+		Collection<IMedicine> coll = new HashSet<>();
+		for(Medicine med : set) {
+			MedicineAdapter medAda = new MedicineAdapter(med);
+			coll.add(medAda);
+		}
+		return coll;
+		}else{
+			return null;
+		}
 	}
 
 	@Override

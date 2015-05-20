@@ -235,7 +235,7 @@ public class ExaminationController implements Initializable, ILogger {
     public Task<Void> loadExaminationListsThread() {return new Task<Void>() {
         @Override
         protected Void call() {
-            //IPatient selectedPatient =  _model.getTabModel().getInitPatient();
+            IPatient selectedPatient =  _model.getTabModel().getInitPatient();
             log.debug("Loading examination protocols for patient: " + _initPatient.getLastName());
 //            try {
                 _protocolist = FXCollections.observableArrayList(_model.getExaminationModel().getAllExaminationProtcols(_initPatient));

@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.presentation.OculusMain;
 import at.itb13.teamD.domain.interfaces.ICalendarEvent;
 import at.itb13.teamD.domain.interfaces.IPatient;
 
@@ -20,7 +19,7 @@ import at.itb13.teamD.domain.interfaces.IPatient;
  */
 public class EventInformationController {
 	@SuppressWarnings("unused")
-	private static final Logger _logger = LogManager.getLogger(OculusMain.class.getName());
+	private static final Logger _logger = LogManager.getLogger(EventInformationController.class.getName());
 
 	@FXML
 	private Label _descriptionLabel;

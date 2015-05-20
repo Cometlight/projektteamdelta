@@ -65,12 +65,15 @@ public class ReceivePatientController implements ILogger {
 
         IExaminationProtocol examinationProtocol = null;
 		try {
+			/* -- Team D: Changed '0' to 'null', because Hibernate does not generate a new ID otherwise. It works with '0' for the other team, because they rebuild parts of Hibernate themself. -- */
 			examinationProtocol = DependenceResolverTB2.getInstance().getFactory().createExaminationProtocol(null, starttime, endtime, description,iPatient,  iDoctor,  iOrthoptist, null);
 		} catch (NotInitatedExceptions e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
        IPatient patient =  iPatient;
+       
+       /* -- Team D: Added following lines, because our domain layer does not interact with the database -- */
         try {
 			patient.addExaminationProtocol(examinationProtocol);
 			try {
@@ -79,10 +82,10 @@ public class ReceivePatientController implements ILogger {
 				log.error("Failed to save examinationProtocol", e);
 			}
 		} catch (CouldNotAddExaminationProtocol e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Failed to add ExaminationProtocol", e);
 		}
-
+        /* -- -- -- */
+        
         log.info("New Examination Protocol has been created!");
 
         return examinationProtocol;

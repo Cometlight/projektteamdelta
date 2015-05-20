@@ -133,8 +133,10 @@ public class NewExaminationController implements Initializable, ILogger {
     @FXML
     public void saveExaminationButtonHandler(ActionEvent actionEvent) {
         if (examinationDocumentation.getText().length() != 0) {
+        	/* -- Team D: Changed because we don't use dynamic tabs. -- */
 //            IPatient selectedPatient = _model.getTabModel().getPatientFromSelectedTab(_model.getTabModel().getSelectedTab());
         	IPatient selectedPatient = _model.getPatient();
+        	/* -- -- -- */
             _timeline.stop();
             examinationCurrTime.setText("TIMECOUNTER: " + convertSecondToHHMMString(_timeSeconds) + " [Examination done]");
             Date enddate = new Date();
@@ -156,14 +158,17 @@ public class NewExaminationController implements Initializable, ILogger {
     @FXML
     public void addDiagnosisButtonHandler(ActionEvent actionEvent) {
         // add diagnosis for selected patient
+    	/* -- Team D: Changed because we don't use a tab system. -- */
         _model.getExaminationModel().setCurrentExaminationProtocol(newexam);
-        IPatient selectedPatient = _model.getTabModel().getPatientFromSelectedTab(_model.getTabModel().getSelectedTab());
+//        IPatient selectedPatient = _model.getTabModel().getPatientFromSelectedTab(_model.getTabModel().getSelectedTab());
 //        _model.getTabModel().addDiagnosisTab(selectedPatient);
         showNewDiagnosis();
+        /* -- -- -- */
         addDiagnosisButton.setDisable(true);
         prescriptionButton.setDisable(false);
     }
     
+    /* -- Team D: Added in order to use a popup instead of a new tab. -- */
     private void showNewDiagnosis() {
     	try {
 			// Load the fxml file and create a new stage for the popup dialog.
@@ -189,16 +194,20 @@ public class NewExaminationController implements Initializable, ILogger {
 			log.error("showNewDiagnosis failed", ex);
 		}
     }
+    /* -- -- -- */
 
     @FXML
     public void addPrescriptionButtonHandler(ActionEvent actionEvent) {
         //opens a new PrescriptionTab
 //        System.out.println("SELECTED TAB PRES: " + _model.getTabModel().getSelectedTab().getId());
+    	/* -- Team D: Changed because we don't use a tab system. -- */
 //        IPatient selectedPatient = _model.getTabModel().getPatientFromSelectedTab(_model.getTabModel().getSelectedTab());
     	_model.getExaminationModel().setCurrentExaminationProtocol(newexam);
     	showNewPrescription();
+    	/* -- -- -- */
     }
     
+    /* -- Team D: Added in order to use a popup instead of a new tab. -- */
     private void showNewPrescription() {
     	try {
 			// Load the fxml file and create a new stage for the popup dialog.
@@ -222,6 +231,7 @@ public class NewExaminationController implements Initializable, ILogger {
 			log.error("showNewPrescription failed", ex);
 		}
     }
+    /* -- -- -- */
 
     @FXML
     public void refreshTab(ActionEvent actionEvent) {

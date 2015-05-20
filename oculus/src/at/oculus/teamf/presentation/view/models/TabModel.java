@@ -193,7 +193,8 @@ public class TabModel implements ILogger {
     //          NewPatient (adding new patient to database)
     //
     // *****************************************************************************************************************
-
+	
+	/* -- Team D: Remove the methods because we don't have dynamic Tab loading. -- */
 //    public void addPatientRecordTab(IPatient patient){
 //        _model = Model.getInstance();
 //        _model._patient = patient;

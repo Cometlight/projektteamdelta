@@ -69,16 +69,22 @@ public class DiagnosisController implements Initializable,ILogger {
                 //Todo
                 notInitatedExceptions.printStackTrace();
             }
+            /* -- Team D: Removed because we don't have a dynamic tab loading system. -- */
 //            IPatient currpatient  = _model.getTabModel().getPatientFromSelectedTab(_model.getTabModel().getSelectedTab());
 //            Tab origintab = _model.getTabModel().getTabFromPatientAndID("newexamination", currpatient);
 //            _model.getTabModel().closeSelectedAndSwitchTab(origintab);
+            /* -- -- -- */
+            /* -- Team D: Added in order to close the popup, because we don't use dynamic tabs. -- */
             _dialogStage.close();
+            /* -- -- -- */
         } else {
             DialogBoxController.getInstance().showInformationDialog("Data needed", "Please add diagnosis title and/or description");
         }
     }
     
+    /* -- Team D: Added because we use popups instead of dynamic tabs -- */
     public void setDialogStage(Stage dialogStage) {
     	_dialogStage = dialogStage;
     }
+    /* -- -- -- */
 }

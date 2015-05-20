@@ -6,8 +6,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 
-import at.itb13.oculus.domain.Diagnosis;
-import at.itb13.oculus.domain.Medicine;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Prescription;
 import at.itb13.oculus.domain.PrescriptionEntry;
@@ -19,7 +17,7 @@ import at.oculus.teamf.domain.entity.interfaces.IPrescription;
 import at.oculus.teamf.domain.entity.interfaces.IPrescriptionEntry;
 
 /**
- * TODO: Insert description here.
+ * Implementation of IPrescription of Team F.
  * 
  * @author Andrew Sparr
  * @date 18.05.2015

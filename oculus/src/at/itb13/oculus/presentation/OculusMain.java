@@ -38,10 +38,7 @@ import at.itb13.teamD.presentation.controller.TabCalendarController;
 import at.itb13.teamD.technicalServices.persistenceFacade.PersistenceFacadeProvider;
 import at.itb13.teamF.factories.FactoryTeamF;
 import at.itb13.teamF.persistence.PersistenceFacadeTeamF;
-import at.oculus.teamf.application.facade.PrescriptionController;
 import at.oculus.teamf.application.facade.dependenceResolverTB2.DependenceResolverTB2;
-import at.oculus.teamf.presentation.view.DiagnosisController;
-import at.oculus.teamf.presentation.view.models.Model;
 
 /**
  * 
@@ -183,33 +180,6 @@ public class OculusMain extends Application {
 			_logger.error("initRootLayout() failed", ex);
 		}
 	}
-	
-	/**
-	 * Loads the view/tabPatient.fxml-File and display it in the center of the root-Layout.
-	 */
-//	public void showPatientOverview() {		--> TODO delete?
-//		if(_rootLayout != null) {
-//			try {
-//				// Load person overview.
-//				FXMLLoader loader = new FXMLLoader();
-//				loader.setLocation(OculusMain.class
-//						.getResource("view/TabPatient.fxml"));
-//				AnchorPane overview = (AnchorPane) loader.load();
-//	
-//				// Set person overview into the center of root layout.
-//				_rootLayout.setCenter(overview);
-//	
-//				// Give the controller access to the main app.
-//				TabPatientController controller = loader.getController();
-//				controller.setMain(this);
-//				
-//				_logger.info("Successfully loaded PatientOverview");
-//			} catch (IOException ex) {
-//				_logger.error("Failed to load PatientOverview",ex);
-//				
-//			}
-//		}
-//	}
 	
 	private void initAppointmentsTab() {
 		try {

@@ -189,12 +189,14 @@ public class ExaminationController implements Initializable, ILogger {
 
     @FXML
     public void addNewExaminationProtocol(ActionEvent actionEvent) {
+    	/* -- Team D: Changed because we don't have a dynamic tab loading system. -- */
         IPatient selectedpatient =  _model.getTabModel().getPatientFromSelectedTab(_model.getTabModel().getSelectedTab());
 //        _model.getTabModel().addNewExaminationTab(selectedpatient);
         showNewExaminationProtocol();
         
     }
     
+    /* -- Team D: Added in order to use a popup instead of a new tab. -- */
     private void showNewExaminationProtocol() {
     	try {
 			// Load the fxml file and create a new stage for the popup dialog.
@@ -218,6 +220,7 @@ public class ExaminationController implements Initializable, ILogger {
 			log.error("showNewExaminationProtocol failed", ex);
 		}
     }
+    /* -- -- -- */
 
     @FXML
     public void refreshTab(ActionEvent actionEvent) {

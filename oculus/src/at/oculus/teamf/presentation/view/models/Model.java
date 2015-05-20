@@ -150,7 +150,7 @@ public class Model implements Serializable, ILogger{
     // user management
     // *******************************************************************
 
-    public void setLoggedInUser(IUser user){	// TODO: einmal beim start aufrufen
+    public void setLoggedInUser(IUser user){
         _loggedInUser = user;
     }
     public IUser getLoggedInUser(){

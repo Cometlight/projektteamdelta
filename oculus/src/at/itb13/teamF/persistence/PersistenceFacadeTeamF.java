@@ -1,20 +1,17 @@
 package at.itb13.teamF.persistence;
-import at.itb13.teamD.technicalServices.persistenceFacade.*;
+import java.util.Collection;
+import java.util.LinkedList;
+
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import at.itb13.teamD.technicalServices.exceptions.PersistenceFacadeException;
+import at.itb13.teamD.technicalServices.persistenceFacade.PersistenceFacadeProvider;
+
 /**
- * TODO: Insert description here.
+ * Implementation of IFacade of Team F
  * 
  * @author Andrew Sparr
  * @date 18.05.2015
  */
-
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacade;
-import at.itb13.teamD.technicalServices.exceptions.PersistenceFacadeException;
-import at.itb13.teamD.technicalServices.persistenceFacade.PersistenceFacadeProvider;
 import at.oculus.teamf.databaseconnection.session.exception.ClassNotMappedException;
 import at.oculus.teamf.domain.entity.interfaces.IDomain;
 import at.oculus.teamf.persistence.IFacade;
@@ -27,6 +24,7 @@ import at.oculus.teamf.persistence.exception.search.SearchInterfaceNotImplemente
 
 public class PersistenceFacadeTeamF implements IFacade{
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T getById(Class clazz, int id) throws BadConnectionException,
 			NoBrokerMappedException, DatabaseOperationException {
@@ -34,6 +32,7 @@ public class PersistenceFacadeTeamF implements IFacade{
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> Collection<T> getAll(Class clazz) throws BadConnectionException,
 			NoBrokerMappedException, DatabaseOperationException {
@@ -75,6 +74,7 @@ public class PersistenceFacadeTeamF implements IFacade{
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> Collection<T> search(Class clazz, String... search)
 			throws SearchInterfaceNotImplementedException,

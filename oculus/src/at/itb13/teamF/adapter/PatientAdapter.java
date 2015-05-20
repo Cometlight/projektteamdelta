@@ -9,11 +9,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import at.itb13.oculus.domain.CalendarEvent;
+import at.itb13.oculus.domain.Diagnosis;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.ExaminationProtocol;
+import at.itb13.oculus.domain.ExaminationResult;
+import at.itb13.oculus.domain.Medicine;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Patient.Gender;
 import at.itb13.oculus.domain.Prescription;
+import at.itb13.oculus.domain.VisualAid;
 import at.itb13.teamF.interfaces.IAdapter;
 import at.oculus.teamf.domain.entity.exception.CouldNotAddExaminationProtocol;
 import at.oculus.teamf.domain.entity.exception.CouldNotGetCalendarEventsException;
@@ -357,16 +361,19 @@ public class PatientAdapter implements IPatient, IAdapter {
 	@Override
 	public Collection<IExaminationProtocol> getExaminationProtocol()
 			throws CouldNotGetExaminationProtolException {
-//		Set<ExaminationProtocol> set = _patient.getExaminationprotocols();
-//		Collection<IExaminationProtocol> coll = new HashSet<>();
-//		coll.addAll((Collection<? extends IExaminationProtocol>) set);	// das war falsch hier
 		Set<ExaminationProtocol> set = _patient.getExaminationprotocols();
-		Collection<IExaminationProtocol> coll = new HashSet<>();
-		for(ExaminationProtocol exPro : set) {
-			ExaminationProtocolAdapter exProAda = new ExaminationProtocolAdapter(exPro);
-			coll.add(exProAda);
+		
+		if(set != null){
+			Collection<IExaminationProtocol> coll = new HashSet<>();
+			for(ExaminationProtocol exPro : set) {
+				ExaminationProtocolAdapter exProAda = new ExaminationProtocolAdapter(exPro);
+				coll.add(exProAda);
+			}
+			return coll;
 		}
-		return coll;
+		else{
+			return null;
+		}
 	}
 
 	/*
@@ -376,6 +383,7 @@ public class PatientAdapter implements IPatient, IAdapter {
 	@Override
 	public void setExaminationProtocol(
 			Collection<IExaminationProtocol> protocols) {
+		//FIXME not too sure about setExaminationProtocol
 		Set<ExaminationProtocol> examinationProtocols = new HashSet<>((Set<? extends ExaminationProtocol>) protocols);
 		_patient.setExaminationprotocols(examinationProtocols);
 	}
@@ -387,8 +395,11 @@ public class PatientAdapter implements IPatient, IAdapter {
 	public void addExaminationProtocol(IExaminationProtocol examinationProtocol)
 			throws CouldNotAddExaminationProtocol {
 		Collection<ExaminationProtocol> coll = _patient.getExaminationprotocols();
-		ExaminationProtocolAdapter exProtAda = (ExaminationProtocolAdapter)examinationProtocol;
-		coll.add((ExaminationProtocol)exProtAda.getDomainObject());
+		
+		if(coll != null){
+			ExaminationProtocolAdapter exProtAda = (ExaminationProtocolAdapter)examinationProtocol;
+			coll.add((ExaminationProtocol)exProtAda.getDomainObject());
+		}
 	}
 
 	/*
@@ -397,12 +408,17 @@ public class PatientAdapter implements IPatient, IAdapter {
 	@Override
 	public Collection<IDiagnosis> getDiagnoses()
 			throws CouldNotGetDiagnoseException {
-		Collection<IDiagnosis> results = new HashSet<>();
-		Collection<ExaminationProtocol> coll = _patient.getExaminationprotocols();
-		for(ExaminationProtocol entry : coll){
-			results.add((IDiagnosis) entry.getDiagnosis());
+		Set<ExaminationProtocol> set = _patient.getExaminationprotocols();
+		if(set != null){
+			Collection<IDiagnosis> coll = new HashSet<>();
+			for(ExaminationProtocol exPro : set){
+				DiagnosisAdapter diagAda = new DiagnosisAdapter(exPro.getDiagnosis());
+				coll.add(diagAda);
+			}
+			return coll;
 		}
-		return results;
+
+		return null;
 	}
 
 	/*
@@ -411,16 +427,35 @@ public class PatientAdapter implements IPatient, IAdapter {
 	@Override
 	public Collection<IMedicine> getMedicine()
 			throws CouldNotGetMedicineException {
-		Collection<IMedicine> results = new HashSet<>();
-		Collection<IDiagnosis> diagnosis = new HashSet<>();
-		Collection<ExaminationProtocol> coll = _patient.getExaminationprotocols();
-		for(ExaminationProtocol entry : coll){
-			diagnosis.add((IDiagnosis) entry.getDiagnosis());
+		
+		//FIXME Done unless flawed
+		
+		Collection<IMedicine> medColl = new HashSet<>();
+		Collection<Diagnosis> diagColl = new HashSet<>();
+		Collection<ExaminationProtocol> examProColl = _patient.getExaminationprotocols();
+		
+		if(examProColl != null){
+			for(ExaminationProtocol entry : examProColl){
+				diagColl.add((entry.getDiagnosis()));
+			}
+			
+			for(Diagnosis entry : diagColl){
+			Collection<Medicine> tempMedicineSet = entry.getMedicines();
+			
+				for(Medicine visAid : tempMedicineSet){
+					MedicineAdapter medicineAdapter = new MedicineAdapter(visAid);
+					medColl.add(medicineAdapter);
+				}
+			}
+			return medColl;
 		}
-		for(IDiagnosis entry : diagnosis){
-			results = entry.getMedicine();
-		}
-		return results;
+		return null;
+		
+		
+		
+		
+		
+		
 	}
 
 	/*
@@ -429,12 +464,24 @@ public class PatientAdapter implements IPatient, IAdapter {
 	@Override
 	public Collection<IExaminationResult> getExaminationResults()
 			throws CouldNotGetExaminationResultException {
-		Collection<IExaminationResult> results = new HashSet<>();
+		
+		//FIXME Done unless flawed
 		Collection<ExaminationProtocol> coll = _patient.getExaminationprotocols();
-		for(ExaminationProtocol entry : coll){
-			results.add((IExaminationResult) entry.getExaminationResults());
+		
+		if(coll != null){
+			Collection<IExaminationResult> resultColl = new HashSet<>();
+			for(ExaminationProtocol entry : coll){
+				Set<ExaminationResult> set = entry.getExaminationResults();
+				
+				for(ExaminationResult exRes : set){
+					ExaminationResultAdapter exProAda = new ExaminationResultAdapter(exRes);
+					resultColl.add(exProAda);
+				}
+			}
+			return resultColl;
 		}
-		return results;
+		
+		return null;
 	}
 
 	/*
@@ -445,9 +492,14 @@ public class PatientAdapter implements IPatient, IAdapter {
 	public Collection<IPrescription> getPrescriptions()
 			throws CouldNotGetPrescriptionException {
 		Set<Prescription> set = _patient.getPrescriptions();
-		Collection<IPrescription> coll = new HashSet<>();
-		coll.addAll((Collection<? extends IPrescription>) set);
-		return coll;
+		
+		if(set != null){
+			Collection<IPrescription> coll = new HashSet<>();
+			coll.addAll((Collection<? extends IPrescription>) set);
+			return coll;
+		}
+		
+		return null;
 	}
 
 	/*
@@ -456,16 +508,27 @@ public class PatientAdapter implements IPatient, IAdapter {
 	@Override
 	public Collection<IVisualAid> getVisualAid()
 			throws CouldNotGetVisualAidException {
-		Collection<IVisualAid> results = new HashSet<>();
-		Collection<IDiagnosis> diagnosis = new HashSet<>();
-		Collection<ExaminationProtocol> coll = _patient.getExaminationprotocols();
-		for(ExaminationProtocol entry : coll){
-			diagnosis.add((IDiagnosis) entry.getDiagnosis());
+		//FIXME Done unless flawed 
+		Collection<IVisualAid> visualAidColl = new HashSet<>();
+		Collection<Diagnosis> diagnosisSet = new HashSet<>();
+		Collection<ExaminationProtocol> examProColl = _patient.getExaminationprotocols();
+		
+		if(examProColl != null){
+			for(ExaminationProtocol entry : examProColl){
+				diagnosisSet.add((entry.getDiagnosis()));
+			}
+			
+			for(Diagnosis entry : diagnosisSet){
+			Collection<VisualAid> tempVisualAidsSet = entry.getVisualaids();
+			
+				for(VisualAid visAid : tempVisualAidsSet){
+					VisualAidAdapter visAdapter = new VisualAidAdapter(visAid);
+					visualAidColl.add(visAdapter);
+				}
+			}
+			return visualAidColl;
 		}
-		for(IDiagnosis entry : diagnosis){
-			results = entry.getVisualAid();
-		}
-		return results;
+		return null;
 	}
 
 

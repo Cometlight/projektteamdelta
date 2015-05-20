@@ -359,7 +359,7 @@ public class PatientAdapter implements IPatient, IAdapter {
 			throws CouldNotGetExaminationProtolException {
 //		Set<ExaminationProtocol> set = _patient.getExaminationprotocols();
 //		Collection<IExaminationProtocol> coll = new HashSet<>();
-//		coll.addAll((Collection<? extends IExaminationProtocol>) set);
+//		coll.addAll((Collection<? extends IExaminationProtocol>) set);	// das war falsch hier
 		Set<ExaminationProtocol> set = _patient.getExaminationprotocols();
 		Collection<IExaminationProtocol> coll = new HashSet<>();
 		for(ExaminationProtocol exPro : set) {

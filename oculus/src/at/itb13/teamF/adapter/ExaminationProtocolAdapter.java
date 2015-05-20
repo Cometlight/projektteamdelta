@@ -2,6 +2,7 @@ package at.itb13.teamF.adapter;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -175,4 +176,12 @@ public class ExaminationProtocolAdapter implements IAdapter,
 		return _examinationProtocol;
 	}
 
+	/*
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		return _examinationProtocol.getStartProtocol().format(formatter);
+	}
 }

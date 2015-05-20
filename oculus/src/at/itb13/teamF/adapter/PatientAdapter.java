@@ -197,7 +197,11 @@ public class PatientAdapter implements IPatient, IAdapter {
 	@Override
 	public Date getBirthDay() {
 		LocalDate localDate = _patient.getDateOfBirth();
-		Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Date date = null;
+		if(localDate != null) {
+			date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		}
+		
 		return date;
 	}
 

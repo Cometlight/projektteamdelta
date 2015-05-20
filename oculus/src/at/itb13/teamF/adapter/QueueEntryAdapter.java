@@ -94,7 +94,10 @@ public class QueueEntryAdapter implements IQueueEntry, IAdapter {
 	@Override
 	public IPatient getPatient() {
 		Patient patient = _queueEntry.getPatient();
-		return new PatientAdapter(patient);
+		if(patient != null){
+			return new PatientAdapter(patient);
+		}
+		return null;
 	}
 
 	/*
@@ -104,9 +107,11 @@ public class QueueEntryAdapter implements IQueueEntry, IAdapter {
 	 */
 	@Override
 	public void setPatient(IPatient patient) {
-		PatientAdapter patientAdapter = (PatientAdapter) patient;
-		Patient pa = (Patient) patientAdapter.getDomainObject();
-		_queueEntry.setPatient(pa);
+		if(patient != null){
+			PatientAdapter patientAdapter = (PatientAdapter) patient;
+			Patient pa = (Patient) patientAdapter.getDomainObject();
+			_queueEntry.setPatient(pa);
+		}
 	}
 
 	/*

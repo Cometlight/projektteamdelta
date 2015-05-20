@@ -216,7 +216,10 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	@Override
 	public ICalendar getCalendar() {
 		Calendar calendar = _orthoptist.getCalendar();
-		return new CalendarAdapter(calendar);
+		if(calendar != null){
+			return new CalendarAdapter(calendar);
+		} 
+			return null;
 	}
 
 	/*
@@ -224,9 +227,11 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public void setCalendar(ICalendar calendar) {
-		CalendarAdapter calendarAdapter = (CalendarAdapter)calendar;
-		Calendar cal = (Calendar)calendarAdapter.getDomainObject();
-		_orthoptist.setCalendar(cal);
+		if(calendar != null){
+			CalendarAdapter calendarAdapter = (CalendarAdapter)calendar;
+			Calendar cal = (Calendar)calendarAdapter.getDomainObject();
+			_orthoptist.setCalendar(cal);
+		}
 	}
 
 	/*

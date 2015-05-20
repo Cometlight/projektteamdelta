@@ -77,4 +77,12 @@ public class MedicineAdapter implements IAdapter, IMedicine {
 		return _medicine;
 	}
 
+	/*
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return _medicine.getName();
+	}
+
 }

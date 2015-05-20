@@ -36,14 +36,19 @@ public class MedicineAdapter implements IAdapter, IMedicine {
 	@Override
 	public IDiagnosis getDiagnosis() {
 		Diagnosis diagnosis = _medicine.getDiagnosis();
-		return new DiagnosisAdapter(diagnosis);
+		if(diagnosis != null){
+			return new DiagnosisAdapter(diagnosis);
+		}
+		return null;
 	}
 
 	@Override
 	public void setDiagnosis(IDiagnosis diagnosis) {
-		DiagnosisAdapter diagnosisAdapter = (DiagnosisAdapter) diagnosis;
-		Diagnosis diag = (Diagnosis) diagnosisAdapter.getDomainObject();
-		_medicine.setDiagnosis(diag);
+		if(diagnosis != null){
+			DiagnosisAdapter diagnosisAdapter = (DiagnosisAdapter) diagnosis;
+			Diagnosis diag = (Diagnosis) diagnosisAdapter.getDomainObject();
+			_medicine.setDiagnosis(diag);
+		}
 		
 	}
 

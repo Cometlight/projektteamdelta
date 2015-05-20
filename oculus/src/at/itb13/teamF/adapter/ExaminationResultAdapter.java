@@ -47,31 +47,40 @@ public class ExaminationResultAdapter implements IAdapter, IExaminationResult {
 
 	@Override
 	public IExaminationProtocol getExaminationProtocol() {
-		ExaminationProtocol examinationProtocol = _examinationResult
-				.getExaminationprotocol();
-		return new ExaminationProtocolAdapter(examinationProtocol);
+		ExaminationProtocol examinationProtocol = _examinationResult.getExaminationprotocol();
+		if(examinationProtocol != null){
+			return new ExaminationProtocolAdapter(examinationProtocol);
+		}
+		return null;
 	}
 
 	@Override
 	public void setExaminationProtocol(
 			IExaminationProtocol examinationProtocolEntity) {
-		ExaminationProtocolAdapter examinationProtocolAdapter = (ExaminationProtocolAdapter) examinationProtocolEntity;
-		ExaminationProtocol exP = (ExaminationProtocol) examinationProtocolAdapter
-				.getDomainObject();
-		_examinationResult.setExaminationprotocol(exP);
+		if(examinationProtocolEntity != null){
+			ExaminationProtocolAdapter examinationProtocolAdapter = (ExaminationProtocolAdapter) examinationProtocolEntity;
+			ExaminationProtocol exP = (ExaminationProtocol) examinationProtocolAdapter
+					.getDomainObject();
+			_examinationResult.setExaminationprotocol(exP);
+		}
 	}
 
 	@Override
 	public IUser getUser() {
 		User user = _examinationResult.getUser();
-		return new UserAdapter(user);
+		if(user != null){
+			return new UserAdapter(user);
+		}
+		return null;
 	}
 
 	@Override
 	public void setUser(IUser user) {
-		UserAdapter userAdapter = (UserAdapter) user;
-		User concreteUser = (User) userAdapter.getDomainObject();
-		_examinationResult.setUser(concreteUser);
+		if(user != null){
+			UserAdapter userAdapter = (UserAdapter) user;
+			User concreteUser = (User) userAdapter.getDomainObject();
+			_examinationResult.setUser(concreteUser);
+		}
 	}
 
 	@Override
@@ -115,13 +124,19 @@ public class ExaminationResultAdapter implements IAdapter, IExaminationResult {
 	@Override
 	public IDoctor getDoctor() {
 		Doctor doctor = _examinationResult.getUser().getDoctor();
-		return new DoctorAdapter(doctor);
+		if(doctor != null){
+			return new DoctorAdapter(doctor);
+		} 
+		return null;
 	}
 
 	@Override
 	public IOrthoptist getOrthoptist() {
 		Orthoptist orthoptist = _examinationResult.getUser().getOrthoptist();
-		return new OrthoptistAdapter(orthoptist);
+		if(orthoptist != null){
+			return new OrthoptistAdapter(orthoptist);
+		}
+		return null;
 	}
 
 	@Override

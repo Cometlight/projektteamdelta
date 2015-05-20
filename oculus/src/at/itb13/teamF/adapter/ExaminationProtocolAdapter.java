@@ -16,6 +16,7 @@ import at.itb13.oculus.domain.Medicine;
 import at.itb13.oculus.domain.Orthoptist;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.User;
+import at.itb13.oculus.domain.VisualAid;
 import at.itb13.teamF.interfaces.IAdapter;
 import at.oculus.teamf.domain.entity.exception.CouldNotGetExaminationResultException;
 import at.oculus.teamf.domain.entity.interfaces.IDiagnosis;
@@ -24,6 +25,7 @@ import at.oculus.teamf.domain.entity.interfaces.IExaminationProtocol;
 import at.oculus.teamf.domain.entity.interfaces.IExaminationResult;
 import at.oculus.teamf.domain.entity.interfaces.IOrthoptist;
 import at.oculus.teamf.domain.entity.interfaces.IPatient;
+import at.oculus.teamf.domain.entity.interfaces.IVisualAid;
 
 /**
  * TODO: Insert description here.
@@ -104,9 +106,11 @@ public class ExaminationProtocolAdapter implements IAdapter,
 
 	@Override
 	public void setDoctor(IDoctor doctor) {
-		DoctorAdapter doctorAdapter = (DoctorAdapter) doctor;
-		Doctor doc = (Doctor) doctorAdapter.getDomainObject();
-		_examinationProtocol.getUser().setDoctor(doc);
+		if(doctor != null){
+			DoctorAdapter doctorAdapter = (DoctorAdapter) doctor;
+			Doctor doc = (Doctor) doctorAdapter.getDomainObject();
+			_examinationProtocol.getUser().setDoctor(doc);
+		}
 	}
 
 	@Override
@@ -121,9 +125,11 @@ public class ExaminationProtocolAdapter implements IAdapter,
 
 	@Override
 	public void setOrthoptist(IOrthoptist orthoptist) {
-		OrthoptistAdapter orthoptistAdapter = (OrthoptistAdapter) orthoptist;
-		Orthoptist ort = (Orthoptist) orthoptistAdapter.getDomainObject();
-		_examinationProtocol.getUser().setOrthoptist(ort);
+		if(orthoptist != null){
+			OrthoptistAdapter orthoptistAdapter = (OrthoptistAdapter) orthoptist;
+			Orthoptist ort = (Orthoptist) orthoptistAdapter.getDomainObject();
+			_examinationProtocol.getUser().setOrthoptist(ort);
+		}
 	}
 
 	@Override
@@ -139,36 +145,56 @@ public class ExaminationProtocolAdapter implements IAdapter,
 
 	@Override
 	public void setDiagnosis(IDiagnosis diagnosis) {
-		DiagnosisAdapter diagnosisAdapter = (DiagnosisAdapter) diagnosis;
-		Diagnosis diag = (Diagnosis) diagnosisAdapter.getDomainObject();
-		_examinationProtocol.setDiagnosis(diag);
+		if(diagnosis != null){
+			DiagnosisAdapter diagnosisAdapter = (DiagnosisAdapter) diagnosis;
+			Diagnosis diag = (Diagnosis) diagnosisAdapter.getDomainObject();
+			_examinationProtocol.setDiagnosis(diag);
+		}
 	}
 
 	@Override
 	public IPatient getPatient() {
 		Patient patient = _examinationProtocol.getPatient();
-		return new PatientAdapter(patient);
+		if(patient != null){
+			return new PatientAdapter(patient);
+		}
+		return null;
 	}
 
 	@Override
 	public void setPatient(IPatient patient) {
-		PatientAdapter patientAdapter = (PatientAdapter) patient;
-		Patient pat = (Patient) patientAdapter.getDomainObject();
-		_examinationProtocol.setPatient(pat);
+		if(patient != null){
+			PatientAdapter patientAdapter = (PatientAdapter) patient;
+			Patient pat = (Patient) patientAdapter.getDomainObject();
+			_examinationProtocol.setPatient(pat);
+		}
 	}
 
 	@Override
 	public Collection<IExaminationResult> getExaminationResults()
 			throws CouldNotGetExaminationResultException {
-		Set<ExaminationResult> examinationResults = _examinationProtocol
-				.getExaminationResults();
-		Set<IExaminationResult> iExaminationResults = new HashSet<>(0);
-
-		for (ExaminationResult ex : examinationResults) {
-			iExaminationResults.add(new ExaminationResultAdapter(ex));
-		}
+//		Set<ExaminationResult> examinationResults = _examinationProtocol
+//				.getExaminationResults();
+//		Set<IExaminationResult> iExaminationResults = new HashSet<>(0);
+//
+//		for (ExaminationResult ex : examinationResults) {
+//			iExaminationResults.add(new ExaminationResultAdapter(ex));
+//		}
+//		
+//		return iExaminationResults;
 		
-		return iExaminationResults;
+		if(_examinationProtocol.getExaminationResults() != null){
+			
+			Set<ExaminationResult> set = _examinationProtocol.getExaminationResults();
+			Collection<IExaminationResult> coll = new HashSet<>();
+			for(ExaminationResult result : set) {
+				ExaminationResultAdapter resultAda = new ExaminationResultAdapter(result);
+				coll.add(resultAda);
+			}
+			return coll;
+		}else{
+			return null;
+		}
 	}
 
 	@Override

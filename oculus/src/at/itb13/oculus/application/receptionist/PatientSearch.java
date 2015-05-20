@@ -10,6 +10,9 @@ import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 import at.itb13.teamD.application.exceptions.InvalidInputException;
+import at.itb13.teamD.domain.interfaces.IPatient;
+import at.itb13.teamD.technicalServices.exceptions.PersistenceFacadeException;
+import at.itb13.teamD.technicalServices.persistenceFacade.PersistenceFacadeProvider;
 
 /**
  * Use Case Controller for "Search Patient".
@@ -18,7 +21,6 @@ import at.itb13.teamD.application.exceptions.InvalidInputException;
  * @date 22.04.2015
  */
 public class PatientSearch{
-	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager.getLogger(PatientSearch.class.getName());
 	
 	/**
@@ -28,17 +30,20 @@ public class PatientSearch{
 	 * @return List<Patient> The patients with the supplied social insurance number or name. May be null, if no patient has been found.
 	 * @throws InvalidInputException thrown if the provided socialInsuranceNr or name is not in an appropriate format.
 	 */
+	@SuppressWarnings("unchecked")
 	public List<? extends PatientRO> searchPatient(String searchValue) throws InvalidInputException {
-		List<? extends PatientRO> patients = null;
-		if(!searchValue.isEmpty()){
-			if(Patient.isSocialInsuranceNrValid(searchValue)){
-				patients = searchPatientBySocialInsuranceNr(searchValue);
-			} else {		
-				patients = searchPatientByName(searchValue);
-			}
-		} else {
+		if(searchValue.isEmpty()){
 			throw new InvalidInputException();
 		}
+		
+		List<? extends PatientRO> patients = null;
+		try {
+			patients = (List<? extends PatientRO>) PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class, searchValue);
+		} catch (PersistenceFacadeException e) {
+			_logger.error("Failed to search for '" + searchValue + "'");
+			e.printStackTrace();
+		}
+		
 		return patients;
 	}
 	

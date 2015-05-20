@@ -428,34 +428,21 @@ public class PatientAdapter implements IPatient, IAdapter {
 	public Collection<IMedicine> getMedicine()
 			throws CouldNotGetMedicineException {
 		
-		//FIXME Done unless flawed
-		
-		Collection<IMedicine> medColl = new HashSet<>();
-		Collection<Diagnosis> diagColl = new HashSet<>();
+		Collection<IMedicine> medicines = new HashSet<>();
 		Collection<ExaminationProtocol> examProColl = _patient.getExaminationprotocols();
 		
-		if(examProColl != null){
-			for(ExaminationProtocol entry : examProColl){
-				diagColl.add((entry.getDiagnosis()));
-			}
-			
-			for(Diagnosis entry : diagColl){
-			Collection<Medicine> tempMedicineSet = entry.getMedicines();
-			
-				for(Medicine visAid : tempMedicineSet){
-					MedicineAdapter medicineAdapter = new MedicineAdapter(visAid);
-					medColl.add(medicineAdapter);
+		if(examProColl != null) {
+			for(ExaminationProtocol exPro : examProColl) {
+				Diagnosis diag = exPro.getDiagnosis();
+				if(diag != null) {
+					for(Medicine med : diag.getMedicines()) {
+						MedicineAdapter medicineAdapter = new MedicineAdapter(med);
+						medicines.add(medicineAdapter);
+					}
 				}
 			}
-			return medColl;
 		}
-		return null;
-		
-		
-		
-		
-		
-		
+		return medicines;
 	}
 
 	/*

@@ -96,13 +96,13 @@ public class PrescriptionAdapter implements IAdapter, IPrescription {
 	@Override
 	public Date getLastPrint() {
 		LocalDateTime localDateTime = _prescription.getLastPrintDate();
-		
+		Date date = null;
 		if(localDateTime != null){
-			Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+			date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
 			return date;
 		}
 
-		return null;
+		return date;
 	}
 	
 	/*

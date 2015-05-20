@@ -70,7 +70,10 @@ public class CalendarEventAdapter implements ICalendarEvent, IAdapter {
 	@Override
 	public Date getEventStart() {
 		LocalDateTime localDateTime = _calendarEvent.getEventStart();
-		Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());		
+		Date date = null;
+		if(localDateTime != null){
+			date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());	
+		}
 		return date;
 	}
 
@@ -89,7 +92,11 @@ public class CalendarEventAdapter implements ICalendarEvent, IAdapter {
 	@Override
 	public Date getEventEnd() {
 		LocalDateTime localDateTime = _calendarEvent.getEventEnd();
-		Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());		
+		Date date = null;
+		if(localDateTime != null){
+			date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());		
+		}
+			
 		return date;
 	}
 

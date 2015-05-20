@@ -24,6 +24,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,6 +41,7 @@ public class DiagnosisController implements Initializable,ILogger {
 
     private Model _model = Model.getInstance();
     private IExaminationProtocol currexam;
+    private Stage _dialogStage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -70,8 +72,13 @@ public class DiagnosisController implements Initializable,ILogger {
 //            IPatient currpatient  = _model.getTabModel().getPatientFromSelectedTab(_model.getTabModel().getSelectedTab());
 //            Tab origintab = _model.getTabModel().getTabFromPatientAndID("newexamination", currpatient);
 //            _model.getTabModel().closeSelectedAndSwitchTab(origintab);
+            _dialogStage.close();
         } else {
             DialogBoxController.getInstance().showInformationDialog("Data needed", "Please add diagnosis title and/or description");
         }
+    }
+    
+    public void setDialogStage(Stage dialogStage) {
+    	_dialogStage = dialogStage;
     }
 }

@@ -133,6 +133,7 @@ public class PatientRecordController {
 			loader.setLocation(OculusMain.class
 					.getResource("../../../oculus/teamf/presentation/view/fxml/ExaminationTab.fxml"));
 			_examinationProtocolBorderPane.setCenter((AnchorPane) loader.load());
+			_examinationProtocolBorderPane.getStylesheets().add("styles/stylesheet_default.css");
 
 			// Give the controller access to the main app.
 			_examinationController = loader.getController();

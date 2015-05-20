@@ -207,6 +207,7 @@ public class ExaminationController implements Initializable, ILogger {
 			dialogStage.setTitle("Add new Examination");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			Scene scene = new Scene(page);
+			scene.getStylesheets().add("styles/stylesheet_default.css");
 			dialogStage.setScene(scene);
 
 			// Show the dialog and wait until the user closes it

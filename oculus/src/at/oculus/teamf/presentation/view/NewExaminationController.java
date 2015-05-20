@@ -158,7 +158,7 @@ public class NewExaminationController implements Initializable, ILogger {
         // add diagnosis for selected patient
         _model.getExaminationModel().setCurrentExaminationProtocol(newexam);
         IPatient selectedPatient = _model.getTabModel().getPatientFromSelectedTab(_model.getTabModel().getSelectedTab());
-//        _model.getTabModel().addDiagnosisTab(selectedPatient);	TODO: Popup
+//        _model.getTabModel().addDiagnosisTab(selectedPatient);
         showNewDiagnosis();
         addDiagnosisButton.setDisable(true);
         prescriptionButton.setDisable(false);
@@ -176,9 +176,12 @@ public class NewExaminationController implements Initializable, ILogger {
 			dialogStage.setTitle("Add new Diagnosis");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			Scene scene = new Scene(page);
+			scene.getStylesheets().add("styles/stylesheet_default.css");
 			dialogStage.setScene(scene);
 
 			// Show the dialog and wait until the user closes it
+			DiagnosisController diagnosisController = loader.getController();
+			diagnosisController.setDialogStage(dialogStage);
 			dialogStage.showAndWait();
 
 			log.info("showNewDiagnosis successful");
@@ -190,17 +193,44 @@ public class NewExaminationController implements Initializable, ILogger {
     @FXML
     public void addPrescriptionButtonHandler(ActionEvent actionEvent) {
         //opens a new PrescriptionTab
-        System.out.println("SELECTED TAB PRES: " + _model.getTabModel().getSelectedTab().getId());
-        IPatient selectedPatient = _model.getTabModel().getPatientFromSelectedTab(_model.getTabModel().getSelectedTab());
-//        _model.getTabModel().addPrescriptionTab(selectedPatient);	TODO: Popup
+//        System.out.println("SELECTED TAB PRES: " + _model.getTabModel().getSelectedTab().getId());
+//        IPatient selectedPatient = _model.getTabModel().getPatientFromSelectedTab(_model.getTabModel().getSelectedTab());
+    	_model.getExaminationModel().setCurrentExaminationProtocol(newexam);
+    	showNewPrescription();
+    }
+    
+    private void showNewPrescription() {
+    	try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("fxml/PrescriptionTab.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Add new Prescription");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			Scene scene = new Scene(page);
+			scene.getStylesheets().add("styles/stylesheet_default.css");
+			dialogStage.setScene(scene);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			log.info("showNewPrescription successful");
+		} catch (IOException ex) {
+			log.error("showNewPrescription failed", ex);
+		}
     }
 
     @FXML
     public void refreshTab(ActionEvent actionEvent) {
-        IDiagnosis diag = newexam.getTeamFDiagnosis();
-        if (diag != null) {
-            diagnosisTitle.setText(diag.getTitle());
-            diagnosisDetails.setText(diag.getDescription());
-        }
+    	if(newexam != null) {
+	        IDiagnosis diag = newexam.getTeamFDiagnosis();
+	        if (diag != null) {
+	            diagnosisTitle.setText(diag.getTitle());
+	            diagnosisDetails.setText(diag.getDescription());
+	        }
+    	}
     }
 }

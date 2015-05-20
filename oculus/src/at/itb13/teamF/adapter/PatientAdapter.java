@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 import at.itb13.oculus.domain.CalendarEvent;
@@ -428,7 +429,7 @@ public class PatientAdapter implements IPatient, IAdapter {
 	public Collection<IMedicine> getMedicine()
 			throws CouldNotGetMedicineException {
 		
-		Collection<IMedicine> medicines = new HashSet<>();
+		Collection<IMedicine> medicines = new LinkedList<>();
 		Collection<ExaminationProtocol> examProColl = _patient.getExaminationprotocols();
 		
 		if(examProColl != null) {

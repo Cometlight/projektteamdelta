@@ -2,6 +2,7 @@ package at.itb13.teamF.adapter;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 import at.itb13.oculus.domain.Diagnosis;
@@ -122,28 +123,61 @@ public class DiagnosisAdapter implements IAdapter, IDiagnosis{
 	@Override
 	public void addMedicine(IMedicine medicine)
 			throws CouldNotAddMedicineException {
-		Collection<Medicine> coll = _diagnosis.getMedicines();
-		MedicineAdapter medAda = (MedicineAdapter) medicine;
-		coll.add((Medicine) medAda.getDomainObject());
+		if(medicine != null){
+			Collection<Medicine> coll;
+			if(_diagnosis.getMedicines() != null){
+				coll = _diagnosis.getMedicines();
+			}else{
+				coll = new HashSet<Medicine>();
+			}
+			MedicineAdapter medAda = (MedicineAdapter) medicine;
+			coll.add((Medicine) medAda.getDomainObject());
+			
+			_diagnosis.setMedicines((Set<Medicine>) coll);
+
+		}
+
 	}
 
 	@Override
 	public void addVisualAid(IVisualAid visualAid)
 			throws CouldNotAddVisualAidException {
-		Collection<VisualAid> coll = _diagnosis.getVisualaids();
-		VisualAidAdapter visAda = (VisualAidAdapter) visualAid;
-		coll.add((VisualAid) visAda.getDomainObject());
+		if(visualAid != null){
+			Collection<VisualAid> coll;
+			if(_diagnosis.getVisualaids() != null){
+				coll = _diagnosis.getVisualaids();
+			}
+			else{
+				coll = new LinkedList<VisualAid>();
+				_diagnosis.setVisualaids((Set<VisualAid>) coll);
+			}
+			VisualAidAdapter visAda = (VisualAidAdapter) visualAid;
+			coll.add((VisualAid) visAda.getDomainObject());
+		}
 	}
 
 	@Override
 	public Collection<IVisualAid> getVisualAid()
 			throws CouldNotGetVisualAidException {
-		Collection<IVisualAid> visualAids = new HashSet<>();
-		Collection<VisualAid> coll = _diagnosis.getVisualaids();
-		for(VisualAid entry : coll){
-			visualAids.add((IVisualAid) entry.getDiagnosis());
+//		Collection<IVisualAid> visualAids = new HashSet<>();
+//		Collection<VisualAid> coll = _diagnosis.getVisualaids();
+//		for(VisualAid entry : coll){
+//			visualAids.add((IVisualAid) entry.getDiagnosis());
+//		}
+//		return visualAids;
+		
+		if(_diagnosis.getVisualaids() != null){
+			
+			Set<VisualAid> set = _diagnosis.getVisualaids();
+			Collection<IVisualAid> coll = new HashSet<>();
+			for(VisualAid aid : set) {
+				VisualAidAdapter aidAda = new VisualAidAdapter(aid);
+				coll.add(aidAda);
+			}
+			return coll;
+		}else{
+			return null;
 		}
-		return visualAids;
 	}
 
 	@Override

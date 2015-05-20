@@ -5,8 +5,10 @@ import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
+import at.itb13.oculus.domain.Medicine;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.Doctor;
@@ -237,7 +239,10 @@ public class DoctorAdapter implements IAdapter, IDoctor{
 	@Override
 	public ICalendar getCalendar() {
 		Calendar calendar = _doctor.getCalendar();
-		return new CalendarAdapter(calendar);
+		if(calendar != null){
+			return new CalendarAdapter(calendar);
+		}
+		return null;
 		
 	}
 
@@ -246,9 +251,11 @@ public class DoctorAdapter implements IAdapter, IDoctor{
 	 */
 	@Override
 	public void setCalendar(ICalendar calendar) {
-		CalendarAdapter calendarAdapter = (CalendarAdapter)calendar;
-		Calendar cal = (Calendar)calendarAdapter.getDomainObject();
-		_doctor.setCalendar(cal);
+		if(calendar != null){
+			CalendarAdapter calendarAdapter = (CalendarAdapter)calendar;
+			Calendar cal = (Calendar)calendarAdapter.getDomainObject();
+			_doctor.setCalendar(cal);
+		}
 		
 	}
 
@@ -289,6 +296,7 @@ public class DoctorAdapter implements IAdapter, IDoctor{
 	 * @param _doctor the _doctor to set
 	 */
 	public void set_doctor(Doctor _doctor) {
+		
 		this._doctor = _doctor;
 	}
 	/*
@@ -296,17 +304,22 @@ public class DoctorAdapter implements IAdapter, IDoctor{
 	 */
 	@Override
 	public IDoctor getDoctorSubstitude() {
-		return new DoctorAdapter(_doctor.getDoctorSubstitute());
-		
+		if(_doctor.getDoctorSubstitute() != null){
+			return new DoctorAdapter(_doctor.getDoctorSubstitute());
+
+		}
+		return null;		
 	}
 	/*
 	 * @see at.oculus.teamf.domain.entity.interfaces.IDoctor#setDoctorSubstitude(at.oculus.teamf.domain.entity.interfaces.IDoctor)
 	 */
 	@Override
 	public void setDoctorSubstitude(IDoctor doctorSubstitude) {
-		DoctorAdapter doctorAdapter = (DoctorAdapter)doctorSubstitude;
-		Doctor doc = (Doctor)doctorAdapter.getDomainObject();
-		_doctor.setDoctorSubstitute(doc);
+		if(doctorSubstitude != null){
+			DoctorAdapter doctorAdapter = (DoctorAdapter)doctorSubstitude;
+			Doctor doc = (Doctor)doctorAdapter.getDomainObject();
+			_doctor.setDoctorSubstitute(doc);
+		}
 		
 	}
 	/*
@@ -317,6 +330,20 @@ public class DoctorAdapter implements IAdapter, IDoctor{
 		Collection<Patient> coll = _doctor.getPatients();
 		PatientAdapter patAda = (PatientAdapter) patient;
 		coll.add((Patient) patAda.getDomainObject());
+		
+		
+		if(patient != null){
+			Collection<Medicine> coll;
+			if(_doctor.getPatients != null){
+				coll = _diagnosis.getMedicines();
+			}else{
+				coll = new HashSet<Medicine>();
+				
+			}
+			MedicineAdapter medAda = (MedicineAdapter) medicine;
+			coll.add((Medicine) medAda.getDomainObject());
+			_diagnosis.setMedicines((Set<Medicine>) coll);
+		}
 	}
 	/*
 	 * @see at.oculus.teamf.domain.entity.interfaces.IDoctor#getPatients()

@@ -129,4 +129,11 @@ public class ExaminationResultAdapter implements IAdapter, IExaminationResult {
 		return _examinationResult;
 	}
 
+	/*
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return _examinationResult.getResult();
+	}
 }

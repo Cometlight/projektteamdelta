@@ -37,20 +37,34 @@ public class PrescriptionEntryAdapter implements IAdapter, IPrescriptionEntry {
 	@Override
 	public IPrescription getPrescription() {
 		Prescription prescription =  _prescriptionEntry.getPrescription();
-		return new PrescriptionAdapter(prescription);
+		
+		if (prescription != null){
+			return new PrescriptionAdapter(prescription);
+		}
+		
+		return null;
 	}
 
 	@Override
 	public IMedicine getMedicine() {
 		Medicine medicine = _prescriptionEntry.getMedicine();
-		return new MedicineAdapter(medicine);
+		
+		if(medicine != null){
+			return new MedicineAdapter(medicine);	
+		}
+		
+		return null;
 	}
 
 	@Override
 	public void setMedicine(IMedicine medicine) {
-		MedicineAdapter medicineAdapter = (MedicineAdapter) medicine;
-		Medicine med = (Medicine) medicineAdapter.getDomainObject();
-		_prescriptionEntry.setMedicine(med);
+		if(medicine != null){
+			MedicineAdapter medicineAdapter = (MedicineAdapter) medicine;
+			Medicine med = (Medicine) medicineAdapter.getDomainObject();
+			if(med != null){
+				_prescriptionEntry.setMedicine(med);	
+			}
+		}
 	}
 
 	@Override

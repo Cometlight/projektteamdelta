@@ -57,7 +57,12 @@ public class PrescriptionAdapter implements IAdapter, IPrescription {
 	@Override
 	public IPatient getPatient() {
 		Patient patient = _prescription.getPatient();
-		return new PatientAdapter(patient);
+		
+		if(patient != null){
+			return new PatientAdapter(patient);	
+		}
+		
+		return null;
 	}
 
 	/*
@@ -65,9 +70,15 @@ public class PrescriptionAdapter implements IAdapter, IPrescription {
 	 */
 	@Override
 	public void setPatient(IPatient iPatient) {
-		PatientAdapter patientAdapter = (PatientAdapter) iPatient;
-		Patient patient = (Patient) patientAdapter.getDomainObject();
-		_prescription.setPatient(patient);
+		
+		if(iPatient != null){
+			PatientAdapter patientAdapter = (PatientAdapter) iPatient;
+			Patient patient = (Patient) patientAdapter.getDomainObject();
+			
+			if(patient != null){
+				_prescription.setPatient(patient);
+			}
+		}
 	}
 
 	/*
@@ -75,8 +86,10 @@ public class PrescriptionAdapter implements IAdapter, IPrescription {
 	 */
 	@Override
 	public void setLastPrint(Date lastPrint) {
-		LocalDateTime localDateTime = lastPrint.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-		_prescription.setLastPrintDate(localDateTime);
+		if(lastPrint != null){
+			LocalDateTime localDateTime = lastPrint.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+			_prescription.setLastPrintDate(localDateTime);
+		}
 	}
 
 	/*
@@ -85,8 +98,13 @@ public class PrescriptionAdapter implements IAdapter, IPrescription {
 	@Override
 	public Date getLastPrint() {
 		LocalDateTime localDateTime = _prescription.getLastPrintDate();
-		Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-		return date;
+		
+		if(localDateTime != null){
+			Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+			return date;
+		}
+
+		return null;
 	}
 	
 	/*
@@ -97,11 +115,16 @@ public class PrescriptionAdapter implements IAdapter, IPrescription {
 			throws CantGetPresciptionEntriesException {
 		Collection<IPrescriptionEntry> iEntries = new HashSet<>();
 		Collection<PrescriptionEntry> entries = _prescription.getPrescriptionentries();
-		for(PrescriptionEntry entry : entries){
-			iEntries.add((IPrescriptionEntry) entry);
-		}
 		
-		return iEntries;
+		if(entries != null){
+			for(PrescriptionEntry entry : entries){
+				PrescriptionEntryAdapter prescEntryAda = new PrescriptionEntryAdapter(entry);
+				iEntries.add(prescEntryAda);
+			}
+			
+			return iEntries;
+		}
+		return null;
 	}
 
 	/*

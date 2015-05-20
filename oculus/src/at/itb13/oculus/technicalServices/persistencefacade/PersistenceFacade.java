@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -237,14 +238,12 @@ public class PersistenceFacade implements IPersistenceFacade {
 	public <T> Collection<T> searchFor(Class<T> clazz, String searchString)
 			throws PersistenceFacadeException {
 
-		// TODO Suchen nach mehreren Namen
-		
 		if (clazz == null) {
 			throw new PersistenceFacadeException();
 		}
 		
-		_logger.info("' Trying to searchFor persistent "
-				+ clazz.getName() + "'");
+		_logger.info("' Trying to searchFor '"
+				+ searchString + "'");
 
 		String[] subStrings = searchString.split(" ");
 
@@ -269,48 +268,18 @@ public class PersistenceFacade implements IPersistenceFacade {
 				}
 			}
 
-			// add elements to al, including duplicates
-
-			// Converting to remove possible duplicates
-			// Set<IPatient> hashSet = new HashSet<>();
-			// hashSet.addAll(collection);
-			// collection.clear();
-			// collection.addAll(hashSet);
-
-			// Remove duplicates
-			// Checks if duplicate by comparing social insurance number, if
-			// existent
-
-			for (Iterator<IPatient> iterator = collection.iterator(); iterator
-					.hasNext();) {
-				IPatient patient = (IPatient) iterator.next();
-
-				for (Iterator<IPatient> iterator2 = collection.iterator(); iterator
-						.hasNext();) {
-					IPatient patient2 = (IPatient) iterator.next();
-
-					if (patient.getPatientId() != null
-							&& patient2.getPatientId() != null) {
-						if (patient.getPatientId().equals(
-								patient2.getPatientId())) {
-							collection.remove(patient2);
-						}
-					}
-
-					// if(patient.getSocialInsuranceNr() != null &&
-					// patient2.getSocialInsuranceNr() != null){
-					// if(patient.getSocialInsuranceNr().equals(patient2.getSocialInsuranceNr())){
-					// collection.remove(patient2);
-					// }
-					// }
-				}
-
-			}
-
-			// (T) PatientDao.getInstance().;
-			// wenn nichts gefunden, bleibt col eben leer
+			 Hashtable<Integer, IPatient> table = new Hashtable<>();
+			 for(IPatient pat : collection) {
+				 if(!table.containsKey(pat.getPatientId())){
+					 table.put(pat.getPatientId(), pat);
+				 }
+				 else{
+					 collection.remove(pat);
+				 }
+			 }
 			return (Collection<T>) collection;
 		}
+		
 		return null;
 	}
 }

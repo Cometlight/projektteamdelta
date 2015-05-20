@@ -90,7 +90,7 @@ public class VisualAidAdapter implements IVisualAid, IAdapter {
 	 */
 	@Override
 	public void setDioptreLeft(Float dioptreLeft) {
-		_visualAid.setDioptreLeft((double) dioptreLeft);		//TODO: is this ok to cast?
+		_visualAid.setDioptreLeft((double) dioptreLeft);		
 	}
 
 	/*

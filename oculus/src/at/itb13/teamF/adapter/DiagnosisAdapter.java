@@ -2,12 +2,10 @@ package at.itb13.teamF.adapter;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Set;
 
 import at.itb13.oculus.domain.Diagnosis;
 import at.itb13.oculus.domain.Doctor;
-import at.itb13.oculus.domain.ExaminationProtocol;
 import at.itb13.oculus.domain.Medicine;
 import at.itb13.oculus.domain.VisualAid;
 import at.itb13.teamF.interfaces.IAdapter;
@@ -17,12 +15,11 @@ import at.oculus.teamf.domain.entity.exception.CouldNotGetMedicineException;
 import at.oculus.teamf.domain.entity.exception.CouldNotGetVisualAidException;
 import at.oculus.teamf.domain.entity.interfaces.IDiagnosis;
 import at.oculus.teamf.domain.entity.interfaces.IDoctor;
-import at.oculus.teamf.domain.entity.interfaces.IExaminationProtocol;
 import at.oculus.teamf.domain.entity.interfaces.IMedicine;
 import at.oculus.teamf.domain.entity.interfaces.IVisualAid;
 
 /**
- * TODO: Insert description here.
+ * Implementation of IDiagnosis of Team F.
  * 
  * @author Andrew Sparr
  * @date 18.05.2015

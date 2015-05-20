@@ -170,7 +170,6 @@ public class PatientAdapter implements IPatient, IAdapter {
 	/*
 	 * @see at.oculus.teamf.domain.entity.interfaces.IPatient#getCalendarEvents()
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<ICalendarEvent> getCalendarEvents()
 			throws CouldNotGetCalendarEventsException {

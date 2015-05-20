@@ -32,7 +32,7 @@ import at.oculus.teamf.domain.entity.interfaces.IPrescriptionEntry;
 import at.oculus.teamf.domain.entity.interfaces.IVisualAid;
 
 /**
- * The great implementation of IFactoryTB2.
+ * Implementation of IFactoryTB2 of Team F.
  * 
  * @author Daniel Scheffknecht
  * @date May 18, 2015

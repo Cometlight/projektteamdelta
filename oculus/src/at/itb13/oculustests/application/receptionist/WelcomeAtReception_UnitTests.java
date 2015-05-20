@@ -1,8 +1,5 @@
 package at.itb13.oculustests.application.receptionist;
 
-import org.junit.Test;
-
-import at.itb13.oculus.application.receptionist.WelcomeAtReception;
 
 /**
  * TODO: Tests??

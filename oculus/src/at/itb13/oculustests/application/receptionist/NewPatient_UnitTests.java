@@ -23,8 +23,7 @@ import at.itb13.teamD.application.exceptions.InvalidInputException;
 		public void createPatientWithNullParameters() throws InvalidInputException{
 			thrown.expect(InvalidInputException.class);
 			NewPatient np = new NewPatient();
-			PatientRO p;
-			p = np.createPatient(null, null, null, null, 
+			PatientRO p = np.createPatient(null, null, null, null, 
 							null, null, null, null, null, null, null, null);
 			
 				

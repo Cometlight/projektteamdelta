@@ -12,7 +12,9 @@ import at.oculus.teamf.domain.entity.interfaces.IPatientQueue;
 import at.oculus.teamf.domain.entity.interfaces.IQueueEntry;
 
 /**
- * TODO: Insert description here.
+ * Implementation of IPatientQueue of Team F.
+ * Throws NotImplementedException as the queue is not even used 
+ * by the received classes from Team F.
  * 
  * @author Karin Trommelschläger
  * @date 18.05.2015

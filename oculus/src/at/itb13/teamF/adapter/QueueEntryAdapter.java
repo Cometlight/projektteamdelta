@@ -3,7 +3,6 @@ package at.itb13.teamF.adapter;
 import java.sql.Timestamp;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.QueueEntry;
 import at.itb13.teamF.interfaces.IAdapter;
@@ -13,7 +12,7 @@ import at.oculus.teamf.domain.entity.interfaces.IPatient;
 import at.oculus.teamf.domain.entity.interfaces.IQueueEntry;
 
 /**
- * TODO: Insert description here.
+ * Implementation of IqueueEntry of Team F.
  * 
  * @author Caroline Meusburger
  * @since 18.05.2015

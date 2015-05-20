@@ -1,7 +1,7 @@
 package at.itb13.oculustests.domain;
 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
@@ -13,9 +13,6 @@ import org.junit.Test;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.WorkingHours;
-import at.itb13.oculus.domain.factories.CalendarFactory;
-
-import java.time.DayOfWeek;
 
 /**
  * TODO: JUnit-Tests for methods of Calendar

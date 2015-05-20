@@ -2,13 +2,12 @@ package at.itb13.teamF.adapter;
 
 import at.itb13.oculus.domain.Diagnosis;
 import at.itb13.oculus.domain.Medicine;
-import at.itb13.oculus.domain.PrescriptionEntry;
 import at.itb13.teamF.interfaces.IAdapter;
 import at.oculus.teamf.domain.entity.interfaces.IDiagnosis;
 import at.oculus.teamf.domain.entity.interfaces.IMedicine;
 
 /**
- * TODO: Insert description here.
+ * Implementation of IMedicine of Team F.
  * 
  * @author Andrew Sparr
  * @date 18.05.2015

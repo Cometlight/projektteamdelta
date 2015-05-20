@@ -9,7 +9,7 @@ import at.itb13.teamF.interfaces.IAdapter;
 import at.oculus.teamf.domain.entity.interfaces.IUser;
 
 /**
- * TODO: Insert description here.
+ * Implementation of IUser of Team F.
  * 
  * @author Caroline Meusburger
  * @since 18.05.2015

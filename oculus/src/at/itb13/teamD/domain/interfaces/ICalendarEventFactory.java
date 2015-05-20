@@ -1,7 +1,6 @@
 package at.itb13.teamD.domain.interfaces;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 /**
  * This Interface defines the required methods of the CalendarEventFactory class.

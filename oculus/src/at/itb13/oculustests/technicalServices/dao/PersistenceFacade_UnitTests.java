@@ -31,10 +31,10 @@ public class PersistenceFacade_UnitTests {
 		assertEquals(1, patientList2.size());
 		Collection<IPatient> patientList3 = PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class,  "Lara Mey");
 		assertEquals(0, patientList3.size());
-		Collection<IPatient> patientList4 = PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class,  "John");
-		assertEquals(1, patientList4.size());
-		Collection<IPatient> patientList5 = PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class,  "Ralph");
-		assertEquals(2, patientList5.size());
+		Collection<IPatient> patientList5 = PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class,  "John");
+		assertEquals(1, patientList5.size());
+		Collection<IPatient> patientList6 = PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class,  "Ralph");
+		assertEquals(2, patientList6.size());
 	}
 	
 	@Test

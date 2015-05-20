@@ -3,13 +3,10 @@ package at.itb13.teamD.presentation.converter;
 import java.util.HashMap;
 import java.util.Map;
 
-import at.itb13.oculus.domain.readonlyinterfaces.DoctorRO;
-import at.itb13.teamD.domain.interfaces.IEventType;
 import javafx.util.StringConverter;
+import at.itb13.teamD.domain.interfaces.IEventType;
 
 /**
- * TODO: Insert description here.
- * 
  * @author Caroline Meusburger
  * @since 13.04.2015
  */

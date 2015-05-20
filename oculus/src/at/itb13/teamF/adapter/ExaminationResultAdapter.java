@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
-import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.ExaminationProtocol;
 import at.itb13.oculus.domain.ExaminationResult;
@@ -18,7 +17,7 @@ import at.oculus.teamf.domain.entity.interfaces.IOrthoptist;
 import at.oculus.teamf.domain.entity.interfaces.IUser;
 
 /**
- * TODO: Insert description here.
+ * Implementation of IExaminationResult of Team F.
  * 
  * @author Andrew Sparr
  * @date 19.05.2015

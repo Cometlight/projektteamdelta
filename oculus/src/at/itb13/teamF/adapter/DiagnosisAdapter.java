@@ -148,11 +148,12 @@ public class DiagnosisAdapter implements IAdapter, IDiagnosis{
 				coll = _diagnosis.getVisualaids();
 			}
 			else{
-				coll = new LinkedList<VisualAid>();
-				_diagnosis.setVisualaids((Set<VisualAid>) coll);
+				coll = new HashSet<VisualAid>();
 			}
 			VisualAidAdapter visAda = (VisualAidAdapter) visualAid;
 			coll.add((VisualAid) visAda.getDomainObject());
+			_diagnosis.setVisualaids((Set<VisualAid>) coll);
+
 		}
 	}
 

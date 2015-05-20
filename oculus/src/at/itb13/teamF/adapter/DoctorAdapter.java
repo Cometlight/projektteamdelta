@@ -12,12 +12,14 @@ import at.itb13.oculus.domain.Medicine;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.Doctor;
+import at.itb13.oculus.domain.VisualAid;
 import at.itb13.teamF.interfaces.IAdapter;
 import at.oculus.teamf.domain.entity.exception.CantLoadPatientsException;
 import at.oculus.teamf.domain.entity.interfaces.ICalendar;
 import at.oculus.teamf.domain.entity.interfaces.IDoctor;
 import at.oculus.teamf.domain.entity.interfaces.IPatient;
 import at.oculus.teamf.domain.entity.interfaces.IPatientQueue;
+import at.oculus.teamf.domain.entity.interfaces.IVisualAid;
 
 /**
  * Adapter Doctor - TeamD --> Doctor TeamF
@@ -327,22 +329,22 @@ public class DoctorAdapter implements IAdapter, IDoctor{
 	 */
 	@Override
 	public void addPatient(IPatient patient) {
-		Collection<Patient> coll = _doctor.getPatients();
-		PatientAdapter patAda = (PatientAdapter) patient;
-		coll.add((Patient) patAda.getDomainObject());
-		
-		
+//		Collection<Patient> coll = _doctor.getPatients();
+//		PatientAdapter patAda = (PatientAdapter) patient;
+//		coll.add((Patient) patAda.getDomainObject());
+//		
 		if(patient != null){
-			Collection<Medicine> coll;
-			if(_doctor.getPatients != null){
-				coll = _diagnosis.getMedicines();
+			Collection<Patient> coll;
+			if(_doctor.getPatients() != null){
+				coll = _doctor.getPatients();
 			}else{
-				coll = new HashSet<Medicine>();
-				
+				coll = new HashSet<Patient>();
 			}
-			MedicineAdapter medAda = (MedicineAdapter) medicine;
-			coll.add((Medicine) medAda.getDomainObject());
-			_diagnosis.setMedicines((Set<Medicine>) coll);
+			PatientAdapter patAda = (PatientAdapter) patient;
+			coll.add((Patient) patAda.getDomainObject());
+			
+			_doctor.setPatients((Set<Patient>) coll);
+
 		}
 	}
 	/*
@@ -350,12 +352,25 @@ public class DoctorAdapter implements IAdapter, IDoctor{
 	 */
 	@Override
 	public Collection<IPatient> getPatients() throws CantLoadPatientsException {
-		Set<Patient> patients = _doctor.getPatients();
-		Set<IPatient>ipatients = new HashSet<>(0);
-		for (Patient p:patients){
-			ipatients.add(new PatientAdapter(p));
+//		Set<Patient> patients = _doctor.getPatients();
+//		Set<IPatient>ipatients = new HashSet<>(0);
+//		for (Patient p:patients){
+//			ipatients.add(new PatientAdapter(p));
+//		}
+//		return ipatients;
+		
+		if(_doctor.getPatients() != null){
+			
+			Set<Patient> set = _doctor.getPatients();
+			Collection<IPatient> coll = new HashSet<>();
+			for(Patient pat : set) {
+				PatientAdapter patAda = new PatientAdapter(pat);
+				coll.add(patAda);
+			}
+			return coll;
+		}else{
+			return null;
 		}
-		return ipatients;
 	}
 	/*
 	 * @see at.oculus.teamf.domain.entity.interfaces.IDoctor#setPatients(java.util.Collection)
@@ -365,12 +380,14 @@ public class DoctorAdapter implements IAdapter, IDoctor{
 		Set<Patient> patients = new HashSet<Patient>(0);
 		PatientAdapter patientAdapter = null;
 		Patient p = null;
-		for (IPatient ip:ipatients){
-			patientAdapter = (PatientAdapter)ip;
-			p = (Patient)patientAdapter.getDomainObject();
-			patients.add(p);
+		if(ipatients != null){
+			for (IPatient ip:ipatients){
+				patientAdapter = (PatientAdapter)ip;
+				p = (Patient)patientAdapter.getDomainObject();
+				patients.add(p);
+			}
+			_doctor.setPatients(patients);
 		}
-		_doctor.setPatients(patients);
 	}
 	
 }

@@ -156,7 +156,7 @@ public class PatientAdapter implements IPatient, IAdapter {
 	 */
 	@Override
 	public IDoctor getIDoctor() {
-		return (IDoctor) _patient.getDoctor();
+		return new DoctorAdapter(_patient.getDoctor());
 	}
 
 	/*
@@ -174,9 +174,10 @@ public class PatientAdapter implements IPatient, IAdapter {
 	@Override
 	public Collection<ICalendarEvent> getCalendarEvents()
 			throws CouldNotGetCalendarEventsException {
-		Set<CalendarEvent> set = _patient.getCalendarevents();
 		Collection<ICalendarEvent> coll = new HashSet<>();
-		coll.addAll((Collection<? extends ICalendarEvent>) set);
+		for(CalendarEvent calEv : _patient.getCalendarevents()) {
+			coll.add(new CalendarEventAdapter(calEv));
+		}
 		return coll;
 	}
 
@@ -358,7 +359,6 @@ public class PatientAdapter implements IPatient, IAdapter {
 	/*
 	 * @see at.oculus.teamf.domain.entity.interfaces.IPatient#getExaminationProtocol()
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<IExaminationProtocol> getExaminationProtocol()
 			throws CouldNotGetExaminationProtolException {
@@ -384,7 +384,6 @@ public class PatientAdapter implements IPatient, IAdapter {
 	@Override
 	public void setExaminationProtocol(
 			Collection<IExaminationProtocol> protocols) {
-		//FIXME not too sure about setExaminationProtocol
 		Set<ExaminationProtocol> examinationProtocols = new HashSet<>((Set<? extends ExaminationProtocol>) protocols);
 		_patient.setExaminationprotocols(examinationProtocols);
 	}
@@ -453,7 +452,6 @@ public class PatientAdapter implements IPatient, IAdapter {
 	public Collection<IExaminationResult> getExaminationResults()
 			throws CouldNotGetExaminationResultException {
 		
-		//FIXME Done unless flawed
 		Collection<ExaminationProtocol> coll = _patient.getExaminationprotocols();
 		
 		if(coll != null){
@@ -496,27 +494,16 @@ public class PatientAdapter implements IPatient, IAdapter {
 	@Override
 	public Collection<IVisualAid> getVisualAid()
 			throws CouldNotGetVisualAidException {
-		//FIXME Done unless flawed 
-		Collection<IVisualAid> visualAidColl = new HashSet<>();
-		Collection<Diagnosis> diagnosisSet = new HashSet<>();
-		Collection<ExaminationProtocol> examProColl = _patient.getExaminationprotocols();
-		
-		if(examProColl != null){
-			for(ExaminationProtocol entry : examProColl){
-				diagnosisSet.add((entry.getDiagnosis()));
-			}
-			
-			for(Diagnosis entry : diagnosisSet){
-			Collection<VisualAid> tempVisualAidsSet = entry.getVisualaids();
-			
-				for(VisualAid visAid : tempVisualAidsSet){
-					VisualAidAdapter visAdapter = new VisualAidAdapter(visAid);
-					visualAidColl.add(visAdapter);
+		Collection<IVisualAid> visualAidColl = new LinkedList<>();
+		for(ExaminationProtocol exPro : _patient.getExaminationprotocols()) {
+			Diagnosis diag = exPro.getDiagnosis();
+			if(diag != null) {
+				for(VisualAid visualAid : diag.getVisualaids()) {
+					visualAidColl.add(new VisualAidAdapter(visualAid));
 				}
 			}
-			return visualAidColl;
 		}
-		return null;
+		return visualAidColl;
 	}
 
 

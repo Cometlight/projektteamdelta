@@ -137,9 +137,11 @@ public class PrescriptionController implements ILogger, IPrinter {
 		           NoPrescriptionToPrintException {
         //IPrinter only has to be implemented in class head and then can be used with printer.METHOD
         try {
-	        if(iPrescription.getId()==0){
-                DependenceResolverTB2.getInstance().getFacade().save(iPrescription);
-	        }
+        	/* -- Team D: Doesn't achieve anything useful, but instead throws NullPointerExceptions under some circumstances -- */
+//	        if(iPrescription.getId()==0){
+//                DependenceResolverTB2.getInstance().getFacade().save(iPrescription);
+//	        }
+        	/* -- -- -- */
             DependenceResolverTB2.getInstance().getFacade().save(iPrescription);
             printer.printPrescription(iPrescription, _iPatient.getIDoctor());
         } catch (COSVisitorException | IOException | CantGetPresciptionEntriesException | NoPrescriptionToPrintException e) {

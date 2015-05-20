@@ -216,7 +216,9 @@ public class Printer {
             stream.beginText();
             stream.setFont(fontPlain, 12);
             stream.moveTextPositionByAmount(SPACING_LEFT, rectangle.getHeight() - LINE_HEIGHT * (++line) - SPACING_HEADER);
-            stream.drawString(iPatient.getBirthDay().toString());
+            /* -- Team D: Add check on null -- */
+            stream.drawString(iPatient.getBirthDay() == null ? "" : iPatient.getBirthDay().toString());
+            /* -- -- -- */
             stream.endText();
 
             if (iPatient.getStreet() != null){

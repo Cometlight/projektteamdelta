@@ -12,11 +12,8 @@ import at.itb13.oculus.domain.Diagnosis;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.ExaminationProtocol;
 import at.itb13.oculus.domain.ExaminationResult;
-import at.itb13.oculus.domain.Medicine;
 import at.itb13.oculus.domain.Orthoptist;
 import at.itb13.oculus.domain.Patient;
-import at.itb13.oculus.domain.User;
-import at.itb13.oculus.domain.VisualAid;
 import at.itb13.teamF.interfaces.IAdapter;
 import at.oculus.teamf.domain.entity.exception.CouldNotGetExaminationResultException;
 import at.oculus.teamf.domain.entity.interfaces.IDiagnosis;
@@ -25,10 +22,9 @@ import at.oculus.teamf.domain.entity.interfaces.IExaminationProtocol;
 import at.oculus.teamf.domain.entity.interfaces.IExaminationResult;
 import at.oculus.teamf.domain.entity.interfaces.IOrthoptist;
 import at.oculus.teamf.domain.entity.interfaces.IPatient;
-import at.oculus.teamf.domain.entity.interfaces.IVisualAid;
 
 /**
- * TODO: Insert description here.
+ * Implementation of IExaminationProtocol of Team F.
  * 
  * @author Andrew Sparr
  * @date 18.05.2015
@@ -173,16 +169,6 @@ public class ExaminationProtocolAdapter implements IAdapter,
 	@Override
 	public Collection<IExaminationResult> getExaminationResults()
 			throws CouldNotGetExaminationResultException {
-//		Set<ExaminationResult> examinationResults = _examinationProtocol
-//				.getExaminationResults();
-//		Set<IExaminationResult> iExaminationResults = new HashSet<>(0);
-//
-//		for (ExaminationResult ex : examinationResults) {
-//			iExaminationResults.add(new ExaminationResultAdapter(ex));
-//		}
-//		
-//		return iExaminationResults;
-		
 		if(_examinationProtocol.getExaminationResults() != null){
 			
 			Set<ExaminationResult> set = _examinationProtocol.getExaminationResults();

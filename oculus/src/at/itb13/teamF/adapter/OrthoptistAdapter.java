@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.Orthoptist;
 import at.itb13.teamF.interfaces.IAdapter;
@@ -14,7 +15,9 @@ import at.oculus.teamf.persistence.exception.BadConnectionException;
 import at.oculus.teamf.persistence.exception.NoBrokerMappedException;
 
 /**
- * TODO: Insert description here.
+ * Implementation of IOrthoptist of Team F.
+ * Throws NotImplementedException for things concerning the queue, as 
+ * the queue is not even used by the received classes from Team F.
  * 
  * @author Daniel Scheffknecht
  * @date May 18, 2015
@@ -240,8 +243,7 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	@Override
 	public IPatientQueue getQueue() throws NoBrokerMappedException,
 			BadConnectionException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new NotImplementedException();
 	}
 
 	/*
@@ -249,8 +251,7 @@ public class OrthoptistAdapter implements IAdapter, IOrthoptist {
 	 */
 	@Override
 	public void setQueue(IPatientQueue queue) {
-		// TODO Auto-generated method stub
-
+		throw new NotImplementedException();
 	}
 
 	/*

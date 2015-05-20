@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
-import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.Diagnosis;
 import at.itb13.oculus.domain.VisualAid;
 import at.itb13.teamF.interfaces.IAdapter;
@@ -12,7 +11,7 @@ import at.oculus.teamf.domain.entity.interfaces.IDiagnosis;
 import at.oculus.teamf.domain.entity.interfaces.IVisualAid;
 
 /**
- * TODO: Insert description here.
+ * Implementation of IVisualAidAdapter of Team F.
  * 
  * @author Caroline Meusburger
  * @since 18.05.2015

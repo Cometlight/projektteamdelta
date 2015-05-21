@@ -720,6 +720,7 @@ public class TabCalendarController {
 		_weekViewButton.setDisable(false);
 		initMainArea();
 		refreshCalendar();
+		scrollToCurrentTime();
 	}
 	
 	@FXML
@@ -729,5 +730,6 @@ public class TabCalendarController {
 		_weekViewButton.setDisable(true);
 		initMainArea();
 		refreshCalendar();
+		scrollToCurrentTime();
 	}
 }

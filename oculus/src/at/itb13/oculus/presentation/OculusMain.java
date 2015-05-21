@@ -233,7 +233,7 @@ public class OculusMain extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(OculusMain.class
-					.getResource("../../teamD/presentation/view/TabCalendar.fxml"));
+					.getResource("/at/itb13/teamD/presentation/view/TabCalendar.fxml"));
 			_calendarTab = (AnchorPane) loader.load();
 
 			// Give the controller access to the main app.

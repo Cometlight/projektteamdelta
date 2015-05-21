@@ -1,5 +1,6 @@
 package at.itb13.oculus.domain;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import javax.persistence.Convert;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,6 +20,8 @@ import javax.persistence.Table;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import at.itb13.oculus.technicalServices.converter.LocalDateTimePersistenceConverter;
 
 /**
  * 
@@ -38,6 +42,8 @@ public class Medicine implements java.io.Serializable {
 	private String _name;
 	private String _dose;
 	private Set<PrescriptionEntry> _prescriptionEntries = new HashSet<>(0);
+	private LocalDateTime _startMedicine;
+	private LocalDateTime _endMedicine;
 
 	public Medicine() { }
 
@@ -100,6 +106,26 @@ public class Medicine implements java.io.Serializable {
 
 	public void setPrescriptionEntries(Set<PrescriptionEntry> prescriptionentries) {
 		_prescriptionEntries = prescriptionentries;
+	}
+
+	@Convert(converter = LocalDateTimePersistenceConverter.class)
+	@Column(name = "startMedicine", length = 19)
+	public LocalDateTime getStartMedicine() {
+		return _startMedicine;
+	}
+
+	public void setStartMedicine(LocalDateTime startMedicine) {
+		_startMedicine = startMedicine;
+	}
+
+	@Convert(converter = LocalDateTimePersistenceConverter.class)
+	@Column(name = "endMedicine", length = 19)
+	public LocalDateTime getEndMedicine() {
+		return _endMedicine;
+	}
+
+	public void setEndMedicine(LocalDateTime endMedicine) {
+		_endMedicine = endMedicine;
 	}
 
 }

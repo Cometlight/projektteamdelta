@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.presentation.OculusMain;
 import at.itb13.teamD.domain.interfaces.ICalendarEvent;
 
 /**
@@ -21,7 +20,7 @@ import at.itb13.teamD.domain.interfaces.ICalendarEvent;
  * @since 01.05.2015
  */
 public class CalendarEventController {
-	private static final Logger _logger = LogManager.getLogger(OculusMain.class.getName());
+	private static final Logger _logger = LogManager.getLogger(CalendarEventController.class.getName());
 
 	private static final String EVENT_INFORMATION_FXML = "../view/EventInformation.fxml";
 	@FXML

@@ -24,7 +24,7 @@
                <children>
                   <SplitPane dividerPositions="0.17672413793103448" orientation="VERTICAL" prefHeight="698.0" prefWidth="1015.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
-                      <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0">
+                      <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" styleClass="background-calendar" stylesheets="@OculusTheme.css">
                            <children>
                               <Label layoutX="286.0" layoutY="33.0" text="Week" AnchorPane.rightAnchor="724.0" />
                               <DatePicker fx:id="_datePicker" layoutX="815.0" layoutY="28.0" onAction="#onDatePickerDateSelected" showWeekNumbers="true" AnchorPane.rightAnchor="50.0" />

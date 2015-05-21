@@ -1,7 +1,6 @@
 package at.itb13.oculus.domain.factories;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.teamD.domain.interfaces.ICalendar;
@@ -68,28 +67,4 @@ public class CalendarEventFactory implements ICalendarEventFactory{
 												description, patient);
 		return event;
 	}
-	
-	/**
-	 * get a set of all CallendarEvent for a chosen calendar.
-	 * 
-	 * @param calendar is the chosen calendar.
-	 * @return a set of CallendarEvents.
-	 */
-	@Override
-	public Set<ICalendarEvent> getAllCalendarEvent(ICalendar calendar){
-		return calendar.getICalendarEvents();
-	}
-	
-	/**
-	 * get a CallendarEvent by ID.
-	 * 
-	 * @param calendar is the chosen calendar.
-	 * @param calendarEventId the ID of the wanted CalendarEvent.
-	 * @return a CallendarEvent
-	 */
-	@Override
-	public ICalendarEvent getCalendarEvent(ICalendar calendar, int calendarEventId){
-		return calendar.getCalendarEventById(calendarEventId);
-	}	
-	
 }

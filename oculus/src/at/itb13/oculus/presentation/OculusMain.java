@@ -36,6 +36,9 @@ import at.itb13.oculus.technicalServices.persistencefacade.PersistenceFacade;
 import at.itb13.teamD.application.CalendarEventFactoryProvider;
 import at.itb13.teamD.presentation.controller.TabCalendarController;
 import at.itb13.teamD.technicalServices.persistenceFacade.PersistenceFacadeProvider;
+import at.itb13.teamF.factories.FactoryTeamF;
+import at.itb13.teamF.persistence.PersistenceFacadeTeamF;
+import at.oculus.teamf.application.facade.dependenceResolverTB2.DependenceResolverTB2;
 
 /**
  * 
@@ -97,6 +100,7 @@ public class OculusMain extends Application {
         		updateMessage("Connecting to database ...");
         		//Set PersistenceFacade
         		PersistenceFacadeProvider.setPersistenceFacade(new PersistenceFacade());
+        		DependenceResolverTB2.init(new PersistenceFacadeTeamF(), new FactoryTeamF());
         		
         		try {
         			HibernateUtil.init();
@@ -129,7 +133,6 @@ public class OculusMain extends Application {
 	}
 	
     private void showMainStage() {
-    	initCalendarTab();	// TODO: another position?
     	
     	_primaryStage.setScene(_primaryScene);
     	_primaryStage.setTitle("Oculus");
@@ -177,33 +180,6 @@ public class OculusMain extends Application {
 			_logger.error("initRootLayout() failed", ex);
 		}
 	}
-	
-	/**
-	 * Loads the view/tabPatient.fxml-File and display it in the center of the root-Layout.
-	 */
-//	public void showPatientOverview() {		--> TODO delete?
-//		if(_rootLayout != null) {
-//			try {
-//				// Load person overview.
-//				FXMLLoader loader = new FXMLLoader();
-//				loader.setLocation(OculusMain.class
-//						.getResource("view/TabPatient.fxml"));
-//				AnchorPane overview = (AnchorPane) loader.load();
-//	
-//				// Set person overview into the center of root layout.
-//				_rootLayout.setCenter(overview);
-//	
-//				// Give the controller access to the main app.
-//				TabPatientController controller = loader.getController();
-//				controller.setMain(this);
-//				
-//				_logger.info("Successfully loaded PatientOverview");
-//			} catch (IOException ex) {
-//				_logger.error("Failed to load PatientOverview",ex);
-//				
-//			}
-//		}
-//	}
 	
 	private void initAppointmentsTab() {
 		try {
@@ -267,19 +243,20 @@ public class OculusMain extends Application {
 			_logger.error("Fail: initCalendarTab",ex);
 		}
 	}
-
+	
 	public void showAppointmentsTab() {
 		if(_appointmentsTab != null) {
 			_rootLayout.setCenter(_appointmentsTab);
 			_queueController.stopQueueReloader();
+			_calendarController.stopCalendarReloader();
 		}
 	}
-
 	
 	public void showPatientTab() { 
 		if(_patientTab != null) {
 			_rootLayout.setCenter(_patientTab);
 			_queueController.stopQueueReloader();
+			_calendarController.stopCalendarReloader();
 		}
 	}
 	
@@ -287,15 +264,16 @@ public class OculusMain extends Application {
 		if(_queueTab != null) {
 			_rootLayout.setCenter(_queueTab);
 			_queueController.startQueueReloader();
+			_calendarController.stopCalendarReloader();
 		}
 	}
 	public void showCalendarTab(){
 		if(_calendarTab != null){
 			_rootLayout.setCenter(_calendarTab);
 			_queueController.stopQueueReloader();
+			_calendarController.startCalendarReloader();
 		}
 	}
-	
 	
 	/**
 	 * is called when the button "edit" or "new patient" has been pushed
@@ -358,6 +336,7 @@ public class OculusMain extends Application {
 				controller.showPatientMasterData(patient);
 				controller.showAnamanesis(patient);
 				controller.showAppointments(patient);
+				controller.showExaminationProtocols(patient);
 				_logger.info("showPatientRecord");
 			}
 		} catch (IOException ex) {
@@ -429,5 +408,7 @@ public class OculusMain extends Application {
 	public void clearPatientData() {
 		_patientData.clear();
 	}
+
+
 
 }

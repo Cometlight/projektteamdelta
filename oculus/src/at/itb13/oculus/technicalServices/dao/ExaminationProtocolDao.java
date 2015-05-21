@@ -29,7 +29,7 @@ public class ExaminationProtocolDao extends GenericDao<ExaminationProtocol> {
 		super(ExaminationProtocol.class);
 	}
 	
-	public ExaminationProtocolDao getInstance() {
+	public static ExaminationProtocolDao getInstance() {
 		return _examinationProtocolDao;
 	}
 }

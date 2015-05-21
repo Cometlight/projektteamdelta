@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
@@ -16,6 +20,7 @@ import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.WorkingHours;
+import at.itb13.oculus.technicalServices.GenericDao;
 import at.itb13.oculus.technicalServices.dao.CalendarDao;
 import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
 import at.itb13.oculus.technicalServices.dao.DoctorDao;
@@ -31,6 +36,14 @@ import at.itb13.teamD.domain.interfaces.IUser;
 import at.itb13.teamD.domain.interfaces.IWorkingHours;
 import at.itb13.teamD.technicalServices.exceptions.PersistenceFacadeException;
 import at.itb13.teamD.technicalServices.persistenceFacade.IPersistenceFacade;
+import at.itb13.teamF.adapter.DiagnosisAdapter;
+import at.itb13.teamF.adapter.ExaminationProtocolAdapter;
+import at.itb13.teamF.adapter.PrescriptionAdapter;
+import at.itb13.teamF.adapter.PrescriptionEntryAdapter;
+import at.itb13.teamF.adapter.VisualAidAdapter;
+import at.oculus.teamf.domain.entity.interfaces.*;
+import at.itb13.oculus.technicalServices.dao.*;
+import at.itb13.oculus.domain.*;
 
 /**
  * Enables access to the persistence layer TODO: other Interfaces have to be
@@ -41,6 +54,8 @@ import at.itb13.teamD.technicalServices.persistenceFacade.IPersistenceFacade;
  */
 public class PersistenceFacade implements IPersistenceFacade {
 
+	private static final Logger _logger = LogManager
+			.getLogger(PersistenceFacade.class.getName());
 
 	/**
 	 * 
@@ -53,6 +68,10 @@ public class PersistenceFacade implements IPersistenceFacade {
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> T getById(Integer id, Class<T> clazz) {
+
+		_logger.info("' Trying to retrieve from database " + clazz.getName()
+				+ "' with ID '" + id + "'");
+
 		if (IPatient.class.isAssignableFrom(clazz)) {
 			return (T) PatientDao.getInstance().findById(id);
 		}
@@ -73,6 +92,28 @@ public class PersistenceFacade implements IPersistenceFacade {
 			return (T) CalendarEventDao.getInstance().findById(id);
 		}
 
+		// Checks if Interface class of Team F
+
+		if (IDiagnosis.class.isAssignableFrom(clazz)) {
+			return (T) DiagnosisDao.getInstance().findById(id);
+		}
+
+		if (IExaminationProtocol.class.isAssignableFrom(clazz)) {
+			return (T) ExaminationProtocolDao.getInstance().findById(id);
+		}
+
+		if (IPrescription.class.isAssignableFrom(clazz)) {
+			return (T) CalendarDao.getInstance().findById(id);
+		}
+
+		if (IPrescriptionEntry.class.isAssignableFrom(clazz)) {
+			return (T) EventTypeDao.getInstance().findById(id);
+		}
+
+		if (IVisualAid.class.isAssignableFrom(clazz)) {
+			return (T) CalendarEventDao.getInstance().findById(id);
+		}
+
 		return null;
 	}
 
@@ -85,6 +126,10 @@ public class PersistenceFacade implements IPersistenceFacade {
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> List<T> getAll(Class<T> clazz) {
+
+		_logger.info("' Trying to retrieve all from database "
+				+ clazz.getName() + "'");
+
 		if (IPatient.class.isAssignableFrom(clazz)) {
 			return (List<T>) PatientDao.getInstance().findAll();
 		} else
@@ -103,11 +148,36 @@ public class PersistenceFacade implements IPersistenceFacade {
 			return (List<T>) CalendarEventDao.getInstance().findAll();
 		}
 
+		// Checks if Interface class of Team F
+
+		else if (IDiagnosis.class.isAssignableFrom(clazz)) {
+			return (List<T>) DiagnosisDao.getInstance().findAll();
+		}
+
+		else if (IExaminationProtocol.class.isAssignableFrom(clazz)) {
+			return (List<T>) ExaminationProtocolDao.getInstance().findAll();
+		}
+
+		else if (IPrescription.class.isAssignableFrom(clazz)) {
+			return (List<T>) CalendarDao.getInstance().findAll();
+		}
+
+		else if (IPrescriptionEntry.class.isAssignableFrom(clazz)) {
+			return (List<T>) EventTypeDao.getInstance().findAll();
+		}
+
+		else if (IVisualAid.class.isAssignableFrom(clazz)) {
+			return (List<T>) CalendarEventDao.getInstance().findAll();
+		}
+
 		return null;
 	}
 
 	public boolean makePersistent(Object obj) {
 
+		_logger.info("' Trying to make persistent "
+				+ obj.getClass().getName() + "'");
+		
 		if (obj instanceof IPatient) {
 			return PatientDao.getInstance().makePersistent((Patient) obj);
 		}
@@ -129,17 +199,51 @@ public class PersistenceFacade implements IPersistenceFacade {
 					(CalendarEvent) obj);
 		}
 
+		// Checks if Interface class of Team F
+
+		if (obj instanceof IDiagnosis) {
+			DiagnosisAdapter diagAda = (DiagnosisAdapter) obj;
+			return DiagnosisDao.getInstance().makePersistent(
+					(Diagnosis) (diagAda.getDomainObject()));
+		}
+
+		if (obj instanceof IExaminationProtocol) {
+			ExaminationProtocolAdapter exaAda = (ExaminationProtocolAdapter) obj;
+			return ExaminationProtocolDao.getInstance().makePersistent(
+					(ExaminationProtocol) exaAda.getDomainObject());
+		}
+
+		if (obj instanceof IPrescription) {
+			PrescriptionAdapter presAda = (PrescriptionAdapter) obj;
+			return PrescriptionDao.getInstance().makePersistent(
+					(Prescription) presAda.getDomainObject());
+		}
+
+		if (obj instanceof IPrescriptionEntry) {
+			PrescriptionEntryAdapter presAda = (PrescriptionEntryAdapter) obj;
+			return PrescriptionEntryDao.getInstance().makePersistent(
+					(PrescriptionEntry) presAda.getDomainObject());
+		}
+
+		if (obj instanceof IVisualAid) {
+			VisualAidAdapter visAda = (VisualAidAdapter) obj;
+			return VisualAidDao.getInstance().makePersistent(
+					(VisualAid) visAda.getDomainObject());
+		}
+
 		return false;
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> Collection<T> searchFor(Class<T> clazz, String searchString) throws PersistenceFacadeException {
-
-		// TODO Suchen nach mehreren Namen
+	public <T> Collection<T> searchFor(Class<T> clazz, String searchString)
+			throws PersistenceFacadeException {
 
 		if (clazz == null) {
 			throw new PersistenceFacadeException();
 		}
+		
+		_logger.info("' Trying to searchFor '"
+				+ searchString + "'");
 
 		String[] subStrings = searchString.split(" ");
 
@@ -148,13 +252,13 @@ public class PersistenceFacade implements IPersistenceFacade {
 
 			for (int i = 0; i < subStrings.length; i++) {
 
-					List<Patient> firstNameList = PatientDao.getInstance()
-							.findByFirstName(subStrings[i]);
-					collection.addAll(firstNameList);
+				List<Patient> firstNameList = PatientDao.getInstance()
+						.findByFirstName(subStrings[i]);
+				collection.addAll(firstNameList);
 
-					List<Patient> lastNameList = PatientDao.getInstance()
-							.findByLastName(subStrings[i]);
-					collection.addAll(lastNameList);
+				List<Patient> lastNameList = PatientDao.getInstance()
+						.findByLastName(subStrings[i]);
+				collection.addAll(lastNameList);
 
 				Patient patient = PatientDao.getInstance()
 						.findBySocialInsuranceNr(subStrings[i]);
@@ -164,43 +268,18 @@ public class PersistenceFacade implements IPersistenceFacade {
 				}
 			}
 
-			// add elements to al, including duplicates
-			
-			//Converting to remove possible duplicates 
-//			Set<IPatient> hashSet = new HashSet<>();
-//			hashSet.addAll(collection);
-//			collection.clear();
-//			collection.addAll(hashSet);
-			
-			
-			//Remove duplicates
-			//Checks if duplicate by comparing social insurance number, if existent
-			
-			for (Iterator<IPatient> iterator = collection.iterator(); iterator.hasNext();) {
-		        IPatient patient = (IPatient) iterator.next();
-		        
-		        for(Iterator<IPatient> iterator2 = collection.iterator(); iterator.hasNext();){
-		        	IPatient patient2 = (IPatient) iterator.next();
-		        	
-		        	if(patient.getPatientId() != null && patient2.getPatientId() != null){
-		        		if(patient.getPatientId().equals(patient2.getPatientId())){
-			        		collection.remove(patient2);
-			        	}	
-		        	}
-		        	
-//		        	if(patient.getSocialInsuranceNr() != null && patient2.getSocialInsuranceNr() != null){
-//		        		if(patient.getSocialInsuranceNr().equals(patient2.getSocialInsuranceNr())){
-//			        		collection.remove(patient2);
-//			        	}	
-//		        	}
-		        }
-
-		    }
-			
-			// (T) PatientDao.getInstance().;
-			// wenn nichts gefunden, bleibt col eben leer
+			 Hashtable<Integer, IPatient> table = new Hashtable<>();
+			 for(IPatient pat : collection) {
+				 if(!table.containsKey(pat.getPatientId())){
+					 table.put(pat.getPatientId(), pat);
+				 }
+				 else{
+					 collection.remove(pat);
+				 }
+			 }
 			return (Collection<T>) collection;
 		}
+		
 		return null;
 	}
 }

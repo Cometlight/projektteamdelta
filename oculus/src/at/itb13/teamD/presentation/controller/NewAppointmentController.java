@@ -39,15 +39,15 @@ import javafx.util.StringConverter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import at.itb13.oculus.application.ControllerFacade;
-import at.itb13.oculus.application.receptionist.PatientSearch;
-import at.itb13.oculus.presentation.util.CalendarEventTypeStringConverter;
-import at.itb13.oculus.presentation.util.CalendarStringConverter;
+import at.itb13.teamD.application.ControllerFacade;
 import at.itb13.teamD.application.exceptions.InvalidInputException;
 import at.itb13.teamD.application.exceptions.SaveException;
+import at.itb13.teamD.application.interfaces.INewAppointmentController;
 import at.itb13.teamD.domain.interfaces.ICalendar;
 import at.itb13.teamD.domain.interfaces.IEventType;
 import at.itb13.teamD.domain.interfaces.IPatient;
+import at.itb13.teamD.presentation.converter.CalendarEventTypeStringConverter;
+import at.itb13.teamD.presentation.converter.CalendarStringConverter;
 
 /**
  * @author Caroline Meusburger
@@ -235,43 +235,85 @@ public class NewAppointmentController {
         _endTimeSpinnerMin.setEditable(true);
         
         _startTimeSpinnerHour.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-        	if((newValue!= null)&&(!newValue.equals(""))){
-        		_startTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(newValue));
-        	}else{
-        		_startTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(oldValue));
-
+        	
+        	String old = String.valueOf(_startTimeSpinnerHour.getValueFactory().getValue());
+        	try{
+	        	if((newValue!= null)&&(!newValue.equals("")&&(isNumber(newValue)))){
+	        		_startTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(newValue));
+	        	}else{
+	        		
+            		_startTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(old));
+            		_startTimeSpinnerHour.getEditor().setText(old);
+            		return;
+	        	}
+        	}catch (NumberFormatException e){
         	}
         });
                     
         _startTimeSpinnerMin.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-        	if((newValue!= null)&&(!newValue.equals(""))){
-        		_startTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(newValue));
-        	}else{
-        		_startTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(oldValue));
-
+        	String old = String.valueOf(_startTimeSpinnerMin.getValueFactory().getValue());
+        	try{
+	        	if((newValue!= null)&&(!newValue.equals("")&&(isNumber(newValue)))){
+	        		_startTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(newValue));
+	        	}else{
+	        		
+            		_startTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(old));
+            		_startTimeSpinnerMin.getEditor().setText(old);
+            		return;
+	        	}
+        	}catch (NumberFormatException e){
         	}
+        	
         });
         	
         _endTimeSpinnerHour.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-        	if((newValue!= null)&&(!newValue.equals(""))){
-        		_endTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(newValue));
-        	}else{
-        		_endTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(oldValue));
-
+        	String old = String.valueOf(_endTimeSpinnerHour.getValueFactory().getValue());
+        	try{
+	        	if((newValue!= null)&&(!newValue.equals("")&&(isNumber(newValue)))){
+	        		_endTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(newValue));
+	        	}else{
+	        		
+            		_endTimeSpinnerHour.getValueFactory().setValue(Integer.parseInt(old));
+            		_endTimeSpinnerHour.getEditor().setText(old);
+            		return;
+	        	}
+        	}catch (NumberFormatException e){
         	}
         });
         	
         _endTimeSpinnerMin.getEditor().textProperty().addListener((observable, oldValue, newValue) ->   {
-        	if((newValue!= null)&&(!newValue.equals(""))){
-        		_endTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(newValue));
-        	}else{
-        		_endTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(oldValue));
-
+        	String old = String.valueOf(_endTimeSpinnerMin.getValueFactory().getValue());
+        	try{
+	        	if((newValue!= null)&&(!newValue.equals("")&&(isNumber(newValue)))){
+	        		_endTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(newValue));
+	        	}else{
+	        		
+            		_endTimeSpinnerMin.getValueFactory().setValue(Integer.parseInt(old));
+            		_endTimeSpinnerMin.getEditor().setText(old);
+            		return;
+	        	}
+        	}catch (NumberFormatException e){
         	}
         });
         	
 	}
 	
+	/**
+	 * @param newValue
+	 * @return
+	 */
+	private boolean isNumber(String value) {
+		   if ((value == null)||(value.equals(""))) {
+	            return false;
+	        }
+	        try {
+	            new Integer(value);
+	            return true;
+	        } catch (NumberFormatException e) {
+	            return false;
+	        }		
+	}
+
 	@FXML
 	private void withoutPatientButtonControl(){
 		TextInputDialog dialog = new TextInputDialog();
@@ -312,14 +354,13 @@ public class NewAppointmentController {
 	  * It gets a List of Patients from the PatientSearch Class and creates new Patients with Property.
 	  * The Patient Data are shown in the GUI
 	  */
-	 @SuppressWarnings("unchecked")
 	@FXML
 	 private void searchControl(){
 		 clearPatientData();
-		 PatientSearch p = ControllerFacade.getInstance().getPatientSearch();
+		 INewAppointmentController controller = ControllerFacade.getInstance().getNewAppointmentController();
 		 List<IPatient> patients = new ArrayList<>();
 		 try {			
-			patients =  (List<IPatient>) p.searchPatient(_patientSearchField.getText());
+			patients =  (List<IPatient>) controller.searchPatient(_patientSearchField.getText());
 			if(patients.size() > 0){
 				for(IPatient pa : patients){
 					addPatientData(pa);
@@ -470,9 +511,10 @@ public class NewAppointmentController {
 	private boolean inputIsValid() {
 		String errorMessage = "";
 
-		if (_patient == null
-				&& _patientName.length() < 1) {
-			errorMessage += "No Patient selected\n";
+		if (_patient == null){
+			if((_patientName == null)||(_patientName.length() < 1)){
+				errorMessage += "No Patient selected\n";
+			}
 		}
 		if(_datePicker.getValue()== null){
 				errorMessage += "No Day selected\n";
@@ -519,6 +561,7 @@ public class NewAppointmentController {
 	private boolean continueWithOverlaping(){
 		if(isEventAlreadyTaken()){
 			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Overlaping Appointment");
 			alert.setHeaderText("Overlapping Appointment");
 			alert.setContentText("The new appointment overlaps with another appointment. Do you want to continue?");
 			Optional<ButtonType> result = alert.showAndWait();
@@ -548,6 +591,7 @@ public class NewAppointmentController {
 	private boolean continueWhenNotInWorkingHour(){
 		if(!isEventInWorkingHour()){
 			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Outside of workinghours");
 			alert.setHeaderText("Appointment outside of workinghours");
 			alert.setContentText("The new appointment is outside of workinghours. Do you want to continue?");
 			Optional<ButtonType> result = alert.showAndWait();

@@ -27,13 +27,14 @@ public class PersistenceFacade_UnitTests {
 		Collection<IPatient> patientList = PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class, "Donald");
 		assertEquals(1, patientList.size());
 		
-		//Zweiter Test
 		Collection<IPatient> patientList2 = PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class,  "Donald Duck");
 		assertEquals(1, patientList2.size());
 		Collection<IPatient> patientList3 = PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class,  "Lara Mey");
-		assertEquals(1, patientList3.size());
-		Collection<IPatient> patientList4 = PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class,  "John");
-		assertEquals(2, patientList4.size());
+		assertEquals(0, patientList3.size());
+		Collection<IPatient> patientList5 = PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class,  "John");
+		assertEquals(1, patientList5.size());
+		Collection<IPatient> patientList6 = PersistenceFacadeProvider.getPersistenceFacade().searchFor(IPatient.class,  "Ralph");
+		assertEquals(2, patientList6.size());
 	}
 	
 	@Test

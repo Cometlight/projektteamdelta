@@ -1,7 +1,6 @@
 package at.itb13.teamD.domain.interfaces;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 /**
  * This Interface defines the required methods of the CalendarEventFactory class.
@@ -46,22 +45,5 @@ public interface ICalendarEventFactory {
 	 */
 	public abstract ICalendarEvent createCalendarEvent(ICalendar calendar, IEventType eventType, 
 										LocalDateTime start, LocalDateTime end, String description, IPatient patient);
-	
-	/**
-	 * get a set of all CallendarEvent for a chosen calendar.
-	 * 
-	 * @param calendar is the chosen calendar.
-	 * @return a set of CallendarEvents.
-	 */
-	public abstract Set<ICalendarEvent> getAllCalendarEvent(ICalendar calendar);
-	
-	/**
-	 * get a CallendarEvent by ID.
-	 * 
-	 * @param calendar is the chosen calendar.
-	 * @param calendarEventId the ID of the wanted CalendarEvent.
-	 * @return a CallendarEvent
-	 */
-	public abstract ICalendarEvent getCalendarEvent(ICalendar calendar, int calendarEventId);
 	
 }

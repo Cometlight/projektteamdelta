@@ -1,0 +1,295 @@
+/* -------------------------------------------------------------------------------------------
+
+
+    OCULUS DEFAULT CSS
+
+
+------------------------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------------------------
+    TABPANE & TAB
+------------------------------------------------------------------------------------------- */
+.tab-pane{
+    -fx-background-image: url("/res/oculus_logo_reflect.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 416 175;
+    -fx-background-position: center;
+    -fx-background-color: white;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: white;
+}
+
+#waitingListBox{
+    -fx-background-color: #F4F4F4;
+}
+#newPatientPane{
+    -fx-background-color: #F4F4F4;
+}
+#patientRecordPane{
+    -fx-background-color: #F4F4F4;
+}
+#searchPatientPane{
+    -fx-background-color: #F4F4F4;
+}
+#examinationPane{
+    -fx-background-color: #F4F4F4;
+}
+#diagnosisPane{
+    -fx-background-color: #F4F4F4;
+}
+#prescriptionPane{
+    -fx-background-color: #F4F4F4;
+}
+#prescriptionTabPane{
+    -fx-background-color: #F4F4F4;
+}
+
+/* -------------------------------------------------------------------------------------------
+    BACKGROUND PANES
+------------------------------------------------------------------------------------------- */
+
+#colorPane1{
+    -fx-background-color: #cbe6ff;
+}
+#colorPane2{
+    -fx-background-color: #cbe6ff;
+}
+#colorPane3{
+    -fx-background-color: #cbe6ff;
+}
+#colorPane4{
+    -fx-background-color: #cbe6ff;
+}
+#colorPane5{
+    -fx-background-color: #cbe6ff;
+}
+#colorPane6{
+    -fx-background-color: #cbe6ff;
+}
+#colorPane7{
+    -fx-background-color: #cbe6ff;
+}
+#colorPane8{
+    -fx-background-color: #cbe6ff;
+}
+#colorPane9{
+    -fx-background-color: #cbe6ff;
+}
+#colorPane21{
+    -fx-background-color: #cbe6ff;
+}
+
+#colorPane4:hover{
+    /*-fx-opacity: 0.5;*/
+}
+
+/* -------------------------------------------------------------------------------------------
+    SPLASHSCREEN
+------------------------------------------------------------------------------------------- */
+
+#loaderPane{
+    -fx-background-color: white;
+    -fx-background-image: url("/res/oculus.JPG");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 316 90;
+    -fx-background-position: center;
+    -fx-border-color: lightgray;
+}
+
+/* -------------------------------------------------------------------------------------------
+    SEARCH
+------------------------------------------------------------------------------------------- */
+
+#searchResults > .title{
+    -fx-background-color: white;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 0 0 0, 0 0 0 0, 0 0 0 0;
+    -fx-border-color: transparent;
+    -fx-border-style: none;
+}
+
+#searchButton{
+    -fx-background-color: transparent;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 0 0 0, 0 0 0 0, 0 0 0 0;
+    -fx-border-style: none;
+}
+
+#searchButton:hover {
+    -fx-opacity: 1;
+}
+
+#textSearch{
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 0 0 0, 0 0 0 0, 0 0 0 0;
+}
+
+/* -------------------------------------------------------------------------------------------
+    SPLITTER
+------------------------------------------------------------------------------------------- */
+
+.split-pane {
+    -fx-border-color: transparent;
+    -fx-border-style: solid;
+}
+
+.split-pane > .split-pane-divider {
+    -fx-padding: 0 1 0 0;
+    -fx-background-color: transparent, darkgrey;
+    -fx-background-insets: 0 -3 0 -3, 0;
+    -fx-border-color: null;
+}
+
+/* -------------------------------------------------------------------------------------------
+    LIST VIEWS (CELLS)
+------------------------------------------------------------------------------------------- */
+
+.list-cell:hover{
+    -fx-background-color: blanchedalmond;
+}
+
+.list-cell:selected{
+    -fx-background-color: lightskyblue;
+}
+
+.list-cell {
+    -fx-text-alignment: center;
+}
+
+#addToQueueBox > .list-cell:selected {
+    -fx-background-color: white;
+    -fx-border-color: lightgray;
+}
+
+#choosePrescriptionBox > .list-cell:selected {
+    -fx-background-color: white;
+    -fx-border-color: lightgray;
+}
+
+#patientRecordDoctor > .list-cell:selected {
+    -fx-background-color: white;
+    -fx-border-color: lightgray;
+}
+
+#chooseMedicinBox > .list-cell:selected {
+    -fx-background-color: white;
+    -fx-border-color: lightgray;
+}
+
+#patientRecordDoctor > .list-view:disabled {
+    -fx-opacity: 1.0;
+}
+#patientRecordBday:disabled{
+    -fx-opacity: 1.0;
+}
+
+/* -------------------------------------------------------------------------------------------
+    REGULAR BUTTONS
+------------------------------------------------------------------------------------------- */
+
+.button {
+    -fx-background-color:
+    linear-gradient(#b9b9b9 0%, #c2c2c2 20%, #afafaf 80%, #c8c8c8 100%),
+    linear-gradient(white 0%, #f3f3f3 50%, #ececec 51%, #f2f2f2 100%);
+    /* linear-gradient(#b9b9b9 0%, #c2c2c2 20%, #afafaf 80%, #c8c8c8 100%),
+    linear-gradient(#f5f5f5 0%, #dbdbdb 50%, #cacaca 51%, #d7d7d7 100%); */
+    -fx-background-radius: 3,2,1;
+    -fx-background-insets: 0,1,1;
+}
+
+.button:hover {
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-text-fill: black;
+}
+
+.button:focused {
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 5, 4, 3;
+}
+
+/* -------------------------------------------------------------------------------------------
+    QUEUE
+------------------------------------------------------------------------------------------- */
+
+.titled-pane > .title {
+    -fx-background-color:
+    rgba(0,0,0,0.08),
+    linear-gradient(#9a9a9a, #909090),
+    linear-gradient(white 0%, #f3f3f3 50%, #ececec 51%, #f2f2f2 100%);
+    -fx-background-radius: 3,2,1;
+    -fx-background-insets: 0,1,1;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-font-size: 15px;
+}
+
+.titled-pane > .title:hover {
+    -fx-font-weight: bold;
+    -fx-font-smoothing-type: gray;
+}
+
+.text-area:disabled, .text-field:disabled{
+    -fx-opacity: 1;
+    -fx-text-fill: black;
+    -fx-background-color: mintcream;
+    -fx-border-color: lightgray;
+}
+
+.text-area .scroll-pane:disabled{
+    -fx-opacity: 1.0;
+}
+
+/* -------------------------------------------------------------------------------------------
+    QUEUE LIST BUTTONS
+------------------------------------------------------------------------------------------- */
+
+#queueButton{
+    -fx-background-color: transparent;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 0 0 0, 0 0 0 0, 0 0 0 0;
+    -fx-border-style: none;
+    -fx-text-fill: darkslategray;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-opacity: 0.3;
+}
+
+#queueButton:hover {
+    -fx-opacity: 1;
+    -fx-text-fill: black;
+    -fx-effect: none;
+}
+
+#queueDeleteButton{
+    -fx-background-color: transparent;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 0 0 0, 0 0 0 0, 0 0 0 0;
+    -fx-border-style: none;
+    -fx-text-fill: darkslategray;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-opacity: 0.3;
+}
+
+#queueDeleteButton:hover {
+    -fx-opacity: 1;
+    -fx-text-fill: black;
+    -fx-effect: none;
+}
+
+#queueOpenButton{
+    -fx-background-color: transparent;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 0 0 0, 0 0 0 0, 0 0 0 0;
+    -fx-border-style: none;
+    -fx-text-fill: darkslategray;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-opacity: 0.3;
+}
+
+#queueOpenButton:hover {
+    -fx-opacity: 1;
+    -fx-text-fill: black;
+    -fx-effect: none;
+}

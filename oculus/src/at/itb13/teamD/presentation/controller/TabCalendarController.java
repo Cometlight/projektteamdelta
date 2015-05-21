@@ -519,6 +519,8 @@ public class TabCalendarController {
 			
 			List<ICalendar> calendars = new LinkedList<>();
 			_calendarCheckBoxes.forEach(calCheckBox -> calendars.add(calCheckBox.getCalendar()));
+			
+			stopCalendarReloader();	// don't reload while displaying the dialog window
 			controller.init(calendars);
 
 			// Show the dialog and wait until the user closes it
@@ -526,9 +528,9 @@ public class TabCalendarController {
 
 			_logger.info("showNewAppointmentDialog successful");
 			if(controller.isOkClicked()){
-				
 				refreshCalendar();
 			}
+			startCalendarReloader();
 			return controller.isOkClicked();
 		} catch (IOException ex) {
 			_logger.error("showNewAppointmentDialog failed", ex);
@@ -552,7 +554,6 @@ public class TabCalendarController {
 	@FXML
 	private void todayButtonControl(){
 		_datePicker.setValue(LocalDate.now());
-		onDatePickerDateSelected();
 		scrollToCurrentTime();
 		markCurrentTime();
 	}
@@ -626,9 +627,9 @@ public class TabCalendarController {
 	 * Starts the calendarReloader, which is called every {@link #REFRESH_INTERVAL} milliseconds and calls 
 	 * {@link #refreshCalendar()} after updating the calendars from the database.
 	 */
-	private void startCalendarReloader() {
+	public void startCalendarReloader() {
 		if(_timer == null) {
-			_timer = new Timer("CalendarReloader");
+			_timer = new Timer("CalendarReloader", true);
 			_timer.schedule(new TimerTask() {
 				@Override
 				public void run() {
@@ -642,6 +643,13 @@ public class TabCalendarController {
 					});
 				}
 			}, REFRESH_INTERVAL, REFRESH_INTERVAL);
+		}
+	}
+	
+	public void stopCalendarReloader() {
+		if(_timer != null) {
+			_timer.cancel();
+			_timer = null;
 		}
 	}
 	
@@ -661,6 +669,7 @@ public class TabCalendarController {
 		
 		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
 		displayAllCalendarEvents();
+		markCurrentTime();
 	}
 
 	/**
@@ -694,8 +703,12 @@ public class TabCalendarController {
 	private void markCurrentTime() {
 		for(Node node : _gridPaneContent.getChildren()) {
 			Integer colIndex = GridPane.getColumnIndex(node);
-			if(colIndex != null && colIndex.equals(0) && ((LocalTimeLabel)node).getLocalTime().getHour() == LocalTime.now().getHour()) {
-				node.setStyle("-fx-background-color: pink");
+			if(colIndex != null && colIndex.equals(0)) {
+				if(((LocalTimeLabel)node).getLocalTime().getHour() == LocalTime.now().getHour()) {
+					node.setStyle("-fx-background-color: pink");
+				} else {
+					node.setStyle("-fx-background-color: transparent");
+				}
 			}
 		}
 	}
@@ -707,6 +720,7 @@ public class TabCalendarController {
 		_weekViewButton.setDisable(false);
 		initMainArea();
 		refreshCalendar();
+		scrollToCurrentTime();
 	}
 	
 	@FXML
@@ -716,5 +730,6 @@ public class TabCalendarController {
 		_weekViewButton.setDisable(true);
 		initMainArea();
 		refreshCalendar();
+		scrollToCurrentTime();
 	}
 }

@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import at.itb13.oculus.application.receptionist.PatientSearch;
-import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.teamD.application.exceptions.InvalidInputException;
 
@@ -65,7 +64,6 @@ public class PatientSearch_UnitTests {
 	@Test
 	public void searchPatientBySocialInsuranceNrWithNotExistingNr() throws InvalidInputException{
 	List<? extends PatientRO> patientList = null;
-		Patient p = null;
 		String sin = "3333333332";
 		PatientSearch ps = new PatientSearch();
 		patientList = ps.searchPatient(sin);

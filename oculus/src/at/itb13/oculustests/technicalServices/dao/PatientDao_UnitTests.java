@@ -1,22 +1,13 @@
 package at.itb13.oculustests.technicalServices.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.junit.Test;
 
-import at.itb13.oculus.domain.Calendar;
-import at.itb13.oculus.domain.CalendarEvent;
-import at.itb13.oculus.domain.Diagnosis;
 import at.itb13.oculus.domain.Doctor;
-import at.itb13.oculus.domain.ExaminationProtocol;
 import at.itb13.oculus.domain.Patient;
-import at.itb13.oculus.domain.Prescription;
-import at.itb13.oculus.domain.ReferralLetter;
-import at.itb13.oculus.domain.User;
 import at.itb13.oculus.domain.Patient.Gender;
 import at.itb13.oculus.technicalServices.dao.DoctorDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;

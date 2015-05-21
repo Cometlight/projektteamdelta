@@ -1,6 +1,6 @@
 package at.itb13.oculustests.domain;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -9,17 +9,13 @@ import java.util.List;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.Mockito;
 
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.Orthoptist;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Queue;
 import at.itb13.oculus.domain.QueueEntry;
-
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  * 

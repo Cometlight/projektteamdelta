@@ -4,10 +4,18 @@
 }
 
 .background-queue{
-	-fx-background-color: #C0EEAC;
+	-fx-background-color: #66cdaa;
+}
+
+.background-calendar{
+	-fx-background-color: #ee5c42;
+}
+.background-appointments{
+	-fx-background-color: #c1cdc1;
 }
 
 .label{
+	
 	-fx-font-size: 9pt;
 	-fx-font-color: #838B8B;
 	-fx-line-spacing: 1.5em;

@@ -1,5 +1,6 @@
 package at.itb13.oculus.presentation.view;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -8,26 +9,34 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.text.TextFlow;
-import javafx.stage.Stage;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import at.itb13.oculus.application.ControllerFacade;
+import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.presentation.OculusMain;
-import at.itb13.teamD.domain.interfaces.IPatient;
+import at.itb13.teamF.adapter.DoctorAdapter;
+import at.itb13.teamF.adapter.PatientAdapter;
+import at.oculus.teamf.domain.entity.interfaces.IUser;
+import at.oculus.teamf.presentation.view.ExaminationController;
+import at.oculus.teamf.presentation.view.models.Model;
 
 /**
  * TODO: Insert description here.
@@ -36,7 +45,8 @@ import at.itb13.teamD.domain.interfaces.IPatient;
  * @since 17.04.2015
  */
 public class PatientRecordController {
-
+	private static final Logger _logger = LogManager.getLogger(PatientRecordController.class.getName());
+	
 	@FXML
 	private TextField _ssnTextField;
 	@FXML
@@ -88,9 +98,12 @@ public class PatientRecordController {
 	private TableColumn<CalendarEventRO, String> _eventTypeColumn;
 	@FXML
 	private TableColumn<CalendarEventRO, String> _descriptionColumn;
-	private Stage _dialogStage;
 	private PatientRO _patient;
 	private ObservableList<CalendarEventRO> _appointmentsList = FXCollections.observableArrayList();
+	
+	@FXML
+	private BorderPane _examinationProtocolBorderPane;
+	private ExaminationController _examinationController;
 	
 	//general Attributs
 	private OculusMain _main;
@@ -109,16 +122,25 @@ public class PatientRecordController {
 		 initAppointmentsTab();
 	}
 	 
-	 public void setPatientRO(PatientRO patient){
+	private void initExaminationProtocolsTab() {
+		try {// set logged in user in model
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(OculusMain.class
+					.getResource("../../../oculus/teamf/presentation/view/fxml/ExaminationTab.fxml"));
+			_examinationProtocolBorderPane.setCenter((AnchorPane) loader.load());
+			_examinationProtocolBorderPane.getStylesheets().add("styles/stylesheet_default.css");
+
+			// Give the controller access to the main app.
+			_examinationController = loader.getController();
+
+		} catch (IOException ex) {
+			_logger.error("Fail: initExaminationTab",ex);
+		}
+	}
+	
+	public void setPatientRO(PatientRO patient){
 		 _patient = patient;
 	 }
-	 /**
-		 * @param dialogStage
-		 */
-		public void setDialogStage(Stage dialogStage) {
-			_dialogStage = dialogStage;
-			
-		}
 	
 	 /**
 	  * shows the patient general data of the specific patient
@@ -189,6 +211,18 @@ public class PatientRecordController {
 					ControllerFacade.getInstance().getWelcomeAtReception().getAllCalendarEventsSorted(value));
 		}
 	}
+	
+	public void showExaminationProtocols(PatientRO value) {
+		DoctorAdapter userAdapter = new DoctorAdapter(value.getDoctor());
+		Model.getInstance().setLoggedInUser((IUser)userAdapter);
+		
+		PatientAdapter patientAdapter = new PatientAdapter((Patient)value);
+		Model.getInstance().setPatient(patientAdapter);
+		Model.getInstance().getTabModel().setTabinitpatient(patientAdapter);
+		
+		initExaminationProtocolsTab();
+	}
+	
 	 /**
 	  * initializes the appointment tab. 
 	  */

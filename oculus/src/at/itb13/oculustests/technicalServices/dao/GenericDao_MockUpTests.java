@@ -1,25 +1,18 @@
 package at.itb13.oculustests.technicalServices.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.LinkedList;
 
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.Mockito;
 
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.technicalServices.GenericDao;
-import at.itb13.oculus.technicalServices.dao.PatientDao;
 
 /**
- * TODO: Insert description here.
- * 
  * @author Andrew Sparr
  * @date 3 May 2015
  */

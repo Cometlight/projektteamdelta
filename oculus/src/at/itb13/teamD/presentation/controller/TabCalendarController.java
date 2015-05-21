@@ -519,6 +519,8 @@ public class TabCalendarController {
 			
 			List<ICalendar> calendars = new LinkedList<>();
 			_calendarCheckBoxes.forEach(calCheckBox -> calendars.add(calCheckBox.getCalendar()));
+			
+			stopCalendarReloader();	// don't reload while displaying the dialog window
 			controller.init(calendars);
 
 			// Show the dialog and wait until the user closes it
@@ -528,6 +530,7 @@ public class TabCalendarController {
 			if(controller.isOkClicked()){
 				refreshCalendar();
 			}
+			startCalendarReloader();
 			return controller.isOkClicked();
 		} catch (IOException ex) {
 			_logger.error("showNewAppointmentDialog failed", ex);
@@ -624,7 +627,7 @@ public class TabCalendarController {
 	 * Starts the calendarReloader, which is called every {@link #REFRESH_INTERVAL} milliseconds and calls 
 	 * {@link #refreshCalendar()} after updating the calendars from the database.
 	 */
-	private void startCalendarReloader() {
+	public void startCalendarReloader() {
 		if(_timer == null) {
 			_timer = new Timer("CalendarReloader", true);
 			_timer.schedule(new TimerTask() {
@@ -640,6 +643,13 @@ public class TabCalendarController {
 					});
 				}
 			}, REFRESH_INTERVAL, REFRESH_INTERVAL);
+		}
+	}
+	
+	public void stopCalendarReloader() {
+		if(_timer != null) {
+			_timer.cancel();
+			_timer = null;
 		}
 	}
 	
@@ -659,7 +669,6 @@ public class TabCalendarController {
 		
 		loadCalendarEvents(_state.getStartDate(_datePicker.getValue()), _state.getNumberOfDays());
 		displayAllCalendarEvents();
-		scrollToCurrentTime();
 		markCurrentTime();
 	}
 

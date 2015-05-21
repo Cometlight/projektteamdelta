@@ -248,14 +248,15 @@ public class OculusMain extends Application {
 		if(_appointmentsTab != null) {
 			_rootLayout.setCenter(_appointmentsTab);
 			_queueController.stopQueueReloader();
+			_calendarController.stopCalendarReloader();
 		}
 	}
-
 	
 	public void showPatientTab() { 
 		if(_patientTab != null) {
 			_rootLayout.setCenter(_patientTab);
 			_queueController.stopQueueReloader();
+			_calendarController.stopCalendarReloader();
 		}
 	}
 	
@@ -263,12 +264,14 @@ public class OculusMain extends Application {
 		if(_queueTab != null) {
 			_rootLayout.setCenter(_queueTab);
 			_queueController.startQueueReloader();
+			_calendarController.stopCalendarReloader();
 		}
 	}
 	public void showCalendarTab(){
 		if(_calendarTab != null){
 			_rootLayout.setCenter(_calendarTab);
 			_queueController.stopQueueReloader();
+			_calendarController.startCalendarReloader();
 		}
 	}
 	

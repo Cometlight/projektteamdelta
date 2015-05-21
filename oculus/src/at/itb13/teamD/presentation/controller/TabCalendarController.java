@@ -526,7 +526,6 @@ public class TabCalendarController {
 
 			_logger.info("showNewAppointmentDialog successful");
 			if(controller.isOkClicked()){
-				
 				refreshCalendar();
 			}
 			return controller.isOkClicked();
@@ -552,7 +551,6 @@ public class TabCalendarController {
 	@FXML
 	private void todayButtonControl(){
 		_datePicker.setValue(LocalDate.now());
-		onDatePickerDateSelected();
 		scrollToCurrentTime();
 		markCurrentTime();
 	}
@@ -696,10 +694,12 @@ public class TabCalendarController {
 	private void markCurrentTime() {
 		for(Node node : _gridPaneContent.getChildren()) {
 			Integer colIndex = GridPane.getColumnIndex(node);
-			if(colIndex != null && colIndex.equals(0) && ((LocalTimeLabel)node).getLocalTime().getHour() == LocalTime.now().getHour()) {
-				node.setStyle("-fx-background-color: pink");
-			} else {
-				node.setStyle("-fx-background-color: white");
+			if(colIndex != null && colIndex.equals(0)) {
+				if(((LocalTimeLabel)node).getLocalTime().getHour() == LocalTime.now().getHour()) {
+					node.setStyle("-fx-background-color: pink");
+				} else {
+					node.setStyle("-fx-background-color: transparent");
+				}
 			}
 		}
 	}

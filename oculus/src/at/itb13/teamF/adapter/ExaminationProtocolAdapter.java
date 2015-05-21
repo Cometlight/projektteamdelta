@@ -53,8 +53,12 @@ public class ExaminationProtocolAdapter implements IAdapter,
 	@Override
 	public Date getStartTime() {
 		LocalDateTime localDateTime = _examinationProtocol.getStartProtocol();
-		Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault())
-				.toInstant());
+		Date date = null;
+		if(localDateTime != null){
+			date = Date.from(localDateTime.atZone(ZoneId.systemDefault())
+					.toInstant());
+		}
+		
 		return date;
 	}
 
@@ -68,8 +72,12 @@ public class ExaminationProtocolAdapter implements IAdapter,
 	@Override
 	public Date getEndTime() {
 		LocalDateTime localDateTime = _examinationProtocol.getEndProtocol();
-		Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault())
-				.toInstant());
+		Date date = null;
+		if(localDateTime != null){
+			date = Date.from(localDateTime.atZone(ZoneId.systemDefault())
+					.toInstant());
+		}
+		
 		return date;
 	}
 

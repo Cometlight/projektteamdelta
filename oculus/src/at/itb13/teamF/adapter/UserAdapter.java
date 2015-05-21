@@ -156,7 +156,11 @@ public class UserAdapter implements IAdapter, IUser{
 	@Override
 	public Date getCreateDate() {
 		LocalDateTime localDateTime = _user.getCreateDate();
-		Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());		
+		Date date = null;
+		if(localDateTime != null) {
+			date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());	
+		}
+		
 		return date;
 	}
 
@@ -175,7 +179,11 @@ public class UserAdapter implements IAdapter, IUser{
 	@Override
 	public Date getIdleDate() {
 		LocalDateTime localDateTime = _user.getIdleDate();
-		Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());		
+		Date date = null;
+		if(localDateTime!=null){
+			date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());	
+		}
+				
 		return date;
 	}
 

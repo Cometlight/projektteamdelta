@@ -188,7 +188,6 @@ public class PatientAdapter implements IPatient, IAdapter {
 	public void setCalendarEvents(Collection<ICalendarEvent> calendarEvents) {
 		Set<CalendarEvent> events = new HashSet<>((Set<? extends CalendarEvent>) calendarEvents);
 		_patient.setCalendarevents(events);
-
 	}
 
 	/*

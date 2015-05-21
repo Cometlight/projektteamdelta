@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.TabAppointmentsController">
+<AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.itb13.oculus.presentation.view.TabAppointmentsController">
    <children>
       <SplitPane dividerPositions="0.25626043405676124" layoutX="60.0" layoutY="93.0" prefHeight="160.0" prefWidth="200.0" stylesheets="@OculusTheme.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -33,7 +34,7 @@
             </VBox>
             <SplitPane dividerPositions="0.17385057471264367" minWidth="650.0" orientation="VERTICAL" prefWidth="890.0">
               <items>
-                <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="120.0">
+                <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="120.0" styleClass="background-appointments">
                      <children>
                         <Group AnchorPane.rightAnchor="14.0">
                            <children>
@@ -73,6 +74,10 @@
                            </children>
                         </Group>
                      </children>
+                     <stylesheets>
+                        <URL value="@OculusTheme.css" />
+                        <URL value="@../../../teamD/presentation/view/OculusTheme.css" />
+                     </stylesheets>
                   </AnchorPane>
                 <AnchorPane>
                      <children>

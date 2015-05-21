@@ -698,6 +698,8 @@ public class TabCalendarController {
 			Integer colIndex = GridPane.getColumnIndex(node);
 			if(colIndex != null && colIndex.equals(0) && ((LocalTimeLabel)node).getLocalTime().getHour() == LocalTime.now().getHour()) {
 				node.setStyle("-fx-background-color: pink");
+			} else {
+				node.setStyle("-fx-background-color: white");
 			}
 		}
 	}

@@ -12,20 +12,20 @@
 	<Loggers>
 		<Root level="error">
 			<AppenderRef ref="CONSOLE" />
-			<!-- <AppenderRef ref="LogFile" /> -->
+			<AppenderRef ref="LogFile" />
 		</Root>
 		<Root level="info">
 			<AppenderRef ref="CONSOLE" />
-			<!-- <AppenderRef ref="LogFile" /> -->
+			<AppenderRef ref="LogFile" /> 
 		</Root>
 		<logger name="javabeat.net.util" level="TRACE" />
 		<Root level="ERROR">
 			<AppenderRef ref="CONSOLE" />
-			<!-- <AppenderRef ref="LogFile" /> -->
+			<AppenderRef ref="LogFile" />
 		</Root>
 		<Root level="INFO">
 			<AppenderRef ref="CONSOLE" />
-			<!-- <AppenderRef ref="LogFile" /> -->
+			<AppenderRef ref="LogFile" />
 		</Root>
 	</Loggers>
 </Configuration>

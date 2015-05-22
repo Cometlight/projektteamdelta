@@ -1,0 +1,5 @@
+<map id="at.itb13.teamF.adapter.PrescriptionAdapter" name="at.itb13.teamF.adapter.PrescriptionAdapter">
+<area shape="rect" id="node2" href="$interfaceat_1_1itb13_1_1team_f_1_1interfaces_1_1_i_adapter.html" title="{at.itb13.teamF.interfaces.\lIAdapter\n||+ getDomainObject()\l}" alt="" coords="5,197,168,289"/>
+<area shape="rect" id="node3" href="$interfaceat_1_1oculus_1_1teamf_1_1domain_1_1entity_1_1interfaces_1_1_i_prescription.html" title="{at.oculus.teamf.domain.entity.interfaces.\lIPrescription\n||+ getPatient()\l+ setPatient()\l+ setLastPrint()\l+ getLastPrint()\l+ getPrescriptionEntries()\l+ addPrescriptionEntry()\l}" alt="" coords="193,160,439,325"/>
+<area shape="rect" id="node4" href="$interfaceat_1_1oculus_1_1teamf_1_1domain_1_1entity_1_1interfaces_1_1_i_domain.html" title="{at.oculus.teamf.domain.entity.interfaces.\lIDomain\n||+ getId()\l+ setId()\l}" alt="" coords="193,5,439,112"/>
+</map>

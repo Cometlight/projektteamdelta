@@ -71,8 +71,8 @@ import at.itb13.teamD.presentation.LocalTimeLabel;
 public class TabCalendarController {
 	private static final Logger _logger = LogManager.getLogger(TabCalendarController.class.getName());
 	
-	private static final String CALENDAR_EVENT_FXML = "../view/CalendarEvent.fxml";
-	private static final String NEW_APPOINTMENT_DIALOG_FXML = "../view/NewAppointmentDialog.fxml";
+	private static final String CALENDAR_EVENT_FXML = "/at/itb13/teamD/presentation/view/CalendarEvent.fxml";
+	private static final String NEW_APPOINTMENT_DIALOG_FXML = "/at/itb13/teamD/presentation/view/NewAppointmentDialog.fxml";
 	private static final int TIME_INTERVAL_MINUTES = 15;
 	private static final double TIME_COLUMN_WIDTH = 5d;	// percentage
 	private static final double HEADER_MARGIN_RIGHT = 10d;

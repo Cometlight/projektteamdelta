@@ -1,0 +1,3 @@
+<map id="at.itb13.teamD.domain.interfaces.ICalendarEvent" name="at.itb13.teamD.domain.interfaces.ICalendarEvent">
+<area shape="rect" id="node2" href="$classat_1_1itb13_1_1oculus_1_1domain_1_1_calendar_event.html" title="{at.itb13.oculus.domain.Calendar\lEvent\n||+ isInTimespan()\l+ isPartInTimespan()\l+ getCalendarEventId()\l+ setCalendarEventId()\l+ getCalendar()\l+ setCalendar()\l+ getEventType()\l+ setEventType()\l+ getPatient()\l+ setPatient()\land 10 more...\l+ getInstance()\l+ getInstance()\l+ getInstance()\l+ sortCalendarEventsByStartDate()\l~ CalendarEvent()\l~ CalendarEvent()\l~ CalendarEvent()\l}" alt="" coords="5,277,216,619"/>
+</map>

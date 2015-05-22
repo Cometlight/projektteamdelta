@@ -103,51 +103,38 @@ Collaboration diagram for at.itb13.oculus.application.receptionist.PatientSearch
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5d8ba3cdcace393cb837ed3a5fe3204e"><td class="memItemLeft" align="right" valign="top">List&lt;?extends <a class="el" href="interfaceat_1_1itb13_1_1oculus_1_1domain_1_1readonlyinterfaces_1_1_patient_r_o.html">PatientRO</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classat_1_1itb13_1_1oculus_1_1application_1_1receptionist_1_1_patient_search.html#a5d8ba3cdcace393cb837ed3a5fe3204e">searchPatientByName</a> (String firstName, String lastName)  throws InvalidInputException </td></tr>
-<tr class="separator:a5d8ba3cdcace393cb837ed3a5fe3204e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bdbf7a6279b26ae8299415d6dd098b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interfaceat_1_1itb13_1_1oculus_1_1domain_1_1readonlyinterfaces_1_1_patient_r_o.html">PatientRO</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classat_1_1itb13_1_1oculus_1_1application_1_1receptionist_1_1_patient_search.html#a8bdbf7a6279b26ae8299415d6dd098b2">searchPatientBySocialInsuranceNr</a> (String socialInsuranceNr)  throws InvalidInputException </td></tr>
-<tr class="separator:a8bdbf7a6279b26ae8299415d6dd098b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dc81a8d3b5306f101165e686b037cdf"><td class="memItemLeft" align="right" valign="top">List&lt;?extends <a class="el" href="interfaceat_1_1itb13_1_1oculus_1_1domain_1_1readonlyinterfaces_1_1_patient_r_o.html">PatientRO</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classat_1_1itb13_1_1oculus_1_1application_1_1receptionist_1_1_patient_search.html#a9dc81a8d3b5306f101165e686b037cdf">searchPatient</a> (String searchValue)  throws InvalidInputException </td></tr>
+<tr class="separator:a9dc81a8d3b5306f101165e686b037cdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Use Case Controller for "Search Patient".</p>
 <dl class="section author"><dt>Author</dt><dd>Daniel Scheffknecht </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>22.04.2015 </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a5d8ba3cdcace393cb837ed3a5fe3204e"></a>
+<a class="anchor" id="a9dc81a8d3b5306f101165e686b037cdf"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">List&lt;? extends <a class="el" href="interfaceat_1_1itb13_1_1oculus_1_1domain_1_1readonlyinterfaces_1_1_patient_r_o.html">PatientRO</a>&gt; at.itb13.oculus.application.receptionist.PatientSearch.searchPatientByName </td>
+          <td class="memname">List&lt;? extends <a class="el" href="interfaceat_1_1itb13_1_1oculus_1_1domain_1_1readonlyinterfaces_1_1_patient_r_o.html">PatientRO</a>&gt; at.itb13.oculus.application.receptionist.PatientSearch.searchPatient </td>
           <td>(</td>
           <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>firstName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>lastName</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> throws <a class="el" href="classat_1_1itb13_1_1oculus_1_1application_1_1exceptions_1_1_invalid_input_exception.html">InvalidInputException</a></td>
+          <td class="paramname"><em>searchValue</em></td><td>)</td>
+          <td> throws <a class="el" href="classat_1_1itb13_1_1team_d_1_1application_1_1exceptions_1_1_invalid_input_exception.html">InvalidInputException</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Load the patient with the wanted name. It can search only the fistName, lastName or both.</p>
+<p>Loads the patient with the provided social insurance number or name from the database.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">firstName</td><td>The patient's firstName. </td></tr>
-    <tr><td class="paramname">lastName</td><td>The patient's lastName. </td></tr>
+    <tr><td class="paramname">searchValue</td><td>The patient's social insurance number or name. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>List&lt;Patient&gt; The patient with the supplied name. Maybe null, if no patient has been found. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>List&lt;Patient&gt; The patients with the supplied social insurance number or name. May be null, if no patient has been found. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">InvalidInputException</td><td>thrown if the provided name is not in an appropriate format. </td></tr>
+    <tr><td class="paramname">InvalidInputException</td><td>thrown if the provided socialInsuranceNr or name is not in an appropriate format. </td></tr>
   </table>
   </dd>
 </dl>
@@ -155,48 +142,9 @@ Public Member Functions</h2></td></tr>
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classat_1_1itb13_1_1oculus_1_1application_1_1receptionist_1_1_patient_search_a5d8ba3cdcace393cb837ed3a5fe3204e_cgraph.png" border="0" usemap="#classat_1_1itb13_1_1oculus_1_1application_1_1receptionist_1_1_patient_search_a5d8ba3cdcace393cb837ed3a5fe3204e_cgraph" alt=""/></div>
-<map name="classat_1_1itb13_1_1oculus_1_1application_1_1receptionist_1_1_patient_search_a5d8ba3cdcace393cb837ed3a5fe3204e_cgraph" id="classat_1_1itb13_1_1oculus_1_1application_1_1receptionist_1_1_patient_search_a5d8ba3cdcace393cb837ed3a5fe3204e_cgraph">
-<area shape="rect" id="node2" href="classat_1_1itb13_1_1oculus_1_1technical_services_1_1dao_1_1_patient_dao.html#a509a2d5135389ca358a6167c86c5a0dc" title="at.itb13.oculus.technical\lServices.dao.PatientDao.getInstance" alt="" coords="297,5,519,47"/><area shape="rect" id="node3" href="classat_1_1itb13_1_1oculus_1_1technical_services_1_1dao_1_1_patient_dao.html#ae88e6d840b8dbe859d42340844482ac5" title="at.itb13.oculus.technical\lServices.dao.PatientDao.findBy\lFullName" alt="" coords="311,71,505,127"/><area shape="rect" id="node5" href="classat_1_1itb13_1_1oculus_1_1technical_services_1_1dao_1_1_patient_dao.html#a463becb1b3f254d87bb5a42b04d834ae" title="at.itb13.oculus.technical\lServices.dao.PatientDao.findBy\lFirstName" alt="" coords="311,151,505,207"/><area shape="rect" id="node6" href="classat_1_1itb13_1_1oculus_1_1technical_services_1_1dao_1_1_patient_dao.html#a7f2a63af712cb226a33cb69e24226d20" title="at.itb13.oculus.technical\lServices.dao.PatientDao.findBy\lLastName" alt="" coords="311,231,505,287"/><area shape="rect" id="node4" href="classat_1_1itb13_1_1oculus_1_1technical_services_1_1_generic_dao.html#ae47b7616f2c3240bdc79f64d272594d6" title="at.itb13.oculus.technical\lServices.GenericDao.findByCriteria" alt="" coords="567,159,781,200"/></map>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a8bdbf7a6279b26ae8299415d6dd098b2"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="interfaceat_1_1itb13_1_1oculus_1_1domain_1_1readonlyinterfaces_1_1_patient_r_o.html">PatientRO</a> at.itb13.oculus.application.receptionist.PatientSearch.searchPatientBySocialInsuranceNr </td>
-          <td>(</td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>socialInsuranceNr</em></td><td>)</td>
-          <td> throws <a class="el" href="classat_1_1itb13_1_1oculus_1_1application_1_1exceptions_1_1_invalid_input_exception.html">InvalidInputException</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Loads the patient with the provided social insurance number from the database.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">socialInsuranceNr</td><td>The patient's social insurance number. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The patient with the supplied social insurance number. May be null, if no patient has been found. </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">InvalidInputException</td><td>thrown if the provided socialInsuranceNr is not in an appropriate format. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classat_1_1itb13_1_1oculus_1_1application_1_1receptionist_1_1_patient_search_a8bdbf7a6279b26ae8299415d6dd098b2_cgraph.png" border="0" usemap="#classat_1_1itb13_1_1oculus_1_1application_1_1receptionist_1_1_patient_search_a8bdbf7a6279b26ae8299415d6dd098b2_cgraph" alt=""/></div>
-<map name="classat_1_1itb13_1_1oculus_1_1application_1_1receptionist_1_1_patient_search_a8bdbf7a6279b26ae8299415d6dd098b2_cgraph" id="classat_1_1itb13_1_1oculus_1_1application_1_1receptionist_1_1_patient_search_a8bdbf7a6279b26ae8299415d6dd098b2_cgraph">
-<area shape="rect" id="node2" href="classat_1_1itb13_1_1oculus_1_1domain_1_1_patient.html#a74ccf4413139568e9b61394bea124671" title="at.itb13.oculus.domain.Patient.is\lSocialInsuranceNrValid" alt="" coords="353,5,559,47"/><area shape="rect" id="node3" href="classat_1_1itb13_1_1oculus_1_1technical_services_1_1dao_1_1_patient_dao.html#a509a2d5135389ca358a6167c86c5a0dc" title="at.itb13.oculus.technical\lServices.dao.PatientDao.getInstance" alt="" coords="345,71,567,112"/><area shape="rect" id="node4" href="classat_1_1itb13_1_1oculus_1_1technical_services_1_1dao_1_1_patient_dao.html#a14ab0f701d4dd83daa3ce902d71d8e61" title="at.itb13.oculus.technical\lServices.dao.PatientDao.findBy\lSocialInsuranceNr" alt="" coords="359,137,553,193"/><area shape="rect" id="node5" href="classat_1_1itb13_1_1oculus_1_1technical_services_1_1_generic_dao.html#ae47b7616f2c3240bdc79f64d272594d6" title="at.itb13.oculus.technical\lServices.GenericDao.findByCriteria" alt="" coords="615,144,829,185"/></map>
+<div class="center"><img src="classat_1_1itb13_1_1oculus_1_1application_1_1receptionist_1_1_patient_search_a9dc81a8d3b5306f101165e686b037cdf_cgraph.png" border="0" usemap="#classat_1_1itb13_1_1oculus_1_1application_1_1receptionist_1_1_patient_search_a9dc81a8d3b5306f101165e686b037cdf_cgraph" alt=""/></div>
+<map name="classat_1_1itb13_1_1oculus_1_1application_1_1receptionist_1_1_patient_search_a9dc81a8d3b5306f101165e686b037cdf_cgraph" id="classat_1_1itb13_1_1oculus_1_1application_1_1receptionist_1_1_patient_search_a9dc81a8d3b5306f101165e686b037cdf_cgraph">
+<area shape="rect" id="node2" href="classat_1_1itb13_1_1team_d_1_1technical_services_1_1persistence_facade_1_1_persistence_facade_provider.html#a73f829bc3702e579c8d778238717ac20" title="at.itb13.teamD.technical\lServices.persistenceFacade.Persistence\lFacadeProvider.getPersistenceFacade" alt="" coords="299,5,538,61"/><area shape="rect" id="node3" href="interfaceat_1_1itb13_1_1team_d_1_1technical_services_1_1persistence_facade_1_1_i_persistence_facade.html#a8caaa822c3f9e235864874b3cfcab11a" title="at.itb13.teamD.technical\lServices.persistenceFacade.IPersistence\lFacade.searchFor" alt="" coords="297,85,540,141"/></map>
 </div>
 </p>
 
@@ -208,7 +156,7 @@ Here is the call graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Apr 25 2015 17:30:03 for Oculus by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri May 22 2015 18:08:12 for Oculus by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

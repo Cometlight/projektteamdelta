@@ -1,0 +1,4 @@
+<map id="at.oculus.teamf.domain.entity.interfaces.IExaminationResult" name="at.oculus.teamf.domain.entity.interfaces.IExaminationResult">
+<area shape="rect" id="node3" href="$classat_1_1itb13_1_1team_f_1_1adapter_1_1_examination_result_adapter.html" title="{at.itb13.teamF.adapter.Examination\lResultAdapter\n||+ ExaminationResultAdapter()\l+ ExaminationResultAdapter()\l+ getId()\l+ setId()\l+ getExaminationProtocol()\l+ setExaminationProtocol()\l+ getUser()\l+ setUser()\l+ getUserId()\l+ setUserId()\land 9 more...\l}" alt="" coords="19,505,238,744"/>
+<area shape="rect" id="node2" href="$interfaceat_1_1oculus_1_1teamf_1_1domain_1_1entity_1_1interfaces_1_1_i_domain.html" title="{at.oculus.teamf.domain.entity.interfaces.\lIDomain\n||+ getId()\l+ setId()\l}" alt="" coords="5,5,252,112"/>
+</map>

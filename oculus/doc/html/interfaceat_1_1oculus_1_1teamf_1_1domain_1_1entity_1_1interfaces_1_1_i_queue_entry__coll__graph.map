@@ -1,0 +1,4 @@
+<map id="at.oculus.teamf.domain.entity.interfaces.IQueueEntry" name="at.oculus.teamf.domain.entity.interfaces.IQueueEntry">
+<area shape="rect" id="node2" href="$interfaceat_1_1oculus_1_1teamf_1_1domain_1_1entity_1_1interfaces_1_1_i_domain.html" title="{at.oculus.teamf.domain.entity.interfaces.\lIDomain\n||+ getId()\l+ setId()\l}" alt="" coords="5,145,252,252"/>
+<area shape="rect" id="node3" href="$interfaceat_1_1oculus_1_1teamf_1_1technical_1_1loggin_1_1_i_logger.html" title="{at.oculus.teamf.technical.loggin.\lILogger\n||}" alt="" coords="276,153,477,245"/>
+</map>

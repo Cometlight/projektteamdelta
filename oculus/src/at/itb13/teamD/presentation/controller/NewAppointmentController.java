@@ -56,7 +56,7 @@ import at.itb13.teamD.presentation.converter.CalendarStringConverter;
 public class NewAppointmentController {
 	private static final Logger _logger = LogManager.getLogger(NewAppointmentController.class.getName());
 	
-	private static final String SIMPLE_PATIENT_RECORD_FXML = "../view/SimplePatientRecord.fxml";
+	private static final String SIMPLE_PATIENT_RECORD_FXML = "/at/itb13/teamD/presentation/view/SimplePatientRecord.fxml";
 	@FXML
 	private TextField _patientSearchField;
 	@FXML

@@ -1,0 +1,5 @@
+<map id="at.oculus.teamf.application.facade.exceptions.CheckinControllerException" name="at.oculus.teamf.application.facade.exceptions.CheckinControllerException">
+<area shape="rect" id="node3" href="$classat_1_1oculus_1_1teamf_1_1application_1_1facade_1_1exceptions_1_1_patient_not_found_exception.html" title="{at.oculus.teamf.application.facade.exceptions.\lPatientNotFoundException\n||}" alt="" coords="5,271,284,363"/>
+<area shape="rect" id="node4" href="$classat_1_1oculus_1_1teamf_1_1application_1_1facade_1_1exceptions_1_1_queue_not_found_exception.html" title="{at.oculus.teamf.application.facade.exceptions.\lQueueNotFoundException\n||}" alt="" coords="308,271,587,363"/>
+<area shape="rect" id="node5" href="$classat_1_1oculus_1_1teamf_1_1application_1_1facade_1_1exceptions_1_1_user_not_found_exception.html" title="{at.oculus.teamf.application.facade.exceptions.\lUserNotFoundException\n||}" alt="" coords="611,271,889,363"/>
+</map>

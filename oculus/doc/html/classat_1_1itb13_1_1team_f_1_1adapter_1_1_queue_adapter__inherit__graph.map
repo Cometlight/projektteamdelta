@@ -1,0 +1,4 @@
+<map id="at.itb13.teamF.adapter.QueueAdapter" name="at.itb13.teamF.adapter.QueueAdapter">
+<area shape="rect" id="node2" href="$interfaceat_1_1itb13_1_1team_f_1_1interfaces_1_1_i_adapter.html" title="{at.itb13.teamF.interfaces.\lIAdapter\n||+ getDomainObject()\l}" alt="" coords="5,20,168,112"/>
+<area shape="rect" id="node3" href="$interfaceat_1_1oculus_1_1teamf_1_1domain_1_1entity_1_1interfaces_1_1_i_patient_queue.html" title="{at.oculus.teamf.domain.entity.interfaces.\lIPatientQueue\n||+ getEntries()\l+ addPatient()\l+ removePatient()\l}" alt="" coords="193,5,439,127"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="at.itb13.teamD.application.NewAppointmentController.isInWorkingHours" name="at.itb13.teamD.application.NewAppointmentController.isInWorkingHours">
+<area shape="rect" id="node2" href="$interfaceat_1_1itb13_1_1team_d_1_1domain_1_1interfaces_1_1_i_calendar.html#ac0e972d4027cee6c6780fe5490bf83b3" title="at.itb13.teamD.domain.interfaces.\lICalendar.getWorkingHoursOfWeekDay" alt="" coords="328,5,567,47"/>
+<area shape="rect" id="node3" href="$interfaceat_1_1itb13_1_1team_d_1_1domain_1_1interfaces_1_1_i_working_hours.html#a463db90dda07d92a6e5ab56d4d814f1d" title="at.itb13.teamD.domain.interfaces.\lIWorkingHours.isDateInWorkingHours" alt="" coords="330,71,565,112"/>
+</map>

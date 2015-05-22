@@ -1,0 +1,3 @@
+<map id="at.itb13.teamD.domain.interfaces.IWorkingHours" name="at.itb13.teamD.domain.interfaces.IWorkingHours">
+<area shape="rect" id="node2" href="$classat_1_1itb13_1_1oculus_1_1domain_1_1_working_hours.html" title="{at.itb13.oculus.domain.Working\lHours\n||+ WorkingHours()\l+ WorkingHours()\l+ isDateInWorkingHours()\l+ getWorkingHoursId()\l+ setWorkingHoursId()\l+ getMorningFrom()\l+ setMorningFrom()\l+ getMorningTo()\l+ setMorningTo()\l+ getAfternoonFrom()\l+ setAfternoonFrom()\l+ getAfternoonTo()\l+ setAfternoonTo()\l}" alt="" coords="10,204,210,472"/>
+</map>

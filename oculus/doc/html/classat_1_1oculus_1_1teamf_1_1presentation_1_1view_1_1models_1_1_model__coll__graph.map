@@ -1,0 +1,5 @@
+<map id="at.oculus.teamf.presentation.view.models.Model" name="at.oculus.teamf.presentation.view.models.Model">
+<area shape="rect" id="node3" href="$interfaceat_1_1oculus_1_1teamf_1_1technical_1_1loggin_1_1_i_logger.html" title="{at.oculus.teamf.technical.loggin.\lILogger\n||}" alt="" coords="116,248,317,340"/>
+<area shape="rect" id="node5" href="$interfaceat_1_1oculus_1_1teamf_1_1domain_1_1entity_1_1interfaces_1_1_i_patient.html" title="{at.oculus.teamf.domain.entity.interfaces.\lIPatient\n||+ getId()\l+ setId()\l+ getFirstName()\l+ setFirstName()\l+ getLastName()\l+ setLastName()\l+ getGender()\l+ setGender()\l+ getSocialInsuranceNr()\l+ setSocialInsuranceNr()\land 32 more...\l}" alt="" coords="341,175,588,413"/>
+<area shape="rect" id="node6" href="$interfaceat_1_1oculus_1_1teamf_1_1domain_1_1entity_1_1interfaces_1_1_i_domain.html" title="{at.oculus.teamf.domain.entity.interfaces.\lIDomain\n||+ getId()\l+ setId()\l}" alt="" coords="341,5,588,112"/>
+</map>

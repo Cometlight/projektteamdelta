@@ -1,5 +1,7 @@
 <map id="at.itb13.oculus.presentation.OculusMain.start" name="at.itb13.oculus.presentation.OculusMain.start">
-<area shape="rect" id="node2" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1_hibernate_util.html#ab088ffc8385bdcafb262d07d76354730" title="at.itb13.oculus.technical\lServices.HibernateUtil.init" alt="" coords="242,5,409,47"/>
-<area shape="rect" id="node3" href="$classat_1_1itb13_1_1oculus_1_1presentation_1_1_oculus_main.html#a34bb5b193ef6f5d30e28930ebd4400cd" title="at.itb13.oculus.presentation.\lOculusMain.initRootLayout" alt="" coords="235,71,416,112"/>
-<area shape="rect" id="node4" href="$classat_1_1itb13_1_1oculus_1_1presentation_1_1_splash_screen.html#a665622c8eddaa462344844ab71d1359c" title="at.itb13.oculus.presentation.\lSplashScreen.showSplash" alt="" coords="235,136,416,177"/>
+<area shape="rect" id="node2" href="$classat_1_1itb13_1_1team_d_1_1technical_services_1_1persistence_facade_1_1_persistence_facade_provider.html#a23c185749505b74862635abdc4febdc4" title="at.itb13.teamD.technical\lServices.persistenceFacade.Persistence\lFacadeProvider.setPersistenceFacade" alt="" coords="235,5,473,61"/>
+<area shape="rect" id="node3" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1_hibernate_util.html#ab088ffc8385bdcafb262d07d76354730" title="at.itb13.oculus.technical\lServices.HibernateUtil.init" alt="" coords="271,86,437,127"/>
+<area shape="rect" id="node4" href="$classat_1_1itb13_1_1team_d_1_1application_1_1_calendar_event_factory_provider.html#a6977ab310152ae0b69397f63bd61c333" title="at.itb13.teamD.application.\lCalendarEventFactoryProvider.set\lCalendarEventFactory" alt="" coords="250,152,458,208"/>
+<area shape="rect" id="node5" href="$classat_1_1itb13_1_1oculus_1_1presentation_1_1_oculus_main.html#a34bb5b193ef6f5d30e28930ebd4400cd" title="at.itb13.oculus.presentation.\lOculusMain.initRootLayout" alt="" coords="263,233,445,274"/>
+<area shape="rect" id="node6" href="$classat_1_1itb13_1_1oculus_1_1presentation_1_1_splash_screen.html#a665622c8eddaa462344844ab71d1359c" title="at.itb13.oculus.presentation.\lSplashScreen.showSplash" alt="" coords="263,298,445,339"/>
 </map>

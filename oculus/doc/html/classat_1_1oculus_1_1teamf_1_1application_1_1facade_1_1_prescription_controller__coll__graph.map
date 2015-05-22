@@ -1,0 +1,5 @@
+<map id="at.oculus.teamf.application.facade.PrescriptionController" name="at.oculus.teamf.application.facade.PrescriptionController">
+<area shape="rect" id="node2" href="$interfaceat_1_1oculus_1_1teamf_1_1technical_1_1loggin_1_1_i_logger.html" title="{at.oculus.teamf.technical.loggin.\lILogger\n||}" alt="" coords="5,189,207,281"/>
+<area shape="rect" id="node4" href="$interfaceat_1_1oculus_1_1teamf_1_1technical_1_1printing_1_1_i_printer.html" title="{at.oculus.teamf.technical.printing.\lIPrinter\n||}" alt="" coords="231,189,442,281"/>
+<area shape="rect" id="node5" href="$classat_1_1oculus_1_1teamf_1_1technical_1_1printing_1_1_printer.html" title="{at.oculus.teamf.technical.printing.\lPrinter\n||+ print()\l+ printPrescription()\l+ getInstance()\l}" alt="" coords="231,5,442,127"/>
+</map>

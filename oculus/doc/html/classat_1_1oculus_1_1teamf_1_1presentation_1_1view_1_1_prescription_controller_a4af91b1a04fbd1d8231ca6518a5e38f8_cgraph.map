@@ -1,0 +1,4 @@
+<map id="at.oculus.teamf.presentation.view.PrescriptionController.savePrescriptionButtonActionHandler" name="at.oculus.teamf.presentation.view.PrescriptionController.savePrescriptionButtonActionHandler">
+<area shape="rect" id="node2" href="$classat_1_1oculus_1_1teamf_1_1presentation_1_1view_1_1models_1_1_prescription_model.html#a77112c591ee2f298fba79beb8e4ed252" title="at.oculus.teamf.presentation.view.models.\lPrescriptionModel.addPrescriptionEntries" alt="" coords="323,5,577,47"/>
+<area shape="rect" id="node3" href="$classat_1_1oculus_1_1teamf_1_1presentation_1_1view_1_1models_1_1_prescription_model.html#a8198152beee041a34fba47a52168a621" title="at.oculus.teamf.presentation.view.models.\lPrescriptionModel.addVisualAidPrescriptionEntries" alt="" coords="296,71,604,112"/>
+</map>

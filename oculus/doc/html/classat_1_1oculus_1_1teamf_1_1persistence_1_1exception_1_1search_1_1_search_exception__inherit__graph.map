@@ -1,0 +1,5 @@
+<map id="at.oculus.teamf.persistence.exception.search.SearchException" name="at.oculus.teamf.persistence.exception.search.SearchException">
+<area shape="rect" id="node4" href="$classat_1_1oculus_1_1teamf_1_1persistence_1_1exception_1_1search_1_1_invalid_search_parameter_exception.html" title="{at.oculus.teamf.persistence.exception.search.\lInvalidSearchParameterException\n||}" alt="" coords="5,411,277,503"/>
+<area shape="rect" id="node5" href="$classat_1_1oculus_1_1teamf_1_1persistence_1_1exception_1_1search_1_1_search_interface_not_implemented_exception.html" title="{at.oculus.teamf.persistence.exception.search.\lSearchInterfaceNotImplementedException\n||}" alt="" coords="301,411,573,503"/>
+<area shape="rect" id="node2" href="$classat_1_1oculus_1_1teamf_1_1persistence_1_1exception_1_1_facade_exception.html" title="{at.oculus.teamf.persistence.exception.\lFacadeException\n||}" alt="" coords="173,131,405,223"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="at.oculus.teamf.domain.entity.interfaces.ICalendar" name="at.oculus.teamf.domain.entity.interfaces.ICalendar">
+<area shape="rect" id="node3" href="$classat_1_1itb13_1_1team_f_1_1adapter_1_1_calendar_adapter.html" title="{at.itb13.teamF.adapter.Calendar\lAdapter\n||+ CalendarAdapter()\l+ CalendarAdapter()\l+ setId()\l+ getDomainObject()\l+ getId()\l}" alt="" coords="29,300,229,451"/>
+<area shape="rect" id="node2" href="$interfaceat_1_1oculus_1_1teamf_1_1domain_1_1entity_1_1interfaces_1_1_i_domain.html" title="{at.oculus.teamf.domain.entity.interfaces.\lIDomain\n||+ getId()\l+ setId()\l}" alt="" coords="5,5,252,112"/>
+</map>

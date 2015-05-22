@@ -1,0 +1,5 @@
+<map id="at.oculus.teamf.domain.entity.interfaces.IQueueEntry" name="at.oculus.teamf.domain.entity.interfaces.IQueueEntry">
+<area shape="rect" id="node4" href="$classat_1_1itb13_1_1team_f_1_1adapter_1_1_queue_entry_adapter.html" title="{at.itb13.teamF.adapter.Queue\lEntryAdapter\n||+ getDomainObject()\l+ getId()\l+ setId()\l+ getDoctor()\l+ setDoctor()\l+ getOrthoptist()\l+ setOrthoptist()\l+ getPatient()\l+ setPatient()\l+ getQueueIdParent()\l+ setQueueIdParent()\l+ getArrivalTime()\l}" alt="" coords="160,461,345,715"/>
+<area shape="rect" id="node2" href="$interfaceat_1_1oculus_1_1teamf_1_1domain_1_1entity_1_1interfaces_1_1_i_domain.html" title="{at.oculus.teamf.domain.entity.interfaces.\lIDomain\n||+ getId()\l+ setId()\l}" alt="" coords="5,5,252,112"/>
+<area shape="rect" id="node3" href="$interfaceat_1_1oculus_1_1teamf_1_1technical_1_1loggin_1_1_i_logger.html" title="{at.oculus.teamf.technical.loggin.\lILogger\n|+ log\l|}" alt="" coords="276,13,477,105"/>
+</map>

@@ -125,8 +125,8 @@ public class PatientRecordController {
 	private void initExaminationProtocolsTab() {
 		try {// set logged in user in model
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(OculusMain.class
-					.getResource("../../../oculus/teamf/presentation/view/fxml/ExaminationTab.fxml"));
+			loader.setLocation(PatientRecordController.class
+					.getResource("/at/oculus/teamf/presentation/view/fxml/ExaminationTab.fxml"));
 			_examinationProtocolBorderPane.setCenter((AnchorPane) loader.load());
 			_examinationProtocolBorderPane.getStylesheets().add("styles/stylesheet_default.css");
 

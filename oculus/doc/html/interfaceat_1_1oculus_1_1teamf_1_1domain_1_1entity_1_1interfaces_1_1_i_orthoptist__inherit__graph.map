@@ -1,0 +1,4 @@
+<map id="at.oculus.teamf.domain.entity.interfaces.IOrthoptist" name="at.oculus.teamf.domain.entity.interfaces.IOrthoptist">
+<area shape="rect" id="node3" href="$classat_1_1itb13_1_1team_f_1_1adapter_1_1_orthoptist_adapter.html" title="{at.itb13.teamF.adapter.Orthoptist\lAdapter\n||+ OrthoptistAdapter()\l+ OrthoptistAdapter()\l+ getUserId()\l+ setUserId()\l+ getUserGroupId()\l+ setUserGroupId()\l+ getUserName()\l+ setUserName()\l+ getPassword()\l+ setPassword()\land 21 more...\l}" alt="" coords="25,505,232,744"/>
+<area shape="rect" id="node2" href="$interfaceat_1_1oculus_1_1teamf_1_1domain_1_1entity_1_1interfaces_1_1_i_user.html" title="{at.oculus.teamf.domain.entity.interfaces.\lIUser\n||+ getUserId()\l+ setUserId()\l+ getUserGroupId()\l+ setUserGroupId()\l+ getUserName()\l+ setUserName()\l+ getPassword()\l+ setPassword()\l+ getTitle()\l+ setTitle()\land 10 more...\l}" alt="" coords="5,5,252,244"/>
+</map>

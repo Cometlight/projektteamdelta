@@ -22,7 +22,7 @@ import at.itb13.teamD.domain.interfaces.ICalendarEvent;
 public class CalendarEventController {
 	private static final Logger _logger = LogManager.getLogger(CalendarEventController.class.getName());
 
-	private static final String EVENT_INFORMATION_FXML = "../view/EventInformation.fxml";
+	private static final String EVENT_INFORMATION_FXML = "/at/itb13/teamD/presentation/view/EventInformation.fxml";
 	@FXML
 	private Hyperlink _patientLabel;
 	

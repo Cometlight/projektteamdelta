@@ -1,0 +1,4 @@
+<map id="at.itb13.teamD.application.NewAppointmentController" name="at.itb13.teamD.application.NewAppointmentController">
+<area shape="rect" id="node2" href="$interfaceat_1_1itb13_1_1team_d_1_1application_1_1interfaces_1_1_i_new_appointment_controller.html" title="{at.itb13.teamD.application.interfaces.\lINewAppointmentController\n||+ newCalendarEvent()\l+ newCalendarEvent()\l+ getCalendarEventsInTimespan()\l+ getAllCalendars()\l+ getAllEventTypes()\l+ isInWorkingHours()\l+ isDateAlreadyTaken()\l+ searchPatient()\l}" alt="" coords="5,5,236,200"/>
+<area shape="rect" id="node3" href="$interfaceat_1_1itb13_1_1team_d_1_1application_1_1interfaces_1_1_i_patient_search.html" title="{at.itb13.teamD.application.interfaces.\lIPatientSearch\n||+ searchPatient()\l}" alt="" coords="260,57,491,149"/>
+</map>

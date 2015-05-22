@@ -1,0 +1,4 @@
+<map id="at.oculus.teamf.application.facade.exceptions.PrescriptionControllerException" name="at.oculus.teamf.application.facade.exceptions.PrescriptionControllerException">
+<area shape="rect" id="node4" href="$classat_1_1oculus_1_1teamf_1_1application_1_1facade_1_1exceptions_1_1_no_patient_exception.html" title="{at.oculus.teamf.application.facade.exceptions.\lNoPatientException\n||}" alt="" coords="5,411,284,503"/>
+<area shape="rect" id="node2" href="$classat_1_1oculus_1_1teamf_1_1application_1_1facade_1_1exceptions_1_1_application_exception.html" title="{at.oculus.teamf.application.facade.exceptions.\lApplicationException\n||}" alt="" coords="5,131,284,223"/>
+</map>

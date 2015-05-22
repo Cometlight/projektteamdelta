@@ -1,0 +1,5 @@
+<map id="at.itb13.teamF.adapter.VisualAidAdapter" name="at.itb13.teamF.adapter.VisualAidAdapter">
+<area shape="rect" id="node2" href="$interfaceat_1_1oculus_1_1teamf_1_1domain_1_1entity_1_1interfaces_1_1_i_visual_aid.html" title="{at.oculus.teamf.domain.entity.interfaces.\lIVisualAid\n||+ setDescription()\l+ setLastPrint()\l+ setDiagnosis()\l+ setIssueDate()\l+ setDioptreLeft()\l+ setDioptreRight()\l+ getLastPrint()\l}" alt="" coords="5,160,252,340"/>
+<area shape="rect" id="node3" href="$interfaceat_1_1oculus_1_1teamf_1_1domain_1_1entity_1_1interfaces_1_1_i_domain.html" title="{at.oculus.teamf.domain.entity.interfaces.\lIDomain\n||+ getId()\l+ setId()\l}" alt="" coords="5,5,252,112"/>
+<area shape="rect" id="node4" href="$interfaceat_1_1itb13_1_1team_f_1_1interfaces_1_1_i_adapter.html" title="{at.itb13.teamF.interfaces.\lIAdapter\n||+ getDomainObject()\l}" alt="" coords="277,204,439,296"/>
+</map>

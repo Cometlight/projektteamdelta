@@ -1,3 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classat_1_1itb13_1_1oculus_1_1presentation_1_1view_1_1_tab_patient_controller.html" title="at.itb13.oculus.presentation.view.\lTabPatientController" alt="" coords="5,5,215,47"/>
+<area shape="rect" id="node2" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1converter_1_1_local_date_persistence_converter.html" title="at.itb13.oculus.technical\lServices.converter.LocalDatePersistence\lConverter" alt="" coords="176,5,419,61"/>
+<area shape="rect" id="node3" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1converter_1_1_local_date_time_persistence_converter.html" title="at.itb13.oculus.technical\lServices.converter.LocalDateTime\lPersistenceConverter" alt="" coords="195,85,400,141"/>
+<area shape="rect" id="node4" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1converter_1_1_local_time_converter.html" title="at.itb13.oculus.technical\lServices.converter.LocalTimeConverter" alt="" coords="181,166,414,207"/>
+<area shape="rect" id="node5" href="$classat_1_1itb13_1_1oculus_1_1technical_services_1_1converter_1_1_week_day_to_day_of_week_converter.html" title="at.itb13.oculus.technical\lServices.converter.WeekDayToDay\lOfWeekConverter" alt="" coords="192,232,403,288"/>
 </map>

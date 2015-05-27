@@ -18,7 +18,7 @@
   
   <!-- Default page to serve -->
   <welcome-file-list>
-    <welcome-file>Login.html</welcome-file>
+    <welcome-file>Index.html</welcome-file>
   </welcome-file-list>
 
 </web-app>

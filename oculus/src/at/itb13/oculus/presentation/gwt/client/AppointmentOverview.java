@@ -1,9 +1,10 @@
 package at.itb13.oculus.presentation.gwt.client;
 
-import javafx.scene.control.Button;
 
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * TODO: Insert description here.
@@ -13,10 +14,14 @@ import com.google.gwt.user.client.ui.Label;
  */
 public class AppointmentOverview extends Composite {
 
-	public AppointmentOverview(){
+	public AppointmentOverview() {
+		VerticalPanel panel = new VerticalPanel();
 		Label header = new Label();
 		header.setText("Your next Appointment");
 		Button delete = new Button();
 		delete.setText("delete");
+		panel.add(header);
+		panel.add(delete);
+		initWidget(panel);
 	}
 }

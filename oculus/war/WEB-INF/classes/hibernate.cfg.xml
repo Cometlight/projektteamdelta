@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+    
+    	<!-- Database connection settings -->
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property><!-- TODO: check -->
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">WrZ9E0]BNt1Z</property>
+       <!--   <property name="hibernate.connection.url">jdbc:mysql://83.212.126.222:3306/oculus_d</property>  -->
+        <property name="hibernate.connection.url">jdbc:mysql://localhost/oculus_d</property>
+        <property name="hibernate.connection.username">oculus_d</property>
+        
+		<!-- SQL dialect -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        
+        <!-- Lazy Loading -->
+        <property name="hibernate.enable_lazy_load_no_trans">true</property>
+        
+        <!-- Mappings -->
+        <mapping class="at.itb13.oculus.domain.Administrator" />
+        <mapping class="at.itb13.oculus.domain.Calendar" />
+        <mapping class="at.itb13.oculus.domain.CalendarEvent" />
+        <mapping class="at.itb13.oculus.domain.CalendarWorkingHours" />
+        <mapping class="at.itb13.oculus.domain.Diagnosis" />
+        <mapping class="at.itb13.oculus.domain.Doctor" />
+        <mapping class="at.itb13.oculus.domain.EventType" />
+        <mapping class="at.itb13.oculus.domain.ExaminationProtocol" />
+        <mapping class="at.itb13.oculus.domain.ExaminationProtocolServiceCode" />
+        <mapping class="at.itb13.oculus.domain.ExaminationResult" />
+        <mapping class="at.itb13.oculus.domain.InsuranceCarrier" />
+        <mapping class="at.itb13.oculus.domain.Medicine" />
+        <mapping class="at.itb13.oculus.domain.Orthoptist" />
+        <mapping class="at.itb13.oculus.domain.Patient" />
+        <mapping class="at.itb13.oculus.domain.Permission" />
+        <mapping class="at.itb13.oculus.domain.Prescription" />
+        <mapping class="at.itb13.oculus.domain.PrescriptionEntry" />
+        <mapping class="at.itb13.oculus.domain.Receptionist" />
+        <mapping class="at.itb13.oculus.domain.ReferralLetter" />
+        <mapping class="at.itb13.oculus.domain.ServiceCode" />
+        <mapping class="at.itb13.oculus.domain.User" />
+        <mapping class="at.itb13.oculus.domain.UserGroup" />
+        <mapping class="at.itb13.oculus.domain.UserPermission" />
+        <mapping class="at.itb13.oculus.domain.VisualAid" />
+        <mapping class="at.itb13.oculus.domain.WorkDisability" />
+        <mapping class="at.itb13.oculus.domain.WorkingHours" />
+        <mapping class="at.itb13.oculus.domain.entities.QueueEntity" />
+
+    </session-factory>
+</hibernate-configuration>

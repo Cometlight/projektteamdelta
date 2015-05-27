@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.application.calendar.CalendarController;
 import at.itb13.oculus.application.doctor.WelcomePatient;
+import at.itb13.oculus.application.patient.NewAppointment;
 import at.itb13.oculus.application.queue.QueueController;
 import at.itb13.oculus.application.receptionist.NewPatient;
 import at.itb13.oculus.application.receptionist.PatientSearch;
@@ -147,6 +148,11 @@ public class ControllerFacade {
 		return new NewAppointmentController();
 	}
 	
+	/* -- NewAppointment -- */
+	public NewAppointment getNewAppointment() {
+		return new NewAppointment();
+	}
+	
 	/* -- PatientSearch -- */
 	public PatientSearch getPatientSearch() {
 		return new PatientSearch();
@@ -256,7 +262,7 @@ public class ControllerFacade {
 	public void refreshCalendarController() {
 		reloadAllCalendarController();
 	}
-
+	
 	/* -- Selected Domain Objects -- */
 	/**
 	 * @return the patientSelected

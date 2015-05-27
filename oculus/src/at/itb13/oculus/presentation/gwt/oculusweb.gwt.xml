@@ -18,6 +18,8 @@
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
 
   <!-- Other module inherits                                      -->
+  <inherits name="com.google.gwt.uibinder.UiBinder"/>
+  <inherits name="com.google.gwt.resources.Resources" />
 
   <!-- Specify the app entry point class.                         -->
   <entry-point class='at.itb13.oculus.presentation.gwt.client.Index'/>
@@ -28,4 +30,5 @@
 
   <!-- allow Super Dev Mode -->
   <add-linker name="xsiframe"/>
+  
 </module>

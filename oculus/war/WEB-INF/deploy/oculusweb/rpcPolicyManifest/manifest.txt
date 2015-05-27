@@ -1,2 +1,3 @@
 # Module oculusweb
 # RPC service class, partial path of RPC policy file
+at.itb13.oculus.presentation.gwt.client.login.rpc.LoginCheckService, 984581F72F12D7D81B1424F9581CF309.gwt.rpc

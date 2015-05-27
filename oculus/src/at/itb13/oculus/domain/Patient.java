@@ -1,20 +1,21 @@
 package at.itb13.oculus.domain;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-
-import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Convert;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -58,6 +59,7 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 	private String _countryIsoCode;
 	private String _phone;
 	private String _email;
+	private String _password;
 	private String _allergy;
 	private String _childhoodAilments;
 	private String _medicineIntolerance;
@@ -159,6 +161,38 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 	        }
 			return null;
 		}
+	}
+	
+	/**
+	 * Converts password to hash and checks if it's equals to the stored hash.
+	 * 
+	 * @param password the password as a String, eg. "letmein"
+	 * @return true if password is equal to this._password
+	 */
+	@Transient
+	public boolean isEqualPassword(String password) {
+		// Calculate hash
+		final String sha512 = "SHA-512";
+		MessageDigest digest = null;
+		try {
+			digest = MessageDigest.getInstance(sha512);
+		} catch (NoSuchAlgorithmException e) {
+			_logger.error(sha512 + " is not a valid algorithm", e);
+			return false;
+		}
+		digest.update(password.getBytes());
+		
+		byte[] data = digest.digest();
+		
+		// Convert byte to Hex
+		StringBuffer hexData = new StringBuffer();
+		for (int byteIndex = 0; byteIndex < data.length; byteIndex++) {
+			hexData.append(Integer.toString((data[byteIndex] & 0xff) + 0x100, 16).substring(1));
+		}
+		String digestStr = hexData.toString();
+		
+		// Check
+		return digestStr.equals(_password);
 	}
 	
 	/**
@@ -312,13 +346,22 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 		_phone = phone;
 	}
 
-	@Column(name = "email")
+	@Column(name = "email", unique = true)
 	public String getEmail() {
 		return _email;
 	}
 
 	public void setEmail(String email) {
 		_email = email;
+	}
+	
+	@Column(name = "password")
+	public String getPassword() {
+		return _password;
+	}
+
+	public void setPassword(String password) {
+		_password = password;
 	}
 
 	@Column(name = "allergy", length = 65535)

@@ -1,0 +1,2 @@
+serviceClass: at.itb13.oculus.presentation.gwt.client.GreetingService
+path: F986864F1EEC1DC96B27AFD905D2318C.gwt.rpc

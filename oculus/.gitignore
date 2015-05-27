@@ -1,2 +1,4 @@
 /bin/
-/log/
+/log/*
+/war/gwt-unitcache/*
+/war/oculusweb/*

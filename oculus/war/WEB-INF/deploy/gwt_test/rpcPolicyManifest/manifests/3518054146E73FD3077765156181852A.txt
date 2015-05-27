@@ -1,0 +1,2 @@
+serviceClass: at.fhv.dsc.client.GreetingService
+path: 11B3A4B40892EB95AD713781C58A01D8.gwt.rpc

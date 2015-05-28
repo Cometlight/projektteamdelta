@@ -12,6 +12,7 @@ public interface LoginResources extends ClientBundle {
 	      String box();
 	      String button();
 	      String error();
+	      String progressLabel();
 	   }
 
 	   @Source("Login.css")

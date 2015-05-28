@@ -11,5 +11,9 @@
 }
 
 .button {
-	
+	margin: 5px;
+}
+
+.progressLabel {
+	font-weight: bold;
 }

@@ -7,9 +7,16 @@
 	<g:HTMLPanel>
 		<div id="wrapper" class="{res.style.background}">
 			<g:VerticalPanel res:styleName="{res.style.background}">
-				<g:Label text="This is a label" res:styleName="{res.style.labelTest}"/>
-				<g:TextBox ui:field="myTextBox" res:styleName="{res.style.box}"/>
-				<g:Label text="This is another label" ui:field="label007" res:styleName="{res.style.labelTest}"/>
+				<g:Label ui:field="nameLabel" text="Patient Name" res:styleName="{res.style.labelTest}"/>
+				<g:Label ui:field="sinLabel" text="Social Insurance Number" res:styleName="{res.style.labelTest}"/>
+				<g:Label ui:field="doctorLabel" text="Patients Doctor" res:styleName="{res.style.labelTest}"/>
+				<g:Label text="Your next Appointment"/>
+				 <g:HTMLPanel>
+				<table ui:field="appointmentTable">
+				   <col ui:field="dateColumn">25.01.2016</col>
+				   <col ui:field="doctorColumn">Dr. Tavolato</col>
+				</table>
+				</g:HTMLPanel>
 			</g:VerticalPanel>
 		</div>
 	</g:HTMLPanel>

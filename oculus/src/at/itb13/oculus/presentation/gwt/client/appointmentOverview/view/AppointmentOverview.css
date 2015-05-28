@@ -1,7 +1,7 @@
 .background {
-   background-color: red;
+ <!--  background-color: red; -->
    border: 1px none transparent;
-   color: #000000;
+<!--   color: #000000; -->
    font-size: 11px;
    margin-left: -8px;
    margin-top: 5px;
@@ -9,10 +9,10 @@
 }
 
 .labelTest {
-	background-color: green;
-	color: #0000FF;
+<!--	background-color: green; -->
+<!--	color: #0000FF; -->
 }
 
 .box {
-	background-color: yellow;
+<!--	background-color: yellow; -->
 }

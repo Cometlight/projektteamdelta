@@ -1,5 +1,10 @@
 package at.itb13.oculus.presentation.gwt.client.login.view;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.persistence.Transient;
+
 import at.itb13.oculus.presentation.gwt.client.Index;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.AppointmentOverview;
 import at.itb13.oculus.presentation.gwt.client.login.rpc.LoginCheckService;
@@ -30,6 +35,7 @@ public class Login extends Composite {
 
 	@UiField
 	Label emailErrorLabel;
+//	private final String emailErrorMissing
 
 	@UiField
 	TextBox passwordBox;
@@ -83,22 +89,43 @@ public class Login extends Composite {
 					}
 				}
 			};
-			
-			loginCheckService.isLoginCredentialsValid(email, password,
-					callback);
+
+			loginCheckService
+					.isLoginCredentialsValid(email, password, callback);
 		}
 	}
 
 	@UiHandler("emailBox")
 	void onEmailBoxChange(ValueChangeEvent<String> event) {
-		if (event.getValue().length() < 6) { // TODO
-			emailErrorLabel.setVisible(true);
-			validInput = false;
-		} else {
+//		if (isEmailValid(event.getValue())) {
+//			emailErrorLabel.setVisible(true);
+//			validInput = false;
+//		} else {
 			emailErrorLabel.setVisible(false);
 			validInput = true;
-		}
+//		}
 	}
+
+	/**
+	 * Checks if the given email is valid; i.e. RegEx check. However, it does
+	 * not check if the email exists in the database. Info: This method is not
+	 * placed in the Application layer so we don't have to send an AJAX request
+	 * only for doing a simple RegEx check.
+	 * 
+	 * @param email
+	 *            the email to be checked
+	 * @return true if the format of the email is valid
+	 */
+//	@Transient
+//	private boolean isEmailValid(String email) {
+//		final String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+//				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+//
+//		Pattern pattern = Pattern.compile(emailPattern);
+//		Matcher matcher = pattern.matcher(email);
+//
+//		return matcher.matches();
+//	}
 
 	@UiHandler("passwordBox")
 	void onPasswordBoxChange(ValueChangeEvent<String> event) {

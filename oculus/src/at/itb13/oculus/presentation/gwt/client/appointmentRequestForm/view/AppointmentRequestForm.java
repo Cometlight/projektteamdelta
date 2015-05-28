@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
 
-public class AppointmentRequestForm extends Composite implements HasText {
+public class AppointmentRequestForm extends Composite {
 
 	private static AppointmentRequestFormUiBinder uiBinder = GWT
 			.create(AppointmentRequestFormUiBinder.class);
@@ -24,25 +24,17 @@ public class AppointmentRequestForm extends Composite implements HasText {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 
-	@UiField
-	Button button;
-
-	public AppointmentRequestForm(String firstName) {
-		initWidget(uiBinder.createAndBindUi(this));
-		button.setText(firstName);
-	}
-
-	@UiHandler("button")
-	void onClick(ClickEvent e) {
-		Window.alert("Hello!");
-	}
-
-	public void setText(String text) {
-		button.setText(text);
-	}
-
-	public String getText() {
-		return button.getText();
-	}
+//	@UiField
+//	Button button;
+//
+//	public AppointmentRequestForm(String firstName) {
+//		initWidget(uiBinder.createAndBindUi(this));
+//		button.setText(firstName);
+//	}
+//
+//	@UiHandler("button")
+//	void onClick(ClickEvent e) {
+//		Window.alert("Hello!");
+//	}
 
 }

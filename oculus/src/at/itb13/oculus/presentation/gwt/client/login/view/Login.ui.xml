@@ -9,8 +9,7 @@
 			<g:VerticalPanel>
 				<g:Label text="Login" res:styleName="{res.style.label}" />
 				<g:TextBox ui:field="emailBox" res:styleName="{res.style.box}" />
-				<g:Label ui:field="emailErrorLabel" res:styleName="{res.style.error}"
-					text="This is not a valid email address" />
+				<g:Label ui:field="emailErrorLabel" res:styleName="{res.style.error}" />
 
 				<g:Label text="Password" res:styleName="{res.style.label}" />
 				<g:PasswordTextBox ui:field="passwordBox"
@@ -20,6 +19,8 @@
 
 				<g:Button ui:field="loginButton" text="Login"
 					res:styleName="{res.style.button}" />
+				<g:Label ui:field="progressLabel" res:styleName="{res.style.progressLabel}"
+					text="Logging in ..." />
 
 				<g:Label ui:field="loginErrorLabel" res:styleName="{res.style.error}"
 					text="Login failed. Please check username and password." />

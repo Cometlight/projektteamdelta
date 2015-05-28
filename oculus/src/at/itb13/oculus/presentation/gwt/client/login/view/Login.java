@@ -1,10 +1,5 @@
 package at.itb13.oculus.presentation.gwt.client.login.view;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.persistence.Transient;
-
 import at.itb13.oculus.presentation.gwt.client.Index;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.AppointmentOverview;
 import at.itb13.oculus.presentation.gwt.client.login.rpc.LoginCheckService;
@@ -13,6 +8,8 @@ import at.itb13.oculus.presentation.gwt.client.login.rpc.LoginCheckServiceAsync;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.regexp.shared.MatchResult;
+import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -35,7 +32,8 @@ public class Login extends Composite {
 
 	@UiField
 	Label emailErrorLabel;
-//	private final String emailErrorMissing
+	private final String emailErrorMissing = "Please provide an email address";
+	private final String emailErrorInvalid = "This is not a valid email address";
 
 	@UiField
 	TextBox passwordBox;
@@ -46,6 +44,9 @@ public class Login extends Composite {
 	@UiField
 	Button loginButton;
 
+	@UiField
+	Label progressLabel;
+	
 	@UiField
 	Label loginErrorLabel;
 
@@ -66,6 +67,7 @@ public class Login extends Composite {
 		emailErrorLabel.setVisible(false);
 		passwordErrorLabel.setVisible(false);
 		loginErrorLabel.setVisible(false);
+		progressLabel.setVisible(false);
 	}
 
 	@UiHandler("loginButton")
@@ -77,11 +79,13 @@ public class Login extends Composite {
 			AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
 				@Override
 				public void onFailure(Throwable caught) {
+					progressLabel.setVisible(false);
 					Window.alert("Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
 				}
 
 				@Override
 				public void onSuccess(Boolean loginCredentialsValid) {
+					progressLabel.setVisible(false);
 					if (loginCredentialsValid) {
 						Index.forward(new AppointmentOverview());
 					} else {
@@ -90,6 +94,7 @@ public class Login extends Composite {
 				}
 			};
 
+			progressLabel.setVisible(true);
 			loginCheckService
 					.isLoginCredentialsValid(email, password, callback);
 		}
@@ -97,39 +102,43 @@ public class Login extends Composite {
 
 	@UiHandler("emailBox")
 	void onEmailBoxChange(ValueChangeEvent<String> event) {
-//		if (isEmailValid(event.getValue())) {
-//			emailErrorLabel.setVisible(true);
-//			validInput = false;
-//		} else {
+		if (event.getValue().length() <= 0) {
+			emailErrorLabel.setText(emailErrorMissing);
+			emailErrorLabel.setVisible(true);
+			validInput = false;
+		} else if (!isEmailValid(event.getValue())) {
+			emailErrorLabel.setText(emailErrorInvalid);
+			emailErrorLabel.setVisible(true);
+			validInput = false;
+		} else {
 			emailErrorLabel.setVisible(false);
 			validInput = true;
-//		}
+		}
 	}
 
 	/**
 	 * Checks if the given email is valid; i.e. RegEx check. However, it does
-	 * not check if the email exists in the database. Info: This method is not
-	 * placed in the Application layer so we don't have to send an AJAX request
-	 * only for doing a simple RegEx check.
+	 * not check if the email exists in the database. <br>
+	 * Info: This method is not placed in the Application layer so we don't have
+	 * to send an AJAX request only for doing a simple RegEx check.
 	 * 
 	 * @param email
 	 *            the email to be checked
 	 * @return true if the format of the email is valid
 	 */
-//	@Transient
-//	private boolean isEmailValid(String email) {
-//		final String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-//				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-//
-//		Pattern pattern = Pattern.compile(emailPattern);
-//		Matcher matcher = pattern.matcher(email);
-//
-//		return matcher.matches();
-//	}
+	private boolean isEmailValid(String email) {
+		final String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+		RegExp regExp = RegExp.compile(emailPattern);
+		MatchResult matcher = regExp.exec(email);
+
+		return matcher != null;
+	}
 
 	@UiHandler("passwordBox")
 	void onPasswordBoxChange(ValueChangeEvent<String> event) {
-		if (event.getValue().length() < 6) { // TODO
+		if (event.getValue().length() <= 0) {
 			passwordErrorLabel.setVisible(true);
 			validInput = false;
 		} else {

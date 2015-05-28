@@ -1,0 +1,30 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+		xmlns:res="urn:with:at.itb13.oculus.presentation.gwt.client.login.view.loginRessources">
+	<ui:with field="res"
+		type="at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view.AppointmentRequestForm" />
+	<g:HTMLPanel>
+		<div id="wrapper">
+			<g:VerticalPanel>
+				<g:Label text="Login" res:styleName="{res.style.label}" />
+				<g:TextBox ui:field="emailBox" res:styleName="{res.style.box}" />
+				<g:Label ui:field="emailErrorLabel" res:styleName="{res.style.error}"
+					text="Email too short (Size must be >= 6)" />
+
+				<g:Label text="Password" res:styleName="{res.style.label}" />
+				<g:PasswordTextBox ui:field="passwordBox"
+					res:styleName="{res.style.box}" />
+				<g:Label ui:field="passwordErrorLabel" res:styleName="{res.style.error}"
+					text="Password too short (Size must be > 6)" />
+
+				<g:Button ui:field="loginButton" text="Login"
+					res:styleName="{res.style.button}" />
+
+				<g:Label ui:field="loginErrorLabel" res:styleName="{res.style.error}"
+					text="Login failed. Please check username and password." />
+
+			</g:VerticalPanel>
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder> 

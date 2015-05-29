@@ -25,6 +25,7 @@
 				<g:Label ui:field="loginErrorLabel" res:styleName="{res.style.error}"
 					text="Login failed. Please check username and password." />
 
+				
 			</g:VerticalPanel>
 		</div>
 	</g:HTMLPanel>

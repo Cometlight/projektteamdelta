@@ -31,5 +31,6 @@
 	<classpathentry kind="lib" path="lib/objenesis-tck-2.1.jar"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/gwt-traction-1.6.0.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-traction-1.6.0.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

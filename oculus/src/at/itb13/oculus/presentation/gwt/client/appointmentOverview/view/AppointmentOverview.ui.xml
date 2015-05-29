@@ -11,12 +11,26 @@
 				<g:Label ui:field="sinLabel" text="Social Insurance Number" res:styleName="{res.style.labelTest}"/>
 				<g:Label ui:field="doctorLabel" text="Patients Doctor" res:styleName="{res.style.labelTest}"/>
 				<g:Label text="Your next Appointment"/>
-				 <g:HTMLPanel>
-				<table ui:field="appointmentTable">
-				   <col ui:field="dateColumn">25.01.2016</col>
-				   <col ui:field="doctorColumn">Dr. Tavolato</col>
-				</table>
-				</g:HTMLPanel>
+				
+<!-- 			<table ui:field="appointmentTable">
+				    
+				        <col>Date</col>
+				        <col>Doctor</col>
+				        <col>Type</col>
+				        
+				    
+				       <col ui:field="dateColumn">25.01.2016</col>
+				       <col ui:field="doctorColumn">Dr.Tavolato</col>
+				       <col ui:field="typeColumn">Standard Treatment</col>
+				   	
+				  
+				  </table> -->	
+				  
+				  <g:Button ui:field="deleteButton" text="Delete"/>
+				  <g:Button ui:field="logoutButton" text="Logout"/>
+				  <g:Button ui:field="newAppointmentButton" text="New Appointment"/>
+
+				
 			</g:VerticalPanel>
 		</div>
 	</g:HTMLPanel>

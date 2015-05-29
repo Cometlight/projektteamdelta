@@ -12,5 +12,5 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  */
 public interface AppointmentCheckServiceAsync {
 	void getPossibleAppointment(String weekday, String from, String to, Date start, 
-								Date end, AsyncCallback<Object> callback);
+								Date end, String socialInsuranceNumber, AsyncCallback<Object> callback);
 }

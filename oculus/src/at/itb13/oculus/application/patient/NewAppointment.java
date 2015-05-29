@@ -39,7 +39,7 @@ public class NewAppointment {
 	}
 	
 	public Object getPossibleAppointment(String weekday, String from, String to, 
-											Date start, Date end){
+											Date start, Date end, String socialInsuranceNumber){
 		
 		return new Object();
 	}

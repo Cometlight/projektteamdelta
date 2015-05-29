@@ -39,8 +39,10 @@
 							</g:item>
 						</g:ListBox>
 						<g:Label ui:field="fromLabel" text="From" />
+						<g:Label ui:field="fromErrorLabel"/>
 						<g:TextBox ui:field="FromTextBox" />
 						<g:Label ui:field="toLabel" text="To" />
+						<g:Label ui:field="toErrorLabel"/>
 						<g:TextBox ui:field="ToTextBox" />
 					</table>
 					<g:Button ui:field="addButton" text="Add" />

@@ -43,4 +43,9 @@ public class NewAppointment {
 		
 		return new Object();
 	}
+	
+	public Patient getPatientData(String email){
+		Patient patient = PatientDao.getInstance().findByEmail(email);
+		return patient;
+	}
 }

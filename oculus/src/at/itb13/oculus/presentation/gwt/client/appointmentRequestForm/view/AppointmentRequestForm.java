@@ -35,7 +35,7 @@ public class AppointmentRequestForm extends Composite {
 	private boolean validInput;
 	
 	@UiField
-	ListBox fromToTable;
+	ListBox weekdayListBox;
 	
 	@UiField
 	TextBox FromTextBox;
@@ -54,7 +54,7 @@ public class AppointmentRequestForm extends Composite {
 	
 	@UiHandler("addButton")
 	void onClickLoginButton(ClickEvent event) {
-		String weekday = fromToTable.getItemText(0); //TODO index
+		String weekday = weekdayListBox.getItemText(0); //TODO index
 		String from = FromTextBox.getText();
 		String to = ToTextBox.getText();
 

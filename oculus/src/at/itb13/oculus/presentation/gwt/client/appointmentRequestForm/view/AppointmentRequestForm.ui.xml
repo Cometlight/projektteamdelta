@@ -1,30 +1,61 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui"
-	xmlns:dp="urn:import:com.google.gwt.user.datepicker.client">
-	
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:dp="urn:import:com.google.gwt.user.datepicker.client">
+
 	<g:HTMLPanel>
 		<div id="wrapper">
 			<g:VerticalPanel>
-				<g:Label ui:field="nameLabel" text="Patient Name"/>
-				<g:Label ui:field="sinLabel" text="Social Insurance Number"/>
-				<g:Label ui:field="doctorLabel" text="Patients Doctor"/>
-				<g:Label text="Your next Appointment"/>
-				 <g:HTMLPanel>
-				<table ui:field="appointmentTable">
-				   <col ui:field="dateColumn">25.01.2016</col>
-				   <col ui:field="doctorColumn">Dr. Tavolato</col>
-				</table>
+				<g:Label ui:field="nameLabel" text="Patient Name" />
+				<g:Label ui:field="sinLabel" text="Social Insurance Number" />
+				<g:Label ui:field="doctorLabel" text="Patients Doctor" />
+				<g:Label text="Your next Appointment" />
+				<g:HTMLPanel>
+					<table ui:field="appointmentTable">
+						<col ui:field="dateColumn">25.01.2016</col>
+						<col ui:field="doctorColumn">Dr. Tavolato</col>
+					</table>
 				</g:HTMLPanel>
 			</g:VerticalPanel>
 		</div>
-		<div id="wrapper">	
+		<div id="wrapper">
 			<g:HorizontalPanel>
-				<g:TextBox ui:field="von1"/>
-				<g:TextBox ui:field="bis1"/>
-				<dp:DatePicker ui:field="myField"/> 
-				<dp:DatePicker ui:field="myField2"/> 
-			</g:HorizontalPanel>	
+				<g:HTMLPanel>
+					<table ui:field="fromToTable">
+						<g:ListBox ui:field="weekdayListBox">
+							<g:item value='1'>
+								Monday
+							</g:item>
+							<g:item value='2'>
+								Tuesday
+							</g:item>
+							<g:item value='3'>
+								Wednesday
+							</g:item>
+							<g:item value='4'>
+								Thursday
+							</g:item>
+							<g:item value='5'>
+								Friday
+							</g:item>
+						</g:ListBox>
+						<g:Label ui:field="fromLabel" text="From" />
+						<g:TextBox ui:field="FromTextBox" />
+						<g:Label ui:field="toLabel" text="To" />
+						<g:TextBox ui:field="ToTextBox" />
+					</table>
+					<g:Button ui:field="addButton" text="Add" />
+				</g:HTMLPanel>
+				<g:HTMLPanel>
+					<table ui:field="datepickerTable">
+						<dp:DatePicker ui:field="datepicker1" />
+						<dp:DatePicker ui:field="datepicker2" />
+						<g:Label ui:field="freetextLabel" text="Free text" />
+						<g:TextBox ui:field="freetextTextbox" />
+					</table>
+					<g:Button ui:field="submitButton" text="Submit" />
+					<g:Button ui:field="resetButton" text="Reset" />
+				</g:HTMLPanel>
+			</g:HorizontalPanel>
 		</div>
 	</g:HTMLPanel>
 </ui:UiBinder> 

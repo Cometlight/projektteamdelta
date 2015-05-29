@@ -38,9 +38,12 @@
 								Friday
 							</g:item>
 						</g:ListBox>
+						<g:Label ui:field="weekdayErrorLabel"/>
 						<g:Label ui:field="fromLabel" text="From" />
+						<g:Label ui:field="fromErrorLabel"/>
 						<g:TextBox ui:field="FromTextBox" />
 						<g:Label ui:field="toLabel" text="To" />
+						<g:Label ui:field="toErrorLabel"/>
 						<g:TextBox ui:field="ToTextBox" />
 					</table>
 					<g:Button ui:field="addButton" text="Add" />
@@ -48,7 +51,9 @@
 				<g:HTMLPanel>
 					<table ui:field="datepickerTable">
 						<dp:DatePicker ui:field="datepicker1" />
+						<g:Label ui:field="datepicker1ErrorLabel"/>
 						<dp:DatePicker ui:field="datepicker2" />
+						<g:Label ui:field="datepicker2ErrorLabel"/>
 						<g:Label ui:field="freetextLabel" text="Free text" />
 						<g:TextBox ui:field="freetextTextbox" />
 					</table>

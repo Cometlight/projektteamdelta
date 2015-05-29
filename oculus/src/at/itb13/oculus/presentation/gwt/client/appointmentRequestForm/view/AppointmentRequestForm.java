@@ -57,7 +57,8 @@ public class AppointmentRequestForm extends Composite {
 	
 	@UiHandler("addButton")
 	void testButton(ClickEvent event) {
-		String weekday = weekdayListBox.getItemText(0); //TODO index
+		int index = weekdayListBox.getSelectedIndex();
+		String weekday = weekdayListBox.getItemText(index);
 		String from = FromTextBox.getText();
 		String to = ToTextBox.getText();
 

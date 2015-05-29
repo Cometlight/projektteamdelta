@@ -51,7 +51,9 @@
 				<g:HTMLPanel>
 					<table ui:field="datepickerTable">
 						<dp:DatePicker ui:field="datepicker1" />
+						<g:Label ui:field="datepicker1ErrorLabel"/>
 						<dp:DatePicker ui:field="datepicker2" />
+						<g:Label ui:field="datepicker2ErrorLabel"/>
 						<g:Label ui:field="freetextLabel" text="Free text" />
 						<g:TextBox ui:field="freetextTextbox" />
 					</table>

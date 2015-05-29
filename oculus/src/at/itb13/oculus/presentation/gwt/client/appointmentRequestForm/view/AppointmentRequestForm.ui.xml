@@ -19,13 +19,11 @@
 			</g:VerticalPanel>
 		</div>
 		<div id="wrapper">	
-			<g:HorizontalPanel horizontalAlignment="ALIGN_LEFT">
+			<g:HorizontalPanel>
 				<g:TextBox ui:field="von1"/>
-				<g:TextBox ui:field="bis1" />
-			</g:HorizontalPanel>
-			<g:HorizontalPanel horizontalAlignment="ALIGN_RIGHT">
-				<dp:DatePicker ui:field="myField" /> 
-				<dp:DatePicker ui:field="myField2" /> 
+				<g:TextBox ui:field="bis1"/>
+				<dp:DatePicker ui:field="myField"/> 
+				<dp:DatePicker ui:field="myField2"/> 
 			</g:HorizontalPanel>	
 		</div>
 	</g:HTMLPanel>

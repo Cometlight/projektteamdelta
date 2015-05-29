@@ -1,5 +1,7 @@
 package at.itb13.oculus.application.patient;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 import org.apache.logging.log4j.LogManager;
@@ -40,8 +42,14 @@ public class NewAppointment {
 	
 	public Object getPossibleAppointment(String weekday, String from, String to, 
 											Date start, Date end, String socialInsuranceNumber){
-		
+		Patient patient = PatientDao.getInstance().findBySocialInsuranceNr(socialInsuranceNumber);
+		findLocalDateTimeOfString(weekday);
+		patient.getDoctor().getCalendar();
 		return new Object();
+	}
+	
+	private void findLocalDateTimeOfString(String weekday){
+		
 	}
 	
 	public Patient getPatientData(String email){

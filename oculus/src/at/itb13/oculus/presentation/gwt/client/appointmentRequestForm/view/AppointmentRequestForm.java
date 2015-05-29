@@ -112,7 +112,7 @@ public class AppointmentRequestForm extends Composite {
 				
 			}
 		};
-		
+				
 		appointmentCheckService.getPossibleAppointment(weekday, from, to, date1, date2, socialInsuranceNumber, callback);
 		
 		datepicker1ErrorLabel.setText(dateString1);

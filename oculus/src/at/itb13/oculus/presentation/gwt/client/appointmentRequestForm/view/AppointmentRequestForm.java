@@ -72,36 +72,13 @@ public class AppointmentRequestForm extends Composite {
 		String weekday = weekdayListBox.getItemText(index);
 		String from = FromTextBox.getText();
 		String to = ToTextBox.getText();
-
+		String date1 = datepicker1.getHighlightedDate().toString();
+		String date2 = datepicker2.getHighlightedDate().toString();
+		
+		datepicker1ErrorLabel.setText(date1);	
+		datepicker2ErrorLabel.setText(date2);	
 		weekdayErrorLabel.setText("Tag: " + weekday);
 		fromErrorLabel.setText("von: " + from);
 		toErrorLabel.setText("bis: " + to);
 	}
-	
-	@UiHandler("datepicker1")
-	void testDatepicker1(@SuppressWarnings("rawtypes") ValueChangeEvent event){
-		datepicker1.addValueChangeHandler(new ValueChangeHandler<Date>() {
-	         @Override
-	         public void onValueChange(ValueChangeEvent<Date> event) {
-	            Date date = event.getValue();
-	            String dateString = 
-	            DateTimeFormat.getFormat("MM/dd/yyyy").format(date);
-	            datepicker1ErrorLabel.setText(dateString);				
-	         }
-	      });
-	}
-	 
-	@UiHandler("datepicker2")
-	void testDatepicker2(@SuppressWarnings("rawtypes") ValueChangeEvent event){
-	 datepicker2.addValueChangeHandler(new ValueChangeHandler<Date>() {
-         @Override
-         public void onValueChange(ValueChangeEvent<Date> event) {
-            Date date = event.getValue();
-            String dateString = 
-            DateTimeFormat.getFormat("MM/dd/yyyy").format(date);
-            datepicker2ErrorLabel.setText(dateString);				
-         }
-      });
-	}
-
 }

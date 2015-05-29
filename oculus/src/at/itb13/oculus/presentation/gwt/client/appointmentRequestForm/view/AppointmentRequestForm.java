@@ -72,11 +72,15 @@ public class AppointmentRequestForm extends Composite {
 		String weekday = weekdayListBox.getItemText(index);
 		String from = FromTextBox.getText();
 		String to = ToTextBox.getText();
-		String date1 = datepicker1.getHighlightedDate().toString();
-		String date2 = datepicker2.getHighlightedDate().toString();
+		Date date1 = datepicker1.getHighlightedDate();
+		Date date2 = datepicker2.getHighlightedDate();
 		
-		datepicker1ErrorLabel.setText(date1);	
-		datepicker2ErrorLabel.setText(date2);	
+		String dateString1 = DateTimeFormat.getFormat("MM/dd/yyyy").format(date1);
+		String dateString2 = DateTimeFormat.getFormat("MM/dd/yyyy").format(date2);
+
+		
+		datepicker1ErrorLabel.setText(dateString1);	
+		datepicker2ErrorLabel.setText(dateString2);	
 		weekdayErrorLabel.setText("Tag: " + weekday);
 		fromErrorLabel.setText("von: " + from);
 		toErrorLabel.setText("bis: " + to);

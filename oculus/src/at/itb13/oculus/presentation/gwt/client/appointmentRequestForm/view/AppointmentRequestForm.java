@@ -68,13 +68,16 @@ public class AppointmentRequestForm extends Composite {
 	
 	@UiHandler("addButton")
 	void testButton(ClickEvent event) {
+		datepicker1.setValue(new Date(), true);
+		datepicker2.setValue(new Date(), true);
+		
 		int index = weekdayListBox.getSelectedIndex();
 		String weekday = weekdayListBox.getItemText(index);
 		String from = FromTextBox.getText();
 		String to = ToTextBox.getText();
 		Date date1 = datepicker1.getHighlightedDate();
 		Date date2 = datepicker2.getHighlightedDate();
-		
+		 
 		String dateString1 = DateTimeFormat.getFormat("MM/dd/yyyy").format(date1);
 		String dateString2 = DateTimeFormat.getFormat("MM/dd/yyyy").format(date2);
 

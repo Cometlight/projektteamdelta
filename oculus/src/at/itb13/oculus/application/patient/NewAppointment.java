@@ -1,5 +1,7 @@
 package at.itb13.oculus.application.patient;
 
+import java.util.Date;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,5 +36,11 @@ public class NewAppointment {
 		}
 
 		return false;
+	}
+	
+	public Object getPossibleAppointment(String weekday, String from, String to, 
+											Date start, Date end){
+		
+		return new Object();
 	}
 }

@@ -38,6 +38,7 @@
 								Friday
 							</g:item>
 						</g:ListBox>
+						<g:Label ui:field="weekdayErrorLabel"/>
 						<g:Label ui:field="fromLabel" text="From" />
 						<g:Label ui:field="fromErrorLabel"/>
 						<g:TextBox ui:field="FromTextBox" />

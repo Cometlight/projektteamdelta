@@ -1,16 +1,10 @@
 package at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view;
 
-import at.itb13.oculus.presentation.gwt.client.Index;
-import at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.AppointmentOverview;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
@@ -52,14 +46,23 @@ public class AppointmentRequestForm extends Composite {
 	@UiField
 	Button addButton;
 	
+	@UiField
+	Label fromErrorLabel;
+	
+	@UiField
+	Label toErrorLabel;
+	
+	@UiField
+	Label weekdayErrorLabel;
+	
 	@UiHandler("addButton")
-	void onClickLoginButton(ClickEvent event) {
+	void testButton(ClickEvent event) {
 		String weekday = weekdayListBox.getItemText(0); //TODO index
 		String from = FromTextBox.getText();
 		String to = ToTextBox.getText();
 
-		System.out.println("Tag: " + weekday);
-		System.out.println("von: " + from);
-		System.out.println("bis: " + to);
+		weekdayErrorLabel.setText("Tag: " + weekday);
+		fromErrorLabel.setText("von: " + from);
+		toErrorLabel.setText("bis: " + to);
 	}
 }

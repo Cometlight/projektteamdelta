@@ -73,7 +73,7 @@ public class Login extends Composite {
 	@UiHandler("loginButton")
 	void onClickLoginButton(ClickEvent event) {
 		if (validInput) {
-			String email = emailBox.getText();
+			final String email = emailBox.getText();
 			String password = passwordBox.getText();
 
 			AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
@@ -87,7 +87,7 @@ public class Login extends Composite {
 				public void onSuccess(Boolean loginCredentialsValid) {
 					progressLabel.setVisible(false);
 					if (loginCredentialsValid) {
-						Index.forward(new AppointmentOverview());
+						Index.forward(new AppointmentOverview(email));
 					} else {
 						loginErrorLabel.setVisible(true);
 					}

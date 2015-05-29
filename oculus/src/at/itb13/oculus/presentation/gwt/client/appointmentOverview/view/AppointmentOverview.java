@@ -23,6 +23,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class AppointmentOverview extends Composite {
 
 	private static AppointmentOverviewUiBinder uiBinder = GWT.create(AppointmentOverviewUiBinder.class);
+	private String _email;
 
 	@UiTemplate("AppointmentOverview.ui.xml")
 	interface AppointmentOverviewUiBinder extends UiBinder<Widget, AppointmentOverview> {
@@ -31,10 +32,11 @@ public class AppointmentOverview extends Composite {
 	@UiField(provided = true)
 	final AppointmentOverviewResources res;
 	
-	public AppointmentOverview() {
+	public AppointmentOverview(String email) {
 		this.res = GWT.create(AppointmentOverviewResources.class);
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
+		_email = email;
 	}
 	
 	@UiField

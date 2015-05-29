@@ -61,7 +61,7 @@ public class Login extends Composite implements HasText {
 	   void doClickSubmit(ClickEvent event) {
 	      if (!tooShort) {
 	         Window.alert("Login Successful! Forwarding now...");
-	         Index.forward(new AppointmentOverview());
+	         Index.forward(new AppointmentOverview(""));
 	      } else {
 	         Window.alert("Login or Password is too short!");
 	      }

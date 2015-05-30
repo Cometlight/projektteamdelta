@@ -12,5 +12,5 @@ import at.itb13.oculus.domain.Patient;
  * 
  */
 public interface AppointmentOverviewServiceAsync {
-	public void getPatientData (String email,AsyncCallback<Patient> callback);
+	public void getPatientData (String email,AsyncCallback<String[]> callback);
 }

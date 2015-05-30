@@ -1,7 +1,11 @@
 package at.itb13.oculus.presentation.gwt.client.appointmentOverview.view;
 
 import at.itb13.oculus.presentation.gwt.client.Index;
+import at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.rpc.AppointmentOverviewService;
+import at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.rpc.AppointmentOverviewServiceAsync;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view.AppointmentRequestForm;
+import at.itb13.oculus.presentation.gwt.client.login.rpc.LoginCheckService;
+import at.itb13.oculus.presentation.gwt.client.login.rpc.LoginCheckServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.TableColElement;
@@ -23,6 +27,8 @@ import com.google.gwt.user.client.ui.Widget;
 public class AppointmentOverview extends Composite {
 
 	private static AppointmentOverviewUiBinder uiBinder = GWT.create(AppointmentOverviewUiBinder.class);
+	final AppointmentOverviewServiceAsync appointmentOverviewAsyncService = GWT
+			.create(AppointmentOverviewService.class);
 	private String _email;
 
 	@UiTemplate("AppointmentOverview.ui.xml")
@@ -34,13 +40,31 @@ public class AppointmentOverview extends Composite {
 	
 	public AppointmentOverview(String email) {
 		this.res = GWT.create(AppointmentOverviewResources.class);
+		
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
 		_email = email;
+		AsyncCallback<String[]> callbackPatient = new AsyncCallback<String[]>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
+			}
+
+			@Override
+			public void onSuccess(String[] result) {
+				patientNameLabel.setText(result[0]);
+//				System.out.println(result[0]);
+			}
+			
+		};
+		appointmentOverviewAsyncService.getPatientData(_email, callbackPatient);
 	}
 	
 	@UiField
 	Label nameLabel;
+	@UiField
+	Label patientNameLabel;
 	@UiField
 	Label sinLabel;
 	@UiField

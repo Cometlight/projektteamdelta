@@ -52,8 +52,10 @@ public class NewAppointment {
 		
 	}
 	
-	public Patient getPatientData(String email){
+	public String[] getPatientData(String email){
+		String[] patientdata = new String[3];
 		Patient patient = PatientDao.getInstance().findByEmail(email);
-		return patient;
+		patientdata[0] = patient.getFirstName()+" "+patient.getLastName();
+		return patientdata;
 	}
 }

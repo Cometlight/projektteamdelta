@@ -16,7 +16,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class AppointmentOverviewServiceImpl extends RemoteServiceServlet
 	implements AppointmentOverviewService{
 	
-	public Patient getPatientData (String email){
+	public String[] getPatientData (String email){
 	return ControllerFacade.getInstance().getNewAppointment().getPatientData(email);
 	}
 }

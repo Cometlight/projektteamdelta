@@ -166,21 +166,39 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 	/**
 	 * Converts password to hash and checks if it's equals to the stored hash.
 	 * 
-	 * @param password the password as a String, eg. "letmein"
+	 * @param password the password as a String, eg. "letmein". It may not be empty.
 	 * @return true if password is equal to this._password
 	 */
 	@Transient
 	public boolean isEqualPassword(String password) {
+		if(password.isEmpty()) {
+			throw new IllegalArgumentException("password may not be empty");
+		}
+		
+		String digestStr;
+		try {
+			digestStr = stringToHash(password);
+		} catch (NoSuchAlgorithmException e) {
+			_logger.error("Not a valid algorithm", e);
+			return false;
+		}
+		
+		return digestStr.equals(_password);
+	}
+	
+	/**
+	 * Converts the supplied string to its hash.
+	 * 
+	 * @param string the String that should be converted
+	 * @return the string's hash
+	 */
+	private String stringToHash(String string) throws NoSuchAlgorithmException {
 		// Calculate hash
 		final String sha512 = "SHA-512";
 		MessageDigest digest = null;
-		try {
-			digest = MessageDigest.getInstance(sha512);
-		} catch (NoSuchAlgorithmException e) {
-			_logger.error(sha512 + " is not a valid algorithm", e);
-			return false;
-		}
-		digest.update(password.getBytes());
+		digest = MessageDigest.getInstance(sha512);
+		digest.update(string.getBytes());
+		
 		
 		byte[] data = digest.digest();
 		
@@ -191,8 +209,7 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 		}
 		String digestStr = hexData.toString();
 		
-		// Check
-		return digestStr.equals(_password);
+		return digestStr;
 	}
 	
 	/**
@@ -360,8 +377,30 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 		return _password;
 	}
 
+	/**
+	 * If you want that the password is converted 
+	 * to its hash, use {@link #setPasswordAsHash(String)} instead.
+	 * 
+	 * @param password is NOT converted to its SHA-512 hash.
+	 */
 	public void setPassword(String password) {
 		_password = password;
+	}
+	
+	/**
+	 * 
+	 * @param password is converted to its SHA-512 hash. It may not be empty.
+	 */
+	@Transient
+	public void setPasswordAsHash(String password) {
+		if(password.isEmpty()) {
+			throw new IllegalArgumentException("password may not be empty");
+		}
+		try {
+			_password = stringToHash(password);
+		} catch (NoSuchAlgorithmException e) {
+			_logger.error("Not a valid algorithm", e);
+		}
 	}
 
 	@Column(name = "allergy", length = 65535)
@@ -428,4 +467,9 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 		_examinationprotocols = examinationprotocols;
 	}
 
+	@Transient
+	@Override
+	public String toString() {
+		return _firstName + " " + _lastName + ( (_socialInsuranceNr != null) ? " (" + _socialInsuranceNr + ") " : "");
+	}
 }

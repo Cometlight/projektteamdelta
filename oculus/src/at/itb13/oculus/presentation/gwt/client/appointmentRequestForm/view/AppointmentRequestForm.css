@@ -16,3 +16,11 @@
 .box {
 	background-color: yellow;
 }
+
+button.hide {
+  border: none;
+}
+
+button.show {
+  border: solide;
+}

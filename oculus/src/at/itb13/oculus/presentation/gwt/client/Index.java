@@ -1,6 +1,5 @@
 package at.itb13.oculus.presentation.gwt.client;
 
-import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view.AppointmentRequestForm;
 import at.itb13.oculus.presentation.gwt.client.login.view.Login;
 
 import com.google.gwt.core.client.EntryPoint;

@@ -193,6 +193,7 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 	 * @param string the String that should be converted
 	 * @return the string's hash
 	 */
+	@Transient
 	private String stringToHash(String string) throws NoSuchAlgorithmException {
 		// Calculate hash
 		final String sha512 = "SHA-512";
@@ -238,6 +239,7 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 		return _patientId;
 	}
 	
+	@Transient
 	public CalendarEvent getNextAppointment(){
 		CalendarEvent nextCE = null;
 		if (!_calendarevents.isEmpty()){

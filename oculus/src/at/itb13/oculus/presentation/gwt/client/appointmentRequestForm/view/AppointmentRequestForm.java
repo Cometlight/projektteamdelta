@@ -54,10 +54,22 @@ public class AppointmentRequestForm extends Composite {
 	ListBox weekdayListBox;
 
 	@UiField
-	TextBox FromTextBox;
+	TextBox FromTextBox1;
 
 	@UiField
-	TextBox ToTextBox;
+	TextBox ToTextBox1;
+	
+	@UiField
+	TextBox FromTextBox2;
+
+	@UiField
+	TextBox ToTextBox2;
+	
+	@UiField
+	TextBox FromTextBox3;
+
+	@UiField
+	TextBox ToTextBox3;
 
 	@UiField
 	DatePicker datepicker1;
@@ -66,32 +78,56 @@ public class AppointmentRequestForm extends Composite {
 	DatePicker datepicker2;
 
 	@UiField
-	Button addButton;
+	Button addButton1;
 
 	@UiField
-	Label fromErrorLabel;
+	Label fromErrorLabel1;
 
 	@UiField
-	Label toErrorLabel;
+	Label toErrorLabel1;
 
 	@UiField
-	Label weekdayErrorLabel;
+	Label weekdayErrorLabel1;
 
+	@UiField
+	Button addButton2;
+
+	@UiField
+	Label fromErrorLabel2;
+
+	@UiField
+	Label toErrorLabel2;
+
+	@UiField
+	Label weekdayErrorLabel2;
+
+	@UiField
+	Button addButton3;
+
+	@UiField
+	Label fromErrorLabel3;
+
+	@UiField
+	Label toErrorLabel3;
+
+	@UiField
+	Label weekdayErrorLabel3;
+	
 	@UiField
 	Label datepicker1ErrorLabel;
 
 	@UiField
 	Label datepicker2ErrorLabel;
 
-	@UiHandler("addButton")
+	@UiHandler("addButton1")
 	void testButton(ClickEvent event) {
 		datepicker1.setValue(new Date(), true);
 		datepicker2.setValue(new Date(), true);
 
 		int index = weekdayListBox.getSelectedIndex();
 		String weekday = weekdayListBox.getItemText(index);
-		String from = FromTextBox.getText();
-		String to = ToTextBox.getText();
+		String from = FromTextBox1.getText();
+		String to = ToTextBox1.getText();
 		Date date1 = datepicker1.getHighlightedDate();
 		Date date2 = datepicker2.getHighlightedDate();
 		String socialInsuranceNumber = "3333333333";
@@ -117,8 +153,8 @@ public class AppointmentRequestForm extends Composite {
 		
 		datepicker1ErrorLabel.setText(dateString1);
 		datepicker2ErrorLabel.setText(dateString2);
-		weekdayErrorLabel.setText("Tag: " + weekday);
-		fromErrorLabel.setText("von: " + from);
-		toErrorLabel.setText("bis: " + to);
+		weekdayErrorLabel1.setText("Tag: " + weekday);
+		fromErrorLabel1.setText("von: " + from);
+		toErrorLabel1.setText("bis: " + to);
 	}
 }

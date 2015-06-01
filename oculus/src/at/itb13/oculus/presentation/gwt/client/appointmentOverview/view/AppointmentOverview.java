@@ -1,6 +1,7 @@
 package at.itb13.oculus.presentation.gwt.client.appointmentOverview.view;
 
 import at.itb13.oculus.presentation.gwt.client.Index;
+import at.itb13.oculus.presentation.gwt.client.appointmentChoice.view.AppointmentChoice;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc.AppointmentOverviewService;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc.AppointmentOverviewServiceAsync;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view.AppointmentRequestForm;
@@ -95,19 +96,15 @@ public class AppointmentOverview extends Composite {
 	@UiField
 	Label reasoncell;
 	
-	
-//	@UiField
-//	TableColElement dateColumn;
-//	@UiField
-//	TableColElement doctorColumn;
-//	@UiField
-//	TableColElement typeColumn;
+
 	@UiField
 	Button logoutButton;
 	@UiField
 	Button deleteButton;
 	@UiField
 	Button newAppointmentButton;
+	@UiField
+	Button appointmentChoiceButton;
 	
 	@UiHandler("newAppointmentButton")
 	void onClicknewAppointmentButton(ClickEvent event) {
@@ -159,5 +156,11 @@ public class AppointmentOverview extends Composite {
 		
 		deleteButton.setEnabled(false);
 		newAppointmentButton.setEnabled(true);
+	}
+	@UiHandler("appointmentChoiceButton")
+	void onClickAppointmentChoiceButton(ClickEvent event) {
+
+			Index.forward(new AppointmentChoice());
+
 	}
 }

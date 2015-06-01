@@ -3,6 +3,7 @@ package at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckService;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckServiceAsync;
@@ -49,28 +50,57 @@ public class AppointmentRequestForm extends Composite {
 				datepicker2ErrorLabel.setText(event.getValue().toString());
 			}
 		});
+		
+		AsyncCallback<List<String>> callback = new AsyncCallback<List<String>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
+			}
+
+			@Override
+			public void onSuccess(List<String> result) {
+				//add all eventtypes to ListBox
+//				result.forEach(s -> eventTypeListBox.addItem(s));
+				for(String s : result) {
+					eventTypeListBox.addItem(s);
+				}
+			}
+			
+		};
+		appointmentCheckService.getEventTypes(callback);
+		
+		addButton2.setVisible(false);
+		fromTextBox2.setVisible(false);
+		fromTextBox3.setVisible(false);
+		toTextBox2.setVisible(false);
+		toTextBox3.setVisible(false);
+		fromLabel2.setVisible(false);
+		toLabel2.setVisible(false);
+		fromLabel3.setVisible(false);
+		toLabel3.setVisible(false);
 	}
 
 	@UiField
 	ListBox weekdayListBox;
 
 	@UiField
-	TextBox FromTextBox1;
+	TextBox fromTextBox1;
 
 	@UiField
-	TextBox ToTextBox1;
+	TextBox toTextBox1;
 	
 	@UiField
-	TextBox FromTextBox2;
+	TextBox fromTextBox2;
 
 	@UiField
-	TextBox ToTextBox2;
+	TextBox toTextBox2;
 	
 	@UiField
-	TextBox FromTextBox3;
+	TextBox fromTextBox3;
 
 	@UiField
-	TextBox ToTextBox3;
+	TextBox toTextBox3;
 
 	@UiField
 	DatePicker datepicker1;
@@ -81,6 +111,24 @@ public class AppointmentRequestForm extends Composite {
 	@UiField
 	Button addButton1;
 
+	@UiField
+	Label fromLabel1;
+	
+	@UiField
+	Label fromLabel2;
+	
+	@UiField
+	Label fromLabel3;
+	
+	@UiField
+	Label toLabel1;
+	
+	@UiField
+	Label toLabel2;
+	
+	@UiField
+	Label toLabel3;
+	
 	@UiField
 	Label fromErrorLabel1;
 
@@ -103,9 +151,6 @@ public class AppointmentRequestForm extends Composite {
 	Label weekdayErrorLabel2;
 
 	@UiField
-	Button addButton3;
-
-	@UiField
 	Label fromErrorLabel3;
 
 	@UiField
@@ -119,16 +164,40 @@ public class AppointmentRequestForm extends Composite {
 
 	@UiField
 	Label datepicker2ErrorLabel;
-
+	
+	@UiField
+	ListBox eventTypeListBox;
+	
+	Button submitButton;
+	
 	@UiHandler("addButton1")
-	void testButton(ClickEvent event) {
+	void addButton1(ClickEvent event){
+		addButton2.setVisible(true);
+		fromTextBox2.setVisible(true);
+		toTextBox2.setVisible(true);
+		fromLabel2.setVisible(true);
+		toLabel2.setVisible(true);
+		addButton1.setVisible(false);
+	}
+	
+	@UiHandler("addButton2")
+	void addButton2(ClickEvent event){
+		fromTextBox3.setVisible(true);
+		toTextBox3.setVisible(true);
+		fromLabel3.setVisible(true);
+		toLabel3.setVisible(true);
+		addButton2.setVisible(false);
+	}
+
+	@UiHandler("submitButton")
+	void submitButton(ClickEvent event) {
 		datepicker1.setValue(new Date(), true);
 		datepicker2.setValue(new Date(), true);
 
 		int index = weekdayListBox.getSelectedIndex();
 		String weekday = weekdayListBox.getItemText(index);
-		String from = FromTextBox1.getText();
-		String to = ToTextBox1.getText();
+		String from = fromTextBox1.getText();
+		String to = toTextBox1.getText();
 		Date date1 = datepicker1.getHighlightedDate();
 		Date date2 = datepicker2.getHighlightedDate();
 		String socialInsuranceNumber = "3333333333";
@@ -138,14 +207,14 @@ public class AppointmentRequestForm extends Composite {
 		String dateString2 = DateTimeFormat.getFormat("MM/dd/yyyy").format(
 				date2);
 
-		AsyncCallback<LocalDateTime> callback = new AsyncCallback<LocalDateTime>() {
+		AsyncCallback<String> callback = new AsyncCallback<String>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				Window.alert("Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
 			}
 
 			@Override
-			public void onSuccess(LocalDateTime result) {
+			public void onSuccess(String result) {
 				
 			}
 		};

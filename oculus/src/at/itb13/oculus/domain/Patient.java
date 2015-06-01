@@ -243,16 +243,14 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 	public CalendarEvent getNextAppointment(){
 		CalendarEvent nextCE = null;
 		if (!_calendarevents.isEmpty()){
-			
 			LocalDateTime today = LocalDateTime.now();
-			nextCE = new CalendarEvent();
-			nextCE.setEventStart(LocalDateTime.MAX);
-			for (CalendarEvent ce: _calendarevents){
-				if ((ce.getEventStart().isBefore(nextCE.getEventStart()))&&
-						(ce.getEventStart().isAfter(today))){
+			LocalDateTime curEventStart = LocalDateTime.MAX;
+			for(CalendarEvent ce : _calendarevents) {
+				if ( (ce.getEventStart().isBefore(curEventStart)) &&
+						(ce.getEventStart().isAfter(today)) ) {
+					curEventStart = ce.getEventStart();
 					nextCE = ce;
 				}
-			
 			}
 		}
 		return nextCE;

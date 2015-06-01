@@ -38,15 +38,34 @@
 								Friday
 							</g:item>
 						</g:ListBox>
-						<g:Label ui:field="weekdayErrorLabel"/>
-						<g:Label ui:field="fromLabel" text="From" />
-						<g:Label ui:field="fromErrorLabel"/>
-						<g:TextBox ui:field="FromTextBox" />
-						<g:Label ui:field="toLabel" text="To" />
-						<g:Label ui:field="toErrorLabel"/>
-						<g:TextBox ui:field="ToTextBox" />
+						<g:Label ui:field="weekdayErrorLabel1"/>
+						<g:Label ui:field="fromLabel1" text="From" />
+						<g:Label ui:field="fromErrorLabel1"/>
+						<g:TextBox ui:field="FromTextBox1" />
+						<g:Label ui:field="toLabel1" text="To" />
+						<g:Label ui:field="toErrorLabel1"/>
+						<g:TextBox ui:field="ToTextBox1" />
+						
+						<g:Label ui:field="weekdayErrorLabel2"/>
+						<g:Label ui:field="fromLabel2" text="From" />
+						<g:Label ui:field="fromErrorLabel2"/>
+						<g:TextBox ui:field="FromTextBox2" />
+						<g:Label ui:field="toLabel2" text="To" />
+						<g:Label ui:field="toErrorLabel2"/>
+						<g:TextBox ui:field="ToTextBox2" />
+						
+						<g:Label ui:field="weekdayErrorLabel3"/>
+						<g:Label ui:field="fromLabel3" text="From" />
+						<g:Label ui:field="fromErrorLabel3"/>
+						<g:TextBox ui:field="FromTextBox3" />
+						<g:Label ui:field="toLabel3" text="To" />
+						<g:Label ui:field="toErrorLabel3"/>
+						<g:TextBox ui:field="ToTextBox3" />
+						
 					</table>
-					<g:Button ui:field="addButton" text="Add" />
+					<g:Button ui:field="addButton1" text="Add" />
+					<g:Button ui:field="addButton2" text="Add" />
+					<g:Button ui:field="addButton3" text="Add" />
 				</g:HTMLPanel>
 				<g:HTMLPanel>
 					<table ui:field="datepickerTable">
@@ -56,6 +75,23 @@
 						<g:Label ui:field="datepicker2ErrorLabel"/>
 						<g:Label ui:field="freetextLabel" text="Free text" />
 						<g:TextBox ui:field="freetextTextbox" />
+						<g:ListBox ui:field="appointmentTypeListBox">
+							<g:item value='Standardtreatment'>
+								Standardtreatment
+							</g:item>
+							<g:item value='Child treatment'>
+								Child treatment
+							</g:item>
+							<g:item value='Perimetry'>
+								Perimetry
+							</g:item>
+							<g:item value='First appointment'>
+								First appointment
+							</g:item>
+							<g:item value='Orthoptist appointment'>
+								Orthoptist appointment
+							</g:item>
+						</g:ListBox>
 					</table>
 					<g:Button ui:field="submitButton" text="Submit" />
 					<g:Button ui:field="resetButton" text="Reset" />

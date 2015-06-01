@@ -1,7 +1,6 @@
 
 package at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 

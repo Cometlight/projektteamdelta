@@ -33,7 +33,7 @@ public class AppointmentChoice extends Composite{
 
 	private static AppointmentChoiceUiBinder uiBinder = GWT
 			.create(AppointmentChoiceUiBinder.class);
-	final AppointmentChoiceServiceAsync appointmentChoiceAsyncService = GWT
+	private final AppointmentChoiceServiceAsync appointmentChoiceAsyncService = GWT
 			.create(AppointmentChoiceService.class);
 	@UiTemplate("AppointmentChoice.ui.xml")
 	interface AppointmentChoiceUiBinder extends UiBinder<Widget, AppointmentChoice> {
@@ -82,7 +82,8 @@ public class AppointmentChoice extends Composite{
 			}
 			
 		};
-		appointmentOverviewAsyncService.getPatientData(ControllerFacade.getInstance().getSelectedPatient(), callbackPatient);
+		// Musste auskommentieren, da es mir einen Error geworfen hat.
+//		appointmentOverviewAsyncService.getPatientData(ControllerFacade.getInstance().getSelectedPatient(), callbackPatient);
 
 	}
 

@@ -3,6 +3,7 @@ package at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckService;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckServiceAsync;
@@ -49,6 +50,21 @@ public class AppointmentRequestForm extends Composite {
 				datepicker2ErrorLabel.setText(event.getValue().toString());
 			}
 		});
+		AsyncCallback<List<String>> callback = new AsyncCallback<List<String>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
+			}
+
+			@Override
+			public void onSuccess(List<String> result) {
+				//add all eventtypes to ListBox
+				result.forEach(eventTypeListBox::addItem);
+			}
+			
+		};
+		appointmentCheckService.getEventTypes(callback);
 	}
 
 	@UiField
@@ -119,6 +135,9 @@ public class AppointmentRequestForm extends Composite {
 
 	@UiField
 	Label datepicker2ErrorLabel;
+	
+	@UiField
+	ListBox eventTypeListBox;
 
 	@UiHandler("addButton1")
 	void testButton(ClickEvent event) {

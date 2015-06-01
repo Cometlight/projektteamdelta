@@ -57,9 +57,8 @@ public class NewAppointment {
 	 * @return true, if the selected patient has a future appointment.
 	 */
 	public Boolean hasFutureAppointment() {
-//		CalendarEvent calEv = ControllerFacade.getPatientSelected().getNextAppointment();
-//		return calEv != null;
-		return true;
+		CalendarEvent calEv = ((Patient)(ControllerFacade.getPatientSelected())).getNextAppointment();
+		return calEv != null;
 	}
 	
 	public LocalDateTime getPossibleAppointment(String weekday, String from, String to, 

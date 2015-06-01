@@ -10,6 +10,11 @@
 		<servlet-class>at.itb13.oculus.presentation.gwt.server.LoginCheckServiceImpl</servlet-class>
 	</servlet>
 	
+		<servlet>
+		<servlet-name>futureAppointmentCheckServlet</servlet-name>
+		<servlet-class>at.itb13.oculus.presentation.gwt.server.FutureAppointmentCheckServiceImpl</servlet-class>
+	</servlet>
+	
 	<servlet>
 		<servlet-name>appointmentOverviewServlet</servlet-name>
 		<servlet-class>at.itb13.oculus.presentation.gwt.server.AppointmentOverviewServiceImpl</servlet-class>
@@ -19,6 +24,11 @@
 	<servlet-mapping>
 		<servlet-name>loginCheckServlet</servlet-name>
 		<url-pattern>/oculusweb/LoginCheckService</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>futureAppointmentCheckServlet</servlet-name>
+		<url-pattern>/oculusweb/FutureAppointmentCheckService</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>

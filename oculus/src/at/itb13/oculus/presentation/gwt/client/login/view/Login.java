@@ -1,7 +1,11 @@
 package at.itb13.oculus.presentation.gwt.client.login.view;
 
+import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.presentation.gwt.client.Index;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.AppointmentOverview;
+import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view.AppointmentRequestForm;
+import at.itb13.oculus.presentation.gwt.client.login.rpc.FutureAppointmentCheckService;
+import at.itb13.oculus.presentation.gwt.client.login.rpc.FutureAppointmentCheckServiceAsync;
 import at.itb13.oculus.presentation.gwt.client.login.rpc.LoginCheckService;
 import at.itb13.oculus.presentation.gwt.client.login.rpc.LoginCheckServiceAsync;
 
@@ -26,6 +30,8 @@ public class Login extends Composite {
 	private static LoginUiBinder uiBinder = GWT.create(LoginUiBinder.class);
 	private final LoginCheckServiceAsync loginCheckService = GWT
 			.create(LoginCheckService.class);
+	private final FutureAppointmentCheckServiceAsync futureAppointmentCheckService = GWT
+			.create(FutureAppointmentCheckService.class);
 
 	@UiField
 	TextBox emailBox;
@@ -76,6 +82,7 @@ public class Login extends Composite {
 			final String email = emailBox.getText();
 			String password = passwordBox.getText();
 
+			// Check the patients login credentials. If they are correct, forward to the next page.
 			AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
 				@Override
 				public void onFailure(Throwable caught) {
@@ -87,7 +94,25 @@ public class Login extends Composite {
 				public void onSuccess(Boolean loginCredentialsValid) {
 					progressLabel.setVisible(false);
 					if (loginCredentialsValid) {
-						Index.forward(new AppointmentOverview(email));
+						
+						// If the patient has an appointment in the future, forward to AppointmentOverview,
+						// otherwise forward to AppointmentRequestForm
+						AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+							@Override
+							public void onFailure(Throwable caught) {
+								Window.alert("Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
+							}
+							@Override
+							public void onSuccess(Boolean hasFutureAppointment) {
+								if(hasFutureAppointment) {
+									Index.forward(new AppointmentOverview(email));
+								} else {
+									Index.forward(new AppointmentRequestForm());
+								}
+							}
+						};
+						
+						futureAppointmentCheckService.hasFutureAppointment(callback);
 					} else {
 						loginErrorLabel.setVisible(true);
 					}

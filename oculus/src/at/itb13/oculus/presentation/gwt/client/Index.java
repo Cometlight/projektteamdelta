@@ -1,6 +1,6 @@
 package at.itb13.oculus.presentation.gwt.client;
 
-import at.itb13.oculus.presentation.gwt.client.login.view.Login;
+import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view.AppointmentRequestForm;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.Composite;
@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public class Index implements EntryPoint {
 	public void onModuleLoad() {
-		RootPanel.get().add(new Login());
+		RootPanel.get().add(new AppointmentRequestForm());
 	}
 	
 	public static void forward(Composite c) {

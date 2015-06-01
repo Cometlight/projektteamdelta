@@ -7,6 +7,7 @@ import at.itb13.oculus.presentation.gwt.client.login.rpc.FutureAppointmentCheckS
 import at.itb13.oculus.presentation.gwt.client.login.rpc.FutureAppointmentCheckServiceAsync;
 import at.itb13.oculus.presentation.gwt.client.login.rpc.LoginCheckService;
 import at.itb13.oculus.presentation.gwt.client.login.rpc.LoginCheckServiceAsync;
+import at.itb13.oculus.presentation.gwt.shared.Patient;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -92,7 +93,7 @@ public class Login extends Composite {
 			String password = passwordBox.getText();
 
 			// Check the patients login credentials. If they are correct, forward to the next page.
-			AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+			AsyncCallback<Patient> callback = new AsyncCallback<Patient>() {
 				@Override
 				public void onFailure(Throwable caught) {
 					progressLabel.setVisible(false);
@@ -100,9 +101,9 @@ public class Login extends Composite {
 				}
 
 				@Override
-				public void onSuccess(Boolean loginCredentialsValid) {
+				public void onSuccess(Patient loggedInPatient) {
 					progressLabel.setVisible(false);
-					if (loginCredentialsValid) {
+					if (loggedInPatient != null) {
 						
 						// If the patient has an appointment in the future, forward to AppointmentOverview,
 						// otherwise forward to AppointmentRequestForm
@@ -114,7 +115,7 @@ public class Login extends Composite {
 							@Override
 							public void onSuccess(Boolean hasFutureAppointment) {
 								if(hasFutureAppointment) {
-									Index.forward(new AppointmentOverview(email));
+									Index.forward(new AppointmentOverview(loggedInPatient));
 								} else {
 									Index.forward(new AppointmentRequestForm());
 								}

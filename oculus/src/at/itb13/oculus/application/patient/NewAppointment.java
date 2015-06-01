@@ -31,6 +31,10 @@ public class NewAppointment {
 	 * @return true if the login credentials are valid
 	 */
 	public Boolean isLoginCredentialsValid(String email, String password) {
+		if(email == null || password == null) {
+			throw new NullPointerException();
+		}
+		
 		Patient patient = PatientDao.getInstance().findByEmail(email);
 
 		if (patient != null) {

@@ -5,6 +5,7 @@
 	<ui:with field="res" type="at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.AppointmentOverviewResources"/>
 
 	<g:HTMLPanel>
+	
 		<div id="wrapper" class="{res.style.background}">
 			<g:VerticalPanel res:styleName="{res.style.background}">
 				<g:Label ui:field="nameLabel" text="Patient Name" res:styleName="{res.style.labelTest}"/>
@@ -12,27 +13,26 @@
 				<g:Label ui:field="sinLabel" text="Social Insurance Number" res:styleName="{res.style.labelTest}"/>
 				<g:Label ui:field="doctorLabel" text="Patients Doctor" res:styleName="{res.style.labelTest}"/>
 				<g:Label text="Your next Appointment"/>
-				
-<!-- 			<table ui:field="appointmentTable">
-				    
-				        <col>Date</col>
-				        <col>Doctor</col>
-				        <col>Type</col>
-				        
-				    
-				       <col ui:field="dateColumn">25.01.2016</col>
-				       <col ui:field="doctorColumn">Dr.Tavolato</col>
-				       <col ui:field="typeColumn">Standard Treatment</col>
-				   	
+			</g:VerticalPanel>	
 				  
-				  </table> -->	
-				  
-				  <g:Button ui:field="deleteButton" text="Delete"/>
-				  <g:Button ui:field="logoutButton" text="Logout"/>
-				  <g:Button ui:field="newAppointmentButton" text="New Appointment"/>
-
-				
-			</g:VerticalPanel>
+			<table>
+				<tr>
+					<th>Date</th>
+					<th>Doctor</th>
+					<th>Type</th>
+					<th>Reason</th>
+				</tr>
+				<tr>
+					<td>22.05.2015</td>
+					<td>Dr Tavolato</td>
+					<td>Standard</td>
+					<td>Check right eye</td>
+					<td><g:Button ui:field="deleteButton" text="Delete"/></td>
+				</tr>
+			</table>
+			<g:Button ui:field="logoutButton" text="Logout"/>
+			<g:Button ui:field="newAppointmentButton" text="New Appointment"/>
+			
 		</div>
 	</g:HTMLPanel>
 </ui:UiBinder> 

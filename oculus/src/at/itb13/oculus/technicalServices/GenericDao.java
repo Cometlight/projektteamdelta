@@ -203,6 +203,9 @@ public abstract class GenericDao<T> {
 			}
 		}
 		
+		StringBuilder successMsgBuilder = new StringBuilder("makePersistent was successful for: ");
+		entities.forEach(successMsgBuilder::append);
+		_logger.info(successMsgBuilder);
 		return true;
 	}
 	
@@ -261,7 +264,9 @@ public abstract class GenericDao<T> {
 			}
 		}
 		
-		_logger.info("makeTransient is successful");
+		StringBuilder successMsgBuilder = new StringBuilder("makeTransient was successful for: ");
+		entities.forEach(successMsgBuilder::append);
+		_logger.info(successMsgBuilder);
 		return true;
 	}
 	

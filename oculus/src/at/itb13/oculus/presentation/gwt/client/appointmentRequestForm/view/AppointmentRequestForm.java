@@ -26,8 +26,10 @@ import com.google.gwt.user.datepicker.client.DatePicker;
 public class AppointmentRequestForm extends Composite {
 	private static AppointmentRequestFormUiBinder uiBinder = GWT
 			.create(AppointmentRequestFormUiBinder.class);
+	
 	private final AppointmentCheckServiceAsync appointmentCheckService = GWT
-			.create(AppointmentCheckService.class);
+		.create(AppointmentCheckService.class);
+	
 	interface AppointmentRequestFormUiBinder extends
 			UiBinder<Widget, AppointmentRequestForm> {
 	}

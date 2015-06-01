@@ -9,10 +9,21 @@
 		<servlet-name>loginCheckServlet</servlet-name>
 		<servlet-class>at.itb13.oculus.presentation.gwt.server.LoginCheckServiceImpl</servlet-class>
 	</servlet>
+	
+	<servlet>
+		<servlet-name>appointmentOverviewServlet</servlet-name>
+		<servlet-class>at.itb13.oculus.presentation.gwt.server.AppointmentOverviewServiceImpl</servlet-class>
+	</servlet>
+	
 
 	<servlet-mapping>
 		<servlet-name>loginCheckServlet</servlet-name>
 		<url-pattern>/oculusweb/LoginCheckService</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>appointmentOverviewServlet</servlet-name>
+		<url-pattern>/oculusweb/AppointmentOverviewService</url-pattern>
 	</servlet-mapping>
 
 	<!-- Default page to serve -->

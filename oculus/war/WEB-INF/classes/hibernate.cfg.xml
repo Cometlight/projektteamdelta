@@ -11,8 +11,8 @@
         <property name="hibernate.bytecode.use_reflection_optimizer">false</property><!-- TODO: check -->
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.password">WrZ9E0]BNt1Z</property>
-       <!--   <property name="hibernate.connection.url">jdbc:mysql://83.212.126.222:3306/oculus_d</property>  -->
-        <property name="hibernate.connection.url">jdbc:mysql://localhost/oculus_d</property>
+        <property name="hibernate.connection.url">jdbc:mysql://83.212.126.222:3306/oculus_d</property> 
+        <!--  <property name="hibernate.connection.url">jdbc:mysql://localhost/oculus_d</property> -->
         <property name="hibernate.connection.username">oculus_d</property>
         
 		<!-- SQL dialect -->

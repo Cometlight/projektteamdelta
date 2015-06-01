@@ -65,6 +65,7 @@ public class AppointmentOverview extends Composite {
 				doctorcell.setText(result[1]);
 				typecell.setText(result[2]);
 				reasoncell.setText(result[3]);
+				newAppointmentButton.setEnabled(false);
 			}
 			
 		};
@@ -124,5 +125,12 @@ public class AppointmentOverview extends Composite {
 //				}
 //				
 //			};
+	}
+	
+	@UiHandler("deleteButton")
+	void onClickDeleteButton(ClickEvent event){
+		//delete CalendarEvent
+		deleteButton.setEnabled(false);
+		newAppointmentButton.setEnabled(true);
 	}
 }

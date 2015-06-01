@@ -14,6 +14,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("AppointmentCheckService")
 public interface AppointmentCheckService extends RemoteService {
-	LocalDateTime getPossibleAppointment(String weekday, String from, String to, 
+	String getPossibleAppointment(String weekday, String from, String to, 
 									Date start, Date end, String socialInsuranceNumber, String appointmentType);
 }

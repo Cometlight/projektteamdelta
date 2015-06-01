@@ -49,6 +49,12 @@ public class AppointmentRequestForm extends Composite {
 				datepicker2ErrorLabel.setText(event.getValue().toString());
 			}
 		});
+		addButton2.setVisible(false);
+		addButton3.setVisible(false);
+		FromTextBox2.setVisible(false);
+		FromTextBox3.setVisible(false);
+		ToTextBox2.setVisible(false);
+		ToTextBox3.setVisible(false);
 	}
 
 	@UiField
@@ -119,9 +125,22 @@ public class AppointmentRequestForm extends Composite {
 
 	@UiField
 	Label datepicker2ErrorLabel;
-
+	
+	@UiField
+	Button submitButton;
+	
 	@UiHandler("addButton1")
-	void testButton(ClickEvent event) {
+	void addButton(ClickEvent event){
+		addButton2.setVisible(true);
+		addButton3.setVisible(false);
+		FromTextBox2.setVisible(true);
+		FromTextBox3.setVisible(false);
+		ToTextBox2.setVisible(true);
+		ToTextBox3.setVisible(false);
+	}
+
+	@UiHandler("submitButton")
+	void submitButton(ClickEvent event) {
 		datepicker1.setValue(new Date(), true);
 		datepicker2.setValue(new Date(), true);
 
@@ -138,14 +157,14 @@ public class AppointmentRequestForm extends Composite {
 		String dateString2 = DateTimeFormat.getFormat("MM/dd/yyyy").format(
 				date2);
 
-		AsyncCallback<LocalDateTime> callback = new AsyncCallback<LocalDateTime>() {
+		AsyncCallback<String> callback = new AsyncCallback<String>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				Window.alert("Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
 			}
 
 			@Override
-			public void onSuccess(LocalDateTime result) {
+			public void onSuccess(String result) {
 				
 			}
 		};

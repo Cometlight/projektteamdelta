@@ -1,6 +1,5 @@
 package at.itb13.oculus.presentation.gwt.client.login.view;
 
-import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.presentation.gwt.client.Index;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.AppointmentOverview;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view.AppointmentRequestForm;
@@ -11,6 +10,7 @@ import at.itb13.oculus.presentation.gwt.client.login.rpc.LoginCheckServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
@@ -75,9 +75,18 @@ public class Login extends Composite {
 		loginErrorLabel.setVisible(false);
 		progressLabel.setVisible(false);
 	}
+	
+	@UiHandler({"emailBox", "passwordBox"})
+	void onActionPasswordBox(KeyPressEvent event) {
+		login();
+	}
 
 	@UiHandler("loginButton")
 	void onClickLoginButton(ClickEvent event) {
+		login();
+	}
+	
+	void login() {
 		if (validInput) {
 			final String email = emailBox.getText();
 			String password = passwordBox.getText();

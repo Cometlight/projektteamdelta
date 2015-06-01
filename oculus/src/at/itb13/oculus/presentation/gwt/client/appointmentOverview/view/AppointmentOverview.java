@@ -46,7 +46,9 @@ public class AppointmentOverview extends Composite {
 
 			@Override
 			public void onSuccess(String[] result) {
-				patientNameLabel.setText(result[0]);
+				nameLabel.setText(result[0]);
+				sinLabel.setText(result[1]);
+				doctorLabel.setText(result[2]);
 //				System.out.println(result[0]);
 			}
 			
@@ -57,12 +59,20 @@ public class AppointmentOverview extends Composite {
 	
 	@UiField
 	Label nameLabel;
-	@UiField
-	Label patientNameLabel;
+	
 	@UiField
 	Label sinLabel;
 	@UiField
 	Label doctorLabel;
+	@UiField
+	Label datecell;
+	@UiField
+	Label doctorcell;
+	@UiField
+	Label typecell;
+	@UiField
+	Label reasoncell;
+	
 	
 //	@UiField
 //	TableColElement dateColumn;

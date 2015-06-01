@@ -17,7 +17,7 @@ public class AppointmentOverviewServiceImpl extends RemoteServiceServlet
 	implements AppointmentOverviewService{
 	
 	public String[] getPatientData (String email){
-		System.out.println("AppointmentService");
+		
 	return ControllerFacade.getInstance().getNewAppointment().getPatientData(email);
 	}
 }

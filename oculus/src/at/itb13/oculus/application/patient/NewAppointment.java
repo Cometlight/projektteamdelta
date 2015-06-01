@@ -8,6 +8,8 @@ import java.util.Date;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.domain.Calendar;
+import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 
@@ -46,10 +48,12 @@ public class NewAppointment {
 	}
 	
 	public String getPossibleAppointment(String weekday, String from, String to, 
-											Date start, Date end, String socialInsuranceNumber){
+											Date start, Date end, String socialInsuranceNumber, String appointmentType){
 		Patient patient = PatientDao.getInstance().findBySocialInsuranceNr(socialInsuranceNumber);
 		LocalDateTime ldt = createLocalDateTimeOfStrings(weekday, from);
-		patient.getDoctor().getCalendar();
+		int appointmentDuration = getAppointmentDuration(appointmentType);
+		Calendar calendar = patient.getDoctor().getCalendar();
+		CalendarEvent event = calendar.findPossibleAppointment(ldt, appointmentDuration);
 		String s = "test";
 		return s;
 	}
@@ -57,10 +61,8 @@ public class NewAppointment {
 	private LocalDateTime createLocalDateTimeOfStrings(String weekday, String from){
 		LocalTime lt = createLocalTimeOfString(from);
 		LocalDate ld = createLocalDateOfString(weekday);
-		
 		LocalDateTime ldt = LocalDateTime.of(ld, lt);
 		return ldt;
-		
 	}
 	
 	private LocalTime createLocalTimeOfString(String time){
@@ -77,6 +79,11 @@ public class NewAppointment {
 			ld.plusDays(1);
 		}
 		return ld;
+	}
+	
+	private int getAppointmentDuration(String appointmentType){
+		
+		return 0;
 	}
 	
 	public String[] getPatientData(String email){

@@ -94,6 +94,7 @@ public class AppointmentRequestForm extends Composite {
 		Date date1 = datepicker1.getHighlightedDate();
 		Date date2 = datepicker2.getHighlightedDate();
 		String socialInsuranceNumber = "3333333333";
+		String appointmentType = "Child Treatment";
 		String dateString1 = DateTimeFormat.getFormat("MM/dd/yyyy").format(
 				date1);
 		String dateString2 = DateTimeFormat.getFormat("MM/dd/yyyy").format(
@@ -111,7 +112,7 @@ public class AppointmentRequestForm extends Composite {
 			}
 		};
 				
-		appointmentCheckService.getPossibleAppointment(weekday, from, to, date1, date2, socialInsuranceNumber, callback);
+		appointmentCheckService.getPossibleAppointment(weekday, from, to, date1, date2, socialInsuranceNumber, appointmentType, callback);
 		
 		datepicker1ErrorLabel.setText(dateString1);
 		datepicker2ErrorLabel.setText(dateString2);

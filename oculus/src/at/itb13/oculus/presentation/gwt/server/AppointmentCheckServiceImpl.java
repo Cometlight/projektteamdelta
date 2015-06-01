@@ -24,8 +24,8 @@ public class AppointmentCheckServiceImpl extends RemoteServiceServlet implements
 		private static final Logger _logger = LogManager.getLogger(AppointmentCheckServiceImpl.class.getName());
 		
 		@Override
-		public LocalDateTime getPossibleAppointment(String weekday, String from, String to, Date start, Date end, String socialInsuranceNumber, String appointmentType) {
-			return ControllerFacade.getInstance().getNewAppointment().getPossibleAppointment(weekday,from,to,start,end, socialInsuranceNumber, appointmentType);
+		public String getPossibleAppointment(String weekday, String from, String to, Date start, Date end, String socialInsuranceNumber, String appointmentType) {
+			return ControllerFacade.getInstance().getNewAppointment().getPossibleAppointment(weekday,from,to,start,end, socialInsuranceNumber, appointmentType).toString();
 		}	
 		
 		@Override

@@ -1,5 +1,6 @@
 package at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckService;
@@ -100,14 +101,14 @@ public class AppointmentRequestForm extends Composite {
 		String dateString2 = DateTimeFormat.getFormat("MM/dd/yyyy").format(
 				date2);
 
-		AsyncCallback<String> callback = new AsyncCallback<String>() {
+		AsyncCallback<LocalDateTime> callback = new AsyncCallback<LocalDateTime>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				Window.alert("Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
 			}
 
 			@Override
-			public void onSuccess(String result) {
+			public void onSuccess(LocalDateTime result) {
 				
 			}
 		};

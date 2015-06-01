@@ -13,11 +13,15 @@ import org.apache.logging.log4j.Logger;
 import com.google.gwt.event.dom.client.ClickEvent;
 
 import at.itb13.oculus.application.ControllerFacade;
+
+
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
+
+
 
 /**
  * TODO: Insert description here.
@@ -60,21 +64,62 @@ public class NewAppointment {
 	 * @return true, if the selected patient has a future appointment.
 	 */
 	public Boolean hasFutureAppointment() {
-//		CalendarEvent calEv = ControllerFacade.getPatientSelected().getNextAppointment();
-//		return calEv != null;
-		return true;
+		CalendarEvent calEv = ((Patient)(ControllerFacade.getPatientSelected())).getNextAppointment();
+		return calEv != null;
 	}
 	
-	public String getPossibleAppointment(String weekday, String from, String to, 
+	public LocalDateTime getPossibleAppointment(String weekday, String from, String to, 
 											Date start, Date end, String socialInsuranceNumber, String appointmentType){
 		Patient patient = PatientDao.getInstance().findBySocialInsuranceNr(socialInsuranceNumber);
-		LocalDateTime ldt = createLocalDateTimeOfStrings(weekday, from);
 		int appointmentDuration = getAppointmentDuration(appointmentType);
+		List<LocalDateTime> list = createLocalDateTimeOfStrings(weekday, from, to);
+		LocalDateTime startTime = list.get(0);
+		LocalDateTime endTime = list.get(1);
 		Calendar calendar = patient.getDoctor().getCalendar();
-		CalendarEvent event = calendar.findPossibleAppointment(ldt, appointmentDuration);
-		String s = "test";
-		return s;
+		LocalDateTime eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
+		return eventTime;
 	}
+	
+	private List<LocalDateTime> createLocalDateTimeOfStrings(String weekday, String from, String to){
+		LocalTime lt1 = createLocalTimeOfString(from);
+		LocalTime lt2 = createLocalTimeOfString(to);
+		LocalDate ld = createLocalDateOfString(weekday);
+		LocalDateTime ldt1 = LocalDateTime.of(ld, lt1);
+		LocalDateTime ldt2 = LocalDateTime.of(ld, lt2);
+		List<LocalDateTime> list = new LinkedList<>();
+		list.add(ldt1);
+		list.add(ldt2);
+		return list;
+	}
+	
+//	private LocalTime createLocalTimeOfString(String time){
+//		String[] parts = time.split(":");
+//		int hour = Integer.parseInt(parts[0]);
+//		int minute = Integer.parseInt(parts[1]);
+//		LocalTime lt = LocalTime.of(hour, minute);
+//		return lt;
+//	}
+//	
+//	private LocalDate createLocalDateOfString(String weekday){
+//		LocalDate ld = LocalDate.now();
+//		while(!(weekday.equalsIgnoreCase(ld.getDayOfWeek().name()))){
+//			ld.plusDays(1);
+//		}
+//		return ld;
+//	}
+	
+
+
+//	public String getPossibleAppointment(String weekday, String from, String to, 
+//											Date start, Date end, String socialInsuranceNumber, String appointmentType){
+//		Patient patient = PatientDao.getInstance().findBySocialInsuranceNr(socialInsuranceNumber);
+//		LocalDateTime ldt = createLocalDateTimeOfStrings(weekday, from);
+//		int appointmentDuration = getAppointmentDuration(appointmentType);
+//		Calendar calendar = patient.getDoctor().getCalendar();
+//		CalendarEvent event = calendar.findPossibleAppointment(ldt, appointmentDuration);
+//		String s = "test";
+//		return s;
+//	}
 	
 	private LocalDateTime createLocalDateTimeOfStrings(String weekday, String from){
 		LocalTime lt = createLocalTimeOfString(from);

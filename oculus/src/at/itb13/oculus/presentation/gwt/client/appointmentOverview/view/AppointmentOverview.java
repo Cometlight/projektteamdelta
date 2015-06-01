@@ -1,10 +1,12 @@
 package at.itb13.oculus.presentation.gwt.client.appointmentOverview.view;
 
 import at.itb13.oculus.presentation.gwt.client.Index;
+import at.itb13.oculus.presentation.gwt.client.appointmentChoice.view.AppointmentChoice;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc.AppointmentOverviewService;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc.AppointmentOverviewServiceAsync;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view.AppointmentRequestForm;
 import at.itb13.oculus.presentation.gwt.shared.CalendarEvent;
+import at.itb13.oculus.presentation.gwt.shared.Patient;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -25,7 +27,7 @@ public class AppointmentOverview extends Composite {
 	private static AppointmentOverviewUiBinder uiBinder = GWT.create(AppointmentOverviewUiBinder.class);
 	final AppointmentOverviewServiceAsync appointmentOverviewAsyncService = GWT
 			.create(AppointmentOverviewService.class);
-	private String _email;
+	private Patient _patient;
 
 	@UiTemplate("AppointmentOverview.ui.xml")
 	interface AppointmentOverviewUiBinder extends UiBinder<Widget, AppointmentOverview> {
@@ -34,12 +36,12 @@ public class AppointmentOverview extends Composite {
 	@UiField(provided = true)
 	final AppointmentOverviewResources res;
 	
-	public AppointmentOverview(String email) {
+	public AppointmentOverview(Patient patient) {
 		this.res = GWT.create(AppointmentOverviewResources.class);
 		
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
-		_email = email;
+		_patient = patient;
 		AsyncCallback<String[]> callbackPatient = new AsyncCallback<String[]>() {
 
 			@Override
@@ -49,9 +51,9 @@ public class AppointmentOverview extends Composite {
 
 			@Override
 			public void onSuccess(String[] result) {
-				nameLabel.setText(result[0]);
-				sinLabel.setText(result[1]);
-				doctorLabel.setText(result[2]);
+				nameLabel.setText(_patient.getName());
+				sinLabel.setText(_patient.getSin());
+				doctorLabel.setText(_patient.getDoctor());
 			}
 			
 		};
@@ -74,14 +76,12 @@ public class AppointmentOverview extends Composite {
 			
 		};
 		
-		appointmentOverviewAsyncService.getPatientData(_email, callbackPatient);
-		appointmentOverviewAsyncService.getPatientAppointment(_email, callbackAppointment);
+		appointmentOverviewAsyncService.getPatientAppointment(_patient, callbackAppointment);
 		
 	}
 	
 	@UiField
 	Label nameLabel;
-	
 	@UiField
 	Label sinLabel;
 	@UiField
@@ -95,19 +95,15 @@ public class AppointmentOverview extends Composite {
 	@UiField
 	Label reasoncell;
 	
-	
-//	@UiField
-//	TableColElement dateColumn;
-//	@UiField
-//	TableColElement doctorColumn;
-//	@UiField
-//	TableColElement typeColumn;
+
 	@UiField
 	Button logoutButton;
 	@UiField
 	Button deleteButton;
 	@UiField
 	Button newAppointmentButton;
+	@UiField
+	Button appointmentChoiceButton;
 	
 	@UiHandler("newAppointmentButton")
 	void onClicknewAppointmentButton(ClickEvent event) {
@@ -159,5 +155,11 @@ public class AppointmentOverview extends Composite {
 		
 		deleteButton.setEnabled(false);
 		newAppointmentButton.setEnabled(true);
+	}
+	@UiHandler("appointmentChoiceButton")
+	void onClickAppointmentChoiceButton(ClickEvent event) {
+
+			Index.forward(new AppointmentChoice());
+
 	}
 }

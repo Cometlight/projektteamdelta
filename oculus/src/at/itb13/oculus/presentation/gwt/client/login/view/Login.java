@@ -76,10 +76,10 @@ public class Login extends Composite {
 		progressLabel.setVisible(false);
 	}
 	
-	@UiHandler({"emailBox", "passwordBox"})
-	void onActionPasswordBox(KeyPressEvent event) {
-		login();
-	}
+//	@UiHandler({"emailBox", "passwordBox"})
+//	void onActionPasswordBox(KeyPressEvent event) {
+//		login();
+//	}
 
 	@UiHandler("loginButton")
 	void onClickLoginButton(ClickEvent event) {

@@ -1,7 +1,6 @@
 
 package at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -64,7 +63,10 @@ public class AppointmentRequestForm extends Composite {
 			@Override
 			public void onSuccess(List<String> result) {
 				//add all eventtypes to ListBox
-				result.forEach(eventTypeListBox::addItem);
+//				result.forEach(s -> eventTypeListBox.addItem(s));
+				for(String s : result) {
+					eventTypeListBox.addItem(s);
+				}
 			}
 			
 		};

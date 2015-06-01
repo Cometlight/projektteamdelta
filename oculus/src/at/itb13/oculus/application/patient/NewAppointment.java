@@ -159,10 +159,10 @@ public class NewAppointment {
 		return patientdata;
 	}
 	
-	public at.itb13.oculus.presentation.gwt.shared.CalendarEvent getPatientAppointment(String email) {
+	public at.itb13.oculus.presentation.gwt.shared.CalendarEvent getPatientAppointment(at.itb13.oculus.presentation.gwt.shared.Patient pa) {
 		//String[] patientAppointment = new String[4];
 		at.itb13.oculus.presentation.gwt.shared.CalendarEvent event = new at.itb13.oculus.presentation.gwt.shared.CalendarEvent(); 
-		Patient patient = PatientDao.getInstance().findByEmail(email);
+		Patient patient = PatientDao.getInstance().findBySocialInsuranceNr(pa.getSin());
 		CalendarEvent ce = patient.getNextAppointment();
 		if (ce != null) {
 			event.setId(ce.getCalendarEventId());

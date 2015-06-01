@@ -108,20 +108,27 @@ public class NewAppointment {
 		return patientdata;
 	}
 	
-	public String[] getPatientAppointment(String email){
+	public String[] getPatientAppointment(String email) {
 		String[] patientAppointment = new String[4];
 		Patient patient = PatientDao.getInstance().findByEmail(email);
 		CalendarEvent ce = patient.getNextAppointment();
-		patientAppointment[0] = ce.getEventStart().toString();
-		if (ce.getCalendar().getDoctor()!=null){
-		patientAppointment[1] = ce.getCalendar().getDoctor().getUser().getFirstName()+" "+
-				ce.getCalendar().getDoctor().getUser().getLastName()	;
-		}else if (ce.getCalendar().getOrthoptist() != null){
-			patientAppointment[1] = ce.getCalendar().getOrthoptist().getUser().getFirstName()+" "+
-					ce.getCalendar().getOrthoptist().getUser().getLastName()	;
+		if (ce != null) {
+			patientAppointment[0] = ce.getEventStart().toString();
+			if (ce.getCalendar().getDoctor() != null) {
+				patientAppointment[1] = ce.getCalendar().getDoctor().getUser()
+						.getFirstName()
+						+ " "
+						+ ce.getCalendar().getDoctor().getUser().getLastName();
+			} else if (ce.getCalendar().getOrthoptist() != null) {
+				patientAppointment[1] = ce.getCalendar().getOrthoptist()
+						.getUser().getFirstName()
+						+ " "
+						+ ce.getCalendar().getOrthoptist().getUser()
+								.getLastName();
+			}
+			patientAppointment[2] = ce.getEventType().getEventTypeName();
+			patientAppointment[3] = ce.getDescription();
 		}
-		patientAppointment[2] = ce.getEventType().getEventTypeName();
-		patientAppointment[3] = ce.getDescription();
 		return patientAppointment;
 	}
 	

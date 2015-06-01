@@ -4,12 +4,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.domain.Calendar;
-
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
@@ -48,22 +49,28 @@ public class NewAppointment {
 		return false;
 	}
 	
-	public String getPossibleAppointment(String weekday, String from, String to, 
+	public LocalDateTime getPossibleAppointment(String weekday, String from, String to, 
 											Date start, Date end, String socialInsuranceNumber, String appointmentType){
 		Patient patient = PatientDao.getInstance().findBySocialInsuranceNr(socialInsuranceNumber);
-		LocalDateTime ldt = createLocalDateTimeOfStrings(weekday, from);
 		int appointmentDuration = getAppointmentDuration(appointmentType);
+		List<LocalDateTime> list = createLocalDateTimeOfStrings(weekday, from, to);
+		LocalDateTime startTime = list.get(0);
+		LocalDateTime endTime = list.get(1);
 		Calendar calendar = patient.getDoctor().getCalendar();
-		CalendarEvent event = calendar.findPossibleAppointment(ldt, appointmentDuration);
-		String s = "test";
-		return s;
+		LocalDateTime eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
+		return eventTime;
 	}
 	
-	private LocalDateTime createLocalDateTimeOfStrings(String weekday, String from){
-		LocalTime lt = createLocalTimeOfString(from);
+	private List<LocalDateTime> createLocalDateTimeOfStrings(String weekday, String from, String to){
+		LocalTime lt1 = createLocalTimeOfString(from);
+		LocalTime lt2 = createLocalTimeOfString(to);
 		LocalDate ld = createLocalDateOfString(weekday);
-		LocalDateTime ldt = LocalDateTime.of(ld, lt);
-		return ldt;
+		LocalDateTime ldt1 = LocalDateTime.of(ld, lt1);
+		LocalDateTime ldt2 = LocalDateTime.of(ld, lt2);
+		List<LocalDateTime> list = new LinkedList<>();
+		list.add(ldt1);
+		list.add(ldt2);
+		return list;
 	}
 	
 	private LocalTime createLocalTimeOfString(String time){

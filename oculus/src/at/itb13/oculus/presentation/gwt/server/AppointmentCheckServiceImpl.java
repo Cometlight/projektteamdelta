@@ -1,5 +1,6 @@
 package at.itb13.oculus.presentation.gwt.server;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.apache.logging.log4j.LogManager;
@@ -21,7 +22,7 @@ public class AppointmentCheckServiceImpl extends RemoteServiceServlet implements
 		private static final Logger _logger = LogManager.getLogger(AppointmentCheckServiceImpl.class.getName());
 		
 		@Override
-		public String getPossibleAppointment(String weekday, String from, String to, Date start, Date end, String socialInsuranceNumber, String appointmentType) {
+		public LocalDateTime getPossibleAppointment(String weekday, String from, String to, Date start, Date end, String socialInsuranceNumber, String appointmentType) {
 			return ControllerFacade.getInstance().getNewAppointment().getPossibleAppointment(weekday,from,to,start,end, socialInsuranceNumber, appointmentType);
 		}	
 }

@@ -82,7 +82,7 @@
 						<g:Label ui:field="freetextLabel" text="Free text" />
 						<g:TextBox ui:field="freetextTextbox" />
 						<g:ListBox ui:field="eventTypeListBox">
-							<g:item value='Standardtreatment'>
+							<!-- <g:item value='Standardtreatment'>
 								Standardtreatment
 							</g:item>
 							<g:item value='Child treatment'>
@@ -96,7 +96,7 @@
 							</g:item>
 							<g:item value='Orthoptist appointment'>
 								Orthoptist appointment
-							</g:item>
+							</g:item> -->
 						</g:ListBox>
 					</table>
 					<g:Button ui:field="submitButton" text="Submit" />

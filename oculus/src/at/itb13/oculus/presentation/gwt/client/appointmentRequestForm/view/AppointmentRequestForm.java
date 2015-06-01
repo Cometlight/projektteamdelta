@@ -1,3 +1,4 @@
+
 package at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view;
 
 import java.time.LocalDateTime;
@@ -157,4 +158,5 @@ public class AppointmentRequestForm extends Composite {
 		fromErrorLabel1.setText("von: " + from);
 		toErrorLabel1.setText("bis: " + to);
 	}
+
 }

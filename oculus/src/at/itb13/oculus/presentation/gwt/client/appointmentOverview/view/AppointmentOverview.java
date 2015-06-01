@@ -4,6 +4,8 @@ import at.itb13.oculus.presentation.gwt.client.Index;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc.AppointmentOverviewService;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc.AppointmentOverviewServiceAsync;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view.AppointmentRequestForm;
+import at.itb13.oculus.presentation.gwt.shared.CalendarEvent;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -19,6 +21,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class AppointmentOverview extends Composite {
 
+	private int _calEventId;
 	private static AppointmentOverviewUiBinder uiBinder = GWT.create(AppointmentOverviewUiBinder.class);
 	final AppointmentOverviewServiceAsync appointmentOverviewAsyncService = GWT
 			.create(AppointmentOverviewService.class);
@@ -52,7 +55,7 @@ public class AppointmentOverview extends Composite {
 			}
 			
 		};
-		AsyncCallback<String[]> callbackAppointment = new AsyncCallback<String[]>() {
+		AsyncCallback<CalendarEvent> callbackAppointment = new AsyncCallback<CalendarEvent>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -60,11 +63,13 @@ public class AppointmentOverview extends Composite {
 			}
 
 			@Override
-			public void onSuccess(String[] result) {
-				datecell.setText(result[0]);
-				doctorcell.setText(result[1]);
-				typecell.setText(result[2]);
-				reasoncell.setText(result[3]);
+			public void onSuccess(CalendarEvent cal) {
+				_calEventId = cal.getId();
+				datecell.setText(cal.getDate());
+				doctorcell.setText(cal.getDoctor());
+				typecell.setText(cal.getType());
+				reasoncell.setText(cal.getReason());
+				newAppointmentButton.setEnabled(false);
 			}
 			
 		};
@@ -124,5 +129,35 @@ public class AppointmentOverview extends Composite {
 //				}
 //				
 //			};
+	}
+	
+	@UiHandler("deleteButton")
+	void onClickDeleteButton(ClickEvent event){
+		//delete CalendarEvent
+		
+		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("DELETE- Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
+		}
+		
+		@Override
+		public void onSuccess(Boolean b) {
+			Window.alert("Event has been deleted");
+			datecell.setText("-");
+			doctorcell.setText("-");
+			typecell.setText("-");
+			reasoncell.setText("-");
+//			if (loginCredentialsValid) {
+//			//	Index.forward(new AppointmentRequestForm());
+//			} else {				
+//			}
+		}
+	};
+		
+		appointmentOverviewAsyncService.deleteAppointment(_calEventId, callback);
+		
+		deleteButton.setEnabled(false);
+		newAppointmentButton.setEnabled(true);
 	}
 }

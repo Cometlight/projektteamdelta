@@ -7,14 +7,9 @@ import java.util.Date;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-<<<<<<< HEAD
 
 import at.itb13.oculus.application.ControllerFacade;
-=======
-
 import at.itb13.oculus.domain.Calendar;
-
->>>>>>> c04722962783b78a788c9e49d623e490f2a7a070
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.technicalServices.dao.PatientDao;

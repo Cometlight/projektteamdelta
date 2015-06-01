@@ -1,5 +1,9 @@
 package at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc;
 
+import at.itb13.oculus.domain.CalendarEvent;
+
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -13,5 +17,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("AppointmentOverviewService")
 public interface AppointmentOverviewService extends RemoteService{
 	public String[] getPatientData (String email);
-	public String[] getPatientAppointment(String email);
+	public at.itb13.oculus.presentation.gwt.shared.CalendarEvent getPatientAppointment(String email);
+	public boolean deleteAppointment(int calEventId);
 }

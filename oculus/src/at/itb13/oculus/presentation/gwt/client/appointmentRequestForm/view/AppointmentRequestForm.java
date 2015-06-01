@@ -10,9 +10,12 @@ import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.Appoin
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.regexp.shared.MatchResult;
+import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -77,6 +80,8 @@ public class AppointmentRequestForm extends Composite {
 		fromLabel3.setVisible(false);
 		toLabel3.setVisible(false);
 	}
+	
+	private boolean validInput;
 
 	@UiField
 	ListBox weekdayListBox;
@@ -186,6 +191,57 @@ public class AppointmentRequestForm extends Composite {
 		addButton2.setVisible(false);
 	}
 
+	@UiHandler({"fromTextBox1", "toTextBox1"})
+	void onBox1Change(ValueChangeEvent<String> event) {
+		if (event.getValue().length() != 0) {
+			if(isTimeValid(event.getValue())){
+				fromErrorLabel1.setText("This is not a valid time");
+				fromErrorLabel1.setVisible(true);
+				validInput = false;
+			}
+		} else {
+			fromErrorLabel1.setVisible(false);
+			validInput = true;
+		}
+	}
+	
+	@UiHandler({"fromTextBox2", "toTextBox2"})
+	void onBox2Change(ValueChangeEvent<String> event) {
+		if (event.getValue().length() != 0) {
+			if(isTimeValid(event.getValue())){
+				fromErrorLabel2.setText("This is not a valid time");
+				fromErrorLabel2.setVisible(true);
+				validInput = false;
+			}
+		} else {
+			fromErrorLabel2.setVisible(false);
+			validInput = true;
+		}
+	}
+	
+	@UiHandler({"fromTextBox3", "toTextBox3"})
+	void onBox3Change(ValueChangeEvent<String> event) {
+		if (event.getValue().length() != 0) {
+			if(isTimeValid(event.getValue())){
+				fromErrorLabel3.setText("This is not a valid time");
+				fromErrorLabel3.setVisible(true);
+				validInput = false;
+			}
+		} else {
+			fromErrorLabel3.setVisible(false);
+			validInput = true;
+		}
+	}
+	
+	private boolean isTimeValid(String time) {
+		final String timePattern = "^(1?[0-9]|2[0-3]):[0-5][0-9]$";
+
+		RegExp regExp = RegExp.compile(timePattern);
+		MatchResult matcher = regExp.exec(time);
+
+		return matcher != null;
+	}
+	
 	@UiHandler("submitButton")
 	void submitButton(ClickEvent event) {
 		datepicker1.setValue(new Date(), true);
@@ -193,12 +249,22 @@ public class AppointmentRequestForm extends Composite {
 
 		int index = weekdayListBox.getSelectedIndex();
 		String weekday = weekdayListBox.getItemText(index);
-		String from = fromTextBox1.getText();
-		String to = toTextBox1.getText();
+		
+		String from1 = fromTextBox1.getText();
+		String to1 = toTextBox1.getText();
+		
+		String from2 = fromTextBox2.getText();
+		String to2 = toTextBox2.getText();
+		
+		String from3 = fromTextBox3.getText();
+		String to3 = toTextBox3.getText();
+		
 		Date date1 = datepicker1.getHighlightedDate();
 		Date date2 = datepicker2.getHighlightedDate();
+		
 		String socialInsuranceNumber = "3333333333";
 		String appointmentType = "Child Treatment";
+		
 		String dateString1 = DateTimeFormat.getFormat("MM/dd/yyyy").format(
 				date1);
 		String dateString2 = DateTimeFormat.getFormat("MM/dd/yyyy").format(
@@ -216,13 +282,13 @@ public class AppointmentRequestForm extends Composite {
 			}
 		};
 				
-		appointmentCheckService.getPossibleAppointment(weekday, from, to, date1, date2, socialInsuranceNumber, appointmentType, callback);
+		appointmentCheckService.getPossibleAppointment(weekday, from1, to1, date1, date2, socialInsuranceNumber, appointmentType, callback);
 		
 		datepicker1ErrorLabel.setText(dateString1);
 		datepicker2ErrorLabel.setText(dateString2);
 		weekdayErrorLabel1.setText("Tag: " + weekday);
-		fromErrorLabel1.setText("von: " + from);
-		toErrorLabel1.setText("bis: " + to);
+		fromErrorLabel1.setText("von: " + from1);
+		toErrorLabel1.setText("bis: " + to1);
 	}
 
 }

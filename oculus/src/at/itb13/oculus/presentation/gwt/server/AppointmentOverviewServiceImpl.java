@@ -3,6 +3,7 @@ package at.itb13.oculus.presentation.gwt.server;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc.AppointmentOverviewService;
 
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
@@ -19,5 +20,8 @@ public class AppointmentOverviewServiceImpl extends RemoteServiceServlet
 	public String[] getPatientData (String email){
 		
 	return ControllerFacade.getInstance().getNewAppointment().getPatientData(email);
+	}
+	public String[] getPatientAppointment (String email){
+		return ControllerFacade.getInstance().getNewAppointment().getPatientAppointment(email);
 	}
 }

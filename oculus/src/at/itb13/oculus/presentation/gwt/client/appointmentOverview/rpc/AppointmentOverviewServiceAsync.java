@@ -11,4 +11,5 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  */
 public interface AppointmentOverviewServiceAsync {
 	public void getPatientData (String email,AsyncCallback<String[]> callback);
+	public void getPatientAppointment(String email,AsyncCallback<String[]> callback);
 }

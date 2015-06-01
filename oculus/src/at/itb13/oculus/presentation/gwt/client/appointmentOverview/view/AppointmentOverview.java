@@ -49,12 +49,29 @@ public class AppointmentOverview extends Composite {
 				nameLabel.setText(result[0]);
 				sinLabel.setText(result[1]);
 				doctorLabel.setText(result[2]);
-//				System.out.println(result[0]);
 			}
 			
 		};
-		System.out.println("call Service");
+		AsyncCallback<String[]> callbackAppointment = new AsyncCallback<String[]>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("AppointmentOverview - Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
+			}
+
+			@Override
+			public void onSuccess(String[] result) {
+				datecell.setText(result[0]);
+				doctorcell.setText(result[1]);
+				typecell.setText(result[2]);
+				reasoncell.setText(result[3]);
+			}
+			
+		};
+		
 		appointmentOverviewAsyncService.getPatientData(_email, callbackPatient);
+		appointmentOverviewAsyncService.getPatientAppointment(_email, callbackAppointment);
+		
 	}
 	
 	@UiField

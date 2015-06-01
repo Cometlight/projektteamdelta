@@ -13,4 +13,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("AppointmentOverviewService")
 public interface AppointmentOverviewService extends RemoteService{
 	public String[] getPatientData (String email);
+	public String[] getPatientAppointment(String email);
 }

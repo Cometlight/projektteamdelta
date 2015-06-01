@@ -75,6 +75,12 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 		return calendar;
 	}
 	
+	public CalendarEvent findPossibleAppointment(LocalDateTime ldt, int appointmentDuration){
+		
+		return CalendarEvent.getInstance();
+	}
+	
+	
 	/**
 	 * Creates a list of Calendar Event for a chosen timespan.
 	 * 

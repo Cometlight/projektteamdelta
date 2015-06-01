@@ -23,10 +23,10 @@
 					<th>Reason</th>
 				</tr>
 				<tr>
-					<td>22.05.2015</td>
-					<td>Dr Tavolato</td>
-					<td>Standard</td>
-					<td>Check right eye</td>
+					<td><g:Label ui:field="datecell"/></td>
+					<td><g:Label ui:field="doctorcell"/></td>
+					<td><g:Label ui:field="typecell"/></td>
+					<td><g:Label ui:field="reasoncell"/></td>
 					<td><g:Button ui:field="deleteButton" text="Delete"/></td>
 				</tr>
 			</table>

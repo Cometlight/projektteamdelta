@@ -5,6 +5,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -235,6 +236,24 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 	@Override
 	public Integer getPatientId() {
 		return _patientId;
+	}
+	
+	public CalendarEvent getNextAppointment(){
+		CalendarEvent nextCE = null;
+		if (!_calendarevents.isEmpty()){
+			
+			LocalDateTime today = LocalDateTime.now();
+			nextCE = new CalendarEvent();
+			nextCE.setEventStart(LocalDateTime.MAX);
+			for (CalendarEvent ce: _calendarevents){
+				if ((ce.getEventStart().isBefore(nextCE.getEventStart()))&&
+						(ce.getEventStart().isAfter(today))){
+					nextCE = ce;
+				}
+			
+			}
+		}
+		return nextCE;
 	}
 
 	public void setPatientId(Integer patientId) {

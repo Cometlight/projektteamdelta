@@ -1,8 +1,6 @@
-package at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.rpc;
+package at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
-
-import at.itb13.oculus.domain.Patient;
 
 /**
  * TODO: Insert description here.

@@ -1,4 +1,4 @@
-package at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.rpc;
+package at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc;
 
 import at.itb13.oculus.domain.Patient;
 

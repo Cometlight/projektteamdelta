@@ -1,27 +1,20 @@
 package at.itb13.oculus.presentation.gwt.client.appointmentOverview.view;
 
 import at.itb13.oculus.presentation.gwt.client.Index;
-import at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.rpc.AppointmentOverviewService;
-import at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.rpc.AppointmentOverviewServiceAsync;
+import at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc.AppointmentOverviewService;
+import at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc.AppointmentOverviewServiceAsync;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view.AppointmentRequestForm;
-import at.itb13.oculus.presentation.gwt.client.login.rpc.LoginCheckService;
-import at.itb13.oculus.presentation.gwt.client.login.rpc.LoginCheckServiceAsync;
-
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.TableColElement;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiTemplate;
-import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 public class AppointmentOverview extends Composite {
@@ -48,7 +41,7 @@ public class AppointmentOverview extends Composite {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
+				Window.alert("AppointmentOverview - Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
 			}
 
 			@Override
@@ -58,6 +51,7 @@ public class AppointmentOverview extends Composite {
 			}
 			
 		};
+		System.out.println("call Service");
 		appointmentOverviewAsyncService.getPatientData(_email, callbackPatient);
 	}
 	

@@ -71,11 +71,14 @@ public class AppointmentRequestForm extends Composite {
 		appointmentCheckService.getEventTypes(callback);
 		
 		addButton2.setVisible(false);
-		addButton3.setVisible(false);
 		fromTextBox2.setVisible(false);
 		fromTextBox3.setVisible(false);
 		toTextBox2.setVisible(false);
 		toTextBox3.setVisible(false);
+		fromLabel2.setVisible(false);
+		toLabel2.setVisible(false);
+		fromLabel3.setVisible(false);
+		toLabel3.setVisible(false);
 	}
 
 	@UiField
@@ -109,6 +112,24 @@ public class AppointmentRequestForm extends Composite {
 	Button addButton1;
 
 	@UiField
+	Label fromLabel1;
+	
+	@UiField
+	Label fromLabel2;
+	
+	@UiField
+	Label fromLabel3;
+	
+	@UiField
+	Label toLabel1;
+	
+	@UiField
+	Label toLabel2;
+	
+	@UiField
+	Label toLabel3;
+	
+	@UiField
 	Label fromErrorLabel1;
 
 	@UiField
@@ -128,9 +149,6 @@ public class AppointmentRequestForm extends Composite {
 
 	@UiField
 	Label weekdayErrorLabel2;
-
-	@UiField
-	Button addButton3;
 
 	@UiField
 	Label fromErrorLabel3;
@@ -153,13 +171,22 @@ public class AppointmentRequestForm extends Composite {
 	Button submitButton;
 	
 	@UiHandler("addButton1")
-	void addButton(ClickEvent event){
+	void addButton1(ClickEvent event){
 		addButton2.setVisible(true);
-		addButton3.setVisible(false);
 		fromTextBox2.setVisible(true);
-		fromTextBox3.setVisible(false);
 		toTextBox2.setVisible(true);
-		toTextBox3.setVisible(false);
+		fromLabel2.setVisible(true);
+		toLabel2.setVisible(true);
+		addButton1.setVisible(false);
+	}
+	
+	@UiHandler("addButton2")
+	void addButton2(ClickEvent event){
+		fromTextBox3.setVisible(true);
+		toTextBox3.setVisible(true);
+		fromLabel3.setVisible(true);
+		toLabel3.setVisible(true);
+		addButton2.setVisible(false);
 	}
 
 	@UiHandler("submitButton")

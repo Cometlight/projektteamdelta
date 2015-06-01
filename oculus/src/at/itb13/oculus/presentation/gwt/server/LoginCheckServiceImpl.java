@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.presentation.OculusMain;
 import at.itb13.oculus.presentation.gwt.client.login.rpc.LoginCheckService;
+import at.itb13.oculus.presentation.gwt.shared.Patient;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -14,7 +15,7 @@ public class LoginCheckServiceImpl extends RemoteServiceServlet implements
 	private static final Logger _logger = LogManager.getLogger(LoginCheckServiceImpl.class.getName());
 
 	@Override
-	public Boolean isLoginCredentialsValid(String email, String password) {
+	public Patient isLoginCredentialsValid(String email, String password) {
 		
 		return ControllerFacade.getInstance().getNewAppointment().isLoginCredentialsValid(email, password);
 	}

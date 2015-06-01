@@ -2,6 +2,7 @@ package at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -16,4 +17,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface AppointmentCheckService extends RemoteService {
 	String getPossibleAppointment(String weekday, String from, String to, 
 									Date start, Date end, String socialInsuranceNumber, String appointmentType);
+	
+	List<String> getEventTypes();
 }

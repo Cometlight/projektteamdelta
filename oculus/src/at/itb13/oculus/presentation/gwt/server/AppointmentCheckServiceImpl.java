@@ -2,6 +2,8 @@ package at.itb13.oculus.presentation.gwt.server;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,5 +26,13 @@ public class AppointmentCheckServiceImpl extends RemoteServiceServlet implements
 		@Override
 		public String getPossibleAppointment(String weekday, String from, String to, Date start, Date end, String socialInsuranceNumber, String appointmentType) {
 			return ControllerFacade.getInstance().getNewAppointment().getPossibleAppointment(weekday,from,to,start,end, socialInsuranceNumber, appointmentType).toString();
+		}	
+		
+		@Override
+		public List<String> getEventTypes() {
+			
+			List<String> eventTypesStrings = new LinkedList<>();
+			ControllerFacade.getInstance().getAllEventTypes().forEach(e -> eventTypesStrings.add(e.getEventTypeName()));
+			return eventTypesStrings;
 		}	
 }

@@ -51,32 +51,32 @@ public class AppointmentRequestForm extends Composite {
 		});
 		addButton2.setVisible(false);
 		addButton3.setVisible(false);
-		FromTextBox2.setVisible(false);
-		FromTextBox3.setVisible(false);
-		ToTextBox2.setVisible(false);
-		ToTextBox3.setVisible(false);
+		fromTextBox2.setVisible(false);
+		fromTextBox3.setVisible(false);
+		toTextBox2.setVisible(false);
+		toTextBox3.setVisible(false);
 	}
 
 	@UiField
 	ListBox weekdayListBox;
 
 	@UiField
-	TextBox FromTextBox1;
+	TextBox fromTextBox1;
 
 	@UiField
-	TextBox ToTextBox1;
+	TextBox toTextBox1;
 	
 	@UiField
-	TextBox FromTextBox2;
+	TextBox fromTextBox2;
 
 	@UiField
-	TextBox ToTextBox2;
+	TextBox toTextBox2;
 	
 	@UiField
-	TextBox FromTextBox3;
+	TextBox fromTextBox3;
 
 	@UiField
-	TextBox ToTextBox3;
+	TextBox toTextBox3;
 
 	@UiField
 	DatePicker datepicker1;
@@ -133,10 +133,10 @@ public class AppointmentRequestForm extends Composite {
 	void addButton(ClickEvent event){
 		addButton2.setVisible(true);
 		addButton3.setVisible(false);
-		FromTextBox2.setVisible(true);
-		FromTextBox3.setVisible(false);
-		ToTextBox2.setVisible(true);
-		ToTextBox3.setVisible(false);
+		fromTextBox2.setVisible(true);
+		fromTextBox3.setVisible(false);
+		toTextBox2.setVisible(true);
+		toTextBox3.setVisible(false);
 	}
 
 	@UiHandler("submitButton")
@@ -146,8 +146,8 @@ public class AppointmentRequestForm extends Composite {
 
 		int index = weekdayListBox.getSelectedIndex();
 		String weekday = weekdayListBox.getItemText(index);
-		String from = FromTextBox1.getText();
-		String to = ToTextBox1.getText();
+		String from = fromTextBox1.getText();
+		String to = toTextBox1.getText();
 		Date date1 = datepicker1.getHighlightedDate();
 		Date date2 = datepicker2.getHighlightedDate();
 		String socialInsuranceNumber = "3333333333";

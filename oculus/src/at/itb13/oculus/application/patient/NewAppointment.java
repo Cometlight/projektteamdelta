@@ -1,5 +1,6 @@
 package at.itb13.oculus.application.patient;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
@@ -7,6 +8,7 @@ import java.util.Date;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 
@@ -44,23 +46,65 @@ public class NewAppointment {
 		return false;
 	}
 	
-	public Object getPossibleAppointment(String weekday, String from, String to, 
+	public String getPossibleAppointment(String weekday, String from, String to, 
 											Date start, Date end, String socialInsuranceNumber){
 		Patient patient = PatientDao.getInstance().findBySocialInsuranceNr(socialInsuranceNumber);
-		findLocalDateTimeOfString(weekday);
+		LocalDateTime ldt = createLocalDateTimeOfStrings(weekday, from);
 		patient.getDoctor().getCalendar();
-		return new Object();
+		String s = "test";
+		return s;
 	}
 	
-	private void findLocalDateTimeOfString(String weekday){
+	private LocalDateTime createLocalDateTimeOfStrings(String weekday, String from){
+		LocalTime lt = createLocalTimeOfString(from);
+		LocalDate ld = createLocalDateOfString(weekday);
 		
+		LocalDateTime ldt = LocalDateTime.of(ld, lt);
+		return ldt;
+		
+	}
+	
+	private LocalTime createLocalTimeOfString(String time){
+		String[] parts = time.split(":");
+		int hour = Integer.parseInt(parts[0]);
+		int minute = Integer.parseInt(parts[1]);
+		LocalTime lt = LocalTime.of(hour, minute);
+		return lt;
+	}
+	
+	private LocalDate createLocalDateOfString(String weekday){
+		LocalDate ld = LocalDate.now();
+		while(!(weekday.equalsIgnoreCase(ld.getDayOfWeek().name()))){
+			ld.plusDays(1);
+		}
+		return ld;
 	}
 	
 	public String[] getPatientData(String email){
 		String[] patientdata = new String[3];
 		Patient patient = PatientDao.getInstance().findByEmail(email);
 		patientdata[0] = patient.getFirstName()+" "+patient.getLastName();
-		System.out.println(patientdata[0]);
+		patientdata[1] = patient.getSocialInsuranceNr();
+		patientdata[2] = patient.getDoctor().getUser().getFirstName()+" "+
+				 patient.getDoctor().getUser().getLastName();
 		return patientdata;
 	}
+	
+	public String[] getPatientAppointment(String email){
+		String[] patientAppointment = new String[4];
+		Patient patient = PatientDao.getInstance().findByEmail(email);
+		CalendarEvent ce = patient.getNextAppointment();
+		patientAppointment[0] = ce.getEventStart().toString();
+		if (ce.getCalendar().getDoctor()!=null){
+		patientAppointment[1] = ce.getCalendar().getDoctor().getUser().getFirstName()+" "+
+				ce.getCalendar().getDoctor().getUser().getLastName()	;
+		}else if (ce.getCalendar().getOrthoptist() != null){
+			patientAppointment[1] = ce.getCalendar().getOrthoptist().getUser().getFirstName()+" "+
+					ce.getCalendar().getOrthoptist().getUser().getLastName()	;
+		}
+		patientAppointment[2] = ce.getEventType().getEventTypeName();
+		patientAppointment[3] = ce.getDescription();
+		return patientAppointment;
+	}
+	
 }

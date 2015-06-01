@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public class Index implements EntryPoint {
 	public void onModuleLoad() {
-		RootPanel.get().add(new Login());
+		RootPanel.get().add(new AppointmentRequestForm());
 	}
 	
 	public static void forward(Composite c) {

@@ -2,8 +2,6 @@ package at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view;
 
 import java.util.Date;
 
-import at.itb13.oculus.presentation.gwt.client.Index;
-import at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.AppointmentOverview;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckService;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckServiceAsync;
 
@@ -48,8 +46,6 @@ public class AppointmentRequestForm extends Composite {
 			}
 		});
 	}
-
-	private boolean validInput;
 
 	@UiField
 	ListBox weekdayListBox;
@@ -101,14 +97,14 @@ public class AppointmentRequestForm extends Composite {
 		String dateString2 = DateTimeFormat.getFormat("MM/dd/yyyy").format(
 				date2);
 
-		AsyncCallback<Object> callback = new AsyncCallback<Object>() {
+		AsyncCallback<String> callback = new AsyncCallback<String>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				Window.alert("Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
 			}
 
 			@Override
-			public void onSuccess(Object result) {
+			public void onSuccess(String result) {
 				
 			}
 		};

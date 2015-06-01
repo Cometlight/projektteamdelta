@@ -8,8 +8,8 @@ import java.util.Date;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.domain.Calendar;
-
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
@@ -26,7 +26,7 @@ public class NewAppointment {
 
 	/**
 	 * Checks if a patient with the given email exists, and if the password is
-	 * correct.
+	 * correct. In addition, it selects the patient in the ControllerFacade.
 	 * 
 	 * @param email
 	 *            the patient's email
@@ -42,10 +42,22 @@ public class NewAppointment {
 		Patient patient = PatientDao.getInstance().findByEmail(email);
 
 		if (patient != null) {
+			ControllerFacade.setPatientSelected(patient);
 			return patient.isEqualPassword(password);
 		}
 
 		return false;
+	}
+	
+	/**
+	 * In reference to the selected patient in the ControllerFacade.
+	 * 
+	 * @return true, if the selected patient has a future appointment.
+	 */
+	public Boolean hasFutureAppointment() {
+//		CalendarEvent calEv = ControllerFacade.getPatientSelected().getNextAppointment();
+//		return calEv != null;
+		return true;
 	}
 	
 	public String getPossibleAppointment(String weekday, String from, String to, 

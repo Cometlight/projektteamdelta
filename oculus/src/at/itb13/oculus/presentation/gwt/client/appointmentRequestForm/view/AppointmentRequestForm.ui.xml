@@ -41,26 +41,26 @@
 						<g:Label ui:field="weekdayErrorLabel1"/>
 						<g:Label ui:field="fromLabel1" text="From" />
 						<g:Label ui:field="fromErrorLabel1"/>
-						<g:TextBox ui:field="FromTextBox1" />
+						<g:TextBox ui:field="fromTextBox1" />
 						<g:Label ui:field="toLabel1" text="To" />
 						<g:Label ui:field="toErrorLabel1"/>
-						<g:TextBox ui:field="ToTextBox1" />
+						<g:TextBox ui:field="toTextBox1" />
 						
 						<g:Label ui:field="weekdayErrorLabel2"/>
 						<g:Label ui:field="fromLabel2" text="From" />
 						<g:Label ui:field="fromErrorLabel2"/>
-						<g:TextBox ui:field="FromTextBox2" />
+						<g:TextBox ui:field="fromTextBox2" />
 						<g:Label ui:field="toLabel2" text="To" />
 						<g:Label ui:field="toErrorLabel2"/>
-						<g:TextBox ui:field="ToTextBox2" />
+						<g:TextBox ui:field="toTextBox2" />
 						
 						<g:Label ui:field="weekdayErrorLabel3"/>
 						<g:Label ui:field="fromLabel3" text="From" />
 						<g:Label ui:field="fromErrorLabel3"/>
-						<g:TextBox ui:field="FromTextBox3" />
+						<g:TextBox ui:field="fromTextBox3" />
 						<g:Label ui:field="toLabel3" text="To" />
 						<g:Label ui:field="toErrorLabel3"/>
-						<g:TextBox ui:field="ToTextBox3" />
+						<g:TextBox ui:field="toTextBox3" />
 						
 					</table>
 					<g:Button ui:field="addButton1" text="Add" />

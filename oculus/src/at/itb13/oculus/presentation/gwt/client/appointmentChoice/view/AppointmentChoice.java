@@ -60,29 +60,16 @@ public class AppointmentChoice extends Composite{
 	 * Note that depending on the widget that is used, it may be necessary to
 	 * implement HasHTML instead of HasText.
 	 */
-	public AppointmentChoice() {
+	public AppointmentChoice(Patient patient) {
 		
 		this.res = GWT.create(AppointmentChoiceResources.class);
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
+		_patient = patient;
 		
-		
-		AsyncCallback<String[]> callbackPatient = new AsyncCallback<String[]>() {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("AppointmentOverview - Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
-			}
-
-			@Override
-			public void onSuccess(String[] result) {
-				nameLabel.setText(result[0]);
-				sinLabel.setText(result[1]);
-				doctorLabel.setText(result[2]);
-			}
-			
-		};
-		appointmentOverviewAsyncService.getPatientData(ControllerFacade.getInstance().getSelectedPatient(), callbackPatient);
+		nameLabel.setText(_patient.getName());
+		sinLabel.setText(_patient.getSin());
+		doctorLabel.setText(_patient.getDoctor());
 
 	}
 

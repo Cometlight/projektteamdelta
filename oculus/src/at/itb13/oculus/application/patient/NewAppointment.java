@@ -1,5 +1,6 @@
 package at.itb13.oculus.application.patient;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
@@ -45,16 +46,38 @@ public class NewAppointment {
 		return false;
 	}
 	
-	public Object getPossibleAppointment(String weekday, String from, String to, 
+	public String getPossibleAppointment(String weekday, String from, String to, 
 											Date start, Date end, String socialInsuranceNumber){
 		Patient patient = PatientDao.getInstance().findBySocialInsuranceNr(socialInsuranceNumber);
-		findLocalDateTimeOfString(weekday);
+		LocalDateTime ldt = createLocalDateTimeOfStrings(weekday, from);
 		patient.getDoctor().getCalendar();
-		return new Object();
+		String s = "test";
+		return s;
 	}
 	
-	private void findLocalDateTimeOfString(String weekday){
+	private LocalDateTime createLocalDateTimeOfStrings(String weekday, String from){
+		LocalTime lt = createLocalTimeOfString(from);
+		LocalDate ld = createLocalDateOfString(weekday);
 		
+		LocalDateTime ldt = LocalDateTime.of(ld, lt);
+		return ldt;
+		
+	}
+	
+	private LocalTime createLocalTimeOfString(String time){
+		String[] parts = time.split(":");
+		int hour = Integer.parseInt(parts[0]);
+		int minute = Integer.parseInt(parts[1]);
+		LocalTime lt = LocalTime.of(hour, minute);
+		return lt;
+	}
+	
+	private LocalDate createLocalDateOfString(String weekday){
+		LocalDate ld = LocalDate.now();
+		while(!(weekday.equalsIgnoreCase(ld.getDayOfWeek().name()))){
+			ld.plusDays(1);
+		}
+		return ld;
 	}
 	
 	public String[] getPatientData(String email){

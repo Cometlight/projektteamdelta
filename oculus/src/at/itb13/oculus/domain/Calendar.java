@@ -74,10 +74,29 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 		Calendar calendar = new Calendar(title, doctor, orthoptist, calendarevents, calendarworkinghours);
 		return calendar;
 	}
-	
-	public CalendarEvent findPossibleAppointment(LocalDateTime ldt, int appointmentDuration){
-		
-		return CalendarEvent.getInstance();
+	@Transient
+	public LocalDateTime findPossibleAppointment(LocalDateTime startTime, LocalDateTime endTime, int appointmentDuration){
+		LocalDateTime appointmentTime = startTime.plusMinutes(appointmentDuration);
+		boolean isFree = false;
+		while(!isFree){
+			isFree = true;
+			for(CalendarEvent event : _calendarEvents){
+				if(event.isInTimespan(startTime, appointmentTime)){
+					if(!(event.getEventEnd().plusMinutes(appointmentDuration).isAfter(endTime))){
+						startTime = event.getEventEnd();
+						appointmentTime = startTime.plusMinutes(appointmentDuration);
+						isFree = false;
+						break;
+					} else{
+						startTime.plusDays(7);
+						appointmentTime = startTime.plusMinutes(appointmentDuration);
+						isFree = false;
+						break;
+					}
+				}
+			}
+		}
+		return startTime;
 	}
 	
 	

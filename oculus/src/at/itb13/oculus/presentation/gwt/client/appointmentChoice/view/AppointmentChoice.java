@@ -1,11 +1,13 @@
 package at.itb13.oculus.presentation.gwt.client.appointmentChoice.view;
 
+import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.presentation.gwt.client.appointmentChoice.rpc.AppointmentChoiceService;
 import at.itb13.oculus.presentation.gwt.client.appointmentChoice.rpc.AppointmentChoiceServiceAsync;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc.AppointmentOverviewService;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc.AppointmentOverviewServiceAsync;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.AppointmentOverview;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.AppointmentOverviewResources;
+import at.itb13.oculus.presentation.gwt.shared.Patient;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -14,9 +16,11 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -37,9 +41,13 @@ public class AppointmentChoice extends Composite{
 	@UiField(provided = true)
 	final AppointmentChoiceResources res;
 	
-//	interface AppointmentChoiceUiBinder extends
-//			UiBinder<Widget, AppointmentChoice> {
-//	}
+	private Patient _patient;
+	@UiField
+	Label nameLabel;
+	@UiField
+	Label sinLabel;
+	@UiField
+	Label doctorLabel;	
 
 	/**
 	 * Because this class has a default constructor, it can
@@ -53,9 +61,29 @@ public class AppointmentChoice extends Composite{
 	 * implement HasHTML instead of HasText.
 	 */
 	public AppointmentChoice() {
+		
 		this.res = GWT.create(AppointmentChoiceResources.class);
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
+		
+		
+		AsyncCallback<String[]> callbackPatient = new AsyncCallback<String[]>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("AppointmentOverview - Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
+			}
+
+			@Override
+			public void onSuccess(String[] result) {
+				nameLabel.setText(result[0]);
+				sinLabel.setText(result[1]);
+				doctorLabel.setText(result[2]);
+			}
+			
+		};
+		appointmentOverviewAsyncService.getPatientData(ControllerFacade.getInstance().getSelectedPatient(), callbackPatient);
+
 	}
 
 

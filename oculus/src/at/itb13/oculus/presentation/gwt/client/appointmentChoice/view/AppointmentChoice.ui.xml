@@ -40,7 +40,7 @@
 			</table>
 			<br/>
 			Your chosen Appointment: 	
-			<g:Label ui:field="chosenLabel" text="chosenLabel"/>
+			<g:Label ui:field="chosenLabel"/>
 			<g:Button ui:field="okButton" text="ok"/>
 		</div>
 	</g:HTMLPanel>

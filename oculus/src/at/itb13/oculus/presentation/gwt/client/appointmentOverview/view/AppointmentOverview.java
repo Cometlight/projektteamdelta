@@ -6,6 +6,7 @@ import at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc.Appointme
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc.AppointmentOverviewServiceAsync;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view.AppointmentRequestForm;
 import at.itb13.oculus.presentation.gwt.shared.CalendarEvent;
+import at.itb13.oculus.presentation.gwt.shared.Patient;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -26,7 +27,7 @@ public class AppointmentOverview extends Composite {
 	private static AppointmentOverviewUiBinder uiBinder = GWT.create(AppointmentOverviewUiBinder.class);
 	final AppointmentOverviewServiceAsync appointmentOverviewAsyncService = GWT
 			.create(AppointmentOverviewService.class);
-	private String _email;
+	private Patient _patient;
 
 	@UiTemplate("AppointmentOverview.ui.xml")
 	interface AppointmentOverviewUiBinder extends UiBinder<Widget, AppointmentOverview> {
@@ -35,12 +36,12 @@ public class AppointmentOverview extends Composite {
 	@UiField(provided = true)
 	final AppointmentOverviewResources res;
 	
-	public AppointmentOverview(String email) {
+	public AppointmentOverview(Patient patient) {
 		this.res = GWT.create(AppointmentOverviewResources.class);
 		
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
-		_email = email;
+		_patient = patient;
 		AsyncCallback<String[]> callbackPatient = new AsyncCallback<String[]>() {
 
 			@Override
@@ -50,9 +51,9 @@ public class AppointmentOverview extends Composite {
 
 			@Override
 			public void onSuccess(String[] result) {
-				nameLabel.setText(result[0]);
-				sinLabel.setText(result[1]);
-				doctorLabel.setText(result[2]);
+				nameLabel.setText(_patient.getName());
+				sinLabel.setText(_patient.getSin());
+				doctorLabel.setText(_patient.getDoctor());
 			}
 			
 		};
@@ -75,14 +76,12 @@ public class AppointmentOverview extends Composite {
 			
 		};
 		
-		appointmentOverviewAsyncService.getPatientData(_email, callbackPatient);
-		appointmentOverviewAsyncService.getPatientAppointment(_email, callbackAppointment);
+		appointmentOverviewAsyncService.getPatientAppointment(_patient, callbackAppointment);
 		
 	}
 	
 	@UiField
 	Label nameLabel;
-	
 	@UiField
 	Label sinLabel;
 	@UiField

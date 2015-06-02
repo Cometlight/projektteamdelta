@@ -32,6 +32,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 
@@ -61,35 +62,13 @@ public class AppointmentChoice extends Composite{
 	@UiField
 	Label doctorLabel;
 	@UiField
-	Label datecell1;
-	@UiField
-	Label datecell2;
-	@UiField
-	Label datecell3;
-	@UiField
-	Label doctorcell1;
-	@UiField
-	Label doctorcell2;
-	@UiField
-	Label doctorcell3;
-	@UiField
-	Label typecell1;
-	@UiField
-	Label typecell2;
-	@UiField
-	Label typecell3;
-	@UiField
-	Label reasoncell1;
-	@UiField
-	Label reasoncell2;
-	@UiField
-	Label reasoncell3;
-	@UiField
-	TableRowElement firstRow;
+	CellTable<CalendarEvent> appointmentTable;
 	
 	@UiField
 	HTMLPanel htmlPanel;
-
+	@UiField
+	VerticalPanel tablePanel;
+	
 	/**
 	 * Because this class has a default constructor, it can
 	 * be used as a binder template. In other words, it can be used in other
@@ -115,24 +94,8 @@ public class AppointmentChoice extends Composite{
 		sinLabel.setText(_patient.getSin());
 		doctorLabel.setText(_patient.getDoctor());
 
-//		datecell1.setText(events.get(0).getDate());
-//		doctorcell1.setText(events.get(0).getDoctor());
-//		typecell1.setText(events.get(0).getType());
-//		reasoncell1.setText(events.get(0).getReason());
-//		datecell2.setText(events.get(1).getDate());
-//		doctorcell2.setText(events.get(1).getDoctor());
-//		typecell2.setText(events.get(1).getType());
-//		reasoncell2.setText(events.get(1).getReason());
-//		datecell3.setText(events.get(2).getDate());
-//		doctorcell3.setText(events.get(2).getDoctor());
-//		typecell3.setText(events.get(2).getType());
-//		reasoncell3.setText(events.get(2).getReason());
+		appointmentTable = new CellTable<>();
 		
-	
-		
-		CellTable<CalendarEvent> table = new CellTable<>();
-		
-		 // Create name column.
 	    TextColumn<CalendarEvent> dateColumn = new TextColumn<CalendarEvent>() {
 	      @Override
 	      public String getValue(CalendarEvent event) {
@@ -140,24 +103,38 @@ public class AppointmentChoice extends Composite{
 	      }
 	    };
 	    
-	    // Create address column.
 	    TextColumn<CalendarEvent> doctorColumn = new TextColumn<CalendarEvent>() {
 	      @Override
 	      public String getValue(CalendarEvent event) {
 	        return event.getDoctor();
 	      }
 	    };
+	    TextColumn<CalendarEvent> typeColumn = new TextColumn<CalendarEvent>() {
+		      @Override
+		      public String getValue(CalendarEvent event) {
+		        return event.getType();
+		      }
+	    };
+	    TextColumn<CalendarEvent> reasonColumn = new TextColumn<CalendarEvent>() {
+		      @Override
+		      public String getValue(CalendarEvent event) {
+		        return event.getReason();
+		      }
+		 };
 	    
 	 // Add the columns.
 	   
-	    table.addColumn(dateColumn, "Date");
-	    table.addColumn(doctorColumn, "Doctor");
+	    appointmentTable.addColumn(dateColumn, "Date");
+	    appointmentTable.addColumn(doctorColumn, "Doctor / Orthoptis");
+	    appointmentTable.addColumn(typeColumn, "Appointment Type");
+	    appointmentTable.addColumn(reasonColumn, "Reason");
+
 	    
 	 // Create a data provider.
 	    ListDataProvider<CalendarEvent> dataProvider = new ListDataProvider<CalendarEvent>();
 
 	    // Connect the table to the data provider.
-	    dataProvider.addDataDisplay(table);
+	    dataProvider.addDataDisplay(appointmentTable);
 	    
 	    // Add the data to the data provider, which automatically pushes it to the
 	    // widget.
@@ -166,7 +143,7 @@ public class AppointmentChoice extends Composite{
 	      list.add(ev);
 	    }
 	    
-	    table.addDomHandler(new ClickHandler()
+	    appointmentTable.addDomHandler(new ClickHandler()
 	    {
 
 	        @Override
@@ -182,9 +159,10 @@ public class AppointmentChoice extends Composite{
 	    }, ClickEvent.getType());
 
 
-	    table.sinkEvents(Event.ONCLICK);
+	    appointmentTable.sinkEvents(Event.ONCLICK);
 	
-	    htmlPanel.add(table);
+	    tablePanel.add(appointmentTable);
+	//    htmlPanel.add(appointmentTable);
 	}
 
 	

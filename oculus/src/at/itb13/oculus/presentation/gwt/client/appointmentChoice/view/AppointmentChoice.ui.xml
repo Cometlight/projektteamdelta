@@ -1,6 +1,7 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:c="urn:import:com.google.gwt.user.cellview.client"
 	xmlns:res='urn:with:at.itb13.oculus.AppointmentChoiceResources'>
 	
 <ui:with field="res" type="at.itb13.oculus.presentation.gwt.client.appointmentChoice.view.AppointmentChoiceResources"/>
@@ -12,32 +13,9 @@
 				<g:Label ui:field="sinLabel" text="Social Insurance Number" res:styleName="{res.style.labelTest}"/>
 				<g:Label ui:field="doctorLabel" text="Patients Doctor" res:styleName="{res.style.labelTest}"/>
 			</g:VerticalPanel>
-		<table>
-				<tr>
-					<th>Date</th>
-					<th>Doctor</th>
-					<th>Type</th>
-					<th>Reason</th>
-				</tr>
-				<tr ui:field="firstRow">
-					<td><g:Label ui:field="datecell1"/></td>
-					<td><g:Label ui:field="doctorcell1"/></td>
-					<td><g:Label ui:field="typecell1"/></td>
-					<td><g:Label ui:field="reasoncell1"/></td>
-				</tr>
-				<tr>
-					<td><g:Label ui:field="datecell2"/></td>
-					<td><g:Label ui:field="doctorcell2"/></td>
-					<td><g:Label ui:field="typecell2"/></td>
-					<td><g:Label ui:field="reasoncell2"/></td>
-				</tr>
-				<tr>
-					<td><g:Label ui:field="datecell3"/></td>
-					<td><g:Label ui:field="doctorcell3"/></td>
-					<td><g:Label ui:field="typecell3"/></td>
-					<td><g:Label ui:field="reasoncell3"/></td>
-				</tr>
-			</table>
+			<g:VerticalPanel ui:field="tablePanel">
+				<c:CellTable ui:field="appointmentTable"/>
+			</g:VerticalPanel>
 			<br/>
 			Your chosen Appointment: 	
 			<g:Label ui:field="chosenLabel"/>

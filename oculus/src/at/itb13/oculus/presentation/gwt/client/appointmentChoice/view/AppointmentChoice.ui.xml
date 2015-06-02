@@ -13,12 +13,15 @@
 				<g:Label ui:field="sinLabel" text="Social Insurance Number" res:styleName="{res.style.labelTest}"/>
 				<g:Label ui:field="doctorLabel" text="Patients Doctor" res:styleName="{res.style.labelTest}"/>
 			</g:VerticalPanel>
+			<h3>choose an Appointment:</h3>
 			<g:VerticalPanel ui:field="tablePanel">
 				<c:CellTable ui:field="appointmentTable"/>
 			</g:VerticalPanel>
 			<br/>
-			Your chosen Appointment: 	
-			<g:Label ui:field="chosenLabel"/>
+			<h3>Your chosen Appointment:</h3> 
+			<g:VerticalPanel ui:field="chosenPanel">
+				<c:CellTable ui:field="chosenTable"/>
+			</g:VerticalPanel>	
 			<g:Button ui:field="okButton" text="ok"/>
 		</div>
 	</g:HTMLPanel>

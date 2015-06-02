@@ -14,7 +14,9 @@ import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Patient;
+import at.itb13.oculus.technicalServices.dao.CalendarDao;
 import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
+import at.itb13.oculus.technicalServices.dao.DoctorDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 import at.itb13.teamD.domain.interfaces.IEventType;
 
@@ -200,4 +202,15 @@ public class NewAppointment {
 		return CalendarEventDao.getInstance().makeTransient(cal);
 	}
 	
+	public boolean addAppointment(at.itb13.oculus.presentation.gwt.shared.Patient patient, at.itb13.oculus.presentation.gwt.shared.CalendarEvent calendarEvent){
+		CalendarEvent domainEvent = new CalendarEvent();
+		Patient pa = PatientDao.getInstance().findBySocialInsuranceNr(patient.getSin());
+		domainEvent.setCalendar(pa.getDoctor().getCalendar());
+		domainEvent.setDescription(calendarEvent.getReason());
+		
+		domainEvent.setEventStart();
+		domainEvent.setPatient(pa);
+		
+		return CalendarEventDao.getInstance().makePersistent(domainEvent);
+	}
 }

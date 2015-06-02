@@ -5,7 +5,7 @@
 	
 <ui:with field="res" type="at.itb13.oculus.presentation.gwt.client.appointmentChoice.view.AppointmentChoiceResources"/>
 
-	<g:HTMLPanel>
+	<g:HTMLPanel ui:field="htmlPanel">
 	    <div id="wrapper" class="{res.style.background}">
 			<g:VerticalPanel res:styleName="{res.style.background}">
 				<g:Label ui:field="nameLabel" text="Patient Name" res:styleName="{res.style.labelTest}"/>
@@ -19,7 +19,7 @@
 					<th>Type</th>
 					<th>Reason</th>
 				</tr>
-				<tr>
+				<tr ui:field="firstRow">
 					<td><g:Label ui:field="datecell1"/></td>
 					<td><g:Label ui:field="doctorcell1"/></td>
 					<td><g:Label ui:field="typecell1"/></td>

@@ -4,6 +4,9 @@ package at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view;
 import java.util.Date;
 import java.util.List;
 
+import at.itb13.oculus.presentation.gwt.client.Index;
+import at.itb13.oculus.presentation.gwt.client.appointmentChoice.view.AppointmentChoice;
+import at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.AppointmentOverview;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckService;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckServiceAsync;
 
@@ -103,6 +106,7 @@ public class AppointmentRequestForm extends Composite {
 	private Date _toDate;
 	private boolean isAdded1;
 	private boolean isAdded2;
+	private List<String> results;
 
 	@UiField
 	ListBox weekdayListBox1;
@@ -418,6 +422,7 @@ public class AppointmentRequestForm extends Composite {
 				@Override
 				public void onSuccess(String result) {
 					Window.alert(result);
+					results.add(result);
 				}
 			};
 			
@@ -435,5 +440,6 @@ public class AppointmentRequestForm extends Composite {
 				}
 			}
 		}
+		//Index.forward(new AppointmentChoice(results));
 	}
 }

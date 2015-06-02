@@ -43,19 +43,25 @@ public class NewAppointment {
 	 *            the password that corresponds to the given email
 	 * @return true if the login credentials are valid
 	 */
-	public Boolean isLoginCredentialsValid(String email, String password) {
+	public at.itb13.oculus.presentation.gwt.shared.Patient isLoginCredentialsValid(String email, String password) {
 		if(email == null || password == null) {
 			throw new NullPointerException();
 		}
 		
 		Patient patient = PatientDao.getInstance().findByEmail(email);
+		at.itb13.oculus.presentation.gwt.shared.Patient patShared = null;
 
-		if (patient != null) {
+		if (patient != null && patient.isEqualPassword(password)) {
 			ControllerFacade.setPatientSelected(patient);
-			return patient.isEqualPassword(password);
+			patShared = new at.itb13.oculus.presentation.gwt.shared.Patient();
+			patShared.setName(patient.getFirstName() + " " + patient.getLastName());
+			patShared.setSin(patient.getSocialInsuranceNr());
+			if(patient.getDoctor() != null) {
+				patShared.setDoctor(patient.getDoctor().getUser().getFirstName() + " " + patient.getDoctor().getUser().getLastName());
+			}
 		}
 
-		return false;
+		return patShared;
 	}
 	
 	/**
@@ -149,6 +155,7 @@ public class NewAppointment {
 		return 0;
 	}
 	
+	// TODO: DELETE
 	public String[] getPatientData(String email){
 		String[] patientdata = new String[3];
 		Patient patient = PatientDao.getInstance().findByEmail(email);
@@ -159,10 +166,10 @@ public class NewAppointment {
 		return patientdata;
 	}
 	
-	public at.itb13.oculus.presentation.gwt.shared.CalendarEvent getPatientAppointment(String email) {
+	public at.itb13.oculus.presentation.gwt.shared.CalendarEvent getPatientAppointment(at.itb13.oculus.presentation.gwt.shared.Patient pa) {
 		//String[] patientAppointment = new String[4];
 		at.itb13.oculus.presentation.gwt.shared.CalendarEvent event = new at.itb13.oculus.presentation.gwt.shared.CalendarEvent(); 
-		Patient patient = PatientDao.getInstance().findByEmail(email);
+		Patient patient = PatientDao.getInstance().findBySocialInsuranceNr(pa.getSin());
 		CalendarEvent ce = patient.getNextAppointment();
 		if (ce != null) {
 			event.setId(ce.getCalendarEventId());

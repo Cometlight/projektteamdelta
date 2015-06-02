@@ -9,7 +9,6 @@
 		<div id="wrapper" class="{res.style.background}">
 			<g:VerticalPanel res:styleName="{res.style.background}">
 				<g:Label ui:field="nameLabel" text="Patient Name" res:styleName="{res.style.labelTest}"/>
-				<g:Label ui:field="patientNameLabel" res:styleName="{res.style.labelTest}"/>
 				<g:Label ui:field="sinLabel" text="Social Insurance Number" res:styleName="{res.style.labelTest}"/>
 				<g:Label ui:field="doctorLabel" text="Patients Doctor" res:styleName="{res.style.labelTest}"/>
 				<g:Label text="Your next Appointment"/>
@@ -32,6 +31,7 @@
 			</table>
 			<g:Button ui:field="logoutButton" text="Logout"/>
 			<g:Button ui:field="newAppointmentButton" text="New Appointment"/>
+			<g:Button ui:field="appointmentChoiceButton" text="Appointment Choice"/>
 			
 		</div>
 	</g:HTMLPanel>

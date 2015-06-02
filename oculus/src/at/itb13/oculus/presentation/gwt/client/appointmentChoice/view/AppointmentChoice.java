@@ -35,6 +35,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
 
 /**
  * TODO: Insert description here.
@@ -63,24 +65,21 @@ public class AppointmentChoice extends Composite{
 	Label doctorLabel;
 	@UiField
 	CellTable<CalendarEvent> appointmentTable;
-	
+	@UiField
+	CellTable<CalendarEvent> chosenTable;
 	@UiField
 	HTMLPanel htmlPanel;
 	@UiField
 	VerticalPanel tablePanel;
+	@UiField
+	VerticalPanel chosenPanel;
+	@UiField
+	Button okButton;
 	
-	/**
-	 * Because this class has a default constructor, it can
-	 * be used as a binder template. In other words, it can be used in other
-	 * *.ui.xml files as follows:
-	 * <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	 *   xmlns:g="urn:import:**user's package**">
-	 *  <g:**UserClassName**>Hello!</g:**UserClassName>
-	 * </ui:UiBinder>
-	 * Note that depending on the widget that is used, it may be necessary to
-	 * implement HasHTML instead of HasText.
-	 */
-	//it should be look like followed:
+	private List<CalendarEvent> _events;
+	
+	
+	
 	public AppointmentChoice(Patient patient, List<CalendarEvent> events) {
 	
 	//old:
@@ -89,13 +88,21 @@ public class AppointmentChoice extends Composite{
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
 		_patient = patient;
-
+		_events = events;
+		//set patient informations at header
 		nameLabel.setText(_patient.getName());
 		sinLabel.setText(_patient.getSin());
 		doctorLabel.setText(_patient.getDoctor());
 
-		appointmentTable = new CellTable<>();
+		initAppointmentTable();
+	
+	}
+
+	private void initAppointmentTable(){
 		
+	appointmentTable = new CellTable<>();
+	
+	//create the table with the 3 appointment proposals
 	    TextColumn<CalendarEvent> dateColumn = new TextColumn<CalendarEvent>() {
 	      @Override
 	      public String getValue(CalendarEvent event) {
@@ -125,6 +132,7 @@ public class AppointmentChoice extends Composite{
 	 // Add the columns.
 	   
 	    appointmentTable.addColumn(dateColumn, "Date");
+	    //TODO: TIME
 	    appointmentTable.addColumn(doctorColumn, "Doctor / Orthoptis");
 	    appointmentTable.addColumn(typeColumn, "Appointment Type");
 	    appointmentTable.addColumn(reasonColumn, "Reason");
@@ -139,36 +147,87 @@ public class AppointmentChoice extends Composite{
 	    // Add the data to the data provider, which automatically pushes it to the
 	    // widget.
 	    List<CalendarEvent> list = dataProvider.getList();
-	    for (CalendarEvent ev : events) {
+	    for (CalendarEvent ev : _events) {
 	      list.add(ev);
 	    }
 	    
-	    appointmentTable.addDomHandler(new ClickHandler()
-	    {
+		//create the table with the selected appointment
+		chosenTable = new CellTable<>();
+		
+	    TextColumn<CalendarEvent> cDateColumn = new TextColumn<CalendarEvent>() {
+	      @Override
+	      public String getValue(CalendarEvent event) {
+	        return event.getDate();
+	      }
+	    };
+	    
+	    TextColumn<CalendarEvent> cDoctorColumn = new TextColumn<CalendarEvent>() {
+		      @Override
+		      public String getValue(CalendarEvent event) {
+		        return event.getDoctor();
+		      }
+		    };
+		    TextColumn<CalendarEvent> cTypeColumn = new TextColumn<CalendarEvent>() {
+			      @Override
+			      public String getValue(CalendarEvent event) {
+			        return event.getType();
+			      }
+		    };
+		    TextColumn<CalendarEvent> cReasonColumn = new TextColumn<CalendarEvent>() {
+			      @Override
+			      public String getValue(CalendarEvent event) {
+			        return event.getReason();
+			      }
+			 };
+		    
+		 // Add the columns.
+		   
+		    chosenTable.addColumn(cDateColumn, "Date");
+		    chosenTable.addColumn(cDoctorColumn, "Doctor / Orthoptis");
+		    chosenTable.addColumn(cTypeColumn, "Appointment Type");
+		    chosenTable.addColumn(cReasonColumn, "Reason");
 
-	        @Override
-	        public void onClick(ClickEvent event)
-	        {
-	            // TODO Auto-generated method stub
+		    
+		 // Create a data provider.
+		    ListDataProvider<CalendarEvent> chosenDataProvider = new ListDataProvider<CalendarEvent>();
 
-	               CellTable<CalendarEvent> selectedcell = (CellTable<CalendarEvent>)  event.getSource();
-	                System.out.println("  Current Selected Row : "+selectedcell.getKeyboardSelectedRow());
-	                Window.alert("you have clicked");
+		    // Connect the table to the data provider.
+		    chosenDataProvider.addDataDisplay(chosenTable);
+		    
+		    // Add the data to the data provider, which automatically pushes it to the
+		    // widget.
+		   final List<CalendarEvent> chosenList = chosenDataProvider.getList();
 
-	        }
-	    }, ClickEvent.getType());
 
+	    //appointment table handler
+	    final SingleSelectionModel<CalendarEvent> selectionModel = new SingleSelectionModel<CalendarEvent>();
+	    appointmentTable.setSelectionModel(selectionModel);
+	    selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler(){
+
+			@Override
+			public void onSelectionChange(SelectionChangeEvent event) {
+				CalendarEvent selected = selectionModel.getSelectedObject();
+				if(selected != null){
+					chosenList.clear();
+					chosenList.add(selected);
+					selectionModel.setSelected(selected, false);
+				}
+				
+			}
+	    });
 
 	    appointmentTable.sinkEvents(Event.ONCLICK);
 	
 	    tablePanel.add(appointmentTable);
-	//    htmlPanel.add(appointmentTable);
+	    chosenPanel.add(chosenTable);
 	}
-
 	
 	
+	@UiHandler("okButton")
+	void onClickOkButton(ClickEvent event) {
 	
 	
+	}
 
 
 }

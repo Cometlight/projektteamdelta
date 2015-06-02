@@ -40,6 +40,6 @@ public class AppointmentOverviewServiceImpl extends RemoteServiceServlet
 	public at.itb13.oculus.presentation.gwt.shared.CalendarEvent getPatientAppointment(
 			Patient pa) {
 		// TODO Auto-generated method stub
-		return null;
+		return ControllerFacade.getInstance().getNewAppointment().getPatientAppointment(pa);
 	}
 }

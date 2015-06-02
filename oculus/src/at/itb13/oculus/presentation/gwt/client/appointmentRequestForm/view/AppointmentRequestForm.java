@@ -207,6 +207,9 @@ public class AppointmentRequestForm extends Composite {
 	Button submitButton;
 	
 	@UiField
+	Button logOutButton;
+	
+	@UiField
 	TextBox reasonForAppointmentTextBox;
 	
 	@UiHandler("addButton1")

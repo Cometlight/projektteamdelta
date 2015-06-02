@@ -15,6 +15,7 @@
 						<col ui:field="doctorColumn">Dr. Tavolato</col>
 					</table>
 				</g:HTMLPanel>
+				<g:Button ui:field="logOutButton" text="Log out" />
 			</g:VerticalPanel>
 		</div>
 		<div id="wrapper">

@@ -4,12 +4,14 @@ package at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view;
 import java.util.Date;
 import java.util.List;
 
+import at.itb13.oculus.presentation.gwt.client.Index;
+import at.itb13.oculus.presentation.gwt.client.appointmentChoice.view.AppointmentChoice;
+import at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.AppointmentOverview;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckService;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -49,25 +51,20 @@ public class AppointmentRequestForm extends Composite {
 		datepicker1.addValueChangeHandler(new ValueChangeHandler<Date>() {
 			public void onValueChange(ValueChangeEvent<Date> event) {
 				if(!_isFirstDatePicked){
-					fromDateLabel.setText("From: " + event.getValue().toString());
 					toDateLabel.setText("To: ");
 					_fromDate = datepicker1.getHighlightedDate();
+					String dateString1 = DateTimeFormat.getFormat("MM/dd/yyyy").format(_fromDate);
+					fromDateLabel.setText("From: " + dateString1);
 					_isFirstDatePicked = true;
 				}
 				else{
-					toDateLabel.setText("To: " + event.getValue().toString());
 					_toDate = datepicker1.getHighlightedDate();
+					String dateString2 = DateTimeFormat.getFormat("MM/dd/yyyy").format(_toDate);
+					toDateLabel.setText("To: " + dateString2);
 					_isFirstDatePicked = false;
 				}
-//				datepicker1ErrorLabel.setText(event.getValue().toString());
 			}
 		});
-
-//		datepicker2.addValueChangeHandler(new ValueChangeHandler<Date>() {
-//			public void onValueChange(ValueChangeEvent<Date> event) {
-//				datepicker2ErrorLabel.setText(event.getValue().toString());
-//			}
-//		});
 		
 		AsyncCallback<List<String>> callback = new AsyncCallback<List<String>>() {
 
@@ -88,6 +85,8 @@ public class AppointmentRequestForm extends Composite {
 		};
 		appointmentCheckService.getEventTypes(callback);
 		
+		weekdayListBox2.setVisible(false);
+		weekdayListBox3.setVisible(false);
 		addButton2.setVisible(false);
 		fromTextBox2.setVisible(false);
 		fromTextBox3.setVisible(false);
@@ -97,12 +96,17 @@ public class AppointmentRequestForm extends Composite {
 		toLabel2.setVisible(false);
 		fromLabel3.setVisible(false);
 		toLabel3.setVisible(false);
+		removeButton1.setVisible(false);
+		removeButton2.setVisible(false);
 	}
 	
 	private boolean _validInput;
 	private boolean _isFirstDatePicked;
 	private Date _fromDate;
 	private Date _toDate;
+	private boolean isAdded1;
+	private boolean isAdded2;
+	private List<String> results;
 
 	@UiField
 	ListBox weekdayListBox1;
@@ -133,9 +137,6 @@ public class AppointmentRequestForm extends Composite {
 
 	@UiField
 	DatePicker datepicker1;
-
-//	@UiField
-//	DatePicker datepicker2;
 
 	@UiField
 	Button addButton1;
@@ -169,6 +170,9 @@ public class AppointmentRequestForm extends Composite {
 
 	@UiField
 	Button addButton2;
+	
+	@UiField
+	Button removeButton1;
 
 	@UiField
 	Label fromErrorLabel2;
@@ -184,15 +188,15 @@ public class AppointmentRequestForm extends Composite {
 
 	@UiField
 	Label toErrorLabel3;
+	
+	@UiField
+	Button removeButton2;
 
 	@UiField
 	Label weekdayErrorLabel3;
 	
 	@UiField
 	Label datepicker1ErrorLabel;
-
-//	@UiField
-//	Label datepicker2ErrorLabel;
 	
 	@UiField
 	Label fromDateLabel;
@@ -207,6 +211,9 @@ public class AppointmentRequestForm extends Composite {
 	Button submitButton;
 	
 	@UiField
+	Button logOutButton;
+	
+	@UiField
 	TextBox reasonForAppointmentTextBox;
 	
 	@UiHandler("addButton1")
@@ -217,6 +224,22 @@ public class AppointmentRequestForm extends Composite {
 		fromLabel2.setVisible(true);
 		toLabel2.setVisible(true);
 		addButton1.setVisible(false);
+		removeButton1.setVisible(true);
+		weekdayListBox2.setVisible(true);
+		isAdded1 = true;
+	}
+	
+	@UiHandler("removeButton1")
+	void removeButton1(ClickEvent event){
+		addButton2.setVisible(false);
+		fromTextBox2.setVisible(false);
+		toTextBox2.setVisible(false);
+		fromLabel2.setVisible(false);
+		toLabel2.setVisible(false);
+		addButton1.setVisible(true);
+		removeButton1.setVisible(false);
+		weekdayListBox2.setVisible(false);
+		isAdded1 = false;
 	}
 	
 	@UiHandler("addButton2")
@@ -226,15 +249,35 @@ public class AppointmentRequestForm extends Composite {
 		fromLabel3.setVisible(true);
 		toLabel3.setVisible(true);
 		addButton2.setVisible(false);
+		removeButton1.setVisible(false);
+		removeButton2.setVisible(true);
+		weekdayListBox3.setVisible(true);
+		isAdded2 = true;
+	}
+	
+	@UiHandler("removeButton2")
+	void removeButton2(ClickEvent event){
+		fromTextBox3.setVisible(false);
+		toTextBox3.setVisible(false);
+		fromLabel3.setVisible(false);
+		toLabel3.setVisible(false);
+		addButton2.setVisible(true);
+		removeButton1.setVisible(true);
+		removeButton2.setVisible(false);
+		weekdayListBox3.setVisible(false);
+		isAdded2 = false;
 	}
 
-	@UiHandler({"fromTextBox1", "toTextBox1"})
-	void onBox1Change(ValueChangeEvent<String> event) {
+	@UiHandler({"fromTextBox1"})
+	void onFromBox1Change(ValueChangeEvent<String> event) {
 		if (event.getValue().length() != 0) {
-			if(isTimeValid(event.getValue())){
+			if(!isTimeValid(event.getValue())){
 				fromErrorLabel1.setText("This is not a valid time");
 				fromErrorLabel1.setVisible(true);
 				_validInput = false;
+			} else {
+				fromErrorLabel1.setVisible(false);
+				_validInput = true;
 			}
 		} else {
 			fromErrorLabel1.setVisible(false);
@@ -242,30 +285,87 @@ public class AppointmentRequestForm extends Composite {
 		}
 	}
 	
-	@UiHandler({"fromTextBox2", "toTextBox2"})
-	void onBox2Change(ValueChangeEvent<String> event) {
+	@UiHandler({"toTextBox1"})
+	void onToBox1Change(ValueChangeEvent<String> event) {
 		if (event.getValue().length() != 0) {
-			if(isTimeValid(event.getValue())){
+			if(!isTimeValid(event.getValue())){
+				toErrorLabel1.setText("This is not a valid time");
+				toErrorLabel1.setVisible(true);
+				_validInput = false;
+			} else {
+				toErrorLabel1.setVisible(false);
+				_validInput = true;
+			}
+		} else {
+			toErrorLabel1.setVisible(false);
+			_validInput = true;
+		}
+	}
+	
+	@UiHandler({"fromTextBox2"})
+	void onFromBox2Change(ValueChangeEvent<String> event) {
+		if (event.getValue().length() != 0) {
+			if(!isTimeValid(event.getValue())){
 				fromErrorLabel2.setText("This is not a valid time");
 				fromErrorLabel2.setVisible(true);
 				_validInput = false;
+			} else {
+				fromErrorLabel2.setVisible(false);
+				_validInput = true;
 			}
-		} else {
+		}else {
 			fromErrorLabel2.setVisible(false);
 			_validInput = true;
 		}
 	}
 	
-	@UiHandler({"fromTextBox3", "toTextBox3"})
-	void onBox3Change(ValueChangeEvent<String> event) {
+	@UiHandler({"toTextBox2"})
+	void onToBox2Change(ValueChangeEvent<String> event) {
 		if (event.getValue().length() != 0) {
-			if(isTimeValid(event.getValue())){
+			if(!isTimeValid(event.getValue())){
+				toErrorLabel2.setText("This is not a valid time");
+				toErrorLabel2.setVisible(true);
+				_validInput = false;
+			} else {
+				toErrorLabel2.setVisible(false);
+				_validInput = true;
+			}
+		}else {
+			toErrorLabel2.setVisible(false);
+			_validInput = true;
+		}
+	}
+	
+	@UiHandler({"fromTextBox3"})
+	void onFromBox3Change(ValueChangeEvent<String> event) {
+		if (event.getValue().length() != 0) {
+			if(!isTimeValid(event.getValue())){
 				fromErrorLabel3.setText("This is not a valid time");
 				fromErrorLabel3.setVisible(true);
 				_validInput = false;
+			} else {
+				fromErrorLabel3.setVisible(false);
+				_validInput = true;
 			}
 		} else {
 			fromErrorLabel3.setVisible(false);
+			_validInput = true;
+		}
+	}
+	
+	@UiHandler({"toTextBox3"})
+	void onToBox3Change(ValueChangeEvent<String> event) {
+		if (event.getValue().length() != 0) {
+			if(!isTimeValid(event.getValue())){
+				toErrorLabel3.setText("This is not a valid time");
+				toErrorLabel3.setVisible(true);
+				_validInput = false;
+			} else {
+				toErrorLabel3.setVisible(false);
+				_validInput = true;
+			}
+		} else {
+			toErrorLabel3.setVisible(false);
 			_validInput = true;
 		}
 	}
@@ -282,57 +382,64 @@ public class AppointmentRequestForm extends Composite {
 	@UiHandler("submitButton")
 	void submitButton(ClickEvent event) {
 		datepicker1.setValue(new Date(), true);
-//		datepicker2.setValue(new Date(), true);
 
-		int index = weekdayListBox1.getSelectedIndex();
-		String weekday = weekdayListBox1.getItemText(index);
-		
-		String from1 = fromTextBox1.getText();
-		String to1 = toTextBox1.getText();
-		
-		String from2 = fromTextBox2.getText();
-		String to2 = toTextBox2.getText();
-		
-		String from3 = fromTextBox3.getText();
-		String to3 = toTextBox3.getText();
-		
-//		Date date1 = datepicker1.getHighlightedDate();
-//		Date date2 = datepicker2.getHighlightedDate();
-		
-		String socialInsuranceNumber = "3333333333";
-		String appointmentType = "Child Treatment";
-		
-		/**
-		 * TODO use the member variables!
-		 */
-		
-		Date date1 = _fromDate;
-		Date date2 = _toDate;
-		
-		String dateString1 = DateTimeFormat.getFormat("MM/dd/yyyy").format(
-				date1);
-		String dateString2 = DateTimeFormat.getFormat("MM/dd/yyyy").format(
-				date2);
-		
-		AsyncCallback<String> callback = new AsyncCallback<String>() {
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
-			}
-
-			@Override
-			public void onSuccess(String result) {
+		if(true){
 				
-			}
-		};
+			int index1 = weekdayListBox1.getSelectedIndex();
+			String weekday1 = weekdayListBox1.getItemText(index1);
+			
+			int index2 = weekdayListBox2.getSelectedIndex();
+			String weekday2 = weekdayListBox2.getItemText(index2);
+			
+			int index3 = weekdayListBox3.getSelectedIndex();
+			String weekday3 = weekdayListBox3.getItemText(index3);
+			
+			String from1 = fromTextBox1.getText();
+			String to1 = toTextBox1.getText();
 				
-		appointmentCheckService.getPossibleAppointment(weekday, from1, to1, date1, date2, socialInsuranceNumber, appointmentType, callback);
+			String from2 = fromTextBox2.getText();
+			String to2 = toTextBox2.getText();
+			
+			String from3 = fromTextBox3.getText();
+			String to3 = toTextBox3.getText();
 		
-		datepicker1ErrorLabel.setText(dateString1);
-//		datepicker2ErrorLabel.setText(dateString2);
-		weekdayErrorLabel1.setText("Tag: " + weekday);
-		fromErrorLabel1.setText("von: " + from1);
-		toErrorLabel1.setText("bis: " + to1);
+			int index4 = eventTypeListBox.getSelectedIndex();
+			String appointmentType = eventTypeListBox.getItemText(index4);
+			
+			/**
+			 * TODO use the member variables!
+			 */
+			
+			Date date1 = _fromDate;
+			Date date2 = _toDate;
+	
+			AsyncCallback<String> callback = new AsyncCallback<String>() {
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert("Wrong Input, please try again.");
+				}
+	
+				@Override
+				public void onSuccess(String result) {
+					Window.alert(result);
+					results.add(result);
+				}
+			};
+			
+			boolean isSameDay = false;
+			
+			//TODO: handle same day
+			appointmentCheckService.getPossibleAppointment(weekday1, from1, to1, date1, date2, isSameDay, 
+															appointmentType, callback);
+			if(isAdded1){
+				appointmentCheckService.getPossibleAppointment(weekday2, from2, to2, date1, date2, isSameDay, 
+																appointmentType, callback);
+				if(isAdded2){
+					appointmentCheckService.getPossibleAppointment(weekday3, from3, to3, date1, date2, isSameDay, 
+																	appointmentType, callback);
+				}
+			}
+		}
+		//Index.forward(new AppointmentChoice(results));
 	}
-
 }

@@ -13,7 +13,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  */
 public interface AppointmentCheckServiceAsync {
 	void getPossibleAppointment(String weekday, String from, String to, Date start, 
-								Date end, String socialInsuranceNumber, String appointmentType, AsyncCallback<String> callback);
+								Date end,  boolean isSameDay, String appointmentType, AsyncCallback<String> callback);
 
 	void getEventTypes(AsyncCallback<List<String>> callback);
 

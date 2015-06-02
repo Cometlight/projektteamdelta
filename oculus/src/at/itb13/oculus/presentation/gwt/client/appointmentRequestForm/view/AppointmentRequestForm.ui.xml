@@ -15,6 +15,7 @@
 						<col ui:field="doctorColumn">Dr. Tavolato</col>
 					</table>
 				</g:HTMLPanel>
+				<g:Button ui:field="logOutButton" text="Log out" />
 			</g:VerticalPanel>
 		</div>
 		<div id="wrapper">
@@ -80,7 +81,8 @@
 						<g:TextBox ui:field="toTextBox2" />
 
 						<g:Button ui:field="addButton2" text="Add" />
-
+						<g:Button ui:field="removeButton1" text="Remove" />
+						
 						<!-- Third option -->
 
 						<g:ListBox ui:field="weekdayListBox3">
@@ -107,6 +109,8 @@
 						<g:Label ui:field="toLabel3" text="To" />
 						<g:Label ui:field="toErrorLabel3" />
 						<g:TextBox ui:field="toTextBox3" />
+						<g:Button ui:field="removeButton2" text="Remove" />
+						
 					</table>
 
 				</g:HTMLPanel>

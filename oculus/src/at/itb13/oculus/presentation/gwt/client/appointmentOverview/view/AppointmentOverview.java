@@ -42,21 +42,21 @@ public class AppointmentOverview extends Composite {
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
 		_patient = patient;
-		AsyncCallback<String[]> callbackPatient = new AsyncCallback<String[]>() {
+//		AsyncCallback<String[]> callbackPatient = new AsyncCallback<String[]>() {
+//
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				Window.alert("AppointmentOverview - Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
+//			}
 
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("AppointmentOverview - Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
-			}
-
-			@Override
-			public void onSuccess(String[] result) {
+//			@Override
+//			public void onSuccess(String[] result) {
 				nameLabel.setText(_patient.getName());
 				sinLabel.setText(_patient.getSin());
 				doctorLabel.setText(_patient.getDoctor());
-			}
-			
-		};
+//			}
+//			
+//		};
 		AsyncCallback<CalendarEvent> callbackAppointment = new AsyncCallback<CalendarEvent>() {
 
 			@Override
@@ -159,7 +159,7 @@ public class AppointmentOverview extends Composite {
 	@UiHandler("appointmentChoiceButton")
 	void onClickAppointmentChoiceButton(ClickEvent event) {
 
-			Index.forward(new AppointmentChoice());
+			Index.forward(new AppointmentChoice(_patient));
 
 	}
 }

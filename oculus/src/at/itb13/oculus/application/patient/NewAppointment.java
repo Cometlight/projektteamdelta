@@ -56,7 +56,9 @@ public class NewAppointment {
 			patShared = new at.itb13.oculus.presentation.gwt.shared.Patient();
 			patShared.setName(patient.getFirstName() + " " + patient.getLastName());
 			patShared.setSin(patient.getSocialInsuranceNr());
-			patShared.setDoctor(patient.getDoctor().getUser().getFirstName() + " " + patient.getDoctor().getUser().getLastName());
+			if(patient.getDoctor() != null) {
+				patShared.setDoctor(patient.getDoctor().getUser().getFirstName() + " " + patient.getDoctor().getUser().getLastName());
+			}
 		}
 
 		return patShared;
@@ -153,6 +155,7 @@ public class NewAppointment {
 		return 0;
 	}
 	
+	// TODO: DELETE
 	public String[] getPatientData(String email){
 		String[] patientdata = new String[3];
 		Patient patient = PatientDao.getInstance().findByEmail(email);

@@ -33,7 +33,7 @@ public class AppointmentChoice extends Composite{
 
 	private static AppointmentChoiceUiBinder uiBinder = GWT
 			.create(AppointmentChoiceUiBinder.class);
-	final AppointmentChoiceServiceAsync appointmentChoiceAsyncService = GWT
+	private final AppointmentChoiceServiceAsync appointmentChoiceAsyncService = GWT
 			.create(AppointmentChoiceService.class);
 	@UiTemplate("AppointmentChoice.ui.xml")
 	interface AppointmentChoiceUiBinder extends UiBinder<Widget, AppointmentChoice> {
@@ -67,9 +67,30 @@ public class AppointmentChoice extends Composite{
 		initWidget(uiBinder.createAndBindUi(this));
 		_patient = patient;
 		
+
 		nameLabel.setText(_patient.getName());
 		sinLabel.setText(_patient.getSin());
 		doctorLabel.setText(_patient.getDoctor());
+
+		
+		AsyncCallback<String[]> callbackPatient = new AsyncCallback<String[]>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("AppointmentOverview - Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
+			}
+
+			@Override
+			public void onSuccess(String[] result) {
+				nameLabel.setText(result[0]);
+				sinLabel.setText(result[1]);
+				doctorLabel.setText(result[2]);
+			}
+			
+		};
+		// Musste auskommentieren, da es mir einen Error geworfen hat.
+//		appointmentOverviewAsyncService.getPatientData(ControllerFacade.getInstance().getSelectedPatient(), callbackPatient);
+
 
 	}
 

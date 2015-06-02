@@ -11,7 +11,8 @@ import at.itb13.oculus.presentation.gwt.shared.Patient;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
@@ -27,6 +28,10 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * After a successful login, the patient is selected in the ControllerFacade.
+ * Furthermore, it can be provided when forwarding to the next webpage.
+ */
 public class Login extends Composite {
 	private static LoginUiBinder uiBinder = GWT.create(LoginUiBinder.class);
 	private final LoginCheckServiceAsync loginCheckService = GWT
@@ -77,10 +82,12 @@ public class Login extends Composite {
 		progressLabel.setVisible(false);
 	}
 	
-//	@UiHandler({"emailBox", "passwordBox"})
-//	void onActionPasswordBox(KeyPressEvent event) {
-//		login();
-//	}
+	@UiHandler({"emailBox", "passwordBox"})
+	void onActionPasswordBox(KeyDownEvent event) {
+		if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+			login();
+		}
+	}
 
 	@UiHandler("loginButton")
 	void onClickLoginButton(ClickEvent event) {
@@ -101,7 +108,7 @@ public class Login extends Composite {
 				}
 
 				@Override
-				public void onSuccess(Patient loggedInPatient) {
+				public void onSuccess(final Patient loggedInPatient) {
 					progressLabel.setVisible(false);
 					if (loggedInPatient != null) {
 						

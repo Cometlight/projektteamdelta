@@ -2,16 +2,16 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style src="../../Style.css" />
-	
 	<ui:style field="mycss">
-	.label {
-		font-size: 12pt;
-	}
-	
-	.box, .error {
-		margin-bottom: 5px;
-	}
+		.label {
+			font-size: 12pt;
+		}
+		
+		.box, .error {
+			margin-bottom: 5px;
+		}
 	</ui:style>
+	
 	<g:HTMLPanel>
 		<div id="wrapper">
 			<g:VerticalPanel>

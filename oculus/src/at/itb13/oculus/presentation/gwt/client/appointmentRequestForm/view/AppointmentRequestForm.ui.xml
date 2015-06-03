@@ -3,7 +3,13 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" 
 	xmlns:dp="urn:import:com.google.gwt.user.datepicker.client" 
 	xmlns:t="urn:import:com.tractionsoftware.gwt.user.client.ui">
-
+	<ui:style src="../../Style.css" />
+	<ui:style field="mycss">
+		.label {
+			font-size: 12pt;
+		}
+	</ui:style>
+	
 	<g:HTMLPanel>
 	
 		<div id="wrapper">

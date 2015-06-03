@@ -1,30 +1,44 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui"
-	xmlns:c="urn:import:com.google.gwt.user.cellview.client"
-	xmlns:res='urn:with:at.itb13.oculus.AppointmentChoiceResources'>
-	
-<ui:with field="res" type="at.itb13.oculus.presentation.gwt.client.appointmentChoice.view.AppointmentChoiceResources"/>
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:c="urn:import:com.google.gwt.user.cellview.client">
+	<ui:style src="../../Style.css" />
+	<ui:style field="mycss">
+		.background {
+			border: 1px none transparent;
+			color: #000000;
+			font-size: 11px;
+			margin-left: -8px;
+			margin-top: 5px;
+			padding: 6px;
+		}
+		
+		.labelTest {
+			color: #0000FF;
+		}
+	</ui:style>
 
 	<g:HTMLPanel ui:field="htmlPanel">
-	    <div id="wrapper" class="{res.style.background}">
-			<g:VerticalPanel res:styleName="{res.style.background}">
-				<g:Label ui:field="nameLabel" text="Patient Name" res:styleName="{res.style.labelTest}"/>
-				<g:Label ui:field="sinLabel" text="Social Insurance Number" res:styleName="{res.style.labelTest}"/>
-				<g:Label ui:field="doctorLabel" text="Patients Doctor" res:styleName="{res.style.labelTest}"/>
+		<div id="wrapper" class="{mycss.background}">
+			<g:VerticalPanel styleName="{mycss.background}">
+				<g:Label ui:field="nameLabel" text="Patient Name"
+					styleName="{mycss.labelTest}" />
+				<g:Label ui:field="sinLabel" text="Social Insurance Number"
+					styleName="{mycss.labelTest}" />
+				<g:Label ui:field="doctorLabel" text="Patients Doctor"
+					styleName="{mycss.labelTest}" />
 			</g:VerticalPanel>
-			<h3>choose an Appointment:</h3>
+			<h3>Choose an Appointment:</h3>
 			<g:VerticalPanel ui:field="tablePanel">
-				<c:CellTable ui:field="appointmentTable"/>
+				<c:CellTable ui:field="appointmentTable" />
 			</g:VerticalPanel>
-			<br/>
-			<h3>Your chosen Appointment:</h3> 
+			<br />
+			<h3>Your chosen Appointment:</h3>
 			<g:VerticalPanel ui:field="chosenPanel">
-				<c:CellTable ui:field="chosenTable"/>
-			</g:VerticalPanel>	
-			<g:Button ui:field="backButton" text="Back"/>
-			<g:Button ui:field="okButton" text="OK"/>
-			<g:Button ui:field="logoutButton" text="Logout"/>
+				<c:CellTable ui:field="chosenTable" />
+			</g:VerticalPanel>
+			<g:Button ui:field="backButton" text="Back" />
+			<g:Button ui:field="okButton" text="OK" />
+			<g:Button ui:field="logoutButton" text="Logout" />
 		</div>
 	</g:HTMLPanel>
 </ui:UiBinder> 

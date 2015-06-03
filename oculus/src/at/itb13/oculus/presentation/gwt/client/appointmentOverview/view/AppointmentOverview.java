@@ -43,8 +43,6 @@ public class AppointmentOverview extends Composite {
 			UiBinder<Widget, AppointmentOverview> {
 	}
 
-	@UiField(provided = true)
-	final AppointmentOverviewResources res;
 	@UiField
 	Label nameLabel;
 	@UiField
@@ -76,9 +74,6 @@ public class AppointmentOverview extends Composite {
 	List<CalendarEvent> _list = null;
 
 	public AppointmentOverview(Patient patient) {
-		this.res = GWT.create(AppointmentOverviewResources.class);
-
-		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
 		_patient = patient;
 

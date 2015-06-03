@@ -5,7 +5,15 @@
 	xmlns:t="urn:import:com.tractionsoftware.gwt.user.client.ui">
 	<ui:style src="../../Style.css" />
 	<ui:style field="mycss">
-	
+		.leftColumn {
+			padding: 5px;
+		}
+		
+		.rightColumn {
+			border-left: 1px solid black;
+			padding: 5px;
+			width: 300px;
+		}
 	</ui:style>
 	
 	<g:HTMLPanel>
@@ -18,9 +26,9 @@
 				<g:Label ui:field="doctorLabel"/>
 				<g:Button ui:field="logOutButton" text="Logout" />
 			</g:VerticalPanel>
-			
+			<h2>Request an appointment</h2>
 			<g:HorizontalPanel>
-				<g:HTMLPanel>
+				<g:HTMLPanel styleName="{mycss.leftColumn}">
 					<table ui:field="fromToTable">
 
 						<!-- First option -->
@@ -114,7 +122,7 @@
 					</table>
 
 				</g:HTMLPanel>
-				<g:HTMLPanel>
+				<g:HTMLPanel styleName="{mycss.rightColumn}">
 					<table ui:field="datepickerTable">
 						<g:Label ui:field="datePickerExplanation" text="Choose the from and to date by clicking onto the date! Repeat if you want to correct your selection."/>
 						<dp:DatePicker ui:field="datepicker1" />

@@ -395,7 +395,6 @@ public class AppointmentRequestForm extends Composite {
 	
 	@UiHandler("submitButton")
 	void onClickSubmitButton(ClickEvent event) {
-		datepicker1.setValue(new Date(), true);
 			int index1 = weekdayListBox1.getSelectedIndex();
 			String weekday1 = weekdayListBox1.getItemText(index1);
 			

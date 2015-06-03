@@ -2,24 +2,17 @@ package at.itb13.oculus.presentation.gwt.client.appointmentChoice.view;
 
 import java.util.List;
 
-import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.presentation.gwt.client.Index;
 import at.itb13.oculus.presentation.gwt.client.appointmentChoice.rpc.AppointmentChoiceService;
 import at.itb13.oculus.presentation.gwt.client.appointmentChoice.rpc.AppointmentChoiceServiceAsync;
-import at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc.AppointmentOverviewService;
-import at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc.AppointmentOverviewServiceAsync;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.AppointmentOverview;
-import at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.AppointmentOverviewResources;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view.AppointmentRequestForm;
 import at.itb13.oculus.presentation.gwt.client.login.view.Login;
 import at.itb13.oculus.presentation.gwt.shared.CalendarEvent;
 import at.itb13.oculus.presentation.gwt.shared.Patient;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.TableRowElement;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -31,9 +24,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -56,8 +47,6 @@ public class AppointmentChoice extends Composite{
 	@UiTemplate("AppointmentChoice.ui.xml")
 	interface AppointmentChoiceUiBinder extends UiBinder<Widget, AppointmentChoice> {
 	}
-	@UiField(provided = true)
-	final AppointmentChoiceResources res;
 	
 	private Patient _patient;
 	@UiField
@@ -92,8 +81,6 @@ public class AppointmentChoice extends Composite{
 	
 	//old:
 //	public AppointmentChoice(Patient patient) {	
-		this.res = GWT.create(AppointmentChoiceResources.class);
-		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
 		_patient = patient;
 		_events = events;

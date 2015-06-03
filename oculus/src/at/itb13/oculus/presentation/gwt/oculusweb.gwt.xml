@@ -32,4 +32,7 @@
   <!-- allow Super Dev Mode -->
   <add-linker name="xsiframe"/>
   
+  <!-- CSS obfuscation -->
+  <set-configuration-property name="CssResource.obfuscationPrefix" value="empty" />
+  
 </module>

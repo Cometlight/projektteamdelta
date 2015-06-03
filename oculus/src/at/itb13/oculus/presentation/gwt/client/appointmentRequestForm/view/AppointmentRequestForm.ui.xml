@@ -3,27 +3,32 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" 
 	xmlns:dp="urn:import:com.google.gwt.user.datepicker.client" 
 	xmlns:t="urn:import:com.tractionsoftware.gwt.user.client.ui">
-
+	<ui:style src="../../Style.css" />
+	<ui:style field="mycss">
+		.leftColumn {
+			padding: 5px;
+		}
+		
+		.rightColumn {
+			border-left: 1px solid black;
+			padding: 5px;
+			width: 300px;
+		}
+	</ui:style>
+	
 	<g:HTMLPanel>
 	
 		<div id="wrapper">
-			<g:VerticalPanel>
-				<g:Label ui:field="nameLabel" text="Patient Name" />
-				<g:Label ui:field="sinLabel" text="Social Insurance Number" />
-				<g:Label ui:field="doctorLabel" text="Patients Doctor" />
-				<g:Label text="Your next Appointment" />
-				<g:HTMLPanel>
-					<table ui:field="appointmentTable">
-						<col ui:field="dateColumn">25.01.2016</col>
-						<col ui:field="doctorColumn">Dr. Tavolato</col>
-					</table>
-				</g:HTMLPanel>
-				<g:Button ui:field="logOutButton" text="Log out" />
+			<g:VerticalPanel styleName="{style.loginInfo}">
+				<g:Label text="Logged in as.." styleName="{style.loginInfoLabel}"/>
+				<g:Label ui:field="nameLabel"/>
+				<g:Label ui:field="sinLabel"/>
+				<g:Label ui:field="doctorLabel"/>
+				<g:Button ui:field="logOutButton" text="Logout" />
 			</g:VerticalPanel>
-		</div>
-		<div id="wrapper">
+			<h2>Request an appointment</h2>
 			<g:HorizontalPanel>
-				<g:HTMLPanel>
+				<g:HTMLPanel styleName="{mycss.leftColumn}">
 					<table ui:field="fromToTable">
 
 						<!-- First option -->
@@ -117,8 +122,13 @@
 					</table>
 
 				</g:HTMLPanel>
-				<g:HTMLPanel>
+				<g:HTMLPanel styleName="{mycss.rightColumn}">
 					<table ui:field="datepickerTable">
+						<p>Please hold the daniel...</p>
+						<g:Label ui:field="datePickerExplanation" text="Choose the from and to date by clicking onto the date!"/>
+						<g:Label ui:field="datePickerExplanation2" text="The first click sets the from date, the second the to date."/>
+						<g:Label ui:field="datePickerExplanation3" text="If your input is wrong, repeat the process."/>
+						
 						<dp:DatePicker ui:field="datepicker1" />
 						<g:Label ui:field="datepicker1ErrorLabel" />
 						<g:Label ui:field="fromDateLabel" />

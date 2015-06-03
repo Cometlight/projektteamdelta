@@ -62,18 +62,15 @@ public class Login extends Composite {
 	@UiField
 	Label loginErrorLabel;
 
-	private boolean validInput;
+	private boolean validEmailInput;
+	private boolean validPasswordInput;
+	private boolean isLoggingIn;
 
 	@UiTemplate("Login.ui.xml")
 	interface LoginUiBinder extends UiBinder<Widget, Login> {
 	}
 
-	@UiField(provided = true)
-	final LoginResources res;
-
 	public Login() {
-		this.res = GWT.create(LoginResources.class);
-		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
 
 		emailErrorLabel.setVisible(false);
@@ -95,7 +92,7 @@ public class Login extends Composite {
 	}
 	
 	void login() {
-		if (validInput) {
+		if (!isLoggingIn && validEmailInput && validPasswordInput) {
 			final String email = emailBox.getText();
 			String password = passwordBox.getText();
 
@@ -104,6 +101,8 @@ public class Login extends Composite {
 				@Override
 				public void onFailure(Throwable caught) {
 					progressLabel.setVisible(false);
+					loginButton.setEnabled(true);
+					isLoggingIn = false;
 					Window.alert("Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
 				}
 
@@ -137,6 +136,8 @@ public class Login extends Composite {
 			};
 
 			progressLabel.setVisible(true);
+			loginButton.setEnabled(false);
+			isLoggingIn = true;
 			loginCheckService
 					.isLoginCredentialsValid(email, password, callback);
 		}
@@ -147,14 +148,14 @@ public class Login extends Composite {
 		if (event.getValue().length() <= 0) {
 			emailErrorLabel.setText(emailErrorMissing);
 			emailErrorLabel.setVisible(true);
-			validInput = false;
+			validEmailInput = false;
 		} else if (!isEmailValid(event.getValue())) {
 			emailErrorLabel.setText(emailErrorInvalid);
 			emailErrorLabel.setVisible(true);
-			validInput = false;
+			validEmailInput = false;
 		} else {
 			emailErrorLabel.setVisible(false);
-			validInput = true;
+			validEmailInput = true;
 		}
 	}
 
@@ -182,10 +183,10 @@ public class Login extends Composite {
 	void onPasswordBoxChange(ValueChangeEvent<String> event) {
 		if (event.getValue().length() <= 0) {
 			passwordErrorLabel.setVisible(true);
-			validInput = false;
+			validPasswordInput = false;
 		} else {
 			passwordErrorLabel.setVisible(false);
-			validInput = true;
+			validPasswordInput = true;
 		}
 	}
 }

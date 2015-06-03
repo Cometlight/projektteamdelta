@@ -108,7 +108,7 @@ public class AppointmentChoice extends Composite{
 	    TextColumn<CalendarEvent> doctorColumn = new TextColumn<CalendarEvent>() {
 	      @Override
 	      public String getValue(CalendarEvent event) {
-	        return event.getDoctor();
+	        return event.getDoctorOrthoptist();
 	      }
 	    };
 	    TextColumn<CalendarEvent> typeColumn = new TextColumn<CalendarEvent>() {
@@ -159,7 +159,7 @@ public class AppointmentChoice extends Composite{
 	    TextColumn<CalendarEvent> cDoctorColumn = new TextColumn<CalendarEvent>() {
 		      @Override
 		      public String getValue(CalendarEvent event) {
-		        return event.getDoctor();
+		        return event.getDoctorOrthoptist();
 		      }
 		    };
 		    TextColumn<CalendarEvent> cTypeColumn = new TextColumn<CalendarEvent>() {

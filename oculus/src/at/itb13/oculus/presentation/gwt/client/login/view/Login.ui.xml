@@ -19,14 +19,14 @@
 				<g:Label text="Email" styleName="{mycss.label}" />
 				<g:TextBox ui:field="emailBox" styleName="{mycss.box}" />
 				<g:Label ui:field="emailErrorLabel" styleName="{style.error} {mycss.error}" />
-
+	
 				<g:Label text="Password" styleName="{mycss.label}" />
 				<g:PasswordTextBox ui:field="passwordBox" styleName="{mycss.box}" />
 				<g:Label ui:field="passwordErrorLabel" text="Please provide a password." styleName="{style.error} {mycss.error}" />
-
+	
 				<g:Button ui:field="loginButton" text="Login" styleName="{mycss.label}" />
 				<g:Label ui:field="progressLabel" text="Logging in ..." styleName="{style.progressLabel}" />
-
+	
 				<g:Label ui:field="loginErrorLabel" text="Login failed. Please check username and password." styleName="{style.error}" />
 			</g:VerticalPanel>
 		</div>

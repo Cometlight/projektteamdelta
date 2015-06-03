@@ -17,15 +17,16 @@
 				<g:Label ui:field="doctorLabel"/>
 				<g:Button ui:field="logoutButton" text="Logout" />
 			</g:VerticalPanel>
-			<h2>Your next Appointment: </h2>
-			<g:VerticalPanel ui:field="tablePanel" styleName="{style.appointmentTable}">
-				<c:CellTable ui:field="existingAppointmentTable"/>
-			</g:VerticalPanel>
-			<p>In order to fix a new appointment, please delete the appointment above.</p>
-			<g:Button ui:field="deleteButton" text="Delete"/>	
-			<g:Button ui:field="newAppointmentButton" text="New Appointment"/>
-			<g:Button ui:field="appointmentChoiceButton" text="Appointment Choice"/>
-			
+			<div id="content">
+				<h2>Your next Appointment: </h2>
+				<g:VerticalPanel ui:field="tablePanel" styleName="{style.appointmentTable}">
+					<c:CellTable ui:field="existingAppointmentTable"/>
+				</g:VerticalPanel>
+				<p>In order to fix a new appointment, please delete the appointment above.</p>
+				<g:Button ui:field="deleteButton" text="Delete"/>	
+				<g:Button ui:field="newAppointmentButton" text="New Appointment"/>
+				<g:Button ui:field="appointmentChoiceButton" text="Appointment Choice"/>
+			</div>
 		</div>
 	</g:HTMLPanel>
 </ui:UiBinder> 

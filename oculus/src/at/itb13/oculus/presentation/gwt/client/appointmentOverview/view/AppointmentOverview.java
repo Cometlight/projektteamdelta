@@ -166,7 +166,7 @@ public class AppointmentOverview extends Composite {
 	void onClicknewAppointmentButton(ClickEvent event) {
 
 		
-		Index.forward(new AppointmentRequestForm());
+		Index.forward(new AppointmentRequestForm(_patient));
 		
 	}
 

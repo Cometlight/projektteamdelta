@@ -70,6 +70,7 @@ public class AppointmentChoice extends Composite{
 	CellTable<CalendarEvent> appointmentTable;
 	@UiField
 	CellTable<CalendarEvent> chosenTable;
+	CalendarEvent _calendarEvent;
 	@UiField
 	HTMLPanel htmlPanel;
 	@UiField
@@ -217,6 +218,7 @@ public class AppointmentChoice extends Composite{
 				if(selected != null){
 					chosenList.clear();
 					chosenList.add(selected);
+					_calendarEvent = selected;
 					selectionModel.setSelected(selected, false);
 				}
 				
@@ -233,12 +235,27 @@ public class AppointmentChoice extends Composite{
 	@UiHandler("okButton")
 	void onClickOkButton(ClickEvent event) {
 		
+		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("OK - Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
+			}
+
+			@Override
+			public void onSuccess(Boolean b) {
+				Window.alert("Event has been added");
+				Index.forward(new AppointmentOverview(_patient));
+			}
+		};
+
+		appointmentChoiceAsyncService.addAppointment(_patient, _calendarEvent, callback);
+				
 	
 	}
 	
 	@UiHandler("backButton")
 	void onClickBackButton(ClickEvent event){
-		Index.forward(new AppointmentRequestForm());
+		Index.forward(new AppointmentRequestForm(_patient));
 	}
 	
 	@UiHandler("logoutButton")

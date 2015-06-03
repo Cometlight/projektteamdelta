@@ -208,18 +208,21 @@ public class NewAppointment {
 		CalendarEvent domainEvent = new CalendarEvent();
 		Patient pa = PatientDao.getInstance().findBySocialInsuranceNr(patient.getSin());
 		EventType eventType = new EventType();
-		eventType = EventTypeDao.getInstance().findByName(calendarEvent.getType());
-		
+		if (calendarEvent.getType()!=null){
+			eventType = EventTypeDao.getInstance().findByName(calendarEvent.getType());
+		}
 		domainEvent.setCalendar(pa.getDoctor().getCalendar());
 		domainEvent.setDescription(calendarEvent.getReason());
 		
-//		domainEvent.setEventStart();
-//		domainEvent.setEventEnd();
+		domainEvent.setEventStart(LocalDateTime.parse(calendarEvent.getDate()));
+		if (eventType != null){
+			domainEvent.setEventEnd(domainEvent.getEventStart().plusMinutes(eventType.getEstimatedTime()));
+		} else {
+			domainEvent.setEventEnd(domainEvent.getEventStart().plusMinutes(15));
+		}
+		
 		domainEvent.setPatient(pa);
 		domainEvent.setEventType(eventType);
-		domainEvent.setOpen(true);
-
-		
 		return CalendarEventDao.getInstance().makePersistent(domainEvent);
 	}
 }

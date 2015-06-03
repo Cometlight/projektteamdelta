@@ -1,9 +1,12 @@
 package at.itb13.oculus.application.patient;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -75,17 +78,50 @@ public class NewAppointment {
 	
 	@SuppressWarnings("static-access")
 	public at.itb13.oculus.presentation.gwt.shared.CalendarEvent getPossibleAppointment(LocalDateTime startTime, LocalDateTime endTime, 
-																						Date start, Date end, String appointmentType){
+																						Date start, Date end, String appointmentType,
+																						boolean isSameDay1, boolean isSameDay2){
 		
 		int appointmentDuration = getAppointmentDuration(appointmentType);
 		Patient patient = (Patient) ControllerFacade.getInstance().getPatientSelected();
 		Calendar calendar = patient.getDoctor().getCalendar();
-		LocalDateTime eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);		
+		LocalDateTime eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
+		if(isSameDay1){
+			while(startTime.isBefore(eventTime)){
+				startTime = startTime.plusDays(7);
+				endTime = endTime.plusDays(7);
+			}
+			eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
+		}
+		if(isSameDay2){
+			while(startTime.isBefore(eventTime)){
+				startTime = startTime.plusDays(7);
+				endTime = endTime.plusDays(7);
+			}
+			eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
+		}
+		Instant instant = eventTime.atZone(ZoneId.systemDefault()).toInstant();
+		Date date = Date.from(instant);
+		if(date.after(start) && date.before(end)){
+			while(date.before(end)){
+				date = addDaysToDate(date, 7);
+				startTime = startTime.plusDays(7);
+				endTime = endTime.plusDays(7);
+			}
+			eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
+		}
 		at.itb13.oculus.presentation.gwt.shared.CalendarEvent event = new at.itb13.oculus.presentation.gwt.shared.CalendarEvent(); 
 		event.setDate(eventTime.toString());
 		event.setDoctorOrthoptist(patient.getDoctor().getUser().getTitle() + patient.getDoctor().getUser().getFirstName() + patient.getDoctor().getUser().getLastName());
 		event.setType(appointmentType);
 		return event;
+	}
+	
+	public static Date addDaysToDate(Date date, int noOfDays) {
+		java.util.Calendar c = java.util.Calendar.getInstance(); 
+		c.setTime(date); 
+		c.add(java.util.Calendar.DATE, noOfDays);
+		date = c.getTime();
+		return date;
 	}
 	
 	private int getAppointmentDuration(String appointmentType){
@@ -163,7 +199,17 @@ public class NewAppointment {
 		return CalendarEventDao.getInstance().makePersistent(domainEvent);
 	}
 	
+	/**
+	 * 
+	 * @param startDateTime the start of the event
+	 * @param endDateTime the end of the event
+	 * @return true if within the patient's doctor's calendar's working hours.
+	 */
 	public boolean isInWorkingHours(LocalDateTime startDateTime, LocalDateTime endDateTime) {
-		return true;
+		Calendar calendar = ((Patient)(ControllerFacade.getPatientSelected())).getDoctor().getCalendar();
+		return calendar.getWorkingHoursOfWeekDay(startDateTime.getDayOfWeek()).isDateInWorkingHours(
+				startDateTime.toLocalTime(), 
+				endDateTime.toLocalTime()
+		);
 	}
 }

@@ -121,6 +121,10 @@ public class AppointmentRequestForm extends Composite {
 					String dateString2 = DateTimeFormat.getFormat("MM/dd/yyyy").format(_toDate);
 					toDateLabel.setText("To: " + dateString2);
 					_isFirstDatePicked = false;
+					
+					if(_fromDate.after(_toDate)){
+						Window.alert("Wrong dates chosen! Correct your selection!");
+					}
 				}
 			}
 		});
@@ -395,7 +399,6 @@ public class AppointmentRequestForm extends Composite {
 	
 	@UiHandler("submitButton")
 	void onClickSubmitButton(ClickEvent event) {
-		datepicker1.setValue(new Date(), true);
 			int index1 = weekdayListBox1.getSelectedIndex();
 			String weekday1 = weekdayListBox1.getItemText(index1);
 			
@@ -418,7 +421,7 @@ public class AppointmentRequestForm extends Composite {
 			String appointmentType = eventTypeListBox.getItemText(index4);
 			
 			_reason = reasonForAppointmentTextBox.getText();
-	
+			
 			AsyncCallback<List<CalendarEvent>> callback = new AsyncCallback<List<CalendarEvent>>() {
 				@Override
 				public void onFailure(Throwable caught) {

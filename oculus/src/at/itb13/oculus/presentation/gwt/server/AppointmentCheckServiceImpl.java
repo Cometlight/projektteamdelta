@@ -35,23 +35,32 @@ public class AppointmentCheckServiceImpl extends RemoteServiceServlet implements
 				 											Date start, Date end, String appointmentType){
 			
 			List<CalendarEvent> list = new LinkedList<>();
-			
-			if(weekday1.equals(weekday2)){
-				
-			}
-			
+			boolean isSameDay1 = false;
+			boolean isSameDay2 = false;			
 			List<LocalDateTime> ldt = createLocalDateTimeOfStrings(weekday1, from1, to1);
 			list.add(ControllerFacade.getInstance().getNewAppointment().
-								   getPossibleAppointment(ldt.get(0), ldt.get(1),start,end,appointmentType));
+								   getPossibleAppointment(ldt.get(0),ldt.get(1),start,end,appointmentType,
+										   				  isSameDay1,isSameDay2));
 			
 			if(isAdded1){
+				if(weekday1.equals(weekday2)){
+					isSameDay1 = true;				
+				}
 				ldt = createLocalDateTimeOfStrings(weekday2, from2, to2);
 				list.add(ControllerFacade.getInstance().getNewAppointment().
-						   getPossibleAppointment(ldt.get(0), ldt.get(1),start,end,appointmentType));
+									getPossibleAppointment(ldt.get(0),ldt.get(1),start,end,appointmentType,
+														   isSameDay1,isSameDay2));
 				if(isAdded2){
+					if(weekday1.equals(weekday3)){
+						isSameDay2 = true;
+					}
+					if(weekday2.equals(weekday3)){
+						isSameDay2 = true;
+					}
 					ldt = createLocalDateTimeOfStrings(weekday3, from3, to3);
 					list.add(ControllerFacade.getInstance().getNewAppointment().
-							   getPossibleAppointment(ldt.get(0), ldt.get(1),start,end,appointmentType));
+							 		getPossibleAppointment(ldt.get(0),ldt.get(1),start,end,appointmentType,
+							 							   isSameDay1,isSameDay2));
 				}
 			}
 			return list;
@@ -105,10 +114,9 @@ public class AppointmentCheckServiceImpl extends RemoteServiceServlet implements
 
 		@Override
 		public Boolean isInWorkingHours(String weekday, String from, String to) {
-			DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm");
-			LocalDateTime fromLT = LocalDateTime.parse(from, formatterTime);
-			LocalDateTime toLT = LocalDateTime.parse(from, formatterTime);
-			return true;
-//			return ControllerFacade.getInstance().getNewAppointment().isInWorkingHours(weekday, from, to);
+			List<LocalDateTime> listDTs = createLocalDateTimeOfStrings(weekday, from, to);
+			LocalDateTime fromDT = listDTs.get(0);
+			LocalDateTime toDT = listDTs.get(1);
+			return ControllerFacade.getInstance().getNewAppointment().isInWorkingHours(fromDT, toDT);
 		}	
 }

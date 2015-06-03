@@ -119,5 +119,6 @@ public class AppointmentCheckServiceImpl extends RemoteServiceServlet implements
 			LocalDateTime toLT = LocalDateTime.parse(from, formatterTime);
 			return true;
 //			return ControllerFacade.getInstance().getNewAppointment().isInWorkingHours(weekday, from, to);
-		}	
+		}
+
 }

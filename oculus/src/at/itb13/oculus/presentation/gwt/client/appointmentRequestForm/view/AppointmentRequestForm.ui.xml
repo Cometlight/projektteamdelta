@@ -119,13 +119,14 @@
 				</g:HTMLPanel>
 				<g:HTMLPanel>
 					<table ui:field="datepickerTable">
+						<g:Label ui:field="datePickerExplanation" text="Choose the from and to date by clicking onto the date! Repeat if you want to correct your selection."/>
 						<dp:DatePicker ui:field="datepicker1" />
 						<g:Label ui:field="datepicker1ErrorLabel" />
 						<g:Label ui:field="fromDateLabel" />
 						<g:Label ui:field="toDateLabel" />
 						<!-- <dp:DatePicker ui:field="datepicker2" />
 						<g:Label ui:field="datepicker2ErrorLabel" /> -->
-						<g:Label ui:field="reasonForAppointmentLabel" text="Free text" />
+						<g:Label ui:field="reasonForAppointmentLabel" text="Reason for appointment" />
 						<g:TextBox ui:field="reasonForAppointmentTextBox" />
 						<g:ListBox ui:field="eventTypeListBox"/>
 					</table>

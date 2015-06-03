@@ -12,9 +12,9 @@
 				<g:Label ui:field="nameLabel" text="Patient Name" res:styleName="{res.style.labelTest}"/>
 				<g:Label ui:field="sinLabel" text="Social Insurance Number" res:styleName="{res.style.labelTest}"/>
 				<g:Label ui:field="doctorLabel" text="Patients Doctor" res:styleName="{res.style.labelTest}"/>
-				<g:Label text="Your next Appointment"/>
+				
 			</g:VerticalPanel>
-			
+			<h3>Your next Appointment: </h3>
 			<g:VerticalPanel ui:field="tablePanel">
 				<c:CellTable ui:field="existingAppointmentTable"/>
 			</g:VerticalPanel>

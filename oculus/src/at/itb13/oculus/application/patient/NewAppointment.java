@@ -15,9 +15,7 @@ import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.domain.Patient;
-import at.itb13.oculus.technicalServices.dao.CalendarDao;
 import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
-import at.itb13.oculus.technicalServices.dao.DoctorDao;
 import at.itb13.oculus.technicalServices.dao.EventTypeDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 import at.itb13.teamD.domain.interfaces.IEventType;
@@ -76,8 +74,8 @@ public class NewAppointment {
 	}
 	
 	@SuppressWarnings("static-access")
-	public LocalDateTime getPossibleAppointment(String weekday, String from, String to, 
-											Date start, Date end, boolean isSameDay, String appointmentType){
+	public at.itb13.oculus.presentation.gwt.shared.CalendarEvent getPossibleAppointment(String weekday, String from, String to, 
+																Date start, Date end, boolean isSameDay, String appointmentType){
 		
 		int appointmentDuration = getAppointmentDuration(appointmentType);
 		System.out.println("Typ: " + appointmentType);
@@ -91,7 +89,13 @@ public class NewAppointment {
 		Calendar calendar = patient.getDoctor().getCalendar();
 		LocalDateTime eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
 		System.out.println("Termin: " + eventTime);
-		return eventTime;
+		
+		at.itb13.oculus.presentation.gwt.shared.CalendarEvent event = new at.itb13.oculus.presentation.gwt.shared.CalendarEvent(); 
+		event.setDate(eventTime.toString());
+		event.setDoctor(patient.getDoctor().getUser().getTitle() + patient.getDoctor().getUser().getFirstName() + patient.getDoctor().getUser().getLastName());
+		event.setType(appointmentType);
+		
+		return event;
 	}
 	
 	private List<LocalDateTime> createLocalDateTimeOfStrings(String weekday, String from, String to){
@@ -208,18 +212,21 @@ public class NewAppointment {
 		CalendarEvent domainEvent = new CalendarEvent();
 		Patient pa = PatientDao.getInstance().findBySocialInsuranceNr(patient.getSin());
 		EventType eventType = new EventType();
-		eventType = EventTypeDao.getInstance().findByName(calendarEvent.getType());
-		
+		if (calendarEvent.getType()!=null){
+			eventType = EventTypeDao.getInstance().findByName(calendarEvent.getType());
+		}
 		domainEvent.setCalendar(pa.getDoctor().getCalendar());
 		domainEvent.setDescription(calendarEvent.getReason());
 		
-//		domainEvent.setEventStart();
-//		domainEvent.setEventEnd();
+		domainEvent.setEventStart(LocalDateTime.parse(calendarEvent.getDate()));
+		if (eventType != null){
+			domainEvent.setEventEnd(domainEvent.getEventStart().plusMinutes(eventType.getEstimatedTime()));
+		} else {
+			domainEvent.setEventEnd(domainEvent.getEventStart().plusMinutes(15));
+		}
+		
 		domainEvent.setPatient(pa);
 		domainEvent.setEventType(eventType);
-		domainEvent.setOpen(true);
-
-		
 		return CalendarEventDao.getInstance().makePersistent(domainEvent);
 	}
 }

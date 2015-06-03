@@ -8,6 +8,7 @@ import at.itb13.oculus.presentation.gwt.client.appointmentChoice.view.Appointmen
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc.AppointmentOverviewService;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc.AppointmentOverviewServiceAsync;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view.AppointmentRequestForm;
+import at.itb13.oculus.presentation.gwt.client.login.view.Login;
 import at.itb13.oculus.presentation.gwt.shared.CalendarEvent;
 import at.itb13.oculus.presentation.gwt.shared.Patient;
 
@@ -125,7 +126,7 @@ public class AppointmentOverview extends Composite {
 					}
 				};
 				existingAppointmentTable.addColumn(DateColumn, "Date");
-				// TODO: TIME
+			
 				existingAppointmentTable.addColumn(DoctorColumn,
 						"Doctor / Orthoptis");
 				existingAppointmentTable.addColumn(TypeColumn,
@@ -165,7 +166,7 @@ public class AppointmentOverview extends Composite {
 	void onClicknewAppointmentButton(ClickEvent event) {
 
 		
-		Index.forward(new AppointmentRequestForm());
+		Index.forward(new AppointmentRequestForm(_patient));
 		
 	}
 
@@ -210,5 +211,10 @@ public class AppointmentOverview extends Composite {
 		events.add(event3);
 		Index.forward(new AppointmentChoice(_patient, events));
 
+	}
+	
+	@UiHandler("logoutButton")
+	void onClickLogoutButton(ClickEvent event){
+		Index.forward(new Login());
 	}
 }

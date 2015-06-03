@@ -22,7 +22,9 @@
 			<g:VerticalPanel ui:field="chosenPanel">
 				<c:CellTable ui:field="chosenTable"/>
 			</g:VerticalPanel>	
-			<g:Button ui:field="okButton" text="ok"/>
+			<g:Button ui:field="backButton" text="Back"/>
+			<g:Button ui:field="okButton" text="OK"/>
+			<g:Button ui:field="logoutButton" text="Logout"/>
 		</div>
 	</g:HTMLPanel>
 </ui:UiBinder> 

@@ -119,7 +119,7 @@ public class Login extends Composite {
 								if(hasFutureAppointment) {
 									Index.forward(new AppointmentOverview(loggedInPatient));
 								} else {
-									Index.forward(new AppointmentRequestForm());
+									Index.forward(new AppointmentRequestForm(loggedInPatient));
 								}
 							}
 						};

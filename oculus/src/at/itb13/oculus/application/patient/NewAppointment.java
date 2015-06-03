@@ -13,10 +13,12 @@ import org.apache.logging.log4j.Logger;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
+import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.technicalServices.dao.CalendarDao;
 import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
 import at.itb13.oculus.technicalServices.dao.DoctorDao;
+import at.itb13.oculus.technicalServices.dao.EventTypeDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 import at.itb13.teamD.domain.interfaces.IEventType;
 
@@ -205,11 +207,18 @@ public class NewAppointment {
 	public boolean addAppointment(at.itb13.oculus.presentation.gwt.shared.Patient patient, at.itb13.oculus.presentation.gwt.shared.CalendarEvent calendarEvent){
 		CalendarEvent domainEvent = new CalendarEvent();
 		Patient pa = PatientDao.getInstance().findBySocialInsuranceNr(patient.getSin());
+		EventType eventType = new EventType();
+		eventType = EventTypeDao.getInstance().findByName(calendarEvent.getType());
+		
 		domainEvent.setCalendar(pa.getDoctor().getCalendar());
 		domainEvent.setDescription(calendarEvent.getReason());
 		
-		domainEvent.setEventStart();
+//		domainEvent.setEventStart();
+//		domainEvent.setEventEnd();
 		domainEvent.setPatient(pa);
+		domainEvent.setEventType(eventType);
+		domainEvent.setOpen(true);
+
 		
 		return CalendarEventDao.getInstance().makePersistent(domainEvent);
 	}

@@ -1,6 +1,7 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:c="urn:import:com.google.gwt.user.cellview.client"
 	xmlns:res='urn:with:at.itb13.oculus.AppointmentOverviewResources'>
 	<ui:with field="res" type="at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.AppointmentOverviewResources"/>
 
@@ -12,23 +13,12 @@
 				<g:Label ui:field="sinLabel" text="Social Insurance Number" res:styleName="{res.style.labelTest}"/>
 				<g:Label ui:field="doctorLabel" text="Patients Doctor" res:styleName="{res.style.labelTest}"/>
 				<g:Label text="Your next Appointment"/>
-			</g:VerticalPanel>	
-				  
-			<table>
-				<tr>
-					<th>Date</th>
-					<th>Doctor</th>
-					<th>Type</th>
-					<th>Reason</th>
-				</tr>
-				<tr>
-					<td><g:Label ui:field="datecell"/></td>
-					<td><g:Label ui:field="doctorcell"/></td>
-					<td><g:Label ui:field="typecell"/></td>
-					<td><g:Label ui:field="reasoncell"/></td>
-					<td><g:Button ui:field="deleteButton" text="Delete"/></td>
-				</tr>
-			</table>
+			</g:VerticalPanel>
+			
+			<g:VerticalPanel ui:field="tablePanel">
+				<c:CellTable ui:field="existingAppointmentTable"/>
+			</g:VerticalPanel>
+			<g:Button ui:field="deleteButton" text="Delete"/>	
 			<g:Button ui:field="logoutButton" text="Logout"/>
 			<g:Button ui:field="newAppointmentButton" text="New Appointment"/>
 			<g:Button ui:field="appointmentChoiceButton" text="Appointment Choice"/>

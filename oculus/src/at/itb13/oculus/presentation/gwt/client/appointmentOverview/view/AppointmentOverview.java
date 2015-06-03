@@ -71,6 +71,8 @@ public class AppointmentOverview extends Composite {
 	Button newAppointmentButton;
 	@UiField
 	Button appointmentChoiceButton;
+	
+	List<CalendarEvent> _list = null;
 
 	public AppointmentOverview(Patient patient) {
 		this.res = GWT.create(AppointmentOverviewResources.class);
@@ -82,6 +84,7 @@ public class AppointmentOverview extends Composite {
 		nameLabel.setText(_patient.getName());
 		sinLabel.setText(_patient.getSin());
 		doctorLabel.setText(_patient.getDoctor());
+		
 
 		AsyncCallback<CalendarEvent> callbackAppointment = new AsyncCallback<CalendarEvent>() {
 
@@ -137,9 +140,9 @@ public class AppointmentOverview extends Composite {
 				// Add the data to the data provider, which automatically pushes
 				// it to the
 				// widget.
-				List<CalendarEvent> list = dataProvider.getList();
+				_list = dataProvider.getList();
 
-				list.add(cal);
+				_list.add(cal);
 				tablePanel.add(existingAppointmentTable);
 
 				// datecell.setText(cal.getDate());
@@ -161,22 +164,9 @@ public class AppointmentOverview extends Composite {
 	@UiHandler("newAppointmentButton")
 	void onClicknewAppointmentButton(ClickEvent event) {
 
-		// AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
-		// @Override
-		// public void onFailure(Throwable caught) {
-		// Window.alert("Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
-		// }
-		//
-		// @Override
-		// public void onSuccess(Boolean loginCredentialsValid) {
-		// if (loginCredentialsValid) {
+		
 		Index.forward(new AppointmentRequestForm());
-		// } else {
-		//
-		// }
-		// }
-		//
-		// };
+		
 	}
 
 	@UiHandler("deleteButton")
@@ -192,17 +182,10 @@ public class AppointmentOverview extends Composite {
 			@Override
 			public void onSuccess(Boolean b) {
 				Window.alert("Event has been deleted");
-				existingAppointmentTable.setVisible(false);
+				if (_list!=null){
+					_list.clear();
+				}
 				
-				
-				// datecell.setText("-");
-				// doctorcell.setText("-");
-				// typecell.setText("-");
-				// reasoncell.setText("-");
-				// if (loginCredentialsValid) {
-				// // Index.forward(new AppointmentRequestForm());
-				// } else {
-				// }
 			}
 		};
 

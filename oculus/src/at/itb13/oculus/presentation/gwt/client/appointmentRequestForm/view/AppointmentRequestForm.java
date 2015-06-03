@@ -62,14 +62,14 @@ public class AppointmentRequestForm extends Composite {
 		fromTimeBox1.addValueChangeHandler(new ValueChangeHandler<Long>() {
             public void onValueChange(ValueChangeEvent<Long> event) {
                 fromTimeBox1.setValue(event.getValue());
-                checkTimeBox(fromErrorLabel1,fromTimeBox1,toTimeBox1,_isValid1);
+                checkTimeBox(fromErrorLabel1,fromTimeBox1,toTimeBox1,_isValid1,weekdayListBox1);
             }
         });
 		
 		toTimeBox1.addValueChangeHandler(new ValueChangeHandler<Long>() {
             public void onValueChange(ValueChangeEvent<Long> event) {
             	toTimeBox1.setValue(event.getValue());
-            	checkTimeBox(fromErrorLabel1,fromTimeBox1,toTimeBox1,_isValid1);
+            	checkTimeBox(fromErrorLabel1,fromTimeBox1,toTimeBox1,_isValid1,weekdayListBox1);
             }
         });
 		
@@ -78,14 +78,14 @@ public class AppointmentRequestForm extends Composite {
 		fromTimeBox2.addValueChangeHandler(new ValueChangeHandler<Long>() {
             public void onValueChange(ValueChangeEvent<Long> event) {
                 fromTimeBox2.setValue(event.getValue());
-                checkTimeBox(fromErrorLabel2,fromTimeBox2,toTimeBox2,_isValid2);
+                checkTimeBox(fromErrorLabel2,fromTimeBox2,toTimeBox2,_isValid2,weekdayListBox2);
             }
         });
 		
 		toTimeBox2.addValueChangeHandler(new ValueChangeHandler<Long>() {
             public void onValueChange(ValueChangeEvent<Long> event) {
             	toTimeBox2.setValue(event.getValue());
-            	checkTimeBox(fromErrorLabel2,fromTimeBox2,toTimeBox2,_isValid2);
+            	checkTimeBox(fromErrorLabel2,fromTimeBox2,toTimeBox2,_isValid2,weekdayListBox2);
             }
         });
 		
@@ -94,14 +94,14 @@ public class AppointmentRequestForm extends Composite {
 		fromTimeBox3.addValueChangeHandler(new ValueChangeHandler<Long>() {
             public void onValueChange(ValueChangeEvent<Long> event) {
                 fromTimeBox3.setValue(event.getValue());
-                checkTimeBox(fromErrorLabel3,fromTimeBox3,toTimeBox3,_isValid3);
+                checkTimeBox(fromErrorLabel3,fromTimeBox3,toTimeBox3,_isValid3,weekdayListBox3);
             }
         });
 		
 		toTimeBox3.addValueChangeHandler(new ValueChangeHandler<Long>() {
             public void onValueChange(ValueChangeEvent<Long> event) {
             	toTimeBox3.setValue(event.getValue());
-            	checkTimeBox(fromErrorLabel3,fromTimeBox3,toTimeBox3,_isValid3);
+            	checkTimeBox(fromErrorLabel3,fromTimeBox3,toTimeBox3,_isValid3,weekdayListBox3);
             }
         });
 		
@@ -294,7 +294,7 @@ public class AppointmentRequestForm extends Composite {
 	@UiField
 	TextBox reasonForAppointmentTextBox;
 	
-	private void checkTimeBox(Label label, UTCTimeBox box1, UTCTimeBox box2, boolean isValid){
+	private void checkTimeBox(Label label, UTCTimeBox box1, UTCTimeBox box2, boolean isValid, ListBox weekday) {
 		if(box1.getText().isEmpty() || box2.getText().isEmpty()){
 			label.setVisible(true);
 			label.setText("Starttime or Endtime is missing!");
@@ -302,26 +302,48 @@ public class AppointmentRequestForm extends Composite {
 			handleSubmit();
 		} else{
 			if(isTimeValid(box1.getText()) && isTimeValid(box2.getText())){
-				String[] parts1 = box1.getText().split(":");
-				int hour1 = Integer.parseInt(parts1[0]);
-				int minute1 = Integer.parseInt(parts1[1]);
-				String[] parts2 = box2.getText().split(":");
-				int hour2 = Integer.parseInt(parts2[0]);
-				int minute2 = Integer.parseInt(parts2[1]);
-				if(hour1 > hour2 || (hour1 == hour2 && minute1 >= minute2)){
-					label.setVisible(true);
-					label.setText("The Starttime has to be befor the Endtime!");
-					isValid = false;
-					handleSubmit();
-				} else{
-					label.setVisible(false);
-					label.setText("");
-					isValid = true;	
-					handleSubmit();
-				}
+				
+				AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+					@Override
+					public void onFailure(Throwable caught) {
+						isValid=false;
+						Window.alert("Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
+					}
+					@Override
+					public void onSuccess(Boolean result) {
+						if(result) {
+							String[] parts1 = box1.getText().split(":");
+							int hour1 = Integer.parseInt(parts1[0]);
+							int minute1 = Integer.parseInt(parts1[1]);
+							String[] parts2 = box2.getText().split(":");
+							int hour2 = Integer.parseInt(parts2[0]);
+							int minute2 = Integer.parseInt(parts2[1]);
+							if(hour1 > hour2 || (hour1 == hour2 && minute1 >= minute2)){
+								label.setVisible(true);
+								label.setText("The Starttime has to be before the Endtime!");
+								isValid = false;
+								handleSubmit();
+							} else{
+								label.setVisible(false);
+								label.setText("");
+								isValid = true;	
+								handleSubmit();
+							}
+						} else {
+							isValid = false;
+							label.setText("The selected time span is not in the working hours!");
+							handleSubmit();
+						}
+						
+					}
+				};
+				appointmentCheckService.isInWorkingHours(weekday.getItemText(weekday.getSelectedIndex()), 
+						box1.getText(), box2.getText(), callback);
+				
+				
 			} else{
 				label.setVisible(true);
-				label.setText("The time format is wrong, it should look like this 12:00.");
+				label.setText("The time format is wrong, it should look like this: 12:00");
 				isValid = false;
 				handleSubmit();
 			}

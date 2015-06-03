@@ -83,7 +83,7 @@ public class NewAppointment {
 		LocalDateTime eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);		
 		at.itb13.oculus.presentation.gwt.shared.CalendarEvent event = new at.itb13.oculus.presentation.gwt.shared.CalendarEvent(); 
 		event.setDate(eventTime.toString());
-		event.setDoctor(patient.getDoctor().getUser().getTitle() + patient.getDoctor().getUser().getFirstName() + patient.getDoctor().getUser().getLastName());
+		event.setDoctorOrthoptist(patient.getDoctor().getUser().getTitle() + patient.getDoctor().getUser().getFirstName() + patient.getDoctor().getUser().getLastName());
 		event.setType(appointmentType);
 		return event;
 	}
@@ -112,29 +112,30 @@ public class NewAppointment {
 	}
 	
 	public at.itb13.oculus.presentation.gwt.shared.CalendarEvent getPatientAppointment(at.itb13.oculus.presentation.gwt.shared.Patient pa) {
-		//String[] patientAppointment = new String[4];
-		at.itb13.oculus.presentation.gwt.shared.CalendarEvent event = new at.itb13.oculus.presentation.gwt.shared.CalendarEvent(); 
-		Patient patient = PatientDao.getInstance().findBySocialInsuranceNr(pa.getSin());
+		at.itb13.oculus.presentation.gwt.shared.CalendarEvent sharedEvent = null;
+		Patient patient = PatientDao.getInstance().findBySocialInsuranceNr(
+				pa.getSin());
 		CalendarEvent ce = patient.getNextAppointment();
 		if (ce != null) {
-			event.setId(ce.getCalendarEventId());
-			event.setDate(ce.getEventStart().toString());
+			sharedEvent = new at.itb13.oculus.presentation.gwt.shared.CalendarEvent();
+			sharedEvent.setId(ce.getCalendarEventId());
+			sharedEvent.setDate(ce.getEventStart().toString());
 			if (ce.getCalendar().getDoctor() != null) {
-				event.setDoctor(ce.getCalendar().getDoctor().getUser()
-						.getFirstName()
+				sharedEvent.setDoctorOrthoptist(ce.getCalendar().getDoctor()
+						.getUser().getFirstName()
 						+ " "
 						+ ce.getCalendar().getDoctor().getUser().getLastName());
 			} else if (ce.getCalendar().getOrthoptist() != null) {
-				event.setDoctor(ce.getCalendar().getOrthoptist()
-						.getUser().getFirstName()
+				sharedEvent.setDoctorOrthoptist(ce.getCalendar()
+						.getOrthoptist().getUser().getFirstName()
 						+ " "
 						+ ce.getCalendar().getOrthoptist().getUser()
 								.getLastName());
 			}
-			event.setType(ce.getEventType().getEventTypeName());
-			event.setReason(ce.getDescription());
+			sharedEvent.setType(ce.getEventType().getEventTypeName());
+			sharedEvent.setReason(ce.getDescription());
 		}
-		return event;
+		return sharedEvent;
 	}
 
 	/**
@@ -143,8 +144,11 @@ public class NewAppointment {
 	 */
 	public boolean deleteAppointment(int calEventId) {
 		CalendarEvent cal = CalendarEventDao.getInstance().findById(calEventId);
-		
-		return CalendarEventDao.getInstance().makeTransient(cal);
+		if (cal!=null){
+			return CalendarEventDao.getInstance().makeTransient(cal);
+		} else {
+			throw new IllegalArgumentException("Failed to find a calendarevent with id = " + calEventId );
+		}
 	}
 	
 	public boolean addAppointment(at.itb13.oculus.presentation.gwt.shared.Patient patient, at.itb13.oculus.presentation.gwt.shared.CalendarEvent calendarEvent){

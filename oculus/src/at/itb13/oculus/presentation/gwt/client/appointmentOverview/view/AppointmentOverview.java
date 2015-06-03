@@ -105,7 +105,7 @@ public class AppointmentOverview extends Composite {
 				TextColumn<CalendarEvent> DoctorColumn = new TextColumn<CalendarEvent>() {
 					@Override
 					public String getValue(CalendarEvent cal) {
-						return cal.getDoctor();
+						return cal.getDoctorOrthoptist();
 					}
 				};
 				TextColumn<CalendarEvent> TypeColumn = new TextColumn<CalendarEvent>() {

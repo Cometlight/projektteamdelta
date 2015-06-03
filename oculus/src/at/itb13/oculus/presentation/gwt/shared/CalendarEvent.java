@@ -11,7 +11,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class CalendarEvent implements IsSerializable{
 	private int _id;
 	private String _date;
-	private String _doctor;
+	private String _doctorOrthoptist;
 	private String _type;
 	private String _reason;
 	
@@ -19,7 +19,7 @@ public class CalendarEvent implements IsSerializable{
 	public CalendarEvent(int id, String date, String doctor, String type, String reason){
 		_id = id;
 		_date = date;
-		_doctor = doctor;
+		_doctorOrthoptist = doctor;
 		_type = type;
 		_reason = reason;
 	}
@@ -50,14 +50,14 @@ public class CalendarEvent implements IsSerializable{
 	/**
 	 * @return the doctor
 	 */
-	public String getDoctor() {
-		return _doctor;
+	public String getDoctorOrthoptist() {
+		return _doctorOrthoptist;
 	}
 	/**
-	 * @param doctor the doctor to set
+	 * @param doctorOrthoptist the doctor to set
 	 */
-	public void setDoctor(String doctor) {
-		_doctor = doctor;
+	public void setDoctorOrthoptist(String doctorOrthoptist) {
+		_doctorOrthoptist = doctorOrthoptist;
 	}
 	/**
 	 * @return the type

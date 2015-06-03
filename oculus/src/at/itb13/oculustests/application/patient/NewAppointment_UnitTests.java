@@ -18,10 +18,13 @@ import org.junit.Test;
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.patient.NewAppointment;
 import at.itb13.oculus.domain.CalendarEvent;
+import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Patient.Gender;
+import at.itb13.oculus.technicalServices.dao.CalendarDao;
 import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
+import at.itb13.oculus.technicalServices.dao.DoctorDao;
 import at.itb13.oculus.technicalServices.dao.EventTypeDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 
@@ -35,25 +38,24 @@ public class NewAppointment_UnitTests {
 	private static final String PATIENT1_EMAIL = "max.mustermann@muster.com";
 	private static final String PATIENT1_PASSWORD = "letmein";
 	
-	// Testadata for getPatientAppointment, deleteAppointment and addAppointment CalendarEvent belongs to PatientID
-	
-	
-
 	@Before
 	public void setUp() throws Exception {
 		Patient patient1 = new Patient();
+		Doctor doctor;
+		doctor = DoctorDao.getInstance().findAll().get(0);
 		patient1.setFirstName("Max");
 		patient1.setLastName("Mustermann");
 		patient1.setGender(Gender.M);
-		patient1.setSocialInsuranceNr("741852963");
+		patient1.setSocialInsuranceNr("7418529635");
 		patient1.setEmail(PATIENT1_EMAIL);
 		patient1.setPasswordAsHash(PATIENT1_PASSWORD);
+		patient1.setDoctor(doctor);
 		PatientDao.getInstance().makePersistent(patient1);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		Patient patient1 = PatientDao.getInstance().findBySocialInsuranceNr("741852963");
+		Patient patient1 = PatientDao.getInstance().findBySocialInsuranceNr("7418529635");
 		PatientDao.getInstance().makeTransient(patient1);
 	}
 
@@ -122,6 +124,7 @@ public class NewAppointment_UnitTests {
 		assertTrue(newAp.hasFutureAppointment());
 	}
 	
+	
 	@Test
 	public void testHasFutureAppointment_False() {
 		NewAppointment newAp = new NewAppointment();
@@ -142,6 +145,8 @@ public class NewAppointment_UnitTests {
 		patient.addCalendarEvent(calEv2);
 		assertFalse(newAp.hasFutureAppointment());
 	}
+	
+	
 	@Test
 	public void addAppointmentTest(){
 		at.itb13.oculus.presentation.gwt.shared.Patient patientshared = 
@@ -158,7 +163,7 @@ public class NewAppointment_UnitTests {
 				new at.itb13.oculus.presentation.gwt.shared.CalendarEvent();
 		LocalDateTime ldt = LocalDateTime.of(2015, 8, 30, 9, 15);
 		ce.setDate(ldt.toString());
-		ce.setDoctor("David Ruben");
+		ce.setDoctorOrthoptist("David Ruben");
 		ce.setType("Standardtreatment");
 		ce.setReason("first Appointment");
 		assertTrue(newApp.addAppointment(patientshared, ce));
@@ -169,6 +174,43 @@ public class NewAppointment_UnitTests {
 		}
 		
 	}
+	
+	@Test
+	public void addAppointmentTest_Null(){
+		at.itb13.oculus.presentation.gwt.shared.Patient patientshared = 
+				new at.itb13.oculus.presentation.gwt.shared.Patient();
+		at.itb13.oculus.presentation.gwt.shared.CalendarEvent ce = 
+				new at.itb13.oculus.presentation.gwt.shared.CalendarEvent();
+		Patient patientdomain = new Patient();
+		patientdomain = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
+		
+		patientshared.setName(patientdomain.getFirstName()+" "+patientdomain.getLastName());
+		patientshared.setDoctor(patientdomain.getDoctor().getUser().getFirstName()+" "+
+								patientdomain.getDoctor().getUser().getLastName());
+		patientshared.setSin(patientdomain.getSocialInsuranceNr());
+		LocalDateTime ldt = LocalDateTime.of(2015, 8, 30, 9, 15);
+		ce.setDate(ldt.toString());
+		ce.setDoctorOrthoptist("David Ruben");
+		ce.setType("Standardtreatment");
+		ce.setReason("first Appointment");
+		
+		
+		NewAppointment newApp = new NewAppointment();
+		assertThrown(() -> newApp.addAppointment(null, null))
+			.isInstanceOf(NullPointerException.class);	
+		assertThrown(() -> newApp.addAppointment(patientshared,null))
+			.isInstanceOf(NullPointerException.class);	
+		assertThrown(() -> newApp.addAppointment(null, ce))
+			.isInstanceOf(NullPointerException.class);	
+	}
+	
+	@Test
+	public void deleteAppointmentTest_Null(){
+		NewAppointment newApp = new NewAppointment();
+		assertThrown(() -> newApp.deleteAppointment(-1))
+			.isInstanceOf(IllegalArgumentException.class);	
+	}
+	
 	@Test
 	public void deleteAppointmentTest(){
 		Patient patientdomain;
@@ -189,12 +231,75 @@ public class NewAppointment_UnitTests {
 		}
 		
 	}
-//	@Test
-//	public void getPatientAppointmentTest(){
-//		at.itb13.oculus.presentation.gwt.shared.CalendarEvent ce = 
-//				new at.itb13.oculus.presentation.gwt.shared.CalendarEvent();
-//		NewAppointment newApp = new NewAppointment();
-//		ce = newApp.getPatientAppointment(patientshared);
-//		assertTrue(ce.getId()==calendarEventId);
-//	}
+	
+	
+	@Test
+	public void getPatientAppointmentTest(){
+		at.itb13.oculus.presentation.gwt.shared.Patient patientshared = 
+				new at.itb13.oculus.presentation.gwt.shared.Patient();
+		Patient patientdomain;
+		CalendarEvent cedomain = new CalendarEvent();
+		int cedomainId = 0;
+		NewAppointment newApp = new NewAppointment();
+		
+		patientdomain = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
+		at.itb13.oculus.presentation.gwt.shared.CalendarEvent ce = 
+				new at.itb13.oculus.presentation.gwt.shared.CalendarEvent();
+		patientshared.setName(patientdomain.getFirstName()+" "+patientdomain.getLastName());
+		patientshared.setDoctor(patientdomain.getDoctor().getUser().getFirstName()+" "+
+								patientdomain.getDoctor().getUser().getLastName());
+		patientshared.setSin(patientdomain.getSocialInsuranceNr());
+		
+		
+		EventType eventType = (EventType) ControllerFacade.getInstance().getAllEventTypes().get(0);
+		cedomain.setCalendar(patientdomain.getDoctor().getCalendar());
+		cedomain.setDescription("firstAppointment");
+		cedomain.setEventStart(LocalDateTime.now().plusWeeks(1));
+		cedomain.setEventEnd(cedomain.getEventStart().plusMinutes(eventType.getEstimatedTime()));
+		cedomain.setPatient(patientdomain);
+		cedomain.setEventType(eventType);
+		CalendarEventDao.getInstance().makePersistent(cedomain);
+		Set<CalendarEvent> ces = patientdomain.getCalendarevents();
+		cedomainId = ces.iterator().next().getCalendarEventId();
+		ce = newApp.getPatientAppointment(patientshared);
+		assertTrue(ce.getId()==cedomainId);
+		CalendarEventDao.getInstance().makeTransient(cedomain);
+	}
+	
+	@Test
+	public void getPatientAppointmentTestWithPastAppointment(){
+		at.itb13.oculus.presentation.gwt.shared.Patient patientshared = 
+				new at.itb13.oculus.presentation.gwt.shared.Patient();
+		Patient patientdomain;
+		CalendarEvent cedomain = new CalendarEvent();
+		NewAppointment newApp = new NewAppointment();
+		
+		patientdomain = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
+		at.itb13.oculus.presentation.gwt.shared.CalendarEvent ce = 
+				new at.itb13.oculus.presentation.gwt.shared.CalendarEvent();
+		patientshared.setName(patientdomain.getFirstName()+" "+patientdomain.getLastName());
+		patientshared.setDoctor(patientdomain.getDoctor().getUser().getFirstName()+" "+
+								patientdomain.getDoctor().getUser().getLastName());
+		patientshared.setSin(patientdomain.getSocialInsuranceNr());
+		
+		
+		EventType eventType = (EventType) ControllerFacade.getInstance().getAllEventTypes().get(0);
+		cedomain.setCalendar(patientdomain.getDoctor().getCalendar());
+		cedomain.setDescription("firstAppointment");
+		cedomain.setEventStart(LocalDateTime.now().minusWeeks(1));
+		cedomain.setEventEnd(cedomain.getEventStart().plusMinutes(eventType.getEstimatedTime()));
+		cedomain.setPatient(patientdomain);
+		cedomain.setEventType(eventType);
+		CalendarEventDao.getInstance().makePersistent(cedomain);
+		ce = newApp.getPatientAppointment(patientshared);
+		assertTrue(ce==null);
+		CalendarEventDao.getInstance().makeTransient(cedomain);
+	}
+	
+	@Test
+	public void getPatientAppointmentTest_Null(){
+		NewAppointment newApp = new NewAppointment();
+		assertThrown(() -> newApp.getPatientAppointment(null))
+		.isInstanceOf(NullPointerException.class);	
+	}
 }

@@ -3,6 +3,7 @@ package at.itb13.oculus.presentation.gwt.server;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -101,4 +102,13 @@ public class AppointmentCheckServiceImpl extends RemoteServiceServlet implements
 			}
 			return ld;
 		}
+
+		@Override
+		public Boolean isInWorkingHours(String weekday, String from, String to) {
+			DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm");
+			LocalDateTime fromLT = LocalDateTime.parse(from, formatterTime);
+			LocalDateTime toLT = LocalDateTime.parse(from, formatterTime);
+			return true;
+//			return ControllerFacade.getInstance().getNewAppointment().isInWorkingHours(weekday, from, to);
+		}	
 }

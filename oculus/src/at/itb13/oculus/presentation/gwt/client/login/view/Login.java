@@ -116,6 +116,7 @@ public class Login extends Composite {
 						AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
 							@Override
 							public void onFailure(Throwable caught) {
+								loginButton.setEnabled(true);
 								Window.alert("Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
 							}
 							@Override

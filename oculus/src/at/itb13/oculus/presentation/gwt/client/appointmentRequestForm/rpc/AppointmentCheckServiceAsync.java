@@ -24,4 +24,7 @@ public interface AppointmentCheckServiceAsync {
 	
 	void getEventTypes(AsyncCallback<List<String>> callback);
 
+	void isInWorkingHours(String weekday, String from, String to,
+			AsyncCallback<Boolean> callback);
+
 }

@@ -88,8 +88,6 @@ public class NewAppointment {
 		return event;
 	}
 	
-	
-	
 	private int getAppointmentDuration(String appointmentType){
 		List<IEventType> list = ControllerFacade.getInstance().getAllEventTypes();
 		int duration = 0;
@@ -169,5 +167,9 @@ public class NewAppointment {
 		domainEvent.setPatient(pa);
 		domainEvent.setEventType(eventType);
 		return CalendarEventDao.getInstance().makePersistent(domainEvent);
+	}
+	
+	public boolean isInWorkingHours(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+		return true;
 	}
 }

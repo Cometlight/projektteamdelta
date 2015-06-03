@@ -294,7 +294,7 @@ public class AppointmentRequestForm extends Composite {
 	@UiField
 	TextBox reasonForAppointmentTextBox;
 	
-	private void checkTimeBox(Label label, UTCTimeBox box1, UTCTimeBox box2, boolean isValid, ListBox weekday) {
+	private void checkTimeBox(final Label label, final UTCTimeBox box1, final UTCTimeBox box2, boolean isValid, ListBox weekday) {
 		if(box1.getText().isEmpty() || box2.getText().isEmpty()){
 			label.setVisible(true);
 			label.setText("Starttime or Endtime is missing!");

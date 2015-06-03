@@ -9,6 +9,8 @@ import at.itb13.oculus.presentation.gwt.client.appointmentChoice.view.Appointmen
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.AppointmentOverview;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckService;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckServiceAsync;
+import at.itb13.oculus.presentation.gwt.shared.CalendarEvent;
+import at.itb13.oculus.presentation.gwt.shared.Patient;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -41,9 +43,9 @@ public class AppointmentRequestForm extends Composite {
 			UiBinder<Widget, AppointmentRequestForm> {
 	}
 
-	public AppointmentRequestForm() {
+	public AppointmentRequestForm(Patient patient) {
 		initWidget(uiBinder.createAndBindUi(this));
-		
+		_patient = patient;
 		//Init the from and to Datelabels
 		fromDateLabel.setText("From: ");
 		toDateLabel.setText("To: ");
@@ -99,14 +101,15 @@ public class AppointmentRequestForm extends Composite {
 		removeButton1.setVisible(false);
 		removeButton2.setVisible(false);
 	}
-	
+	private Patient _patient;
 	private boolean _validInput;
 	private boolean _isFirstDatePicked;
 	private Date _fromDate;
 	private Date _toDate;
 	private boolean isAdded1;
 	private boolean isAdded2;
-	private List<String> results;
+	private List<CalendarEvent> results;
+	private String _reason;
 
 	@UiField
 	ListBox weekdayListBox1;
@@ -383,7 +386,7 @@ public class AppointmentRequestForm extends Composite {
 	void submitButton(ClickEvent event) {
 		datepicker1.setValue(new Date(), true);
 
-		if(true){
+		if(_validInput){
 				
 			int index1 = weekdayListBox1.getSelectedIndex();
 			String weekday1 = weekdayListBox1.getItemText(index1);
@@ -406,6 +409,8 @@ public class AppointmentRequestForm extends Composite {
 			int index4 = eventTypeListBox.getSelectedIndex();
 			String appointmentType = eventTypeListBox.getItemText(index4);
 			
+			_reason = reasonForAppointmentTextBox.getText();
+			
 			/**
 			 * TODO use the member variables!
 			 */
@@ -413,16 +418,17 @@ public class AppointmentRequestForm extends Composite {
 			Date date1 = _fromDate;
 			Date date2 = _toDate;
 	
-			AsyncCallback<String> callback = new AsyncCallback<String>() {
+			AsyncCallback<CalendarEvent> callback = new AsyncCallback<CalendarEvent>() {
 				@Override
 				public void onFailure(Throwable caught) {
 					Window.alert("Wrong Input, please try again.");
 				}
 	
 				@Override
-				public void onSuccess(String result) {
-					Window.alert(result);
+				public void onSuccess(CalendarEvent result) {
+					result.setReason(_reason);
 					results.add(result);
+//					Index.forward(new AppointmentChoice(_patient, results));
 				}
 			};
 			
@@ -439,7 +445,9 @@ public class AppointmentRequestForm extends Composite {
 																	appointmentType, callback);
 				}
 			}
+		} else {
+			Window.alert("Wrong Input, please try again.");
 		}
-		//Index.forward(new AppointmentChoice(results));
+		Index.forward(new AppointmentChoice(_patient, results));
 	}
 }

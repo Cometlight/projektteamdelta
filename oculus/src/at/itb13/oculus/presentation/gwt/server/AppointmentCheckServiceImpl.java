@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckService;
+import at.itb13.oculus.presentation.gwt.shared.CalendarEvent;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 /**
@@ -24,10 +25,10 @@ public class AppointmentCheckServiceImpl extends RemoteServiceServlet implements
 		private static final Logger _logger = LogManager.getLogger(AppointmentCheckServiceImpl.class.getName());
 		
 		@Override
-		public String getPossibleAppointment(String weekday, String from, String to, Date start, Date end, 
+		public CalendarEvent getPossibleAppointment(String weekday, String from, String to, Date start, Date end, 
 											boolean isSameDay, String appointmentType) {
 			return ControllerFacade.getInstance().getNewAppointment().
-				   getPossibleAppointment(weekday,from,to,start,end, isSameDay, appointmentType).toString();
+				   getPossibleAppointment(weekday,from,to,start,end, isSameDay, appointmentType);
 		}	
 		
 		@Override

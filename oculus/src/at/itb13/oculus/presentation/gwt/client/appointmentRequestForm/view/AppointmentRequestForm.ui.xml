@@ -119,6 +119,7 @@
 				</g:HTMLPanel>
 				<g:HTMLPanel>
 					<table ui:field="datepickerTable">
+						<g:Label ui:field="datePickerExplanation" text="Choose the from and to date by clicking onto the date! Repeat if you want to correct your selection."/>
 						<dp:DatePicker ui:field="datepicker1" />
 						<g:Label ui:field="datepicker1ErrorLabel" />
 						<g:Label ui:field="fromDateLabel" />

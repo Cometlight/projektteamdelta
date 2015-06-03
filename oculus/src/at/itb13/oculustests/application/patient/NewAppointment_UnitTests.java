@@ -161,7 +161,7 @@ public class NewAppointment_UnitTests {
 		patientshared.setSin(patientdomain.getSocialInsuranceNr());
 		at.itb13.oculus.presentation.gwt.shared.CalendarEvent ce = 
 				new at.itb13.oculus.presentation.gwt.shared.CalendarEvent();
-		LocalDateTime ldt = LocalDateTime.of(2015, 8, 30, 9, 15);
+		LocalDateTime ldt = LocalDateTime.now().plusWeeks(1);
 		ce.setDate(ldt.toString());
 		ce.setDoctorOrthoptist("David Ruben");
 		ce.setType("Standardtreatment");
@@ -188,7 +188,7 @@ public class NewAppointment_UnitTests {
 		patientshared.setDoctor(patientdomain.getDoctor().getUser().getFirstName()+" "+
 								patientdomain.getDoctor().getUser().getLastName());
 		patientshared.setSin(patientdomain.getSocialInsuranceNr());
-		LocalDateTime ldt = LocalDateTime.of(2015, 8, 30, 9, 15);
+		LocalDateTime ldt = LocalDateTime.now().plusWeeks(1);
 		ce.setDate(ldt.toString());
 		ce.setDoctorOrthoptist("David Ruben");
 		ce.setType("Standardtreatment");
@@ -220,7 +220,7 @@ public class NewAppointment_UnitTests {
 		EventType eventType = (EventType) ControllerFacade.getInstance().getAllEventTypes().get(0);
 		ce.setCalendar(patientdomain.getDoctor().getCalendar());
 		ce.setDescription("firstAppointment");
-		ce.setEventStart(LocalDateTime.of(2015, 8, 30, 9, 15));
+		ce.setEventStart(LocalDateTime.now().plusWeeks(1));
 		ce.setEventEnd(ce.getEventStart().plusMinutes(eventType.getEstimatedTime()));
 		ce.setPatient(patientdomain);
 		ce.setEventType(eventType);

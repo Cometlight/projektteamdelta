@@ -20,10 +20,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class AppointmentOverviewServiceImpl extends RemoteServiceServlet
 	implements AppointmentOverviewService{
 	
-	public String[] getPatientData (String email){
-		
-	return ControllerFacade.getInstance().getNewAppointment().getPatientData(email);
-	}
+	
 	
 	/*
 	 * @see at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc.AppointmentOverviewService#deleteAppointment(com.google.gwt.event.dom.client.ClickEvent)

@@ -15,17 +15,19 @@
 				<g:Label ui:field="doctorLabel"/>
 				<g:Button ui:field="logoutButton" text="Logout" />
 			</g:VerticalPanel>
-			<h2>Choose an Appointment:</h2>
-			<g:VerticalPanel ui:field="tablePanel" styleName="{style.appointmentTable}">
-				<c:CellTable ui:field="appointmentTable" />
-			</g:VerticalPanel>
-			<br />
-			<h2>Your chosen Appointment:</h2>
-			<g:VerticalPanel ui:field="chosenPanel" styleName="{style.appointmentTable}">
-				<c:CellTable ui:field="chosenTable" />
-			</g:VerticalPanel>
-			<g:Button ui:field="backButton" text="Back" />
-			<g:Button ui:field="okButton" text="OK" />
+			<div id="content">
+				<h2>Choose an Appointment:</h2>
+				<g:VerticalPanel ui:field="tablePanel" styleName="{style.appointmentTable}">
+					<c:CellTable ui:field="appointmentTable" />
+				</g:VerticalPanel>
+				<br />
+				<h2>Your chosen Appointment:</h2>
+				<g:VerticalPanel ui:field="chosenPanel" styleName="{style.appointmentTable}">
+					<c:CellTable ui:field="chosenTable" />
+				</g:VerticalPanel>
+				<g:Button ui:field="backButton" text="Back" />
+				<g:Button ui:field="okButton" text="OK" />
+			</div>
 		</div>
 	</g:HTMLPanel>
 </ui:UiBinder> 

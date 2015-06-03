@@ -240,9 +240,10 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 	}
 	
 	/**
-	 * TODO: COMMENTS
-	 * z.B. sagt der name ja noch nicht aus, dass das Event auf jeden Fall nach heute sein muss.
-	 * @return
+	 * 
+	 * provides next appointment of the patient in the future
+	 * 
+	 * @return CalendarEvent;  null, if no appointment is found 
 	 */
 	@Transient
 	public CalendarEvent getNextAppointment(){

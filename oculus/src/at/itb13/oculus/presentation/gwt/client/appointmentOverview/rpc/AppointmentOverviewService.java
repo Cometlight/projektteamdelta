@@ -17,7 +17,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("AppointmentOverviewService")
 public interface AppointmentOverviewService extends RemoteService{
-	public String[] getPatientData (String email);
+	
 	public at.itb13.oculus.presentation.gwt.shared.CalendarEvent getPatientAppointment(Patient pa);
 	public boolean deleteAppointment(int calEventId);
 }

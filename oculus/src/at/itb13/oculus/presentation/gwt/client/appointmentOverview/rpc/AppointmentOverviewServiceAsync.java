@@ -14,7 +14,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * 
  */
 public interface AppointmentOverviewServiceAsync {
-	public void getPatientData (String email,AsyncCallback<String[]> callback);
+	
 	public void getPatientAppointment(Patient pa,AsyncCallback<at.itb13.oculus.presentation.gwt.shared.CalendarEvent> callback);
 	/**
 	 * @param calEventId

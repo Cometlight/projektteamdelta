@@ -100,16 +100,6 @@ public class NewAppointment {
 		return duration;
 	}
 	
-	// TODO: DELETE
-	public String[] getPatientData(String email){
-		String[] patientdata = new String[3];
-		Patient patient = PatientDao.getInstance().findByEmail(email);
-		patientdata[0] = patient.getFirstName()+" "+patient.getLastName();
-		patientdata[1] = patient.getSocialInsuranceNr();
-		patientdata[2] = patient.getDoctor().getUser().getFirstName()+" "+
-				 patient.getDoctor().getUser().getLastName();
-		return patientdata;
-	}
 	
 	public at.itb13.oculus.presentation.gwt.shared.CalendarEvent getPatientAppointment(at.itb13.oculus.presentation.gwt.shared.Patient pa) {
 		at.itb13.oculus.presentation.gwt.shared.CalendarEvent sharedEvent = null;

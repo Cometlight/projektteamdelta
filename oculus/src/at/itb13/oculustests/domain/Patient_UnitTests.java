@@ -5,11 +5,22 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDateTime;
+import java.util.Set;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import at.itb13.oculus.domain.CalendarEvent;
+import at.itb13.oculus.domain.Doctor;
+import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.domain.Patient;
+import at.itb13.oculus.domain.Patient.Gender;
+import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
+import at.itb13.oculus.technicalServices.dao.DoctorDao;
+import at.itb13.oculus.technicalServices.dao.EventTypeDao;
+import at.itb13.oculus.technicalServices.dao.PatientDao;
 
 /**
  * Tests constructor and methods of the class Patient.
@@ -101,6 +112,38 @@ public class Patient_UnitTests {
 		assertFalse(pat1.isEqualPassword("1" + "password"));
 		assertFalse(pat1.isEqualPassword("password" + "1"));
 	}
+	
+//	@Test
+//	public void getNextAppointment_Test(){
+//		Patient patient = new Patient();
+//		Doctor doctor = new Doctor();
+//		doctor = DoctorDao.getInstance().list().get(0);
+//		CalendarEvent calendarEvent = new CalendarEvent();
+//		int calendarEventId;
+//		
+//		patient.setFirstName("Maja");
+//		patient.setLastName("Musterfrau");
+//		patient.setGender(Gender.F);
+//		patient.setSocialInsuranceNr("8976543201");
+//		PatientDao.getInstance().makePersistent(patient);
+//		
+//		EventType eventType = new EventType();
+//		eventType = EventTypeDao.getInstance().list().get(0);
+//		
+//		calendarEvent.setCalendar(doctor.getCalendar());
+//		calendarEvent.setDescription("first Appointment");
+//		calendarEvent.setEventStart(LocalDateTime.now().plusWeeks(1));
+//		calendarEvent.setEventEnd(calendarEvent.getEventStart().plusMinutes(eventType.getEstimatedTime()));
+//		calendarEvent.setPatient(patient);
+//		calendarEvent.setEventType(eventType);
+//		CalendarEventDao.getInstance().makePersistent(calendarEvent);
+//		calendarEventId = patient.getCalendarevents().iterator().next().getCalendarEventId();
+//		assertTrue(patient.getNextAppointment().getCalendarEventId()==calendarEventId);
+//		
+//		CalendarEventDao.getInstance().makeTransient(calendarEvent);
+//		PatientDao.getInstance().makeTransient(patient);
+//	}
+//	
 
 	// TODO: Check if the following tests are good (old tests)
 //	@Test

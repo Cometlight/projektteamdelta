@@ -8,6 +8,7 @@ import at.itb13.oculus.presentation.gwt.client.Index;
 import at.itb13.oculus.presentation.gwt.client.appointmentChoice.view.AppointmentChoice;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckService;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckServiceAsync;
+import at.itb13.oculus.presentation.gwt.client.login.view.Login;
 import at.itb13.oculus.presentation.gwt.shared.CalendarEvent;
 import at.itb13.oculus.presentation.gwt.shared.Patient;
 
@@ -47,6 +48,11 @@ public class AppointmentRequestForm extends Composite {
 		//Init the from and to Datelabels
 		fromDateLabel.setText("From: ");
 		toDateLabel.setText("To: ");
+		
+		
+		nameLabel.setText(patient.getName());
+		sinLabel.setText(patient.getSin());
+		doctorLabel.setText(patient.getDoctor());
 		
 		//Init all timeboxes:
 		
@@ -265,10 +271,19 @@ public class AppointmentRequestForm extends Composite {
 	Button resetButton;
 	
 	@UiField
+	Label nameLabel;
+	
+	@UiField
+	Label sinLabel;
+	
+	@UiField
+	Label doctorLabel;
+	
+	@UiField
 	TextBox reasonForAppointmentTextBox;
 	
 	@UiHandler("addButton1")
-	void addButton1(ClickEvent event){
+	void onClickAddButton1(ClickEvent event){
 		addButton2.setVisible(true);
 		fromTimeBox2.setVisible(true);
 		toTimeBox2.setVisible(true);
@@ -281,7 +296,7 @@ public class AppointmentRequestForm extends Composite {
 	}
 	
 	@UiHandler("removeButton1")
-	void removeButton1(ClickEvent event){
+	void onClickRemoveButton1(ClickEvent event){
 		addButton2.setVisible(false);
 		fromTimeBox2.setVisible(false);
 		toTimeBox2.setVisible(false);
@@ -294,7 +309,7 @@ public class AppointmentRequestForm extends Composite {
 	}
 	
 	@UiHandler("addButton2")
-	void addButton2(ClickEvent event){
+	void onClickAddButton2(ClickEvent event){
 		fromTimeBox3.setVisible(true);
 		toTimeBox3.setVisible(true);
 		fromLabel3.setVisible(true);
@@ -307,7 +322,7 @@ public class AppointmentRequestForm extends Composite {
 	}
 	
 	@UiHandler("removeButton2")
-	void removeButton2(ClickEvent event){
+	void onClickRemoveButton2(ClickEvent event){
 		fromTimeBox3.setVisible(false);
 		toTimeBox3.setVisible(false);
 		fromLabel3.setVisible(false);
@@ -320,7 +335,7 @@ public class AppointmentRequestForm extends Composite {
 	}
 	
 	@UiHandler("submitButton")
-	void submitButton(ClickEvent event) {
+	void onClickSubmitButton(ClickEvent event) {
 		datepicker1.setValue(new Date(), true);
 
 		int index1 = weekdayListBox1.getSelectedIndex();
@@ -377,7 +392,7 @@ public class AppointmentRequestForm extends Composite {
 	}
 	
 	@UiHandler("resetButton")
-	void resetButton(ClickEvent event){
+	void onClickResetButton(ClickEvent event){
 		resetUI();
 	}
 	
@@ -420,5 +435,10 @@ public class AppointmentRequestForm extends Composite {
 		toDateLabel.setText("To: ");
 		
 		eventTypeListBox.setItemSelected(0, true);
+	}
+	
+	@UiHandler("logOutButton")
+	void onClickLogOutButton(ClickEvent event){
+		Index.forward(new Login());
 	}
 }

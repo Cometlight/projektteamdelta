@@ -75,12 +75,30 @@ public class NewAppointment {
 	
 	@SuppressWarnings("static-access")
 	public at.itb13.oculus.presentation.gwt.shared.CalendarEvent getPossibleAppointment(LocalDateTime startTime, LocalDateTime endTime, 
-																						Date start, Date end, String appointmentType){
+																						Date start, Date end, String appointmentType,
+																						boolean isSameDay1, boolean isSameDay2){
 		
 		int appointmentDuration = getAppointmentDuration(appointmentType);
 		Patient patient = (Patient) ControllerFacade.getInstance().getPatientSelected();
 		Calendar calendar = patient.getDoctor().getCalendar();
-		LocalDateTime eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);		
+		LocalDateTime eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
+		if(isSameDay1){
+			while(startTime.isBefore(eventTime)){
+				startTime = startTime.plusDays(7);
+				endTime = endTime.plusDays(7);
+			}
+			eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
+		}
+		if(isSameDay2){
+			while(startTime.isBefore(eventTime)){
+				startTime = startTime.plusDays(7);
+				endTime = endTime.plusDays(7);
+			}
+			eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
+		}
+		if(true){
+			
+		}
 		at.itb13.oculus.presentation.gwt.shared.CalendarEvent event = new at.itb13.oculus.presentation.gwt.shared.CalendarEvent(); 
 		event.setDate(eventTime.toString());
 		event.setDoctorOrthoptist(patient.getDoctor().getUser().getTitle() + patient.getDoctor().getUser().getFirstName() + patient.getDoctor().getUser().getLastName());

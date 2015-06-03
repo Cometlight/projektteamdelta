@@ -16,8 +16,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.regexp.shared.MatchResult;
-import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -148,8 +146,8 @@ public class AppointmentRequestForm extends Composite {
 		removeButton1.setVisible(false);
 		removeButton2.setVisible(false);
 	}
+	
 	private Patient _patient;
-	private boolean _validInput;
 	private boolean _isFirstDatePicked;
 	private Date _fromDate;
 	private Date _toDate;
@@ -317,81 +315,60 @@ public class AppointmentRequestForm extends Composite {
 		weekdayListBox3.setVisible(false);
 		isAdded2 = false;
 	}
-
-	private boolean isTimeValid(String time) {
-		final String timePattern = "^(1?[0-9]|2[0-3]):[0-5][0-9]$";
-
-		RegExp regExp = RegExp.compile(timePattern);
-		MatchResult matcher = regExp.exec(time);
-
-		return matcher != null;
-	}
 	
 	@UiHandler("submitButton")
 	void submitButton(ClickEvent event) {
 		datepicker1.setValue(new Date(), true);
 
-		if(_validInput){
-				
-			int index1 = weekdayListBox1.getSelectedIndex();
-			String weekday1 = weekdayListBox1.getItemText(index1);
-			
-			int index2 = weekdayListBox2.getSelectedIndex();
-			String weekday2 = weekdayListBox2.getItemText(index2);
-			
-			int index3 = weekdayListBox3.getSelectedIndex();
-			String weekday3 = weekdayListBox3.getItemText(index3);
-			
-			String from1 = fromTimeBox1.getText();
-			String to1 = toTimeBox1.getText();
-				
-			String from2 = fromTimeBox2.getText();
-			String to2 = toTimeBox2.getText();
-			
-			String from3 = fromTimeBox3.getText();
-			String to3 = toTimeBox3.getText();
+		int index1 = weekdayListBox1.getSelectedIndex();
+		String weekday1 = weekdayListBox1.getItemText(index1);
 		
-			int index4 = eventTypeListBox.getSelectedIndex();
-			String appointmentType = eventTypeListBox.getItemText(index4);
+		int index2 = weekdayListBox2.getSelectedIndex();
+		String weekday2 = weekdayListBox2.getItemText(index2);
+		
+		int index3 = weekdayListBox3.getSelectedIndex();
+		String weekday3 = weekdayListBox3.getItemText(index3);
+		
+		String from1 = fromTimeBox1.getText();
+		String to1 = toTimeBox1.getText();
 			
-			_reason = reasonForAppointmentTextBox.getText();
-			
-			/**
-			 * TODO use the member variables!
-			 */
-			
-			Date date1 = _fromDate;
-			Date date2 = _toDate;
+		String from2 = fromTimeBox2.getText();
+		String to2 = toTimeBox2.getText();
+		
+		String from3 = fromTimeBox3.getText();
+		String to3 = toTimeBox3.getText();
 	
-			AsyncCallback<CalendarEvent> callback = new AsyncCallback<CalendarEvent>() {
-				@Override
-				public void onFailure(Throwable caught) {
-					Window.alert("Wrong Input, please try again.");
-				}
-	
-				@Override
-				public void onSuccess(CalendarEvent result) {
-					result.setReason(_reason);
-					results.add(result);
-//					Index.forward(new AppointmentChoice(_patient, results));
-				}
-			};
-			
-			boolean isSameDay = false;
-			
-			//TODO: handle same day
-			appointmentCheckService.getPossibleAppointment(weekday1, from1, to1, date1, date2, isSameDay, 
-															appointmentType, callback);
-			if(isAdded1){
-				appointmentCheckService.getPossibleAppointment(weekday2, from2, to2, date1, date2, isSameDay, 
-																appointmentType, callback);
-				if(isAdded2){
-					appointmentCheckService.getPossibleAppointment(weekday3, from3, to3, date1, date2, isSameDay, 
-																	appointmentType, callback);
-				}
+		int index4 = eventTypeListBox.getSelectedIndex();
+		String appointmentType = eventTypeListBox.getItemText(index4);
+		
+		_reason = reasonForAppointmentTextBox.getText();
+
+		AsyncCallback<CalendarEvent> callback = new AsyncCallback<CalendarEvent>() {
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Wrong Input, please try again.");
 			}
-		} else {
-			Window.alert("Wrong Input, please try again.");
+
+			@Override
+			public void onSuccess(CalendarEvent result) {
+				result.setReason(_reason);
+				results.add(result);
+//					Index.forward(new AppointmentChoice(_patient, results));
+			}
+		};
+		
+		boolean isSameDay = false;
+		
+		//TODO: handle same day
+		appointmentCheckService.getPossibleAppointment(weekday1, from1, to1, _fromDate, _toDate, isSameDay, 
+														appointmentType, callback);
+		if(isAdded1){
+			appointmentCheckService.getPossibleAppointment(weekday2, from2, to2, _fromDate, _toDate, isSameDay, 
+															appointmentType, callback);
+			if(isAdded2){
+				appointmentCheckService.getPossibleAppointment(weekday3, from3, to3, _fromDate, _toDate, isSameDay, 
+																appointmentType, callback);
+			}
 		}
 		Index.forward(new AppointmentChoice(_patient, results));
 	}

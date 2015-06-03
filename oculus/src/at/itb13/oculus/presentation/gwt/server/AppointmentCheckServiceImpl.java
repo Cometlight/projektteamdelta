@@ -114,10 +114,9 @@ public class AppointmentCheckServiceImpl extends RemoteServiceServlet implements
 
 		@Override
 		public Boolean isInWorkingHours(String weekday, String from, String to) {
-			DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm");
-			LocalDateTime fromLT = LocalDateTime.parse(from, formatterTime);
-			LocalDateTime toLT = LocalDateTime.parse(from, formatterTime);
-			return true;
-//			return ControllerFacade.getInstance().getNewAppointment().isInWorkingHours(weekday, from, to);
+			List<LocalDateTime> listDTs = createLocalDateTimeOfStrings(weekday, from, to);
+			LocalDateTime fromDT = listDTs.get(0);
+			LocalDateTime toDT = listDTs.get(1);
+			return ControllerFacade.getInstance().getNewAppointment().isInWorkingHours(fromDT, toDT);
 		}	
 }

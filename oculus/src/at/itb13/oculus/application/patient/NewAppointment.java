@@ -191,7 +191,17 @@ public class NewAppointment {
 		return CalendarEventDao.getInstance().makePersistent(domainEvent);
 	}
 	
+	/**
+	 * 
+	 * @param startDateTime the start of the event
+	 * @param endDateTime the end of the event
+	 * @return true if within the patient's doctor's calendar's working hours.
+	 */
 	public boolean isInWorkingHours(LocalDateTime startDateTime, LocalDateTime endDateTime) {
-		return true;
+		Calendar calendar = ((Patient)(ControllerFacade.getPatientSelected())).getDoctor().getCalendar();
+		return calendar.getWorkingHoursOfWeekDay(startDateTime.getDayOfWeek()).isDateInWorkingHours(
+				startDateTime.toLocalTime(), 
+				endDateTime.toLocalTime()
+		);
 	}
 }

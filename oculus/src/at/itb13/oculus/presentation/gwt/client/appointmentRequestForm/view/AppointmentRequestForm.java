@@ -46,6 +46,53 @@ public class AppointmentRequestForm extends Composite {
 		fromDateLabel.setText("From: ");
 		toDateLabel.setText("To: ");
 		
+		//Init all timeboxes:
+		
+		//From-To Timebox 1
+		fromTimeBox1.addValueChangeHandler(new ValueChangeHandler<Long>() {
+            public void onValueChange(ValueChangeEvent<Long> event) {
+                fromTimeBox1.setValue(event.getValue());
+                //My little test
+//                fromLabel1.setText(fromTimeBox1.getText());
+            }
+        });
+		
+		toTimeBox1.addValueChangeHandler(new ValueChangeHandler<Long>() {
+            public void onValueChange(ValueChangeEvent<Long> event) {
+            	toTimeBox1.setValue(event.getValue());
+            }
+        });
+		
+		//From-To Timebox 2
+		
+		fromTimeBox2.addValueChangeHandler(new ValueChangeHandler<Long>() {
+            public void onValueChange(ValueChangeEvent<Long> event) {
+                fromTimeBox2.setValue(event.getValue());
+            }
+        });
+		
+		toTimeBox2.addValueChangeHandler(new ValueChangeHandler<Long>() {
+            public void onValueChange(ValueChangeEvent<Long> event) {
+            	toTimeBox2.setValue(event.getValue());
+            }
+        });
+		
+		//From-To Timebox 3
+		
+		fromTimeBox3.addValueChangeHandler(new ValueChangeHandler<Long>() {
+            public void onValueChange(ValueChangeEvent<Long> event) {
+                fromTimeBox3.setValue(event.getValue());
+            }
+        });
+		
+		toTimeBox3.addValueChangeHandler(new ValueChangeHandler<Long>() {
+            public void onValueChange(ValueChangeEvent<Long> event) {
+            	toTimeBox3.setValue(event.getValue());
+            }
+        });
+		
+		//Init datepicker
+		
 		datepicker1.addValueChangeHandler(new ValueChangeHandler<Date>() {
 			public void onValueChange(ValueChangeEvent<Date> event) {
 				if(!_isFirstDatePicked){
@@ -266,108 +313,6 @@ public class AppointmentRequestForm extends Composite {
 		isAdded2 = false;
 	}
 
-//	@UiHandler({"fromTimeBox1"})
-//	void onFromBox1Change(ValueChangeEvent<String> event) {
-//		if (event.getValue().length() != 0) {
-//			if(!isTimeValid(event.getValue())){
-//				fromErrorLabel1.setText("This is not a valid time");
-//				fromErrorLabel1.setVisible(true);
-//				_validInput = false;
-//			} else {
-//				fromErrorLabel1.setVisible(false);
-//				_validInput = true;
-//			}
-//		} else {
-//			fromErrorLabel1.setVisible(false);
-//			_validInput = true;
-//		}
-//	}
-//	
-//	@UiHandler({"toTimeBox1"})
-//	void onToBox1Change(ValueChangeEvent<String> event) {
-//		if (event.getValue().length() != 0) {
-//			if(!isTimeValid(event.getValue())){
-//				toErrorLabel1.setText("This is not a valid time");
-//				toErrorLabel1.setVisible(true);
-//				_validInput = false;
-//			} else {
-//				toErrorLabel1.setVisible(false);
-//				_validInput = true;
-//			}
-//		} else {
-//			toErrorLabel1.setVisible(false);
-//			_validInput = true;
-//		}
-//	}
-//	
-//	@UiHandler({"fromTimeBox2"})
-//	void onFromBox2Change(ValueChangeEvent<String> event) {
-//		if (event.getValue().length() != 0) {
-//			if(!isTimeValid(event.getValue())){
-//				fromErrorLabel2.setText("This is not a valid time");
-//				fromErrorLabel2.setVisible(true);
-//				_validInput = false;
-//			} else {
-//				fromErrorLabel2.setVisible(false);
-//				_validInput = true;
-//			}
-//		}else {
-//			fromErrorLabel2.setVisible(false);
-//			_validInput = true;
-//		}
-//	}
-//	
-//	@UiHandler({"toTimeBox2"})
-//	void onToBox2Change(ValueChangeEvent<String> event) {
-//		if (event.getValue().length() != 0) {
-//			if(!isTimeValid(event.getValue())){
-//				toErrorLabel2.setText("This is not a valid time");
-//				toErrorLabel2.setVisible(true);
-//				_validInput = false;
-//			} else {
-//				toErrorLabel2.setVisible(false);
-//				_validInput = true;
-//			}
-//		}else {
-//			toErrorLabel2.setVisible(false);
-//			_validInput = true;
-//		}
-//	}
-//	
-//	@UiHandler({"fromTimeBox3"})
-//	void onFromBox3Change(ValueChangeEvent<String> event) {
-//		if (event.getValue().length() != 0) {
-//			if(!isTimeValid(event.getValue())){
-//				fromErrorLabel3.setText("This is not a valid time");
-//				fromErrorLabel3.setVisible(true);
-//				_validInput = false;
-//			} else {
-//				fromErrorLabel3.setVisible(false);
-//				_validInput = true;
-//			}
-//		} else {
-//			fromErrorLabel3.setVisible(false);
-//			_validInput = true;
-//		}
-//	}
-//	
-//	@UiHandler({"toTimeBox3"})
-//	void onToBox3Change(ValueChangeEvent<String> event) {
-//		if (event.getValue().length() != 0) {
-//			if(!isTimeValid(event.getValue())){
-//				toErrorLabel3.setText("This is not a valid time");
-//				toErrorLabel3.setVisible(true);
-//				_validInput = false;
-//			} else {
-//				toErrorLabel3.setVisible(false);
-//				_validInput = true;
-//			}
-//		} else {
-//			toErrorLabel3.setVisible(false);
-//			_validInput = true;
-//		}
-//	}
-	
 	private boolean isTimeValid(String time) {
 		final String timePattern = "^(1?[0-9]|2[0-3]):[0-5][0-9]$";
 

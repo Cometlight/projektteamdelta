@@ -14,6 +14,10 @@
 			padding: 5px;
 			width: 300px;
 		}
+		
+		.infotext{
+			font-weight: bold;
+		}
 	</ui:style>
 	
 	<g:HTMLPanel>
@@ -124,7 +128,11 @@
 				</g:HTMLPanel>
 				<g:HTMLPanel styleName="{mycss.rightColumn}">
 					<table ui:field="datepickerTable">
-						<g:Label ui:field="datePickerExplanation" text="Choose the from and to date by clicking onto the date! Repeat if you want to correct your selection."/>
+						<p class="{mycss.infotext}">Optional: Please choose the time period in which you are not available.</p>
+						<p>Choose the 'From' and 'To' date by clicking onto the date!</p>
+						<p>The first click sets the 'From' date, the second the 'To' date.</p>
+						<p>If your input is wrong, repeat the process.</p>
+						
 						<dp:DatePicker ui:field="datepicker1" />
 						<g:Label ui:field="datepicker1ErrorLabel" />
 						<g:Label ui:field="fromDateLabel" />

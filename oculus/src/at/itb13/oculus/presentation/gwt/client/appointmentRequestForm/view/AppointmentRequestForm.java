@@ -60,14 +60,14 @@ public class AppointmentRequestForm extends Composite {
 		fromTimeBox1.addValueChangeHandler(new ValueChangeHandler<Long>() {
             public void onValueChange(ValueChangeEvent<Long> event) {
                 fromTimeBox1.setValue(event.getValue());
-                //My little test
-//                fromLabel1.setText(fromTimeBox1.getText());
+                checkTimeBox(fromErrorLabel1,fromTimeBox1,toTimeBox1);
             }
         });
 		
 		toTimeBox1.addValueChangeHandler(new ValueChangeHandler<Long>() {
             public void onValueChange(ValueChangeEvent<Long> event) {
             	toTimeBox1.setValue(event.getValue());
+            	checkTimeBox(fromErrorLabel1,fromTimeBox1,toTimeBox1);
             }
         });
 		
@@ -159,8 +159,8 @@ public class AppointmentRequestForm extends Composite {
 	private Date _toDate;
 	private boolean _isAdded1;
 	private boolean _isAdded2;
-	private List<CalendarEvent> _results;
 	private String _reason;
+	private boolean _isValid;
 
 	@UiField
 	ListBox weekdayListBox1;
@@ -282,6 +282,30 @@ public class AppointmentRequestForm extends Composite {
 	@UiField
 	TextBox reasonForAppointmentTextBox;
 	
+	private void checkTimeBox(Label label, UTCTimeBox box1, UTCTimeBox box2){
+		if(box1.getText().isEmpty() || box2.getText().isEmpty()){
+			label.setVisible(true);
+			label.setText("Starttime or Endtime is missing!");
+			_isValid = false;
+		} else{
+			String[] parts1 = box1.getText().split(":");
+			int hour1 = Integer.parseInt(parts1[0]);
+			int minute1 = Integer.parseInt(parts1[1]);
+			String[] parts2 = box1.getText().split(":");
+			int hour2 = Integer.parseInt(parts2[0]);
+			int minute2 = Integer.parseInt(parts2[1]);
+			if(hour1 > hour2 || (hour1 == hour2 && minute1 >= minute2)){
+				label.setVisible(true);
+				label.setText(" The Starttime has to be befor the Endtime!");
+				_isValid = false;
+			} else{
+				label.setVisible(false);
+				label.setText("");
+				_isValid = true;				
+			}
+		}
+	}
+	
 	@UiHandler("addButton1")
 	void onClickAddButton1(ClickEvent event){
 		addButton2.setVisible(true);
@@ -361,34 +385,24 @@ public class AppointmentRequestForm extends Composite {
 		
 		_reason = reasonForAppointmentTextBox.getText();
 
-		AsyncCallback<CalendarEvent> callback = new AsyncCallback<CalendarEvent>() {
+		AsyncCallback<List<CalendarEvent>> callback = new AsyncCallback<List<CalendarEvent>>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				Window.alert("Wrong Input, please try again.");
 			}
 
 			@Override
-			public void onSuccess(CalendarEvent result) {
-				result.setReason(_reason);
-				_results.add(result);
-//					Index.forward(new AppointmentChoice(_patient, results));
+			public void onSuccess(List<CalendarEvent> events) {
+				for(CalendarEvent event : events){
+					event.setReason(_reason);
+				}
+				Index.forward(new AppointmentChoice(_patient, events));
 			}
 		};
 		
-		boolean isSameDay = false;
-		
 		//TODO: handle same day
-		appointmentCheckService.getPossibleAppointment(weekday1, from1, to1, _fromDate, _toDate, isSameDay, 
-														appointmentType, callback);
-		if(_isAdded1){
-			appointmentCheckService.getPossibleAppointment(weekday2, from2, to2, _fromDate, _toDate, isSameDay, 
-															appointmentType, callback);
-			if(_isAdded2){
-				appointmentCheckService.getPossibleAppointment(weekday3, from3, to3, _fromDate, _toDate, isSameDay, 
-																appointmentType, callback);
-			}
-		}
-		Index.forward(new AppointmentChoice(_patient, _results));
+		appointmentCheckService.getPossibleAppointments(weekday1, from1, to1, weekday2, from2, to2, weekday3, from3, to3,
+													    _isAdded1, _isAdded2, _fromDate, _toDate, appointmentType, callback);
 	}
 	
 	@UiHandler("resetButton")

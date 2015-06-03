@@ -75,7 +75,7 @@ public class NewAppointment {
 	
 	@SuppressWarnings("static-access")
 	public at.itb13.oculus.presentation.gwt.shared.CalendarEvent getPossibleAppointment(String weekday, String from, String to, 
-																Date start, Date end, boolean isSameDay, String appointmentType){
+																Date start, Date end, String appointmentType){
 		
 		int appointmentDuration = getAppointmentDuration(appointmentType);
 		System.out.println("Typ: " + appointmentType);

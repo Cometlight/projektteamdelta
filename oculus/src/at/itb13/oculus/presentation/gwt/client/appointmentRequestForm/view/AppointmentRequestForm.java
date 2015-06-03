@@ -151,9 +151,9 @@ public class AppointmentRequestForm extends Composite {
 	private boolean _isFirstDatePicked;
 	private Date _fromDate;
 	private Date _toDate;
-	private boolean isAdded1;
-	private boolean isAdded2;
-	private List<CalendarEvent> results;
+	private boolean _isAdded1;
+	private boolean _isAdded2;
+	private List<CalendarEvent> _results;
 	private String _reason;
 
 	@UiField
@@ -262,6 +262,9 @@ public class AppointmentRequestForm extends Composite {
 	Button logOutButton;
 	
 	@UiField
+	Button resetButton;
+	
+	@UiField
 	TextBox reasonForAppointmentTextBox;
 	
 	@UiHandler("addButton1")
@@ -274,7 +277,7 @@ public class AppointmentRequestForm extends Composite {
 		addButton1.setVisible(false);
 		removeButton1.setVisible(true);
 		weekdayListBox2.setVisible(true);
-		isAdded1 = true;
+		_isAdded1 = true;
 	}
 	
 	@UiHandler("removeButton1")
@@ -287,7 +290,7 @@ public class AppointmentRequestForm extends Composite {
 		addButton1.setVisible(true);
 		removeButton1.setVisible(false);
 		weekdayListBox2.setVisible(false);
-		isAdded1 = false;
+		_isAdded1 = false;
 	}
 	
 	@UiHandler("addButton2")
@@ -300,7 +303,7 @@ public class AppointmentRequestForm extends Composite {
 		removeButton1.setVisible(false);
 		removeButton2.setVisible(true);
 		weekdayListBox3.setVisible(true);
-		isAdded2 = true;
+		_isAdded2 = true;
 	}
 	
 	@UiHandler("removeButton2")
@@ -313,7 +316,7 @@ public class AppointmentRequestForm extends Composite {
 		removeButton1.setVisible(true);
 		removeButton2.setVisible(false);
 		weekdayListBox3.setVisible(false);
-		isAdded2 = false;
+		_isAdded2 = false;
 	}
 	
 	@UiHandler("submitButton")
@@ -352,7 +355,7 @@ public class AppointmentRequestForm extends Composite {
 			@Override
 			public void onSuccess(CalendarEvent result) {
 				result.setReason(_reason);
-				results.add(result);
+				_results.add(result);
 //					Index.forward(new AppointmentChoice(_patient, results));
 			}
 		};
@@ -362,14 +365,60 @@ public class AppointmentRequestForm extends Composite {
 		//TODO: handle same day
 		appointmentCheckService.getPossibleAppointment(weekday1, from1, to1, _fromDate, _toDate, isSameDay, 
 														appointmentType, callback);
-		if(isAdded1){
+		if(_isAdded1){
 			appointmentCheckService.getPossibleAppointment(weekday2, from2, to2, _fromDate, _toDate, isSameDay, 
 															appointmentType, callback);
-			if(isAdded2){
+			if(_isAdded2){
 				appointmentCheckService.getPossibleAppointment(weekday3, from3, to3, _fromDate, _toDate, isSameDay, 
 																appointmentType, callback);
 			}
 		}
-		Index.forward(new AppointmentChoice(_patient, results));
+		Index.forward(new AppointmentChoice(_patient, _results));
+	}
+	
+	@UiHandler("resetButton")
+	void resetButton(ClickEvent event){
+		resetUI();
+	}
+	
+	private void resetUI(){
+		weekdayListBox2.setVisible(false);
+		weekdayListBox3.setVisible(false);
+		addButton2.setVisible(false);
+		fromTimeBox2.setVisible(false);
+		fromTimeBox3.setVisible(false);
+		toTimeBox2.setVisible(false);
+		toTimeBox3.setVisible(false);
+		fromLabel2.setVisible(false);
+		toLabel2.setVisible(false);
+		fromLabel3.setVisible(false);
+		toLabel3.setVisible(false);
+		removeButton1.setVisible(false);
+		removeButton2.setVisible(false);
+		addButton1.setVisible(true);
+		_isFirstDatePicked = false;
+		_fromDate = null;
+		_toDate = null;
+		_isAdded1 = false;
+		_isAdded2 = false;
+		_reason = "";
+		
+		reasonForAppointmentTextBox.setText(" ");
+		
+		weekdayListBox1.setItemSelected(0, true);
+		weekdayListBox2.setItemSelected(0, true);
+		weekdayListBox3.setItemSelected(0, true);
+		
+		fromTimeBox1.setText(" ");
+		toTimeBox1.setText(" ");
+		fromTimeBox2.setText(" ");
+		toTimeBox2.setText(" ");
+		fromTimeBox3.setText(" ");
+		toTimeBox3.setText(" ");
+		
+		fromDateLabel.setText("From: ");
+		toDateLabel.setText("To: ");
+		
+		eventTypeListBox.setItemSelected(0, true);
 	}
 }

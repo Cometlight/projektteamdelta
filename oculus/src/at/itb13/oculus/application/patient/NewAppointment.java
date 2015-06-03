@@ -106,7 +106,7 @@ public class NewAppointment {
 			System.out.println("not empty");
 			lt1 = createLocalTimeOfString(from);
 		}else{
-			lt1 = LocalTime.of(8, 00);
+			lt1 = LocalTime.of(8, 00);	// TODO: dokumentieren oder error werfen oder loggen und null zurückgeben oder so
 		}
 		if(!to.isEmpty()){
 			lt2 = createLocalTimeOfString(to);
@@ -228,5 +228,9 @@ public class NewAppointment {
 		domainEvent.setPatient(pa);
 		domainEvent.setEventType(eventType);
 		return CalendarEventDao.getInstance().makePersistent(domainEvent);
+	}
+	
+	public boolean isInWorkingHours(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+		return true;
 	}
 }

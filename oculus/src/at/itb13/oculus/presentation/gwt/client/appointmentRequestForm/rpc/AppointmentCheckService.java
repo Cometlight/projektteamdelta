@@ -21,4 +21,5 @@ public interface AppointmentCheckService extends RemoteService {
 									Date start, Date end, boolean isSameDay, String appointmentType);
 	
 	List<String> getEventTypes();
+	Boolean isInWorkingHours(String weekday, String from, String to);
 }

@@ -4,6 +4,8 @@ package at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view;
 import java.util.Date;
 import java.util.List;
 
+import at.itb13.oculus.presentation.gwt.client.Index;
+import at.itb13.oculus.presentation.gwt.client.appointmentChoice.view.AppointmentChoice;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckService;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckServiceAsync;
 import at.itb13.oculus.presentation.gwt.shared.CalendarEvent;

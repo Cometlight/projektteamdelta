@@ -3,42 +3,29 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 	<ui:style src="../../Style.css" />
 	<ui:style field="mycss">
-		.background {
-			border: 1px none transparent;
-			color: #000000;
-			font-size: 11px;
-			margin-left: -8px;
-			margin-top: 5px;
-			padding: 6px;
-		}
-		
-		.labelTest {
-			color: #0000FF;
-		}
+	
 	</ui:style>
 
 	<g:HTMLPanel ui:field="htmlPanel">
-		<div id="wrapper" class="{mycss.background}">
-			<g:VerticalPanel styleName="{mycss.background}">
-				<g:Label ui:field="nameLabel" text="Patient Name"
-					styleName="{mycss.labelTest}" />
-				<g:Label ui:field="sinLabel" text="Social Insurance Number"
-					styleName="{mycss.labelTest}" />
-				<g:Label ui:field="doctorLabel" text="Patients Doctor"
-					styleName="{mycss.labelTest}" />
+		<div id="wrapper">
+			<g:VerticalPanel styleName="{style.loginInfo}">
+				<g:Label text="Logged in as.." styleName="{style.loginInfoLabel}"/>
+				<g:Label ui:field="nameLabel"/>
+				<g:Label ui:field="sinLabel"/>
+				<g:Label ui:field="doctorLabel"/>
+				<g:Button ui:field="logoutButton" text="Logout" />
 			</g:VerticalPanel>
-			<h3>Choose an Appointment:</h3>
-			<g:VerticalPanel ui:field="tablePanel">
+			<h2>Choose an Appointment:</h2>
+			<g:VerticalPanel ui:field="tablePanel" styleName="{style.appointmentTable}">
 				<c:CellTable ui:field="appointmentTable" />
 			</g:VerticalPanel>
 			<br />
-			<h3>Your chosen Appointment:</h3>
-			<g:VerticalPanel ui:field="chosenPanel">
+			<h2>Your chosen Appointment:</h2>
+			<g:VerticalPanel ui:field="chosenPanel" styleName="{style.appointmentTable}">
 				<c:CellTable ui:field="chosenTable" />
 			</g:VerticalPanel>
 			<g:Button ui:field="backButton" text="Back" />
 			<g:Button ui:field="okButton" text="OK" />
-			<g:Button ui:field="logoutButton" text="Logout" />
 		</div>
 	</g:HTMLPanel>
 </ui:UiBinder> 

@@ -14,6 +14,7 @@
 	
 	<g:HTMLPanel>
 		<div id="wrapper">
+			<h2>Login</h2>
 			<g:VerticalPanel>
 				<g:Label text="Email" styleName="{mycss.label}" />
 				<g:TextBox ui:field="emailBox" styleName="{mycss.box}" />

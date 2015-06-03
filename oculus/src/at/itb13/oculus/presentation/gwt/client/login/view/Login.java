@@ -62,7 +62,8 @@ public class Login extends Composite {
 	@UiField
 	Label loginErrorLabel;
 
-	private boolean validInput;
+	private boolean validEmailInput;
+	private boolean validPasswordInput;
 
 	@UiTemplate("Login.ui.xml")
 	interface LoginUiBinder extends UiBinder<Widget, Login> {
@@ -90,7 +91,7 @@ public class Login extends Composite {
 	}
 	
 	void login() {
-		if (validInput) {
+		if (validEmailInput && validPasswordInput) {
 			final String email = emailBox.getText();
 			String password = passwordBox.getText();
 
@@ -142,14 +143,14 @@ public class Login extends Composite {
 		if (event.getValue().length() <= 0) {
 			emailErrorLabel.setText(emailErrorMissing);
 			emailErrorLabel.setVisible(true);
-			validInput = false;
+			validEmailInput = false;
 		} else if (!isEmailValid(event.getValue())) {
 			emailErrorLabel.setText(emailErrorInvalid);
 			emailErrorLabel.setVisible(true);
-			validInput = false;
+			validEmailInput = false;
 		} else {
 			emailErrorLabel.setVisible(false);
-			validInput = true;
+			validEmailInput = true;
 		}
 	}
 
@@ -177,10 +178,10 @@ public class Login extends Composite {
 	void onPasswordBoxChange(ValueChangeEvent<String> event) {
 		if (event.getValue().length() <= 0) {
 			passwordErrorLabel.setVisible(true);
-			validInput = false;
+			validPasswordInput = false;
 		} else {
 			passwordErrorLabel.setVisible(false);
-			validInput = true;
+			validPasswordInput = true;
 		}
 	}
 }

@@ -4,34 +4,25 @@
 	xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 	<ui:style src="../../Style.css" />
 	<ui:style field="mycss">
-		.background {
-		   border: 1px none transparent;
-		   color: #000000;
-		   font-size: 11px;
-		   margin-left: -8px;
-		   margin-top: 5px;
-		   padding: 6px;
-		}
 		
-		.labelTest {
-			color: #0000FF;
-		}
 	</ui:style>
 	
 	<g:HTMLPanel>
 	
-		<div id="wrapper" class="{mycss.background}">
-			<g:VerticalPanel styleName="{mycss.background}">
-				<g:Label ui:field="nameLabel" text="Patient Name" styleName="{mycss.labelTest}"/>
-				<g:Label ui:field="sinLabel" text="Social Insurance Number" styleName="{mycss.labelTest}"/>
-				<g:Label ui:field="doctorLabel" text="Patients Doctor" styleName="{mycss.labelTest}"/>
+		<div id="wrapper">
+				<g:VerticalPanel styleName="{style.loginInfo}">
+				<g:Label text="Logged in as.." styleName="{style.loginInfoLabel}"/>
+				<g:Label ui:field="nameLabel"/>
+				<g:Label ui:field="sinLabel"/>
+				<g:Label ui:field="doctorLabel"/>
+				<g:Button ui:field="logoutButton" text="Logout" />
 			</g:VerticalPanel>
-			<h3>Your next Appointment: </h3>
-			<g:VerticalPanel ui:field="tablePanel">
+			<h2>Your next Appointment: </h2>
+			<g:VerticalPanel ui:field="tablePanel" styleName="{style.appointmentTable}">
 				<c:CellTable ui:field="existingAppointmentTable"/>
 			</g:VerticalPanel>
+			<p>In order to fix a new appointment, please delete the appointment above.</p>
 			<g:Button ui:field="deleteButton" text="Delete"/>	
-			<g:Button ui:field="logoutButton" text="Logout"/>
 			<g:Button ui:field="newAppointmentButton" text="New Appointment"/>
 			<g:Button ui:field="appointmentChoiceButton" text="Appointment Choice"/>
 			

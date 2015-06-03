@@ -3,12 +3,15 @@ package at.itb13.oculus.presentation.gwt.client.appointmentChoice.view;
 import java.util.List;
 
 import at.itb13.oculus.application.ControllerFacade;
+import at.itb13.oculus.presentation.gwt.client.Index;
 import at.itb13.oculus.presentation.gwt.client.appointmentChoice.rpc.AppointmentChoiceService;
 import at.itb13.oculus.presentation.gwt.client.appointmentChoice.rpc.AppointmentChoiceServiceAsync;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc.AppointmentOverviewService;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.rpc.AppointmentOverviewServiceAsync;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.AppointmentOverview;
 import at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.AppointmentOverviewResources;
+import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view.AppointmentRequestForm;
+import at.itb13.oculus.presentation.gwt.client.login.view.Login;
 import at.itb13.oculus.presentation.gwt.shared.CalendarEvent;
 import at.itb13.oculus.presentation.gwt.shared.Patient;
 
@@ -75,6 +78,10 @@ public class AppointmentChoice extends Composite{
 	VerticalPanel chosenPanel;
 	@UiField
 	Button okButton;
+	@UiField
+	Button backButton;
+	@UiField
+	Button logoutButton;
 	
 	private List<CalendarEvent> _events;
 	
@@ -225,8 +232,18 @@ public class AppointmentChoice extends Composite{
 	
 	@UiHandler("okButton")
 	void onClickOkButton(ClickEvent event) {
+		
 	
+	}
 	
+	@UiHandler("backButton")
+	void onClickBackButton(ClickEvent event){
+		Index.forward(new AppointmentRequestForm());
+	}
+	
+	@UiHandler("logoutButton")
+	void onClickLogoutButton(ClickEvent event){
+		Index.forward(new Login());
 	}
 
 

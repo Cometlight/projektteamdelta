@@ -7,6 +7,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -28,6 +30,11 @@ import at.itb13.oculus.technicalServices.dao.PatientDao;
 public class NewAppointment_UnitTests {
 	private static final String PATIENT1_EMAIL = "max.mustermann@muster.com";
 	private static final String PATIENT1_PASSWORD = "letmein";
+	
+	// Testadata for getPatientAppointment, deleteAppointment and addAppointment CalendarEvent belongs to PatientID
+	at.itb13.oculus.presentation.gwt.shared.Patient patientshared = 
+			new at.itb13.oculus.presentation.gwt.shared.Patient();
+	int calendarEventId;
 
 	@Before
 	public void setUp() throws Exception {
@@ -131,5 +138,39 @@ public class NewAppointment_UnitTests {
 		calEv2.setEventEnd(LocalDateTime.now().plusMinutes(15));
 		patient.addCalendarEvent(calEv2);
 		assertFalse(newAp.hasFutureAppointment());
+	}
+//	@Test
+//	public void addAppointmentTest(){
+//		NewAppointment newApp = new NewAppointment();
+//		
+//		patientshared.setName("Sarah Mueller");
+//		patientshared.setDoctor("David Ruben");
+//		patientshared.setSin("7896321405");
+//		at.itb13.oculus.presentation.gwt.shared.CalendarEvent ce = 
+//				new at.itb13.oculus.presentation.gwt.shared.CalendarEvent();
+//		
+//		ce.setDate("");
+//		ce.setDoctor("David Ruben");
+//		ce.setType("StandardTreatment");
+//		ce.setReason("first Appointment");
+//		assertTrue(newApp.addAppointment(patientshared, ce));
+//		
+//	}
+	@Test
+	public void deleteAppointmentTest(){
+		Patient patient;
+		patient = PatientDao.getInstance().findBySocialInsuranceNr("7896321405");
+		List<CalendarEvent> ces = new LinkedList<CalendarEvent>();
+		calendarEventId = ces.get(0).getCalendarEventId();
+		NewAppointment newApp = new NewAppointment();
+		assertTrue(newApp.deleteAppointment(calendarEventId));
+	}
+	@Test
+	public void getPatientAppointmentTest(){
+		at.itb13.oculus.presentation.gwt.shared.CalendarEvent ce = 
+				new at.itb13.oculus.presentation.gwt.shared.CalendarEvent();
+		NewAppointment newApp = new NewAppointment();
+		ce = newApp.getPatientAppointment(patientshared);
+		assertTrue(ce.getId()==calendarEventId);
 	}
 }

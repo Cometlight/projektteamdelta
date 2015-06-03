@@ -20,6 +20,7 @@
   <!-- Other module inherits                                      -->
   <inherits name="com.google.gwt.uibinder.UiBinder"/>
   <inherits name="com.google.gwt.resources.Resources" />
+  <inherits name="com.tractionsoftware.gwt.user.UTCDateTime"/>
 
   <!-- Specify the app entry point class.                         -->
   <entry-point class='at.itb13.oculus.presentation.gwt.client.Index'/>

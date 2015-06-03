@@ -4,9 +4,6 @@ package at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view;
 import java.util.Date;
 import java.util.List;
 
-import at.itb13.oculus.presentation.gwt.client.Index;
-import at.itb13.oculus.presentation.gwt.client.appointmentChoice.view.AppointmentChoice;
-import at.itb13.oculus.presentation.gwt.client.appointmentOverview.view.AppointmentOverview;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckService;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckServiceAsync;
 import at.itb13.oculus.presentation.gwt.shared.CalendarEvent;
@@ -31,6 +28,7 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DatePicker;
+import com.tractionsoftware.gwt.user.client.ui.UTCTimeBox;
 
 public class AppointmentRequestForm extends Composite {
 	private static AppointmentRequestFormUiBinder uiBinder = GWT
@@ -90,10 +88,10 @@ public class AppointmentRequestForm extends Composite {
 		weekdayListBox2.setVisible(false);
 		weekdayListBox3.setVisible(false);
 		addButton2.setVisible(false);
-		fromTextBox2.setVisible(false);
-		fromTextBox3.setVisible(false);
-		toTextBox2.setVisible(false);
-		toTextBox3.setVisible(false);
+		fromTimeBox2.setVisible(false);
+		fromTimeBox3.setVisible(false);
+		toTimeBox2.setVisible(false);
+		toTimeBox3.setVisible(false);
 		fromLabel2.setVisible(false);
 		toLabel2.setVisible(false);
 		fromLabel3.setVisible(false);
@@ -121,22 +119,22 @@ public class AppointmentRequestForm extends Composite {
 	ListBox weekdayListBox3;
 
 	@UiField
-	TextBox fromTextBox1;
+	UTCTimeBox fromTimeBox1;
 
 	@UiField
-	TextBox toTextBox1;
+	UTCTimeBox toTimeBox1;
 	
 	@UiField
-	TextBox fromTextBox2;
+	UTCTimeBox fromTimeBox2;
 
 	@UiField
-	TextBox toTextBox2;
+	UTCTimeBox toTimeBox2;
 	
 	@UiField
-	TextBox fromTextBox3;
+	UTCTimeBox fromTimeBox3;
 
 	@UiField
-	TextBox toTextBox3;
+	UTCTimeBox toTimeBox3;
 
 	@UiField
 	DatePicker datepicker1;
@@ -222,8 +220,8 @@ public class AppointmentRequestForm extends Composite {
 	@UiHandler("addButton1")
 	void addButton1(ClickEvent event){
 		addButton2.setVisible(true);
-		fromTextBox2.setVisible(true);
-		toTextBox2.setVisible(true);
+		fromTimeBox2.setVisible(true);
+		toTimeBox2.setVisible(true);
 		fromLabel2.setVisible(true);
 		toLabel2.setVisible(true);
 		addButton1.setVisible(false);
@@ -235,8 +233,8 @@ public class AppointmentRequestForm extends Composite {
 	@UiHandler("removeButton1")
 	void removeButton1(ClickEvent event){
 		addButton2.setVisible(false);
-		fromTextBox2.setVisible(false);
-		toTextBox2.setVisible(false);
+		fromTimeBox2.setVisible(false);
+		toTimeBox2.setVisible(false);
 		fromLabel2.setVisible(false);
 		toLabel2.setVisible(false);
 		addButton1.setVisible(true);
@@ -247,8 +245,8 @@ public class AppointmentRequestForm extends Composite {
 	
 	@UiHandler("addButton2")
 	void addButton2(ClickEvent event){
-		fromTextBox3.setVisible(true);
-		toTextBox3.setVisible(true);
+		fromTimeBox3.setVisible(true);
+		toTimeBox3.setVisible(true);
 		fromLabel3.setVisible(true);
 		toLabel3.setVisible(true);
 		addButton2.setVisible(false);
@@ -260,8 +258,8 @@ public class AppointmentRequestForm extends Composite {
 	
 	@UiHandler("removeButton2")
 	void removeButton2(ClickEvent event){
-		fromTextBox3.setVisible(false);
-		toTextBox3.setVisible(false);
+		fromTimeBox3.setVisible(false);
+		toTimeBox3.setVisible(false);
 		fromLabel3.setVisible(false);
 		toLabel3.setVisible(false);
 		addButton2.setVisible(true);
@@ -271,107 +269,107 @@ public class AppointmentRequestForm extends Composite {
 		isAdded2 = false;
 	}
 
-	@UiHandler({"fromTextBox1"})
-	void onFromBox1Change(ValueChangeEvent<String> event) {
-		if (event.getValue().length() != 0) {
-			if(!isTimeValid(event.getValue())){
-				fromErrorLabel1.setText("This is not a valid time");
-				fromErrorLabel1.setVisible(true);
-				_validInput = false;
-			} else {
-				fromErrorLabel1.setVisible(false);
-				_validInput = true;
-			}
-		} else {
-			fromErrorLabel1.setVisible(false);
-			_validInput = true;
-		}
-	}
-	
-	@UiHandler({"toTextBox1"})
-	void onToBox1Change(ValueChangeEvent<String> event) {
-		if (event.getValue().length() != 0) {
-			if(!isTimeValid(event.getValue())){
-				toErrorLabel1.setText("This is not a valid time");
-				toErrorLabel1.setVisible(true);
-				_validInput = false;
-			} else {
-				toErrorLabel1.setVisible(false);
-				_validInput = true;
-			}
-		} else {
-			toErrorLabel1.setVisible(false);
-			_validInput = true;
-		}
-	}
-	
-	@UiHandler({"fromTextBox2"})
-	void onFromBox2Change(ValueChangeEvent<String> event) {
-		if (event.getValue().length() != 0) {
-			if(!isTimeValid(event.getValue())){
-				fromErrorLabel2.setText("This is not a valid time");
-				fromErrorLabel2.setVisible(true);
-				_validInput = false;
-			} else {
-				fromErrorLabel2.setVisible(false);
-				_validInput = true;
-			}
-		}else {
-			fromErrorLabel2.setVisible(false);
-			_validInput = true;
-		}
-	}
-	
-	@UiHandler({"toTextBox2"})
-	void onToBox2Change(ValueChangeEvent<String> event) {
-		if (event.getValue().length() != 0) {
-			if(!isTimeValid(event.getValue())){
-				toErrorLabel2.setText("This is not a valid time");
-				toErrorLabel2.setVisible(true);
-				_validInput = false;
-			} else {
-				toErrorLabel2.setVisible(false);
-				_validInput = true;
-			}
-		}else {
-			toErrorLabel2.setVisible(false);
-			_validInput = true;
-		}
-	}
-	
-	@UiHandler({"fromTextBox3"})
-	void onFromBox3Change(ValueChangeEvent<String> event) {
-		if (event.getValue().length() != 0) {
-			if(!isTimeValid(event.getValue())){
-				fromErrorLabel3.setText("This is not a valid time");
-				fromErrorLabel3.setVisible(true);
-				_validInput = false;
-			} else {
-				fromErrorLabel3.setVisible(false);
-				_validInput = true;
-			}
-		} else {
-			fromErrorLabel3.setVisible(false);
-			_validInput = true;
-		}
-	}
-	
-	@UiHandler({"toTextBox3"})
-	void onToBox3Change(ValueChangeEvent<String> event) {
-		if (event.getValue().length() != 0) {
-			if(!isTimeValid(event.getValue())){
-				toErrorLabel3.setText("This is not a valid time");
-				toErrorLabel3.setVisible(true);
-				_validInput = false;
-			} else {
-				toErrorLabel3.setVisible(false);
-				_validInput = true;
-			}
-		} else {
-			toErrorLabel3.setVisible(false);
-			_validInput = true;
-		}
-	}
+//	@UiHandler({"fromTimeBox1"})
+//	void onFromBox1Change(ValueChangeEvent<String> event) {
+//		if (event.getValue().length() != 0) {
+//			if(!isTimeValid(event.getValue())){
+//				fromErrorLabel1.setText("This is not a valid time");
+//				fromErrorLabel1.setVisible(true);
+//				_validInput = false;
+//			} else {
+//				fromErrorLabel1.setVisible(false);
+//				_validInput = true;
+//			}
+//		} else {
+//			fromErrorLabel1.setVisible(false);
+//			_validInput = true;
+//		}
+//	}
+//	
+//	@UiHandler({"toTimeBox1"})
+//	void onToBox1Change(ValueChangeEvent<String> event) {
+//		if (event.getValue().length() != 0) {
+//			if(!isTimeValid(event.getValue())){
+//				toErrorLabel1.setText("This is not a valid time");
+//				toErrorLabel1.setVisible(true);
+//				_validInput = false;
+//			} else {
+//				toErrorLabel1.setVisible(false);
+//				_validInput = true;
+//			}
+//		} else {
+//			toErrorLabel1.setVisible(false);
+//			_validInput = true;
+//		}
+//	}
+//	
+//	@UiHandler({"fromTimeBox2"})
+//	void onFromBox2Change(ValueChangeEvent<String> event) {
+//		if (event.getValue().length() != 0) {
+//			if(!isTimeValid(event.getValue())){
+//				fromErrorLabel2.setText("This is not a valid time");
+//				fromErrorLabel2.setVisible(true);
+//				_validInput = false;
+//			} else {
+//				fromErrorLabel2.setVisible(false);
+//				_validInput = true;
+//			}
+//		}else {
+//			fromErrorLabel2.setVisible(false);
+//			_validInput = true;
+//		}
+//	}
+//	
+//	@UiHandler({"toTimeBox2"})
+//	void onToBox2Change(ValueChangeEvent<String> event) {
+//		if (event.getValue().length() != 0) {
+//			if(!isTimeValid(event.getValue())){
+//				toErrorLabel2.setText("This is not a valid time");
+//				toErrorLabel2.setVisible(true);
+//				_validInput = false;
+//			} else {
+//				toErrorLabel2.setVisible(false);
+//				_validInput = true;
+//			}
+//		}else {
+//			toErrorLabel2.setVisible(false);
+//			_validInput = true;
+//		}
+//	}
+//	
+//	@UiHandler({"fromTimeBox3"})
+//	void onFromBox3Change(ValueChangeEvent<String> event) {
+//		if (event.getValue().length() != 0) {
+//			if(!isTimeValid(event.getValue())){
+//				fromErrorLabel3.setText("This is not a valid time");
+//				fromErrorLabel3.setVisible(true);
+//				_validInput = false;
+//			} else {
+//				fromErrorLabel3.setVisible(false);
+//				_validInput = true;
+//			}
+//		} else {
+//			fromErrorLabel3.setVisible(false);
+//			_validInput = true;
+//		}
+//	}
+//	
+//	@UiHandler({"toTimeBox3"})
+//	void onToBox3Change(ValueChangeEvent<String> event) {
+//		if (event.getValue().length() != 0) {
+//			if(!isTimeValid(event.getValue())){
+//				toErrorLabel3.setText("This is not a valid time");
+//				toErrorLabel3.setVisible(true);
+//				_validInput = false;
+//			} else {
+//				toErrorLabel3.setVisible(false);
+//				_validInput = true;
+//			}
+//		} else {
+//			toErrorLabel3.setVisible(false);
+//			_validInput = true;
+//		}
+//	}
 	
 	private boolean isTimeValid(String time) {
 		final String timePattern = "^(1?[0-9]|2[0-3]):[0-5][0-9]$";
@@ -397,14 +395,14 @@ public class AppointmentRequestForm extends Composite {
 			int index3 = weekdayListBox3.getSelectedIndex();
 			String weekday3 = weekdayListBox3.getItemText(index3);
 			
-			String from1 = fromTextBox1.getText();
-			String to1 = toTextBox1.getText();
+			String from1 = fromTimeBox1.getText();
+			String to1 = toTimeBox1.getText();
 				
-			String from2 = fromTextBox2.getText();
-			String to2 = toTextBox2.getText();
+			String from2 = fromTimeBox2.getText();
+			String to2 = toTimeBox2.getText();
 			
-			String from3 = fromTextBox3.getText();
-			String to3 = toTextBox3.getText();
+			String from3 = fromTimeBox3.getText();
+			String to3 = toTimeBox3.getText();
 		
 			int index4 = eventTypeListBox.getSelectedIndex();
 			String appointmentType = eventTypeListBox.getItemText(index4);

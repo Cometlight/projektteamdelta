@@ -1,5 +1,5 @@
 body {
-	background-color: #F4F5ED !important;
+	/*background-color: #F4F5ED !important;*/
 	color: #373833 !important;
 	font-family: 'Open Sans', sans-serif !important;
 }
@@ -12,6 +12,17 @@ body > div {
 }
 
 #wrapper {
+	background-color: #F4F5ED;
 	border: 1px solid black;
-	padding: 5px;
+	padding: 25px 10px;
+}
+
+#logo {
+	font-size: 32pt;
+	text-align: right;
+}
+
+#logo > img {
+	height: 128px;
+	width: 128px;	
 }

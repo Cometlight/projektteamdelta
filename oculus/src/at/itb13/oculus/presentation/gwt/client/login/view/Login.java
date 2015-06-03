@@ -68,12 +68,7 @@ public class Login extends Composite {
 	interface LoginUiBinder extends UiBinder<Widget, Login> {
 	}
 
-	@UiField(provided = true)
-	final LoginResources res;
-
 	public Login() {
-		this.res = GWT.create(LoginResources.class);
-		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
 
 		emailErrorLabel.setVisible(false);

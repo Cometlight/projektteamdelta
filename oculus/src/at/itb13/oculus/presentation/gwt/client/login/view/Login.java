@@ -64,6 +64,7 @@ public class Login extends Composite {
 
 	private boolean validEmailInput;
 	private boolean validPasswordInput;
+	private boolean isLoggingIn;
 
 	@UiTemplate("Login.ui.xml")
 	interface LoginUiBinder extends UiBinder<Widget, Login> {
@@ -91,7 +92,7 @@ public class Login extends Composite {
 	}
 	
 	void login() {
-		if (validEmailInput && validPasswordInput) {
+		if (!isLoggingIn && validEmailInput && validPasswordInput) {
 			final String email = emailBox.getText();
 			String password = passwordBox.getText();
 
@@ -100,6 +101,8 @@ public class Login extends Composite {
 				@Override
 				public void onFailure(Throwable caught) {
 					progressLabel.setVisible(false);
+					loginButton.setEnabled(true);
+					isLoggingIn = false;
 					Window.alert("Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
 				}
 
@@ -113,6 +116,7 @@ public class Login extends Composite {
 						AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
 							@Override
 							public void onFailure(Throwable caught) {
+								loginButton.setEnabled(true);
 								Window.alert("Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
 							}
 							@Override
@@ -133,6 +137,8 @@ public class Login extends Composite {
 			};
 
 			progressLabel.setVisible(true);
+			loginButton.setEnabled(false);
+			isLoggingIn = true;
 			loginCheckService
 					.isLoginCredentialsValid(email, password, callback);
 		}

@@ -8,6 +8,7 @@ import at.itb13.oculus.presentation.gwt.client.Index;
 import at.itb13.oculus.presentation.gwt.client.appointmentChoice.view.AppointmentChoice;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckService;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckServiceAsync;
+import at.itb13.oculus.presentation.gwt.client.login.view.Login;
 import at.itb13.oculus.presentation.gwt.shared.CalendarEvent;
 import at.itb13.oculus.presentation.gwt.shared.Patient;
 
@@ -16,6 +17,8 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.regexp.shared.MatchResult;
+import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -48,20 +51,25 @@ public class AppointmentRequestForm extends Composite {
 		fromDateLabel.setText("From: ");
 		toDateLabel.setText("To: ");
 		
+		
+		nameLabel.setText(patient.getName());
+		sinLabel.setText(patient.getSin());
+		doctorLabel.setText(patient.getDoctor());
+		
 		//Init all timeboxes:
 		
 		//From-To Timebox 1
 		fromTimeBox1.addValueChangeHandler(new ValueChangeHandler<Long>() {
             public void onValueChange(ValueChangeEvent<Long> event) {
                 fromTimeBox1.setValue(event.getValue());
-                //My little test
-//                fromLabel1.setText(fromTimeBox1.getText());
+                checkTimeBox(fromErrorLabel1,fromTimeBox1,toTimeBox1,_isValid1);
             }
         });
 		
 		toTimeBox1.addValueChangeHandler(new ValueChangeHandler<Long>() {
             public void onValueChange(ValueChangeEvent<Long> event) {
             	toTimeBox1.setValue(event.getValue());
+            	checkTimeBox(fromErrorLabel1,fromTimeBox1,toTimeBox1,_isValid1);
             }
         });
 		
@@ -70,12 +78,14 @@ public class AppointmentRequestForm extends Composite {
 		fromTimeBox2.addValueChangeHandler(new ValueChangeHandler<Long>() {
             public void onValueChange(ValueChangeEvent<Long> event) {
                 fromTimeBox2.setValue(event.getValue());
+                checkTimeBox(fromErrorLabel2,fromTimeBox2,toTimeBox2,_isValid2);
             }
         });
 		
 		toTimeBox2.addValueChangeHandler(new ValueChangeHandler<Long>() {
             public void onValueChange(ValueChangeEvent<Long> event) {
             	toTimeBox2.setValue(event.getValue());
+            	checkTimeBox(fromErrorLabel2,fromTimeBox2,toTimeBox2,_isValid2);
             }
         });
 		
@@ -84,12 +94,14 @@ public class AppointmentRequestForm extends Composite {
 		fromTimeBox3.addValueChangeHandler(new ValueChangeHandler<Long>() {
             public void onValueChange(ValueChangeEvent<Long> event) {
                 fromTimeBox3.setValue(event.getValue());
+                checkTimeBox(fromErrorLabel3,fromTimeBox3,toTimeBox3,_isValid3);
             }
         });
 		
 		toTimeBox3.addValueChangeHandler(new ValueChangeHandler<Long>() {
             public void onValueChange(ValueChangeEvent<Long> event) {
             	toTimeBox3.setValue(event.getValue());
+            	checkTimeBox(fromErrorLabel3,fromTimeBox3,toTimeBox3,_isValid3);
             }
         });
 		
@@ -153,8 +165,10 @@ public class AppointmentRequestForm extends Composite {
 	private Date _toDate;
 	private boolean _isAdded1;
 	private boolean _isAdded2;
-	private List<CalendarEvent> _results;
 	private String _reason;
+	private boolean _isValid1;
+	private boolean _isValid2;
+	private boolean _isValid3;
 
 	@UiField
 	ListBox weekdayListBox1;
@@ -265,10 +279,70 @@ public class AppointmentRequestForm extends Composite {
 	Button resetButton;
 	
 	@UiField
+	Label nameLabel;
+	
+	@UiField
+	Label sinLabel;
+	
+	@UiField
+	Label doctorLabel;
+	
+	@UiField
 	TextBox reasonForAppointmentTextBox;
 	
+	private void checkTimeBox(Label label, UTCTimeBox box1, UTCTimeBox box2, boolean isValid){
+		if(box1.getText().isEmpty() || box2.getText().isEmpty()){
+			label.setVisible(true);
+			label.setText("Starttime or Endtime is missing!");
+			isValid = false;
+			handleSubmit();
+		} else{
+			if(isTimeValid(box1.getText()) && isTimeValid(box2.getText())){
+				String[] parts1 = box1.getText().split(":");
+				int hour1 = Integer.parseInt(parts1[0]);
+				int minute1 = Integer.parseInt(parts1[1]);
+				String[] parts2 = box2.getText().split(":");
+				int hour2 = Integer.parseInt(parts2[0]);
+				int minute2 = Integer.parseInt(parts2[1]);
+				if(hour1 > hour2 || (hour1 == hour2 && minute1 >= minute2)){
+					label.setVisible(true);
+					label.setText("The Starttime has to be befor the Endtime!");
+					isValid = false;
+					handleSubmit();
+				} else{
+					label.setVisible(false);
+					label.setText("");
+					isValid = true;	
+					handleSubmit();
+				}
+			} else{
+				label.setVisible(true);
+				label.setText("The time format is wrong, it should look like this 12:00.");
+				isValid = false;
+				handleSubmit();
+			}
+		}
+	}
+	
+	private void handleSubmit(){
+		if(_isValid1 && _isValid2 && _isValid3){
+			submitButton.setEnabled(true);
+		}else{
+			submitButton.setEnabled(false);
+		}
+	}
+	
+	private boolean isTimeValid(String time) {
+		final String timePattern = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
+
+		RegExp regExp = RegExp.compile(timePattern);
+		MatchResult matcher = regExp.exec(time);
+
+		return matcher != null;
+	}
+	
 	@UiHandler("addButton1")
-	void addButton1(ClickEvent event){
+	void onClickAddButton1(ClickEvent event){
 		addButton2.setVisible(true);
 		fromTimeBox2.setVisible(true);
 		toTimeBox2.setVisible(true);
@@ -281,7 +355,7 @@ public class AppointmentRequestForm extends Composite {
 	}
 	
 	@UiHandler("removeButton1")
-	void removeButton1(ClickEvent event){
+	void onClickRemoveButton1(ClickEvent event){
 		addButton2.setVisible(false);
 		fromTimeBox2.setVisible(false);
 		toTimeBox2.setVisible(false);
@@ -294,7 +368,7 @@ public class AppointmentRequestForm extends Composite {
 	}
 	
 	@UiHandler("addButton2")
-	void addButton2(ClickEvent event){
+	void onClickAddButton2(ClickEvent event){
 		fromTimeBox3.setVisible(true);
 		toTimeBox3.setVisible(true);
 		fromLabel3.setVisible(true);
@@ -307,7 +381,7 @@ public class AppointmentRequestForm extends Composite {
 	}
 	
 	@UiHandler("removeButton2")
-	void removeButton2(ClickEvent event){
+	void onClickRemoveButton2(ClickEvent event){
 		fromTimeBox3.setVisible(false);
 		toTimeBox3.setVisible(false);
 		fromLabel3.setVisible(false);
@@ -320,64 +394,53 @@ public class AppointmentRequestForm extends Composite {
 	}
 	
 	@UiHandler("submitButton")
-	void submitButton(ClickEvent event) {
+	void onClickSubmitButton(ClickEvent event) {
 		datepicker1.setValue(new Date(), true);
-
-		int index1 = weekdayListBox1.getSelectedIndex();
-		String weekday1 = weekdayListBox1.getItemText(index1);
-		
-		int index2 = weekdayListBox2.getSelectedIndex();
-		String weekday2 = weekdayListBox2.getItemText(index2);
-		
-		int index3 = weekdayListBox3.getSelectedIndex();
-		String weekday3 = weekdayListBox3.getItemText(index3);
-		
-		String from1 = fromTimeBox1.getText();
-		String to1 = toTimeBox1.getText();
+			int index1 = weekdayListBox1.getSelectedIndex();
+			String weekday1 = weekdayListBox1.getItemText(index1);
 			
-		String from2 = fromTimeBox2.getText();
-		String to2 = toTimeBox2.getText();
+			int index2 = weekdayListBox2.getSelectedIndex();
+			String weekday2 = weekdayListBox2.getItemText(index2);
+			
+			int index3 = weekdayListBox3.getSelectedIndex();
+			String weekday3 = weekdayListBox3.getItemText(index3);
+			
+			String from1 = fromTimeBox1.getText();
+			String to1 = toTimeBox1.getText();
+				
+			String from2 = fromTimeBox2.getText();
+			String to2 = toTimeBox2.getText();
+			
+			String from3 = fromTimeBox3.getText();
+			String to3 = toTimeBox3.getText();
 		
-		String from3 = fromTimeBox3.getText();
-		String to3 = toTimeBox3.getText();
+			int index4 = eventTypeListBox.getSelectedIndex();
+			String appointmentType = eventTypeListBox.getItemText(index4);
+			
+			_reason = reasonForAppointmentTextBox.getText();
 	
-		int index4 = eventTypeListBox.getSelectedIndex();
-		String appointmentType = eventTypeListBox.getItemText(index4);
-		
-		_reason = reasonForAppointmentTextBox.getText();
-
-		AsyncCallback<CalendarEvent> callback = new AsyncCallback<CalendarEvent>() {
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Wrong Input, please try again.");
-			}
-
-			@Override
-			public void onSuccess(CalendarEvent result) {
-				result.setReason(_reason);
-				_results.add(result);
-//					Index.forward(new AppointmentChoice(_patient, results));
-			}
-		};
-		
-		boolean isSameDay = false;
-		
-		//TODO: handle same day
-		appointmentCheckService.getPossibleAppointment(weekday1, from1, to1, _fromDate, _toDate, isSameDay, 
-														appointmentType, callback);
-		if(_isAdded1){
-			appointmentCheckService.getPossibleAppointment(weekday2, from2, to2, _fromDate, _toDate, isSameDay, 
-															appointmentType, callback);
-			if(_isAdded2){
-				appointmentCheckService.getPossibleAppointment(weekday3, from3, to3, _fromDate, _toDate, isSameDay, 
-																appointmentType, callback);
-			}
-		}
-		Index.forward(new AppointmentChoice(_patient, _results));
+			AsyncCallback<List<CalendarEvent>> callback = new AsyncCallback<List<CalendarEvent>>() {
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert("Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
+				}
+	
+				@Override
+				public void onSuccess(List<CalendarEvent> events) {
+					for(CalendarEvent event : events){
+						event.setReason(_reason);
+					}
+					Index.forward(new AppointmentChoice(_patient, events));
+				}
+			};
+			
+			//TODO: handle same day
+			appointmentCheckService.getPossibleAppointments(weekday1, from1, to1, weekday2, from2, to2, weekday3, from3, to3,
+													    _isAdded1, _isAdded2, _fromDate, _toDate, appointmentType, callback);
 	}
 	
 	@UiHandler("resetButton")
-	void resetButton(ClickEvent event){
+	void onClickResetButton(ClickEvent event){
 		resetUI();
 	}
 	
@@ -420,5 +483,10 @@ public class AppointmentRequestForm extends Composite {
 		toDateLabel.setText("To: ");
 		
 		eventTypeListBox.setItemSelected(0, true);
+	}
+	
+	@UiHandler("logOutButton")
+	void onClickLogOutButton(ClickEvent event){
+		Index.forward(new Login());
 	}
 }

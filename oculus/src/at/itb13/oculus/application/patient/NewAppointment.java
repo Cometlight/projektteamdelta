@@ -74,79 +74,18 @@ public class NewAppointment {
 	}
 	
 	@SuppressWarnings("static-access")
-	public at.itb13.oculus.presentation.gwt.shared.CalendarEvent getPossibleAppointment(String weekday, String from, String to, 
-																Date start, Date end, boolean isSameDay, String appointmentType){
+	public at.itb13.oculus.presentation.gwt.shared.CalendarEvent getPossibleAppointment(LocalDateTime startTime, LocalDateTime endTime, 
+																						Date start, Date end, String appointmentType){
 		
 		int appointmentDuration = getAppointmentDuration(appointmentType);
-		System.out.println("Typ: " + appointmentType);
-		System.out.println("Dauer: " + appointmentDuration);
-		List<LocalDateTime> list = createLocalDateTimeOfStrings(weekday, from, to);
-		LocalDateTime startTime = list.get(0);
-		LocalDateTime endTime = list.get(1);
-		System.out.println("createdDate");
 		Patient patient = (Patient) ControllerFacade.getInstance().getPatientSelected();
-		System.out.println("Patient: " + patient.getFirstName());
 		Calendar calendar = patient.getDoctor().getCalendar();
-		LocalDateTime eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
-		System.out.println("Termin: " + eventTime);
-		
+		LocalDateTime eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);		
 		at.itb13.oculus.presentation.gwt.shared.CalendarEvent event = new at.itb13.oculus.presentation.gwt.shared.CalendarEvent(); 
 		event.setDate(eventTime.toString());
 		event.setDoctorOrthoptist(patient.getDoctor().getUser().getTitle() + patient.getDoctor().getUser().getFirstName() + patient.getDoctor().getUser().getLastName());
 		event.setType(appointmentType);
-		
 		return event;
-	}
-	
-	private List<LocalDateTime> createLocalDateTimeOfStrings(String weekday, String from, String to){
-		LocalTime lt1;
-		LocalTime lt2;
-		System.out.println("hallo");
-		if(!from.isEmpty()){
-			System.out.println("not empty");
-			lt1 = createLocalTimeOfString(from);
-		}else{
-			lt1 = LocalTime.of(8, 00);
-		}
-		if(!to.isEmpty()){
-			lt2 = createLocalTimeOfString(to);
-		}else{
-			lt2 = LocalTime.of(18, 00);
-		}
-		System.out.println("made time");
-		LocalDate ld = createLocalDateOfString(weekday);
-		System.out.println("made day");
-		LocalDateTime ldt1 = LocalDateTime.of(ld, lt1);
-		LocalDateTime ldt2 = LocalDateTime.of(ld, lt2);
-		System.out.println("start: " + ldt1);
-		System.out.println("end: " + ldt2);
-		List<LocalDateTime> list = new LinkedList<>();
-		list.add(ldt1);
-		list.add(ldt2);
-		return list;
-	}
-	
-	private LocalTime createLocalTimeOfString(String time){
-		System.out.println("befor split");
-		String[] parts = time.split(":");
-		int hour = Integer.parseInt(parts[0]);
-		int minute = Integer.parseInt(parts[1]);
-		System.out.println(hour);
-		System.out.println(minute);
-		LocalTime lt = LocalTime.of(hour, minute);
-		return lt;
-	}
-	
-	private LocalDate createLocalDateOfString(String weekday){
-		System.out.println("in LocalDate");
-		LocalDate ld = LocalDate.now();
-		while(!(weekday.equalsIgnoreCase(ld.getDayOfWeek().name()))){
-			System.out.println("1:" + weekday);
-			System.out.println("2:" + ld.getDayOfWeek().name());
-			ld = ld.plusDays(1);
-		}
-		System.out.println(ld);
-		return ld;
 	}
 	
 	private int getAppointmentDuration(String appointmentType){
@@ -232,5 +171,9 @@ public class NewAppointment {
 		domainEvent.setPatient(pa);
 		domainEvent.setEventType(eventType);
 		return CalendarEventDao.getInstance().makePersistent(domainEvent);
+	}
+	
+	public boolean isInWorkingHours(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+		return true;
 	}
 }

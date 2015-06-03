@@ -14,9 +14,17 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * @since 29.05.2015
  */
 public interface AppointmentCheckServiceAsync {
-	void getPossibleAppointment(String weekday, String from, String to, Date start, 
-								Date end,  boolean isSameDay, String appointmentType, AsyncCallback<CalendarEvent> callback);
 
+	void getPossibleAppointments(String weekday1, String from1, String to1, 
+			 					String weekday2, String from2, String to2, 
+			 					String weekday3, String from3, String to3,
+			 					boolean isAdded1, boolean isAdded2,
+			 					Date start, Date end, String appointmentType,
+			 					AsyncCallback<List<CalendarEvent>> callback);	
+	
 	void getEventTypes(AsyncCallback<List<String>> callback);
+
+	void isInWorkingHours(String weekday, String from, String to,
+			AsyncCallback<Boolean> callback);
 
 }

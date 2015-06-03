@@ -34,7 +34,11 @@
 			<g:HorizontalPanel>
 				<g:HTMLPanel styleName="{mycss.leftColumn}">
 					<table ui:field="fromToTable">
-
+						<p class="{mycss.infotext}">There are up to 3 weekdays you can choose from!</p>
+						<p>Choose the weekday and the time of day for your appointment!</p>
+						<p>Click the add button an additional weekday / time of day</p>
+						<p>Click the remove button to remove the selection.</p>
+						
 						<!-- First option -->
 
 						<g:ListBox ui:field="weekdayListBox1">

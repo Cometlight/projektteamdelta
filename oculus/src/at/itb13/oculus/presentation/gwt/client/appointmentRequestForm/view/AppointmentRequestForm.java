@@ -15,6 +15,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -54,14 +55,14 @@ public class AppointmentRequestForm extends Composite {
 		fromTimeBox1.addValueChangeHandler(new ValueChangeHandler<Long>() {
             public void onValueChange(ValueChangeEvent<Long> event) {
                 fromTimeBox1.setValue(event.getValue());
-                //My little test
-//                fromLabel1.setText(fromTimeBox1.getText());
+                checkTimeBox(fromErrorLabel1,fromTimeBox1,toTimeBox1);
             }
         });
 		
 		toTimeBox1.addValueChangeHandler(new ValueChangeHandler<Long>() {
             public void onValueChange(ValueChangeEvent<Long> event) {
             	toTimeBox1.setValue(event.getValue());
+            	checkTimeBox(fromErrorLabel1,fromTimeBox1,toTimeBox1);
             }
         });
 		
@@ -151,10 +152,10 @@ public class AppointmentRequestForm extends Composite {
 	private boolean _isFirstDatePicked;
 	private Date _fromDate;
 	private Date _toDate;
-	private boolean isAdded1;
-	private boolean isAdded2;
-	private List<CalendarEvent> results;
+	private boolean _isAdded1;
+	private boolean _isAdded2;
 	private String _reason;
+	private boolean _isValid;
 
 	@UiField
 	ListBox weekdayListBox1;
@@ -264,6 +265,30 @@ public class AppointmentRequestForm extends Composite {
 	@UiField
 	TextBox reasonForAppointmentTextBox;
 	
+	private void checkTimeBox(Label label, UTCTimeBox box1, UTCTimeBox box2){
+		if(box1.getText().isEmpty() || box2.getText().isEmpty()){
+			label.setVisible(true);
+			label.setText("Starttime or Endtime is missing!");
+			_isValid = false;
+		} else{
+			String[] parts1 = box1.getText().split(":");
+			int hour1 = Integer.parseInt(parts1[0]);
+			int minute1 = Integer.parseInt(parts1[1]);
+			String[] parts2 = box1.getText().split(":");
+			int hour2 = Integer.parseInt(parts2[0]);
+			int minute2 = Integer.parseInt(parts2[1]);
+			if(hour1 > hour2 || (hour1 == hour2 && minute1 >= minute2)){
+				label.setVisible(true);
+				label.setText(" The Starttime has to be befor the Endtime!");
+				_isValid = false;
+			} else{
+				label.setVisible(false);
+				label.setText("");
+				_isValid = true;				
+			}
+		}
+	}
+	
 	@UiHandler("addButton1")
 	void addButton1(ClickEvent event){
 		addButton2.setVisible(true);
@@ -274,7 +299,7 @@ public class AppointmentRequestForm extends Composite {
 		addButton1.setVisible(false);
 		removeButton1.setVisible(true);
 		weekdayListBox2.setVisible(true);
-		isAdded1 = true;
+		_isAdded1 = true;
 	}
 	
 	@UiHandler("removeButton1")
@@ -287,7 +312,7 @@ public class AppointmentRequestForm extends Composite {
 		addButton1.setVisible(true);
 		removeButton1.setVisible(false);
 		weekdayListBox2.setVisible(false);
-		isAdded1 = false;
+		_isAdded1 = false;
 	}
 	
 	@UiHandler("addButton2")
@@ -300,7 +325,7 @@ public class AppointmentRequestForm extends Composite {
 		removeButton1.setVisible(false);
 		removeButton2.setVisible(true);
 		weekdayListBox3.setVisible(true);
-		isAdded2 = true;
+		_isAdded2 = true;
 	}
 	
 	@UiHandler("removeButton2")
@@ -313,7 +338,7 @@ public class AppointmentRequestForm extends Composite {
 		removeButton1.setVisible(true);
 		removeButton2.setVisible(false);
 		weekdayListBox3.setVisible(false);
-		isAdded2 = false;
+		_isAdded2 = false;
 	}
 	
 	@UiHandler("submitButton")
@@ -343,33 +368,23 @@ public class AppointmentRequestForm extends Composite {
 		
 		_reason = reasonForAppointmentTextBox.getText();
 
-		AsyncCallback<CalendarEvent> callback = new AsyncCallback<CalendarEvent>() {
+		AsyncCallback<List<CalendarEvent>> callback = new AsyncCallback<List<CalendarEvent>>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				Window.alert("Wrong Input, please try again.");
 			}
 
 			@Override
-			public void onSuccess(CalendarEvent result) {
-				result.setReason(_reason);
-				results.add(result);
-//					Index.forward(new AppointmentChoice(_patient, results));
+			public void onSuccess(List<CalendarEvent> events) {
+				for(CalendarEvent event : events){
+					event.setReason(_reason);
+				}
+				Index.forward(new AppointmentChoice(_patient, events));
 			}
 		};
 		
-		boolean isSameDay = false;
-		
 		//TODO: handle same day
-		appointmentCheckService.getPossibleAppointment(weekday1, from1, to1, _fromDate, _toDate, isSameDay, 
-														appointmentType, callback);
-		if(isAdded1){
-			appointmentCheckService.getPossibleAppointment(weekday2, from2, to2, _fromDate, _toDate, isSameDay, 
-															appointmentType, callback);
-			if(isAdded2){
-				appointmentCheckService.getPossibleAppointment(weekday3, from3, to3, _fromDate, _toDate, isSameDay, 
-																appointmentType, callback);
-			}
-		}
-		Index.forward(new AppointmentChoice(_patient, results));
+		appointmentCheckService.getPossibleAppointments(weekday1, from1, to1, weekday2, from2, to2, weekday3, from3, to3,
+													    _isAdded1, _isAdded2, _fromDate, _toDate, appointmentType, callback);
 	}
 }

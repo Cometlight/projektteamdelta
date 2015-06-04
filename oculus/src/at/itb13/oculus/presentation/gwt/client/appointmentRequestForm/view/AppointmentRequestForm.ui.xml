@@ -41,7 +41,8 @@
 							<p>Click the remove button to remove the selection.</p>
 							
 							<!-- First option -->
-	
+							<div>
+							<div>
 							<g:ListBox ui:field="weekdayListBox1">
 								<g:item value='1'>
 									Monday
@@ -59,7 +60,7 @@
 									Friday
 								</g:item>
 							</g:ListBox>
-	
+							</div>
 							<g:Label ui:field="weekdayErrorLabel1" />
 							<g:Label ui:field="fromLabel1" text="From" />
 							<g:Label ui:field="fromErrorLabel1" />
@@ -68,10 +69,11 @@
 							<g:Label ui:field="toErrorLabel1" />
 							<t:UTCTimeBox ui:field="toTimeBox1" />
 							<g:Button ui:field="addButton1" text="Add" />
-	
+							</div>
 	
 							<!-- Second option -->
-	
+							<div>
+							<div>
 							<g:ListBox ui:field="weekdayListBox2">
 								<g:item value='1'>
 									Monday
@@ -89,6 +91,7 @@
 									Friday
 								</g:item>
 							</g:ListBox>
+							</div>
 							<g:Label ui:field="weekdayErrorLabel2" />
 							<g:Label ui:field="fromLabel2" text="From" />
 							<g:Label ui:field="fromErrorLabel2" />
@@ -99,9 +102,10 @@
 	
 							<g:Button ui:field="addButton2" text="Add" />
 							<g:Button ui:field="removeButton1" text="Remove" />
-							
+							</div>
 							<!-- Third option -->
-	
+							<div>
+							<div>
 							<g:ListBox ui:field="weekdayListBox3">
 								<g:item value='1'>
 									Monday
@@ -119,6 +123,7 @@
 									Friday
 								</g:item>
 							</g:ListBox>
+							</div>
 							<g:Label ui:field="weekdayErrorLabel3" />
 							<g:Label ui:field="fromLabel3" text="From" />
 							<g:Label ui:field="fromErrorLabel3" />
@@ -127,7 +132,7 @@
 							<g:Label ui:field="toErrorLabel3" />
 							<t:UTCTimeBox ui:field="toTimeBox3" />
 							<g:Button ui:field="removeButton2" text="Remove" />
-							
+							</div>
 						</table>
 	
 					</g:HTMLPanel>

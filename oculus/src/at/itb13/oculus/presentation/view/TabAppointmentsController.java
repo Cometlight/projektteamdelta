@@ -279,7 +279,7 @@ public class TabAppointmentsController {
 			EventType type = event.getEventType();
 			_eventTypeLabel.setText(type.getEventTypeName());
 			if(event.getCalendar().getDoctor() != null){
-				_doctorLabel.setText(event.getCalendar().getDoctor().getUser().getFirstName() + " " +event.getCalendar().getDoctor().getUser().getLastName());
+				_doctorLabel.setText(event.getCalendar().getDoctor().getUser().getTitle() + " " + event.getCalendar().getDoctor().getUser().getFirstName() + " " +event.getCalendar().getDoctor().getUser().getLastName());
 			}else if(event.getCalendar().getOrthoptist() != null){
 				_doctorLabel.setText(event.getCalendar().getOrthoptist().getUser().getFirstName() +" " + event.getCalendar().getOrthoptist().getUser().getLastName());
 
@@ -394,14 +394,17 @@ public class TabAppointmentsController {
 				OrthoptistRO queueOrthoptist = queue.getOrthoptist();
 				
 				// check if the calendarEvent's doctor/orthoptist is equal to the queue's doctor/orthoptist
-				if( 		(queueDoctor != null && calEvDoctor != null && queueDoctor.getDoctorId().equals(calEvDoctor.getDoctorId()))
-						|| 	(queueOrthoptist != null && calEvOrthoptist != null && queueOrthoptist.getOrthoptistId().equals(calEvOrthoptist.getOrthoptistId()))
-						||	(queueDoctor == null && queueOrthoptist == null && calEvDoctor == null && queueOrthoptist == null)	// general orthoptist queue
-				  ) {
+//				if( 		(queueDoctor != null && calEvDoctor != null && queueDoctor.getDoctorId().equals(calEvDoctor.getDoctorId()))
+//						|| 	(queueOrthoptist != null && calEvOrthoptist != null && queueOrthoptist.getOrthoptistId().equals(calEvOrthoptist.getOrthoptistId()))
+//						||	(queueDoctor == null && queueOrthoptist == null && calEvDoctor == null && queueOrthoptist == null)	// general orthoptist queue
+//				  ) {
+				if( 		! ( queueDoctor != null && calEvDoctor != null && !queueDoctor.getDoctorId().equals(calEvDoctor.getDoctorId()) )
+						&&	! ( queueOrthoptist != null && calEvOrthoptist != null && !queueOrthoptist.getOrthoptistId().equals(calEvOrthoptist.getOrthoptistId()) )
+				  ) {	// Info: this way there won't be a error message concerning preexaminations
 					try {
 						controller.pushQueueEntry(_curCalendarEvent.getPatient(), _curCalendarEvent);
 						Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setContentText("Patient is added to Waiting List");
+						alert.setContentText("Patient was added to Waiting List");
 						alert.showAndWait();
 					} catch (InvalidInputException e) {
 						Alert alert = new Alert(AlertType.WARNING);
@@ -410,7 +413,7 @@ public class TabAppointmentsController {
 					}
 				} else {
 					Alert alert = new Alert(AlertType.CONFIRMATION);
-					alert.setHeaderText("selected Doctor not Doctor assigned");
+					alert.setHeaderText("Selected Doctor not Doctor assigned");
 					alert.setContentText("The selected Doctor is not the Doctor assigned");
 					Optional<ButtonType> result = alert.showAndWait();
 					if (result.get() == ButtonType.OK){

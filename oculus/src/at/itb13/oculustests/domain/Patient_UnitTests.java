@@ -113,37 +113,43 @@ public class Patient_UnitTests {
 		assertFalse(pat1.isEqualPassword("password" + "1"));
 	}
 	
-//	@Test
-//	public void getNextAppointment_Test(){
-//		Patient patient = new Patient();
-//		Doctor doctor = new Doctor();
-//		doctor = DoctorDao.getInstance().list().get(0);
-//		CalendarEvent calendarEvent = new CalendarEvent();
-//		int calendarEventId;
-//		
-//		patient.setFirstName("Maja");
-//		patient.setLastName("Musterfrau");
-//		patient.setGender(Gender.F);
-//		patient.setSocialInsuranceNr("8976543201");
-//		PatientDao.getInstance().makePersistent(patient);
-//		
-//		EventType eventType = new EventType();
-//		eventType = EventTypeDao.getInstance().list().get(0);
-//		
-//		calendarEvent.setCalendar(doctor.getCalendar());
-//		calendarEvent.setDescription("first Appointment");
-//		calendarEvent.setEventStart(LocalDateTime.now().plusWeeks(1));
-//		calendarEvent.setEventEnd(calendarEvent.getEventStart().plusMinutes(eventType.getEstimatedTime()));
-//		calendarEvent.setPatient(patient);
-//		calendarEvent.setEventType(eventType);
-//		CalendarEventDao.getInstance().makePersistent(calendarEvent);
-//		calendarEventId = patient.getCalendarevents().iterator().next().getCalendarEventId();
-//		assertTrue(patient.getNextAppointment().getCalendarEventId()==calendarEventId);
-//		
-//		CalendarEventDao.getInstance().makeTransient(calendarEvent);
-//		PatientDao.getInstance().makeTransient(patient);
-//	}
-//	
+	@Test
+	public void getNextAppointment_Test(){
+		Patient patient = new Patient();
+		Doctor doctor = new Doctor();
+		doctor = DoctorDao.getInstance().list().get(0);
+		CalendarEvent calendarEvent = new CalendarEvent();
+		int calendarEventId;
+		
+		patient.setFirstName("Maja");
+		patient.setLastName("Musterfrau");
+		patient.setGender(Gender.F);
+		patient.setSocialInsuranceNr("8976543201");
+		PatientDao.getInstance().makePersistent(patient);
+		
+		EventType eventType = new EventType();
+		eventType = EventTypeDao.getInstance().list().get(0);
+		
+		calendarEvent.setCalendar(doctor.getCalendar());
+		calendarEvent.setDescription("first Appointment");
+		calendarEvent.setEventStart(LocalDateTime.now().plusWeeks(1));
+		calendarEvent.setEventEnd(calendarEvent.getEventStart().plusMinutes(eventType.getEstimatedTime()));
+		calendarEvent.setPatient(patient);
+		calendarEvent.setEventType(eventType);
+		patient.addCalendarEvent(calendarEvent);
+		
+		CalendarEventDao.getInstance().makePersistent(calendarEvent);
+		if (!patient.getCalendarevents().isEmpty()) {
+			calendarEventId = patient.getCalendarevents().iterator().next()
+					.getCalendarEventId();
+			
+			assertTrue(patient.getNextAppointment().getCalendarEventId() == calendarEventId);
+		}
+		
+		CalendarEventDao.getInstance().makeTransient(calendarEvent);
+		PatientDao.getInstance().makeTransient(patient);
+	}
+	
 
 	// TODO: Check if the following tests are good (old tests)
 //	@Test

@@ -14,6 +14,9 @@ import at.itb13.oculus.application.queue.QueueController;
 import at.itb13.oculus.application.receptionist.NewPatient;
 import at.itb13.oculus.application.receptionist.PatientSearch;
 import at.itb13.oculus.application.receptionist.WelcomeAtReception;
+import at.itb13.oculus.domain.Doctor;
+import at.itb13.oculus.domain.Orthoptist;
+import at.itb13.oculus.domain.Queue;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
 import at.itb13.oculus.domain.readonlyinterfaces.QueueRO;
@@ -56,9 +59,9 @@ public class ControllerFacade {
 			
 			_instance = new ControllerFacade();
 			
-			reloadAllQueueController();
-			
 			reloadAllCalendarController();
+			
+			reloadAllQueueController();
 			
 			loadEventTypes();
 			
@@ -74,12 +77,55 @@ public class ControllerFacade {
 	private static void reloadAllQueueController() {
 		_logger.info("Loading Queues from database...");
 		
+		// Load Queues from database
 		_listQueueController = new LinkedList<>();
 		QueueDao.getInstance().findAll().forEach(q -> {
 			QueueController qC = new QueueController(q);
 			_listQueueController.add(qC);
 		});
 		
+		// Add missing Queues
+		boolean curIsMissing = true;
+		for(CalendarController calCon : _listCalendarController) {
+			Doctor calDoc = calCon.getCalendar().getDoctor();
+			Orthoptist calOrt = calCon.getCalendar().getOrthoptist();
+			
+			for(QueueController queCon : _listQueueController) {
+				Doctor queDoc = queCon.getQueue().getDoctor();
+				Orthoptist queOrt = queCon.getQueue().getOrthoptist();
+				if(	   ( calDoc != null && queDoc != null && calDoc.getDoctorId().equals(queDoc.getDoctorId()) )
+					|| ( calOrt != null && queOrt != null && calOrt.getOrthoptistId().equals(queOrt.getOrthoptistId()) )
+				  ) {
+					curIsMissing = false;
+					break;
+				}
+			}
+			
+			if(curIsMissing) {
+				Queue newQueue = new Queue(calDoc, calOrt, new LinkedList<>());
+				_listQueueController.add(new QueueController(newQueue));
+			}
+			
+			curIsMissing = true;
+		}
+			
+		// add general orthoptist queue if missing
+		curIsMissing = true;
+		for(QueueController queCon : _listQueueController) {
+			Doctor queDoc = queCon.getQueue().getDoctor();
+			Orthoptist queOrt = queCon.getQueue().getOrthoptist();
+			if( queDoc == null && queOrt == null ) {
+				curIsMissing = false;
+				break;
+			}
+		}
+		if(curIsMissing) {
+			Queue newQueue = new Queue(null, null, new LinkedList<>());
+			_listQueueController.add(new QueueController(newQueue));
+		}
+		
+		
+		// Sort Queues
 		_listQueueController.sort(new Comparator<QueueController>() {
 			@Override
 			public int compare(QueueController o1, QueueController o2) {

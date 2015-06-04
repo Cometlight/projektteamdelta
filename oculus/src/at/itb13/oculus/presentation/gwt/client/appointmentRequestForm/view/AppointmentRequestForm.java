@@ -306,7 +306,7 @@ public class AppointmentRequestForm extends Composite {
 				AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
 					@Override
 					public void onFailure(Throwable caught) {
-						isValid=false;
+//						isValid=false;
 						Window.alert("Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
 					}
 					@Override
@@ -321,16 +321,16 @@ public class AppointmentRequestForm extends Composite {
 							if(hour1 > hour2 || (hour1 == hour2 && minute1 >= minute2)){
 								label.setVisible(true);
 								label.setText("The Starttime has to be before the Endtime!");
-								isValid = false;
+//								isValid = false;
 								handleSubmit();
 							} else{
 								label.setVisible(false);
 								label.setText("");
-								isValid = true;	
+//								isValid = true;	
 								handleSubmit();
 							}
 						} else {
-							isValid = false;
+//							isValid = false;
 							label.setText("The selected time span is not in the working hours!");
 							handleSubmit();
 						}

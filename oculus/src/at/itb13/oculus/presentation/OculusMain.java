@@ -1,6 +1,7 @@
 package at.itb13.oculus.presentation;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -8,6 +9,9 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -20,6 +24,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.application.ControllerFacade;
+import at.itb13.oculus.application.queue.QueueController;
 import at.itb13.oculus.domain.factories.CalendarEventFactory;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarEventRO;
 import at.itb13.oculus.domain.readonlyinterfaces.PatientRO;
@@ -69,6 +74,8 @@ public class OculusMain extends Application {
 	private TabCalendarController _calendarController;
 	
 	private ObservableList<PatientRO> _patientData = FXCollections.observableArrayList();
+	
+	private boolean _queueDeleteNotAskedYet = true;
 	
 	private SplashScreen _splashScreen;
 
@@ -141,6 +148,18 @@ public class OculusMain extends Application {
 		_primaryStage.show();
 		
 		_logger.info("Finished starting OculusMain");
+		
+		if(_queueDeleteNotAskedYet) {
+			_queueDeleteNotAskedYet = false;
+			boolean queuesEmpty = true;
+			java.util.Iterator<QueueController> it = ControllerFacade.getInstance().getAllQueueController().iterator();
+			while(queuesEmpty && it.hasNext()) {
+				queuesEmpty = it.next().isQueueEmpty();
+			}
+			if(!queuesEmpty) {
+				deleteQueueIfDesired();
+			}
+		}
 		
 		showAppointmentsTab();
     }
@@ -260,6 +279,11 @@ public class OculusMain extends Application {
 		}
 	}
 	
+	/**
+	 * Displays the Queue Tab. If the Queue Tab was not shown before,
+	 * the user is asked if he wants to clear the queues, if they are
+	 * not empty already.
+	 */
 	public void showQueueTab() {
 		if(_queueTab != null) {
 			_rootLayout.setCenter(_queueTab);
@@ -267,6 +291,17 @@ public class OculusMain extends Application {
 			_calendarController.stopCalendarReloader();
 		}
 	}
+	
+	private void deleteQueueIfDesired() {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText("Clear Waiting Lists?");
+		alert.setContentText("Some of the waiting lists still contain appointments. Do you want to clear them now?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			ControllerFacade.getInstance().getAllQueueController().forEach(qC -> qC.clearQueue());
+		}
+	}
+	
 	public void showCalendarTab(){
 		if(_calendarTab != null){
 			_rootLayout.setCenter(_calendarTab);

@@ -138,35 +138,39 @@ public class QueueDao {
 			}
 		}
 		
-		// Split the list into lists representing the distinct queues
-		Map<Doctor, List<QueueEntity>> mapQueueEntityDoctors = new HashMap<>();
-		Map<Orthoptist, List<QueueEntity>> mapQueueEntityOrthoptists = new HashMap<>();
-		List<QueueEntity> listQueueEntityGeneralOrthoptists = new LinkedList<>();
+		List<Queue> listAllQueues = new LinkedList<>();	// this variable is returned
 		
-		for(QueueEntity entity : listQueueEntity) {
-			Doctor doctor = entity.getDoctor();
-			Orthoptist orthoptist = entity.getOrthoptist();
-			if(doctor != null) {
-				if(!mapQueueEntityDoctors.containsKey(doctor)) {
-					mapQueueEntityDoctors.put(doctor, new LinkedList<>());
+		if(!listQueueEntity.isEmpty()) {
+			// Split the list into lists representing the distinct queues
+			Map<Doctor, List<QueueEntity>> mapQueueEntityDoctors = new HashMap<>();
+			Map<Orthoptist, List<QueueEntity>> mapQueueEntityOrthoptists = new HashMap<>();
+			List<QueueEntity> listQueueEntityGeneralOrthoptists = new LinkedList<>();
+			
+			for(QueueEntity entity : listQueueEntity) {
+				Doctor doctor = entity.getDoctor();
+				Orthoptist orthoptist = entity.getOrthoptist();
+				if(doctor != null) {
+					if(!mapQueueEntityDoctors.containsKey(doctor)) {
+						mapQueueEntityDoctors.put(doctor, new LinkedList<>());
+					}
+					mapQueueEntityDoctors.get(doctor).add(entity);
+				} else if(orthoptist != null) {
+					if(!mapQueueEntityOrthoptists.containsKey(orthoptist)) {
+						mapQueueEntityOrthoptists.put(orthoptist, new LinkedList<>());
+					}
+					mapQueueEntityOrthoptists.get(orthoptist).add(entity);
+				} else {	// General Orthoptist Queue
+					listQueueEntityGeneralOrthoptists.add(entity);
 				}
-				mapQueueEntityDoctors.get(doctor).add(entity);
-			} else if(orthoptist != null) {
-				if(!mapQueueEntityOrthoptists.containsKey(orthoptist)) {
-					mapQueueEntityOrthoptists.put(orthoptist, new LinkedList<>());
-				}
-				mapQueueEntityOrthoptists.get(orthoptist).add(entity);
-			} else {	// General Orthoptist Queue
-				listQueueEntityGeneralOrthoptists.add(entity);
+			}
+			
+			// Convert lists to queues
+			mapQueueEntityDoctors.values().forEach(list -> listAllQueues.add(convertToQueue(list)));
+			mapQueueEntityOrthoptists.values().forEach(list -> listAllQueues.add(convertToQueue(list)));
+			if( !listQueueEntityGeneralOrthoptists.isEmpty() ) {
+				listAllQueues.add(convertToQueue(listQueueEntityGeneralOrthoptists));
 			}
 		}
-		
-		// Convert lists to queues
-		List<Queue> listAllQueues = new LinkedList<>();
-		
-		mapQueueEntityDoctors.values().forEach(list -> listAllQueues.add(convertToQueue(list)));
-		mapQueueEntityOrthoptists.values().forEach(list -> listAllQueues.add(convertToQueue(list)));
-		listAllQueues.add(convertToQueue(listQueueEntityGeneralOrthoptists));
 		
 		return listAllQueues;
 	}
@@ -221,12 +225,18 @@ public class QueueDao {
 					if (deleteIfInQueueDB(entity, listQueueDB)) {
 						session.update(entity);
 					} else {
-						session.save(entity);
+						entry.setQueueEntryId((Integer) session.save(entity));	// update the id in the queue entry
 					}
 				}
 				
 				// delete all entries that are currently in the database, but aren't in the queue
-				listQueueDB.forEach(session::delete);
+				// However, it's important to first set the queueIdParent to null, so no foreign key constraints may fail.
+				// This may be the case if multiple QueueEntities should be deleted, but they are referencing each other.
+				for(QueueEntity qE : listQueueDB) {
+					qE.setQueueIdParent(null);
+					session.update(qE);	// TODO: For improved performance, it would be better to just delete the queueEntities in the right order.
+					session.delete(qE);
+				}
 			}
 
 			tx.commit();

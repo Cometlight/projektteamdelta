@@ -1,36 +1,36 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui" 
-	xmlns:dp="urn:import:com.google.gwt.user.datepicker.client" 
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:dp="urn:import:com.google.gwt.user.datepicker.client"
 	xmlns:t="urn:import:com.tractionsoftware.gwt.user.client.ui">
 	<ui:style src="../../Style.css" />
+	
 	<ui:style field="mycss">
-		.leftColumn {
-			padding: 5px;
-			width: 300px;
-		}
-		
-		.rightColumn {
-			border-left: 1px solid black;
-			padding: 5px;
-		}
-		
-		.infotext{
-			font-weight: bold;
-		}
+	.leftColumn {
+		padding: 5px;
+		width: 300px;
+	}
+	
+	.rightColumn {
+		border-left: 1px solid black;
+		padding: 5px;
+	}
+	
+	.infotext {
+		font-weight: bold;
+	}
 	</ui:style>
-	
+
 	<g:HTMLPanel>
-	
+
 		<div id="wrapper">
 			<g:VerticalPanel styleName="{style.loginInfo}">
-				<g:Label text="Logged in as.." styleName="{style.loginInfoLabel}"/>
-				<g:Label ui:field="nameLabel"/>
-				<g:Label ui:field="sinLabel"/>
-				<g:Label ui:field="doctorLabel"/>
+				<g:Label text="Logged in as.." styleName="{style.loginInfoLabel}" />
+				<g:Label ui:field="nameLabel" />
+				<g:Label ui:field="sinLabel" />
+				<g:Label ui:field="doctorLabel" />
 				<g:Button ui:field="logOutButton" text="Logout" />
 			</g:VerticalPanel>
-		<div id="content">
+			<div id="content">
 				<h2>Request an appointment</h2>
 				<g:HorizontalPanel>
 					<g:HTMLPanel styleName="{mycss.leftColumn}">
@@ -39,124 +39,130 @@
 							<p>Choose the weekday and the time of day for your appointment!</p>
 							<p>Click the add button an additional weekday / time of day</p>
 							<p>Click the remove button to remove the selection.</p>
-							
+
 							<!-- First option -->
 							<div>
-							<div>
-							<g:ListBox ui:field="weekdayListBox1">
-								<g:item value='1'>
-									Monday
-								</g:item>
-								<g:item value='2'>
-									Tuesday
-								</g:item>
-								<g:item value='3'>
-									Wednesday
-								</g:item>
-								<g:item value='4'>
-									Thursday
-								</g:item>
-								<g:item value='5'>
-									Friday
-								</g:item>
-							</g:ListBox>
+								<div>
+									<g:ListBox ui:field="weekdayListBox1">
+										<g:item value='1'>
+											Monday
+										</g:item>
+										<g:item value='2'>
+											Tuesday
+										</g:item>
+										<g:item value='3'>
+											Wednesday
+										</g:item>
+										<g:item value='4'>
+											Thursday
+										</g:item>
+										<g:item value='5'>
+											Friday
+										</g:item>
+									</g:ListBox>
+								</div>
+								<g:Label ui:field="weekdayErrorLabel1" />
+								<g:Label ui:field="fromLabel1" text="From" />
+								<g:Label ui:field="fromErrorLabel1" />
+								<t:UTCTimeBox ui:field="fromTimeBox1" />
+								<g:Label ui:field="toLabel1" text="To" />
+								<g:Label ui:field="toErrorLabel1" />
+								<t:UTCTimeBox ui:field="toTimeBox1" />
+								<p></p>
+								<g:Button ui:field="addButton1" text="Add" />
+								
 							</div>
-							<g:Label ui:field="weekdayErrorLabel1" />
-							<g:Label ui:field="fromLabel1" text="From" />
-							<g:Label ui:field="fromErrorLabel1" />
-							<t:UTCTimeBox ui:field="fromTimeBox1" />
-							<g:Label ui:field="toLabel1" text="To" />
-							<g:Label ui:field="toErrorLabel1" />
-							<t:UTCTimeBox ui:field="toTimeBox1" />
-							<g:Button ui:field="addButton1" text="Add" />
-							</div>
-	
+
 							<!-- Second option -->
 							<div>
-							<div>
-							<g:ListBox ui:field="weekdayListBox2">
-								<g:item value='1'>
-									Monday
-								</g:item>
-								<g:item value='2'>
-									Tuesday
-								</g:item>
-								<g:item value='3'>
-									Wednesday
-								</g:item>
-								<g:item value='4'>
-									Thursday
-								</g:item>
-								<g:item value='5'>
-									Friday
-								</g:item>
-							</g:ListBox>
-							</div>
-							<g:Label ui:field="weekdayErrorLabel2" />
-							<g:Label ui:field="fromLabel2" text="From" />
-							<g:Label ui:field="fromErrorLabel2" />
-							<t:UTCTimeBox ui:field="fromTimeBox2" />
-							<g:Label ui:field="toLabel2" text="To" />
-							<g:Label ui:field="toErrorLabel2" />
-							<t:UTCTimeBox ui:field="toTimeBox2" />
-	
-							<g:Button ui:field="addButton2" text="Add" />
-							<g:Button ui:field="removeButton1" text="Remove" />
+								<div>
+									<g:ListBox ui:field="weekdayListBox2">
+										<g:item value='1'>
+											Monday
+										</g:item>
+										<g:item value='2'>
+											Tuesday
+										</g:item>
+										<g:item value='3'>
+											Wednesday
+										</g:item>
+										<g:item value='4'>
+											Thursday
+										</g:item>
+										<g:item value='5'>
+											Friday
+										</g:item>
+									</g:ListBox>
+								</div>
+								<g:Label ui:field="weekdayErrorLabel2" />
+								<g:Label ui:field="fromLabel2" text="From" />
+								<g:Label ui:field="fromErrorLabel2" />
+								<t:UTCTimeBox ui:field="fromTimeBox2" />
+								<g:Label ui:field="toLabel2" text="To" />
+								<g:Label ui:field="toErrorLabel2" />
+								<t:UTCTimeBox ui:field="toTimeBox2" />
+								<p></p>
+								<g:Button ui:field="addButton2" text="Add" />
+								<g:Button ui:field="removeButton1" text="Remove" />
 							</div>
 							<!-- Third option -->
 							<div>
-							<div>
-							<g:ListBox ui:field="weekdayListBox3">
-								<g:item value='1'>
-									Monday
-								</g:item>
-								<g:item value='2'>
-									Tuesday
-								</g:item>
-								<g:item value='3'>
-									Wednesday
-								</g:item>
-								<g:item value='4'>
-									Thursday
-								</g:item>
-								<g:item value='5'>
-									Friday
-								</g:item>
-							</g:ListBox>
-							</div>
-							<g:Label ui:field="weekdayErrorLabel3" />
-							<g:Label ui:field="fromLabel3" text="From" />
-							<g:Label ui:field="fromErrorLabel3" />
-							<t:UTCTimeBox ui:field="fromTimeBox3" />
-							<g:Label ui:field="toLabel3" text="To" />
-							<g:Label ui:field="toErrorLabel3" />
-							<t:UTCTimeBox ui:field="toTimeBox3" />
-							<g:Button ui:field="removeButton2" text="Remove" />
+								<div>
+									<g:ListBox ui:field="weekdayListBox3">
+										<g:item value='1'>
+											Monday
+										</g:item>
+										<g:item value='2'>
+											Tuesday
+										</g:item>
+										<g:item value='3'>
+											Wednesday
+										</g:item>
+										<g:item value='4'>
+											Thursday
+										</g:item>
+										<g:item value='5'>
+											Friday
+										</g:item>
+									</g:ListBox>
+									<br></br>
+								</div>
+								<g:Label ui:field="weekdayErrorLabel3" />
+								<g:Label ui:field="fromLabel3" text="From" />
+								<g:Label ui:field="fromErrorLabel3" />
+								<t:UTCTimeBox ui:field="fromTimeBox3" />
+								<g:Label ui:field="toLabel3" text="To" />
+								<g:Label ui:field="toErrorLabel3" />
+								<t:UTCTimeBox ui:field="toTimeBox3" />
+								<p></p>
+								<g:Button ui:field="removeButton2" text="Remove" />
 							</div>
 						</table>
-	
+
 					</g:HTMLPanel>
 					<g:HTMLPanel styleName="{mycss.rightColumn}">
 						<table ui:field="datepickerTable">
-							<p class="{mycss.infotext}">Optional: Please choose the time period in which you are not available.</p>
+							<p class="{mycss.infotext}">Optional: Please choose the time period in which you
+								are not available.</p>
 							<p>Choose the 'From' and 'To' date by clicking onto the date!</p>
-							<p>The first click sets the 'From' date, the second the 'To' date.</p>
+							<p>The first click sets the 'From' date, the second the 'To'
+								date.</p>
 							<p>If your input is wrong, repeat the process.</p>
-							
+
 							<dp:DatePicker ui:field="datepicker1" />
 							<g:Label ui:field="datepicker1ErrorLabel" />
 							<g:Label ui:field="fromDateLabel" />
 							<g:Label ui:field="toDateLabel" />
-							<!-- <dp:DatePicker ui:field="datepicker2" />
-							<g:Label ui:field="datepicker2ErrorLabel" /> -->
+							<!-- <dp:DatePicker ui:field="datepicker2" /> <g:Label ui:field="datepicker2ErrorLabel" 
+								/> -->
 							<g:Label ui:field="reasonForAppointmentLabel" text="Reason for appointment" />
 							<g:TextBox ui:field="reasonForAppointmentTextBox" />
-							<g:ListBox ui:field="eventTypeListBox"/>
+							<g:ListBox ui:field="eventTypeListBox" />
 						</table>
 						<g:Button ui:field="submitButton" text="Submit" />
 						<g:Button ui:field="resetButton" text="Reset" />
 					</g:HTMLPanel>
-	
+
 				</g:HorizontalPanel>
 			</div>
 		</div>

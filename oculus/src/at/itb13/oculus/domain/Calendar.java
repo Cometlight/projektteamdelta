@@ -153,15 +153,20 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 	 * Returns the Working Hours of a chosen day of the week.
 	 * 
 	 * @param weekDay is an Enum of the days of the week.
-	 * @return A IWorkingHours.
+	 * @return A IWorkingHours. Null, if not found.
 	 */
 	@Transient
 	@Override
 	public WorkingHours getWorkingHoursOfWeekDay(DayOfWeek weekDay) {
-		WorkingHours workingHours = new WorkingHours();
+		if(weekDay == null) {
+			throw new NullPointerException();
+		}
+		
+		WorkingHours workingHours = null;
 		for(CalendarWorkingHours wh: _calendarWorkingHours) {
 			if(wh.getWeekDayKey() == weekDay){
 				workingHours = wh.getWorkinghours();
+				break;
 			}
 		}
 		return workingHours;

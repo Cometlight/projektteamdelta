@@ -124,8 +124,6 @@ public class Patient_UnitTests {
 		patient.setLastName("Musterfrau");
 		patient.setGender(Gender.F);
 		patient.setSocialInsuranceNr("8976543201");
-		PatientDao.getInstance().makePersistent(patient);
-		
 		EventType eventType = new EventType();
 		eventType = EventTypeDao.getInstance().list().get(0);
 		
@@ -135,18 +133,14 @@ public class Patient_UnitTests {
 		calendarEvent.setEventEnd(calendarEvent.getEventStart().plusMinutes(eventType.getEstimatedTime()));
 		calendarEvent.setPatient(patient);
 		calendarEvent.setEventType(eventType);
+		calendarEvent.setCalendarEventId(7);
 		patient.addCalendarEvent(calendarEvent);
-		
-		CalendarEventDao.getInstance().makePersistent(calendarEvent);
 		if (!patient.getCalendarevents().isEmpty()) {
 			calendarEventId = patient.getCalendarevents().iterator().next()
 					.getCalendarEventId();
 			
 			assertTrue(patient.getNextAppointment().getCalendarEventId() == calendarEventId);
 		}
-		
-		CalendarEventDao.getInstance().makeTransient(calendarEvent);
-		PatientDao.getInstance().makeTransient(patient);
 	}
 
 }

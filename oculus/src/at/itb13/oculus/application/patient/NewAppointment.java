@@ -1,13 +1,9 @@
 package at.itb13.oculus.application.patient;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -23,10 +19,7 @@ import at.itb13.oculus.technicalServices.dao.EventTypeDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 import at.itb13.teamD.domain.interfaces.IEventType;
 
-
-
 /**
- * TODO: Insert description here.
  * 
  * @author Daniel Scheffknecht
  * @date May 27, 2015
@@ -76,13 +69,12 @@ public class NewAppointment {
 		return calEv != null;
 	}
 	
-	@SuppressWarnings("static-access")
 	public at.itb13.oculus.presentation.gwt.shared.CalendarEvent getPossibleAppointment(LocalDateTime startTime, LocalDateTime endTime, 
 																						Date start, Date end, String appointmentType,
 																						boolean isSameDay1, boolean isSameDay2){
 		
 		int appointmentDuration = getAppointmentDuration(appointmentType);
-		Patient patient = (Patient) ControllerFacade.getInstance().getPatientSelected();
+		Patient patient = (Patient) ControllerFacade.getPatientSelected();
 		Calendar calendar = patient.getDoctor().getCalendar();
 		LocalDateTime eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
 		if(isSameDay1){

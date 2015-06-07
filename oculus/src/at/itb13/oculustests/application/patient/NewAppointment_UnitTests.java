@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 import org.junit.After;
@@ -22,12 +23,14 @@ import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.CalendarWorkingHours;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.EventType;
+import at.itb13.oculus.domain.Orthoptist;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Patient.Gender;
 import at.itb13.oculus.domain.WorkingHours;
 import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
 import at.itb13.oculus.technicalServices.dao.DoctorDao;
 import at.itb13.oculus.technicalServices.dao.EventTypeDao;
+import at.itb13.oculus.technicalServices.dao.OrthoptistDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 
 
@@ -38,7 +41,9 @@ import at.itb13.oculus.technicalServices.dao.PatientDao;
  */
 public class NewAppointment_UnitTests {
 	private static final String PATIENT1_EMAIL = "max.mustermann@muster.com";
+	private static final String PATIENT2_EMAIL = "maja.musterfrau@muster.com";
 	private static final String PATIENT1_PASSWORD = "letmein";
+	Orthoptist orthoptist;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -53,12 +58,25 @@ public class NewAppointment_UnitTests {
 		patient1.setPasswordAsHash(PATIENT1_PASSWORD);
 		patient1.setDoctor(doctor);
 		PatientDao.getInstance().makePersistent(patient1);
+		
+		Patient patient2 = new Patient();
+		orthoptist = OrthoptistDao.getInstance().findAll().get(0);
+		patient2.setFirstName("Maja");
+		patient2.setLastName("Musterfrau");
+		patient2.setGender(Gender.F);
+		patient2.setSocialInsuranceNr("7418529634");
+		patient2.setEmail(PATIENT2_EMAIL);
+		patient2.setPasswordAsHash(PATIENT1_PASSWORD);
+		patient2.setDoctor(doctor);
+		PatientDao.getInstance().makePersistent(patient2);
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		Patient patient1 = PatientDao.getInstance().findBySocialInsuranceNr("7418529635");
 		PatientDao.getInstance().makeTransient(patient1);
+		Patient patient2 = PatientDao.getInstance().findBySocialInsuranceNr("7418529634");
+		PatientDao.getInstance().makeTransient(patient2);
 	}
 
 	/* -- IsLoginCredentialsValid -- */
@@ -244,6 +262,7 @@ public class NewAppointment_UnitTests {
 		}
 		
 	}
+	
 	@Test
 	public void addAppointmentTestWithEventTypeNull(){
 		at.itb13.oculus.presentation.gwt.shared.Patient patientshared = 
@@ -264,14 +283,9 @@ public class NewAppointment_UnitTests {
 		ce.setDoctorOrthoptist("David Ruben");
 		ce.setType("xy");
 		ce.setReason("first Appointment");
-		assertFalse(newApp.addAppointment(patientshared, ce));
-		
-//		Set<CalendarEvent> ces = patientdomain.getCalendarevents();
-//		for(CalendarEvent c:ces){
-//			CalendarEventDao.getInstance().makeTransient(c);
-//		}
-		
+		assertFalse(newApp.addAppointment(patientshared, ce));	
 	}
+	
 	@Test
 	public void addAppointmentTest_Null(){
 		at.itb13.oculus.presentation.gwt.shared.Patient patientshared = 
@@ -326,12 +340,11 @@ public class NewAppointment_UnitTests {
 		for(CalendarEvent c:ces){
 			assertTrue(newApp.deleteAppointment(c.getCalendarEventId()));
 		}
-		
 	}
 	
 	
 	@Test
-	public void getPatientAppointmentTest(){
+	public void getPatientAppointmentWithDoctorTest(){
 		at.itb13.oculus.presentation.gwt.shared.Patient patientshared = 
 				new at.itb13.oculus.presentation.gwt.shared.Patient();
 		Patient patientdomain;
@@ -346,8 +359,6 @@ public class NewAppointment_UnitTests {
 		patientshared.setDoctor(patientdomain.getDoctor().getUser().getFirstName()+" "+
 								patientdomain.getDoctor().getUser().getLastName());
 		patientshared.setSin(patientdomain.getSocialInsuranceNr());
-		
-		
 		EventType eventType = (EventType) ControllerFacade.getInstance().getAllEventTypes().get(0);
 		cedomain.setCalendar(patientdomain.getDoctor().getCalendar());
 		cedomain.setDescription("firstAppointment");
@@ -356,6 +367,40 @@ public class NewAppointment_UnitTests {
 		cedomain.setPatient(patientdomain);
 		cedomain.setEventType(eventType);
 		CalendarEventDao.getInstance().makePersistent(cedomain);
+		Set<CalendarEvent>ces = patientdomain.getCalendarevents();
+		cedomainId = ces.iterator().next().getCalendarEventId();
+		ce = newApp.getPatientAppointment(patientshared);
+		assertTrue(ce.getId()==cedomainId);
+		CalendarEventDao.getInstance().makeTransient(cedomain);
+	}
+	
+	@Test
+	public void getPatientAppointmentWithOrthoptistTest(){
+		at.itb13.oculus.presentation.gwt.shared.Patient patientshared = 
+				new at.itb13.oculus.presentation.gwt.shared.Patient();
+		Patient patientdomain;
+		CalendarEvent cedomain = new CalendarEvent();
+		int cedomainId = 0;
+		NewAppointment newApp = new NewAppointment();
+		
+		patientdomain = PatientDao.getInstance().findByEmail(PATIENT2_EMAIL);
+		at.itb13.oculus.presentation.gwt.shared.CalendarEvent ce = 
+				new at.itb13.oculus.presentation.gwt.shared.CalendarEvent();
+		patientshared.setName(patientdomain.getFirstName()+" "+patientdomain.getLastName());
+		patientshared.setDoctor(patientdomain.getDoctor().getUser().getFirstName()+" "+
+								patientdomain.getDoctor().getUser().getLastName());
+		patientshared.setSin(patientdomain.getSocialInsuranceNr());
+		
+		
+		EventType eventType = (EventType) ControllerFacade.getInstance().getAllEventTypes().get(0);
+		cedomain.setCalendar(orthoptist.getCalendar());
+		cedomain.setDescription("firstAppointment");
+		cedomain.setEventStart(LocalDateTime.now().plusWeeks(1));
+		cedomain.setEventEnd(cedomain.getEventStart().plusMinutes(eventType.getEstimatedTime()));
+		cedomain.setPatient(patientdomain);
+		cedomain.setEventType(eventType);
+		CalendarEventDao.getInstance().makePersistent(cedomain);
+		
 		Set<CalendarEvent> ces = patientdomain.getCalendarevents();
 		cedomainId = ces.iterator().next().getCalendarEventId();
 		ce = newApp.getPatientAppointment(patientshared);

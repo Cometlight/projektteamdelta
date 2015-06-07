@@ -185,13 +185,14 @@ public class NewAppointment {
 		domainEvent.setEventStart(LocalDateTime.parse(calendarEvent.getDate()));
 		if (eventType != null){
 			domainEvent.setEventEnd(domainEvent.getEventStart().plusMinutes(eventType.getEstimatedTime()));
+			domainEvent.setPatient(pa);
+			domainEvent.setEventType(eventType);
+			return CalendarEventDao.getInstance().makePersistent(domainEvent);
 		} else {
-			domainEvent.setEventEnd(domainEvent.getEventStart().plusMinutes(15));
+			return false;
 		}
 		
-		domainEvent.setPatient(pa);
-		domainEvent.setEventType(eventType);
-		return CalendarEventDao.getInstance().makePersistent(domainEvent);
+		
 	}
 	
 	/**

@@ -244,7 +244,34 @@ public class NewAppointment_UnitTests {
 		}
 		
 	}
-	
+	@Test
+	public void addAppointmentTestWithEventTypeNull(){
+		at.itb13.oculus.presentation.gwt.shared.Patient patientshared = 
+				new at.itb13.oculus.presentation.gwt.shared.Patient();
+		NewAppointment newApp = new NewAppointment();
+		Patient patientdomain = new Patient();
+		patientdomain = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
+		
+		patientshared.setName(patientdomain.getFirstName()+" "+patientdomain.getLastName());
+		patientshared.setDoctor(patientdomain.getDoctor().getUser().getFirstName()+" "+
+								patientdomain.getDoctor().getUser().getLastName());
+		patientshared.setSin(patientdomain.getSocialInsuranceNr());
+		at.itb13.oculus.presentation.gwt.shared.CalendarEvent ce = 
+				new at.itb13.oculus.presentation.gwt.shared.CalendarEvent();
+		LocalDateTime ldt = LocalDateTime.now().plusWeeks(1);
+		
+		ce.setDate(ldt.toString());
+		ce.setDoctorOrthoptist("David Ruben");
+		ce.setType("xy");
+		ce.setReason("first Appointment");
+		assertFalse(newApp.addAppointment(patientshared, ce));
+		
+//		Set<CalendarEvent> ces = patientdomain.getCalendarevents();
+//		for(CalendarEvent c:ces){
+//			CalendarEventDao.getInstance().makeTransient(c);
+//		}
+		
+	}
 	@Test
 	public void addAppointmentTest_Null(){
 		at.itb13.oculus.presentation.gwt.shared.Patient patientshared = 

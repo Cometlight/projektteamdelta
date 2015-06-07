@@ -110,7 +110,7 @@ public class Login extends Composite {
 				public void onSuccess(final Patient loggedInPatient) {
 					progressLabel.setVisible(false);
 					if (loggedInPatient != null) {
-						
+						loginErrorLabel.setVisible(false);
 						// If the patient has an appointment in the future, forward to AppointmentOverview,
 						// otherwise forward to AppointmentRequestForm
 						AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
@@ -132,6 +132,8 @@ public class Login extends Composite {
 						futureAppointmentCheckService.hasFutureAppointment(callback);
 					} else {
 						loginErrorLabel.setVisible(true);
+						loginButton.setEnabled(true);
+						isLoggingIn = false;
 					}
 				}
 			};

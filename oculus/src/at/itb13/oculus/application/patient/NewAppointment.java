@@ -14,6 +14,7 @@ import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.domain.Patient;
+import at.itb13.oculus.domain.WorkingHours;
 import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
 import at.itb13.oculus.technicalServices.dao.EventTypeDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
@@ -41,6 +42,8 @@ public class NewAppointment {
 	public at.itb13.oculus.presentation.gwt.shared.Patient isLoginCredentialsValid(String email, String password) {
 		if(email == null || password == null) {
 			throw new NullPointerException();
+		} else if (email.isEmpty() || password.isEmpty()) {
+			throw new IllegalArgumentException();
 		}
 		
 		Patient patient = PatientDao.getInstance().findByEmail(email);
@@ -203,9 +206,15 @@ public class NewAppointment {
 		}
 		
 		Calendar calendar = ((Patient)(ControllerFacade.getPatientSelected())).getDoctor().getCalendar();
-		return calendar.getWorkingHoursOfWeekDay(startDateTime.getDayOfWeek()).isDateInWorkingHours(
-				startDateTime.toLocalTime(), 
-				endDateTime.toLocalTime()
-		);
+		WorkingHours wH = calendar.getWorkingHoursOfWeekDay(startDateTime.getDayOfWeek());
+		if(wH != null) {
+			return wH.isDateInWorkingHours(
+					startDateTime.toLocalTime(), 
+					endDateTime.toLocalTime()
+			);
+		} else {
+			return false;
+		}
+		
 	}
 }

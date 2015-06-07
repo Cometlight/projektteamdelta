@@ -6,9 +6,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.After;
@@ -19,14 +19,14 @@ import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.patient.NewAppointment;
 import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
+import at.itb13.oculus.domain.CalendarWorkingHours;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.EventType;
 import at.itb13.oculus.domain.Patient;
 import at.itb13.oculus.domain.Patient.Gender;
-import at.itb13.oculus.technicalServices.dao.CalendarDao;
+import at.itb13.oculus.domain.WorkingHours;
 import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
 import at.itb13.oculus.technicalServices.dao.DoctorDao;
-import at.itb13.oculus.technicalServices.dao.EventTypeDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 
 
@@ -75,10 +75,15 @@ public class NewAppointment_UnitTests {
 	@Test
 	public void testIsLoginCredentialsValid_Empty() {
 		NewAppointment newAp = new NewAppointment();
-		// Should not throw any exceptions
-		newAp.isLoginCredentialsValid("email", "");
-		newAp.isLoginCredentialsValid("", "password");
-		newAp.isLoginCredentialsValid("", "");
+		
+		assertThrown(() -> newAp.isLoginCredentialsValid("email", ""))
+			.isInstanceOf(IllegalArgumentException.class);
+		
+		assertThrown(() -> newAp.isLoginCredentialsValid("", "password"))
+			.isInstanceOf(IllegalArgumentException.class);
+		
+		assertThrown(() -> newAp.isLoginCredentialsValid("", ""))
+			.isInstanceOf(IllegalArgumentException.class);
 	}
 	
 	@Test
@@ -167,7 +172,7 @@ public class NewAppointment_UnitTests {
 		
 		ControllerFacade.setPatientSelected(null);
 		assertThrown(() -> newAp.isInWorkingHours(null, null))
-			.isInstanceOf(NullPointerException.class);
+			.isInstanceOf(IllegalArgumentException.class);
 	}
 	
 	@Test
@@ -185,19 +190,29 @@ public class NewAppointment_UnitTests {
 	@Test
 	public void testIsInWorkingHours_Valid() {
 		NewAppointment newAp = new NewAppointment();
+		LocalDateTime monday9AM = LocalDateTime.of(2015, 6, 1, 9, 0);
+		LocalDateTime tuesday9AM = LocalDateTime.of(2015, 6, 2, 9, 0);
 		
+		// Set up the patient, doctor, and calendar with its workinghours
 		Patient patient = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
 		ControllerFacade.setPatientSelected(patient);
+		WorkingHours workingHours = new WorkingHours();
+		workingHours.setMorningFrom(monday9AM.toLocalTime().minusHours(2));
+		workingHours.setMorningTo(monday9AM.toLocalTime().plusHours(2));
 		Calendar calendar = new Calendar();
+		CalendarWorkingHours calendarWorkingHours = new CalendarWorkingHours(calendar, workingHours, DayOfWeek.MONDAY);
+		Set<CalendarWorkingHours> setWorkingHours = new HashSet<>();
+		setWorkingHours.add(calendarWorkingHours);
+		calendar.setCalendarWorkingHours(setWorkingHours);
 		patient.setDoctor(new Doctor(calendar));
 		
-		LocalDateTime dateTimeStart = LocalDateTime.now();
-		LocalDateTime dateTimeEnd = dateTimeStart.plusHours(1);
-		
+		// Tests
+		assertTrue(newAp.isInWorkingHours(monday9AM, monday9AM.plusMinutes(30)));
+		assertTrue(newAp.isInWorkingHours(monday9AM.minusHours(1), monday9AM.minusMinutes(30)));
+		assertFalse(newAp.isInWorkingHours(monday9AM.plusHours(3), monday9AM.plusHours(4)));
+		assertFalse(newAp.isInWorkingHours(monday9AM.plusHours(1), monday9AM.plusHours(3)));
+		assertFalse(newAp.isInWorkingHours(tuesday9AM, tuesday9AM.plusHours(1)));
 	}
-	
-	
-	
 	
 	/* -- -- */
 	@Test

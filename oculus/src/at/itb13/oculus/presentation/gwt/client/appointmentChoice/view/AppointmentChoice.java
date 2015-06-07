@@ -128,7 +128,7 @@ public class AppointmentChoice extends Composite{
 	   
 	    appointmentTable.addColumn(dateColumn, "Date");
 	    //TODO: TIME
-	    appointmentTable.addColumn(doctorColumn, "Doctor / Orthoptis");
+	    appointmentTable.addColumn(doctorColumn, "Doctor / Orthoptist");
 	    appointmentTable.addColumn(typeColumn, "Appointment Type");
 	    appointmentTable.addColumn(reasonColumn, "Reason");
 

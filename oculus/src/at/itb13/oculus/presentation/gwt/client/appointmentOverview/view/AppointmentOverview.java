@@ -122,7 +122,7 @@ public class AppointmentOverview extends Composite {
 				existingAppointmentTable.addColumn(DateColumn, "Date");
 			
 				existingAppointmentTable.addColumn(DoctorColumn,
-						"Doctor / Orthoptis");
+						"Doctor / Orthoptist");
 				existingAppointmentTable.addColumn(TypeColumn,
 						"Appointment Type");
 				existingAppointmentTable.addColumn(ReasonColumn, "Reason");

@@ -12,7 +12,6 @@ import at.itb13.oculus.presentation.gwt.shared.CalendarEvent;
 import at.itb13.oculus.presentation.gwt.shared.Patient;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -288,7 +287,6 @@ public class AppointmentRequestForm extends Composite {
 	TextBox reasonForAppointmentTextBox;
 	
 	private boolean checkTimeBox(final Label label, final UTCTimeBox box1, final UTCTimeBox box2, ListBox weekday) {
-		
 		if(box1.getText().isEmpty() || box2.getText().isEmpty()){
 			label.setVisible(true);
 			label.setText("Starttime or Endtime is missing!");
@@ -323,12 +321,12 @@ public class AppointmentRequestForm extends Composite {
 							isValid = false;
 						}
 					}
-				};
-				appointmentCheckService.isInWorkingHours(weekday.getItemText(weekday.getSelectedIndex()), 
+					};
+					appointmentCheckService.isInWorkingHours(weekday.getItemText(weekday.getSelectedIndex()), 
 														box1.getText(), box2.getText(), callback);
-				label.setVisible(false);
-				label.setText("");
-				return isValid;
+					label.setVisible(false);
+					label.setText("");
+					return isValid;
 				}				
 			} else{
 				label.setVisible(true);
@@ -339,7 +337,6 @@ public class AppointmentRequestForm extends Composite {
 	}
 	
 	private void handleSubmit(){
-		Window.alert("" + _isValid1 + _isValid2 + _isValid3);
 		if(_isValid1 && _isValid2 && _isValid3){
 			submitButton.setEnabled(true);
 		}else{
@@ -368,6 +365,7 @@ public class AppointmentRequestForm extends Composite {
 		weekdayListBox2.setVisible(true);
 		_isAdded1 = true;
 		_isValid2 = false;
+		handleSubmit();
 	}
 	
 	@UiHandler("removeButton1")
@@ -400,7 +398,8 @@ public class AppointmentRequestForm extends Composite {
 		removeButton2.setVisible(true);
 		weekdayListBox3.setVisible(true);
 		_isAdded2 = true;
-		_isValid3 = false;		
+		_isValid3 = false;
+		handleSubmit();
 	}
 	
 	@UiHandler("removeButton2")

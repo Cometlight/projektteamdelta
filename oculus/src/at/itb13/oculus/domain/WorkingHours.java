@@ -46,7 +46,7 @@ public class WorkingHours implements java.io.Serializable, IWorkingHours {
 	}
 
 	public WorkingHours(LocalTime morningFrom, LocalTime morningTo, LocalTime afternoonFrom,
-			LocalTime afternoonTo, Set<CalendarWorkingHours> calendarworkinghourses) {
+			LocalTime afternoonTo) {
 		_morningFrom = morningFrom;
 		_morningTo = morningTo;
 		_afternoonFrom = afternoonFrom;
@@ -62,6 +62,10 @@ public class WorkingHours implements java.io.Serializable, IWorkingHours {
 	 */
 	@Override
 	public boolean isDateInWorkingHours(LocalTime start, LocalTime end){
+		if(start == null || end == null) {
+			throw new NullPointerException();
+		}
+		
 		if(getMorningFrom() != null && getMorningTo() != null){
 			if((start.isAfter(getMorningFrom()) || start.equals(getMorningFrom()))
 				&& (end.isBefore(getMorningTo()) || end.equals(getMorningTo()))){

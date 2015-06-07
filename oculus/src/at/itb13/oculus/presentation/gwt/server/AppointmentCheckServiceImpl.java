@@ -3,6 +3,7 @@ package at.itb13.oculus.presentation.gwt.server;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,33 +28,22 @@ public class AppointmentCheckServiceImpl extends RemoteServiceServlet implements
 				 											boolean isAdded1, boolean isAdded2,
 				 											Date start, Date end, String appointmentType){
 			
-			List<CalendarEvent> list = new LinkedList<>();
-			boolean isSameDay1 = false;
-			boolean isSameDay2 = false;			
+			List<CalendarEvent> list = new LinkedList<>();		
 			List<LocalDateTime> ldt = createLocalDateTimeOfStrings(weekday1, from1, to1);
 			list.add(ControllerFacade.getInstance().getNewAppointment().
 								   getPossibleAppointment(ldt.get(0),ldt.get(1),start,end,appointmentType,
-										   				  isSameDay1,isSameDay2));
+										   				  LocalDateTime.now()));
 			
 			if(isAdded1){
-				if(weekday1.equals(weekday2)){
-					isSameDay1 = true;				
-				}
 				ldt = createLocalDateTimeOfStrings(weekday2, from2, to2);
 				list.add(ControllerFacade.getInstance().getNewAppointment().
 									getPossibleAppointment(ldt.get(0),ldt.get(1),start,end,appointmentType,
-														   isSameDay1,isSameDay2));
+											 			LocalDateTime.parse(list.get(0).getDate())));
 				if(isAdded2){
-					if(weekday1.equals(weekday3)){
-						isSameDay2 = true;
-					}
-					if(weekday2.equals(weekday3)){
-						isSameDay2 = true;
-					}
 					ldt = createLocalDateTimeOfStrings(weekday3, from3, to3);
 					list.add(ControllerFacade.getInstance().getNewAppointment().
 							 		getPossibleAppointment(ldt.get(0),ldt.get(1),start,end,appointmentType,
-							 							   isSameDay1,isSameDay2));
+							 							LocalDateTime.parse(list.get(1).getDate())));
 				}
 			}
 			return list;
@@ -68,17 +58,13 @@ public class AppointmentCheckServiceImpl extends RemoteServiceServlet implements
 		}
 		
 		private List<LocalDateTime> createLocalDateTimeOfStrings(String weekday, String from, String to){
-			LocalTime lt1;
-			LocalTime lt2;
+			LocalTime lt1 = null;
+			LocalTime lt2 = null;
 			if(!from.isEmpty()){
 				lt1 = createLocalTimeOfString(from);
-			}else{
-				lt1 = LocalTime.of(8, 00);
 			}
 			if(!to.isEmpty()){
 				lt2 = createLocalTimeOfString(to);
-			}else{
-				lt2 = LocalTime.of(18, 00);
 			}
 			LocalDate ld = createLocalDateOfString(weekday);
 			LocalDateTime ldt1 = LocalDateTime.of(ld, lt1);

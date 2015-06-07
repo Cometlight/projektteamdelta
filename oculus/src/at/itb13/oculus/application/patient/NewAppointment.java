@@ -1,13 +1,18 @@
 package at.itb13.oculus.application.patient;
 
+import java.text.ParseException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.ibm.icu.text.DateFormat;
+import com.ibm.icu.text.SimpleDateFormat;
 
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.domain.Calendar;
@@ -71,30 +76,22 @@ public class NewAppointment {
 	
 	public at.itb13.oculus.presentation.gwt.shared.CalendarEvent getPossibleAppointment(LocalDateTime startTime, LocalDateTime endTime, 
 																						Date start, Date end, String appointmentType,
-																						boolean isSameDay1, boolean isSameDay2){
+																						LocalDateTime lastAppointment){
 		
 		int appointmentDuration = getAppointmentDuration(appointmentType);
 		Patient patient = (Patient) ControllerFacade.getPatientSelected();
 		Calendar calendar = patient.getDoctor().getCalendar();
 		LocalDateTime eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
-		if(isSameDay1){
-			while(startTime.isBefore(eventTime)){
-				startTime = startTime.plusDays(7);
-				endTime = endTime.plusDays(7);
-			}
-			eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
+		startTime.getDayOfMonth();
+		while(startTime.getDayOfYear() <= lastAppointment.getDayOfYear()){
+			startTime = startTime.plusDays(7);
+			endTime = endTime.plusDays(7);
 		}
-		if(isSameDay2){
-			while(startTime.isBefore(eventTime)){
-				startTime = startTime.plusDays(7);
-				endTime = endTime.plusDays(7);
-			}
-			eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
-		}
+		eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
 		Instant instant = eventTime.atZone(ZoneId.systemDefault()).toInstant();
 		Date date = Date.from(instant);
-		if(date.after(start) && date.before(end)){
-			while(date.before(end)){
+		if(date.after(start) && date.before(end) || date.equals(start) || date.equals(end)){
+			while(date.before(end) || date.equals(end)){
 				date = addDaysToDate(date, 7);
 				startTime = startTime.plusDays(7);
 				endTime = endTime.plusDays(7);

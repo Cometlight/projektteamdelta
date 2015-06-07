@@ -176,8 +176,8 @@ public class AppointmentRequestForm extends Composite {
 	private boolean _isFirstDatePicked;
 	private Date _fromDate;
 	private Date _toDate;
-	private boolean _isAdded1;
-	private boolean _isAdded2;
+	private boolean _isAdded1 = false;
+	private boolean _isAdded2 = false;
 	private String _reason;
 	private boolean isValid;
 	private boolean _isValid1;

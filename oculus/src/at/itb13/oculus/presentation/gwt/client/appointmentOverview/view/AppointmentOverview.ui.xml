@@ -25,7 +25,7 @@
 				<p>In order to fix a new appointment, please delete the appointment above.</p>
 				<g:Button ui:field="deleteButton" text="Delete"/>	
 				<g:Button ui:field="newAppointmentButton" text="New Appointment"/>
-				<g:Button ui:field="appointmentChoiceButton" text="Appointment Choice"/>
+				
 			</div>
 		</div>
 	</g:HTMLPanel>

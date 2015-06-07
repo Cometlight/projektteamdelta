@@ -68,8 +68,7 @@ public class AppointmentOverview extends Composite {
 	Button deleteButton;
 	@UiField
 	Button newAppointmentButton;
-	@UiField
-	Button appointmentChoiceButton;
+	
 	
 	List<CalendarEvent> _list = null;
 
@@ -192,21 +191,7 @@ public class AppointmentOverview extends Composite {
 		newAppointmentButton.setEnabled(true);
 	}
 
-	@UiHandler("appointmentChoiceButton")
-	void onClickAppointmentChoiceButton(ClickEvent event) {
-		CalendarEvent event1 = new CalendarEvent(25, "25.06.2015",
-				"Dr.Tavolato", "First visit", "some reason");
-		CalendarEvent event2 = new CalendarEvent(26, "25.06.2015", "Dr Ruben",
-				"First visit", "some reason");
-		CalendarEvent event3 = new CalendarEvent(27, "25.06.2015", "Dr Other",
-				"First visit", "some reason");
-		List<CalendarEvent> events = new ArrayList<>();
-		events.add(event1);
-		events.add(event2);
-		events.add(event3);
-		Index.forward(new AppointmentChoice(_patient, events));
-
-	}
+	
 	
 	@UiHandler("logoutButton")
 	void onClickLogoutButton(ClickEvent event){

@@ -27,6 +27,7 @@ import at.itb13.oculus.domain.Patient.Gender;
 import at.itb13.oculus.domain.WorkingHours;
 import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
 import at.itb13.oculus.technicalServices.dao.DoctorDao;
+import at.itb13.oculus.technicalServices.dao.EventTypeDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 
 
@@ -230,9 +231,10 @@ public class NewAppointment_UnitTests {
 		at.itb13.oculus.presentation.gwt.shared.CalendarEvent ce = 
 				new at.itb13.oculus.presentation.gwt.shared.CalendarEvent();
 		LocalDateTime ldt = LocalDateTime.now().plusWeeks(1);
+		String type = EventTypeDao.getInstance().list().get(0).getEventTypeName();
 		ce.setDate(ldt.toString());
 		ce.setDoctorOrthoptist("David Ruben");
-		ce.setType("Standardtreatment");
+		ce.setType(type);
 		ce.setReason("first Appointment");
 		assertTrue(newApp.addAppointment(patientshared, ce));
 		

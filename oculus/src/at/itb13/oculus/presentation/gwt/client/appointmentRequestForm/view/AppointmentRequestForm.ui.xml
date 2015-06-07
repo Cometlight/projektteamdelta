@@ -148,7 +148,7 @@
 							<p>The first click sets the 'From' date, the second the 'To'
 								date.</p>
 							<p>If your input is wrong, repeat the process.</p>
-
+							<g:Label ui:field="datePickerErrorLabel" />
 							<dp:DatePicker ui:field="datepicker1" />
 							<g:Label ui:field="datepicker1ErrorLabel" />
 							<g:Label ui:field="fromDateLabel" />

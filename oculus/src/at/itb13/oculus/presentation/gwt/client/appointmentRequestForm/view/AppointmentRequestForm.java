@@ -2,6 +2,7 @@ package at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view;
 
 import java.util.Date;
 import java.util.List;
+import java.util.function.Consumer;
 
 import at.itb13.oculus.presentation.gwt.client.Index;
 import at.itb13.oculus.presentation.gwt.client.appointmentChoice.view.AppointmentChoice;
@@ -61,7 +62,8 @@ public class AppointmentRequestForm extends Composite {
 		fromTimeBox1.addValueChangeHandler(new ValueChangeHandler<Long>() {
             public void onValueChange(ValueChangeEvent<Long> event) {
                 fromTimeBox1.setValue(event.getValue());
-                _isValid1 = checkTimeBox(fromErrorLabel1,fromTimeBox1,toTimeBox1,weekdayListBox1);
+//                _isValid1 = checkTimeBox(fromErrorLabel1,fromTimeBox1,toTimeBox1,weekdayListBox1);
+                checkTimeBox(fromErrorLabel1,fromTimeBox1,toTimeBox1,weekdayListBox1, result -> result = _isValid1);
                 handleSubmit();
             }
         });
@@ -286,11 +288,12 @@ public class AppointmentRequestForm extends Composite {
 	@UiField
 	TextBox reasonForAppointmentTextBox;
 	
-	private boolean checkTimeBox(final Label label, final UTCTimeBox box1, final UTCTimeBox box2, ListBox weekday) {
+	private void checkTimeBox(final Label label, final UTCTimeBox box1, final UTCTimeBox box2, ListBox weekday, Consumer<Boolean> consumerBoolean) {
 		if(box1.getText().isEmpty() || box2.getText().isEmpty()){
 			label.setVisible(true);
 			label.setText("Starttime or Endtime is missing!");
-			return false;
+			consumerBoolean.accept(false);
+//			return false;
 		} else{
 			if(isTimeValid(box1.getText()) && isTimeValid(box2.getText())){
 				String[] parts1 = box1.getText().split(":");
@@ -302,7 +305,7 @@ public class AppointmentRequestForm extends Composite {
 				if(hour1 > hour2 || (hour1 == hour2 && minute1 >= minute2)){
 					label.setVisible(true);
 					label.setText("The Starttime has to be before the Endtime!");
-					return false;
+					consumerBoolean.accept(false);
 				} else {
 					
 					AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
@@ -314,11 +317,13 @@ public class AppointmentRequestForm extends Composite {
 					public void onSuccess(Boolean result) {
 						if(result) {
 							label.setVisible(false);
-							isValid = true;
+							consumerBoolean.accept(true);
+//							isValid = true;
 						} else{
 							label.setVisible(true);
 							label.setText("The selected time is not in the working hours!");
-							isValid = false;
+							consumerBoolean.accept(false);
+//							isValid = false;
 						}
 					}
 					};
@@ -326,12 +331,12 @@ public class AppointmentRequestForm extends Composite {
 														box1.getText(), box2.getText(), callback);
 					label.setVisible(false);
 					label.setText("");
-					return isValid;
+//					return isValid;
 				}				
 			} else{
 				label.setVisible(true);
 				label.setText("The time format is wrong, it should look like this: 12:00");
-				return false;
+				consumerBoolean.accept(false);
 			}
 		}
 	}

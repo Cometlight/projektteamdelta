@@ -3,13 +3,9 @@ package at.itb13.oculus.presentation.gwt.server;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.rpc.AppointmentCheckService;
@@ -24,9 +20,6 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  */
 public class AppointmentCheckServiceImpl extends RemoteServiceServlet implements AppointmentCheckService{
 	private static final long serialVersionUID = 1L;
-		@SuppressWarnings("unused")
-		private static final Logger _logger = LogManager.getLogger(AppointmentCheckServiceImpl.class.getName());
-		
 		@Override
 		public List<CalendarEvent> getPossibleAppointments(String weekday1, String from1, String to1, 
 				 											String weekday2, String from2, String to2, 

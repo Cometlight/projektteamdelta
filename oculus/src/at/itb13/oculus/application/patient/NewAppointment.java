@@ -198,6 +198,10 @@ public class NewAppointment {
 	 * @return true if within the patient's doctor's calendar's working hours.
 	 */
 	public boolean isInWorkingHours(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+		if(startDateTime == null || endDateTime == null || endDateTime.isBefore(startDateTime)) {
+			throw new IllegalArgumentException();
+		}
+		
 		Calendar calendar = ((Patient)(ControllerFacade.getPatientSelected())).getDoctor().getCalendar();
 		return calendar.getWorkingHoursOfWeekDay(startDateTime.getDayOfWeek()).isDateInWorkingHours(
 				startDateTime.toLocalTime(), 

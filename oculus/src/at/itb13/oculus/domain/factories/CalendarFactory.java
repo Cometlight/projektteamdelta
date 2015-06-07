@@ -24,8 +24,7 @@ public class CalendarFactory implements ICalendarFactory{
 	 * @return Calendar without parameters
 	 */
 	public ICalendar createCalendar(){
-		Calendar calendar = Calendar.getInstance();
-		return calendar;
+		return new Calendar();
 	}
 	/**
 	 *  

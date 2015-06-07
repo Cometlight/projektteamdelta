@@ -25,7 +25,7 @@ public class Calendar_Unittests {
 	@Test
 	public void getCalendarEventsForTimespan_Test(){
 		List<CalendarEvent> ce = null;
-		Calendar cal = Calendar.getInstance();
+		Calendar cal = new Calendar();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		String strDate2 = "2015-04-01 10:11";
 		LocalDateTime endDate = LocalDateTime.parse(strDate2, formatter);
@@ -36,7 +36,7 @@ public class Calendar_Unittests {
 	
 	@Test
 	public void isOneCalendarEventinTimespan_Test(){
-		Calendar cal = Calendar.getInstance();
+		Calendar cal = new Calendar();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		String strDate2 = "2015-04-01 10:11";
 		LocalDateTime endDate = LocalDateTime.parse(strDate2, formatter);
@@ -46,7 +46,7 @@ public class Calendar_Unittests {
 	
 	@Test
 	public void getCalendarEventById(){
-		Calendar cal = Calendar.getInstance();
+		Calendar cal = new Calendar();
 		CalendarEvent ce;
 		ce = (CalendarEvent) cal.getCalendarEventById(1);
 		assertEquals(true, ce==null);
@@ -56,7 +56,7 @@ public class Calendar_Unittests {
 	public void getWorkingHoursOfWeekDay_Test(){
 		DayOfWeek day = DayOfWeek.MONDAY;
 		WorkingHours wh = null;
-		Calendar cal = Calendar.getInstance();
+		Calendar cal = new Calendar();
 		wh = cal.getWorkingHoursOfWeekDay(day);
 		assertEquals(true, wh!=null);
 	}

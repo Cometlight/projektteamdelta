@@ -6,7 +6,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 import org.junit.After;
 import org.junit.Before;
@@ -149,39 +148,5 @@ public class Patient_UnitTests {
 		CalendarEventDao.getInstance().makeTransient(calendarEvent);
 		PatientDao.getInstance().makeTransient(patient);
 	}
-	
-
-	// TODO: Check if the following tests are good (old tests)
-//	@Test
-//	public void constructorWithoutParameters() {
-//		Patient p = new Patient();
-//		assertEquals(true, p != null);
-//	}
-//
-//	@Test
-//	public void constructorWithGenaeralInformationWithNullParameters() {
-//		String s = "";
-//		Patient p = new Patient(null, s, s, s, null, null, s, s, s, s, s, s);
-//		assertEquals(true, p != null);
-//	}
-//
-//	@Test
-//	public void constructotWithAllInformationWithNullParameters() {
-//		Patient p = new Patient(null, null, null, null, null, null, null, null,
-//				null, null, null, null, null, null, null, null, null, null,
-//				null);
-//		assertEquals(true, p != null);
-//	}
-//
-//	@Test
-//	public void isSocialInsuranceNrValid_Test() {
-//		String nr1 = "1234567890";
-//		String nr2 = "123456789";
-//		String nr3 = "abcdefghij";
-//
-//		assertEquals(true, Patient.isSocialInsuranceNrValid(nr1));
-//		assertEquals(false, Patient.isSocialInsuranceNrValid(nr2));
-//		assertEquals(false, Patient.isSocialInsuranceNrValid(nr3));
-//	}
 
 }

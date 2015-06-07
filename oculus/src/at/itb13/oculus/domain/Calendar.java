@@ -52,21 +52,16 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 	private Set<CalendarWorkingHours> _calendarWorkingHours = new HashSet<CalendarWorkingHours>(
 			0);
 
-	Calendar() {
+	public Calendar() {
 	}
 
-	Calendar(String title, IDoctor doctor, IOrthoptist orthoptist, Set<ICalendarEvent> calendarevents,
+	public Calendar(String title, IDoctor doctor, IOrthoptist orthoptist, Set<ICalendarEvent> calendarevents,
 			Set<ICalendarWorkingHours> calendarworkinghourses) {
 		_title = title;
 		_doctor = (Doctor) doctor;
 		_orthoptist = (Orthoptist) orthoptist;
 		_calendarEvents = (Set<CalendarEvent>) getListWithCalendarEvent(calendarevents);
 		_calendarWorkingHours = (Set<CalendarWorkingHours>) getListWithCalendarWorkingHours(calendarworkinghourses);
-	}
-	
-	public static Calendar getInstance(){
-		Calendar calendar = new Calendar();
-		return calendar;
 	}
 	
 	public static ICalendar getInstance(String title, IDoctor doctor, IOrthoptist orthoptist, Set<ICalendarEvent> calendarevents, 

@@ -17,6 +17,7 @@ import org.junit.Test;
 
 import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.application.patient.NewAppointment;
+import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.Doctor;
 import at.itb13.oculus.domain.EventType;
@@ -146,7 +147,59 @@ public class NewAppointment_UnitTests {
 		assertFalse(newAp.hasFutureAppointment());
 	}
 	
+	/* -- isInWorkingHours -- */
 	
+	@Test
+	public void testIsInWorkingHours_Null() {
+		NewAppointment newAp = new NewAppointment();
+		Patient patient = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
+		ControllerFacade.setPatientSelected(patient);
+		LocalDateTime dateTime = LocalDateTime.now();
+		
+		assertThrown(() -> newAp.isInWorkingHours(null, null))
+			.isInstanceOf(IllegalArgumentException.class);
+		
+		assertThrown(() -> newAp.isInWorkingHours(dateTime, null))
+			.isInstanceOf(IllegalArgumentException.class);
+		
+		assertThrown(() -> newAp.isInWorkingHours(null, dateTime))
+			.isInstanceOf(IllegalArgumentException.class);
+		
+		ControllerFacade.setPatientSelected(null);
+		assertThrown(() -> newAp.isInWorkingHours(null, null))
+			.isInstanceOf(NullPointerException.class);
+	}
+	
+	@Test
+	public void testIsInWorkingHours_IllegalParameter() {
+		NewAppointment newAp = new NewAppointment();
+		Patient patient = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
+		ControllerFacade.setPatientSelected(patient);
+		LocalDateTime dateTimeStart = LocalDateTime.now();
+		LocalDateTime dateTimeEnd = dateTimeStart.minusHours(1);
+		
+		assertThrown(() -> newAp.isInWorkingHours(dateTimeStart, dateTimeEnd))
+			.isInstanceOf(IllegalArgumentException.class);
+	}
+	
+	@Test
+	public void testIsInWorkingHours_Valid() {
+		NewAppointment newAp = new NewAppointment();
+		
+		Patient patient = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
+		ControllerFacade.setPatientSelected(patient);
+		Calendar calendar = new Calendar();
+		patient.setDoctor(new Doctor(calendar));
+		
+		LocalDateTime dateTimeStart = LocalDateTime.now();
+		LocalDateTime dateTimeEnd = dateTimeStart.plusHours(1);
+		
+	}
+	
+	
+	
+	
+	/* -- -- */
 	@Test
 	public void addAppointmentTest(){
 		at.itb13.oculus.presentation.gwt.shared.Patient patientshared = 

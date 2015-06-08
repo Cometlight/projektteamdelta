@@ -290,7 +290,7 @@ public class AppointmentRequestForm extends Composite {
 				checkTimeBox(fromErrorLabel3,fromTimeBox3,toTimeBox3,weekdayListBox3);
 			}
 		}
-		if(_fromDate.after(_toDate)){
+		if(_fromDate != null && _toDate != null && _fromDate.after(_toDate)){
 			datePickerErrorLabel.setText("Wrong dates chosen! Correct your selection!");
 			datePickerErrorLabel.setVisible(true);
 			_isValid = false;

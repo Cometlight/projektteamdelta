@@ -225,12 +225,12 @@ public class AppointmentChoice extends Composite{
 		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("OK - Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
+				Window.alert("AppointmentChoice - Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
 			}
 
 			@Override
 			public void onSuccess(Boolean b) {
-				Window.alert("Event has been added");
+				Window.alert("Appointmentment has been added");
 				Index.forward(new AppointmentOverview(_patient));
 			}
 		};

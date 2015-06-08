@@ -37,9 +37,7 @@
 						<table ui:field="fromToTable">
 							<p class="{mycss.infotext}">There are up to 3 weekdays you can choose from!</p>
 							<p>Choose the weekday and the time of day for your appointment!</p>
-							<p>Click the add button an additional weekday / time of day</p>
-							<p>Click the remove button to remove the selection.</p>
-
+							<p>The "Get Next Appointments" Button gets you the next available appointments!</p>
 							<!-- First option -->
 							<div>
 								<div>
@@ -69,8 +67,8 @@
 								<g:Label ui:field="toErrorLabel1" />
 								<t:UTCTimeBox ui:field="toTimeBox1" />
 								<p></p>
-								<g:Button ui:field="addButton1" text="Add" />
-								
+								<g:Button ui:field="addButton1" text="Add Day" />
+								<g:Button ui:field="getNextAppButton" text="Get Next Appointments" />
 							</div>
 
 							<!-- Second option -->
@@ -102,8 +100,8 @@
 								<g:Label ui:field="toErrorLabel2" />
 								<t:UTCTimeBox ui:field="toTimeBox2" />
 								<p></p>
-								<g:Button ui:field="addButton2" text="Add" />
-								<g:Button ui:field="removeButton1" text="Remove" />
+								<g:Button ui:field="addButton2" text="Add Day" />
+								<g:Button ui:field="removeButton1" text="Remove Day" />
 							</div>
 							<!-- Third option -->
 							<div>
@@ -135,7 +133,7 @@
 								<g:Label ui:field="toErrorLabel3" />
 								<t:UTCTimeBox ui:field="toTimeBox3" />
 								<p></p>
-								<g:Button ui:field="removeButton2" text="Remove" />
+								<g:Button ui:field="removeButton2" text="Remove Day" />
 							</div>
 						</table>
 

@@ -270,6 +270,9 @@ public class AppointmentRequestForm extends Composite {
 	Button resetButton;
 	
 	@UiField
+	Button getNextAppButton;
+	
+	@UiField
 	Label nameLabel;
 	
 	@UiField
@@ -378,6 +381,7 @@ public class AppointmentRequestForm extends Composite {
 		addButton1.setVisible(false);
 		removeButton1.setVisible(true);
 		weekdayListBox2.setVisible(true);
+		getNextAppButton.setVisible(false);
 		_isAdded1 = true;
 		handleSubmit();
 	}
@@ -392,6 +396,7 @@ public class AppointmentRequestForm extends Composite {
 		addButton1.setVisible(true);
 		removeButton1.setVisible(false);
 		weekdayListBox2.setVisible(false);
+		getNextAppButton.setVisible(true);
 		_isAdded1 = false;
 		fromTimeBox2.setText("");
 		toTimeBox2.setText("");

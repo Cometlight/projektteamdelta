@@ -19,6 +19,7 @@ import at.itb13.oculus.domain.Calendar;
 import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.CalendarWorkingHours;
 import at.itb13.oculus.domain.WorkingHours;
+import at.itb13.oculus.technicalServices.dao.CalendarDao;
 
 /**
  * TODO: JUnit-Tests for methods of Calendar
@@ -92,4 +93,31 @@ public class Calendar_UnitTests {
 		ce = (CalendarEvent) cal.getCalendarEventById(1);
 		assertEquals(true, ce==null);
 	}
+	
+	@Test
+	public void findPossibleAppointment(){
+		Calendar cal = new Calendar();
+		LocalDateTime startTime = LocalDateTime.of(2015, 6, 15, 8, 0);
+		LocalDateTime endTime = LocalDateTime.now().plusMinutes(120);
+		assertNotNull(cal.findPossibleAppointment(startTime, endTime, 60));
+	}
+	
+	@Test
+	public void findPossibleAppointment2(){
+		Calendar cal = new Calendar();
+		LocalDateTime startTime = LocalDateTime.of(2015, 6, 16, 8, 0);
+		LocalDateTime endTime = LocalDateTime.now().plusMinutes(360);
+		assertNotNull(cal.findPossibleAppointment(startTime, endTime, 60));
+	}
+	
+	@Test
+	public void findPossibleAppointment_CalendarID101_findPossibleAppointment_IfBranch(){
+		Calendar cal = CalendarDao.getInstance().findById(101); 
+		LocalDateTime startTime = LocalDateTime.of(2015, 4, 27, 10, 30);
+		LocalDateTime endTime = LocalDateTime.now().plusMinutes(30);
+		LocalDateTime time = cal.findPossibleAppointment(startTime, endTime, 30);
+		assertNotNull(time);
+	}
+	
+	
 }

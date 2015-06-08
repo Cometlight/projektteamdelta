@@ -1,15 +1,18 @@
 package at.itb13.oculustests.application.patient;
 
 import static at.itb13.oculustests.exceptioncatcher.ThrowableAssertion.assertThrown;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Locale;
 import java.util.Set;
 
 import org.junit.After;
@@ -32,6 +35,7 @@ import at.itb13.oculus.technicalServices.dao.DoctorDao;
 import at.itb13.oculus.technicalServices.dao.EventTypeDao;
 import at.itb13.oculus.technicalServices.dao.OrthoptistDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
+import at.itb13.oculustests.exceptioncatcher.ThrowableAssertion;
 
 
 /**
@@ -44,6 +48,7 @@ public class NewAppointment_UnitTests {
 	private static final String PATIENT2_EMAIL = "maja.musterfrau@muster.com";
 	private static final String PATIENT1_PASSWORD = "letmein";
 	Orthoptist orthoptist;
+	private ThrowableAssertion _instanceOf;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -443,5 +448,237 @@ public class NewAppointment_UnitTests {
 		NewAppointment newApp = new NewAppointment();
 		assertThrown(() -> newApp.getPatientAppointment(null))
 		.isInstanceOf(NullPointerException.class);	
+	}
+	
+	@Test
+	public void getPossibleAppointmentTest_IllegalArgumentException(){
+		Patient patient1 = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
+		ControllerFacade.getInstance();
+		ControllerFacade.setPatientSelected(patient1);
+		NewAppointment newApp = new NewAppointment();
+		assertThrown(() -> newApp.getPossibleAppointment(null, null, null, null, null, null))
+		.isInstanceOf(IllegalArgumentException.class);	
+	}
+	
+	@Test
+	public void getPossibleAppointmentTest_lastAppointmentAfterPossibleDate(){
+		Patient patient1 = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
+		ControllerFacade.getInstance();
+		ControllerFacade.setPatientSelected(patient1);
+		
+		LocalDateTime startDate = LocalDateTime.now();
+		LocalDateTime fromDate = LocalDateTime.now().plusMinutes(30);
+		LocalDateTime lastAppointment = LocalDateTime.now().plusDays(30);
+		
+		NewAppointment newApp = new NewAppointment();
+		assertThrown(() -> newApp.getPossibleAppointment(startDate, fromDate, null, null, "Standard treatment", lastAppointment)).isInstanceOf(NullPointerException.class);
+//		assertEquals(newApp.getPossibleAppointment(startDate, fromDate, null, null, "Standard treatment", lastAppointment) != null, true);
+	}
+	
+	@Test
+	public void getPossibleAppointmentTest_DatepickerTest(){
+		Patient patient1 = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
+		ControllerFacade.getInstance();
+		ControllerFacade.setPatientSelected(patient1);
+		
+		LocalDateTime startDate = LocalDateTime.now();
+		LocalDateTime fromDate = LocalDateTime.now().plusMinutes(30);
+		LocalDateTime lastAppointment = LocalDateTime.now().plusDays(3);
+		Date dateStart = new Date();
+		Date dateEnd= new Date();
+		
+		//Arbitrary dates for datepicker
+		
+		dateStart = NewAppointment.addDaysToDate(dateStart, 10);
+		dateEnd = NewAppointment.addDaysToDate(dateEnd, 14);
+		
+		NewAppointment newApp = new NewAppointment();
+
+		assertEquals(newApp.getPossibleAppointment(startDate, fromDate, dateStart, dateEnd, "Standard treatment", lastAppointment) != null, true);
+	}
+	
+	@Test
+	public void getPossibleAppointmentTest_StartDateAfterFromDate(){
+		Patient patient1 = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
+		ControllerFacade.getInstance();
+		ControllerFacade.setPatientSelected(patient1);
+		
+		LocalDateTime startDate = LocalDateTime.now().plusDays(10);
+		LocalDateTime fromDate = LocalDateTime.now().plusMinutes(30);
+		LocalDateTime lastAppointment = LocalDateTime.now().plusDays(3);
+		Date dateStart = NewAppointment.addDaysToDate(new Date(), 14);
+		Date dateEnd= NewAppointment.addDaysToDate(new Date(), 10);
+		
+//		dateStart = NewAppointment.addDaysToDate(dateStart, 14);
+//		dateEnd = NewAppointment.addDaysToDate(dateEnd, 10);
+		
+		
+		
+		NewAppointment newApp = new NewAppointment();
+		
+		assertThrown(() -> newApp.getPossibleAppointment(startDate, fromDate, dateStart, dateEnd, "Standard treatment", lastAppointment)).isInstanceOf(IllegalArgumentException.class);
+	}
+	
+	//TODO localdate after, date after
+	
+	@Test
+	public void getPossibleAppointmentTest_startTimeNull(){
+		Patient patient1 = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
+		ControllerFacade.getInstance();
+		ControllerFacade.setPatientSelected(patient1);
+		
+		LocalDateTime fromDate = LocalDateTime.now().plusMinutes(30);
+		LocalDateTime lastAppointment = LocalDateTime.now().plusDays(30);
+		
+		NewAppointment newApp = new NewAppointment();
+		assertThrown(() -> newApp.getPossibleAppointment(null, fromDate, null, null, "Standard treatment", lastAppointment)).isInstanceOf(IllegalArgumentException.class);
+//		assertEquals(newApp.getPossibleAppointment(startDate, fromDate, null, null, "Standard treatment", lastAppointment) != null, true);
+	}
+	
+	@Test
+	public void getPossibleAppointmentTest_endTimeTimeNull(){
+		Patient patient1 = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
+		ControllerFacade.getInstance();
+		ControllerFacade.setPatientSelected(patient1);
+		
+		LocalDateTime startDate = LocalDateTime.now();
+		LocalDateTime endDate = LocalDateTime.now().plusMinutes(30);
+		LocalDateTime lastAppointment = LocalDateTime.now().plusDays(30);
+		
+		NewAppointment newApp = new NewAppointment();
+		assertThrown(() -> newApp.getPossibleAppointment(startDate, null, null, null, "Standard treatment", lastAppointment)).isInstanceOf(IllegalArgumentException.class);
+	}
+	
+	@Test
+	public void getPossibleAppointmentTest_lastAppointmentNull(){
+		Patient patient1 = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
+		ControllerFacade.getInstance();
+		ControllerFacade.setPatientSelected(patient1);
+		
+		LocalDateTime startDate = LocalDateTime.now();
+		LocalDateTime endDate = LocalDateTime.now().plusMinutes(30);
+		
+		NewAppointment newApp = new NewAppointment();
+		assertThrown(() -> newApp.getPossibleAppointment(startDate, endDate, null, null, "Standard treatment", null)).isInstanceOf(IllegalArgumentException.class);
+	}
+	
+	@Test
+	public void getPossibleAppointmentTest_startTimeIsAfter(){
+		Patient patient1 = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
+		ControllerFacade.getInstance();
+		ControllerFacade.setPatientSelected(patient1);
+		
+		LocalDateTime startDate = LocalDateTime.now().plusMinutes(60);
+		LocalDateTime endDate = LocalDateTime.now();
+		LocalDateTime lastAppointment = LocalDateTime.now().plusDays(30);
+		
+		NewAppointment newApp = new NewAppointment();
+		assertThrown(() -> newApp.getPossibleAppointment(startDate, endDate, null, null, "Standard treatment", lastAppointment)).isInstanceOf(IllegalArgumentException.class);
+	}
+	
+	@Test
+	public void getPossibleAppointmentTest_endDateAfterStartDate(){
+		Patient patient1 = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
+		ControllerFacade.getInstance();
+		ControllerFacade.setPatientSelected(patient1);
+		
+		LocalDateTime startDate = LocalDateTime.now();
+		LocalDateTime fromDate = LocalDateTime.now().plusMinutes(30);
+		LocalDateTime lastAppointment = LocalDateTime.now().plusDays(30);
+		
+	
+		
+		//Arbitrary dates for datepicker
+		
+		Date dateStart = NewAppointment.addDaysToDate(new Date(), 10);
+		Date dateEnd= NewAppointment.addDaysToDate(new Date(), 5);
+		
+		NewAppointment newApp = new NewAppointment();
+		assertThrown(() -> newApp.getPossibleAppointment(startDate, fromDate, dateStart, dateEnd, "Standard treatment", lastAppointment)).isInstanceOf(IllegalArgumentException.class);
+	}
+	
+	@Test
+	public void getPossibleAppointmentTest_appointmentTypeEmpty(){
+		Patient patient1 = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
+		ControllerFacade.getInstance();
+		ControllerFacade.setPatientSelected(patient1);
+		
+		LocalDateTime startDate = LocalDateTime.now().plusDays(10);
+		LocalDateTime fromDate = LocalDateTime.now().plusMinutes(30);
+		LocalDateTime lastAppointment = LocalDateTime.now().plusDays(3);
+		Date dateStart = NewAppointment.addDaysToDate(new Date(), 14);
+		Date dateEnd= NewAppointment.addDaysToDate(new Date(), 10);
+		
+//		dateStart = NewAppointment.addDaysToDate(dateStart, 14);
+//		dateEnd = NewAppointment.addDaysToDate(dateEnd, 10);
+		
+		
+		
+		NewAppointment newApp = new NewAppointment();
+//		assertThrown(() -> newApp.getPossibleAppointment(startDate, fromDate, dateStart, dateEnd, "", lastAppointment)).isInstanceOf(IllegalArgumentException.class);
+	}
+	
+	@Test
+	public void getPossibleAppointmentTest_startDateNull(){
+		Patient patient1 = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
+		ControllerFacade.getInstance();
+		ControllerFacade.setPatientSelected(patient1);
+		
+		LocalDateTime startDate = LocalDateTime.now().plusDays(10);
+		LocalDateTime fromDate = LocalDateTime.now().plusMinutes(30);
+		LocalDateTime lastAppointment = LocalDateTime.now().plusDays(3);
+		Date dateStart = NewAppointment.addDaysToDate(new Date(), 14);
+		Date dateEnd= NewAppointment.addDaysToDate(new Date(), 10);
+		
+//		dateStart = NewAppointment.addDaysToDate(dateStart, 14);
+//		dateEnd = NewAppointment.addDaysToDate(dateEnd, 10);
+		
+		
+		
+		NewAppointment newApp = new NewAppointment();
+		
+		assertThrown(() -> newApp.getPossibleAppointment(startDate, fromDate, null, dateEnd, "Standard treatment", lastAppointment)).isInstanceOf(IllegalArgumentException.class);
+	}
+	
+	@Test
+	public void getPossibleAppointmentTest_endDateNull(){
+		Patient patient1 = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
+		ControllerFacade.getInstance();
+		ControllerFacade.setPatientSelected(patient1);
+		
+		LocalDateTime startDate = LocalDateTime.now().plusDays(10);
+		LocalDateTime fromDate = LocalDateTime.now().plusMinutes(30);
+		LocalDateTime lastAppointment = LocalDateTime.now().plusDays(3);
+		Date dateStart = NewAppointment.addDaysToDate(new Date(), 14);
+		Date dateEnd= NewAppointment.addDaysToDate(new Date(), 10);
+		
+//		dateStart = NewAppointment.addDaysToDate(dateStart, 14);
+//		dateEnd = NewAppointment.addDaysToDate(dateEnd, 10);
+		
+		
+		
+		NewAppointment newApp = new NewAppointment();
+		
+		assertThrown(() -> newApp.getPossibleAppointment(startDate, fromDate, dateStart, null, "Standard treatment", lastAppointment)).isInstanceOf(IllegalArgumentException.class);
+	}
+	
+	@Test
+	public void getPossibleAppointmentTest_currentDateBeforeEnd() throws ParseException{
+		Patient patient1 = PatientDao.getInstance().findByEmail(PATIENT1_EMAIL);
+		ControllerFacade.getInstance();
+		ControllerFacade.setPatientSelected(patient1);
+		
+		LocalDateTime startDate = LocalDateTime.now();
+		LocalDateTime endDate = LocalDateTime.now().plusMinutes(30);
+		LocalDateTime lastAppointment = LocalDateTime.now().plusDays(3);
+		
+		String string = "January 2, 2010";
+		DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+		Date dateStart = format.parse(string);
+		Date dateEnd= NewAppointment.addDaysToDate(new Date(), 20);
+		
+		NewAppointment newApp = new NewAppointment();
+		
+		assertEquals(newApp.getPossibleAppointment(startDate, endDate, dateStart, dateEnd, "Standard treatment", lastAppointment) != null, true);
 	}
 }

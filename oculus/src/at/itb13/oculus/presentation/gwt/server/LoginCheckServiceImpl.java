@@ -11,7 +11,6 @@ public class LoginCheckServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public Patient isLoginCredentialsValid(String email, String password) {
-		
 		return ControllerFacade.getInstance().getNewAppointment().isLoginCredentialsValid(email, password);
 	}
 

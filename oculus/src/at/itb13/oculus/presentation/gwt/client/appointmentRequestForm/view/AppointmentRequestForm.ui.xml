@@ -68,7 +68,7 @@
 								<t:UTCTimeBox ui:field="toTimeBox1" />
 								<p></p>
 								<g:Button ui:field="addButton1" text="Add Day" />
-								<g:Button ui:field="getNextAppButton" text="Get Next Appointments" />
+								
 							</div>
 
 							<!-- Second option -->
@@ -157,6 +157,7 @@
 							<g:TextBox ui:field="reasonForAppointmentTextBox" />
 							<g:ListBox ui:field="eventTypeListBox" />
 						</table>
+						<g:Button ui:field="getNextAppButton" text="Get Next Appointments" />
 						<g:Button ui:field="submitButton" text="Submit" />
 						<g:Button ui:field="resetButton" text="Reset" />
 					</g:HTMLPanel>

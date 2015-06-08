@@ -1,6 +1,7 @@
 package at.itb13.oculus.technicalServices;
 
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
@@ -35,6 +36,13 @@ public class HibernateUtil {
 	
 	public static void init() throws NoDatabaseConnectionException {
 		if(_sessionFactory == null) {
+			
+			try {
+				DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
+			} catch (SQLException e1) {
+				_logger.fatal("Failed to register MySQL Driver", e1);
+			}
+			
 			Configuration config = new Configuration();
 			config.configure("hibernate.cfg.xml");
 			
@@ -46,7 +54,7 @@ public class HibernateUtil {
 			try {
 				checkConnection(config);
 			} catch (NoDatabaseConnectionException e) {
-				_logger.fatal("Failed to connect to database");
+				_logger.fatal("Failed to connect to database", e);
 				throw e;
 			}
 			

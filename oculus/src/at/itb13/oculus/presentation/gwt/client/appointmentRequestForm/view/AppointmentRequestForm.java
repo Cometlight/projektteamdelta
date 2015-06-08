@@ -290,7 +290,7 @@ public class AppointmentRequestForm extends Composite {
 				checkTimeBox(fromErrorLabel3,fromTimeBox3,toTimeBox3,weekdayListBox3);
 			}
 		}
-		if(_fromDate.after(_toDate)){
+		if(_fromDate != null && _toDate != null && _fromDate.after(_toDate)){
 			datePickerErrorLabel.setText("Wrong dates chosen! Correct your selection!");
 			datePickerErrorLabel.setVisible(true);
 			_isValid = false;
@@ -329,10 +329,12 @@ public class AppointmentRequestForm extends Composite {
 						if(result) {
 							label.setVisible(false);
 							_isValid = true;
+							handleSubmit();
 						} else{
 							label.setVisible(true);
 							label.setText("The selected time is not in the working hours!");
 							_isValid = false;
+							handleSubmit();
 						}
 					}
 					};
@@ -395,7 +397,6 @@ public class AppointmentRequestForm extends Composite {
 		toTimeBox2.setText("");
 		weekdayListBox2.setItemSelected(0, true);
 		fromErrorLabel2.setVisible(false);
-		handleSubmit();
 	}
 	
 	@UiHandler("addButton2")
@@ -427,7 +428,6 @@ public class AppointmentRequestForm extends Composite {
 		toTimeBox3.setText("");
 		weekdayListBox3.setItemSelected(0, true);
 		fromErrorLabel3.setVisible(false);
-		handleSubmit();
 	}
 	
 	@UiHandler("submitButton")

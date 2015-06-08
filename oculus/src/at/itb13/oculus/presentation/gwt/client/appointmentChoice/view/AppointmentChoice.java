@@ -230,7 +230,7 @@ public class AppointmentChoice extends Composite{
 
 			@Override
 			public void onSuccess(Boolean b) {
-				Window.alert("Appointmentment has been added");
+				Window.alert("Appointment has been added");
 				Index.forward(new AppointmentOverview(_patient));
 			}
 		};

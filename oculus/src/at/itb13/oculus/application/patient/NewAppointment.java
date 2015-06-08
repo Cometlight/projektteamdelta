@@ -76,7 +76,17 @@ public class NewAppointment {
 																						Date start, Date end, String appointmentType,
 																						LocalDateTime lastAppointment){
 		
-		int appointmentDuration = getAppointmentDuration(appointmentType);
+		if(startTime == null || endTime == null || lastAppointment == null){
+			return new at.itb13.oculus.presentation.gwt.shared.CalendarEvent();
+		}
+		
+		int appointmentDuration;
+		if(appointmentType.isEmpty()){
+			appointmentDuration = getAppointmentDuration("Standard treatment");
+		} else{
+			appointmentDuration = getAppointmentDuration(appointmentType);
+		}
+		
 		Patient patient = (Patient) ControllerFacade.getPatientSelected();
 		Calendar calendar = patient.getDoctor().getCalendar();
 		LocalDateTime eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);

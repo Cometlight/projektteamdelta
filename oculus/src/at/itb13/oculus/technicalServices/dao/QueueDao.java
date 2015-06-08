@@ -140,7 +140,7 @@ public class QueueDao {
 		
 		List<Queue> listAllQueues = new LinkedList<>();	// this variable is returned
 		
-		if(!listQueueEntity.isEmpty()) {
+		if(listQueueEntity != null && !listQueueEntity.isEmpty()) {
 			// Split the list into lists representing the distinct queues
 			Map<Doctor, List<QueueEntity>> mapQueueEntityDoctors = new HashMap<>();
 			Map<Orthoptist, List<QueueEntity>> mapQueueEntityOrthoptists = new HashMap<>();

@@ -26,3 +26,11 @@ body > div {
 	height: 128px;
 	width: 128px;	
 }
+
+.gwt-TimeBox-menu .popupContent {
+	width: 140px;
+}
+
+.gwt-TimeBox-menu A {
+	width: 82px !important;
+}

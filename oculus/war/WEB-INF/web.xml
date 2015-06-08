@@ -25,6 +25,10 @@
 		<servlet-class>at.itb13.oculus.presentation.gwt.server.AppointmentCheckServiceImpl</servlet-class>
 	</servlet>
 	
+	<servlet>
+		<servlet-name>appointmentChoiceServlet</servlet-name>
+		<servlet-class>at.itb13.oculus.presentation.gwt.server.AppointmentChoiceServiceImpl</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>loginCheckServlet</servlet-name>
@@ -44,6 +48,11 @@
 	<servlet-mapping>
 		<servlet-name>appointmentRequestFormServlet</servlet-name>
 		<url-pattern>/oculusweb/AppointmentCheckService</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>appointmentChoiceServlet</servlet-name>
+		<url-pattern>/oculusweb/AppointmentChoiceService</url-pattern>
 	</servlet-mapping>
 
 	<!-- Default page to serve -->

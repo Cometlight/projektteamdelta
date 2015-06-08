@@ -123,7 +123,7 @@ public class NewAppointment {
 		}
 		at.itb13.oculus.presentation.gwt.shared.CalendarEvent event = new at.itb13.oculus.presentation.gwt.shared.CalendarEvent(); 
 		event.setDate(eventTime.toString());
-		event.setDoctorOrthoptist(patient.getDoctor().getUser().getTitle() + patient.getDoctor().getUser().getFirstName() + patient.getDoctor().getUser().getLastName());
+		event.setDoctorOrthoptist(patient.getDoctor().getUser().getFirstName() + " " + patient.getDoctor().getUser().getLastName());
 		event.setType(appointmentType);
 		return event;
 	}

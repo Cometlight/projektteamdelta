@@ -72,6 +72,19 @@ public class NewAppointment {
 		return calEv != null;
 	}
 	
+	/**
+	 * searches a free Time in the Calendar of the Doctor, which is responsible for the logged in patient, 
+	 * where it is possible to create a new appointment.
+	 * 
+	 * @param startTime is the chosen start date where the patient has time for an appointment.
+	 * @param endTime is the chosen end date where the patient has time for an appointment.
+	 * @param start is the chosen start date where the patient has NO time for an appointment. (optional)
+	 * @param end is the chosen end date where the patient has NO time for an appointment. (optional)
+	 * @param appointmentType the type of the appointment the patient needs.
+	 * @param lastAppointment is the date from where on the new appointment should be searched.
+	 * @return a CalendarEvent in the chosen date.
+	 * @throws InvalidInputException when the input is null or wrong.
+	 */
 	public at.itb13.oculus.presentation.gwt.shared.CalendarEvent getPossibleAppointment(LocalDateTime startTime, LocalDateTime endTime, 
 																						Date start, Date end, String appointmentType,
 																						LocalDateTime lastAppointment){
@@ -115,6 +128,13 @@ public class NewAppointment {
 		return event;
 	}
 	
+	/**
+	 * with this method you can add a 
+	 * 
+	 * @param date
+	 * @param noOfDays
+	 * @return
+	 */
 	public static Date addDaysToDate(Date date, int noOfDays) {
 		java.util.Calendar c = java.util.Calendar.getInstance(); 
 		c.setTime(date); 

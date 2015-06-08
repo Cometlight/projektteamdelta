@@ -76,8 +76,8 @@ public class NewAppointment {
 																						Date start, Date end, String appointmentType,
 																						LocalDateTime lastAppointment){
 		
-		if(startTime == null || endTime == null || lastAppointment == null){
-			return new at.itb13.oculus.presentation.gwt.shared.CalendarEvent();
+		if(startTime == null || endTime == null || lastAppointment == null || startTime.isAfter(endTime) || start.after(end)){
+			throw new IllegalArgumentException();
 		}
 		
 		int appointmentDuration;

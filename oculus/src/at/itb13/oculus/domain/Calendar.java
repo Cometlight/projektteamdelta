@@ -4,6 +4,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -23,7 +24,9 @@ import javax.persistence.Transient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
+import at.itb13.teamD.application.exceptions.InvalidInputException;
 import at.itb13.teamD.domain.interfaces.ICalendar;
 import at.itb13.teamD.domain.interfaces.ICalendarEvent;
 import at.itb13.teamD.domain.interfaces.ICalendarWorkingHours;
@@ -31,8 +34,6 @@ import at.itb13.teamD.domain.interfaces.IDoctor;
 import at.itb13.teamD.domain.interfaces.IOrthoptist;
 
 /**
- * 
- * TODO: Insert description here.
  * 
  * @author Daniel Scheffknecht
  * @date 14.04.2015
@@ -70,31 +71,100 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 		return calendar;
 	}
 	@Transient
-	public LocalDateTime findPossibleAppointment(LocalDateTime startTime, LocalDateTime endTime, int appointmentDuration){
+	public LocalDateTime findPossibleAppointment(LocalDateTime startTime, LocalDateTime endTime, 
+												int appointmentDuration, boolean isDaily) throws InvalidInputException{
 		LocalDateTime appointmentTime = startTime.plusMinutes(appointmentDuration);
+		LocalDateTime newStartTime = startTime;
+		LocalDateTime newEndTime = endTime;
+		WorkingHours wh = getWorkingHoursOfWeekDay(startTime.getDayOfWeek());
+		int day = 1;
+		int week = 7;
+		
 		boolean isFree = false;
 		while(!isFree){
 			isFree = true;
+			if(!ControllerFacade.getInstance().getNewAppointment().isInWorkingHours(newEndTime, newEndTime)){
+				newEndTime = findTimeInWorkingHours(wh, newEndTime, true);
+			}
+			if(!ControllerFacade.getInstance().getNewAppointment().isInWorkingHours(newStartTime, appointmentTime) && 
+				appointmentTime.isBefore(endTime) || appointmentTime.isEqual(endTime)){
+				newStartTime = findTimeInWorkingHours(wh, newStartTime, false);
+				appointmentTime = newStartTime.plusMinutes(appointmentDuration);
+			}
 			for(CalendarEvent event : _calendarEvents){
-				if(event.isInTimespan(startTime, appointmentTime)){
-					if(!(event.getEventEnd().plusMinutes(appointmentDuration).isAfter(endTime))){
-						startTime = event.getEventEnd();
-						appointmentTime = startTime.plusMinutes(appointmentDuration);
-						isFree = false;
-						break;
-					} else{
-						startTime.plusDays(7);
-						appointmentTime = startTime.plusMinutes(appointmentDuration);
-						isFree = false;
-						break;
+				if(isFree){
+					if(event.isInTimespan(newStartTime, appointmentTime)){
+						if(event.getEventEnd().plusMinutes(appointmentDuration).isBefore(endTime)){
+							newStartTime = event.getEventEnd();
+							appointmentTime = newStartTime.plusMinutes(appointmentDuration);
+							isFree = false;
+						} else{
+							if(isDaily){
+								newStartTime = startTime.plusDays(day);
+								day = day*2;					
+							}else{
+								newStartTime = startTime.plusDays(week);
+								week = week*2;
+							}
+							appointmentTime = newStartTime.plusMinutes(appointmentDuration);
+							newEndTime = endTime;	
+							isFree = false;
+						}
 					}
 				}
 			}
 		}
-		return startTime;
+		return newStartTime;
 	}
 	
+	private LocalDateTime findTimeInWorkingHours(WorkingHours wh, LocalDateTime time, boolean isEnd) throws InvalidInputException{
+		if(!isBetweenTimes(wh.getMorningFrom(), wh.getMorningTo(), time)){
+			if(isBigger(wh.getMorningTo(), time)){
+				if(!isBetweenTimes(wh.getAfternoonFrom(), wh.getAfternoonTo(), time)){
+					if(isBigger(wh.getAfternoonTo(), time)){	
+						if(isEnd){
+							return time = LocalDateTime.of(time.toLocalDate(), wh.getAfternoonTo());
+						} else{
+							throw new InvalidInputException();
+		
+						} 
+					}
+					if(!isBigger(wh.getAfternoonFrom(), time)){
+						if(isEnd){
+							return time = LocalDateTime.of(time.toLocalDate(), wh.getMorningTo());
+						} else{
+							return time = LocalDateTime.of(time.toLocalDate(), wh.getAfternoonFrom());
+						}
+					}
+				}							
+			}else if(!isBigger(wh.getMorningFrom(), time)){
+				if(isEnd){
+					throw new InvalidInputException();
+				} else{
+					return time = LocalDateTime.of(time.toLocalDate(), wh.getMorningFrom());
+				}
+			}
+		}
+		return time;
+	}
 	
+	private boolean isBetweenTimes(LocalTime startTime, LocalTime endTime, LocalDateTime compare){
+		if(startTime.isBefore(compare.toLocalTime()) || startTime.equals(compare.toLocalTime()) &&
+		   endTime.isAfter(compare.toLocalTime()) || endTime.equals(compare.toLocalTime())){
+			return true;
+		} else{
+			return false;
+		}
+	}
+	
+	private boolean isBigger(LocalTime small, LocalDateTime big){
+		if(small.isBefore(big.toLocalTime()) || small.equals(big.toLocalTime())){
+			return true;
+		} else{
+			return false;
+		}
+	}
+		
 	/**
 	 * Creates a list of Calendar Event for a chosen timespan.
 	 * 

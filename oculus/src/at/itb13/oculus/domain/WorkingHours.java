@@ -3,7 +3,6 @@ package at.itb13.oculus.domain;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.time.LocalTime;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;

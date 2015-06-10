@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +19,7 @@ import at.itb13.oculus.domain.WorkingHours;
 import at.itb13.oculus.technicalServices.dao.CalendarEventDao;
 import at.itb13.oculus.technicalServices.dao.EventTypeDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
+import at.itb13.teamD.application.exceptions.InvalidInputException;
 import at.itb13.teamD.domain.interfaces.IEventType;
 
 /**
@@ -26,6 +28,7 @@ import at.itb13.teamD.domain.interfaces.IEventType;
  * @date May 27, 2015
  */
 public class NewAppointment {
+	@SuppressWarnings("unused")
 	private static final Logger _logger = LogManager
 			.getLogger(NewAppointment.class.getName());
 
@@ -87,7 +90,7 @@ public class NewAppointment {
 	 */
 	public at.itb13.oculus.presentation.gwt.shared.CalendarEvent getPossibleAppointment(LocalDateTime startTime, LocalDateTime endTime, 
 																						Date start, Date end, String appointmentType,
-																						LocalDateTime lastAppointment){
+																						LocalDateTime lastAppointment) throws InvalidInputException{
 		
 		if(startTime == null || endTime == null || lastAppointment == null || startTime.isAfter(endTime) || start.after(end)){
 			throw new IllegalArgumentException();
@@ -102,13 +105,13 @@ public class NewAppointment {
 		
 		Patient patient = (Patient) ControllerFacade.getPatientSelected();
 		Calendar calendar = patient.getDoctor().getCalendar();
-		LocalDateTime eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
+		LocalDateTime eventTime; // = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
 		startTime.getDayOfMonth();
 		while(startTime.getDayOfYear() <= lastAppointment.getDayOfYear()){
 			startTime = startTime.plusDays(7);
 			endTime = endTime.plusDays(7);
 		}
-		eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
+		eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration, false);
 		Instant instant = eventTime.atZone(ZoneId.systemDefault()).toInstant();
 		Date date = Date.from(instant);
 		if(start != null && end != null){
@@ -118,7 +121,7 @@ public class NewAppointment {
 					startTime = startTime.plusDays(7);
 					endTime = endTime.plusDays(7);
 				}
-				eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
+				eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration, false);
 			}
 		}
 		at.itb13.oculus.presentation.gwt.shared.CalendarEvent event = new at.itb13.oculus.presentation.gwt.shared.CalendarEvent(); 
@@ -241,5 +244,37 @@ public class NewAppointment {
 			return false;
 		}
 		
+	}
+
+	/**
+	 * @return 
+	 * @throws InvalidInputException 
+	 * 
+	 */
+	@SuppressWarnings("static-access")
+	public List<at.itb13.oculus.presentation.gwt.shared.CalendarEvent> getNextAppointments() throws InvalidInputException {
+		System.out.println("In");
+		int appointmentDuration;
+		String appointmentType = "Standard treatment";
+		appointmentDuration = getAppointmentDuration(appointmentType);
+		List<at.itb13.oculus.presentation.gwt.shared.CalendarEvent> list = new LinkedList<>();
+		Patient patient = (Patient) ControllerFacade.getPatientSelected();
+		Calendar calendar = patient.getDoctor().getCalendar();
+		LocalDateTime eventTime = LocalDateTime.now();
+		eventTime = eventTime.plusDays(1);
+		eventTime = eventTime.of(eventTime.getYear(), eventTime.getMonth(), eventTime.getDayOfMonth(), 0, 0);
+		for(int i = 0; i < 3; i++){
+			LocalDateTime startTime = eventTime.plusMinutes(appointmentDuration);
+			LocalDateTime endTime = eventTime.of(eventTime.getYear(), eventTime.getMonth(), eventTime.getDayOfMonth(), 23, 59);
+			eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration, true);
+			System.out.println("Before");
+			at.itb13.oculus.presentation.gwt.shared.CalendarEvent event = new at.itb13.oculus.presentation.gwt.shared.CalendarEvent(); 
+			System.out.println("After");
+			event.setDate(eventTime.toString());
+			event.setDoctorOrthoptist(patient.getDoctor().getUser().getFirstName() + " " + patient.getDoctor().getUser().getLastName());
+			event.setType(appointmentType);
+			list.add(event);
+		}
+		return list;
 	}
 }

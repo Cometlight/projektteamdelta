@@ -2,7 +2,6 @@ package at.itb13.oculus.presentation.gwt.client.appointmentRequestForm.view;
 
 import java.util.Date;
 import java.util.List;
-import java.util.function.Consumer;
 
 import at.itb13.oculus.presentation.gwt.client.Index;
 import at.itb13.oculus.presentation.gwt.client.appointmentChoice.view.AppointmentChoice;
@@ -433,6 +432,23 @@ public class AppointmentRequestForm extends Composite {
 		toTimeBox3.setText("");
 		weekdayListBox3.setItemSelected(0, true);
 		fromErrorLabel3.setVisible(false);
+	}
+	
+	@UiHandler("getNextAppButton")
+	void onClickNextAppButton(ClickEvent event){
+		AsyncCallback<List<CalendarEvent>> callback = new AsyncCallback<List<CalendarEvent>>() {
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Failed to connect to server. Please try again in a few minutes, or contact the system administrator.");
+			}
+
+			@Override
+			public void onSuccess(List<CalendarEvent> events) {
+				Index.forward(new AppointmentChoice(_patient, events));
+			}
+		};
+		
+		appointmentCheckService.getNextAppointments(callback);
 	}
 	
 	@UiHandler("submitButton")

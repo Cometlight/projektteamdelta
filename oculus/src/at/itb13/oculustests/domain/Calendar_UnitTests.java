@@ -20,6 +20,7 @@ import at.itb13.oculus.domain.CalendarEvent;
 import at.itb13.oculus.domain.CalendarWorkingHours;
 import at.itb13.oculus.domain.WorkingHours;
 import at.itb13.oculus.technicalServices.dao.CalendarDao;
+import at.itb13.teamD.application.exceptions.InvalidInputException;
 
 /**
  * TODO: JUnit-Tests for methods of Calendar
@@ -99,7 +100,7 @@ public class Calendar_UnitTests {
 		Calendar cal = new Calendar();
 		LocalDateTime startTime = LocalDateTime.of(2015, 6, 15, 8, 0);
 		LocalDateTime endTime = LocalDateTime.now().plusMinutes(120);
-		assertNotNull(cal.findPossibleAppointment(startTime, endTime, 60));
+		assertThrown(() -> cal.findPossibleAppointment(startTime, endTime, 60, false));
 	}
 	
 	@Test
@@ -107,7 +108,7 @@ public class Calendar_UnitTests {
 		Calendar cal = new Calendar();
 		LocalDateTime startTime = LocalDateTime.of(2015, 6, 16, 8, 0);
 		LocalDateTime endTime = LocalDateTime.now().plusMinutes(360);
-		assertNotNull(cal.findPossibleAppointment(startTime, endTime, 60));
+		assertThrown(() -> cal.findPossibleAppointment(startTime, endTime, 60, false));
 	}
 	
 	@Test
@@ -115,8 +116,8 @@ public class Calendar_UnitTests {
 		Calendar cal = CalendarDao.getInstance().findById(101); 
 		LocalDateTime startTime = LocalDateTime.of(2015, 4, 27, 10, 30);
 		LocalDateTime endTime = LocalDateTime.now().plusMinutes(30);
-		LocalDateTime time = cal.findPossibleAppointment(startTime, endTime, 30);
-		assertNotNull(time);
+		LocalDateTime time = null;
+		assertThrown(() -> cal.findPossibleAppointment(startTime, endTime, 30, false));
 	}
 	
 	

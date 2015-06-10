@@ -36,6 +36,7 @@ import at.itb13.oculus.technicalServices.dao.EventTypeDao;
 import at.itb13.oculus.technicalServices.dao.OrthoptistDao;
 import at.itb13.oculus.technicalServices.dao.PatientDao;
 import at.itb13.oculustests.exceptioncatcher.ThrowableAssertion;
+import at.itb13.teamD.application.exceptions.InvalidInputException;
 
 
 /**
@@ -494,7 +495,10 @@ public class NewAppointment_UnitTests {
 		
 		NewAppointment newApp = new NewAppointment();
 
-		assertEquals(newApp.getPossibleAppointment(startDate, fromDate, dateStart, dateEnd, "Standard treatment", lastAppointment) != null, true);
+		try {
+			assertEquals(newApp.getPossibleAppointment(startDate, fromDate, dateStart, dateEnd, "Standard treatment", lastAppointment) != null, true);
+		} catch (InvalidInputException e) {
+		}
 	}
 	
 	@Test
@@ -679,6 +683,9 @@ public class NewAppointment_UnitTests {
 		
 		NewAppointment newApp = new NewAppointment();
 		
-		assertEquals(newApp.getPossibleAppointment(startDate, endDate, dateStart, dateEnd, "Standard treatment", lastAppointment) != null, true);
+		try {
+			assertEquals(newApp.getPossibleAppointment(startDate, endDate, dateStart, dateEnd, "Standard treatment", lastAppointment) != null, true);
+		} catch (InvalidInputException e) {
+		}
 	}
 }

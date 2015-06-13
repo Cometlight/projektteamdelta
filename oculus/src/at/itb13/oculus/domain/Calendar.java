@@ -70,6 +70,17 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 		Calendar calendar = new Calendar(title, doctor, orthoptist, calendarevents, calendarworkinghours);
 		return calendar;
 	}
+	
+	/**
+	 * searches a possible appointment which fits the input parameter. 
+	 * 
+	 * @param startTime of the timespan in which the appointment should be.
+	 * @param endTime of the timespan in which the appointment should be.
+	 * @param appointmentDuration how long the appointment is.
+	 * @param isDaily if it should jump in daily steps if no appointment is found or in weekly steps.
+	 * @return a possible appointment. 
+	 * @throws InvalidInputException if a parameter is wrong.
+	 */
 	@Transient
 	public LocalDateTime findPossibleAppointment(LocalDateTime startTime, LocalDateTime endTime, 
 												int appointmentDuration, boolean isDaily) throws InvalidInputException{
@@ -117,7 +128,16 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 		return newStartTime;
 	}
 	
-	private LocalDateTime findTimeInWorkingHours(WorkingHours wh, LocalDateTime time, boolean isEnd) throws InvalidInputException{
+	/**
+	 * checks if the time is in the workin hours and if not tries to correct it if possible
+	 * 
+	 * @param wh has the actual working hours.
+	 * @param time is the time you want to check.
+	 * @param isEnd when true it is normally an end time, when false it is normally a start time.
+	 * @return a valid time which is in the working hours.
+	 * @throws InvalidInputException when time is outside of working hours and could not be corrected.
+	 */
+	public LocalDateTime findTimeInWorkingHours(WorkingHours wh, LocalDateTime time, boolean isEnd) throws InvalidInputException{
 		if(!isBetweenTimes(wh.getMorningFrom(), wh.getMorningTo(), time)){
 			if(isBigger(wh.getMorningTo(), time)){
 				if(!isBetweenTimes(wh.getAfternoonFrom(), wh.getAfternoonTo(), time)){
@@ -148,15 +168,30 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 		return time;
 	}
 	
+	/**
+	 * compares a time if it is between to other times.
+	 * 
+	 * @param startTime to compare.
+	 * @param endTime to compare.
+	 * @param compare time you want to compare.
+	 * @return true if the time is between the other to times, else false.
+	 */
 	private boolean isBetweenTimes(LocalTime startTime, LocalTime endTime, LocalDateTime compare){
-		if(startTime.isBefore(compare.toLocalTime()) || startTime.equals(compare.toLocalTime()) &&
-		   endTime.isAfter(compare.toLocalTime()) || endTime.equals(compare.toLocalTime())){
+		if((startTime.isBefore(compare.toLocalTime()) || startTime.equals(compare.toLocalTime())) &&
+		   (endTime.isAfter(compare.toLocalTime()) || endTime.equals(compare.toLocalTime()))){
 			return true;
 		} else{
 			return false;
 		}
 	}
 	
+	/**
+	 * checks if the "bigger" time is really bigger then the small.
+	 * 
+	 * @param small should be the smaller time.
+	 * @param big should be the bigger time.
+	 * @return true if big is bigger then small, else false.
+	 */
 	private boolean isBigger(LocalTime small, LocalDateTime big){
 		if(small.isBefore(big.toLocalTime()) || small.equals(big.toLocalTime())){
 			return true;

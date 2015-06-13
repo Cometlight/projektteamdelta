@@ -132,11 +132,11 @@ public class NewAppointment {
 	}
 	
 	/**
-	 * with this method you can add a 
+	 * with this method you can add a chosen number of days to your Date.
 	 * 
-	 * @param date
-	 * @param noOfDays
-	 * @return
+	 * @param date where you want to add some days.
+	 * @param noOfDays number of days you want do add.
+	 * @return the new date.
 	 */
 	public static Date addDaysToDate(Date date, int noOfDays) {
 		java.util.Calendar c = java.util.Calendar.getInstance(); 
@@ -146,6 +146,12 @@ public class NewAppointment {
 		return date;
 	}
 	
+	/**
+	 * get the appointment duration out of a string which includes the name of the appointment type.
+	 * 
+	 * @param appointmentType the type of the examination where you want to know the duration
+	 * @return the duration how long the appointment takes.
+	 */
 	private int getAppointmentDuration(String appointmentType){
 		List<IEventType> list = ControllerFacade.getInstance().getAllEventTypes();
 		int duration = 0;
@@ -247,13 +253,14 @@ public class NewAppointment {
 	}
 
 	/**
-	 * @return 
-	 * @throws InvalidInputException 
+	 * with this method you get the earliest three possible appointments. 
+	 * 
+	 * @return three appointments
+	 * @throws InvalidInputException when a call of a method returns InvalidInputException.
 	 * 
 	 */
 	@SuppressWarnings("static-access")
 	public List<at.itb13.oculus.presentation.gwt.shared.CalendarEvent> getNextAppointments() throws InvalidInputException {
-		System.out.println("In");
 		int appointmentDuration;
 		String appointmentType = "Standard treatment";
 		appointmentDuration = getAppointmentDuration(appointmentType);
@@ -267,9 +274,7 @@ public class NewAppointment {
 			LocalDateTime startTime = eventTime.plusMinutes(appointmentDuration);
 			LocalDateTime endTime = eventTime.of(eventTime.getYear(), eventTime.getMonth(), eventTime.getDayOfMonth(), 23, 59);
 			eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration, true);
-			System.out.println("Before");
 			at.itb13.oculus.presentation.gwt.shared.CalendarEvent event = new at.itb13.oculus.presentation.gwt.shared.CalendarEvent(); 
-			System.out.println("After");
 			event.setDate(eventTime.toString());
 			event.setDoctorOrthoptist(patient.getDoctor().getUser().getFirstName() + " " + patient.getDoctor().getUser().getLastName());
 			event.setType(appointmentType);

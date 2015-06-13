@@ -485,20 +485,13 @@ public class NewAppointment_UnitTests {
 		LocalDateTime startDate = LocalDateTime.now();
 		LocalDateTime fromDate = LocalDateTime.now().plusMinutes(30);
 		LocalDateTime lastAppointment = LocalDateTime.now().plusDays(3);
-		Date dateStart = new Date();
-		Date dateEnd= new Date();
+		Date dateStart = NewAppointment.addDaysToDate(new Date(), 10);
+		Date dateEnd= NewAppointment.addDaysToDate(new Date(), 14);
 		
 		//Arbitrary dates for datepicker
 		
-		dateStart = NewAppointment.addDaysToDate(dateStart, 10);
-		dateEnd = NewAppointment.addDaysToDate(dateEnd, 14);
-		
 		NewAppointment newApp = new NewAppointment();
-
-		try {
-			assertEquals(newApp.getPossibleAppointment(startDate, fromDate, dateStart, dateEnd, "Standard treatment", lastAppointment) != null, true);
-		} catch (InvalidInputException e) {
-		}
+		assertThrown(() -> newApp.getPossibleAppointment(startDate, fromDate, dateStart, dateEnd, "Standard treatment", lastAppointment));
 	}
 	
 	@Test
@@ -682,10 +675,6 @@ public class NewAppointment_UnitTests {
 		Date dateEnd= NewAppointment.addDaysToDate(new Date(), 20);
 		
 		NewAppointment newApp = new NewAppointment();
-		
-		try {
-			assertEquals(newApp.getPossibleAppointment(startDate, endDate, dateStart, dateEnd, "Standard treatment", lastAppointment) != null, true);
-		} catch (InvalidInputException e) {
-		}
+		assertThrown(() -> newApp.getPossibleAppointment(startDate, endDate, dateStart, dateEnd, "Standard treatment", lastAppointment));
 	}
 }

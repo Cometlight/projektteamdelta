@@ -120,5 +120,80 @@ public class Calendar_UnitTests {
 		assertThrown(() -> cal.findPossibleAppointment(startTime, endTime, 30, false));
 	}
 	
+	@Test
+	public void findTimeInWorkingHours_getException(){
+		Calendar cal = CalendarDao.getInstance().findById(1);
+		LocalDateTime ldt = LocalDateTime.of(2015, 6, 10, 18, 00);
+		WorkingHours wh = cal.getWorkingHoursOfWeekDay(ldt.getDayOfWeek());		
+		assertThrown(() -> cal.findTimeInWorkingHours(wh, ldt, false));
+	}
+	
+	@Test
+	public void findTimeInWorkingHours_getException_isEnd(){
+		Calendar cal = CalendarDao.getInstance().findById(1);
+		LocalDateTime ldt = LocalDateTime.of(2015, 6, 10, 7, 0);
+		WorkingHours wh = cal.getWorkingHoursOfWeekDay(ldt.getDayOfWeek());		
+		assertThrown(() -> cal.findTimeInWorkingHours(wh, ldt, true));
+	}
+	
+	@Test
+	public void findTimeInWorkingHours_isEnd(){
+		Calendar cal = CalendarDao.getInstance().findById(1);
+		LocalDateTime ldt = LocalDateTime.of(2015, 6, 10, 18, 00);
+		LocalDateTime ldt2 = LocalDateTime.of(2015, 6, 10, 17, 00);
+		WorkingHours wh = cal.getWorkingHoursOfWeekDay(ldt.getDayOfWeek());		
+		try {
+			assertEquals(ldt2, cal.findTimeInWorkingHours(wh, ldt, true));
+		} catch (InvalidInputException e) {
+		}
+	}
+	
+	@Test
+	public void findTimeInWorkingHours(){
+		Calendar cal = CalendarDao.getInstance().findById(1);
+		LocalDateTime ldt = LocalDateTime.of(2015, 6, 10, 7, 00);
+		LocalDateTime ldt2 = LocalDateTime.of(2015, 6, 10, 8, 00);
+		WorkingHours wh = cal.getWorkingHoursOfWeekDay(ldt.getDayOfWeek());		
+		try {
+			assertEquals(ldt2, cal.findTimeInWorkingHours(wh, ldt, false));
+		} catch (InvalidInputException e) {
+		}
+	}
+	
+	@Test
+	public void findTimeInWorkingHours_onlyFirstIf(){
+		Calendar cal = CalendarDao.getInstance().findById(1);
+		LocalDateTime ldt = LocalDateTime.of(2015, 6, 10, 8, 00);
+		LocalDateTime ldt2 = LocalDateTime.of(2015, 6, 10, 8, 00);
+		WorkingHours wh = cal.getWorkingHoursOfWeekDay(ldt.getDayOfWeek());		
+		try {
+			assertEquals(ldt2, cal.findTimeInWorkingHours(wh, ldt, false));
+		} catch (InvalidInputException e) {
+		}
+	}
+	
+	@Test
+	public void findTimeInWorkingHours_midlePart(){
+		Calendar cal = CalendarDao.getInstance().findById(1);
+		LocalDateTime ldt = LocalDateTime.of(2015, 6, 10, 12, 30);
+		LocalDateTime ldt2 = LocalDateTime.of(2015, 6, 10, 13, 30);
+		WorkingHours wh = cal.getWorkingHoursOfWeekDay(ldt.getDayOfWeek());		
+		try {
+			assertEquals(ldt2, cal.findTimeInWorkingHours(wh, ldt, false));
+		} catch (InvalidInputException e) {
+		}
+	}
+	
+	@Test
+	public void findTimeInWorkingHours_midlePart_isEnd(){
+		Calendar cal = CalendarDao.getInstance().findById(1);
+		LocalDateTime ldt = LocalDateTime.of(2015, 6, 10, 12, 30);
+		LocalDateTime ldt2 = LocalDateTime.of(2015, 6, 10, 12, 00);
+		WorkingHours wh = cal.getWorkingHoursOfWeekDay(ldt.getDayOfWeek());		
+		try {
+			assertEquals(ldt2, cal.findTimeInWorkingHours(wh, ldt, true));
+		} catch (InvalidInputException e) {
+		}
+	}
 	
 }

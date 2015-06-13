@@ -168,8 +168,8 @@ public class AppointmentRequestForm extends Composite {
 	
 	private Patient _patient;
 	private boolean _isFirstDatePicked;
-	private Date _fromDate;
-	private Date _toDate;
+	private Date _fromDate = null;
+	private Date _toDate = null;
 	private boolean _isAdded1 = false;
 	private boolean _isAdded2 = false;
 	private String _reason;
@@ -292,12 +292,14 @@ public class AppointmentRequestForm extends Composite {
 				checkTimeBox(fromErrorLabel3,fromTimeBox3,toTimeBox3,weekdayListBox3);
 			}
 		}
-		if(_fromDate != null && _toDate != null && _fromDate.after(_toDate)){
-			datePickerErrorLabel.setText("Wrong dates chosen! Correct your selection!");
-			datePickerErrorLabel.setVisible(true);
-			_isValid = false;
-		}else{
-			datePickerErrorLabel.setVisible(false);
+		if(_fromDate == null && _toDate == null){
+			if(_fromDate.after(_toDate)){
+				datePickerErrorLabel.setText("Wrong dates chosen! Correct your selection!");
+				datePickerErrorLabel.setVisible(true);
+				_isValid = false;
+			}else{
+				datePickerErrorLabel.setVisible(false);
+			}
 		}
         handleSubmit();
 	}

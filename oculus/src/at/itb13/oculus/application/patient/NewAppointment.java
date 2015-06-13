@@ -81,8 +81,8 @@ public class NewAppointment {
 	 * 
 	 * @param startTime is the chosen start date where the patient has time for an appointment.
 	 * @param endTime is the chosen end date where the patient has time for an appointment.
-	 * @param start is the chosen start date where the patient has NO time for an appointment. (optional)
-	 * @param end is the chosen end date where the patient has NO time for an appointment. (optional)
+	 * @param start is the chosen start date where the patient has NO time for an appointment.
+	 * @param end is the chosen end date where the patient has NO time for an appointment.
 	 * @param appointmentType the type of the appointment the patient needs.
 	 * @param lastAppointment is the date from where on the new appointment should be searched.
 	 * @return a CalendarEvent in the chosen date.
@@ -104,7 +104,6 @@ public class NewAppointment {
 		}
 		
 		while(startTime.getDayOfYear() <= lastAppointment.getDayOfYear()){
-			System.out.println("getDay:" + startTime.getDayOfYear() +" , " + lastAppointment.getDayOfYear());
 			startTime = startTime.plusDays(7);
 			endTime = endTime.plusDays(7);
 		}

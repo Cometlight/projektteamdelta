@@ -124,6 +124,7 @@ public class AppointmentCheckServiceImpl extends RemoteServiceServlet implements
 			List<CalendarEvent> list = new LinkedList<>();	
 			try {
 				list = ControllerFacade.getInstance().getNewAppointment().getNextAppointments();
+				System.out.println(list.size());
 			} catch (InvalidInputException e) {
 				_logger.error("Error in getNextAppointments()", e);
 			}

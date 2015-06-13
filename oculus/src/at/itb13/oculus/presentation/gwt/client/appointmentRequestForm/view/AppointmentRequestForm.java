@@ -292,14 +292,19 @@ public class AppointmentRequestForm extends Composite {
 				checkTimeBox(fromErrorLabel3,fromTimeBox3,toTimeBox3,weekdayListBox3);
 			}
 		}
-		if(_fromDate == null && _toDate == null){
+		if(_fromDate != null && _toDate != null){
 			if(_fromDate.after(_toDate)){
 				datePickerErrorLabel.setText("Wrong dates chosen! Correct your selection!");
 				datePickerErrorLabel.setVisible(true);
 				_isValid = false;
 			}else{
 				datePickerErrorLabel.setVisible(false);
+				_isValid = true;
 			}
+		}else{
+			datePickerErrorLabel.setText("No dates chosen! Make your selection!");
+			datePickerErrorLabel.setVisible(true);
+			_isValid = false;
 		}
         handleSubmit();
 	}

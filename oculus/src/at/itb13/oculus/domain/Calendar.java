@@ -94,12 +94,14 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 		boolean isFree = false;
 		while(!isFree){
 			isFree = true;
-			if(!ControllerFacade.getInstance().getNewAppointment().isInWorkingHours(newEndTime, newEndTime)){
+			while(!ControllerFacade.getInstance().getNewAppointment().isInWorkingHours(newEndTime, newEndTime)){
 				newEndTime = findTimeInWorkingHours(wh, newEndTime, true);
+				wh = getWorkingHoursOfWeekDay(newEndTime.getDayOfWeek());
 			}
-			if(!ControllerFacade.getInstance().getNewAppointment().isInWorkingHours(newStartTime, appointmentTime) && 
+			while(!ControllerFacade.getInstance().getNewAppointment().isInWorkingHours(newStartTime, appointmentTime) && 
 				appointmentTime.isBefore(endTime) || appointmentTime.isEqual(endTime)){
 				newStartTime = findTimeInWorkingHours(wh, newStartTime, false);
+				wh = getWorkingHoursOfWeekDay(newStartTime.getDayOfWeek());
 				appointmentTime = newStartTime.plusMinutes(appointmentDuration);
 			}
 			for(CalendarEvent event : _calendarEvents){
@@ -138,30 +140,47 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 	 * @throws InvalidInputException when time is outside of working hours and could not be corrected.
 	 */
 	public LocalDateTime findTimeInWorkingHours(WorkingHours wh, LocalDateTime time, boolean isEnd) throws InvalidInputException{
-		if(!isBetweenTimes(wh.getMorningFrom(), wh.getMorningTo(), time)){
-			if(isBigger(wh.getMorningTo(), time)){
-				if(!isBetweenTimes(wh.getAfternoonFrom(), wh.getAfternoonTo(), time)){
-					if(isBigger(wh.getAfternoonTo(), time)){	
+		LocalTime morningFrom = wh.getMorningFrom();
+		LocalTime morningTo = wh.getMorningTo();
+		LocalTime afternoonFrom = wh.getAfternoonFrom();
+		LocalTime afternoonTo = wh.getAfternoonTo();
+		if(morningFrom == null && morningTo == null){
+			if(afternoonFrom == null && afternoonTo == null){
+				return time = time.plusDays(1);
+			} else{
+				morningFrom = afternoonFrom;
+				morningTo = afternoonFrom;
+			}
+		}else{
+			if(afternoonFrom == null && afternoonTo == null){
+				afternoonFrom = morningTo;
+				afternoonTo = morningTo;
+			}
+		}
+		if(!isBetweenTimes(morningFrom, morningTo, time)){
+			if(isBigger(morningTo, time)){
+				if(!isBetweenTimes(afternoonFrom, afternoonTo, time)){
+					if(isBigger(afternoonTo, time)){	
 						if(isEnd){
-							return time = LocalDateTime.of(time.toLocalDate(), wh.getAfternoonTo());
+							return time = LocalDateTime.of(time.toLocalDate(), afternoonTo);
 						} else{
 							throw new InvalidInputException();
 		
 						} 
 					}
-					if(!isBigger(wh.getAfternoonFrom(), time)){
+					if(!isBigger(afternoonFrom, time)){
 						if(isEnd){
-							return time = LocalDateTime.of(time.toLocalDate(), wh.getMorningTo());
+							return time = LocalDateTime.of(time.toLocalDate(), morningTo);
 						} else{
-							return time = LocalDateTime.of(time.toLocalDate(), wh.getAfternoonFrom());
+							return time = LocalDateTime.of(time.toLocalDate(), afternoonFrom);
 						}
 					}
 				}							
-			}else if(!isBigger(wh.getMorningFrom(), time)){
+			}else if(!isBigger(morningFrom, time)){
 				if(isEnd){
 					throw new InvalidInputException();
 				} else{
-					return time = LocalDateTime.of(time.toLocalDate(), wh.getMorningFrom());
+					return time = LocalDateTime.of(time.toLocalDate(), morningFrom);
 				}
 			}
 		}

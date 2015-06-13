@@ -92,29 +92,31 @@ public class NewAppointment {
 																						Date start, Date end, String appointmentType,
 																						LocalDateTime lastAppointment) throws InvalidInputException{
 		
-		if(startTime == null || endTime == null || lastAppointment == null || startTime.isAfter(endTime) || start.after(end)){
+		if(startTime == null || endTime == null || lastAppointment == null || startTime.isAfter(endTime)){
 			throw new IllegalArgumentException();
 		}
 		
 		int appointmentDuration;
-		if(appointmentType.isEmpty()){
+		if(appointmentType.isEmpty() || appointmentType == null){
 			appointmentDuration = getAppointmentDuration("Standard treatment");
 		} else{
 			appointmentDuration = getAppointmentDuration(appointmentType);
 		}
 		
-		Patient patient = (Patient) ControllerFacade.getPatientSelected();
-		Calendar calendar = patient.getDoctor().getCalendar();
-		LocalDateTime eventTime; // = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration);
-		startTime.getDayOfMonth();
 		while(startTime.getDayOfYear() <= lastAppointment.getDayOfYear()){
+			System.out.println("getDay:" + startTime.getDayOfYear() +" , " + lastAppointment.getDayOfYear());
 			startTime = startTime.plusDays(7);
 			endTime = endTime.plusDays(7);
 		}
-		eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration, false);
+		
+		Patient patient = (Patient) ControllerFacade.getPatientSelected();
+		Calendar calendar = patient.getDoctor().getCalendar();
+		
+		LocalDateTime eventTime = calendar.findPossibleAppointment(startTime, endTime, appointmentDuration, false);
 		Instant instant = eventTime.atZone(ZoneId.systemDefault()).toInstant();
 		Date date = Date.from(instant);
-		if(start != null && end != null){
+		
+		if((start != null && end != null) || !start.after(end)){
 			if(date.after(start) && date.before(end) || date.equals(start) || date.equals(end)){
 				while(date.before(end) || date.equals(end)){
 					date = addDaysToDate(date, 7);

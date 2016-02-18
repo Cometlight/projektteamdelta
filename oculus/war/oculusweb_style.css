@@ -1,0 +1,36 @@
+body {
+	/*background-color: #F4F5ED !important;*/
+	color: #373833 !important;
+	font-family: 'Open Sans', sans-serif !important;
+}
+
+body > div {
+	margin: 0 auto;
+	overflow: auto;
+	max-width: 1024px;
+	min-width: 768px;
+}
+
+#wrapper {
+	background-color: #F4F5ED;
+	border: 1px solid black;
+	padding: 25px 10px;
+}
+
+#logo {
+	font-size: 32pt;
+	text-align: right;
+}
+
+#logo > img {
+	height: 128px;
+	width: 128px;	
+}
+
+.gwt-TimeBox-menu .popupContent {
+	width: 140px;
+}
+
+.gwt-TimeBox-menu A {
+	width: 82px !important;
+}

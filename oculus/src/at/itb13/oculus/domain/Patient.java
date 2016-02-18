@@ -1,20 +1,22 @@
 package at.itb13.oculus.domain;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-
-import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Convert;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -58,6 +60,7 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 	private String _countryIsoCode;
 	private String _phone;
 	private String _email;
+	private String _password;
 	private String _allergy;
 	private String _childhoodAilments;
 	private String _medicineIntolerance;
@@ -162,6 +165,56 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 	}
 	
 	/**
+	 * Converts password to hash and checks if it's equals to the stored hash.
+	 * 
+	 * @param password the password as a String, eg. "letmein". It may not be empty.
+	 * @return true if password is equal to this._password
+	 */
+	@Transient
+	public boolean isEqualPassword(String password) {
+		if(password.isEmpty()) {
+			throw new IllegalArgumentException("password may not be empty");
+		}
+		
+		String digestStr;
+		try {
+			digestStr = stringToHash(password);
+		} catch (NoSuchAlgorithmException e) {
+			_logger.error("Not a valid algorithm", e);
+			return false;
+		}
+		
+		return digestStr.equals(_password);
+	}
+	
+	/**
+	 * Converts the supplied string to its hash.
+	 * 
+	 * @param string the String that should be converted
+	 * @return the string's hash
+	 */
+	@Transient
+	private String stringToHash(String string) throws NoSuchAlgorithmException {
+		// Calculate hash
+		final String sha512 = "SHA-512";
+		MessageDigest digest = null;
+		digest = MessageDigest.getInstance(sha512);
+		digest.update(string.getBytes());
+		
+		
+		byte[] data = digest.digest();
+		
+		// Convert byte to Hex
+		StringBuffer hexData = new StringBuffer();
+		for (int byteIndex = 0; byteIndex < data.length; byteIndex++) {
+			hexData.append(Integer.toString((data[byteIndex] & 0xff) + 0x100, 16).substring(1));
+		}
+		String digestStr = hexData.toString();
+		
+		return digestStr;
+	}
+	
+	/**
 	 * Checks if the provided insurance number is in a valid format.
 	 * 
 	 * @param socialInsuranceNr The social insurance number that should be checked.
@@ -184,6 +237,29 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 	@Override
 	public Integer getPatientId() {
 		return _patientId;
+	}
+	
+	/**
+	 * 
+	 * provides next appointment of the patient in the future
+	 * 
+	 * @return CalendarEvent;  null, if no appointment is found 
+	 */
+	@Transient
+	public CalendarEvent getNextAppointment(){
+		CalendarEvent nextCE = null;
+		if (!_calendarevents.isEmpty()){
+			LocalDateTime today = LocalDateTime.now();
+			LocalDateTime curEventStart = LocalDateTime.MAX;
+			for(CalendarEvent ce : _calendarevents) {
+				if ( (ce.getEventStart().isBefore(curEventStart)) &&
+						(ce.getEventStart().isAfter(today)) ) {
+					curEventStart = ce.getEventStart();
+					nextCE = ce;
+				}
+			}
+		}
+		return nextCE;
 	}
 
 	public void setPatientId(Integer patientId) {
@@ -312,13 +388,44 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 		_phone = phone;
 	}
 
-	@Column(name = "email")
+	@Column(name = "email", unique = true)
 	public String getEmail() {
 		return _email;
 	}
 
 	public void setEmail(String email) {
 		_email = email;
+	}
+	
+	@Column(name = "password")
+	public String getPassword() {
+		return _password;
+	}
+
+	/**
+	 * If you want that the password is converted 
+	 * to its hash, use {@link #setPasswordAsHash(String)} instead.
+	 * 
+	 * @param password is NOT converted to its SHA-512 hash.
+	 */
+	public void setPassword(String password) {
+		_password = password;
+	}
+	
+	/**
+	 * 
+	 * @param password is converted to its SHA-512 hash. It may not be empty.
+	 */
+	@Transient
+	public void setPasswordAsHash(String password) {
+		if(password.isEmpty()) {
+			throw new IllegalArgumentException("password may not be empty");
+		}
+		try {
+			_password = stringToHash(password);
+		} catch (NoSuchAlgorithmException e) {
+			_logger.error("Not a valid algorithm", e);
+		}
 	}
 
 	@Column(name = "allergy", length = 65535)
@@ -385,4 +492,9 @@ public class Patient implements java.io.Serializable, PatientRO, IPatient {
 		_examinationprotocols = examinationprotocols;
 	}
 
+	@Transient
+	@Override
+	public String toString() {
+		return _firstName + " " + _lastName + ( (_socialInsuranceNr != null) ? " (" + _socialInsuranceNr + ") " : "");
+	}
 }

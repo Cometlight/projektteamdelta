@@ -96,7 +96,23 @@ public class PatientDao extends GenericDao<Patient> {
 		List<Patient>patients = findByCriteria(Restrictions.eq("socialInsuranceNr", socialInsuranceNr));
 		
 		if(patients.size() > 1) {
-			_logger.warn("More than 1 Patient with the socialInsuranceNr'" + socialInsuranceNr + "' has been found!");
+			_logger.warn("More than 1 Patient with the socialInsuranceNr '" + socialInsuranceNr + "' has been found!");
+		}
+
+		if(!patients.isEmpty()) {
+			patient = patients.get(0);
+		}
+		
+		return patient;
+	}
+	
+	public Patient findByEmail(String email) {
+		Patient patient = null;
+		
+		List<Patient>patients = findByCriteria(Restrictions.eq("email", email));
+		
+		if(patients.size() > 1) {
+			_logger.warn("More than 1 Patient with the email '" + email + "' has been found!");
 		}
 
 		if(!patients.isEmpty()) {

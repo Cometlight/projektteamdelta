@@ -1,0 +1,33 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:c="urn:import:com.google.gwt.user.cellview.client">
+	<ui:style src="../../Style.css" />
+	<ui:style field="mycss">
+	
+	</ui:style>
+
+	<g:HTMLPanel ui:field="htmlPanel">
+		<div id="wrapper">
+			<g:VerticalPanel styleName="{style.loginInfo}">
+				<g:Label text="Logged in as.." styleName="{style.loginInfoLabel}"/>
+				<g:Label ui:field="nameLabel"/>
+				<g:Label ui:field="sinLabel"/>
+				<g:Label ui:field="doctorLabel"/>
+				<g:Button ui:field="logoutButton" text="Logout" />
+			</g:VerticalPanel>
+			<div id="content">
+				<h2>Choose an Appointment:</h2>
+				<g:VerticalPanel ui:field="tablePanel" styleName="{style.appointmentTable}">
+					<c:CellTable ui:field="appointmentTable" />
+				</g:VerticalPanel>
+				<br />
+				<h2>Your chosen Appointment:</h2>
+				<g:VerticalPanel ui:field="chosenPanel" styleName="{style.appointmentTable}">
+					<c:CellTable ui:field="chosenTable" />
+				</g:VerticalPanel>
+				<g:Button ui:field="backButton" text="Back" />
+				<g:Button ui:field="okButton" text="OK" />
+			</div>
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder> 

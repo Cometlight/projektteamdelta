@@ -1,0 +1,28 @@
+.error {
+	color: red;
+}
+
+.progressLabel {
+	font-weight: bold;
+}
+
+.loginInfo {
+	background-color: white;
+	border: 1px solid black;
+	box-shadow: 5px 5px 9px #dfdfdf;
+	float: right;
+	margin-left: auto;
+	margin-right: 15px;
+	padding: 10px;
+}
+
+.loginInfoLabel {
+	font-weight: bold;
+	margin-bottom: 2px;
+}
+
+.appointmentTable {
+	background-color: skyblue;
+	border: 1px solid black;
+	margin-bottom: 10px;
+}

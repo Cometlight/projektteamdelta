@@ -77,6 +77,21 @@ public class Queue implements QueueRO {
 	}
 	
 	/**
+	 * Removes all calendarEvents from the queue.
+	 */
+	public void clear() {
+		_queueEntries.clear();
+	}
+	
+	/**
+	 * 
+	 * @return true if the queue is empty, i.e. does not contain any calendarevents.
+	 */
+	public boolean isEmpty() {
+		return _queueEntries.isEmpty();
+	}
+	
+	/**
 	 * TODO
 	 * @return null if empty QueueEntryList
 	 */

@@ -50,7 +50,7 @@ public class QueueController {
 			}
 		}
 		_queue.pushQueueEntry((Patient) patientRO, (CalendarEvent) calendarEventRO);
-		return QueueDao.getInstance().makePersistent(_queue);
+		return QueueDao.getInstance().makePersistent(_queue); 
 	}
 	
 	/**
@@ -128,5 +128,22 @@ public class QueueController {
 	 */
 	public void reloadQueue() {
 		_queue = QueueDao.getInstance().findById(_queue.getDoctor() == null ? null : _queue.getDoctor().getDoctorId(), _queue.getOrthoptist() == null ? null : _queue.getOrthoptist().getOrthoptistId());
+	}
+	
+	/**
+	 * Clears the queue: All calendarEvents are removed. Additionally, this new state is saved to the database.
+	 * @return true if this change was successfully saved to the database.
+	 */
+	public boolean clearQueue() {
+		_queue.clear();
+		return QueueDao.getInstance().makePersistent(_queue);
+	}
+	
+	/**
+	 * 
+	 * @return true if the queue is empty, i.e. does not contain any calendarevents.
+	 */
+	public boolean isQueueEmpty() {
+		return _queue.isEmpty();
 	}
 }

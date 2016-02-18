@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+              http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
+
+	<!-- Servlets and Mapping -->
+	<servlet>
+		<servlet-name>loginCheckServlet</servlet-name>
+		<servlet-class>at.itb13.oculus.presentation.gwt.server.LoginCheckServiceImpl</servlet-class>
+	</servlet>
+	
+		<servlet>
+		<servlet-name>futureAppointmentCheckServlet</servlet-name>
+		<servlet-class>at.itb13.oculus.presentation.gwt.server.FutureAppointmentCheckServiceImpl</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>appointmentOverviewServlet</servlet-name>
+		<servlet-class>at.itb13.oculus.presentation.gwt.server.AppointmentOverviewServiceImpl</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>appointmentRequestFormServlet</servlet-name>
+		<servlet-class>at.itb13.oculus.presentation.gwt.server.AppointmentCheckServiceImpl</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>appointmentChoiceServlet</servlet-name>
+		<servlet-class>at.itb13.oculus.presentation.gwt.server.AppointmentChoiceServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>loginCheckServlet</servlet-name>
+		<url-pattern>/oculusweb/LoginCheckService</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>futureAppointmentCheckServlet</servlet-name>
+		<url-pattern>/oculusweb/FutureAppointmentCheckService</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>appointmentOverviewServlet</servlet-name>
+		<url-pattern>/oculusweb/AppointmentOverviewService</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>appointmentRequestFormServlet</servlet-name>
+		<url-pattern>/oculusweb/AppointmentCheckService</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>appointmentChoiceServlet</servlet-name>
+		<url-pattern>/oculusweb/AppointmentChoiceService</url-pattern>
+	</servlet-mapping>
+
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+</web-app>

@@ -4,6 +4,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -23,7 +24,9 @@ import javax.persistence.Transient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import at.itb13.oculus.application.ControllerFacade;
 import at.itb13.oculus.domain.readonlyinterfaces.CalendarRO;
+import at.itb13.teamD.application.exceptions.InvalidInputException;
 import at.itb13.teamD.domain.interfaces.ICalendar;
 import at.itb13.teamD.domain.interfaces.ICalendarEvent;
 import at.itb13.teamD.domain.interfaces.ICalendarWorkingHours;
@@ -31,8 +34,6 @@ import at.itb13.teamD.domain.interfaces.IDoctor;
 import at.itb13.teamD.domain.interfaces.IOrthoptist;
 
 /**
- * 
- * TODO: Insert description here.
  * 
  * @author Daniel Scheffknecht
  * @date 14.04.2015
@@ -52,10 +53,10 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 	private Set<CalendarWorkingHours> _calendarWorkingHours = new HashSet<CalendarWorkingHours>(
 			0);
 
-	Calendar() {
+	public Calendar() {
 	}
 
-	Calendar(String title, IDoctor doctor, IOrthoptist orthoptist, Set<ICalendarEvent> calendarevents,
+	public Calendar(String title, IDoctor doctor, IOrthoptist orthoptist, Set<ICalendarEvent> calendarevents,
 			Set<ICalendarWorkingHours> calendarworkinghourses) {
 		_title = title;
 		_doctor = (Doctor) doctor;
@@ -64,17 +65,160 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 		_calendarWorkingHours = (Set<CalendarWorkingHours>) getListWithCalendarWorkingHours(calendarworkinghourses);
 	}
 	
-	public static Calendar getInstance(){
-		Calendar calendar = new Calendar();
-		return calendar;
-	}
-	
 	public static ICalendar getInstance(String title, IDoctor doctor, IOrthoptist orthoptist, Set<ICalendarEvent> calendarevents, 
 									  Set<ICalendarWorkingHours> calendarworkinghours){
 		Calendar calendar = new Calendar(title, doctor, orthoptist, calendarevents, calendarworkinghours);
 		return calendar;
 	}
 	
+	/**
+	 * searches a possible appointment which fits the input parameter. 
+	 * 
+	 * @param startTime of the timespan in which the appointment should be.
+	 * @param endTime of the timespan in which the appointment should be.
+	 * @param appointmentDuration how long the appointment is.
+	 * @param isDaily if it should jump in daily steps if no appointment is found or in weekly steps.
+	 * @return a possible appointment. 
+	 * @throws InvalidInputException if a parameter is wrong.
+	 */
+	@Transient
+	public LocalDateTime findPossibleAppointment(LocalDateTime startTime, LocalDateTime endTime, 
+												int appointmentDuration, boolean isDaily) throws InvalidInputException{
+		LocalDateTime appointmentTime = startTime.plusMinutes(appointmentDuration);
+		LocalDateTime newStartTime = startTime;
+		LocalDateTime newEndTime = endTime;
+		WorkingHours wh = getWorkingHoursOfWeekDay(startTime.getDayOfWeek());
+		int day = 1;
+		int week = 7;
+		
+		boolean isFree = false;
+		while(!isFree){
+			isFree = true;
+			while(!ControllerFacade.getInstance().getNewAppointment().isInWorkingHours(newEndTime, newEndTime)){
+				newEndTime = findTimeInWorkingHours(wh, newEndTime, true);
+				wh = getWorkingHoursOfWeekDay(newEndTime.getDayOfWeek());
+			}
+			while(!ControllerFacade.getInstance().getNewAppointment().isInWorkingHours(newStartTime, appointmentTime) && 
+				appointmentTime.isBefore(endTime) || appointmentTime.isEqual(endTime)){
+				newStartTime = findTimeInWorkingHours(wh, newStartTime, false);
+				wh = getWorkingHoursOfWeekDay(newStartTime.getDayOfWeek());
+				appointmentTime = newStartTime.plusMinutes(appointmentDuration);
+			}
+			for(CalendarEvent event : _calendarEvents){
+				if(isFree){
+					if(event.isInTimespan(newStartTime, appointmentTime)){
+						if(event.getEventEnd().plusMinutes(appointmentDuration).isBefore(endTime)){
+							newStartTime = event.getEventEnd();
+							appointmentTime = newStartTime.plusMinutes(appointmentDuration);
+							isFree = false;
+						} else{
+							if(isDaily){
+								newStartTime = startTime.plusDays(day);
+								day = day*2;					
+							}else{
+								newStartTime = startTime.plusDays(week);
+								week = week*2;
+							}
+							appointmentTime = newStartTime.plusMinutes(appointmentDuration);
+							newEndTime = endTime;	
+							isFree = false;
+						}
+					}
+				}
+			}
+		}
+		return newStartTime;
+	}
+	
+	/**
+	 * checks if the time is in the workin hours and if not tries to correct it if possible
+	 * 
+	 * @param wh has the actual working hours.
+	 * @param time is the time you want to check.
+	 * @param isEnd when true it is normally an end time, when false it is normally a start time.
+	 * @return a valid time which is in the working hours.
+	 * @throws InvalidInputException when time is outside of working hours and could not be corrected.
+	 */
+	public LocalDateTime findTimeInWorkingHours(WorkingHours wh, LocalDateTime time, boolean isEnd) throws InvalidInputException{
+		LocalTime morningFrom = wh.getMorningFrom();
+		LocalTime morningTo = wh.getMorningTo();
+		LocalTime afternoonFrom = wh.getAfternoonFrom();
+		LocalTime afternoonTo = wh.getAfternoonTo();
+		if(morningFrom == null && morningTo == null){
+			if(afternoonFrom == null && afternoonTo == null){
+				return time = time.plusDays(1);
+			} else{
+				morningFrom = afternoonFrom;
+				morningTo = afternoonFrom;
+			}
+		}else{
+			if(afternoonFrom == null && afternoonTo == null){
+				afternoonFrom = morningTo;
+				afternoonTo = morningTo;
+			}
+		}
+		if(!isBetweenTimes(morningFrom, morningTo, time)){
+			if(isBigger(morningTo, time)){
+				if(!isBetweenTimes(afternoonFrom, afternoonTo, time)){
+					if(isBigger(afternoonTo, time)){	
+						if(isEnd){
+							return time = LocalDateTime.of(time.toLocalDate(), afternoonTo);
+						} else{
+							throw new InvalidInputException();
+		
+						} 
+					}
+					if(!isBigger(afternoonFrom, time)){
+						if(isEnd){
+							return time = LocalDateTime.of(time.toLocalDate(), morningTo);
+						} else{
+							return time = LocalDateTime.of(time.toLocalDate(), afternoonFrom);
+						}
+					}
+				}							
+			}else if(!isBigger(morningFrom, time)){
+				if(isEnd){
+					throw new InvalidInputException();
+				} else{
+					return time = LocalDateTime.of(time.toLocalDate(), morningFrom);
+				}
+			}
+		}
+		return time;
+	}
+	
+	/**
+	 * compares a time if it is between to other times.
+	 * 
+	 * @param startTime to compare.
+	 * @param endTime to compare.
+	 * @param compare time you want to compare.
+	 * @return true if the time is between the other to times, else false.
+	 */
+	private boolean isBetweenTimes(LocalTime startTime, LocalTime endTime, LocalDateTime compare){
+		if((startTime.isBefore(compare.toLocalTime()) || startTime.equals(compare.toLocalTime())) &&
+		   (endTime.isAfter(compare.toLocalTime()) || endTime.equals(compare.toLocalTime()))){
+			return true;
+		} else{
+			return false;
+		}
+	}
+	
+	/**
+	 * checks if the "bigger" time is really bigger then the small.
+	 * 
+	 * @param small should be the smaller time.
+	 * @param big should be the bigger time.
+	 * @return true if big is bigger then small, else false.
+	 */
+	private boolean isBigger(LocalTime small, LocalDateTime big){
+		if(small.isBefore(big.toLocalTime()) || small.equals(big.toLocalTime())){
+			return true;
+		} else{
+			return false;
+		}
+	}
+		
 	/**
 	 * Creates a list of Calendar Event for a chosen timespan.
 	 * 
@@ -133,15 +277,20 @@ public class Calendar implements java.io.Serializable, CalendarRO, ICalendar {
 	 * Returns the Working Hours of a chosen day of the week.
 	 * 
 	 * @param weekDay is an Enum of the days of the week.
-	 * @return A IWorkingHours.
+	 * @return A IWorkingHours. Null, if not found.
 	 */
 	@Transient
 	@Override
 	public WorkingHours getWorkingHoursOfWeekDay(DayOfWeek weekDay) {
-		WorkingHours workingHours = new WorkingHours();
+		if(weekDay == null) {
+			throw new NullPointerException();
+		}
+		
+		WorkingHours workingHours = null;
 		for(CalendarWorkingHours wh: _calendarWorkingHours) {
 			if(wh.getWeekDayKey() == weekDay){
 				workingHours = wh.getWorkinghours();
+				break;
 			}
 		}
 		return workingHours;

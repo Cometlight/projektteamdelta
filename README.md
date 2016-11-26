@@ -1,4 +1,4 @@
-# projektteamdelta
+# Ophthalmologist Software
 
 ## General Information
 [How to set up the project](https://docs.google.com/document/d/1lm5sAUXTaW8OsEoEyh5zRrHNppZ_Nt9Q3MoOetVUHX4/edit#)
